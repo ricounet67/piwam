@@ -1,0 +1,218 @@
+/*
+** Styles classiques sur les liens et images
+*/
+a img,:link img,:visited img {
+    border: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:Visited {
+    color: blue;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/*****************************************************************************
+**
+** TITRES
+**
+*****************************************************************************/
+    /* titre general present et commun sur chaque page */
+h1 {
+    background-color: #1472B4;
+    color: white;
+    padding: 10px;
+}
+
+/* titre de chaque section */
+h2 {
+    color: #329126;
+}
+
+/* titre parsemant une pagne */
+h3 {
+    color: black;
+    font-size: 13px;
+    font-weight: bold;   
+}
+
+/*****************************************************************************
+**
+** BLOCS DE LA PAGE
+** ----------------
+** Représente l'agencement visuel des différents blocs de l'interface
+**
+*****************************************************************************/
+    /* le corps */
+body {
+    margin: 0;
+    padding: 10px;
+    font-family: Helvertica, Verdana, Arial, sans-serif;
+    font-size: 12px;
+    background-color: #fff;
+}
+
+/* le blog global qui contient tous les autres */
+#container {
+    margin: auto;
+    width: 90%;
+}
+
+/* le bloc de menu */
+#menu {
+    position: relative;
+    float: left;
+    width: 200px;
+}
+
+/* le bloc de contenu */
+#content {
+    margin-top: 25px;
+    margin-left: 250px;
+}
+
+/* ----------------------------------- MENU -------------------------------- */
+#menu ul {
+    padding-left: 10px;
+}
+
+#menu li {
+    display: block;
+    padding: 2px;
+}
+
+#menu a {
+    text-decoration: none;
+    color: #999;
+}
+
+#menu a:Hover {
+    color: #000;
+}
+
+.mainSection {
+    background-color: #41B200;
+    color: white;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+    border-bottom: 1px solid #555;
+}
+
+/*****************************************************************************
+**
+** ELEMENTS DE FORMULAIRE
+**
+*****************************************************************************/
+input {
+    border: 1px solid #aaa;
+    padding: 4px;
+    background-color: #efefff;
+}
+
+/* classe donnant une apparence "boutton" */
+.button {
+    border-left: 1px solid #A1BCD4;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid #A1BCD4;
+    background-color: #4E67A7;
+    color: white;
+    font-weight: normal;
+    padding: 2px;
+}
+
+/*****************************************************************************
+**
+** DIFFERENTS ELEMENTS
+**
+*****************************************************************************/
+    /* represente les tableaux de listing : membres, comptes, etc... */
+.tableauDonnees {
+    width: 90%;
+    border: 1px solid black;
+}
+
+.enteteTableauDonnees {
+    background: black;
+    color: white;
+}
+
+.enteteTableauDonnees a {
+    color: white;
+    text-decoration: underline;
+}
+.enteteTableauDonnees a:Hover {
+    text-decoration: none;
+}
+
+/* cellules de gauche des tableau de details */
+.tableauDetails th {
+    text-align: left;
+    padding: 5px;
+    border-bottom: 1px dotted black;
+}
+
+/* cellules de droite */
+.tableauDetails td {
+    border-bottom: 1px dotted black;
+    padding-left: 40px;
+}
+
+/* cellules de gauche des tableau d'ajout/edition */
+.tableauAjout th {
+    text-align: left;
+    padding: 3px;
+}
+
+/* cellules de droite */
+.tableauAjout td {
+    padding: 3px;
+}
+
+/* messages d'erreur */
+.error_list {
+    list-style: none;
+    display: inline;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* element des liste de messages d'erreur */
+.error_list li {
+    list-style: none;
+    display: inline;
+    padding: 0px;
+    margin: 0px;
+    color: red;
+}
+
+/* pour l'affichage des comptes en positif */
+.comptePositif {
+    background-color: #8EECA1;
+}
+
+/* pour l'affichage des comptes en negatif */
+.compteNegatif {
+    background-color: #EC8C80;
+}
+
+/* affichage pour les membres non a jour de cotisation */
+.cotisationNonAjour {
+    background-color: #FAC6B6;
+}
+
+/* messages de notifications */
+p.notice {
+    background-color: #80FA46;
+    padding: 9px;
+    border: 1px dotted #777;
+    font-weight: bold;
+}

@@ -1,0 +1,4 @@
+2009-02-08 - r1:
+    * Core has been generated
+    * Members module : listing of members
+    * MembrePeer : doSelectOrderBy() method implemented
