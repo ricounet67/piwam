@@ -34,8 +34,8 @@ class Membre extends BaseMembre
             {
                 $dateVersement  = explode('-', $lastPayment->getDate());
                 $moisVersement  = $dateVersement['1'] + 0;
-                $anneExpire     = $dateVersement['0'] + $lastPayment->getValide();
-                $dateFin        = $anneExpire.$moisVersement.$dateVersement['2'];
+                $anneExpire     = $dateVersement['0'] + $lastPayment->getValidity();
+                $dateFin        = $anneExpire . $moisVersement . $dateVersement['2'];
                 
                 return ($dateFin >= $today);
             }
