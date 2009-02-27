@@ -25,21 +25,21 @@
         <div id="menu">
             <ul>
                 <li class="mainSection">Membres</li>
-                <li><?php echo link_to('Gestion des membres', 'membre/list') ?></a></li>
+                <li><?php echo link_to('Gestion des membres', 'membre/index') ?></a></li>
                 <li><?php echo link_to('Situation g&eacute;ographique', 'membre/map') ?></li>
-                <li><?php echo link_to('G&eacute;rer les statuts', 'statut/list') ?></li>
+                <li><?php echo link_to('G&eacute;rer les statuts', 'statut/index') ?></li>
             </ul>
             <ul>
                 <li class="mainSection">Cotisations</li>
-                <li><?php echo link_to('G&eacute;rer les cotisations', 'cotisation/list') ?></li>
-                <li><?php echo link_to('Types de cotisation', 'cotisationtype/list') ?></li>
+                <li><?php echo link_to('G&eacute;rer les cotisations', 'cotisation/index') ?></li>
+                <li><?php echo link_to('Types de cotisation', 'cotisationtype/index') ?></li>
             </ul>
             <ul>
                 <li class="mainSection">Comptabilit&eacute;</li>
-                <li><?php echo link_to('Gestion des activit&eacute;s', 'activite/list') ?></li>
-                <li><?php echo link_to('Gestion des comptes', 'compte/list') ?></li>
-                <li><?php echo link_to('Gestion des d&eacute;penses', 'depense/list') ?></li>
-                <li><?php echo link_to('Gestion des recettes', 'recette/list') ?></li>
+                <li><?php echo link_to('Gestion des activit&eacute;s', 'activite/index') ?></li>
+                <li><?php echo link_to('Gestion des comptes', 'compte/index') ?></li>
+                <li><?php echo link_to('Gestion des d&eacute;penses', 'depense/index') ?></li>
+                <li><?php echo link_to('Gestion des recettes', 'recette/index') ?></li>
                 <li><?php echo link_to('Voir les bilans', 'bilan/index') ?></li>
             </ul>
             <ul>

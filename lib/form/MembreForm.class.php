@@ -12,6 +12,8 @@ class MembreForm extends BaseMembreForm
 {
     public function configure()
     {
-        $this->setDefault('dateinscription', '01-01-2008');
+        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled());        
+        $this->setDefault('dateinscription', date('d-m-Y'));
+        $this->setDefault('pays', 'FRANCE');
     }
 }

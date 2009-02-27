@@ -2,6 +2,8 @@
 
 class MembrePeer extends BaseMembrePeer
 {
+    const IS_ACTIF = 1;
+    
     /**
      * Retrieve all the members. Order the list according to the first
      * parameter
@@ -15,6 +17,7 @@ class MembrePeer extends BaseMembrePeer
     {
         $c = new Criteria();
         $c->addAscendingOrderByColumn($column);
+        $c->addAnd(self::ACTIF, self::IS_ACTIF);
         
         return self::doSelect($c);
     }
