@@ -1,4 +1,12 @@
-2009-02-08 - r1:
+r3 - february, 27, 2009:
+    * symfony propel:build-forms
+    * Model : Statut > new method __toString()
+    * Membre : CRUD actions generated
+
+
+r2 - february, 26, 2009:
     * Core has been generated
     * Members module : listing of members
     * MembrePeer : doSelectOrderBy() method implemented
+    * CotisationPeer : getDerniereDuMembre() method
+    * Membre : isAjourCotisation() method

@@ -57,7 +57,7 @@ propel:
     pseudo:          { type: varchar(255), required: true }
     password:        { type: varchar(255), required: true }
     statut_id:       { type: integer, required: true, foreignTable: statut, foreignReference: id, onDelete: setnull }
-    dateInscription: { type: timestamp, required: true }
+    dateInscription: { type: date, required: true }
     exempteCotis:    { type: boolean, required: true }
     rue:             { type: varchar(255) }
     cp:              { type: varchar(8) }

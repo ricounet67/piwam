@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * Depense form base class.
+ *
+ * @package    piwam
+ * @subpackage form
+ * @author     Your name here
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
+ */
+class BaseDepenseForm extends BaseFormPropel
+{
+  public function setup()
+  {
+    $this->setWidgets(array(
+      'id'          => new sfWidgetFormInputHidden(),
+      'libelle'     => new sfWidgetFormInput(),
+      'montant'     => new sfWidgetFormInput(),
+      'compte_id'   => new sfWidgetFormPropelChoice(array('model' => 'Compte', 'add_empty' => false)),
+      'activite_id' => new sfWidgetFormPropelChoice(array('model' => 'Activite', 'add_empty' => false)),
+      'date'        => new sfWidgetFormDate(),
+      'created_at'  => new sfWidgetFormDateTime(),
+      'updated_at'  => new sfWidgetFormDateTime(),
+    ));
+
+    $this->setValidators(array(
+      'id'          => new sfValidatorPropelChoice(array('model' => 'Depense', 'column' => 'id', 'required' => false)),
+      'libelle'     => new sfValidatorString(array('max_length' => 255)),
+      'montant'     => new sfValidatorNumber(),
+      'compte_id'   => new sfValidatorPropelChoice(array('model' => 'Compte', 'column' => 'id')),
+      'activite_id' => new sfValidatorPropelChoice(array('model' => 'Activite', 'column' => 'id')),
+      'date'        => new sfValidatorDate(),
+      'created_at'  => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'  => new sfValidatorDateTime(array('required' => false)),
+    ));
+
+    $this->widgetSchema->setNameFormat('depense[%s]');
+
+    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+
+    parent::setup();
+  }
+
+  public function getModelName()
+  {
+    return 'Depense';
+  }
+
+
+}

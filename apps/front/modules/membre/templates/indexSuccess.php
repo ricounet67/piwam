@@ -1,30 +1,54 @@
+<h1>Membre List</h1>
 
-<h2>Liste des membres</h2>
-
-<table class="tableauDonnees">
-    <thead>
-        <tr class="enteteTableauDonnees">
-            <th><?php echo link_to('Nom', 'membre/list?sort=nom') ?></th>
-            <th><?php echo link_to('Pr&eacute;nom', 'membre/list?sort=prenom') ?></th>
-            <th><?php echo link_to('Statut', 'membre/list?sort=statut') ?></th>
-            <th><?php echo link_to('Ville', 'membre/list?sort=ville') ?></th>
-            <th style="width:70px">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($membres as $membre): ?>
-    <?php if ($membre->isAjourCotisation()): ?>
-        <tr>
-    <?php else: ?>
-        <tr class="cotisationNonAjour">
-    <?php endif; ?>
-            <td><?php echo $membre->getNom() ?></td>
-            <td><?php echo $membre->getPrenom() ?></td>
-            <td><?php echo $membre->getStatut() ?></td>
-            <td><?php echo $membre->getVille() ?></td>
-            <td><?php echo link_to(image_tag('edit'), 'membre/edit?id='.$membre->getId()).' '.link_to(image_tag('details'), 'membre/show?id='.$membre->getId()).' '.link_to(image_tag('delete'), 'membre/delete?id='.$membre->getId(), 'confirm=&Ecirc;tes vous sur ?').' <a href="mailto:'.$membre->getEmail().'">'.image_tag('mail').'</a>' ?></td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nom</th>
+      <th>Prenom</th>
+      <th>Pseudo</th>
+      <th>Password</th>
+      <th>Statut</th>
+      <th>Dateinscription</th>
+      <th>Exemptecotis</th>
+      <th>Rue</th>
+      <th>Cp</th>
+      <th>Ville</th>
+      <th>Pays</th>
+      <th>Email</th>
+      <th>Website</th>
+      <th>Telfixe</th>
+      <th>Telportable</th>
+      <th>Actif</th>
+      <th>Created at</th>
+      <th>Updated at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($membre_list as $membre): ?>
+    <tr>
+      <td><a href="<?php echo url_for('membre/show?id='.$membre->getId()) ?>"><?php echo $membre->getId() ?></a></td>
+      <td><?php echo $membre->getNom() ?></td>
+      <td><?php echo $membre->getPrenom() ?></td>
+      <td><?php echo $membre->getPseudo() ?></td>
+      <td><?php echo $membre->getPassword() ?></td>
+      <td><?php echo $membre->getStatutId() ?></td>
+      <td><?php echo $membre->getDateinscription() ?></td>
+      <td><?php echo $membre->getExemptecotis() ?></td>
+      <td><?php echo $membre->getRue() ?></td>
+      <td><?php echo $membre->getCp() ?></td>
+      <td><?php echo $membre->getVille() ?></td>
+      <td><?php echo $membre->getPays() ?></td>
+      <td><?php echo $membre->getEmail() ?></td>
+      <td><?php echo $membre->getWebsite() ?></td>
+      <td><?php echo $membre->getTelfixe() ?></td>
+      <td><?php echo $membre->getTelportable() ?></td>
+      <td><?php echo $membre->getActif() ?></td>
+      <td><?php echo $membre->getCreatedAt() ?></td>
+      <td><?php echo $membre->getUpdatedAt() ?></td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
 </table>
-<?php echo link_to('Ajouter un membre', 'membre/create') ?>
+
+  <a href="<?php echo url_for('membre/new') ?>">New</a>
