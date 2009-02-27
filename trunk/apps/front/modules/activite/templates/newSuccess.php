@@ -1,3 +1,3 @@
-<h2>Enregistrer un Membre</h2>
+<h1>New Activite</h1>
 
 <?php include_partial('form', array('form' => $form)) ?>

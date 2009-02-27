@@ -1,3 +1,20 @@
+r4 - february, 27, 2009
+    * Membre : appearance redone
+    * MembreForm : set the current date as default for field 'dateinscription'
+    * New TODO file
+    * Model : Membre > new disable() method
+    * Model : Membre > delete() method has been overridden to call disable()
+    * Statut : CRUD regenerated, enhanced appearance
+    * Model : Statut > new disable() method
+    * Model : Statut > delete() method call the disable() method
+    * Cotisation : CRUD regenerated
+    * CotisationType : CRUD regenerated
+    * Compte : CRUD regenerated
+    * Activite : CRUD regenerated
+    * Recette : CRUD regenerated
+    * Depense : CRUD regenerated
+
+
 r3 - february, 27, 2009:
     * symfony propel:build-forms
     * Model : Statut > new method __toString()
