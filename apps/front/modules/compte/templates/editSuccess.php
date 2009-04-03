@@ -1,3 +1,3 @@
-<h1>Edit Compte</h1>
+<h2>Editer un Compte</h2>
 
 <?php include_partial('form', array('form' => $form)) ?>

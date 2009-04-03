@@ -1,3 +1,3 @@
-<h1>New Recette</h1>
+<h2>Enregistrer une recette</h2>
 
 <?php include_partial('form', array('form' => $form)) ?>

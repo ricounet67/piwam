@@ -1,3 +1,14 @@
+r5 - march, 31, 2009
+    * Compte : appearance redone
+    * lib/model/Compte.php : __toString() implemented
+    * lib/model/Activite.php : __toString() implemented
+    * Depense : appearance redone
+    * Recette : appearance redone
+    * config/schema.yml : explicit id are set with default behaviour
+    * Model files have been regenerated
+    * Compte : redirect to index after submitting the edit form
+
+
 r4 - february, 27, 2009
     * Membre : appearance redone
     * MembreForm : set the current date as default for field 'dateinscription'

@@ -1,32 +1,31 @@
-<h1>Depense List</h1>
+<h2>Gestion des dépenses</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Libelle</th>
-      <th>Montant</th>
-      <th>Compte</th>
-      <th>Activite</th>
-      <th>Date</th>
-      <th>Created at</th>
-      <th>Updated at</th>
-    </tr>
-  </thead>
-  <tbody>
+<table class="tableauDonnees">
+    <thead>
+        <tr class="enteteTableauDonnees">
+            <th>Libellé</th>
+            <th>Montant</th>
+            <th>Compte</th>
+            <th>Activité</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
     <?php foreach ($depense_list as $depense): ?>
-    <tr>
-      <td><a href="<?php echo url_for('depense/show?id='.$depense->getId()) ?>"><?php echo $depense->getId() ?></a></td>
-      <td><?php echo $depense->getLibelle() ?></td>
-      <td><?php echo $depense->getMontant() ?></td>
-      <td><?php echo $depense->getCompteId() ?></td>
-      <td><?php echo $depense->getActiviteId() ?></td>
-      <td><?php echo $depense->getDate() ?></td>
-      <td><?php echo $depense->getCreatedAt() ?></td>
-      <td><?php echo $depense->getUpdatedAt() ?></td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
+        <tr>
+            <td><?php echo $depense->getLibelle() ?></td>
+            <td><?php echo $depense->getMontant() ?></td>
+            <td><?php echo $depense->getCompte() ?></td>
+            <td><?php echo $depense->getActivite() ?></td>
+            <td><?php echo $depense->getDate() ?></td>
+            <td>
+                <a href="<?php echo url_for('depense/show?id='.$depense->getId()) ?>"><?php echo image_tag('details.png'); ?></a>
+                <a href="<?php echo url_for('depense/edit?id='.$depense->getId()) ?>"><?php echo image_tag('edit.png'); ?></a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
 </table>
 
-  <a href="<?php echo url_for('depense/new') ?>">New</a>
+<a href="<?php echo url_for('depense/new') ?>">Enregistrer une nouvelle dépense</a>

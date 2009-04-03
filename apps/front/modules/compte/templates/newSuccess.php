@@ -1,3 +1,3 @@
-<h1>New Compte</h1>
+<h2>Nouveau compte</h2>
 
 <?php include_partial('form', array('form' => $form)) ?>
