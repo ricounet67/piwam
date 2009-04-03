@@ -1,3 +1,8 @@
+Compte Part
+
+    * [bug] when editing a `compte`, 'created_at` value is reset
+
+
 Graphic Part
 
     * Custom style for ->renderError() methods

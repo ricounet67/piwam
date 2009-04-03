@@ -1,17 +1,17 @@
 propel:
-  _attributes:   { noXsd: false, defaultIdMethod: none, package: lib.model }
-  
+  _attributes:   { package: lib.model }
+
   activite:
-    _attributes:     { phpName: Activite, idMethod: native }
-    id:              { type: integer, required: true, primaryKey: true, autoIncrement: true }
+    _attributes:     { phpName: Activite }
+    id:              ~
     libelle:         { type: varchar(255), required: true }
     actif:           { type: boolean, default: true }
     created_at:      ~
     updated_at:      ~  
   
   compte:
-    _attributes:     { phpName: Compte, idMethod: native }
-    id:              { type: integer, required: true, primaryKey: true, autoIncrement: true }
+    _attributes:     { phpName: Compte }
+    id:              ~
     libelle:         { type: varchar(255), required: true }
     reference:       { type: varchar(64), required: true }
     actif:           { type: boolean, default: true }
@@ -19,8 +19,8 @@ propel:
     updated_at:      ~
     
   cotisation:
-    _attributes:     { phpName: Cotisation, idMethod: native }
-    id:              { type: integer, required: true, primaryKey: true, autoIncrement: true }
+    _attributes:     { phpName: Cotisation }
+    id:              ~
     compte_id:       { type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: setnull }
     cotisation_type_id:   { type: integer, required: true, foreignTable: cotisation_type, foreignReference: id, onDelete: setnull }
     membre_id:       { type: integer, required: true }
@@ -29,8 +29,8 @@ propel:
     updated_at:      ~
     
   cotisation_type:
-    _attributes:     { phpName: CotisationType, idMethod: native }
-    id:              { type: integer, required: true, primaryKey: true, autoIncrement: true }
+    _attributes:     { phpName: CotisationType }
+    id:              ~
     libelle:         { type: varchar(255), required: true }
     valide:          { type: integer, required: true }
     montant:         { type: decimal, required: true }
@@ -39,8 +39,8 @@ propel:
     updated_at:      ~
     
   depense:
-    _attributes:     { phpName: Depense, idMethod: native }
-    id:              { type: integer, required: true, primaryKey: true, autoIncrement: true }
+    _attributes:     { phpName: Depense }
+    id:              ~
     libelle:         { type: varchar(255), required: true }
     montant:         { type: decimal, required: true }
     compte_id:       { type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: setnull }
@@ -50,8 +50,8 @@ propel:
     updated_at:      ~
   
   membre:
-    _attributes:     { phpName: Membre, idMethod: native }
-    id:              { type: integer, required: true, primaryKey: true, autoIncrement: true }
+    _attributes:     { phpName: Membre }
+    id:              ~
     nom:             { type: varchar(255), required: true }
     prenom:          { type: varchar(255), required: true }
     pseudo:          { type: varchar(255), required: true }
@@ -72,8 +72,8 @@ propel:
     updated_at:      ~
     
   recette:
-    _attributes:     { phpName: Recette, idMethod: native }
-    id:              { type: integer, required: true, primaryKey: true, autoIncrement: true }
+    _attributes:     { phpName: Recette }
+    id:              ~
     libelle:         { type: varchar(255), required: true }
     montant:         { type: decimal, required: true }
     compte_id:       { type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: setnull }
@@ -83,8 +83,8 @@ propel:
     updated_at:      ~
     
   statut:
-    _attributes:     { phpName: Statut, idMethod: native }
-    id:              { type: integer, required: true, primaryKey: true, autoIncrement: true }
+    _attributes:     { phpName: Statut }
+    id:              ~
     nom:             { type: varchar(255), required: true }
     actif:           { type: boolean, default: true }
     created_at:      ~

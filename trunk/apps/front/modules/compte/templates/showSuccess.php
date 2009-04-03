@@ -1,34 +1,25 @@
+<h2>Détails du compte <?php echo $compte->getReference() ?></h2>
+
+
 <table>
   <tbody>
     <tr>
-      <th>Id:</th>
-      <td><?php echo $compte->getId() ?></td>
-    </tr>
-    <tr>
-      <th>Libelle:</th>
+      <td>Libellé :</td>
       <td><?php echo $compte->getLibelle() ?></td>
     </tr>
     <tr>
-      <th>Reference:</th>
+      <td>Référence :</td>
       <td><?php echo $compte->getReference() ?></td>
     </tr>
     <tr>
-      <th>Actif:</th>
-      <td><?php echo $compte->getActif() ?></td>
-    </tr>
-    <tr>
-      <th>Created at:</th>
+      <td>Enregistré le :</td>
       <td><?php echo $compte->getCreatedAt() ?></td>
-    </tr>
-    <tr>
-      <th>Updated at:</th>
-      <td><?php echo $compte->getUpdatedAt() ?></td>
     </tr>
   </tbody>
 </table>
 
 <hr />
 
-<a href="<?php echo url_for('compte/edit?id='.$compte->getId()) ?>">Edit</a>
-&nbsp;
-<a href="<?php echo url_for('compte/index') ?>">List</a>
+<a href="<?php echo url_for('compte/edit?id='.$compte->getId()) ?>">Editer</a>
+&bull;
+<a href="<?php echo url_for('compte/index') ?>">Retour &agrave; la liste</a>

@@ -1,28 +1,31 @@
-<h1>Compte List</h1>
+<?php
+use_helper('Date');
+?>
 
-<table>
+<h2>Liste des comptes</h2>
+
+<table class="tableauDonnees">
   <thead>
-    <tr>
-      <th>Id</th>
-      <th>Libelle</th>
-      <th>Reference</th>
-      <th>Actif</th>
-      <th>Created at</th>
-      <th>Updated at</th>
+    <tr class="enteteTableauDonnees">
+      <th>Libellé</th>
+      <th>Référence</th>
+      <th>Enregistré le</th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
     <?php foreach ($compte_list as $compte): ?>
     <tr>
-      <td><a href="<?php echo url_for('compte/show?id='.$compte->getId()) ?>"><?php echo $compte->getId() ?></a></td>
       <td><?php echo $compte->getLibelle() ?></td>
       <td><?php echo $compte->getReference() ?></td>
-      <td><?php echo $compte->getActif() ?></td>
-      <td><?php echo $compte->getCreatedAt() ?></td>
-      <td><?php echo $compte->getUpdatedAt() ?></td>
+      <td><?php echo format_date($compte->getCreatedAt()) ?></td>
+      <td>
+        <a href="<?php echo url_for('compte/show?id='.$compte->getId()) ?>"><?php echo image_tag('details.png'); ?></a>
+        <a href="<?php echo url_for('compte/edit?id='.$compte->getId()) ?>"><?php echo image_tag('edit.png'); ?></a>
+      </td>
     </tr>
     <?php endforeach; ?>
   </tbody>
 </table>
 
-  <a href="<?php echo url_for('compte/new') ?>">New</a>
+  <a href="<?php echo url_for('compte/new') ?>">Enregistrer un nouveau compte</a>
