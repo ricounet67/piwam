@@ -10,56 +10,42 @@
       <tr>
         <td colspan="2">
           <?php echo $form->renderHiddenFields() ?>
-          &nbsp;<a href="<?php echo url_for('cotisation/index') ?>">Cancel</a>
+          &nbsp;<a href="<?php echo url_for('cotisation/index') ?>">Annuler</a>
           <?php if (!$form->getObject()->isNew()): ?>
             &nbsp;<?php echo link_to('Delete', 'cotisation/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
-          <input type="submit" value="Save" />
+          <input type="submit" value="Sauvegarder" class="button" />
         </td>
       </tr>
     </tfoot>
     <tbody>
       <?php echo $form->renderGlobalErrors() ?>
       <tr>
-        <th><?php echo $form['compte_id']->renderLabel() ?></th>
+        <td>Compte bénéficiaire :</td>
         <td>
           <?php echo $form['compte_id']->renderError() ?>
           <?php echo $form['compte_id'] ?>
         </td>
       </tr>
       <tr>
-        <th><?php echo $form['cotisation_type_id']->renderLabel() ?></th>
+        <td>Type de cotisation</td>
         <td>
           <?php echo $form['cotisation_type_id']->renderError() ?>
           <?php echo $form['cotisation_type_id'] ?>
         </td>
       </tr>
       <tr>
-        <th><?php echo $form['membre_id']->renderLabel() ?></th>
+        <td>Membre :</td>
         <td>
           <?php echo $form['membre_id']->renderError() ?>
           <?php echo $form['membre_id'] ?>
         </td>
       </tr>
       <tr>
-        <th><?php echo $form['date']->renderLabel() ?></th>
+        <td>Date de versement :</td>
         <td>
           <?php echo $form['date']->renderError() ?>
           <?php echo $form['date'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['created_at']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['created_at']->renderError() ?>
-          <?php echo $form['created_at'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['updated_at']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['updated_at']->renderError() ?>
-          <?php echo $form['updated_at'] ?>
         </td>
       </tr>
     </tbody>

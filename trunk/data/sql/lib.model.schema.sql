@@ -15,9 +15,57 @@ CREATE TABLE `activite`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
 	`actif` TINYINT default 1,
+	`association_id` INTEGER  NOT NULL,
+	`enregistre_par` INTEGER  NOT NULL,
+	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	INDEX `activite_FI_1` (`association_id`),
+	CONSTRAINT `activite_FK_1`
+		FOREIGN KEY (`association_id`)
+		REFERENCES `association` (`id`)
+		ON DELETE CASCADE,
+	INDEX `activite_FI_2` (`enregistre_par`),
+	CONSTRAINT `activite_FK_2`
+		FOREIGN KEY (`enregistre_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `activite_FI_3` (`mis_a_jour_par`),
+	CONSTRAINT `activite_FK_3`
+		FOREIGN KEY (`mis_a_jour_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- association
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `association`;
+
+
+CREATE TABLE `association`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`nom` VARCHAR(120)  NOT NULL,
+	`description` VARCHAR(255),
+	`site_web` VARCHAR(255),
+	`enregistre_par` INTEGER  NOT NULL,
+	`mis_a_jour_par` INTEGER  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `association_FI_1` (`enregistre_par`),
+	CONSTRAINT `association_FK_1`
+		FOREIGN KEY (`enregistre_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `association_FI_2` (`mis_a_jour_par`),
+	CONSTRAINT `association_FK_2`
+		FOREIGN KEY (`mis_a_jour_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -31,11 +79,29 @@ CREATE TABLE `compte`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
+	`association_id` INTEGER  NOT NULL,
 	`reference` VARCHAR(64)  NOT NULL,
 	`actif` TINYINT default 1,
+	`enregistre_par` INTEGER  NOT NULL,
+	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	INDEX `compte_FI_1` (`association_id`),
+	CONSTRAINT `compte_FK_1`
+		FOREIGN KEY (`association_id`)
+		REFERENCES `association` (`id`)
+		ON DELETE CASCADE,
+	INDEX `compte_FI_2` (`enregistre_par`),
+	CONSTRAINT `compte_FK_2`
+		FOREIGN KEY (`enregistre_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `compte_FI_3` (`mis_a_jour_par`),
+	CONSTRAINT `compte_FK_3`
+		FOREIGN KEY (`mis_a_jour_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -52,6 +118,8 @@ CREATE TABLE `cotisation`
 	`cotisation_type_id` INTEGER  NOT NULL,
 	`membre_id` INTEGER  NOT NULL,
 	`date` DATE  NOT NULL,
+	`enregistre_par` INTEGER  NOT NULL,
+	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
@@ -59,12 +127,27 @@ CREATE TABLE `cotisation`
 	CONSTRAINT `cotisation_FK_1`
 		FOREIGN KEY (`compte_id`)
 		REFERENCES `compte` (`id`)
-		ON DELETE SET NULL,
+		ON DELETE CASCADE,
 	INDEX `cotisation_FI_2` (`cotisation_type_id`),
 	CONSTRAINT `cotisation_FK_2`
 		FOREIGN KEY (`cotisation_type_id`)
 		REFERENCES `cotisation_type` (`id`)
-		ON DELETE SET NULL
+		ON DELETE CASCADE,
+	INDEX `cotisation_FI_3` (`membre_id`),
+	CONSTRAINT `cotisation_FK_3`
+		FOREIGN KEY (`membre_id`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `cotisation_FI_4` (`enregistre_par`),
+	CONSTRAINT `cotisation_FK_4`
+		FOREIGN KEY (`enregistre_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `cotisation_FI_5` (`mis_a_jour_par`),
+	CONSTRAINT `cotisation_FK_5`
+		FOREIGN KEY (`mis_a_jour_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -78,12 +161,30 @@ CREATE TABLE `cotisation_type`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
+	`association_id` INTEGER  NOT NULL,
 	`valide` INTEGER  NOT NULL,
 	`montant` DECIMAL  NOT NULL,
 	`actif` TINYINT default 1,
+	`enregistre_par` INTEGER  NOT NULL,
+	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	INDEX `cotisation_type_FI_1` (`association_id`),
+	CONSTRAINT `cotisation_type_FK_1`
+		FOREIGN KEY (`association_id`)
+		REFERENCES `association` (`id`)
+		ON DELETE CASCADE,
+	INDEX `cotisation_type_FI_2` (`enregistre_par`),
+	CONSTRAINT `cotisation_type_FK_2`
+		FOREIGN KEY (`enregistre_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `cotisation_type_FI_3` (`mis_a_jour_par`),
+	CONSTRAINT `cotisation_type_FK_3`
+		FOREIGN KEY (`mis_a_jour_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -98,22 +199,40 @@ CREATE TABLE `depense`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
 	`montant` DECIMAL  NOT NULL,
+	`association_id` INTEGER  NOT NULL,
 	`compte_id` INTEGER  NOT NULL,
 	`activite_id` INTEGER  NOT NULL,
 	`date` DATE  NOT NULL,
+	`enregistre_par` INTEGER  NOT NULL,
+	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `depense_FI_1` (`compte_id`),
+	INDEX `depense_FI_1` (`association_id`),
 	CONSTRAINT `depense_FK_1`
+		FOREIGN KEY (`association_id`)
+		REFERENCES `association` (`id`)
+		ON DELETE CASCADE,
+	INDEX `depense_FI_2` (`compte_id`),
+	CONSTRAINT `depense_FK_2`
 		FOREIGN KEY (`compte_id`)
 		REFERENCES `compte` (`id`)
-		ON DELETE SET NULL,
-	INDEX `depense_FI_2` (`activite_id`),
-	CONSTRAINT `depense_FK_2`
+		ON DELETE CASCADE,
+	INDEX `depense_FI_3` (`activite_id`),
+	CONSTRAINT `depense_FK_3`
 		FOREIGN KEY (`activite_id`)
 		REFERENCES `activite` (`id`)
-		ON DELETE SET NULL
+		ON DELETE CASCADE,
+	INDEX `depense_FI_4` (`enregistre_par`),
+	CONSTRAINT `depense_FK_4`
+		FOREIGN KEY (`enregistre_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `depense_FI_5` (`mis_a_jour_par`),
+	CONSTRAINT `depense_FK_5`
+		FOREIGN KEY (`mis_a_jour_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -131,17 +250,20 @@ CREATE TABLE `membre`
 	`pseudo` VARCHAR(255)  NOT NULL,
 	`password` VARCHAR(255)  NOT NULL,
 	`statut_id` INTEGER  NOT NULL,
-	`dateInscription` DATETIME  NOT NULL,
-	`exempteCotis` TINYINT  NOT NULL,
+	`date_inscription` DATE  NOT NULL,
+	`exempte_cotisation` TINYINT  NOT NULL,
 	`rue` VARCHAR(255),
 	`cp` VARCHAR(8),
 	`ville` VARCHAR(255),
 	`pays` VARCHAR(8),
 	`email` VARCHAR(255),
 	`website` VARCHAR(255),
-	`telFixe` VARCHAR(16),
-	`telPortable` VARCHAR(16),
+	`tel_fixe` VARCHAR(16),
+	`tel_portable` VARCHAR(16),
 	`actif` TINYINT default 1,
+	`association_id` INTEGER  NOT NULL,
+	`enregistre_par` INTEGER  NOT NULL,
+	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
@@ -149,7 +271,22 @@ CREATE TABLE `membre`
 	CONSTRAINT `membre_FK_1`
 		FOREIGN KEY (`statut_id`)
 		REFERENCES `statut` (`id`)
-		ON DELETE SET NULL
+		ON DELETE CASCADE,
+	INDEX `membre_FI_2` (`association_id`),
+	CONSTRAINT `membre_FK_2`
+		FOREIGN KEY (`association_id`)
+		REFERENCES `association` (`id`)
+		ON DELETE CASCADE,
+	INDEX `membre_FI_3` (`enregistre_par`),
+	CONSTRAINT `membre_FK_3`
+		FOREIGN KEY (`enregistre_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `membre_FI_4` (`mis_a_jour_par`),
+	CONSTRAINT `membre_FK_4`
+		FOREIGN KEY (`mis_a_jour_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -163,23 +300,41 @@ CREATE TABLE `recette`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
+	`association_id` INTEGER  NOT NULL,
 	`montant` DECIMAL  NOT NULL,
 	`compte_id` INTEGER  NOT NULL,
 	`activite_id` INTEGER  NOT NULL,
 	`date` DATE  NOT NULL,
+	`enregistre_par` INTEGER  NOT NULL,
+	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `recette_FI_1` (`compte_id`),
+	INDEX `recette_FI_1` (`association_id`),
 	CONSTRAINT `recette_FK_1`
+		FOREIGN KEY (`association_id`)
+		REFERENCES `association` (`id`)
+		ON DELETE CASCADE,
+	INDEX `recette_FI_2` (`compte_id`),
+	CONSTRAINT `recette_FK_2`
 		FOREIGN KEY (`compte_id`)
 		REFERENCES `compte` (`id`)
-		ON DELETE SET NULL,
-	INDEX `recette_FI_2` (`activite_id`),
-	CONSTRAINT `recette_FK_2`
+		ON DELETE CASCADE,
+	INDEX `recette_FI_3` (`activite_id`),
+	CONSTRAINT `recette_FK_3`
 		FOREIGN KEY (`activite_id`)
 		REFERENCES `activite` (`id`)
-		ON DELETE SET NULL
+		ON DELETE CASCADE,
+	INDEX `recette_FI_4` (`enregistre_par`),
+	CONSTRAINT `recette_FK_4`
+		FOREIGN KEY (`enregistre_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `recette_FI_5` (`mis_a_jour_par`),
+	CONSTRAINT `recette_FK_5`
+		FOREIGN KEY (`mis_a_jour_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -193,10 +348,28 @@ CREATE TABLE `statut`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`nom` VARCHAR(255)  NOT NULL,
+	`association_id` INTEGER  NOT NULL,
 	`actif` TINYINT default 1,
+	`enregistre_par` INTEGER  NOT NULL,
+	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	INDEX `statut_FI_1` (`association_id`),
+	CONSTRAINT `statut_FK_1`
+		FOREIGN KEY (`association_id`)
+		REFERENCES `association` (`id`)
+		ON DELETE CASCADE,
+	INDEX `statut_FI_2` (`enregistre_par`),
+	CONSTRAINT `statut_FK_2`
+		FOREIGN KEY (`enregistre_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `statut_FI_3` (`mis_a_jour_par`),
+	CONSTRAINT `statut_FK_3`
+		FOREIGN KEY (`mis_a_jour_par`)
+		REFERENCES `membre` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier
