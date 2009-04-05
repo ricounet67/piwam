@@ -1,4 +1,5 @@
-<? use_helper('date'); ?>
+<?php use_helper('Date'); ?>
+<?php use_helper('Membre'); ?>
 
 <h2>Informations détaillées</h2>
 
@@ -18,15 +19,15 @@
         </tr>
         <tr>
             <th>Statut :</th>
-            <td><?php echo $membre->getStatutId() ?></td>
+            <td><?php echo $membre->getStatut() ?></td>
         </tr>
         <tr>
             <th>Date d'inscription :</th>
-            <td><?php echo $membre->getDateinscription() ?></td>
+            <td><?php echo $membre->getDateInscription() ?></td>
         </tr>
         <tr>
             <th>Exempté de cotisation :</th>
-            <td><?php echo $membre->getExemptecotis() ?></td>
+            <td><?php echo $membre->getExempteCotisation() ?></td>
         </tr>
         <tr>
             <th>Adresse :</th>
@@ -41,28 +42,28 @@
             <td><?php echo $membre->getEmail() ?></td>
         </tr>
         <tr>
-            <th>Website:</th>
-            <td><?php echo '<a href="' . url_for($membre->getWebsite()) . '">' . $membre->getWebsite() . '</a>' ?></td>
+            <th>Site Internet :</th>
+            <td><?php echo '<a href="' . $membre->getWebsite() . '">' . $membre->getWebsite() . '</a>' ?></td>
         </tr>
         <tr>
-            <th>Téléphone fixe:</th>
+            <th>Téléphone fixe :</th>
             <td><?php echo $membre->getTelfixe() ?></td>
         </tr>
         <tr>
-            <th>Téléphone portable:</th>
+            <th>Téléphone portable :</th>
             <td><?php echo $membre->getTelportable() ?></td>
         </tr>
         <tr>
-            <th>Actif:</th>
+            <th>Actif :</th>
             <td><?php echo $membre->getActif() ?></td>
         </tr>
         <tr>
             <th>Enregistré le :</th>
-            <td><?php echo format_datetime($membre->getCreatedAt()) ?></td>
+            <td><?php echo format_datetime($membre->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($membre->getMembreRelatedByEnregistrePar()) ?></td>
         </tr>
         <tr>
             <th>Dernière édition :</th>
-            <td><?php echo format_datetime($membre->getUpdatedAt()) ?></td>
+            <td><?php echo format_datetime($membre->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($membre->getMembreRelatedByMisAJourPar()) ?></td>
         </tr>
     </tbody>
 </table>

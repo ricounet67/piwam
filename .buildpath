@@ -2,4 +2,5 @@
 <buildpath>
 	<buildpathentry kind="src" path=""/>
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+	<buildpathentry external="true" kind="lib" path="C:/wamp/bin/php/php5.2.9-1/PEAR/symfony"/>
 </buildpath>

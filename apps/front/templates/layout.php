@@ -16,7 +16,7 @@
     
         <!-- Header of the application -->
         
-        <h1><?php echo SITE_TITLE; ?></h1>
+        <h1><?php echo sfContext::getInstance()->getUser()->getAttribute('association_name', 'Piwam') ?></h1>
         
         
         
@@ -44,7 +44,7 @@
             </ul>
             <ul>
                 <li class="mainSection">Fonctionnalit&eacute;s</li>
-                <li><?php echo link_to('D&eacute;connexion', 'main/logout') ?></li>
+                <li><?php echo link_to('D&eacute;connexion', 'association/logout') ?></li>
                 <li><?php echo link_to('Exporter les donn&eacute;es', 'export/index') ?></li>
                 <li><?php echo link_to('Mailing', 'mailing/index') ?></li>
             </ul>

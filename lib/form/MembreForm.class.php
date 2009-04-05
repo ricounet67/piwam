@@ -10,11 +10,35 @@
  */
 class MembreForm extends BaseMembreForm
 {
+	/**
+	 * Customizes the Member form. There is a lot of fields to unset in order
+	 * to re-create them from scratch with custom behaviour, especially the
+	 * hidden references (association, granted user id...)
+	 * 
+	 * @since	r7
+	 */
     public function configure()
     {
-    	unset($this['created_at'], $this['updated_at']);
-        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled());        
-        $this->setDefault('dateinscription', date('d-m-Y'));
+    	unset($this['created_at'], 		$this['updated_at']);
+    	unset($this['enregistre_par'], 	$this['mis_a_jour_par']);
+    	unset($this['actif'], 			$this['association_id']);
+    	
+    	$this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
+    	$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
+    	$this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
+    	$this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
+    	$this->widgetSchema['actif']->setOption('is_hidden', true);
+        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled());
+        
+        $this->setDefault('association_id', sfContext::getInstance()->getUser()->getAttribute('association_id'));
+        $this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id'));
+        $this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id'));        
+        $this->setDefault('date_inscription', date('d-m-Y'));
         $this->setDefault('pays', 'FRANCE');
+        $this->setDefault('actif', 1);
+        
+        $this->validatorSchema['association_id'] = new sfValidatorInteger();
+        $this->validatorSchema['enregistre_par'] = new sfValidatorInteger();
+        $this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
     }
 }
