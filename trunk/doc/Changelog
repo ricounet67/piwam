@@ -1,3 +1,28 @@
+r8 - april, 5, 2009
+	* apps/front/config/security.yml : is_secure set to on
+	* apps/front/config/settings.yml : location of login action
+	* New module 'association' which manage Association model and embed login
+	  and logout actions
+	* myUser.class.php : login(Membre) method
+	* myUser.class.php : logout() method
+	* MembrePeer.php : doSelectByUsernameAndPassword(username, password) method
+	* lib/model/Membre.php : fixed bug due to method whose name has changed in
+	  previous releases
+	* apps/front/templates/layout.php : link to logout action has been updated
+	  menu list
+	* apps/front/templates/layout.php : name of the current association is set
+	  as the name of the page
+	* lib/model/MembrePeer.php : doSelectOrderBy() now take the current associa-
+	  tion id as first parameter
+	* Membre : create view > new fields have been added to get a valid form
+	* lib/form/MembreForm.php : new fields association_id, mis_a_jour_par and
+	  enregistre_par have been added as hidden fields
+	* Membre : actions.class.php > processForm() method > redirects to index
+	  if submit form is valid
+	* apps/front/config/settings.yml : default culture is set to fr_FR
+	* apps/front/lib/helper/MembreHelper.php : new helper format_membre()
+	
+
 r6 - april, 5, 2009
 	* config/ProjetConfiguration.class.php : add switch/case pattern to become
 	  able to manage several configurations

@@ -10,9 +10,15 @@
  */
 class membreActions extends sfActions
 {
+	/**
+	 * Lists members who belongs to the current association
+	 * 
+	 * @param 	sfWebRequest	$request
+	 * @since	r1
+	 */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->membre_list = MembrePeer::doSelectOrderBy();
+        $this->membre_list = MembrePeer::doSelectOrderBy($this->getUser()->getAttribute('association_id'));
     }
 
     public function executeShow(sfWebRequest $request)
@@ -63,8 +69,7 @@ class membreActions extends sfActions
         if ($form->isValid())
         {
             $membre = $form->save();
-
-            $this->redirect('membre/edit?id='.$membre->getId());
+            $this->redirect('membre/index');
         }
     }
 }

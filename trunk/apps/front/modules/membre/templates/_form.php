@@ -48,12 +48,12 @@
         </tr>
         <tr>
             <td>Date d'inscription</td>
-            <td><?php echo $form['dateinscription']->renderError() ?> <?php echo $form['dateinscription'] ?>
+            <td><?php echo $form['date_inscription']->renderError() ?> <?php echo $form['date_inscription'] ?>
             </td>
         </tr>
         <tr>
             <td>Exempté de cotisation</td>
-            <td><?php echo $form['exemptecotis']->renderError() ?> <?php echo $form['exemptecotis'] ?>
+            <td><?php echo $form['exempte_cotisation']->renderError() ?> <?php echo $form['exempte_cotisation'] ?>
             </td>
         </tr>
         <tr>
@@ -88,17 +88,12 @@
         </tr>
         <tr>
             <td>Téléphone fixe</td>
-            <td><?php echo $form['telfixe']->renderError() ?> <?php echo $form['telfixe'] ?>
+            <td><?php echo $form['tel_fixe']->renderError() ?> <?php echo $form['tel_fixe'] ?>
             </td>
         </tr>
         <tr>
             <td>Téléphone portable</td>
-            <td><?php echo $form['telportable']->renderError() ?> <?php echo $form['telportable'] ?>
-            </td>
-        </tr>
-        <tr>
-            <td><?php echo $form['actif']->renderLabel() ?></td>
-            <td><?php echo $form['actif']->renderError() ?> <?php echo $form['actif'] ?>
+            <td><?php echo $form['tel_portable']->renderError() ?> <?php echo $form['tel_portable'] ?>
             </td>
         </tr>
     </tbody>

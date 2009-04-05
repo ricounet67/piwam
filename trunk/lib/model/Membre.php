@@ -22,7 +22,7 @@ class Membre extends BaseMembre
      */
     public function isAjourCotisation()
     {
-        if ($this->getExemptecotis())
+        if ($this->getExempteCotisation())
         {
             return true;
         }
@@ -54,6 +54,7 @@ class Membre extends BaseMembre
         $this->setActif(false);
         $this->save();
     }
+    
     
     /**
      * Override the delete methods. We have to not be able to delete

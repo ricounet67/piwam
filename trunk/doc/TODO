@@ -1,8 +1,3 @@
-Compte Part
 
-    * [bug] when editing a `compte`, 'created_at` value is reset
-
-
-Graphic Part
-
-    * Custom style for ->renderError() methods
+	* Create cookie when log in
+	* History table to keep history of each update
