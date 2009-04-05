@@ -1,3 +1,23 @@
+r6 - april, 5, 2009
+	* config/ProjetConfiguration.class.php : add switch/case pattern to become
+	  able to manage several configurations
+	* config/schema.yml : onDelete clauses are set to 'cascade'
+	* config/schema.yml : new model 'association'
+	* config/schema.yml : foreign key 'association_id' has been added when
+	  required
+	* config/schema.yml : new foreign keys 'enregitre_par' and 'mis_a_jour_par'
+	  which reference users who created and updated the records. These foreign
+	  keys have been added for each entitiy.
+	* config/schema.yml : field names in camelCase have been renamed with
+	  underscores
+	* Model files have been regenerated
+	* Forms files have been regenerated
+	* Filters files have been regenerated
+	* data/fixtures/fixture.yml : new file with fixture records
+	* *Form.class.php : remove created_at and updated_at fields
+	* Cotisation : appearance redone
+
+
 r5 - march, 31, 2009
     * Compte : appearance redone
     * lib/model/Compte.php : __toString() implemented

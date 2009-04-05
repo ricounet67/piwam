@@ -10,7 +10,8 @@
  */
 class CotisationForm extends BaseCotisationForm
 {
-  public function configure()
-  {
-  }
+	public function configure()
+	{
+		unset($this['created_at'], $this['updated_at']);
+	}
 }

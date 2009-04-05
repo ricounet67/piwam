@@ -6,7 +6,7 @@
  * @package    piwam
  * @subpackage form
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 15484 2009-02-13 13:13:51Z fabien $
  */
 class BaseCotisationForm extends BaseFormPropel
 {
@@ -16,8 +16,10 @@ class BaseCotisationForm extends BaseFormPropel
       'id'                 => new sfWidgetFormInputHidden(),
       'compte_id'          => new sfWidgetFormPropelChoice(array('model' => 'Compte', 'add_empty' => false)),
       'cotisation_type_id' => new sfWidgetFormPropelChoice(array('model' => 'CotisationType', 'add_empty' => false)),
-      'membre_id'          => new sfWidgetFormInput(),
+      'membre_id'          => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
       'date'               => new sfWidgetFormDate(),
+      'enregistre_par'     => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
+      'mis_a_jour_par'     => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
       'created_at'         => new sfWidgetFormDateTime(),
       'updated_at'         => new sfWidgetFormDateTime(),
     ));
@@ -26,8 +28,10 @@ class BaseCotisationForm extends BaseFormPropel
       'id'                 => new sfValidatorPropelChoice(array('model' => 'Cotisation', 'column' => 'id', 'required' => false)),
       'compte_id'          => new sfValidatorPropelChoice(array('model' => 'Compte', 'column' => 'id')),
       'cotisation_type_id' => new sfValidatorPropelChoice(array('model' => 'CotisationType', 'column' => 'id')),
-      'membre_id'          => new sfValidatorInteger(),
+      'membre_id'          => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id')),
       'date'               => new sfValidatorDate(),
+      'enregistre_par'     => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id')),
+      'mis_a_jour_par'     => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id')),
       'created_at'         => new sfValidatorDateTime(array('required' => false)),
       'updated_at'         => new sfValidatorDateTime(array('required' => false)),
     ));
