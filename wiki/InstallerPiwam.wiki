@@ -1,0 +1,6 @@
+#summary Comment installer Piwam ?
+#labels install,how-to
+
+= Introduction =
+
+Vous trouverez ici la procédure à suivre pour installer _Piwam_ au sein de votre infrastructure.
