@@ -30,7 +30,7 @@
         <td><?php echo $form['montant']->renderLabel() ?> : </td>
         <td>
           <?php echo $form['montant']->renderError() ?>
-          <?php echo $form['montant'] ?>
+          <?php echo $form['montant'] ?> &euro;
         </td>
       </tr>
       <tr>

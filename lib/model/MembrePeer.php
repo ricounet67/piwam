@@ -6,7 +6,9 @@ class MembrePeer extends BaseMembrePeer
     
     /**
      * Retrieve all the members. Order the list according to the first
-     * parameter
+     * parameter.
+     * 
+     * r9 : we check the validity of the field name given as argument
      * 
      * @author  Adrien Mogenet <adrien@frenchcomp.net>
      * @param	integer	$associationId
@@ -16,6 +18,10 @@ class MembrePeer extends BaseMembrePeer
      */
     public static function doSelectOrderBy($associationId, $column = self::PSEUDO)
     {
+    	if (! in_array($column, array('NOM', 'PRENOM', 'PSEUDO', 'STATUT_ID', 'VILLE'))) {
+    		$column = self::PSEUDO;
+    	}
+    	
         $c = new Criteria();
         $c->addAscendingOrderByColumn($column);
         $c->add(self::ASSOCIATION_ID, $associationId);

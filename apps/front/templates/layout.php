@@ -40,13 +40,13 @@
                 <li><?php echo link_to('Gestion des comptes', 'compte/index') ?></li>
                 <li><?php echo link_to('Gestion des d&eacute;penses', 'depense/index') ?></li>
                 <li><?php echo link_to('Gestion des recettes', 'recette/index') ?></li>
-                <li><?php echo link_to('Voir les bilans', 'bilan/index') ?></li>
+                <li><?php echo link_to('Voir les bilans', 'association/bilan') ?></li>
             </ul>
             <ul>
                 <li class="mainSection">Fonctionnalit&eacute;s</li>
                 <li><?php echo link_to('D&eacute;connexion', 'association/logout') ?></li>
                 <li><?php echo link_to('Exporter les donn&eacute;es', 'export/index') ?></li>
-                <li><?php echo link_to('Mailing', 'mailing/index') ?></li>
+                <li><?php echo link_to('Mailing', 'association/bilan') ?></li>
             </ul>
         </div>
         

@@ -10,7 +10,7 @@ class Membre extends BaseMembre
      */
     public function __toString()
     {
-        return $this->getPrenom() . ' ' . $this->getNom();
+        return mb_convert_case($this->getPrenom() . ' ' . $this->getNom(), MB_CASE_TITLE);
     }
     
     

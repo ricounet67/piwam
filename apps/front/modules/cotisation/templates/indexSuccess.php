@@ -1,3 +1,5 @@
+<?php use_helper('Date') ?>
+
 <h2>Liste des cotisations</h2>
 
 <table class="tableauDonnees">
@@ -13,10 +15,11 @@
   <tbody>
     <?php foreach ($cotisation_list as $cotisation): ?>
     <tr>
-      <td><?php echo $cotisation->getCotisationTypeId() ?></td>
-      <td><?php echo $cotisation->getMembreId() ?></td>
-      <td><?php echo $cotisation->getDate() ?></td>
-      <td><a href="<?php echo url_for('cotisation/show?id='.$cotisation->getId()) ?>"><?php echo image_tag('edit.png') ?></a></td>
+    	<td><?php echo $cotisation->getCompte() ?></td>
+      	<td><?php echo $cotisation->getCotisationType() ?></td>
+      	<td><?php echo $cotisation->getMembreRelatedByMembreId() ?></td>
+      	<td><?php echo format_date($cotisation->getDate()) ?></td>
+      	<td><a href="<?php echo url_for('cotisation/edit?id='.$cotisation->getId()) ?>"><?php echo image_tag('edit.png') ?></a></td>
     </tr>
     <?php endforeach; ?>
   </tbody>

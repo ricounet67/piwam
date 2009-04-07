@@ -1,4 +1,11 @@
 
+* Required Configuration
+------------------------
+PHP >= 5.2.4
+	mb_string module
+MySQL
+Apache
+
 
 * Generate Google MAP Api Key
 -----------------------------

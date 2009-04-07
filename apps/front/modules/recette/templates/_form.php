@@ -11,7 +11,7 @@
         <tr>
             <td colspan="2"><?php echo $form->renderHiddenFields() ?> &nbsp;<a href="<?php echo url_for('recette/index') ?>">Annuler</a> 
             <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'recette/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+            &nbsp;<?php echo link_to('Supprimer', 'recette/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
             <?php endif; ?> <input type="submit" value="Sauvegarder" class="button" /></td>
         </tr>
     </tfoot>
@@ -24,7 +24,7 @@
         </tr>
         <tr>
             <td>Montant : </td>
-            <td><?php echo $form['montant']->renderError() ?> <?php echo $form['montant'] ?>
+            <td><?php echo $form['montant']->renderError() ?> <?php echo $form['montant'] ?> &euro;
             </td>
         </tr>
         <tr>

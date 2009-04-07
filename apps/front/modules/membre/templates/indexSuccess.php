@@ -3,11 +3,11 @@
 <table class="tableauDonnees">
     <thead>
         <tr class="enteteTableauDonnees">
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Pseudo</th>
-            <th>Statut</th>
-            <th>Ville</th>
+            <th><?php echo link_to('Nom', 		'membre/index?orderby=NOM') ?></th>
+            <th><?php echo link_to('Prénom', 	'membre/index?orderby=PRENOM') ?></th>
+            <th><?php echo link_to('Pseudo', 	'membre/index?orderby=PSEUDO') ?></th>
+            <th><?php echo link_to('Statut', 	'membre/index?orderby=STATUT_ID') ?></th>
+            <th><?php echo link_to('Ville', 	'membre/index?orderby=VILLE') ?></th>
             <th>Actions</th>
         </tr>
     </thead>

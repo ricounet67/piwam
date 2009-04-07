@@ -29,11 +29,8 @@ class compteActions extends sfActions
     public function executeCreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
-
         $this->form = new CompteForm();
-
         $this->processForm($request, $this->form);
-
         $this->setTemplate('new');
     }
 
@@ -49,7 +46,6 @@ class compteActions extends sfActions
         $this->forward404Unless($compte = ComptePeer::retrieveByPk($request->getParameter('id')), sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
         $this->form = new CompteForm($compte);
         $this->processForm($request, $this->form);
-
         $this->redirect('compte/index');
     }
 
@@ -58,7 +54,6 @@ class compteActions extends sfActions
         $request->checkCSRFProtection();
         $this->forward404Unless($compte = ComptePeer::retrieveByPk($request->getParameter('id')), sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
         $compte->delete();
-
         $this->redirect('compte/index');
     }
 

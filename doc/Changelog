@@ -1,3 +1,32 @@
+r9 - april, 6, 2009
+	* MembreForm.class.php : enregistre_par hidden field is enabled only if we
+	  create a new record and not if we edit it
+	* StatutForm.class.php : new hidden references (association_id...) have been
+	  added
+	* Cotisation : actions > redirect to index after form submit
+	* Cotisation : list > direct to link to 'edit' action when click on edit
+	  icon
+	* lib/model/Membre.php : __toString() method returns object string formatted
+	  with mb_convert_case() function
+	* myUser.class.php : login() method set culture to fr_FR by default for
+	  the user
+	* Activite : appearance redone
+	* CompteForm.class.php : hidden references have been added
+	* RecetteForm.class.php : hidden references have been added
+	* DepenseForm.class.php : hidden references have been added
+	* Recette : actions > redirect to index once form has been submit
+	* Depense : actions > redirect to index once form has been submit
+	* Bilan : module deleted
+	* Association : new action 'bilan'
+	* Membre : list > it's possible to sort according to several criteria
+	* frontConfiguration.class.php : 2 new constants ENABLED / DISABLED
+	* lib/model/Compte.php : new method getTotalDepenses()
+	* lib/model/Compte.php : new method getTotalRecettes()
+	* lib/model/Compte.php : new method getTotal()
+	* Association : bilan > Compte are listed with green or red background
+	  assuming their total amount
+	  
+
 r8 - april, 5, 2009
 	* apps/front/config/security.yml : is_secure set to on
 	* apps/front/config/settings.yml : location of login action
