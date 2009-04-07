@@ -6,7 +6,7 @@
 <table class="tableauDonnees">
   <thead>
     <tr class="enteteTableauDonnees">
-      <th>Libelle</th>
+      <th>Libellé</th>
       <th>Valide (ans)</th>
       <th>Montant</th>
       <th>Créé le</th>

@@ -12,6 +12,7 @@ class myUser extends sfBasicSecurityUser
 	public function login(Membre $user)
 	{
 		$this->setAuthenticated(true);
+		$this->setCulture('fr_FR');
 		$this->setAttribute('association_id', 	$user->getAssociationId());
 		$this->setAttribute('association_name', $user->getAssociation()->getNom());
 		$this->setAttribute('user_id',			$user->getId());

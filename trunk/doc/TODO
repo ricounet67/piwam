@@ -1,3 +1,6 @@
 
 	* Create cookie when log in
 	* History table to keep history of each update
+	* Member creation : email/website validators
+	* Customize date fields
+	* Activite : add description field

@@ -10,68 +10,60 @@
  */
 class recetteActions extends sfActions
 {
-  public function executeIndex(sfWebRequest $request)
-  {
-    $this->recette_list = RecettePeer::doSelect(new Criteria());
-  }
+	public function executeIndex(sfWebRequest $request)
+	{
+		$this->recette_list = RecettePeer::doSelect(new Criteria());
+	}
 
-  public function executeShow(sfWebRequest $request)
-  {
-    $this->recette = RecettePeer::retrieveByPk($request->getParameter('id'));
-    $this->forward404Unless($this->recette);
-  }
+	public function executeShow(sfWebRequest $request)
+	{
+		$this->recette = RecettePeer::retrieveByPk($request->getParameter('id'));
+		$this->forward404Unless($this->recette);
+	}
 
-  public function executeNew(sfWebRequest $request)
-  {
-    $this->form = new RecetteForm();
-  }
+	public function executeNew(sfWebRequest $request)
+	{
+		$this->form = new RecetteForm();
+	}
 
-  public function executeCreate(sfWebRequest $request)
-  {
-    $this->forward404Unless($request->isMethod('post'));
+	public function executeCreate(sfWebRequest $request)
+	{
+		$this->forward404Unless($request->isMethod('post'));
+		$this->form = new RecetteForm();
+		$this->processForm($request, $this->form);
+		$this->setTemplate('new');
+	}
 
-    $this->form = new RecetteForm();
+	public function executeEdit(sfWebRequest $request)
+	{
+		$this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
+		$this->form = new RecetteForm($recette);
+	}
 
-    $this->processForm($request, $this->form);
+	public function executeUpdate(sfWebRequest $request)
+	{
+		$this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
+		$this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
+		$this->form = new RecetteForm($recette);
+		$this->processForm($request, $this->form);
+		$this->setTemplate('edit');
+	}
 
-    $this->setTemplate('new');
-  }
+	public function executeDelete(sfWebRequest $request)
+	{
+		$request->checkCSRFProtection();
+		$this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
+		$recette->delete();
+		$this->redirect('recette/index');
+	}
 
-  public function executeEdit(sfWebRequest $request)
-  {
-    $this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
-    $this->form = new RecetteForm($recette);
-  }
-
-  public function executeUpdate(sfWebRequest $request)
-  {
-    $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
-    $this->form = new RecetteForm($recette);
-
-    $this->processForm($request, $this->form);
-
-    $this->setTemplate('edit');
-  }
-
-  public function executeDelete(sfWebRequest $request)
-  {
-    $request->checkCSRFProtection();
-
-    $this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
-    $recette->delete();
-
-    $this->redirect('recette/index');
-  }
-
-  protected function processForm(sfWebRequest $request, sfForm $form)
-  {
-    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-    if ($form->isValid())
-    {
-      $recette = $form->save();
-
-      $this->redirect('recette/edit?id='.$recette->getId());
-    }
-  }
+	protected function processForm(sfWebRequest $request, sfForm $form)
+	{
+		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		if ($form->isValid())
+		{
+			$recette = $form->save();
+			$this->redirect('recette/index');
+		}
+	}
 }

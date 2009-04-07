@@ -48,6 +48,19 @@ class associationActions extends sfActions
 	}
 
 	
+	/**
+	 * Display the current overview of the association, for each Compte and 
+	 * each Activite.
+	 * We provide the lists of the Compte and Activite to the view.
+	 * 
+	 * @param 	sfWebRequest	$request
+	 * @since	r9
+	 */
+	public function executeBilan(sfWebRequest $request)
+	{
+		$this->comptes 		= ComptePeer::doSelectForOverview();
+	}
+	
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->association_list = AssociationPeer::doSelect(new Criteria());
@@ -89,10 +102,8 @@ class associationActions extends sfActions
 	public function executeDelete(sfWebRequest $request)
 	{
 		$request->checkCSRFProtection();
-
 		$this->forward404Unless($association = AssociationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object association does not exist (%s).', $request->getParameter('id')));
 		$association->delete();
-
 		$this->redirect('association/index');
 	}
 
@@ -102,7 +113,6 @@ class associationActions extends sfActions
 		if ($form->isValid())
 		{
 			$association = $form->save();
-
 			$this->redirect('association/edit?id='.$association->getId());
 		}
 	}

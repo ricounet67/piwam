@@ -10,42 +10,21 @@
       <tr>
         <td colspan="2">
           <?php echo $form->renderHiddenFields() ?>
-          &nbsp;<a href="<?php echo url_for('activite/index') ?>">Cancel</a>
+          &nbsp;<a href="<?php echo url_for('activite/index') ?>">Annuler</a>
           <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'activite/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+            &nbsp;<?php echo link_to('Supprimer', 'activite/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
-          <input type="submit" value="Save" />
+          <input type="submit" value="Sauvegarder" class="button" />
         </td>
       </tr>
     </tfoot>
     <tbody>
       <?php echo $form->renderGlobalErrors() ?>
       <tr>
-        <th><?php echo $form['libelle']->renderLabel() ?></th>
+        <th>Libellé :</th>
         <td>
           <?php echo $form['libelle']->renderError() ?>
           <?php echo $form['libelle'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['actif']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['actif']->renderError() ?>
-          <?php echo $form['actif'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['created_at']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['created_at']->renderError() ?>
-          <?php echo $form['created_at'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['updated_at']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['updated_at']->renderError() ?>
-          <?php echo $form['updated_at'] ?>
         </td>
       </tr>
     </tbody>

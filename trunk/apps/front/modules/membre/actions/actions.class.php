@@ -11,14 +11,16 @@
 class membreActions extends sfActions
 {
 	/**
-	 * Lists members who belongs to the current association
+	 * Lists members who belongs to the current association. By default we sort
+	 * the list by pseudo, and if another column is specified we use it.
 	 * 
 	 * @param 	sfWebRequest	$request
 	 * @since	r1
 	 */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->membre_list = MembrePeer::doSelectOrderBy($this->getUser()->getAttribute('association_id'));
+    	$orderByColumn = $request->getParameter('orderby', MembrePeer::PSEUDO);
+        $this->membre_list = MembrePeer::doSelectOrderBy($this->getUser()->getAttribute('association_id'), $orderByColumn);
     }
 
     public function executeShow(sfWebRequest $request)

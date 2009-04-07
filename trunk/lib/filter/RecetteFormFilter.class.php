@@ -10,7 +10,7 @@
  */
 class RecetteFormFilter extends BaseRecetteFormFilter
 {
-  public function configure()
-  {
-  }
+	public function configure()
+	{
+	}
 }
