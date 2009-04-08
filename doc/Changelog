@@ -1,3 +1,16 @@
+r10 - apris, 8, 2009
+	* lib/model/Activite.php : new method getTotalDepenses()
+	* lib/model/Activite.php : new method getTotalRecettes()
+	* lib/model/Activite.php : new method getTotal();
+	* Association : bilan > list by Activite
+	* lib/model/ActivitePeer.php : new method doSelectForOverview()
+	* Association : bilan > list > width of each column is correctly set
+	* Association : new action "mailing"
+	* apps/front/lib/mailingForm.class.php : new class which represents the
+	  mailing form
+	* lib/vendor/Swift : new svn:externals property to checkout SwiftMail
+
+
 r9 - april, 6, 2009
 	* MembreForm.class.php : enregistre_par hidden field is enabled only if we
 	  create a new record and not if we edit it
