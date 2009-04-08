@@ -59,7 +59,21 @@ class associationActions extends sfActions
 	public function executeBilan(sfWebRequest $request)
 	{
 		$this->comptes 		= ComptePeer::doSelectForOverview();
+		$this->activites	= ActivitePeer::doSelectForOverview();
 	}
+	
+	
+	/**
+	 * Mailing action
+	 * 
+	 * @param 	sfWebRequest	$request
+	 * @since	r10
+	 */
+	public function executeMailing(sfWebRequest $request)
+	{
+		$this->form = new MailingForm();
+	}
+	
 	
 	public function executeIndex(sfWebRequest $request)
 	{
