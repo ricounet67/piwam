@@ -12,7 +12,7 @@ class cotisationActions extends sfActions
 {
 	public function executeIndex(sfWebRequest $request)
 	{
-		$this->cotisation_list = CotisationPeer::doSelect(new Criteria());
+		$this->cotisation_list = CotisationPeer::doSelectJoinMembreId($this->getUser()->getAttribute('association_id'));
 	}
 
 	public function executeShow(sfWebRequest $request)

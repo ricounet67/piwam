@@ -7,9 +7,9 @@ default:
     description:  Gestionnaire d'association
     language:     fr
 
-  stylesheets:    [main.css]
+  stylesheets:    [main.css, pagination.css]
 
-  javascripts:    []
+  javascripts:    [scriptaculous/lib/prototype.js, scriptaculous/src/scriptaculous.js, scriptaculous/src/effect.js]
 
   has_layout:     on
   layout:         layout

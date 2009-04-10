@@ -14,18 +14,23 @@ class membreActions extends sfActions
 	 * Lists members who belongs to the current association. By default we sort
 	 * the list by pseudo, and if another column is specified we use it.
 	 * 
+	 * r14 : pagination system
+	 * 
 	 * @param 	sfWebRequest	$request
 	 * @since	r1
 	 */
     public function executeIndex(sfWebRequest $request)
     {
     	$orderByColumn = $request->getParameter('orderby', MembrePeer::PSEUDO);
-        $this->membre_list = MembrePeer::doSelectOrderBy($this->getUser()->getAttribute('association_id'), $orderByColumn);
+        $this->membresPager = MembrePeer::doSelectOrderBy($this->getUser()->getAttribute('association_id'),
+        													$request->getParameter('page', 20),
+        													$orderByColumn);
     }
 
     public function executeShow(sfWebRequest $request)
     {
         $this->membre = MembrePeer::retrieveByPk($request->getParameter('id'));
+        $this->cotisations = CotisationPeer::doSelectForUser($request->getParameter('id'));
         $this->forward404Unless($this->membre);
     }
 

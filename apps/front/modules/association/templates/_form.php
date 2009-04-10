@@ -10,49 +10,35 @@
       <tr>
         <td colspan="2">
           <?php echo $form->renderHiddenFields() ?>
-          &nbsp;<a href="<?php echo url_for('association/index') ?>">Cancel</a>
+          &nbsp;<a href="<?php echo url_for('association/index') ?>">Annuler</a>
           <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Delete', 'association/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+            &nbsp;<?php echo link_to('Supprimer', 'association/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
-          <input type="submit" value="Save" />
+          <input type="submit" value="Sauvegarder" class="button" />
         </td>
       </tr>
     </tfoot>
     <tbody>
       <?php echo $form->renderGlobalErrors() ?>
       <tr>
-        <th><?php echo $form['nom']->renderLabel() ?></th>
+        <td>Nom de l'association :</td>
         <td>
           <?php echo $form['nom']->renderError() ?>
           <?php echo $form['nom'] ?>
         </td>
       </tr>
       <tr>
-        <th><?php echo $form['description']->renderLabel() ?></th>
+        <td><?php echo $form['description']->renderLabel() ?> :</td>
         <td>
           <?php echo $form['description']->renderError() ?>
           <?php echo $form['description'] ?>
         </td>
       </tr>
       <tr>
-        <th><?php echo $form['site_web']->renderLabel() ?></th>
+        <td><?php echo $form['site_web']->renderLabel() ?> :</td>
         <td>
           <?php echo $form['site_web']->renderError() ?>
           <?php echo $form['site_web'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['enregistre_par']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['enregistre_par']->renderError() ?>
-          <?php echo $form['enregistre_par'] ?>
-        </td>
-      </tr>
-      <tr>
-        <th><?php echo $form['mis_a_jour_par']->renderLabel() ?></th>
-        <td>
-          <?php echo $form['mis_a_jour_par']->renderError() ?>
-          <?php echo $form['mis_a_jour_par'] ?>
         </td>
       </tr>
     </tbody>

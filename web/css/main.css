@@ -223,3 +223,31 @@ p.notice {
     border: 1px dotted #777;
     font-weight: bold;
 }
+
+/* cadres donnant plus d informations */
+.info
+{
+	background-color: #dedede;
+	padding: 20px;
+}
+.info ul
+{
+	list-style: none;
+}
+
+/* liens/boutons "ajouter un nouveau..." */
+.addNew
+{
+	margin-top: 10px;
+}
+.addNew a
+{
+	color: #777;
+	font-weight: bold;
+	background-color: #eaeaea;
+	padding: 3px;
+}
+.addNew a:Hover
+{
+	text-decoration: none;
+}

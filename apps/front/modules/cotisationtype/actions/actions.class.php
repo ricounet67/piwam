@@ -10,68 +10,60 @@
  */
 class cotisationtypeActions extends sfActions
 {
-  public function executeIndex(sfWebRequest $request)
-  {
-    $this->cotisation_type_list = CotisationTypePeer::doSelect(new Criteria());
-  }
+	public function executeIndex(sfWebRequest $request)
+	{
+		$this->cotisation_type_list = CotisationTypePeer::doSelectEnabled($this->getUser()->getAttribute('association_id'));
+	}
 
-  public function executeShow(sfWebRequest $request)
-  {
-    $this->cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id'));
-    $this->forward404Unless($this->cotisation_type);
-  }
+	public function executeShow(sfWebRequest $request)
+	{
+		$this->cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id'));
+		$this->forward404Unless($this->cotisation_type);
+	}
 
-  public function executeNew(sfWebRequest $request)
-  {
-    $this->form = new CotisationTypeForm();
-  }
+	public function executeNew(sfWebRequest $request)
+	{
+		$this->form = new CotisationTypeForm();
+	}
 
-  public function executeCreate(sfWebRequest $request)
-  {
-    $this->forward404Unless($request->isMethod('post'));
+	public function executeCreate(sfWebRequest $request)
+	{
+		$this->forward404Unless($request->isMethod('post'));
+		$this->form = new CotisationTypeForm();
+		$this->processForm($request, $this->form);
+		$this->setTemplate('new');
+	}
 
-    $this->form = new CotisationTypeForm();
+	public function executeEdit(sfWebRequest $request)
+	{
+		$this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
+		$this->form = new CotisationTypeForm($cotisation_type);
+	}
 
-    $this->processForm($request, $this->form);
+	public function executeUpdate(sfWebRequest $request)
+	{
+		$this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
+		$this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
+		$this->form = new CotisationTypeForm($cotisation_type);
+		$this->processForm($request, $this->form);
+		$this->setTemplate('edit');
+	}
 
-    $this->setTemplate('new');
-  }
+	public function executeDelete(sfWebRequest $request)
+	{
+		$request->checkCSRFProtection();
+		$this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
+		$cotisation_type->delete();
+		$this->redirect('cotisationtype/index');
+	}
 
-  public function executeEdit(sfWebRequest $request)
-  {
-    $this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
-    $this->form = new CotisationTypeForm($cotisation_type);
-  }
-
-  public function executeUpdate(sfWebRequest $request)
-  {
-    $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
-    $this->form = new CotisationTypeForm($cotisation_type);
-
-    $this->processForm($request, $this->form);
-
-    $this->setTemplate('edit');
-  }
-
-  public function executeDelete(sfWebRequest $request)
-  {
-    $request->checkCSRFProtection();
-
-    $this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
-    $cotisation_type->delete();
-
-    $this->redirect('cotisationtype/index');
-  }
-
-  protected function processForm(sfWebRequest $request, sfForm $form)
-  {
-    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-    if ($form->isValid())
-    {
-      $cotisation_type = $form->save();
-
-      $this->redirect('cotisationtype/edit?id='.$cotisation_type->getId());
-    }
-  }
+	protected function processForm(sfWebRequest $request, sfForm $form)
+	{
+		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+		if ($form->isValid())
+		{
+			$cotisation_type = $form->save();
+			$this->redirect('cotisationtype/edit?id='.$cotisation_type->getId());
+		}
+	}
 }

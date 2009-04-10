@@ -13,13 +13,13 @@ class MailingForm extends sfForm
 	public function configure()
 	{
 		$this->setWidgets(array(
-			'subject'	=> new sfWidgetFormInput(),
-			'content' 	=> new sfWidgetFormTextarea()
+			'subject'		=> new sfWidgetFormInput(),
+			'mail_content' 	=> new sfWidgetFormTextarea()
 		));
 		
 		$this->setValidators(array(
-			'subject'	=> new sfValidatorPass(),
-			'content'	=> new sfValidatorPass(),
+			'subject'		=> new sfValidatorPass(),
+			'mail_content'	=> new sfValidatorPass(),
 		));
 	}
 }

@@ -5,3 +5,4 @@
 	* Customize date fields
 	* Activite : add description field
 	* Set membre.pseudo as uniq
+	* Association > bilan > allow user to set a port and encryption settings

@@ -13,10 +13,10 @@ class MembrePeer extends BaseMembrePeer
      * @author  Adrien Mogenet <adrien@frenchcomp.net>
      * @param	integer	$associationId
      * @param   string  $column
-     * @return  Array Of Membre
+     * @return  sfPropelPager
      * @since   r1
      */
-    public static function doSelectOrderBy($associationId, $column = self::PSEUDO)
+    public static function doSelectOrderBy($associationId, $page = 1, $column = self::PSEUDO)
     {
     	if (! in_array($column, array('NOM', 'PRENOM', 'PSEUDO', 'STATUT_ID', 'VILLE'))) {
     		$column = self::PSEUDO;
@@ -27,7 +27,12 @@ class MembrePeer extends BaseMembrePeer
         $c->add(self::ASSOCIATION_ID, $associationId);
         $c->addAnd(self::ACTIF, self::IS_ACTIF);
         
-        return self::doSelect($c);
+        $pager = new sfPropelPager('Membre', sfConfig::get('sf_users_users_by_page', 10));
+        $pager->setCriteria($c);
+        $pager->setPage($page);
+        $pager->init();
+
+        return $pager;
     }
     
     
