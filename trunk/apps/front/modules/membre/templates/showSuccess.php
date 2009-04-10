@@ -1,9 +1,11 @@
-<?php use_helper('Date'); ?>
-<?php use_helper('Membre'); ?>
+<?php use_helper('Date') 	?>
+<?php use_helper('Membre') 	?>
+<?php use_helper('Boolean') ?>
+<?php use_helper('Javascript') ?> 
 
-<h2>Informations détaillées</h2>
+<h2>Informations détaillées &nbsp; <?php echo link_to(image_tag('edit'), 'membre/edit?id='.$membre->getId()) ?></h2>
 
-<table class="tableauDetails">
+<table class="tableauDetails" id="details">
     <tbody>
         <tr>
             <th>Nom :</th>
@@ -23,11 +25,11 @@
         </tr>
         <tr>
             <th>Date d'inscription :</th>
-            <td><?php echo $membre->getDateInscription() ?></td>
+            <td><?php echo format_date($membre->getDateInscription()) ?></td>
         </tr>
         <tr>
             <th>Exempté de cotisation :</th>
-            <td><?php echo $membre->getExempteCotisation() ?></td>
+            <td><?php echo boolean2icon($membre->getExempteCotisation()) ?></td>
         </tr>
         <tr>
             <th>Adresse :</th>
@@ -39,7 +41,7 @@
         </tr>
         <tr>
             <th>Email:</th>
-            <td><?php echo $membre->getEmail() ?></td>
+            <td><?php echo '<a href="' . $membre->getEmail() . '">' . $membre->getEmail() . '</a>' ?></td>
         </tr>
         <tr>
             <th>Site Internet :</th>
@@ -55,21 +57,35 @@
         </tr>
         <tr>
             <th>Actif :</th>
-            <td><?php echo $membre->getActif() ?></td>
+            <td><?php echo boolean2icon($membre->getActif()) ?></td>
         </tr>
         <tr>
-            <th>Enregistré le :</th>
+            <th><?php echo image_tag('time.png', 'align="absmiddle"')?> Enregistré le :</th>
             <td><?php echo format_datetime($membre->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($membre->getMembreRelatedByEnregistrePar()) ?></td>
         </tr>
         <tr>
-            <th>Dernière édition :</th>
+            <th><?php echo image_tag('time.png', 'align="absmiddle"')?> Dernière édition :</th>
             <td><?php echo format_datetime($membre->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($membre->getMembreRelatedByMisAJourPar()) ?></td>
         </tr>
     </tbody>
 </table>
 
 <hr />
-
-<a href="<?php echo url_for('membre/edit?id='.$membre->getId()) ?>">Editer</a>
 &nbsp;
 <a href="<?php echo url_for('membre/index') ?>">Retour</a>
+
+<br />
+<h2>Liste des cotisations <?php echo image_tag('arrow_down', 'align="absmiddle"') ?></h2>
+<div id="listOfCotisation" class="info">
+	<div>
+		<ul>
+			<?php if (count($cotisations) == 0): ?>
+				<li><i>Aucune cotisation versée par ce membre.</i></li>
+			<?php endif; ?>
+		
+			<?php foreach ($cotisations as $cotisation): ?>
+				<li><?php echo $cotisation->getCotisationType() ?> versée le <?php echo $cotisation->getDate() ?></li>
+			<?php endforeach; ?>
+		</ul>
+	</div>
+</div>

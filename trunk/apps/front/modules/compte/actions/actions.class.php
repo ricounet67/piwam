@@ -12,7 +12,7 @@ class compteActions extends sfActions
 {
     public function executeIndex(sfWebRequest $request)
     {
-        $this->compte_list = ComptePeer::doSelect(new Criteria());
+        $this->compte_list = ComptePeer::doSelectEnabled($this->getUser()->getAttribute('association_id'));
     }
 
     public function executeShow(sfWebRequest $request)

@@ -1,6 +1,10 @@
 <h2>Mailing</h2>
 
-<form action=""<?php echo url_for('association/mailing') ?>">
+<?php if ($sf_user->hasFlash('notice')): ?>
+  <?php echo 'msg: ' . $sf_user->getFlash('notice') ?>
+<?php endif; ?>
+
+<form action=""<?php echo url_for('association/mailing') ?>" method="POST">
 <table>
 	<tr>
 		<td>Objet :</td>
@@ -8,7 +12,7 @@
 	</tr>
 	<tr>
 		<td>Message :</td>
-		<td><?php echo $form['content'] ?></td>
+		<td><?php echo $form['mail_content'] ?></td>
 	</tr>
 	<tr>
 		<td>&nbsp;</td>

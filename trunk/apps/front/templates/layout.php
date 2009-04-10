@@ -23,9 +23,13 @@
         <!-- Menu bar -->
         
         <div id="menu">
+        	<ul>
+        		<li class="mainSection">Association</li>
+        		<li><?php echo link_to('Configuration', 'association/edit?id=' . sfContext::getInstance()->getUser()->getAttribute('association_id')) ?></li>
+        	</ul>
             <ul>
                 <li class="mainSection">Membres</li>
-                <li><?php echo link_to('Gestion des membres', 'membre/index') ?></a></li>
+                <li><?php echo link_to('Gestion des membres', 'membre/index') ?></li>
                 <li><?php echo link_to('Situation g&eacute;ographique', 'membre/map') ?></li>
                 <li><?php echo link_to('G&eacute;rer les statuts', 'statut/index') ?></li>
             </ul>

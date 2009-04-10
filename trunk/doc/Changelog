@@ -1,3 +1,48 @@
+r14 - april, 9, 2009
+	* apps/front/config/settings.yml : new part `mailing`
+	* Association : mailing > actions > switch/case structure to use the mail
+	  method according to configuration file
+	* Association : mailing > actions > we display a flash notification after
+	  sending email
+	* mailingForm.class.php : content widget has been renamed as mail_content to
+	  avoid duplicate HTML id
+	* Membre : list > width of 'actions' column is fix
+	* layout.php : new menu entry `association`
+	* apps/front/templates/_pager.css : new partial created to manage paginated
+	  lists
+	* web/css/pagination.css : new file created. Styles associates to pager
+	* lib/model/StatutPeer.php : doSelectEnabled() takes care of association id
+	* lib/model/CotisationPeer.php : doSelectJoinMembre() method implemented
+	* lib/model/CotisationTypePeer.php : doSelectEnabled() method
+	* Cotisation > actions > select only enabled Objects and for the current
+	  association
+	* CotisationType > actions > select only enabled Objects and for the current
+	  association
+	* lib/model/Activite.php : doSelectForOverview() has been renamed as
+	  doSelectEnabled()
+	* Activite : actions > list > select enabled activite for the association
+	  of the current user
+	* lib/model/RecettePeer.php : doSelectForAssociation(associationId) created
+	* Association : edit > appearance redone
+	* lib/form/AssociationForm.class.php : widget 'description' is not a text
+	  field anymore but it's now a textarea
+	* Membre : show > link on email address
+	* New icons ok/ko, time, add
+	* apps/front/lib/helper/MembreHelper.php : new helper file to display
+	  boolean values
+	* Membre : show > we display his Cotisation
+	* Membre : show > subscribtion date is formatted
+	* Layout.php : link to association/edit is updated (id was forgotten)
+
+
+r13 - april, 9, 2009
+	* lib/vendor/swift : folder has been recreated with svn:externals property
+
+
+r12 - april, 9, 2009
+	* lib/vendor/swift : folder removed
+
+
 r11 - april, 8, 2009
 	* lib/vendor/swift : folder created to embed swift plugin
 	

@@ -35,6 +35,35 @@ all:
     # Set location of the login action
     login_module:			association
     login_action:			login
+    
+  mailing:
+
+    # Set the methods you would like to use for sending email:
+    #
+    #		* mail		: Use the mail() php function.
+    #		* smtp		: Use a smtp server. configure the smtp_* variables.
+    #		* gmail		: If you want to use a gmail account. Configure your
+    #					  username and password.
+    #		* sendmail	: Use your sendmail binary. Configure the path.
+
+    method:					smtp
+    
+    gmail:					# If `method` has been set to gmail
+      gmail_username:		adrien.mogenet@gmail.com
+      gmail_password:		password
+
+
+    smtp:					# If `method` has been set to smtp
+      smtp_username:		
+      smtp_password:		
+      smtp_server:			smtp.epita.fr
+
+    sendmail:				 # If `method` has been set to sendmail
+      sendmail_path:		/usr/bin/sendmail
+      
+      
+  users:
+    users_by_page:			10
 
 #all:
 #  .actions:

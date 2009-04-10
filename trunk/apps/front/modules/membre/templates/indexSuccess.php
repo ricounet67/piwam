@@ -8,11 +8,11 @@
             <th><?php echo link_to('Pseudo', 	'membre/index?orderby=PSEUDO') ?></th>
             <th><?php echo link_to('Statut', 	'membre/index?orderby=STATUT_ID') ?></th>
             <th><?php echo link_to('Ville', 	'membre/index?orderby=VILLE') ?></th>
-            <th>Actions</th>
+            <th width="75px">Actions</th>
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($membre_list as $membre): ?>
+    <?php foreach ($membresPager->getResults() as $membre): ?>
     <?php
     if ($membre->isAjourCotisation()) {
         echo '<tr>';
@@ -38,4 +38,9 @@
     </tbody>
 </table>
 
-<a href="<?php echo url_for('membre/new') ?>">Enregistrer un membre</a>
+
+<div class="addNew">
+	<?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer un membre', 'membre/new') ?>
+</div>
+
+<?php include_partial('global/pager', array('pager' => $membresPager, 'module' => 'membre', 'action' => 'index'))?>
