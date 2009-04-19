@@ -39,7 +39,31 @@ class MembreForm extends BaseMembreForm
 		$this->setDefault('date_inscription', date('d-m-Y'));
 		$this->setDefault('pays', 'FRANCE');
 		$this->setDefault('actif', 1);
-
+		
+		// Customize Password field
+		unset($this->widgetSchema['password']);
+		$this->widgetSchema['password'] = new sfWidgetFormInputPassword();
+		
+		unset($this->validatorSchema['email']);
+		unset($this->validatorSchema['website']);
+		
+		// Set appearance (CSS classes) for each widget
+		$this->validatorSchema['email'] = new sfValidatorEmail(array('required' => false));
+		$this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
+		$this->widgetSchema['nom']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['prenom']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['pseudo']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['password']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['statut_id']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['rue']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['cp']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['ville']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['pays']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['website']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['email']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['tel_fixe']->setAttribute('class', 'formInputNormal');
+		$this->widgetSchema['tel_portable']->setAttribute('class', 'formInputNormal');
+		
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
 	}

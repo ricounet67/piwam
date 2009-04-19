@@ -13,10 +13,10 @@ class myUser extends sfBasicSecurityUser
 	{
 		$this->setAuthenticated(true);
 		$this->setCulture('fr_FR');
-		$this->setAttribute('association_id', 	$user->getAssociationId());
-		$this->setAttribute('association_name', $user->getAssociation()->getNom());
-		$this->setAttribute('user_id',			$user->getId());
-		$this->setAttribute('user_name', 		$user->getPseudo());
+		$this->setAttribute('association_id', 	$user->getAssociationId(), 			'user');
+		$this->setAttribute('association_name', $user->getAssociation()->getNom(), 	'user');
+		$this->setAttribute('user_id',			$user->getId(), 					'user');
+		$this->setAttribute('user_name', 		$user->getPseudo(), 				'user');
 	}
 	
 	/**
@@ -28,5 +28,6 @@ class myUser extends sfBasicSecurityUser
 	public function logout()
 	{
 		$this->setAuthenticated(false);
+		$this->getAttributeHolder()->removeNamespace('user'); 
 	}
 }

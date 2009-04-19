@@ -112,29 +112,20 @@ body {
 
 
 
-/*****************************************************************************
-**
-** ELEMENTS DE FORMULAIRE
-**
-*****************************************************************************/
-input {
-    border: 1px solid #aaa;
-    padding: 4px;
-    background-color: #efefff;
-}
 
-/* classe donnant une apparence "boutton" */
-.button {
-    border-left: 1px solid #A1BCD4;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    border-top: 1px solid #A1BCD4;
-    background-color: #4E67A7;
-    color: white;
-    font-weight: normal;
-    padding: 2px;
+/* utilisé pour les formulaires imbriqués */
+.subform
+{
+	
 }
-
+.subform table th
+{
+	text-align: left;
+	font-weight: normal;
+	background-color: #eeeeff;	
+	padding: 10px;
+	color: #666;
+}
 
 /*****************************************************************************
 **
@@ -192,6 +183,14 @@ input {
     margin: 0px;
 }
 
+/* notifications d'erreur */
+.error {
+	background-color: #ffeeee;
+	color: red;
+	padding: 7px;
+	margin: 0px 0px 20px 0px;
+}
+
 /* element des liste de messages d'erreur */
 .error_list li {
     list-style: none;
@@ -233,21 +232,4 @@ p.notice {
 .info ul
 {
 	list-style: none;
-}
-
-/* liens/boutons "ajouter un nouveau..." */
-.addNew
-{
-	margin-top: 10px;
-}
-.addNew a
-{
-	color: #777;
-	font-weight: bold;
-	background-color: #eaeaea;
-	padding: 3px;
-}
-.addNew a:Hover
-{
-	text-decoration: none;
 }

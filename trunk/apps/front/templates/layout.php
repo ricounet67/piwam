@@ -16,7 +16,7 @@
     
         <!-- Header of the application -->
         
-        <h1><?php echo sfContext::getInstance()->getUser()->getAttribute('association_name', 'Piwam') ?></h1>
+        <h1><?php echo sfContext::getInstance()->getUser()->getAttribute('association_name', 'Piwam', 'user') ?></h1>
         
         
         
@@ -25,7 +25,7 @@
         <div id="menu">
         	<ul>
         		<li class="mainSection">Association</li>
-        		<li><?php echo link_to('Configuration', 'association/edit?id=' . sfContext::getInstance()->getUser()->getAttribute('association_id')) ?></li>
+        		<li><?php echo link_to('Configuration', 'association/edit?id=' . sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user')) ?></li>
         	</ul>
             <ul>
                 <li class="mainSection">Membres</li>

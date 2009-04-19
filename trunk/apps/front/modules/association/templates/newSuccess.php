@@ -1,3 +1,3 @@
-<h1>New Association</h1>
+<h2>Nouvelle Association</h2>
 
 <?php include_partial('form', array('form' => $form)) ?>

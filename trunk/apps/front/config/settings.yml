@@ -46,11 +46,11 @@ all:
     #					  username and password.
     #		* sendmail	: Use your sendmail binary. Configure the path.
 
-    method:					smtp
+    method:					gmail
     
     gmail:					# If `method` has been set to gmail
       gmail_username:		adrien.mogenet@gmail.com
-      gmail_password:		password
+      gmail_password:		5lm1epRF
 
 
     smtp:					# If `method` has been set to smtp

@@ -12,7 +12,7 @@ class activiteActions extends sfActions
 {
 	public function executeIndex(sfWebRequest $request)
 	{
-		$this->activite_list = ActivitePeer::doSelectEnabled($this->getUser()->getAttribute('association_id'));
+		$this->activite_list = ActivitePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
 	}
 
 	public function executeShow(sfWebRequest $request)

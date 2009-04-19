@@ -26,7 +26,8 @@ class AssociationForm extends BaseAssociationForm
 			$this->validatorSchema['enregistre_par'] = new sfValidatorInteger();
 		}
 
-		$this->widgetSchema['description'] = new sfWidgetFormTextarea();
+		$this->widgetSchema['description'] = new sfWidgetFormTextarea();		
+		$this->validatorSchema['description'] = new sfValidatorString(array('required' => false));
 		
 		$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
 		$this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
@@ -35,5 +36,11 @@ class AssociationForm extends BaseAssociationForm
 
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
+		
+		
+		// r15 : set length of fields
+		$this->widgetSchema['nom']->setAttribute('class', 'formInputLarge');
+		$this->widgetSchema['description']->setAttribute('class', 'formInputLarge');
+		$this->widgetSchema['site_web']->setAttribute('class', 'formInputLarge');
 	}
 }

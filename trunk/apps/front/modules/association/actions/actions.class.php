@@ -58,8 +58,8 @@ class associationActions extends sfActions
 	 */
 	public function executeBilan(sfWebRequest $request)
 	{
-		$this->comptes 		= ComptePeer::doSelectEnabled($this->getUser()->getAttribute('association_id'));
-		$this->activites	= ActivitePeer::doSelectEnabled($this->getUser()->getAttribute('association_id'));
+		$this->comptes 		= ComptePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
+		$this->activites	= ActivitePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
 	}
 
 
@@ -88,9 +88,9 @@ class associationActions extends sfActions
 				{
 					case 'gmail': // yes this is just a special case for smtp ;-)
 						$gmailConfig = sfConfig::get('sf_mailing_gmail');
-						$methodObject = new Swift_Connection_SMTP('smtp.gmail.com', 455, Swift_Connection_SMTP::ENC_SSL);
+						$methodObject = new Swift_Connection_SMTP('smtp.gmail.com', Swift_Connection_SMTP::PORT_SECURE, Swift_Connection_SMTP::ENC_TLS);
 						$methodObject->setUsername($gmailConfig['gmail_username']);
-						$methodObject->setPassword($gmailConfig['gmail_password']);
+						$methodObject->setPassword($gmailConfig['gmail_password']);						
 						break;
 					
 					case 'smtp':
@@ -116,14 +116,14 @@ class associationActions extends sfActions
 					
 					default:
 						$methodObject = new Swift_Connection_NativeMail();
+						break;
 				}
 				
 				$mailSubject = $request->getParameter('subject');
-				$mailBody 	 = $request->getParameter('content');
+				$mailBody 	 = $request->getParameter('content');			
 				$mailer 	 = new Swift($methodObject);
 				$message 	 = new Swift_Message($mailSubject, $mailBody, 'text/html');
-
-				//$mailer->send($message, 'adrien.mogenet@gmail.com', 'toto@titi.com');
+				echo 'ok:' . $mailer->send($message, 'mogene_a@epita.fr', 'adrien.mogenet@gmail.com');
 				$mailer->disconnect();
 			}
 			catch (Exception $e) {
@@ -131,7 +131,7 @@ class associationActions extends sfActions
 			}
 			
 			// notification
-			$this->getUser()->setFlash('notice', 'sent mail via');
+			$this->getUser()->setFlash('notice', 'Votre message a bien été envoyé');
 		}
 	}
 
@@ -144,12 +144,16 @@ class associationActions extends sfActions
 	public function executeNew(sfWebRequest $request)
 	{
 		$this->form = new AssociationForm();
+		$membreForm = new MembreForm();
+		$this->form->embedForm('membre', $membreForm);
 	}
 
 	public function executeCreate(sfWebRequest $request)
 	{
 		$this->forward404Unless($request->isMethod('post'));
 		$this->form = new AssociationForm();
+		$membreForm = new MembreForm();
+		$this->form->embedForm('membre', $membreForm);
 		$this->processForm($request, $this->form);
 		$this->setTemplate('new');
 	}
