@@ -12,7 +12,7 @@ class cotisationtypeActions extends sfActions
 {
 	public function executeIndex(sfWebRequest $request)
 	{
-		$this->cotisation_type_list = CotisationTypePeer::doSelectEnabled($this->getUser()->getAttribute('association_id'));
+		$this->cotisation_type_list = CotisationTypePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
 	}
 
 	public function executeShow(sfWebRequest $request)

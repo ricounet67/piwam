@@ -20,4 +20,6 @@
   </tbody>
 </table>
 
-  <a href="<?php echo url_for('statut/new') ?>">Nouveau statut</a>
+<div class="addNew">
+	<?php echo link_to(image_tag('add', 'align="top"'). ' Nouveau statut', 'statut/new') ?>
+</div>

@@ -1,7 +1,7 @@
 <h2>Mailing</h2>
 
 <?php if ($sf_user->hasFlash('notice')): ?>
-  <?php echo 'msg: ' . $sf_user->getFlash('notice') ?>
+  <?php echo '<p class="notice">' . $sf_user->getFlash('notice') . '</p>' ?>
 <?php endif; ?>
 
 <form action=""<?php echo url_for('association/mailing') ?>" method="POST">

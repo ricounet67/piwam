@@ -12,7 +12,7 @@ class statutActions extends sfActions
 {
     public function executeIndex(sfWebRequest $request)
     {
-        $this->statut_list = StatutPeer::doSelectEnabled($this->getUser()->getAttribute('association_id'));
+        $this->statut_list = StatutPeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
     }
 
     public function executeShow(sfWebRequest $request)

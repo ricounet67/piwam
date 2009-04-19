@@ -22,6 +22,7 @@ class CotisationForm extends BaseCotisationForm
 		unset($this['created_at'], $this['updated_at']);
 		unset($this['enregistre_par'], 	$this['mis_a_jour_par']);
 		unset($this['actif'], 			$this['association_id']);
+		unset($this['date']);
 		
 		if ($this->getObject()->isNew()) {
 			$this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
@@ -39,6 +40,12 @@ class CotisationForm extends BaseCotisationForm
 
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
+		$this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
+			'image'		=> '/images/calendar.gif',
+  			'config' 	=> '{}',
+			'culture'	=> 'fr_FR'
+		));		
+
 		$this->setDefault('date', date('y-m-d'));
 	}
 }

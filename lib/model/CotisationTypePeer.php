@@ -9,7 +9,7 @@ class CotisationTypePeer extends BaseCotisationTypePeer
 	 * @return 	array of CotisationType
 	 * @since 	r14
 	 */
-	public function doSelectEnabled($associationId)
+	public static function doSelectEnabled($associationId)
 	{
 		$c = new Criteria();
 		$c->add(self::ACTIF, ENABLED);

@@ -12,7 +12,7 @@ class depenseActions extends sfActions
 {
 	public function executeIndex(sfWebRequest $request)
 	{
-		$this->depense_list = DepensePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id'));
+		$this->depense_list = DepensePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
 	}
 
 	public function executeShow(sfWebRequest $request)

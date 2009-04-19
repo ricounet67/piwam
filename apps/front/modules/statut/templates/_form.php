@@ -6,13 +6,15 @@
     method="post"
     <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>><?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" /> <?php endif; ?>
-<table>
+<table class="formArray">
     <tfoot>
         <tr>
             <td colspan="2"><?php echo $form->renderHiddenFields() ?>
-                &nbsp;<a href="<?php echo url_for('statut/index') ?>">Annuler</a>
+                <?php echo link_to('Annuler', 'statut/index', array(
+                	'class'	=> 'formLinkButton'
+                )) ?>
                 <?php if (!$form->getObject()->isNew()): ?>
-                    &nbsp;<?php echo link_to('Supprimer', 'statut/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+                    <?php echo link_to('Supprimer', 'statut/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
                 <?php endif; ?>
                 <input class="button" type="submit" value="Enregistrer" />
             </td>

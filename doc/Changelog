@@ -1,4 +1,34 @@
-r14 - april, 9, 2009
+r15 - april, 19, 2009
+	* js/prototype/test : add to svn:ignore
+	* Association : login > new link to "create account" action on the login
+	  page
+	* Association : creation > appearance redone
+	* CotisationTypePeer.php : doSelectEnabled() method is set as static
+	* Association : creation > credentials set to allows non-user to register
+	  a new association and also a new account
+	* apps/front/modules/association/config/security.yml : new folder and file
+	  created
+	* MembreForm.class.php : email and website are validated by appropriated
+	  validators.
+	* lib/misc/FileExporter.class.php : new file
+	* Association : new > nested membre form to register a new member
+	* Plugin sfExtraWidgetsPlugin installed
+	* Plugin sfFormExtraPlugin installed
+	* web/js/tiny_mce : tiny_mce library has been added
+	* myUser.class.php : login > attributes related to the user are set into the
+	  'user' namespace
+	* myUser.class.php : logout > attributes are removed
+	* Whole project : occurences of user::getAttribute('field') are completed
+	  with appropriate namespace
+	* web/js/jquery-ui-1.7.1 : jquery library added
+	* new image 'calendar'
+	* web/css/form.css : styles for form elements
+	* MembreForm.class.php : password field is now password type
+	* MembreForm.class.php : link to 'cancel' action is set to go to list of
+	  Membre  (and not the list of associations)
+
+
+r14 - april, 10, 2009
 	* apps/front/config/settings.yml : new part `mailing`
 	* Association : mailing > actions > switch/case structure to use the mail
 	  method according to configuration file
