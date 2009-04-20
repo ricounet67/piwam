@@ -28,4 +28,6 @@ use_helper('Date');
   </tbody>
 </table>
 
-  <a href="<?php echo url_for('compte/new') ?>">Enregistrer un nouveau compte</a>
+<div class="addNew">
+	<?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer un compte', 'compte/new') ?>
+</div>

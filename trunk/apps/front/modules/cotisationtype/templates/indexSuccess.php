@@ -26,4 +26,7 @@
   </tbody>
 </table>
 
-  <a href="<?php echo url_for('cotisationtype/new') ?>">Nouveau type</a>
+
+<div class="addNew">
+	<?php echo link_to(image_tag('add', 'align="top"'). ' Nouveau type', 'cotisationtype/new') ?>
+</div>

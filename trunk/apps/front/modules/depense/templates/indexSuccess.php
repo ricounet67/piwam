@@ -31,4 +31,6 @@
     </tbody>
 </table>
 
-<a href="<?php echo url_for('depense/new') ?>">Enregistrer une nouvelle dépense</a>
+<div class="addNew">
+	<?php echo link_to(image_tag('add', 'align="top"'). ' Nouvelle dépense', 'depense/new') ?>
+</div>

@@ -31,4 +31,6 @@
     </tbody>
 </table>
 
-<a href="<?php echo url_for('recette/new') ?>">Enregistrer une nouvelle recette</a>
+<div class="addNew">
+	<?php echo link_to(image_tag('add', 'align="top"'). ' Nouvelle recette', 'recette/new') ?>
+</div>

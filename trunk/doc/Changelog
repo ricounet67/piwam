@@ -1,3 +1,42 @@
+r16 - april, 20, 2009
+	* web/js/jquery-ui-1.7.1 : 'demos' folder removed
+	* web/js/jquery-ui-1.7.1 : 'docs' folder removed
+	* web/js/jquery-ui-1.7.1 : 'css' folder removed (it was put in css folder)
+	* Cotisation : appearance redone
+	* CotisationTypeForm.class.php : all required updates have been done
+	* frontConfiguration.class.php : define error messages for required/invalid
+	  fields
+	* CotisationType : actions > redirect to listing after form submit
+	* MailingForm.class.php : rich editor configured
+	* Association > actions > mailing > throw error messages if formulaire has
+	  not been filled correctly
+	* AssociationForm.class.php : website is validated by ValidatorUrl
+	* Schema.yml : Membre.pseudo is set as an unique field
+	* Association : new method initialize()
+	* Schema.yml : Statut.mis_a_jour_par and Statut.enregistre_par can be set
+	  to NULL (if this is a value that was set automatically)
+	* Association : creation > the step of creation is now done by 2 steps
+	  We first create the association and then the first Membre
+	* MyUser.class.php : new method setTemporaryAssociationId($id)
+	* Membre : actions > new action 'newfirst' to register the first Membre of
+	  an Association
+	* Membre : config/security.yml created to authorize access to action
+	  newfirst
+	* Membre : new view newfirstSuccess.php
+	* Membre : actions > new action 'executeEndregistration'
+	* Membre : actions > new action 'firstcreate' to register the first Membre
+	* MyUser.class.php : new removeTemporaryData() method
+	* MyUser.class.php : new getTemporaryUserInfo() method
+	* MyUser.class.php : new setTemporaryUserInfo($membre) method()
+	* Activite : enregistre_par field is not mandatory (if it has been set
+	  automatically)
+	* Activite : mis_a_jour_par field is not mandatory (if it has been set
+	  automatically)
+	* Membre : mis_a_jour_par and enregistre_par fields are not mandatory
+	* Project : occurences of sfUser::getAttribute('user_id') have been
+	  completed with default value 'null' and corresponding namespace 'user'
+
+
 r15 - april, 19, 2009
 	* js/prototype/test : add to svn:ignore
 	* Association : login > new link to "create account" action on the login

@@ -26,15 +26,15 @@ class DepenseForm extends BaseDepenseForm
 		if ($this->getObject()->isNew()) {
 			$this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
 			$this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-			$this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id'));
-			$this->setDefault('association_id', sfContext::getInstance()->getUser()->getAttribute('association_id'));
+			$this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+			$this->setDefault('association_id', sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user'));
 			$this->validatorSchema['association_id'] = new sfValidatorInteger();
 			$this->validatorSchema['enregistre_par'] = new sfValidatorInteger();
 		}
 			
 		$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
 		$this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
-		$this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id'));
+		$this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 		$this->setDefault('actif', 1);
 
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();

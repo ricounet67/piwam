@@ -7,8 +7,8 @@ propel:
     libelle:         	{ type: varchar(255), required: true }
     actif:           	{ type: boolean, default: true }
     association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
-    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~  
   
@@ -86,7 +86,7 @@ propel:
     id:              	~
     nom:             	{ type: varchar(255), required: true }
     prenom:          	{ type: varchar(255), required: true }
-    pseudo:          	{ type: varchar(255), required: true }
+    pseudo:          	{ type: varchar(255), required: true, index: unique }
     password:        	{ type: varchar(255), required: true }
     statut_id:          { type: integer, required: true, foreignTable: statut, foreignReference: id, onDelete: cascade }
     date_inscription: 	{ type: date, required: true }
@@ -101,8 +101,8 @@ propel:
     tel_portable:    	{ type: varchar(16) }
     actif:           	{ type: boolean, default: true }
     association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
-    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
     
@@ -128,7 +128,7 @@ propel:
     nom:             	{ type: varchar(255), required: true }
     association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
     actif:           	{ type: boolean, default: true }
-    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
