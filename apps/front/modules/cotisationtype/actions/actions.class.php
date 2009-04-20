@@ -63,7 +63,7 @@ class cotisationtypeActions extends sfActions
 		if ($form->isValid())
 		{
 			$cotisation_type = $form->save();
-			$this->redirect('cotisationtype/edit?id='.$cotisation_type->getId());
+			$this->redirect('cotisationtype/index');
 		}
 	}
 }

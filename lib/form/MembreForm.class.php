@@ -26,8 +26,8 @@ class MembreForm extends BaseMembreForm
 		if ($this->getObject()->isNew()) {
 			$this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
 			$this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-			$this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id'));
-			$this->setDefault('association_id', sfContext::getInstance()->getUser()->getAttribute('association_id'));
+			$this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+			$this->setDefault('association_id', sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user'));
 			$this->validatorSchema['association_id'] = new sfValidatorInteger();
 			$this->validatorSchema['enregistre_par'] = new sfValidatorInteger();
 		}
@@ -35,7 +35,7 @@ class MembreForm extends BaseMembreForm
 		$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
 		$this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
 		$this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled());
-		$this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id'));
+		$this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 		$this->setDefault('date_inscription', date('d-m-Y'));
 		$this->setDefault('pays', 'FRANCE');
 		$this->setDefault('actif', 1);
@@ -66,5 +66,8 @@ class MembreForm extends BaseMembreForm
 		
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
+		
+		unset($this->widgetSchema['statut_id']);
+		$this->widgetSchema['statut_id'] = new sfWidgetFormPropelSelect(array('model' => 'Statut', 'criteria' => StatutPeer::getCriteriaForEnabled()));
 	}
 }

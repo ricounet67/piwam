@@ -21,4 +21,6 @@
   </tbody>
 </table>
 
-  <a href="<?php echo url_for('activite/new') ?>">Nouvelle activité</a>
+<div class="addNew">
+	<?php echo link_to(image_tag('add', 'align="top"'). ' Nouvelle activité', 'activite/new') ?>
+</div>

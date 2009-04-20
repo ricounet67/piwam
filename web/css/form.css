@@ -57,6 +57,24 @@ input {
 	width: 200px;
 }
 
+/* Elements de taille normale */
+.formInputXtraLarge
+{
+	border: 1px solid #aaa;
+    padding: 4px;
+    background-color: #fff;
+	width: 98%;
+}
+
+/* Elements de courte taille */
+.formInputShort
+{
+	border: 1px solid #aaa;
+    padding: 4px;
+    background-color: #fff;
+	width: 80px;
+}
+
 
 
 /* liens/boutons "annuler/supprimer" */

@@ -20,7 +20,12 @@
           		'method' 	=> 'delete', 'confirm' => 'Etes vous sûr ?'
             )) ?>
           <?php endif; ?>
-          <input type="submit" value="Sauvegarder" class="button" />
+          
+          <?php if ($form->getObject()->isNew()): ?>
+	          	<input type="submit" value="Étape suivante >" class="button" />
+	      <?php else: ?>
+	      		<input type="submit" value="Sauvegarder" class="button" />
+	      <?php endif; ?>
         </td>
       </tr>
     </tfoot>
@@ -38,38 +43,24 @@
       <tr>
         <th>Nom de l'association :</th>
         <td>
-          <?php echo $form['nom']->renderError() ?>
           <?php echo $form['nom'] ?>
+          <?php echo $form['nom']->renderError() ?>
         </td>
       </tr>
       <tr>
-        <th><?php echo $form['description']->renderLabel() ?> :</th>
+        <th><?php echo $form['description']->renderLabel() ?></th>
         <td>
-          <?php echo $form['description']->renderError() ?>
           <?php echo $form['description'] ?>
+          <?php echo $form['description']->renderError() ?>
         </td>
       </tr>
       <tr>
-        <th><?php echo $form['site_web']->renderLabel() ?> :</th>
+        <th><?php echo $form['site_web']->renderLabel() ?></th>
         <td>
-          <?php echo $form['site_web']->renderError() ?>
           <?php echo $form['site_web'] ?>
+          <?php echo $form['site_web']->renderError() ?>
         </td>
       </tr>
-      
-      <!-- 
-      	We display the "new member" part only if we are
-      	registering a new association. 
-      -->
-      
-      <?php if ($form->getObject()->isNew()): ?>
-      <tr>
-      	<td valign="top">Informations administrateur : </td>
-      	<td class="subform">
-			<?php echo $form['membre'] ?>
-      	</td>
-      </tr>
-      <?php endif; ?>
       
     </tbody>
   </table>

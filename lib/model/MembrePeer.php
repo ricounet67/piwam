@@ -3,7 +3,7 @@
 class MembrePeer extends BaseMembrePeer
 {
 	const IS_ACTIF = 1;
-
+	
 	/**
 	 * Retrieve all the members. Order the list according to the first
 	 * parameter.
@@ -80,4 +80,18 @@ class MembrePeer extends BaseMembrePeer
 		return $aMembres;
 	}
 
+	/**
+	 * Retrieve a Membre according to his pseudo
+	 * 
+	 * @param 	string	$pseudo
+	 * @return 	Membre
+	 * @since	r16
+	 */
+	public static function retrieveByPseudo($pseudo)
+	{
+		$c = new Criteria();
+		$c->add(self::PSEUDO, $pseudo);
+		
+		return self::doSelectOne($c);
+	}
 }

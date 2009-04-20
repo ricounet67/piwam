@@ -25,4 +25,6 @@
   </tbody>
 </table>
 
-  <a href="<?php echo url_for('cotisation/new') ?>">Enregistrer une cotisation</a>
+<div class="addNew">
+	<?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer une cotisation', 'cotisation/new') ?>
+</div>

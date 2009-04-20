@@ -5,13 +5,27 @@
 <?php endif; ?>
 
 <form action=""<?php echo url_for('association/mailing') ?>" method="POST">
-<table>
+<table class="formArray">
 	<tr>
-		<td>Objet :</td>
+		<td colspan="2">
+			<?php 
+			if ($form->hasErrors())
+			{
+				echo '<div class="error">ERREUR : Vous devez entrer un sujet et un message</div>';
+			}
+			?>
+		</td>
+	</tr>
+	<tr>
+		<th>Objet</th>
 		<td><?php echo $form['subject'] ?></td>
 	</tr>
 	<tr>
-		<td>Message :</td>
+		<th>Destinataires</th>
+		<td>Tout le monde</td>
+	</tr>
+	<tr>
+		<th valign="top">Message</th>
 		<td><?php echo $form['mail_content'] ?></td>
 	</tr>
 	<tr>

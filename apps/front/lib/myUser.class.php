@@ -17,6 +17,7 @@ class myUser extends sfBasicSecurityUser
 		$this->setAttribute('association_name', $user->getAssociation()->getNom(), 	'user');
 		$this->setAttribute('user_id',			$user->getId(), 					'user');
 		$this->setAttribute('user_name', 		$user->getPseudo(), 				'user');
+		$this->getAttributeHolder()->removeNamespace('temp'); 
 	}
 	
 	/**
@@ -28,6 +29,52 @@ class myUser extends sfBasicSecurityUser
 	public function logout()
 	{
 		$this->setAuthenticated(false);
-		$this->getAttributeHolder()->removeNamespace('user'); 
+		$this->getAttributeHolder()->removeNamespace('user');
+		$this->getAttributeHolder()->removeNamespace('temp');  
+	}
+	
+	/**
+	 * Store temporary an Association ID in session. It's just usefull
+	 * when we want to register a new association, to store easily
+	 * the ID between the different steps of registration
+	 * 
+	 * @param 	integer	$id
+	 * @since	r16
+	 */
+	public function setTemporaryAssociationId($id)
+	{
+		$this->setAttribute('association_id',	$id,	'temp');
+	}
+	
+	/**
+	 * Store temporary values about user
+	 * 
+	 * @param 	Membre	$value
+	 * @since	r16
+	 */
+	public function setTemporarUserInfo($user)
+	{
+		$this->setAttribute('user_info', serialize($user), 'temp');
+	}
+	
+	/**
+	 * Retrieve temporary Membre value
+	 * 
+	 * @return 	Membre
+	 * @since	r16
+	 */
+	public function getTemporaryUserInfo()
+	{
+		return unserialize($this->getAttribute('user_info', null, 'temp'));
+	}
+	
+	/**
+	 * Remove all data which were stored temporary
+	 * 
+	 * @since	r16
+	 */
+	public function removeTemporaryData()
+	{
+		$this->getAttributeHolder()->removeNamespace('temp');
 	}
 }

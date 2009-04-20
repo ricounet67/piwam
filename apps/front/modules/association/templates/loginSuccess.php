@@ -1,15 +1,15 @@
 <h2>Identification</h2>
 <form action="<?php echo url_for('association/login') ?>" method="POST">
-<table>
+<table class="formArray">
 	<tr>
 		<td colspan="2"><?php echo $form->renderGlobalErrors() ?></td>
 	</tr>
 	<tr>
-		<td>Nom d'utilisateur :</td>
+		<th>Nom d'utilisateur :</th>
 		<td><?php echo $form['username'] . $form['username']->renderError() ?></td>
 	</tr>
 	<tr>
-		<td>Mot de passe :</td>
+		<th>Mot de passe :</th>
 		<td><?php echo $form['password'] . $form['password']->renderError() ?></td>
 	</tr>
 	<tr>
