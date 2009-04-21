@@ -9,3 +9,4 @@
 	* Association > bilan > allow user to set a port and encryption settings
 	* Membre/Ajaxlist : select only membre for current association
 	* Membre : registration > set 'email' as mandatory for the first user
+	* Security issue (control association that user belongs to)

@@ -1,41 +1,23 @@
-prod:
-  .settings:
-    no_script_name:         on
-    logging_enabled:        off
-
-dev:
-  .settings:
-    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:              on
-    cache:                  off
-    no_script_name:         off
-    etag:                   off
-
-test:
-  .settings:
-    error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
-    cache:                  off
-    web_debug:              off
-    no_script_name:         off
-    etag:                   off
-
 all:
-  .settings:
-    # Form security secret (CSRF protection)
-    csrf_secret:       		false     # Unique secret to enable CSRF protection or false to disable
-
-    # Default culture for our application
-    default_culture: fr_FR
-
-    # Output escaping settings
-    escaping_strategy:      false            # Determines how variables are made available to templates. Accepted values: on, off.
-    escaping_method:        ESC_SPECIALCHARS # Function or helper used for escaping. Accepted values: ESC_RAW, ESC_ENTITIES, ESC_JS, ESC_JS_NO_ENTITIES, and ESC_SPECIALCHARS.
-
-  .actions:
-    # Set location of the login action
-    login_module:			association
-    login_action:			login
     
+  # ----------------------------------------------------------------------------
+  #
+  #      						EDITABLE AREA
+  #
+  # ----------------------------------------------------------------------------
+  
+  # Key to use Google MAP API
+  # -------------------------
+  # You can generate your own keys here :
+  # => http://code.google.com/intl/fr/apis/maps/signup.html
+  
+  googlemap_key:			ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhS1lNceYgF8xlyvwVnMFdwAaj__chQw8Ns5gv_V85Qsjn8lSFzeLY8r4Q
+
+
+  # Mail system configuration
+  # --------------------------
+  # This is used by all features which are e-mailing contents
+  
   mailing:
 
     # Set the methods you would like to use for sending email:
@@ -64,6 +46,54 @@ all:
       
   users:
     users_by_page:			10
+    
+  # ----------------------------------------------------------------------------
+  #
+  #      					   END OF EDITABLE AREA
+  #							   Do not edit following lines !
+  #
+  # ----------------------------------------------------------------------------
+
+
+
+  .settings:
+    # Form security secret (CSRF protection)
+    csrf_secret:       		false     # Unique secret to enable CSRF protection or false to disable
+
+    # Default culture for our application
+    default_culture: fr_FR
+
+    # Output escaping settings
+    escaping_strategy:      false            # Determines how variables are made available to templates. Accepted values: on, off.
+    escaping_method:        ESC_SPECIALCHARS # Function or helper used for escaping. Accepted values: ESC_RAW, ESC_ENTITIES, ESC_JS, ESC_JS_NO_ENTITIES, and ESC_SPECIALCHARS.
+
+  .actions:
+    # Set location of the login action
+    login_module:			association
+    login_action:			login  
+
+
+prod:
+  .settings:
+    no_script_name:         on
+    logging_enabled:        off
+
+dev:
+  .settings:
+    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
+    web_debug:              on
+    cache:                  off
+    no_script_name:         off
+    etag:                   off
+
+test:
+  .settings:
+    error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
+    cache:                  off
+    web_debug:              off
+    no_script_name:         off
+    etag:                   off
+
 
 #all:
 #  .actions:

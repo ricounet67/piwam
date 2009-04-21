@@ -146,6 +146,7 @@ class associationActions extends sfActions
 
 	public function executeNew(sfWebRequest $request)
 	{
+		$this->getUser()->removeTemporaryData();
 		$this->form = new AssociationForm();
 	}
 

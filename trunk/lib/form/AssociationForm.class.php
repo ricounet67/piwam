@@ -19,25 +19,23 @@ class AssociationForm extends BaseAssociationForm
 		
 		if ($this->getObject()->isNew()) {
 			$this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
-			$this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
 			$this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
-			$this->setDefault('association_id', sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user'));
-			$this->validatorSchema['association_id'] = new sfValidatorInteger();
-			$this->validatorSchema['enregistre_par'] = new sfValidatorInteger();
+			$this->validatorSchema['enregistre_par'] = new sfValidatorInteger(array('required' => false));
+		}
+		else {
+			$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
+			$this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+			$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger(array('required' => false));
 		}
 
 		$this->widgetSchema['description'] = new sfWidgetFormTextarea();		
 		$this->validatorSchema['description'] = new sfValidatorString(array('required' => false));
 		
-		$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
 		$this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
-		$this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 		$this->setDefault('actif', 1);
 
-		$this->validatorSchema['site_web'] = new sfValidatorUrl(array('required' => false));
-		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
+		$this->validatorSchema['site_web'] = new sfValidatorUrl(array('required' => false));		
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
-		
 		
 		// r15 : set length of fields
 		$this->widgetSchema['nom']->setAttribute('class', 'formInputLarge');

@@ -1,3 +1,16 @@
+r17 - april, 21, 2009
+	* Association : actions > we delete all temporary data in session before
+	  starting the registration of a new Association
+	* Membre : actions > encrypt password before saving
+	* MembreForm.class.php : the default values for mis_a_jour_par value is
+	  defined in action
+	* Membre : MAP action defined
+	* lib/vendor/phoogle/phoogle.php : new library file created
+	* settings.yml : new parameter "googlemap_key"
+	* MembrePeer.php : new method doSelectForAssociation($id)
+	* Membre.php : getCompleteAddress() method implemented
+	
+	
 r16 - april, 20, 2009
 	* web/js/jquery-ui-1.7.1 : 'demos' folder removed
 	* web/js/jquery-ui-1.7.1 : 'docs' folder removed

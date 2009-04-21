@@ -94,4 +94,21 @@ class MembrePeer extends BaseMembrePeer
 		
 		return self::doSelectOne($c);
 	}
+	
+	/**
+	 * Retrieve all members who belongs to the association in parameter.
+	 * This is different from the method `doSelectOrderBy` which selects
+	 * members within a sfPropelPager.
+	 * 
+	 * @param 	integer	$id
+	 * @return 	array of Membre
+	 * @since	r17
+	 */
+	public static function doSelectForAssociation($id)
+	{
+		$c = new Criteria();
+		$c->add(self::ASSOCIATION_ID, $id);
+		
+		return self::doSelect($c);
+	}
 }
