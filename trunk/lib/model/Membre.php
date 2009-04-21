@@ -76,4 +76,23 @@ class Membre extends BaseMembre
     {
     	return $this->getRue() . ', ' . $this->getCp() . ' ' . $this->getVille();
     }
+    
+    
+    /**
+     * Returns a complete displayable string, with all
+     * interesting information about him. 
+     *  
+     * @return 	string
+     * @since	r18
+     */
+    public function getInfoForGmap()
+    {
+    	$result = '<b>' . $this->__toString() . '</b>';
+    	$result .= ' (<i>' . $this->getPseudo() . '</i>)<br /><br />';
+    	$result .= $this->getRue() . ',<br />';
+    	$result .= $this->getCp() . ' ' . $this->getVille() . '<br />';
+    	$result .= $this->getPays() . '<br /><br />';
+    	
+    	return $result;
+    }
 }

@@ -11,7 +11,8 @@ all:
   # You can generate your own keys here :
   # => http://code.google.com/intl/fr/apis/maps/signup.html
   
-  googlemap_key:			ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhS1lNceYgF8xlyvwVnMFdwAaj__chQw8Ns5gv_V85Qsjn8lSFzeLY8r4Q
+  googlemap_key: ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhS1lNceYgF8xlyvwVnMFdwAaj__chQw8Ns5gv_V85Qsjn8lSFzeLY8r4Q
+
 
 
   # Mail system configuration
@@ -36,14 +37,19 @@ all:
 
 
     smtp:					# If `method` has been set to smtp
-      smtp_username:		
-      smtp_password:		
-      smtp_server:			smtp.epita.fr
+      smtp_username:		root
+      smtp_password:		foobar
+      smtp_server:			smtp.server.com
 
     sendmail:				 # If `method` has been set to sendmail
       sendmail_path:		/usr/bin/sendmail
       
-      
+
+
+  # User module configuration
+  # -------------------------
+  # Configuration which is related to the user module
+        
   users:
     users_by_page:			10
     
@@ -51,6 +57,7 @@ all:
   #
   #      					   END OF EDITABLE AREA
   #							   Do not edit following lines !
+  #							   (it's at your own risks...)
   #
   # ----------------------------------------------------------------------------
 
