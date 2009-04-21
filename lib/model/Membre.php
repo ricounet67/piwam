@@ -22,8 +22,7 @@ class Membre extends BaseMembre
      */
     public function isAjourCotisation()
     {
-        if ($this->getExempteCotisation())
-        {
+        if ($this->getExempteCotisation()) {
             return true;
         }
         else
@@ -63,5 +62,18 @@ class Membre extends BaseMembre
     public function delete(PropelPDO $con = null)
     {
         $this->disable();
+    }
+    
+    
+    /**
+     * Get the whole address of the Membre (street, city, zipcode...)
+     * This is address may be used for Google Map localization
+     * 
+     * @return 	string
+     * @since	r17
+     */
+    public function getCompleteAddress()
+    {
+    	return $this->getRue() . ', ' . $this->getCp() . ' ' . $this->getVille();
     }
 }

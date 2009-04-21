@@ -36,11 +36,11 @@
             <td><?php echo $membre->getRue() . '<br />' . $membre->getCp() . ' ' . $membre->getVille() ?></td>
         </tr>
         <tr>
-            <th>Pays:</th>
+            <th>Pays :</th>
             <td><?php echo $membre->getPays() ?></td>
         </tr>
         <tr>
-            <th>Email:</th>
+            <th>Email :</th>
             <td><?php echo '<a href="' . $membre->getEmail() . '">' . $membre->getEmail() . '</a>' ?></td>
         </tr>
         <tr>

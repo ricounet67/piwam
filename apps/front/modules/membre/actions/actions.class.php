@@ -27,6 +27,11 @@ class membreActions extends sfActions
 		$orderByColumn);
 	}
 
+	/**
+	 * Provide all information about the member to the view
+	 * 
+	 * @param 	sfWebRequest	$request
+	 */
 	public function executeShow(sfWebRequest $request)
 	{
 		$this->membre = MembrePeer::retrieveByPk($request->getParameter('id'));
@@ -103,6 +108,7 @@ class membreActions extends sfActions
 	{
 		$this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Object membre does not exist (%s).', $request->getParameter('id')));
 		$this->form = new MembreForm($membre);
+//		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 	}
 
 	public function executeUpdate(sfWebRequest $request)
@@ -150,8 +156,14 @@ class membreActions extends sfActions
 		if ($form->isValid())
 		{
 			$membre = $form->save();
+			$encryptedPassword = sha1($membre->getPassword());
+			$membre->setPassword($encryptedPassword);
+			$membre->save();
 			
 			if ($request->getAttribute('first') == true) {
+				$association = AssociationPeer::retrieveByPK($membre->getAssociationId());
+				$association->setEnregistrePar($membre->getId());
+				$association->save();
 				$this->getUser()->removeTemporaryData();
 				$this->getUser()->setTemporarUserInfo($user);
 				$this->redirect('membre/endregistration');
@@ -160,5 +172,30 @@ class membreActions extends sfActions
 				$this->redirect('membre/index');
 			}
 		}
+	}
+	
+	/**
+	 * Geo-localize members within a map thanks to Google MAP
+	 * API.
+	 * 
+	 * @param 	sfWebRequest	$request
+	 * @since	r17
+	 */
+	public function executeMap(sfWebRequest $request)
+	{
+		$map = new PhoogleMap();
+		$map->setApiKey(sfConfig::get('sf_googlemap_key'));
+		$map->zoomLevel = 5;
+		$map->setWidth(600);
+		$map->setHeight(400);
+		
+		$associationId = $this->getUser()->getAttribute('association_id', null, 'user');
+		$membres = MembrePeer::doSelectForAssociation($associationId);
+		
+		foreach ($membres as $membre) {
+			@$map->addAddress($membre->getCompleteAddress(), $membre);	
+		}
+		
+		$this->map = $map;
 	}
 }

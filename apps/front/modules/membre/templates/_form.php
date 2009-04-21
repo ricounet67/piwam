@@ -11,8 +11,10 @@
     	}
     	?>"
     method="post"
-    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>><?php if (!$form->getObject()->isNew()): ?>
-<input type="hidden" name="sf_method" value="put" /> <?php endif; ?>
+    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+    <?php if (!$form->getObject()->isNew()): ?>
+		<input type="hidden" name="sf_method" value="put" /> 
+	<?php endif; ?>
 <table class="formArray">
     <tfoot>
         <tr>
@@ -26,7 +28,6 @@
 	                )) ?>
                 <?php endif; ?>
                 
-                
                 <?php if (!$form->getObject()->isNew()): ?>
                 	<?php echo link_to('Supprimer', 'membre/delete?id='.$form->getObject()->getId(), array(
                 		'class'		=> 'formLinkButton',
@@ -34,7 +35,7 @@
                 	)) ?>
                 <?php endif; ?>
                 
-                <?php if ($first): ?>
+                <?php if ((isset($first)) && ($first)): ?>
 	                <input type="submit" value="Étape suivante >" class="button" />
 	            <?php else: ?>
 	            	<input type="submit" value="Sauvegarder" class="button" />

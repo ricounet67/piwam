@@ -19,8 +19,8 @@ propel:
     nom:			 	{ type: varchar(120), required: true }
     description:	 	{ type: varchar(255), required: false }
     site_web:		 	{ type: varchar(255), required: false }
-    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
     created_at:		 	~
     updated_at:		 	~
   
