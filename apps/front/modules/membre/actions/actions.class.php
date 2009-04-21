@@ -29,7 +29,7 @@ class membreActions extends sfActions
 
 	/**
 	 * Provide all information about the member to the view
-	 * 
+	 *
 	 * @param 	sfWebRequest	$request
 	 */
 	public function executeShow(sfWebRequest $request)
@@ -43,12 +43,12 @@ class membreActions extends sfActions
 	{
 		$this->form = new MembreForm();
 	}
-	
+
 	/**
 	 * Register a new Membre - and the first one ! - for an
 	 * Association. This is a special method which use the temporary
 	 * AssociationID instead of using an already-registered AssociationID
-	 * 
+	 *
 	 * @param 	sfWebRequest	$request
 	 * @since	r16
 	 */
@@ -63,7 +63,7 @@ class membreActions extends sfActions
 	}
 
 	/**
-	 * 
+	 *
 	 * @param 	sfWebRequest	$request
 	 * @since	r16
 	 */
@@ -75,12 +75,12 @@ class membreActions extends sfActions
 		$this->processForm($request, $this->form);
 		$this->setTemplate('newfirst');
 	}
-	
+
 	/**
 	 * Display information about the just finished registration. We use
 	 * keyword 'instanceof' because getTemporaryUserInfo() returns
 	 * unserialized object - which can be null.
-	 * 
+	 *
 	 * @param 	sfWebRequest	$request
 	 * @see 	getTemporaryUserInfo()
 	 * @since	r16
@@ -88,14 +88,14 @@ class membreActions extends sfActions
 	public function executeEndregistration(sfWebRequest $request)
 	{
 		$membre = $this->getUser()->getTemporaryUserInfo();
-		
+
 		if ($membre instanceof Membre)
 		{
 			$this->prenom 	= $membre->getPrenom();
 			$this->nom 		= $membre->nom();
 		}
 	}
-	
+
 	public function executeCreate(sfWebRequest $request)
 	{
 		$this->forward404Unless($request->isMethod('post'));
@@ -108,7 +108,7 @@ class membreActions extends sfActions
 	{
 		$this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Object membre does not exist (%s).', $request->getParameter('id')));
 		$this->form = new MembreForm($membre);
-//		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+		//		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 	}
 
 	public function executeUpdate(sfWebRequest $request)
@@ -140,13 +140,13 @@ class membreActions extends sfActions
 		$this->getResponse()->setContentType('application/json');
 		$membres = MembrePeer::retrieveForSelect($request->getParameter('q'), $request->getParameter('limit'));
 		return $this->renderText(json_encode($membres));
-		 
+			
 	}
 
 	/**
 	 * If this is a the first Membre that we registered, we redirect
 	 * to the `end` action to display success message about registration.
-	 * 
+	 *
 	 * @param 	sfWebRequest	$request
 	 * @param 	sfForm			$form
 	 */
@@ -159,7 +159,7 @@ class membreActions extends sfActions
 			$encryptedPassword = sha1($membre->getPassword());
 			$membre->setPassword($encryptedPassword);
 			$membre->save();
-			
+				
 			if ($request->getAttribute('first') == true) {
 				$association = AssociationPeer::retrieveByPK($membre->getAssociationId());
 				$association->setEnregistrePar($membre->getId());
@@ -173,11 +173,11 @@ class membreActions extends sfActions
 			}
 		}
 	}
-	
+
 	/**
 	 * Geo-localize members within a map thanks to Google MAP
 	 * API.
-	 * 
+	 *
 	 * @param 	sfWebRequest	$request
 	 * @since	r17
 	 */
@@ -188,14 +188,16 @@ class membreActions extends sfActions
 		$map->zoomLevel = 5;
 		$map->setWidth(600);
 		$map->setHeight(400);
-		
+
 		$associationId = $this->getUser()->getAttribute('association_id', null, 'user');
 		$membres = MembrePeer::doSelectForAssociation($associationId);
-		
+
 		foreach ($membres as $membre) {
-			@$map->addAddress($membre->getCompleteAddress(), $membre);	
+			if ($membre->getVille()) {
+				@$map->addAddress($membre->getCompleteAddress(), $membre->getInfoForGmap());
+			}
 		}
-		
+
 		$this->map = $map;
 	}
 }

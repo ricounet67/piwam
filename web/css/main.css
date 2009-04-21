@@ -233,3 +233,11 @@ p.notice {
 {
 	list-style: none;
 }
+
+/* for the mailing feature > preview of content */
+.mailPreview
+{
+	padding: 15px;
+	background-color: #efefff;
+	border: 1px dotted #ccc;
+}

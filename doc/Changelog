@@ -1,3 +1,11 @@
+r18 - april, 21, 2009
+	* Membre.php : new method getInfoForGmap()
+	* MailingForm.class.php : status bar of rich editor is hidden
+	* Association : actions > mailing > Fixed bug when sending message
+	* Association : mailing > display a preview of the message when message
+	  has been sent. Reports successful and failed messages.
+
+
 r17 - april, 21, 2009
 	* Association : actions > we delete all temporary data in session before
 	  starting the registration of a new Association

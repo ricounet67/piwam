@@ -77,6 +77,10 @@ class associationActions extends sfActions
 			$this->form->bind($request->getParameter('mailing'));
 			if ($this->form->isValid())
 			{
+				$data 	= $this->form->getValues();
+				$sentOk = 0; 	// this are 2 counters of 
+				$sentKo = 0;	// succeed/failed messages
+				
 				// mail users
 				// r11
 				try
@@ -122,14 +126,23 @@ class associationActions extends sfActions
 							break;
 					}
 
-					$mailSubject = $request->getParameter('subject');
-					$mailBody 	 = $request->getParameter('content');
-					$mailer 	 = new Swift($methodObject);
-					$message 	 = new Swift_Message($mailSubject, $mailBody, 'text/html');
-					//$mailer->send($message, 'mogene_a@epita.fr', 'adrien.mogenet@gmail.com');
-					//$mailer->disconnect();
+					$mailer 	= new Swift($methodObject);
+					$message	= new Swift_Message($data['subject'], $data['mail_content'], 'text/html');
+
+					$membres	= MembrePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
 					
-					$this->getUser()->setFlash('notice', 'Votre message a bien été envoyé');
+					//foreach ($membres as $membre) {
+						if ($mailer->send($message, 'adrien.mogenet@gmail.com', 'adrien.mogenet@gmail.com')) {
+							$sentOk++;
+						}
+						else {
+							$sentKo++;
+						}	
+					//}
+					
+					$mailer->disconnect();					
+					$this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . ' destinataires (' . $sentKo . ' erreur)');
+					$this->content = $data['mail_content'];
 				}
 				catch (Exception $e) {
 					//
