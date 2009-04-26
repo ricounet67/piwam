@@ -5,14 +5,20 @@
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
-  <table>
+  <table class="formArray">
     <tfoot>
       <tr>
         <td colspan="2">
           <?php echo $form->renderHiddenFields() ?>
-          &nbsp;<a href="<?php echo url_for('activite/index') ?>">Annuler</a>
+          <?php echo link_to('Annuler', 'activite/index', array(
+          	'class'	=> 'formLinkButton'
+          )) ?>
+          
           <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Supprimer', 'activite/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+            <?php echo link_to('Supprimer', 'activite/delete?id=' . $form->getObject()->getId(), array(
+            	'class'		=> 'formLinkButton',
+          		'method' 	=> 'delete', 'confirm' => 'Etes vous sûr ?'
+            )) ?>
           <?php endif; ?>
           <input type="submit" value="Sauvegarder" class="button" />
         </td>

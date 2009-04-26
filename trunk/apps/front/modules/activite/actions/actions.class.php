@@ -63,7 +63,7 @@ class activiteActions extends sfActions
 		if ($form->isValid())
 		{
 			$activite = $form->save();
-			$this->redirect('activite/edit?id='.$activite->getId());
+			$this->redirect('activite/index');
 		}
 	}
 }

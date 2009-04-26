@@ -39,5 +39,8 @@ class CompteForm extends BaseCompteForm
 
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
+		
+		$this->widgetSchema['libelle']->setAttribute('class', 'formInputLarge');
+		$this->widgetSchema['reference']->setAttribute('class', 'formInputShort');		
 	}
 }

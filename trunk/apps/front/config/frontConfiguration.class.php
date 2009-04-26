@@ -8,8 +8,9 @@ class frontConfiguration extends sfApplicationConfiguration
 		define('GMAP_KEY',	 	'ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhS1lNceYgF8xlyvwVnMFdwAaj__chQw8Ns5gv_V85Qsjn8lSFzeLY8r4Q');
 
 		// Represents the states of `actif` fields
-		define('ENABLED',			1);
+		define('ENABLED',		1);
 		define('DISABLED',		0);
+		define('CSV_SEPARATOR',	',');
 
 		// Define error messages for required/invalid fields
 		sfValidatorBase::setRequiredMessage('Requis');

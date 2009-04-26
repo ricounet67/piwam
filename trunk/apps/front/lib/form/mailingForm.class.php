@@ -31,6 +31,16 @@ class MailingForm extends sfForm
 		
 		$this->widgetSchema->setNameFormat('mailing[%s]');
 		$this->widgetSchema['subject']->setAttribute('class', 'formInputXtraLarge');
+
+		
+		// r19 : autocompleted recipients field
+		//       it's currently not displayed
+		
+		$this->widgetSchema['recipients'] = new sfWidgetFormPropelJQueryAutocompleter(array(
+		  	'model' => 'Membre',
+  			'url'   => $this->getOption('url'),
+		));
+		$this->widgetSchema['recipients']->setAttribute('class', 'formInputNormal');
 	}
 }
 ?>

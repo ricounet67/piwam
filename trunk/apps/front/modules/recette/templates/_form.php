@@ -6,40 +6,56 @@
     method="post"
     <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>><?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" /> <?php endif; ?>
-<table>
+<table class="formArray">
     <tfoot>
         <tr>
-            <td colspan="2"><?php echo $form->renderHiddenFields() ?> &nbsp;<a href="<?php echo url_for('recette/index') ?>">Annuler</a> 
+            <td colspan="2"><?php echo $form->renderHiddenFields() ?>
+		  <?php echo link_to('Annuler', 'recette/index', array(
+            	'class'	=> 'formLinkButton'
+            )) ?> 
             <?php if (!$form->getObject()->isNew()): ?>
-            &nbsp;<?php echo link_to('Supprimer', 'recette/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+                <?php echo link_to('Supprimer', 'recette/delete?id=' . $form->getObject()->getId(), array(
+                	'class'		=> 'formLinkButton',
+                	'method' 	=> 'delete', 'confirm' => 'Êtes vous sûr ?'
+                )) ?>
             <?php endif; ?> <input type="submit" value="Sauvegarder" class="button" /></td>
         </tr>
     </tfoot>
     <tbody>
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
-            <td>Libellé : </td>
-            <td><?php echo $form['libelle']->renderError() ?> <?php echo $form['libelle'] ?>
+            <th>Libellé</th>
+            <td>
+            	<?php echo $form['libelle'] ?>
+            	<?php echo $form['libelle']->renderError() ?> 
             </td>
         </tr>
         <tr>
-            <td>Montant : </td>
-            <td><?php echo $form['montant']->renderError() ?> <?php echo $form['montant'] ?> &euro;
+            <th>Montant</th>
+            <td>
+            	<?php echo $form['montant'] ?> &euro;
+            	<?php echo $form['montant']->renderError() ?> 
             </td>
         </tr>
         <tr>
-            <td>Compte affecté : </td>
-            <td><?php echo $form['compte_id']->renderError() ?> <?php echo $form['compte_id'] ?>
+            <th>Compte affecté</th>
+            <td>
+            	<?php echo $form['compte_id'] ?>
+            	<?php echo $form['compte_id']->renderError() ?> 
             </td>
         </tr>
         <tr>
-            <td>Activité : </td>
-            <td><?php echo $form['activite_id']->renderError() ?> <?php echo $form['activite_id'] ?>
+            <th>Activité</th>
+            <td>
+            	<?php echo $form['activite_id'] ?>
+            	<?php echo $form['activite_id']->renderError() ?> 
             </td>
         </tr>
         <tr>
-            <td><?php echo $form['date']->renderLabel() ?> : </td>
-            <td><?php echo $form['date']->renderError() ?> <?php echo $form['date'] ?>
+            <th><?php echo $form['date']->renderLabel() ?></th>
+            <td>
+            	<?php echo $form['date'] ?>
+            	<?php echo $form['date']->renderError() ?>
             </td>
         </tr>
     </tbody>

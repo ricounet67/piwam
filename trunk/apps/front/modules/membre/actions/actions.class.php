@@ -110,6 +110,52 @@ class membreActions extends sfActions
 		$this->form = new MembreForm($membre);
 		//		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 	}
+	
+	/**
+	 * Export the list of Membre within a file
+	 * 
+	 * @param 	sfWebRequest	$request
+	 * @since	r19
+	 */
+	public function executeExport(sfWebRequest $request)
+	{
+		$csv = new FileExporter('liste-membres.csv');
+		$membres = MembrePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+		
+		echo $csv->addLineCSV(array(
+			'Prénom',
+			'Nom',
+			'Pseudo',
+			'Email',
+			'Tel (fixe)',
+			'Tel (mobile)',
+			'Rue',
+			'CP',
+			'Ville',
+			'Pays',
+			'Statut',
+			'Date d\'inscription',
+		));
+		
+		foreach ($membres as $membre)
+		{
+			echo $csv->addLineCSV(array(
+				$membre->getPrenom(),
+				$membre->getNom(),
+				$membre->getPseudo(),
+				$membre->getEmail(),
+				$membre->getTelFixe(),
+				$membre->getTelPortable(),
+				$membre->getRue(),
+				$membre->getCp(),
+				$membre->getVille(),
+				$membre->getPays(),
+				$membre->getStatut(),
+				$membre->getDateInscription(),
+			));
+		}
+		$csv->exportContentAsFile();
+	}
 
 	public function executeUpdate(sfWebRequest $request)
 	{
@@ -140,7 +186,6 @@ class membreActions extends sfActions
 		$this->getResponse()->setContentType('application/json');
 		$membres = MembrePeer::retrieveForSelect($request->getParameter('q'), $request->getParameter('limit'));
 		return $this->renderText(json_encode($membres));
-			
 	}
 
 	/**

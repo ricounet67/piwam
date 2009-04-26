@@ -57,11 +57,10 @@ class MembreForm extends BaseMembreForm
 		$this->widgetSchema['prenom']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['pseudo']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['password']->setAttribute('class', 'formInputNormal');
-		$this->widgetSchema['statut_id']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['rue']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['cp']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['ville']->setAttribute('class', 'formInputNormal');
-		$this->widgetSchema['pays']->setAttribute('class', 'formInputNormal');
+		
 		$this->widgetSchema['website']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['email']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['tel_fixe']->setAttribute('class', 'formInputNormal');
@@ -71,5 +70,20 @@ class MembreForm extends BaseMembreForm
 		
 		unset($this->widgetSchema['statut_id']);
 		$this->widgetSchema['statut_id'] = new sfWidgetFormPropelSelect(array('model' => 'Statut', 'criteria' => StatutPeer::getCriteriaForEnabled()));
+		$this->widgetSchema['statut_id']->setAttribute('class', 'formInputNormal');
+				
+		// r19 : customize the 'Pays' widget
+		//		 and the 'date_inscription' widget
+		unset ($this->widgetSchema['pays']);
+		$countries = array('FR', 'BE', 'ES', 'DE', 'NL', 'CH', 'LU');
+		$this->widgetSchema['pays'] = new sfWidgetFormI18nSelectCountry(array('culture' => 'fr', 'countries' => $countries));
+		$this->setDefault('pays', 'FR');
+		$this->widgetSchema['pays']->setAttribute('class', 'formInputNormal');
+		unset ($this->widgetSchema['date_inscription']);
+		$this->widgetSchema['date_inscription'] = new sfWidgetFormJQueryDate(array(
+			'image'		=> '/images/calendar.gif',
+  			'config' 	=> '{}',
+			'culture'	=> 'fr_FR'
+		));		
 	}
 }
