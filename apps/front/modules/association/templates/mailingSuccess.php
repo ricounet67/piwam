@@ -1,5 +1,9 @@
 <h2>Mailing</h2>
 
+<?php use_javascript('/sfFormExtraPlugin/js/jquery.autocompleter.js') ?>
+<?php use_stylesheet('/sfFormExtraPlugin/css/jquery.autocompleter.css') ?>
+
+
 <?php if ($sf_user->hasFlash('notice')): ?>
   <?php echo '<p class="notice">' . $sf_user->getFlash('notice') . '</p>' ?>
 <?php endif; ?>
@@ -29,7 +33,9 @@
 		</tr>
 		<tr>
 			<th>Destinataires</th>
-			<td>Tout le monde</td>
+			<td>
+				Tout le monde
+			</td>
 		</tr>
 		<tr>
 			<th valign="top">Message</th>

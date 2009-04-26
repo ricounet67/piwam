@@ -29,13 +29,15 @@
             </td>
         </tr>
         <tr>
-            <th>Valide X ans</th>
-            <td><?php echo $form['valide'] ?><?php echo $form['valide']->renderError() ?>
+            <th>Valide</th>
+            <td>
+            	<?php echo $form['valide'] ?> an(s) <?php echo $form['valide']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Montant</th>
-            <td><?php echo $form['montant'] ?><?php echo $form['montant']->renderError() ?> 
+            <td>
+            	<?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?> 
             </td>
         </tr>
     </tbody>

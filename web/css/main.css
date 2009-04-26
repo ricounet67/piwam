@@ -17,6 +17,10 @@ a:hover {
     text-decoration: underline;
 }
 
+#content li {
+	list-style:	none;
+}
+
 /*****************************************************************************
 **
 ** TITRES
@@ -156,12 +160,13 @@ body {
     text-align: left;
     padding: 5px;
     border-bottom: 1px dotted black;
+    background-color: #efefff;
 }
 
 /* cellules de droite */
 .tableauDetails td {
     border-bottom: 1px dotted black;
-    padding-left: 40px;
+    padding: 5px 5px 5px 10px;
 }
 
 /* cellules de gauche des tableau d'ajout/edition */
@@ -183,14 +188,6 @@ body {
     margin: 0px;
 }
 
-/* notifications d'erreur */
-.error {
-	background-color: #ffeeee;
-	color: red;
-	padding: 7px;
-	margin: 0px 0px 20px 0px;
-}
-
 /* element des liste de messages d'erreur */
 .error_list li {
     list-style: none;
@@ -198,6 +195,15 @@ body {
     padding: 0px;
     margin: 0px;
     color: red;
+}
+
+
+/* notifications d'erreur */
+.error {
+	background-color: #ffeeee;
+	color: red;
+	padding: 7px;
+	margin: 0px 0px 20px 0px;
 }
 
 /* pour l'affichage des comptes en positif */

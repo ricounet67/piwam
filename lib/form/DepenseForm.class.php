@@ -38,11 +38,18 @@ class DepenseForm extends BaseDepenseForm
 		$this->setDefault('actif', 1);
 
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
-		$this->validatorSchema['actif'] = new sfValidatorBoolean();
+		$this->validatorSchema['actif'] = new sfValidatorBoolean();		
 		
-		// Specific to this form
-		$this->widgetSchema['montant']->setAttribute('size', '5');
-		$this->widgetSchema['libelle']->setAttribute('size', '40');
+		// r19 : customize the appearance
+		$this->widgetSchema['libelle']->setAttribute('class', 'formInputLarge');
+		$this->widgetSchema['montant']->setAttribute('class', 'formInputShort');
+		$this->widgetSchema['compte_id']->setAttribute('class', 'formInputLarge');
+		$this->widgetSchema['activite_id']->setAttribute('class', 'formInputLarge');
+		$this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
+			'image'		=> '/images/calendar.gif',
+  			'config' 	=> '{}',
+			'culture'	=> 'fr_FR'
+		));		
 		$this->setDefault('date', date('y-m-d'));
 	}
 }

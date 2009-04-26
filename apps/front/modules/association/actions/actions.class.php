@@ -11,6 +11,19 @@
 class associationActions extends sfActions
 {
 	/**
+	 * Provides a view to allows current user to export the different data
+	 * he wants to export
+	 * 
+	 * @param 	sfWebRequest	$request
+	 * @since	r19
+	 */
+	public function executeExport(sfWebRequest $request)
+	{
+		// do nothing
+		// content is set in the template file	
+	}
+	
+	/**
 	 * Login action
 	 *
 	 * @param 	sfWebRequest $request
@@ -71,7 +84,7 @@ class associationActions extends sfActions
 	 */
 	public function executeMailing(sfWebRequest $request)
 	{
-		$this->form = new MailingForm();
+		$this->form = new MailingForm(array(), array('url' => $this->getController()->genUrl('membre/ajaxlist')));
 		if ($request->isMethod('post'))
 		{
 			$this->form->bind($request->getParameter('mailing'));

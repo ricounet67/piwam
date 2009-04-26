@@ -1,3 +1,22 @@
+r19 - april, 26, 2009
+	* lib/misc/FileExporter.class.php : class implemented
+	* Membre : actions > new action 'export'
+	* Association : actions > new action 'export'
+	* Layout.php : link to 'export' action has been set
+	* ActiviteForm.class.php : widget 'libelle' get a right class
+	* Activite : actions > if edit or creation not failed, we redirect to index
+	* MembreForm.class.php : the field 'pays' has been customized with list of
+	  countries provided by Symfony
+	* MembreForm.class.php : field 'date_inscription' is represented by a
+	  rich date input
+	* Depense : appearance of form has been redesigned
+	* Recette : appearance of form has been redesigned
+	* Depense : view of 'show' action has been designed
+	* Recette : view of 'show' action has been designed
+	* MailingForm.class.php : new widget 'recipients' to generate autocompleted
+      list of recipients but this widget is not displayed
+
+
 r18 - april, 21, 2009
 	* Membre.php : new method getInfoForGmap()
 	* MailingForm.class.php : status bar of rich editor is hidden

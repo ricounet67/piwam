@@ -5,11 +5,14 @@
 <?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" />
 <?php endif; ?>
-  <table>
+  <table class="formArray">
     <tfoot>
       <tr>
         <td colspan="2">
-          <?php echo $form->renderHiddenFields() ?>&nbsp;<a href="<?php echo url_for('compte/index') ?>">Annuler</a>
+          <?php echo $form->renderHiddenFields() ?>
+          <?php echo link_to('Annuler', 'compte/index', array(
+            	'class'	=> 'formLinkButton'
+            )) ?>
           <?php if (!$form->getObject()->isNew()): ?>
             &nbsp;<?php echo link_to('Supprimer', 'compte/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
           <?php endif; ?>
@@ -20,17 +23,17 @@
     <tbody>
       <?php echo $form->renderGlobalErrors() ?>
       <tr>
-        <td>Libellé : </td>
+        <th>Libellé</th>
         <td>
-          <?php echo $form['libelle']->renderError() ?>
           <?php echo $form['libelle'] ?>
+          <?php echo $form['libelle']->renderError() ?>
         </td>
       </tr>
       <tr>
-        <td>Référemce : </td>
+        <th>Référence</th>
         <td>
-          <?php echo $form['reference']->renderError() ?>
           <?php echo $form['reference'] ?>
+          <?php echo $form['reference']->renderError() ?>
         </td>
       </tr>
     </tbody>

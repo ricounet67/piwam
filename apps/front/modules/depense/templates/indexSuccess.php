@@ -9,7 +9,6 @@
             <th>Libellé</th>
             <th>Montant</th>
             <th>Compte</th>
-            <th>Activité</th>
             <th>Date</th>
             <th>Actions</th>
         </tr>
@@ -20,7 +19,6 @@
             <td><?php echo $depense->getLibelle() ?></td>
             <td><?php echo format_currency($depense->getMontant()) ?></td>
             <td><?php echo $depense->getCompte() ?></td>
-            <td><?php echo $depense->getActivite() ?></td>
             <td><?php echo format_date($depense->getDate()) ?></td>
             <td>
                 <a href="<?php echo url_for('depense/show?id=' . $depense->getId()) ?>"><?php echo image_tag('details.png') ?></a>

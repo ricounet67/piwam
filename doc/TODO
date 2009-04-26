@@ -1,12 +1,9 @@
 
-	* Customize error messages (required, invalid)
 	* Create cookie when log in
 	* History table to keep history of each update
-	* Member creation : email/website validators
-	* Customize date fields
 	* Activite : add description field
-	* Set membre.pseudo as uniq
-	* Association > bilan > allow user to set a port and encryption settings
+	* Association > config > allow user to set a port and encryption settings
 	* Membre/Ajaxlist : select only membre for current association
 	* Membre : registration > set 'email' as mandatory for the first user
 	* Security issue (control association that user belongs to)
+	* Provide bilan by year
