@@ -23,33 +23,54 @@ class MembreForm extends BaseMembreForm
 		unset($this['enregistre_par'], 	$this['mis_a_jour_par']);
 		unset($this['actif'], 			$this['association_id']);
 			
+		// r20 : if this is the user is not the one who
+		//		 is currently registering a new Association
+
+		if (! sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'temp')) {
+			if ($this->getObject()->isNew()) {
+				$this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
+				$this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+				$this->validatorSchema['enregistre_par'] = new sfValidatorInteger(array('required' => false));
+			}
+
+			$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
+			$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();		
+		}
+
+		
 		if ($this->getObject()->isNew()) {
-			$this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
 			$this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-			$this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 			$this->setDefault('association_id', sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user'));
 			$this->validatorSchema['association_id'] = new sfValidatorInteger();
-			$this->validatorSchema['enregistre_par'] = new sfValidatorInteger(array('required' => false));
 		}
-				
-		$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();	
-		$this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
-		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
-		
 			
 		$this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
 		$this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled());
 		$this->setDefault('date_inscription', date('d-m-Y'));
 		$this->setDefault('pays', 'FRANCE');
 		$this->setDefault('actif', 1);
-		
+
 		// Customize Password field
-		unset($this->widgetSchema['password']);
+		unset($this['password']);
 		$this->widgetSchema['password'] = new sfWidgetFormInputPassword();
+		
+
+		// r20 : if this is not the registration of the first user who is
+		//		 setting up a new Association, password can be empty (and
+		//		 the user won't be able to log in)
+		//		 Otherwise, user MUST give a passsword
+		
+		if (! sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'temp')) {
+			$this->validatorSchema['password'] = new sfValidatorPass();
+		}
+		else {
+			$this->validatorSchema['password'] = new sfValidatorString(array('required' => true));
+		}
+
 		
 		unset($this->validatorSchema['email']);
 		unset($this->validatorSchema['website']);
-		
+
 		// Set appearance (CSS classes) for each widget
 		$this->validatorSchema['email'] = new sfValidatorEmail(array('required' => false));
 		$this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
@@ -60,18 +81,16 @@ class MembreForm extends BaseMembreForm
 		$this->widgetSchema['rue']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['cp']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['ville']->setAttribute('class', 'formInputNormal');
-		
 		$this->widgetSchema['website']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['email']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['tel_fixe']->setAttribute('class', 'formInputNormal');
 		$this->widgetSchema['tel_portable']->setAttribute('class', 'formInputNormal');
-		
+
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
-		
 		unset($this->widgetSchema['statut_id']);
 		$this->widgetSchema['statut_id'] = new sfWidgetFormPropelSelect(array('model' => 'Statut', 'criteria' => StatutPeer::getCriteriaForEnabled()));
 		$this->widgetSchema['statut_id']->setAttribute('class', 'formInputNormal');
-				
+
 		// r19 : customize the 'Pays' widget
 		//		 and the 'date_inscription' widget
 		unset ($this->widgetSchema['pays']);
@@ -84,6 +103,6 @@ class MembreForm extends BaseMembreForm
 			'image'		=> '/images/calendar.gif',
   			'config' 	=> '{}',
 			'culture'	=> 'fr_FR'
-		));		
+			));
 	}
 }

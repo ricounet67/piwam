@@ -10,9 +10,16 @@
  */
 class cotisationActions extends sfActions
 {
+	/**
+	 * r20 : provides to the view the number of cotisation types that
+	 * 		 have been set
+	 * 
+	 * @param 	sfWebRequest	$request
+	 */
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->cotisation_list = CotisationPeer::doSelectJoinMembreId($this->getUser()->getAttribute('association_id', null, 'user'));
+		$this->typesExist = CotisationTypePeer::doesOneTypeExist($this->getUser()->getAttribute('association_id', null, 'user'));
 	}
 
 	public function executeShow(sfWebRequest $request)

@@ -21,9 +21,20 @@ class cotisationtypeActions extends sfActions
 		$this->forward404Unless($this->cotisation_type);
 	}
 
+	/**
+	 * r20 : If `first` attribute has been set, we want
+	 * 		 to create our first type. We will set a default
+	 * 		 value in label field
+	 * 
+	 * @param 	sfWebRequest	$request
+	 * @see		modules/cotisation/templates/indexSuccess.php
+	 */
 	public function executeNew(sfWebRequest $request)
 	{
 		$this->form = new CotisationTypeForm();
+		if ($request->getParameter('first', false)) {
+			$this->form->setDefault('libelle', 'Cotisation annuelle ' . date('Y'));
+		}
 	}
 
 	public function executeCreate(sfWebRequest $request)

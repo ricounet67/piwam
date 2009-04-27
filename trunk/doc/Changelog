@@ -1,3 +1,22 @@
+r20 - april, 27, 2009
+	* lib/validator/sfPasswordStrengthValidator.class.php : new file
+	* Membre : method setPassword() has been overrided
+	* Layout.php : Link 'export data' links to 'membre/export' action
+	* Layout.php : get the gmap key directly from YML configuration variable
+	  and not from PHP constant
+	* frontConfiguration.class.php : constant GMAP_KEY has been removed
+	* Cotisation : indexSuccess.php > if no cotisation type has been set up,
+	  we only display a link to register a new type
+	* CotisationType : actions > If `first` attribute has been set, we want
+	  to create our first type. We will set a default value in label field
+	* CotisationTypePeer.php : new method doesOneTypeExist(associationId)
+	* MembreForm.class.php : if this is not the registration of the first user 
+	  who is setting up a new Association, password can be empty (and the user 
+	  won't be able to log in). Otherwise, user MUST give a passsword
+	* Phoogle.php : '@' has been put on line 200 before accessing array to avoid
+	  displaying warning for wrong offset
+
+
 r19 - april, 26, 2009
 	* lib/misc/FileExporter.class.php : class implemented
 	* Membre : actions > new action 'export'

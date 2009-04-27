@@ -4,10 +4,7 @@
     <?php include_http_metas() ?>
     <?php include_metas() ?>
     <?php include_title() ?>
-    <script
-    src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo GMAP_KEY ?>"
-    type="text/javascript">
-    </script>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo sfConfig::get('sf_googlemap_key') ?>" type="text/javascript"></script>
     <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body>
@@ -49,7 +46,7 @@
             <ul>
                 <li class="mainSection">Fonctionnalit&eacute;s</li>
                 <li><?php echo link_to('D&eacute;connexion', 'association/logout') ?></li>
-                <li><?php echo link_to('Exporter les donn&eacute;es', 'association/export') ?></li>
+                <li><?php echo link_to('Exporter les donn&eacute;es', 'membre/export') ?></li>
                 <li><?php echo link_to('Mailing', 'association/mailing') ?></li>
             </ul>
         </div>
