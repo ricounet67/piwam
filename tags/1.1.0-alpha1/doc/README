@@ -1,0 +1,15 @@
+
+* Required Configuration
+------------------------
+PHP >= 5.2.4
+	mb_string module
+	php_openssl
+	php_smtp
+MySQL
+Apache
+
+
+* Generate Google MAP Api Key
+-----------------------------
+
+Go to http://code.google.com/intl/fr-FR/apis/maps/signup.html

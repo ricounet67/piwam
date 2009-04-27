@@ -1,0 +1,16 @@
+
+# If we want to register the first Membre of
+# an association, we authorize the access but
+# anyway we check if the session variable
+# `association_id` which is stored temporary
+# has been set correctly
+
+newfirst:
+  is_secure: off
+  
+firstcreate:
+  is_secure: off
+  
+endregistration:
+  is_secure: off
+  
