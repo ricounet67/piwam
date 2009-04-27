@@ -95,4 +95,18 @@ class Membre extends BaseMembre
     	
     	return $result;
     }
+    
+    /**
+     * Overrides setPassword method in order to manage empty values,
+     * encryption...
+     *  
+     * @see 	lib/model/om/BaseMembre#setPassword()
+     * @since	r20
+     */
+    public function setPassword($password)
+    {
+    	if (strlen($password) > 0) {
+    		parent::setPassword(sha1($password));
+    	}
+    }
 }

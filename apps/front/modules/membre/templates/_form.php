@@ -1,5 +1,6 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
+<?php use_helper('Javascript') ?>
 
 <form
     action="<?php
@@ -62,7 +63,8 @@
         </tr>
         <tr>
             <th>Mot de passe*</th>
-            <td><?php echo $form['password'] ?><?php echo $form['password']->renderError() ?> 
+            <td>
+            	<?php echo $form['password'] ?><?php echo $form['password']->renderError() ?>
             </td>
         </tr>
         <tr>

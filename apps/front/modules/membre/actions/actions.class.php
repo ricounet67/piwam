@@ -9,7 +9,7 @@
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
 class membreActions extends sfActions
-{
+{	
 	/**
 	 * Lists members who belongs to the current association. By default we sort
 	 * the list by pseudo, and if another column is specified we use it.
@@ -108,7 +108,7 @@ class membreActions extends sfActions
 	{
 		$this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Object membre does not exist (%s).', $request->getParameter('id')));
 		$this->form = new MembreForm($membre);
-		//		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 	}
 	
 	/**
@@ -162,6 +162,7 @@ class membreActions extends sfActions
 		$this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
 		$this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Object membre does not exist (%s).', $request->getParameter('id')));
 		$this->form = new MembreForm($membre);
+		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 		$this->processForm($request, $this->form);
 		$this->setTemplate('edit');
 	}
@@ -201,9 +202,6 @@ class membreActions extends sfActions
 		if ($form->isValid())
 		{
 			$membre = $form->save();
-			$encryptedPassword = sha1($membre->getPassword());
-			$membre->setPassword($encryptedPassword);
-			$membre->save();
 				
 			if ($request->getAttribute('first') == true) {
 				$association = AssociationPeer::retrieveByPK($membre->getAssociationId());
@@ -238,7 +236,7 @@ class membreActions extends sfActions
 		$membres = MembrePeer::doSelectForAssociation($associationId);
 
 		foreach ($membres as $membre) {
-			if ($membre->getVille()) {
+			if (strlen($membre->getVille()) > 0) {
 				@$map->addAddress($membre->getCompleteAddress(), $membre->getInfoForGmap());
 			}
 		}

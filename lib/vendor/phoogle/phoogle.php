@@ -193,11 +193,12 @@ class PhoogleMap{
 */
 	function showMap(){
 		echo "\n<div id=\"map\" style=\"width: ".$this->mapWidth."px; height: ".$this->mapHeight."px\">\n</div>\n";
+				
 		echo "    <script type=\"text/javascript\">\n
     			//<![CDATA[\n
     		if (GBrowserIsCompatible()) {\n
       		var map = new GMap(document.getElementById(\"map\"));\n
-     		map.centerAndZoom(new GPoint(".$this->validPoints[0]['long'].",".$this->validPoints[0]['lat']."), ".$this->zoomLevel.");\n
+     		map.centerAndZoom(new GPoint(" . @$this->validPoints[0]['long'].",".@$this->validPoints[0]['lat'] . "), " . $this->zoomLevel . ");\n
 		    }\n
 			var icon = new GIcon();
 			icon.image = \"http://labs.google.com/ridefinder/images/mm_20_red.png\";

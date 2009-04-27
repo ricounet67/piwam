@@ -32,8 +32,8 @@ all:
     method:					gmail
     
     gmail:					# If `method` has been set to gmail
-      gmail_username:		adrien.mogenet@gmail.com
-      gmail_password:		5lm1epRF
+      gmail_username:		firstname.lastname@gmail.com
+      gmail_password:		foobar
 
 
     smtp:					# If `method` has been set to smtp
@@ -88,7 +88,7 @@ prod:
 dev:
   .settings:
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:              on
+    web_debug:              off
     cache:                  off
     no_script_name:         off
     etag:                   off
