@@ -9,6 +9,21 @@ MySQL
 Apache
 
 
+* How To Set Up Piwam
+---------------------
+
+For those who got this release through SVN repository :
+	1- Fix config/ProjectConfiguration.class. Include the correct location
+	   of your sfCoreAutoload class
+	2- Edit apps/front/config/settings.yml with your own settings
+	3- Edit config/databases.yml settings to be able to access to your own DB
+	4- Launch SQL file `doc/piwam-install.sql` 
+	5- Create a `cache` folder which can is writable
+	
+You are currently pleased to use only `dev` environment, otherwise you have to set up
+another one (`prod` ?) by yourself.
+	
+
 * Generate Google MAP Api Key
 -----------------------------
 

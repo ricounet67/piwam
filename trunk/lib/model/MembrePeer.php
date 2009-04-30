@@ -111,4 +111,12 @@ class MembrePeer extends BaseMembrePeer
 		
 		return self::doSelect($c);
 	}
+	
+	public static function getcriteriaforassociationid($id)
+	{
+		$c = new Criteria();
+		$c->add(self::ASSOCIATION_ID, $id);
+		
+		return $c;	
+	} 
 }

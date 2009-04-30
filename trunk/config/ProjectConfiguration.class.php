@@ -1,5 +1,10 @@
 <?php
-switch ($_SERVER['SERVER_NAME'])
+/*
+ * Register the class `sfCoreAutoload` in the following line
+ * The use of '@' symbol is just here to avoid warning message
+ * if this file is launched by CLI
+ */
+switch (@$_SERVER['SERVER_NAME'])
 {
 	case 'piwam.adrien':
 		require_once 'C:\wamp\bin\php\php5.2.9-1\PEAR\symfony\autoload\sfCoreAutoload.class.php';
@@ -10,7 +15,7 @@ switch ($_SERVER['SERVER_NAME'])
 		break;
 		
 	default:
-		require_once 'C:\wamp\bin\php\php5.2.9-1\PEAR\symfony\autoload\sfCoreAutoload.class.php';
+		require_once 'C:\Development\Workspace\Symfony-1.2\lib\autoload\sfCoreAutoload.class.php';
 		break;
 }
 sfCoreAutoload::register();
