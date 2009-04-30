@@ -138,20 +138,21 @@ class associationActions extends sfActions
 							$methodObject = new Swift_Connection_NativeMail();
 							break;
 					}
-
+					
 					$mailer 	= new Swift($methodObject);
 					$message	= new Swift_Message($data['subject'], $data['mail_content'], 'text/html');
-
-					$membres	= MembrePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+					$from		= sfConfig::get('sf_mailing_address', 'info-association@piwam.org');
+					$membres	= MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
 					
-					//foreach ($membres as $membre) {
-						if ($mailer->send($message, 'adrien.mogenet@gmail.com', 'adrien.mogenet@gmail.com')) {
+					foreach ($membres as $membre)
+					{
+						if ($mailer->send($message, $membre->getEmail(), $from)) {
 							$sentOk++;
 						}
 						else {
 							$sentKo++;
 						}	
-					//}
+					}
 					
 					$mailer->disconnect();					
 					$this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . ' destinataires (' . $sentKo . ' erreur)');

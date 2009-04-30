@@ -37,9 +37,12 @@ class CotisationTypePeer extends BaseCotisationTypePeer
 	}
 	
 	/**
-	 * NEW
-	 * @param $id
-	 * @return unknown_type
+	 * Return a Criteria to select only data which belong to the association
+	 * in argument
+	 * 
+	 * @param 	integer	$id
+	 * @return 	Criteria
+	 * @since	r23
 	 */
 	public static function getCriteriaForAssociationId($id)
 	{

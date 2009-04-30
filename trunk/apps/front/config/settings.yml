@@ -20,6 +20,9 @@ all:
   # This is used by all features which are e-mailing contents
   
   mailing:
+  
+    # Set your contact address
+    address:				info@piwam.com
 
     # Set the methods you would like to use for sending email:
     #
@@ -32,8 +35,8 @@ all:
     method:					gmail
     
     gmail:					# If `method` has been set to gmail
-      gmail_username:		firstname.lastname@gmail.com
-      gmail_password:		foobar
+      gmail_username:		adrien.mogenet@gmail.com
+      gmail_password:		5lm1epRF
 
 
     smtp:					# If `method` has been set to smtp
