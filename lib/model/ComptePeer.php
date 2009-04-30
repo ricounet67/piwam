@@ -10,4 +10,17 @@ class ComptePeer extends BaseComptePeer
 			
 		return self::doSelect($c);
 	}
+	
+	/**
+	 * NEW
+	 * @param $id
+	 * @return unknown_type
+	 */
+	public static function getCriteriaForAssociationId($id)
+	{
+		$c = new Criteria();
+		$c->add(self::ASSOCIATION_ID, $id);
+		
+		return $c;
+	}
 }

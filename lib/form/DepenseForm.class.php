@@ -51,5 +51,14 @@ class DepenseForm extends BaseDepenseForm
 			'culture'	=> 'fr_FR'
 		));		
 		$this->setDefault('date', date('y-m-d'));
+		
+		// r21 : select only Membre, CotisationType and Compte which
+		//		 belong to the association id
+		
+		$id = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
+		$c = ComptePeer::getCriteriaForAssociationId($id);
+		$this->widgetSchema['compte_id'] = new sfWidgetFormPropelChoice(array('criteria' => $c,  'model' => 'Compte', 'add_empty' => false));
+		$c = ActivitePeer::getCriteriaForAssociationId($id);
+		$this->widgetSchema['activite_id'] = new sfWidgetFormPropelChoice(array('criteria' => $c,  'model' => 'Activite', 'add_empty' => false));
 	}
 }

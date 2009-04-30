@@ -38,6 +38,18 @@ class CotisationForm extends BaseCotisationForm
 		$this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 		$this->setDefault('actif', 1);
 
+		// r21 : select only Membre, CotisationType and Compte which
+		//		 belong to the association id
+		
+		$id = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
+		$c = MembrePeer::getCriteriaForAssociationId($id);
+		$this->widgetSchema['membre_id'] = new sfWidgetFormPropelChoice(array('criteria' => $c,  'model' => 'Membre', 'add_empty' => false));
+		$c = CotisationTypePeer::getCriteriaForAssociationId($id);
+		$this->widgetSchema['cotisation_type_id'] = new sfWidgetFormPropelChoice(array('criteria' => $c,  'model' => 'CotisationType', 'add_empty' => false));
+		$c = ComptePeer::getCriteriaForAssociationId($id);
+		$this->widgetSchema['compte_id'] = new sfWidgetFormPropelChoice(array('criteria' => $c,  'model' => 'Compte', 'add_empty' => false));
+		
+		
 		$this->widgetSchema['compte_id']->setAttribute('class', 'formInputLarge');
 		$this->widgetSchema['cotisation_type_id']->setAttribute('class', 'formInputLarge');
 		$this->widgetSchema['membre_id']->setAttribute('class', 'formInputLarge');
@@ -51,5 +63,6 @@ class CotisationForm extends BaseCotisationForm
 		));		
 
 		$this->setDefault('date', date('y-m-d'));
+		$this->validatorSchema['date'] = new sfValidatorDate();
 	}
 }
