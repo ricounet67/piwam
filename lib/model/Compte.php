@@ -88,4 +88,15 @@ class Compte extends BaseCompte
 	{
 		return $this->getTotal() < 0;
 	}
+	
+	/**
+	 * Set the reference of the Compte but force the upper case
+	 * 
+	 * @param 	string	$value
+	 * @since	r25
+	 */
+	public function setReference($value)
+	{
+		parent::setReference(strtoupper($value));
+	}
 }

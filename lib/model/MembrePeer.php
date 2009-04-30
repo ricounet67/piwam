@@ -112,11 +112,37 @@ class MembrePeer extends BaseMembrePeer
 		return self::doSelect($c);
 	}
 	
-	public static function getcriteriaforassociationid($id)
+	/**
+	 * Return a Criteria to select only data which belong to the association
+	 * in argument
+	 * 
+	 * @param 	integer	$id
+	 * @return 	Criteria
+	 * @since	r23
+	 */
+	public static function getCriteriaForAssociationId($id)
 	{
 		$c = new Criteria();
 		$c->add(self::ASSOCIATION_ID, $id);
 		
 		return $c;	
 	} 
+	
+	/**
+	 * Retrieve Membre who have an email address that had been set and who
+	 * belong to association in argument
+	 * 
+	 * @param 	integer	$associationId
+	 * @return 	array of Membre
+	 * @since	r25
+	 */
+	public static function doSelectWithEmailForAssociation($associationId)
+	{
+		$c = new Criteria();
+		$c->add(self::ASSOCIATION_ID, $associationId);
+		$c->addAnd(self::EMAIL, Criteria::ISNOTNULL);
+		$c->addAnd(self::EMAIL, "", Criteria::NOT_EQUAL);
+		
+		return self::doSelect($c);
+	}
 }

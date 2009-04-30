@@ -57,5 +57,12 @@ class Association extends BaseAssociation
 		$activiteGeneral->setLibelle("Fonctionnement général de l'association");
 		$activiteGeneral->setAssociationId($this->getId());
 		$activiteGeneral->save();
+		
+		$compteMonnaie = new Compte();
+		$compteMonnaie->setLibelle("Caisse de monnaie");
+		$compteMonnaie->setReference("CAISSE_MONNAIE");
+		$compteMonnaie->setActif(ENABLED);
+		$compteMonnaie->setAssociationId($this->getId());
+		$compteMonnaie->save();
 	}
 }

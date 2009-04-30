@@ -1,3 +1,16 @@
+r25 - april, 30, 2009
+	* config/settings.yml : new configuration variable 'mailing > address' to
+	  set the sender's address
+	* Association : actions > mailng > dead code removed (loop to send to all
+	  the Membre)
+	* Association : actions > mailing > we use the new configuration variable
+	  "address"
+	* MembrePeer.php : new method doSelectWithEmailForAssociation($id)
+	* Compte.php : setReference($v) has been ovreriden to force upper case
+	* Association.php : initialize() > we also register a new Compte related to
+	  the new Association : CAISSE_MONNAIE
+	
+
 r24 - april, 30, 2009
 	* doc/README : "How To Set Up Piwam" part added
 	* doc/piwam-install.sql file added. This file will act as a "reference" file
