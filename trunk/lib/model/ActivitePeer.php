@@ -16,4 +16,20 @@ class ActivitePeer extends BaseActivitePeer
 			
 		return self::doSelect($c);
 	}
+	
+	/**
+	 * Get a Criteria to select only entities which belong to the
+	 * association $id
+	 * 
+	 * @param 	integer $id
+	 * @return 	Criteria
+	 * @since	r21
+	 */
+	public static function getCriteriaForAssociationId($id)
+	{
+		$c = new Criteria();
+		$c->add(self::ASSOCIATION_ID, $id);
+		
+		return $c;
+	}
 }

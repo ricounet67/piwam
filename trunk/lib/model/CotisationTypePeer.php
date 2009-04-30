@@ -35,4 +35,17 @@ class CotisationTypePeer extends BaseCotisationTypePeer
 		
 		return $numberOfTypes > 0;
 	}
+	
+	/**
+	 * NEW
+	 * @param $id
+	 * @return unknown_type
+	 */
+	public static function getCriteriaForAssociationId($id)
+	{
+		$c = new Criteria();
+		$c->add(self::ASSOCIATION_ID, $id);
+		
+		return $c;
+	}
 }

@@ -1,3 +1,23 @@
+r23 - april, 30, 2009
+	* ActivitePeer.php : new method getCriteriaForAssociation($id)
+	* CotisationForm.class.php : fixed bug when selecting Compte, Membre and
+	  CotisationType for select lists
+	* DepenseForm.class.php : fixed bug when selecting Compte and Activite
+	* RecetteForm.class.php : fixed bug when selecting Compte and Acitivte
+	* ActivitePeer.php : new method getCriteriaForAssociation($id)
+	* RecettePeer.php :  new method getCriteriaForAssociation($id)
+	* DepensePeer.php :  new method getCriteriaForAssociation($id)
+	* CotisationFOrm.class.php : sfValidatorDate() added for date field
+
+
+r22 - april, 30, 2009
+	* Preference files (.buildpath and .project) have been removed
+	
+
+r21 - april, 28, 2009
+	* Version 1.1.0 alpha1 tagged
+	
+
 r20 - april, 27, 2009
 	* lib/validator/sfPasswordStrengthValidator.class.php : new file
 	* Membre : method setPassword() has been overrided
