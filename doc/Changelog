@@ -1,3 +1,8 @@
+r24 - april, 30, 2009
+	* doc/README : "How To Set Up Piwam" part added
+	* doc/piwam-install.sql file added. This file will act as a "reference" file
+
+
 r23 - april, 30, 2009
 	* ActivitePeer.php : new method getCriteriaForAssociation($id)
 	* CotisationForm.class.php : fixed bug when selecting Compte, Membre and
