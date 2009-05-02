@@ -1,0 +1,9 @@
+
+	* Create cookie when log in
+	* History table to keep history of each update
+	* Activite : add description field
+	* Association > config > allow user to set a port and encryption settings
+	* Membre/Ajaxlist : select only membre for current association
+	* Membre : registration > set 'email' as mandatory for the first user
+	* Security issue (control association that user belongs to)
+	* Provide bilan by year

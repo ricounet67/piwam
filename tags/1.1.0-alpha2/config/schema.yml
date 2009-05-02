@@ -1,0 +1,134 @@
+propel:
+  _attributes:   		{ package: lib.model }
+
+  activite:
+    _attributes:     	{ phpName: Activite }
+    id:              	~
+    libelle:         	{ type: varchar(255), required: true }
+    actif:           	{ type: boolean, default: true }
+    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    created_at:      	~
+    updated_at:      	~  
+  
+  
+  association:
+    _attributes:	 	{ phpName: Association }
+    id:				 	~
+    nom:			 	{ type: varchar(120), required: true }
+    description:	 	{ type: varchar(255), required: false }
+    site_web:		 	{ type: varchar(255), required: false }
+    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    created_at:		 	~
+    updated_at:		 	~
+  
+  
+  compte:
+    _attributes:     	{ phpName: Compte }
+    id:              	~
+    libelle:         	{ type: varchar(255), required: true }
+    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    reference:       	{ type: varchar(64), required: true }
+    actif:           	{ type: boolean, default: true }
+    enregistre_par:	    { type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:     { type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    created_at:      	~
+    updated_at:      	~
+    
+    
+  cotisation:
+    _attributes:     	{ phpName: Cotisation }
+    id:              	~
+    compte_id:       	{ type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: cascade }
+    cotisation_type_id: { type: integer, required: true, foreignTable: cotisation_type, foreignReference: id, onDelete: cascade }
+    membre_id:       	{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    date:            	{ type: date, required: true }
+    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    created_at:      	~
+    updated_at:      	~
+    
+    
+  cotisation_type:
+    _attributes:     	{ phpName: CotisationType }
+    id:              	~
+    libelle:         	{ type: varchar(255), required: true }
+    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    valide:          	{ type: integer, required: true }
+    montant:         	{ type: decimal, required: true }
+    actif:           	{ type: boolean, default: true }
+    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    created_at:      	~
+    updated_at:      	~
+    
+    
+  depense:
+    _attributes:     	{ phpName: Depense }
+    id:              	~
+    libelle:         	{ type: varchar(255), required: true }
+    montant:         	{ type: decimal, required: true }
+    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    compte_id:       	{ type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: cascade }
+    activite_id:     	{ type: integer, required: true, foreignTable: activite, foreignReference: id, onDelete: cascade }
+    date:            	{ type: date, required: true }
+    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    created_at:      	~
+    updated_at:      	~
+  
+  
+  membre:
+    _attributes:     	{ phpName: Membre }
+    id:              	~
+    nom:             	{ type: varchar(255), required: true }
+    prenom:          	{ type: varchar(255), required: true }
+    pseudo:          	{ type: varchar(255), required: true, index: unique }
+    password:        	{ type: varchar(255), required: true }
+    statut_id:          { type: integer, required: true, foreignTable: statut, foreignReference: id, onDelete: cascade }
+    date_inscription: 	{ type: date, required: true }
+    exempte_cotisation: { type: boolean, required: true }
+    rue:             	{ type: varchar(255) }
+    cp:              	{ type: varchar(8) }
+    ville:           	{ type: varchar(255) }
+    pays:            	{ type: varchar(8) }
+    email:           	{ type: varchar(255) }
+    website:         	{ type: varchar(255) }
+    tel_fixe:        	{ type: varchar(16) }
+    tel_portable:    	{ type: varchar(16) }
+    actif:           	{ type: boolean, default: true }
+    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    created_at:      	~
+    updated_at:      	~
+    
+    
+  recette:
+    _attributes:     	{ phpName: Recette }
+    id:              	~
+    libelle:         	{ type: varchar(255), required: true }
+    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    montant:         	{ type: decimal, required: true }
+    compte_id:       	{ type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: cascade }
+    activite_id:     	{ type: integer, required: true, foreignTable: activite, foreignReference: id, onDelete: cascade }
+    date:            	{ type: date, required: true }
+    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    created_at:      	~
+    updated_at:      	~
+    
+    
+  statut:
+    _attributes:     	{ phpName: Statut }
+    id:              	~
+    nom:             	{ type: varchar(255), required: true }
+    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    actif:           	{ type: boolean, default: true }
+    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    created_at:      	~
+    updated_at:      	~

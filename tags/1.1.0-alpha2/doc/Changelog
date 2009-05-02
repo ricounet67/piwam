@@ -1,0 +1,364 @@
+r26 - may, 2, 2009
+	* web/js/boxover.js : new script to display tooltips
+	* apps/front/config/view.yml : new boxover JS file added
+	* apps/front/lib/helper/TooltipHelper.php : new tooltip_tag(...) helper
+	* Compte : _form > use of tooltip_helper
+	* DepenseForm.class.php : form elements are displayed with correct CSS class
+	* RecetteForm.class.php : form elements are displayed with correct CSS class
+	* Schema.yml : compte.enregistre_par and compte.mis_a_jour par have been set
+	  to required=false
+	* CotisationForm.class.php : the code about association-related elements has
+	  been rewritten
+	* DepenseForm.class.php : the code about association-related elements has
+	  been rewritten
+	* RecetteForm.class.php : the code about association-related elements has
+	  been rewritten
+	* symfony propel:build-all performed
+	* doc/piwam-install.sql has been updated
+	* Compte : getTotal() > fixed bug when computing account balance
+	* Activite : getTotal() > fixed bug when computing account balance
+	* web/css/main.css : color is lighter for negative accounts
+
+
+r25 - april, 30, 2009
+	* config/settings.yml : new configuration variable 'mailing > address' to
+	  set the sender's address
+	* Association : actions > mailng > dead code removed (loop to send to all
+	  the Membre)
+	* Association : actions > mailing > we use the new configuration variable
+	  "address"
+	* MembrePeer.php : new method doSelectWithEmailForAssociation($id)
+	* Compte.php : setReference($v) has been ovreriden to force upper case
+	* Association.php : initialize() > we also register a new Compte related to
+	  the new Association : CAISSE_MONNAIE
+	
+
+r24 - april, 30, 2009
+	* doc/README : "How To Set Up Piwam" part added
+	* doc/piwam-install.sql file added. This file will act as a "reference" file
+
+
+r23 - april, 30, 2009
+	* ActivitePeer.php : new method getCriteriaForAssociation($id)
+	* CotisationForm.class.php : fixed bug when selecting Compte, Membre and
+	  CotisationType for select lists
+	* DepenseForm.class.php : fixed bug when selecting Compte and Activite
+	* RecetteForm.class.php : fixed bug when selecting Compte and Acitivte
+	* ActivitePeer.php : new method getCriteriaForAssociation($id)
+	* RecettePeer.php :  new method getCriteriaForAssociation($id)
+	* DepensePeer.php :  new method getCriteriaForAssociation($id)
+	* CotisationFOrm.class.php : sfValidatorDate() added for date field
+
+
+r22 - april, 30, 2009
+	* Preference files (.buildpath and .project) have been removed
+	
+
+r21 - april, 28, 2009
+	* Version 1.1.0 alpha1 tagged
+	
+
+r20 - april, 27, 2009
+	* lib/validator/sfPasswordStrengthValidator.class.php : new file
+	* Membre : method setPassword() has been overrided
+	* Layout.php : Link 'export data' links to 'membre/export' action
+	* Layout.php : get the gmap key directly from YML configuration variable
+	  and not from PHP constant
+	* frontConfiguration.class.php : constant GMAP_KEY has been removed
+	* Cotisation : indexSuccess.php > if no cotisation type has been set up,
+	  we only display a link to register a new type
+	* CotisationType : actions > If `first` attribute has been set, we want
+	  to create our first type. We will set a default value in label field
+	* CotisationTypePeer.php : new method doesOneTypeExist(associationId)
+	* MembreForm.class.php : if this is not the registration of the first user 
+	  who is setting up a new Association, password can be empty (and the user 
+	  won't be able to log in). Otherwise, user MUST give a passsword
+	* Phoogle.php : '@' has been put on line 200 before accessing array to avoid
+	  displaying warning for wrong offset
+
+
+r19 - april, 26, 2009
+	* lib/misc/FileExporter.class.php : class implemented
+	* Membre : actions > new action 'export'
+	* Association : actions > new action 'export'
+	* Layout.php : link to 'export' action has been set
+	* ActiviteForm.class.php : widget 'libelle' get a right class
+	* Activite : actions > if edit or creation not failed, we redirect to index
+	* MembreForm.class.php : the field 'pays' has been customized with list of
+	  countries provided by Symfony
+	* MembreForm.class.php : field 'date_inscription' is represented by a
+	  rich date input
+	* Depense : appearance of form has been redesigned
+	* Recette : appearance of form has been redesigned
+	* Depense : view of 'show' action has been designed
+	* Recette : view of 'show' action has been designed
+	* MailingForm.class.php : new widget 'recipients' to generate autocompleted
+      list of recipients but this widget is not displayed
+
+
+r18 - april, 21, 2009
+	* Membre.php : new method getInfoForGmap()
+	* MailingForm.class.php : status bar of rich editor is hidden
+	* Association : actions > mailing > Fixed bug when sending message
+	* Association : mailing > display a preview of the message when message
+	  has been sent. Reports successful and failed messages.
+
+
+r17 - april, 21, 2009
+	* Association : actions > we delete all temporary data in session before
+	  starting the registration of a new Association
+	* Membre : actions > encrypt password before saving
+	* MembreForm.class.php : the default values for mis_a_jour_par value is
+	  defined in action
+	* Membre : MAP action defined
+	* lib/vendor/phoogle/phoogle.php : new library file created
+	* settings.yml : new parameter "googlemap_key"
+	* MembrePeer.php : new method doSelectForAssociation($id)
+	* Membre.php : getCompleteAddress() method implemented
+	
+	
+r16 - april, 20, 2009
+	* web/js/jquery-ui-1.7.1 : 'demos' folder removed
+	* web/js/jquery-ui-1.7.1 : 'docs' folder removed
+	* web/js/jquery-ui-1.7.1 : 'css' folder removed (it was put in css folder)
+	* Cotisation : appearance redone
+	* CotisationTypeForm.class.php : all required updates have been done
+	* frontConfiguration.class.php : define error messages for required/invalid
+	  fields
+	* CotisationType : actions > redirect to listing after form submit
+	* MailingForm.class.php : rich editor configured
+	* Association > actions > mailing > throw error messages if formulaire has
+	  not been filled correctly
+	* AssociationForm.class.php : website is validated by ValidatorUrl
+	* Schema.yml : Membre.pseudo is set as an unique field
+	* Association : new method initialize()
+	* Schema.yml : Statut.mis_a_jour_par and Statut.enregistre_par can be set
+	  to NULL (if this is a value that was set automatically)
+	* Association : creation > the step of creation is now done by 2 steps
+	  We first create the association and then the first Membre
+	* MyUser.class.php : new method setTemporaryAssociationId($id)
+	* Membre : actions > new action 'newfirst' to register the first Membre of
+	  an Association
+	* Membre : config/security.yml created to authorize access to action
+	  newfirst
+	* Membre : new view newfirstSuccess.php
+	* Membre : actions > new action 'executeEndregistration'
+	* Membre : actions > new action 'firstcreate' to register the first Membre
+	* MyUser.class.php : new removeTemporaryData() method
+	* MyUser.class.php : new getTemporaryUserInfo() method
+	* MyUser.class.php : new setTemporaryUserInfo($membre) method()
+	* Activite : enregistre_par field is not mandatory (if it has been set
+	  automatically)
+	* Activite : mis_a_jour_par field is not mandatory (if it has been set
+	  automatically)
+	* Membre : mis_a_jour_par and enregistre_par fields are not mandatory
+	* Project : occurences of sfUser::getAttribute('user_id') have been
+	  completed with default value 'null' and corresponding namespace 'user'
+
+
+r15 - april, 19, 2009
+	* js/prototype/test : add to svn:ignore
+	* Association : login > new link to "create account" action on the login
+	  page
+	* Association : creation > appearance redone
+	* CotisationTypePeer.php : doSelectEnabled() method is set as static
+	* Association : creation > credentials set to allows non-user to register
+	  a new association and also a new account
+	* apps/front/modules/association/config/security.yml : new folder and file
+	  created
+	* MembreForm.class.php : email and website are validated by appropriated
+	  validators.
+	* lib/misc/FileExporter.class.php : new file
+	* Association : new > nested membre form to register a new member
+	* Plugin sfExtraWidgetsPlugin installed
+	* Plugin sfFormExtraPlugin installed
+	* web/js/tiny_mce : tiny_mce library has been added
+	* myUser.class.php : login > attributes related to the user are set into the
+	  'user' namespace
+	* myUser.class.php : logout > attributes are removed
+	* Whole project : occurences of user::getAttribute('field') are completed
+	  with appropriate namespace
+	* web/js/jquery-ui-1.7.1 : jquery library added
+	* new image 'calendar'
+	* web/css/form.css : styles for form elements
+	* MembreForm.class.php : password field is now password type
+	* MembreForm.class.php : link to 'cancel' action is set to go to list of
+	  Membre  (and not the list of associations)
+
+
+r14 - april, 10, 2009
+	* apps/front/config/settings.yml : new part `mailing`
+	* Association : mailing > actions > switch/case structure to use the mail
+	  method according to configuration file
+	* Association : mailing > actions > we display a flash notification after
+	  sending email
+	* mailingForm.class.php : content widget has been renamed as mail_content to
+	  avoid duplicate HTML id
+	* Membre : list > width of 'actions' column is fix
+	* layout.php : new menu entry `association`
+	* apps/front/templates/_pager.css : new partial created to manage paginated
+	  lists
+	* web/css/pagination.css : new file created. Styles associates to pager
+	* lib/model/StatutPeer.php : doSelectEnabled() takes care of association id
+	* lib/model/CotisationPeer.php : doSelectJoinMembre() method implemented
+	* lib/model/CotisationTypePeer.php : doSelectEnabled() method
+	* Cotisation > actions > select only enabled Objects and for the current
+	  association
+	* CotisationType > actions > select only enabled Objects and for the current
+	  association
+	* lib/model/Activite.php : doSelectForOverview() has been renamed as
+	  doSelectEnabled()
+	* Activite : actions > list > select enabled activite for the association
+	  of the current user
+	* lib/model/RecettePeer.php : doSelectForAssociation(associationId) created
+	* Association : edit > appearance redone
+	* lib/form/AssociationForm.class.php : widget 'description' is not a text
+	  field anymore but it's now a textarea
+	* Membre : show > link on email address
+	* New icons ok/ko, time, add
+	* apps/front/lib/helper/MembreHelper.php : new helper file to display
+	  boolean values
+	* Membre : show > we display his Cotisation
+	* Membre : show > subscribtion date is formatted
+	* Layout.php : link to association/edit is updated (id was forgotten)
+
+
+r13 - april, 9, 2009
+	* lib/vendor/swift : folder has been recreated with svn:externals property
+
+
+r12 - april, 9, 2009
+	* lib/vendor/swift : folder removed
+
+
+r11 - april, 8, 2009
+	* lib/vendor/swift : folder created to embed swift plugin
+	
+
+r10 - april, 8, 2009
+	* lib/model/Activite.php : new method getTotalDepenses()
+	* lib/model/Activite.php : new method getTotalRecettes()
+	* lib/model/Activite.php : new method getTotal();
+	* Association : bilan > list by Activite
+	* lib/model/ActivitePeer.php : new method doSelectForOverview()
+	* Association : bilan > list > width of each column is correctly set
+	* Association : new action "mailing"
+	* apps/front/lib/mailingForm.class.php : new class which represents the
+	  mailing form
+	* lib/vendor/Swift : new svn:externals property to checkout SwiftMail
+
+
+r9 - april, 6, 2009
+	* MembreForm.class.php : enregistre_par hidden field is enabled only if we
+	  create a new record and not if we edit it
+	* StatutForm.class.php : new hidden references (association_id...) have been
+	  added
+	* Cotisation : actions > redirect to index after form submit
+	* Cotisation : list > direct to link to 'edit' action when click on edit
+	  icon
+	* lib/model/Membre.php : __toString() method returns object string formatted
+	  with mb_convert_case() function
+	* myUser.class.php : login() method set culture to fr_FR by default for
+	  the user
+	* Activite : appearance redone
+	* CompteForm.class.php : hidden references have been added
+	* RecetteForm.class.php : hidden references have been added
+	* DepenseForm.class.php : hidden references have been added
+	* Recette : actions > redirect to index once form has been submit
+	* Depense : actions > redirect to index once form has been submit
+	* Bilan : module deleted
+	* Association : new action 'bilan'
+	* Membre : list > it's possible to sort according to several criteria
+	* frontConfiguration.class.php : 2 new constants ENABLED / DISABLED
+	* lib/model/Compte.php : new method getTotalDepenses()
+	* lib/model/Compte.php : new method getTotalRecettes()
+	* lib/model/Compte.php : new method getTotal()
+	* Association : bilan > Compte are listed with green or red background
+	  assuming their total amount
+	  
+
+r8 - april, 5, 2009
+	* apps/front/config/security.yml : is_secure set to on
+	* apps/front/config/settings.yml : location of login action
+	* New module 'association' which manage Association model and embed login
+	  and logout actions
+	* myUser.class.php : login(Membre) method
+	* myUser.class.php : logout() method
+	* MembrePeer.php : doSelectByUsernameAndPassword(username, password) method
+	* lib/model/Membre.php : fixed bug due to method whose name has changed in
+	  previous releases
+	* apps/front/templates/layout.php : link to logout action has been updated
+	  menu list
+	* apps/front/templates/layout.php : name of the current association is set
+	  as the name of the page
+	* lib/model/MembrePeer.php : doSelectOrderBy() now take the current associa-
+	  tion id as first parameter
+	* Membre : create view > new fields have been added to get a valid form
+	* lib/form/MembreForm.php : new fields association_id, mis_a_jour_par and
+	  enregistre_par have been added as hidden fields
+	* Membre : actions.class.php > processForm() method > redirects to index
+	  if submit form is valid
+	* apps/front/config/settings.yml : default culture is set to fr_FR
+	* apps/front/lib/helper/MembreHelper.php : new helper format_membre()
+	
+
+r6 - april, 5, 2009
+	* config/ProjetConfiguration.class.php : add switch/case pattern to become
+	  able to manage several configurations
+	* config/schema.yml : onDelete clauses are set to 'cascade'
+	* config/schema.yml : new model 'association'
+	* config/schema.yml : foreign key 'association_id' has been added when
+	  required
+	* config/schema.yml : new foreign keys 'enregitre_par' and 'mis_a_jour_par'
+	  which reference users who created and updated the records. These foreign
+	  keys have been added for each entitiy.
+	* config/schema.yml : field names in camelCase have been renamed with
+	  underscores
+	* Model files have been regenerated
+	* Forms files have been regenerated
+	* Filters files have been regenerated
+	* data/fixtures/fixture.yml : new file with fixture records
+	* *Form.class.php : remove created_at and updated_at fields
+	* Cotisation : appearance redone
+
+
+r5 - march, 31, 2009
+    * Compte : appearance redone
+    * lib/model/Compte.php : __toString() implemented
+    * lib/model/Activite.php : __toString() implemented
+    * Depense : appearance redone
+    * Recette : appearance redone
+    * config/schema.yml : explicit id are set with default behaviour
+    * Model files have been regenerated
+    * Compte : redirect to index after submitting the edit form
+
+
+r4 - february, 27, 2009
+    * Membre : appearance redone
+    * MembreForm : set the current date as default for field 'dateinscription'
+    * New TODO file
+    * Model : Membre > new disable() method
+    * Model : Membre > delete() method has been overridden to call disable()
+    * Statut : CRUD regenerated, enhanced appearance
+    * Model : Statut > new disable() method
+    * Model : Statut > delete() method call the disable() method
+    * Cotisation : CRUD regenerated
+    * CotisationType : CRUD regenerated
+    * Compte : CRUD regenerated
+    * Activite : CRUD regenerated
+    * Recette : CRUD regenerated
+    * Depense : CRUD regenerated
+
+
+r3 - february, 27, 2009:
+    * symfony propel:build-forms
+    * Model : Statut > new method __toString()
+    * Membre : CRUD actions generated
+
+
+r2 - february, 26, 2009:
+    * Core has been generated
+    * Members module : listing of members
+    * MembrePeer : doSelectOrderBy() method implemented
+    * CotisationPeer : getDerniereDuMembre() method
+    * Membre : isAjourCotisation() method
