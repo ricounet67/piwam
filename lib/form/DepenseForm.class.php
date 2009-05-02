@@ -39,26 +39,25 @@ class DepenseForm extends BaseDepenseForm
 
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();		
+
+		
+		// r21 : select only Membre, CotisationType and Compte which
+		//		 belong to the association id
+		
+		$id = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
+		$this->widgetSchema['compte_id']->setOption('criteria', ComptePeer::getCriteriaForAssociationId($id));
+		$this->widgetSchema['activite_id']->setOption('criteria', ActivitePeer::getCriteriaForAssociationId($id));
 		
 		// r19 : customize the appearance
 		$this->widgetSchema['libelle']->setAttribute('class', 'formInputLarge');
 		$this->widgetSchema['montant']->setAttribute('class', 'formInputShort');
-		$this->widgetSchema['compte_id']->setAttribute('class', 'formInputLarge');
-		$this->widgetSchema['activite_id']->setAttribute('class', 'formInputLarge');
 		$this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
 			'image'		=> '/images/calendar.gif',
   			'config' 	=> '{}',
 			'culture'	=> 'fr_FR'
 		));		
 		$this->setDefault('date', date('y-m-d'));
-		
-		// r21 : select only Membre, CotisationType and Compte which
-		//		 belong to the association id
-		
-		$id = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
-		$c = ComptePeer::getCriteriaForAssociationId($id);
-		$this->widgetSchema['compte_id'] = new sfWidgetFormPropelChoice(array('criteria' => $c,  'model' => 'Compte', 'add_empty' => false));
-		$c = ActivitePeer::getCriteriaForAssociationId($id);
-		$this->widgetSchema['activite_id'] = new sfWidgetFormPropelChoice(array('criteria' => $c,  'model' => 'Activite', 'add_empty' => false));
+		$this->widgetSchema['compte_id']->setAttribute('class', 'formInputLarge');
+		$this->widgetSchema['activite_id']->setAttribute('class', 'formInputLarge');
 	}
 }

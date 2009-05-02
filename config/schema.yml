@@ -32,8 +32,8 @@ propel:
     association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
     reference:       	{ type: varchar(64), required: true }
     actif:           	{ type: boolean, default: true }
-    enregistre_par:	    { type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:     { type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:	    { type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:     { type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
     

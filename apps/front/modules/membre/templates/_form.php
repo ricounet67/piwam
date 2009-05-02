@@ -79,7 +79,8 @@
         </tr>
         <tr>
             <th>Exempté de cotisation</th>
-            <td><?php echo $form['exempte_cotisation'] ?><?php echo $form['exempte_cotisation']->renderError() ?> 
+            <td>
+            	<?php echo $form['exempte_cotisation'] ?><?php echo $form['exempte_cotisation']->renderError() ?> 
             </td>
         </tr>
         <tr>

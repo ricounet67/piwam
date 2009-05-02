@@ -22,9 +22,3 @@ For those who got this release through SVN repository :
 	
 You are currently pleased to use only `dev` environment, otherwise you have to set up
 another one (`prod` ?) by yourself.
-	
-
-* Generate Google MAP Api Key
------------------------------
-
-Go to http://code.google.com/intl/fr-FR/apis/maps/signup.html
