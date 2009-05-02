@@ -1,6 +1,54 @@
 #summary Comment installer Piwam ?
-#labels install,how-to
+#labels install,how-to,Featured
 
-= Introduction =
+= Installer et utiliser Piwam =
 
 Vous trouverez ici la procédure à suivre pour installer _Piwam_ au sein de votre infrastructure.
+
+== Pré-requis ==
+
+    * [http://www.php.net/ PHP] >= 5.2.4
+        * module `mb_string`
+        * module `php_openssl` (pour envoyer des e-mails _via_ un canal sécurisé)
+        * module `php_smtp` (pour l'envoi d'e-mails via un serveur smtp)
+        * paramètre `memory_limit` >= 8 Mo
+    * [http://www.mysql.com/ MySQL]
+    * [http://www.apache.org/ Apache]
+        * module `mod_rewrite`
+
+<hr />
+== Installation ==
+
+=== Depuis la tarball ===
+
+    # Ouvrez le fichier `/apps/front/config/settings.yml` et remplissez le avec vos propres paramètres. Chaque paramètre est documenté.
+    # Ouvrez le fichier `/config/databases.yml` et indiquez-y vos paramètres de connexion à la base de données.
+    # Exécutez le script `/doc/piwam-install.sql` dans votre base de données.
+    # Créez un repertoire `cache` à la racine de Piwam en s'assurant que celui-ci est accessible en écriture.
+
+
+=== Depuis le dépôt SVN ===
+
+*IMPORTANT*: Symfony 1.2 est requis pour faire fonctionner Piwam.
+
+Après avoir récupérer le _trunk_ ou une version tagguée présente sur le dépôt SVN, il y a un peu de configuration pour faire fonctionner Piwam. Les manipulations sont décrites au sein du fichier `/doc/README`.
+
+    # Ouvrez le fichier `/config/ProjectConfiguration.class` ; indiquez-y la localisation du fichier `sfCoreAutload.class.php` de Symfony. 
+        * <u>Note</u>: À l'heure actuelle (1.1.0 alpha2), ce fichier est relativement _lourd_, n'hésitez pas à supprimer le bloc `switch/case` complet comme mentionné dans les commentaires.
+    # Ouvrez le fichier `/apps/front/config/settings.yml` et remplissez le avec vos propres paramètres. Chaque paramètre est documenté.
+    # Ouvrez le fichier `/config/databases.yml` et indiquez-y vos paramètres de connexion à la base de données.
+    # Exécutez le script `/doc/piwam-install.sql` dans votre base de données.
+    # Créez un repertoire `cache` à la racine de Piwam en s'assurant que celui-ci est accessible en écriture.
+
+
+=== Configuration du serveur ===
+
+Pour fonctionner pleinement sur un serveur en production, Piwam peut nécessiter la configuration d'un Virtual Host, pour pouvoir exploiter convenablement certains éléments. Cependant, Piwam peut fonctionner via un accès direct à `http://localhost`, seules quelques différences d'affichage peuvent se produire.
+
+En cas de soucis ou en guise de complément d'information, n'hésitez pas à nous [mailto:adrien.mogenet@gmail.com contacter] ou accéder aux [http://trac.symfony-project.org/wiki/Resources/fr_FR#Installation documentations] de Symfony disponibles.
+
+
+<hr />
+== Utilisation ==
+
+Lancez votre serveur Apache, MySQL, et allez à l'adresse http://virtualhost.piwam.org/. Pour plus d'information sur l'utilisation de Piwam veuillez consulter la documentation utilisateur ^à venir^
