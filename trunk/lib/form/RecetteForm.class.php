@@ -34,11 +34,9 @@ class RecetteForm extends BaseRecetteForm
 
 		// r21
 		$id = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
-		$c = ComptePeer::getCriteriaForAssociationId($id);
-		$this->widgetSchema['compte_id'] = new sfWidgetFormPropelChoice(array('criteria' => $c,  'model' => 'Compte', 'add_empty' => false));
-		$c = ActivitePeer::getCriteriaForAssociationId($id);
-		$this->widgetSchema['activite_id'] = new sfWidgetFormPropelChoice(array('criteria' => $c,  'model' => 'Activite', 'add_empty' => false));
-		
+		$this->widgetSchema['compte_id']->setOption('criteria', ComptePeer::getCriteriaForAssociationId($id));
+		$this->widgetSchema['activite_id']->setOption('criteria', ActivitePeer::getCriteriaForAssociationId($id));
+				
 		$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
 		$this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
 		$this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));

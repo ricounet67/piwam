@@ -35,8 +35,8 @@ all:
     method:					gmail
     
     gmail:					# If `method` has been set to gmail
-      gmail_username:		adrien.mogenet@gmail.com
-      gmail_password:		5lm1epRF
+      gmail_username:		foo.bar@gmail.com
+      gmail_password:		foobar
 
 
     smtp:					# If `method` has been set to smtp

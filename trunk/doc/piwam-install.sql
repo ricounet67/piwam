@@ -3,17 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Jeu 30 Avril 2009 à 10:39
+-- Généré le : Sam 02 Mai 2009 à 22:59
 -- Version du serveur: 5.1.33
 -- Version de PHP: 5.2.9-2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données: `piwam`
@@ -38,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `activite` (
   KEY `activite_FI_1` (`association_id`),
   KEY `activite_FI_2` (`enregistre_par`),
   KEY `activite_FI_3` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -58,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `association` (
   PRIMARY KEY (`id`),
   KEY `association_FI_1` (`enregistre_par`),
   KEY `association_FI_2` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -72,15 +66,15 @@ CREATE TABLE IF NOT EXISTS `compte` (
   `association_id` int(11) NOT NULL,
   `reference` varchar(64) COLLATE utf8_bin NOT NULL,
   `actif` tinyint(4) DEFAULT '1',
-  `enregistre_par` int(11) NOT NULL,
-  `mis_a_jour_par` int(11) NOT NULL,
+  `enregistre_par` int(11) DEFAULT NULL,
+  `mis_a_jour_par` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `compte_FI_1` (`association_id`),
   KEY `compte_FI_2` (`enregistre_par`),
   KEY `compte_FI_3` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -104,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `cotisation` (
   KEY `cotisation_FI_3` (`membre_id`),
   KEY `cotisation_FI_4` (`enregistre_par`),
   KEY `cotisation_FI_5` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -127,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `cotisation_type` (
   KEY `cotisation_type_FI_1` (`association_id`),
   KEY `cotisation_type_FI_2` (`enregistre_par`),
   KEY `cotisation_type_FI_3` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -153,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `depense` (
   KEY `depense_FI_3` (`activite_id`),
   KEY `depense_FI_4` (`enregistre_par`),
   KEY `depense_FI_5` (`mis_a_jour_par`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -190,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `membre` (
   KEY `membre_FI_2` (`association_id`),
   KEY `membre_FI_3` (`enregistre_par`),
   KEY `membre_FI_4` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -216,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `recette` (
   KEY `recette_FI_3` (`activite_id`),
   KEY `recette_FI_4` (`enregistre_par`),
   KEY `recette_FI_5` (`mis_a_jour_par`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -237,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `statut` (
   KEY `statut_FI_1` (`association_id`),
   KEY `statut_FI_2` (`enregistre_par`),
   KEY `statut_FI_3` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Contraintes pour les tables exportées

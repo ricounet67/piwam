@@ -1,3 +1,25 @@
+r26 - may, 2, 2009
+	* web/js/boxover.js : new script to display tooltips
+	* apps/front/config/view.yml : new boxover JS file added
+	* apps/front/lib/helper/TooltipHelper.php : new tooltip_tag(...) helper
+	* Compte : _form > use of tooltip_helper
+	* DepenseForm.class.php : form elements are displayed with correct CSS class
+	* RecetteForm.class.php : form elements are displayed with correct CSS class
+	* Schema.yml : compte.enregistre_par and compte.mis_a_jour par have been set
+	  to required=false
+	* CotisationForm.class.php : the code about association-related elements has
+	  been rewritten
+	* DepenseForm.class.php : the code about association-related elements has
+	  been rewritten
+	* RecetteForm.class.php : the code about association-related elements has
+	  been rewritten
+	* symfony propel:build-all performed
+	* doc/piwam-install.sql has been updated
+	* Compte : getTotal() > fixed bug when computing account balance
+	* Activite : getTotal() > fixed bug when computing account balance
+	* web/css/main.css : color is lighter for negative accounts
+
+
 r25 - april, 30, 2009
 	* config/settings.yml : new configuration variable 'mailing > address' to
 	  set the sender's address

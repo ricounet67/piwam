@@ -75,7 +75,7 @@ class Compte extends BaseCompte
 	 */
 	public function getTotal()
 	{
-		return $this->_totalRecettes - $this->_totalDepenses;
+		return $this->getTotalRecettes() - $this->getTotalDepenses();
 	}
 	
 	
