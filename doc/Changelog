@@ -1,3 +1,19 @@
+r29 - may, 3, 2009
+	* /doc/LICENCE : new file
+	* README updated
+	* /doc/html/index.html : new file - user documentation
+	* /doc/html/style.css : Stylesheet for user guide
+	* layout.php : little space has been added at the end of the menu
+
+
+r28 - may, 3, 2009
+	* Edited wiki page through web user interface.
+
+
+r27 - may, 3, 2009
+	* Version 1.1.0-alpha2 tagged 
+	
+
 r26 - may, 2, 2009
 	* web/js/boxover.js : new script to display tooltips
 	* apps/front/config/view.yml : new boxover JS file added

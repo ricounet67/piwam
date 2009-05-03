@@ -49,6 +49,7 @@
                 <li><?php echo link_to('Exporter les donn&eacute;es', 'membre/export') ?></li>
                 <li><?php echo link_to('Mailing', 'association/mailing') ?></li>
             </ul>
+            <br />
         </div>
         
         
