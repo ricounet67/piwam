@@ -46,7 +46,7 @@
             <ul>
                 <li class="mainSection">Fonctionnalit&eacute;s</li>
                 <li><?php echo link_to('D&eacute;connexion', 'association/logout') ?></li>
-                <li><?php echo link_to('Exporter les donn&eacute;es', 'membre/export') ?></li>
+                <li><?php echo link_to('Exporter les donn&eacute;es', 'association/export') ?></li>
                 <li><?php echo link_to('Mailing', 'association/mailing') ?></li>
             </ul>
             <br />

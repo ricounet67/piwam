@@ -1,3 +1,17 @@
+r30 - may, 5, 2009
+    * /web/front_dev.php : Error text has been translated in French
+    * /web/check_configuration.php : new file
+    * /config/ProjectConfiguration.class.php : this file has been made as simple
+      as possible (just one include). Switch/case structure has been removed
+    * layout.php : 'export' link is now reaching a page which allows the user to
+      export different data
+    * databases.yml : Editable area is clearly described
+    * /config/ProjectConfiguration.class.php : let the user to set his own /logs
+      and /cache folders (commented lines by default)
+    * new module 'error' to set different error messages and views
+    * Error : new action 'error 404'
+
+
 r29 - may, 3, 2009
 	* /doc/LICENCE : new file
 	* README updated

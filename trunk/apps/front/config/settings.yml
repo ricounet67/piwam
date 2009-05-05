@@ -71,7 +71,7 @@ all:
     csrf_secret:       		false     # Unique secret to enable CSRF protection or false to disable
 
     # Default culture for our application
-    default_culture: fr_FR
+    default_culture:        fr_FR
 
     # Output escaping settings
     escaping_strategy:      false            # Determines how variables are made available to templates. Accepted values: on, off.
@@ -81,6 +81,10 @@ all:
     # Set location of the login action
     login_module:			association
     login_action:			login  
+    
+    # Set location of 404 error page
+    error_404_module:       error
+    error_404_action:       error404
 
 
 prod:
@@ -91,7 +95,7 @@ prod:
 dev:
   .settings:
     error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
-    web_debug:              off
+    web_debug:              on
     cache:                  off
     no_script_name:         off
     etag:                   off
