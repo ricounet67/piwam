@@ -87,12 +87,9 @@ class MembreForm extends BaseMembreForm
 		$this->widgetSchema['tel_portable']->setAttribute('class', 'formInputNormal');
 
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
-		unset($this->widgetSchema['statut_id']);
-		$this->widgetSchema['statut_id'] = new sfWidgetFormPropelSelect(array('model' => 'Statut', 'criteria' => StatutPeer::getCriteriaForEnabled()));
+        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled());
 		$this->widgetSchema['statut_id']->setAttribute('class', 'formInputNormal');
 
-		// r19 : customize the 'Pays' widget
-		//		 and the 'date_inscription' widget
 		unset ($this->widgetSchema['pays']);
 		$countries = array('FR', 'BE', 'ES', 'DE', 'NL', 'CH', 'LU');
 		$this->widgetSchema['pays'] = new sfWidgetFormI18nSelectCountry(array('culture' => 'fr', 'countries' => $countries));
