@@ -1,0 +1,30 @@
+#summary Les captures d'écran
+#labels Featured,Phase-Design
+
+= Piwam en images... =
+
+Cliquez sur les images pour une version "grandeur nature". Une démonstration en ligne sera prochainement disponible pour avoir un aperçu exhaustif des fonctionnalités.
+
+Identification :
+
+[http://adrien.frenchcomp.net/images/piwam/screenshots/login.png http://adrien.frenchcomp.net/images/piwam/screenshots/login_small.png]
+
+Nouveau membre :
+
+[http://adrien.frenchcomp.net/images/piwam/screenshots/newmembre.png http://adrien.frenchcomp.net/images/piwam/screenshots/newmembre_small.png]
+
+Nouvelle cotisation :
+
+[http://adrien.frenchcomp.net/images/piwam/screenshots/cotisation.png http://adrien.frenchcomp.net/images/piwam/screenshots/cotisation_small.png]
+
+Geo-localisation des membres :
+
+[http://adrien.frenchcomp.net/images/piwam/screenshots/geo.png http://adrien.frenchcomp.net/images/piwam/screenshots/geo_small.png]
+
+Mailing :
+
+[http://adrien.frenchcomp.net/images/piwam/screenshots/mailing.png http://adrien.frenchcomp.net/images/piwam/screenshots/mailing_small.png]
+
+Bilans :
+
+[http://adrien.frenchcomp.net/images/piwam/screenshots/bilan.png http://adrien.frenchcomp.net/images/piwam/screenshots/bilan_small.png]
