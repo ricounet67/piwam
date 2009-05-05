@@ -53,9 +53,9 @@ $total			= 0;
 			}
 		?>>
 			<td><strong>TOTAL</strong></td>
-			<td><?php echo $totalDepenses ?></td>
-			<td><?php echo $totalRecettes ?></td>
-			<td><?php echo $total ?></td>
+			<td><?php echo format_currency($totalDepenses, '&euro;') ?></td>
+			<td><?php echo format_currency($totalRecettes, '&euro;') ?></td>
+			<td><?php echo format_currency($total, '&euro;') ?></td>
 		</tr>
 	</tfoot>
 </table>
@@ -108,9 +108,9 @@ $total			= 0;
 				}
 			?>>
 			<td><strong>TOTAL</strong></td>
-			<td><?php echo $totalDepenses ?></td>
-			<td><?php echo $totalRecettes ?></td>
-			<td><?php echo $total ?></td>	
+			<td><?php echo format_currency($totalDepenses, '&euro;') ?></td>
+			<td><?php echo format_currency($totalRecettes, '&euro;') ?></td>
+			<td><?php echo format_currency($total, '&euro;') ?></td>	
 		</tr>
 	</tfoot>
 </table>

@@ -1,3 +1,21 @@
+r32 - may, 6, 2009
+    * README updated, according to configuration changes in release 30
+    * Membre : actions > fixed bug when creating a new Membre. The bug said that
+      'mis_a_jour_par' field was required (due to a missing value)
+    * MembreForm.class.php : fixed bug when selecting the list of Statut
+    * Association : actions > fixed bug. We don't initialize the Association
+      each time we edit it
+    * Activite : actions > fixed bug due to missing 'mis_a_jour' value
+    * Association : actions > bilans > total amounts have been formatted as
+      currencies
+    * CompteForm.class.php : field 'reference' now gets a "normal" fields (it
+      was a short field before)
+
+
+r32 - may, 6, 2009
+    * Created wiki page through web user interface.
+
+
 r30 - may, 5, 2009
     * /web/front_dev.php : Error text has been translated in French
     * /web/check_configuration.php : new file

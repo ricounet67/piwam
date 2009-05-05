@@ -41,6 +41,6 @@ class CompteForm extends BaseCompteForm
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
 		
 		$this->widgetSchema['libelle']->setAttribute('class', 'formInputLarge');
-		$this->widgetSchema['reference']->setAttribute('class', 'formInputShort');		
+		$this->widgetSchema['reference']->setAttribute('class', 'formInputNormal');		
 	}
 }

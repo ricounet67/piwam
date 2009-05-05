@@ -24,12 +24,14 @@ class activiteActions extends sfActions
 	public function executeNew(sfWebRequest $request)
 	{
 		$this->form = new ActiviteForm();
+		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 	}
 
 	public function executeCreate(sfWebRequest $request)
 	{
 		$this->forward404Unless($request->isMethod('post'));
 		$this->form = new ActiviteForm();
+		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 		$this->processForm($request, $this->form);
 		$this->setTemplate('new');
 	}
@@ -38,6 +40,7 @@ class activiteActions extends sfActions
 	{
 		$this->forward404Unless($activite = ActivitePeer::retrieveByPk($request->getParameter('id')), sprintf('Object activite does not exist (%s).', $request->getParameter('id')));
 		$this->form = new ActiviteForm($activite);
+		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 	}
 
 	public function executeUpdate(sfWebRequest $request)
@@ -45,6 +48,7 @@ class activiteActions extends sfActions
 		$this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
 		$this->forward404Unless($activite = ActivitePeer::retrieveByPk($request->getParameter('id')), sprintf('Object activite does not exist (%s).', $request->getParameter('id')));
 		$this->form = new ActiviteForm($activite);
+		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 		$this->processForm($request, $this->form);
 		$this->setTemplate('edit');
 	}
