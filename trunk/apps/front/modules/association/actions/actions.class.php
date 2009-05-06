@@ -11,7 +11,7 @@
 class associationActions extends sfActions
 {
     private $_association = null;
-    
+
     /**
      * Provides a view to allows current user to export the different data
      * he wants to export
@@ -140,12 +140,12 @@ class associationActions extends sfActions
                             $methodObject = new Swift_Connection_NativeMail();
                             break;
                     }
-                     
+
                     $mailer 	= new Swift($methodObject);
                     $message	= new Swift_Message($data['subject'], $data['mail_content'], 'text/html');
                     $from		= sfConfig::get('sf_mailing_address', 'info-association@piwam.org');
                     $membres	= MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
-                     
+
                     foreach ($membres as $membre)
                     {
                         if ($mailer->send($message, $membre->getEmail(), $from)) {
@@ -155,9 +155,10 @@ class associationActions extends sfActions
                             $sentKo++;
                         }
                     }
-                     
+
                     $mailer->disconnect();
-                    $this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . ' destinataires (' . $sentKo . ' erreur)');
+                    sfContext::getInstance()->getConfiguration()->loadHelpers('Plural');
+                    $this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . plural_word($entOk, ' destinataire') . ' (' . $sentKo . plural_word($sentKo, ' erreur') . ')');
                     $this->content = $data['mail_content'];
                 }
                 catch (Exception $e) {
@@ -186,7 +187,7 @@ class associationActions extends sfActions
 
         if ($this->processForm($request, $this->form)) {
             $this->_association->initialize();
-            $this->getUser()->setTemporaryAssociationId($association->getId());
+            $this->getUser()->setTemporaryAssociationId($this->_association->getId());
             $this->redirect('membre/newfirst');
         }
         else {

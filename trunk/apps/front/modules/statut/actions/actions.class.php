@@ -24,6 +24,7 @@ class statutActions extends sfActions
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new StatutForm();
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
     }
 
     public function executeCreate(sfWebRequest $request)
@@ -31,6 +32,7 @@ class statutActions extends sfActions
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new StatutForm();
         $this->processForm($request, $this->form);
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
         $this->setTemplate('new');
     }
 
@@ -38,6 +40,7 @@ class statutActions extends sfActions
     {
         $this->forward404Unless($statut = StatutPeer::retrieveByPk($request->getParameter('id')), sprintf('Object statut does not exist (%s).', $request->getParameter('id')));
         $this->form = new StatutForm($statut);
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
     }
 
     public function executeUpdate(sfWebRequest $request)
@@ -45,6 +48,7 @@ class statutActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($statut = StatutPeer::retrieveByPk($request->getParameter('id')), sprintf('Object statut does not exist (%s).', $request->getParameter('id')));
         $this->form = new StatutForm($statut);
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }
@@ -57,7 +61,7 @@ class statutActions extends sfActions
         $this->redirect('statut/index');
     }
 
-    
+
     /**
      * If the form had been submit, we immediately set the statut
      * as enabled
@@ -69,7 +73,7 @@ class statutActions extends sfActions
     {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
         if ($form->isValid())
-        {    
+        {
             $statut = $form->save();
             $statut->setActif(StatutPeer::IS_ACTIF);
             $statut->save();

@@ -25,13 +25,14 @@ class cotisationtypeActions extends sfActions
 	 * r20 : If `first` attribute has been set, we want
 	 * 		 to create our first type. We will set a default
 	 * 		 value in label field
-	 * 
+	 *
 	 * @param 	sfWebRequest	$request
 	 * @see		modules/cotisation/templates/indexSuccess.php
 	 */
 	public function executeNew(sfWebRequest $request)
 	{
 		$this->form = new CotisationTypeForm();
+		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 		if ($request->getParameter('first', false)) {
 			$this->form->setDefault('libelle', 'Cotisation annuelle ' . date('Y'));
 		}
@@ -41,6 +42,7 @@ class cotisationtypeActions extends sfActions
 	{
 		$this->forward404Unless($request->isMethod('post'));
 		$this->form = new CotisationTypeForm();
+		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 		$this->processForm($request, $this->form);
 		$this->setTemplate('new');
 	}
@@ -49,6 +51,7 @@ class cotisationtypeActions extends sfActions
 	{
 		$this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
 		$this->form = new CotisationTypeForm($cotisation_type);
+		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 	}
 
 	public function executeUpdate(sfWebRequest $request)
@@ -56,6 +59,7 @@ class cotisationtypeActions extends sfActions
 		$this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
 		$this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
 		$this->form = new CotisationTypeForm($cotisation_type);
+		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 		$this->processForm($request, $this->form);
 		$this->setTemplate('edit');
 	}

@@ -86,8 +86,8 @@ propel:
     id:              	~
     nom:             	{ type: varchar(255), required: true }
     prenom:          	{ type: varchar(255), required: true }
-    pseudo:          	{ type: varchar(255), required: true, index: unique }
-    password:        	{ type: varchar(255), required: true }
+    pseudo:          	{ type: varchar(255), required: false, index: unique }
+    password:        	{ type: varchar(255), required: false }
     statut_id:          { type: integer, required: true, foreignTable: statut, foreignReference: id, onDelete: cascade }
     date_inscription: 	{ type: date, required: true }
     exempte_cotisation: { type: boolean, required: true }

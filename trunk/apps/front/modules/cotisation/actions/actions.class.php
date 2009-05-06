@@ -13,7 +13,7 @@ class cotisationActions extends sfActions
 	/**
 	 * r20 : provides to the view the number of cotisation types that
 	 * 		 have been set
-	 * 
+	 *
 	 * @param 	sfWebRequest	$request
 	 */
 	public function executeIndex(sfWebRequest $request)
@@ -31,12 +31,14 @@ class cotisationActions extends sfActions
 	public function executeNew(sfWebRequest $request)
 	{
 		$this->form = new CotisationForm();
+		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 	}
 
 	public function executeCreate(sfWebRequest $request)
 	{
 		$this->forward404Unless($request->isMethod('post'));
 		$this->form = new CotisationForm();
+		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 		$this->processForm($request, $this->form);
 		$this->setTemplate('new');
 	}
@@ -45,6 +47,7 @@ class cotisationActions extends sfActions
 	{
 		$this->forward404Unless($cotisation = CotisationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
 		$this->form = new CotisationForm($cotisation);
+		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 	}
 
 	public function executeUpdate(sfWebRequest $request)
