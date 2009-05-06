@@ -1,0 +1,91 @@
+# # Populate this file with data to be loaded by your ORM's *:data-load task.
+# # You can create multiple files in this directory (i.e. 010_users.yml,
+# # 020_articles.yml, etc) which will be loaded in alphabetical order.
+# # 
+# # See documentation for your ORM's *:data-load task for more information.
+# 
+
+Membre:
+  admin:
+    nom:            Mogenet
+    prenom:         Adrien
+    pseudo:         cf357
+    password:       test
+    #statut_id:      president
+    date_inscription: 	2008-03-21
+    exempte_cotisation: 0
+    rue:            9 rue du general de Larminat
+    cp:             94000
+    ville:          CRETEIL
+    pays:           fr
+    email:          adrien@tekover.net
+    website:		http://adrien.frenchcomp.net
+    tel_fixe:		01 49 80 15 90
+    tel_portable:	06 59 16 64 22
+    actif:			1
+    #association_id: foobar
+    #enregistre_par:	admin
+    #mis_a_jour_par: admin
+
+
+Association:
+  foobar:
+    nom:			foobar
+    description: 	premiere association pour tester
+    site_web:		http://www.foobar.org
+    enregistre_par: admin
+    mis_a_jour_par:	admin
+    
+
+Statut:
+  president:
+    nom:			pr&eacute;sident
+    association_id:	foobar
+    actif:  		1
+    enregistre_par: admin
+    mis_a_jour_par:	admin
+  tresorier:
+    nom:			tr&eacute;sorier
+    association_id:	foobar
+    actif:			1
+    enregistre_par: admin
+    mis_a_jour_par:	admin
+  secretaire:
+    nom:			secr&eacute;taire
+    association_id:	foobar
+    actif:			1
+    enregistre_par: admin
+    mis_a_jour_par:	admin
+  membre_actif:
+    nom:			membre actif
+    association_id:	foobar
+    actif:			1
+    enregistre_par: admin
+    mis_a_jour_par:	admin
+  membre_d_honneur:
+    nom:			membre d'honneur
+    association_id:	foobar
+    actif:			1
+    enregistre_par: admin
+    mis_a_jour_par:	admin
+    
+    
+CotisationType:
+  cotisation_annuelle:
+    libelle:		Cotisation annuelle
+    association_id:	foobar
+    valide:			12
+    montant:		10
+    actif:			1
+    enregistre_par: admin
+    mis_a_jour_par:	admin
+
+
+Compte:
+  caisse_monnaie:
+    libelle:		Caisse de monnaie
+    association_id:	foobar
+    reference:  	CAISSE_MONNAIE
+    actif:      	1
+    enregistre_par: admin
+    mis_a_jour_par:	admin
