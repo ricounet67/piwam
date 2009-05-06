@@ -24,6 +24,7 @@ class compteActions extends sfActions
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new CompteForm();
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
     }
 
     public function executeCreate(sfWebRequest $request)

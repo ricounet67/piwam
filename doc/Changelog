@@ -1,3 +1,30 @@
+r33 - may, 6, 2009
+	* /apps/front/lib/helper/PluralHelper.php : new file containing helper
+	  function which is an easy way to display singular/plural nouns
+	* Association : actions > mailing : fixed issue between singular/plural
+	  in notince sentence (for succeed/failed sent messages)
+	* Compte : actions > we set the default value of 'mis_a_jour_par' field
+	* Cotisation : actions > we set the default value of 'mis_a_jour_par' field
+	* CotisationType : actions > we set the default value of 'mis_a_jour_par'
+	  field
+	* CotisationType : indexSuccess.php : new column 'action' which allows to
+	  edit a configuration
+	* Depense : actions > we set the default value of 'mis_a_jour_par' field
+	* Recette : actions > we set the default value of 'mis_a_jour_par' field
+	* Statut : actions > we set the default value of 'mis_a_jour_par' field
+	* MembreForm.class.php : 'pseudo' field has been set as non mandatory if
+	  this is not the "first member registration"
+	* symfony propel:build-model
+	* MembreForm.class.php : new property '_firstRegistration' which indicates
+	  if we are registering the first Membre or not	
+	* MembreForm.class.php : we set 'password' and 'pseudo' fields as mandatory
+	  only if this is the registration of the first Membre
+	* MembreForm.class.php : new method isFirstRegistration()
+	* /doc/piwam-install.sql : up to date (membre.pseudo and membre.password can
+	  be set to NULL)
+	* MembreForm.class.php : new private method _setCssClasses()
+
+
 r32 - may, 6, 2009
     * README updated, according to configuration changes in release 30
     * Membre : actions > fixed bug when creating a new Membre. The bug said that

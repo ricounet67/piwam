@@ -8,7 +8,7 @@
 	LICENCE
 	-------
 	This program is provided under MIT licence. You can find this complete
-	licence in /doc/COPYING file
+	licence in /doc/LICENCE file
 
 
 	1) Required Configuration
@@ -26,8 +26,10 @@
 	---------------------
 
 		For those who got this release through SVN repository :
-			1- Fix config/ProjectConfiguration.class. Include the correct
+			1- For those who are using Piwam thanks to SVN repository :
+			`  Fix config/ProjectConfiguration.class. Include the correct
 			   location of your sfCoreAutoload class
+			   /!\ If you got a packaged tarball, you don't need to do that.
 			2- Edit apps/front/config/settings.yml with your own settings
 			3- Edit config/databases.yml settings to be able to access to
 			   your own DB
