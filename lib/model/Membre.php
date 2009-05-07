@@ -2,9 +2,26 @@
 
 class Membre extends BaseMembre
 {
+	/**
+	 * Overrides the setPseudo() method. Store NULL if value
+	 * is an empty string
+	 *
+	 * @param 	string	$v
+	 * @since	r35
+	 */
+	public function setPseudo($v)
+	{
+		if ($v == "") {
+			parent::setPseudo(null);
+		}
+		else {
+			parent::setPseudo($v);
+		}
+	}
+
     /**
      * Convert the object to a displayable string
-     * 
+     *
      * @return  string
      * @since   r1
      */
@@ -12,8 +29,8 @@ class Membre extends BaseMembre
     {
         return mb_convert_case($this->getPrenom() . ' ' . $this->getNom(), MB_CASE_TITLE);
     }
-    
-    
+
+
     /**
      * Returns a boolean showing if the member has to pay or not
      *
@@ -35,7 +52,7 @@ class Membre extends BaseMembre
                 $moisVersement  = $dateVersement['1'] + 0;
                 $anneExpire     = $dateVersement['0'] + $lastPayment->getValidity();
                 $dateFin        = $anneExpire . $moisVersement . $dateVersement['2'];
-                
+
                 return ($dateFin >= $today);
             }
             else {
@@ -43,8 +60,8 @@ class Membre extends BaseMembre
             }
         }
     }
-    
-    
+
+
     /**
      * Disable the account of the member
      */
@@ -53,8 +70,8 @@ class Membre extends BaseMembre
         $this->setActif(false);
         $this->save();
     }
-    
-    
+
+
     /**
      * Override the delete methods. We have to not be able to delete
      *
@@ -63,12 +80,12 @@ class Membre extends BaseMembre
     {
         $this->disable();
     }
-    
-    
+
+
     /**
      * Get the whole address of the Membre (street, city, zipcode...)
      * This is address may be used for Google Map localization
-     * 
+     *
      * @return 	string
      * @since	r17
      */
@@ -76,12 +93,12 @@ class Membre extends BaseMembre
     {
     	return $this->getRue() . ', ' . $this->getCp() . ' ' . $this->getVille();
     }
-    
-    
+
+
     /**
      * Returns a complete displayable string, with all
-     * interesting information about him. 
-     *  
+     * interesting information about him.
+     *
      * @return 	string
      * @since	r18
      */
@@ -92,14 +109,14 @@ class Membre extends BaseMembre
     	$result .= $this->getRue() . ',<br />';
     	$result .= $this->getCp() . ' ' . $this->getVille() . '<br />';
     	$result .= $this->getPays() . '<br /><br />';
-    	
+
     	return $result;
     }
-    
+
     /**
      * Overrides setPassword method in order to manage empty values,
      * encryption...
-     *  
+     *
      * @see 	lib/model/om/BaseMembre#setPassword()
      * @since	r20
      */
