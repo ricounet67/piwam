@@ -1,3 +1,8 @@
+<p class="notice">
+	Ce programme est en version Alpha et peut contenir des bugs.<br />
+	Des mises à jour sont rapidement mises en place sur <a href="http://piwam.googlecode.com">le site du projet</a>.
+</p>
+
 <h2>Identification</h2>
 <form action="<?php echo url_for('association/login') ?>" method="POST">
 <table class="formArray">

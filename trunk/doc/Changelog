@@ -1,3 +1,18 @@
+r35 - may, 7, 2009
+	* /apps/front/config/view.yml : fixed mistake about mispelling of js file
+	  'effect.js'
+	* MembreForm.class.php : fixed bug with field 'mis_a_jour_par' when 
+	  registering the first member of the association
+	* MembreForm.php : overrident setPseudo() method which now stores NULL value
+	  if we give it an empty string
+	* Association : loginSuccess.php > message to warn the user that it's a
+	  temporary Alpha version 
+	  
+
+r34 - may, 6, 2009
+	* Version 1.1.0 alpha3 tagged
+
+
 r33 - may, 6, 2009
 	* /apps/front/lib/helper/PluralHelper.php : new file containing helper
 	  function which is an easy way to display singular/plural nouns
