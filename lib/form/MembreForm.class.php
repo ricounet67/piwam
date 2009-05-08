@@ -62,8 +62,6 @@ class MembreForm extends BaseMembreForm
 			$this->validatorSchema['association_id'] = new sfValidatorInteger();
 
 		} // new object
-		$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
-
 
 		$this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
 		$this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled());
@@ -85,12 +83,12 @@ class MembreForm extends BaseMembreForm
 		if (! $this->_firstRegistration) {
 			$this->validatorSchema['password'] = new sfValidatorString(array('required' => false));
 			$this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => false));
+			$this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
 			$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		}
 		else {
 			$this->validatorSchema['password'] = new sfValidatorString(array('required' => true));
 			$this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => true));
-			$this->validatorSchema['mis_a_jour_par'] = new sfValidatorPass();
 		}
 
 		// New validators for Email and Website fields

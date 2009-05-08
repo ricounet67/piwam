@@ -1,3 +1,8 @@
+r36 - may, 8, 2009
+	* MembreForm.class.php : Critical bug has been fixed (issue of foreign key
+	  constraint with 'mis_a_jour_par' field
+	
+
 r35 - may, 7, 2009
 	* /apps/front/config/view.yml : fixed mistake about mispelling of js file
 	  'effect.js'
