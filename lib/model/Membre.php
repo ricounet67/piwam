@@ -91,9 +91,8 @@ class Membre extends BaseMembre
      */
     public function getCompleteAddress()
     {
-    	return $this->getRue() . ', ' . $this->getCp() . ' ' . $this->getVille();
+    	return StringTools::to7bit($this->getRue()) . ', ' . $this->getCp() . ' ' . StringTools::to7bit($this->getVille());
     }
-
 
     /**
      * Returns a complete displayable string, with all

@@ -10,6 +10,40 @@
  */
 class depenseActions extends sfActions
 {
+	/**
+	 * Export the list of Depense within a file
+	 *
+	 * @param 	sfWebRequest	$request
+	 * @since	r39
+	 */
+	public function executeExport(sfWebRequest $request)
+	{
+		sfContext::getInstance()->getConfiguration()->loadHelpers('Number');
+		$csv = new FileExporter('liste-depenses.csv');
+		$depenses = DepensePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+
+		echo $csv->addLineCSV(array(
+			'Libellé',
+			'Montant (euros)',
+			'Compte',
+			'Activité',
+			'Date',
+		));
+
+		foreach ($depenses as $depense)
+		{
+			echo $csv->addLineCSV(array(
+				$depense->getLibelle(),
+				format_currency($depense->getMontant()),
+				$depense->getCompte(),
+				$depense->getActivite(),
+				$depense->getDate(),
+			));
+		}
+		$csv->exportContentAsFile();
+	}
+
+
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->depense_list = DepensePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));

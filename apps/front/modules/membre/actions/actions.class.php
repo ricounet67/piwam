@@ -9,7 +9,7 @@
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
 class membreActions extends sfActions
-{	
+{
 	/**
 	 * Lists members who belongs to the current association. By default we sort
 	 * the list by pseudo, and if another column is specified we use it.
@@ -112,10 +112,10 @@ class membreActions extends sfActions
 		$this->form = new MembreForm($membre);
 		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 	}
-	
+
 	/**
 	 * Export the list of Membre within a file
-	 * 
+	 *
 	 * @param 	sfWebRequest	$request
 	 * @since	r19
 	 */
@@ -123,7 +123,7 @@ class membreActions extends sfActions
 	{
 		$csv = new FileExporter('liste-membres.csv');
 		$membres = MembrePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
-		
+
 		echo $csv->addLineCSV(array(
 			'Prénom',
 			'Nom',
@@ -138,7 +138,7 @@ class membreActions extends sfActions
 			'Statut',
 			'Date d\'inscription',
 		));
-		
+
 		foreach ($membres as $membre)
 		{
 			echo $csv->addLineCSV(array(
@@ -204,7 +204,7 @@ class membreActions extends sfActions
 		if ($form->isValid())
 		{
 			$membre = $form->save();
-				
+
 			if ($request->getAttribute('first') == true) {
 				$association = AssociationPeer::retrieveByPK($membre->getAssociationId());
 				$association->setEnregistrePar($membre->getId());
@@ -230,7 +230,7 @@ class membreActions extends sfActions
 	{
 		$map = new PhoogleMap();
 		$map->setApiKey(sfConfig::get('sf_googlemap_key'));
-		$map->zoomLevel = 5;
+		$map->zoomLevel = 12;
 		$map->setWidth(600);
 		$map->setHeight(400);
 

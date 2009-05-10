@@ -1,3 +1,13 @@
+r39 - may, 10, 2009
+	* /lib/misc\StringTools.class.php : new file
+	* StringTools.class.php : new method to7bits()
+	* Membre : actions > map > fixed bug when putting a string with accents
+	* Membre : actions > mp > default zoom level has been set to 12 to see
+	  the whole France map
+	* Depense : actions > new action 'export'
+	* Recette : actions > new action 'export'
+
+
 r38 - may, 10, 2009
 	* Cotisation : _form.php > 'delete' link has been translated to French
 	* Cotisation : indexSuccess.php > link to 'delete' action is now displayed 
