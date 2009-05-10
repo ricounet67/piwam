@@ -63,7 +63,25 @@
 
 	<h2>Gestion des membres</h2>
 		<h3>Ajouter un nouveau membre</h3>
+		<p>
+			Il suffit de remplir les informations du formulaire. Les champs
+			obligatoires sont le nom, le prénom, le statut au sein de
+			l'association et la date d'inscription.
+		</p>
+		<p>
+			Un identifiant et un mot de passe sont requis pour le premier membre
+			seulement (vous ?). Si le mot de passe est laissé vide, le membre ne
+			pourra pas accéder à <i>Piwam</i>.
+		</p>
+		
 		<h3>Modifier les informations d'un membre</h3>
+		<p>
+			Dans la rubrique <strong>gestion des membres</strong>, il y a une
+			petie icône représentant un stylo : <img src="images/edit.png" />.
+			Cliquez dessus. Vous obtiendrez alors le même formulaire que lors
+			de l'ajout d'un nouveau membre. Vous pouvez modifier toutes les
+			informations.
+		</p>
 	
 	<h2>Gestion des statuts</h2>
 	<p>
@@ -117,9 +135,28 @@
 	<h2 id="compte">Gestion des comptes</h2>
 	<p>
 		Lors de l'installation de <i>Piwam</i>, un "compte" est automatiquement
-		ajouté, il s'agit d'une <i>caisse de monnaie</i>.
+		ajouté, il s'agit d'une <i>caisse de monnaie</i>.<br />
+		Vous pouvez bien entendu enregistre de nouveaux comptes, par exemple
+		vos comptes bancaires, vos comptes <i>Paypal</i> &trade;, etc...
 	</p>
-	
+	<h3>À quoi sert le champ "référence" ?</h3>
+	<p>
+		Le libellé complet du champ peut être très long, par exemple :
+	</p>
+	<pre>	> Compte UDF numéro 3278-3287-4398-001389987</pre>
+	<p>
+		La référence est une version <b>courte</b> et <b>personnalisée</b> du 
+		libellé, pour éviter d'afficher la version longue dans les champs de 
+		selection du compte pendant l'enregistrement d'une dépense, ou dans les 
+		bilans.<br />
+		Pour le compte en exemple précédent, une référence possible pourrait
+		être :
+	</p>
+	<pre>	> UDF_ASSOC</pre>
+	<p>
+		Ce qui facilitera ainsi grandement la lecture dans les autres écrans
+		de l'application.
+	</p>
 	
 	
 	<h2>Gestion des activités</h2>
@@ -129,6 +166,11 @@
 			Une activité peut représenter un évênement particulier, une activité
 			récurrente ou tout autre chose vous permettant de segmenter la vie
 			de votre association.
+		</p>
+		<p>
+			Les activités apparaîtront dans le <strong>bilan</strong> qui
+			permettra ainsi de déterminer quelles activités ont rapporté
+			de l'argent à l'association.
 		</p>
 	
 	
@@ -154,8 +196,9 @@
 		
 		<dt>Comment demander une nouvelle fonctionnalité ?</dt>
 		<dd>
-			Vous pouvez <a href="mailto:adrien.mogenet@gmail.com">me contacter</a>
-			ou vous rendre sur l'<a href="http://piwam.googlecode.com">espace Google Code</a>
+			Vous pouvez <a href="http://groups.google.fr/group/piwam">nous contacter</a>
+			en vous inscrivant au groupe officiel <i>Piwam</i>,	ou vous rendre 
+			sur l'<a href="http://piwam.googlecode.com">espace Google Code</a>
 			 du projet et remplir <a href="http://code.google.com/p/piwam/issues/entry">le formulaire</a>.
 		</dd>
 	</dl>

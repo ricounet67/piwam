@@ -9,16 +9,16 @@
 </head>
 <body>
     <div id="container">
-    
-    
+
+
         <!-- Header of the application -->
-        
+
         <h1><?php echo sfContext::getInstance()->getUser()->getAttribute('association_name', 'Piwam', 'user') ?></h1>
-        
-        
-        
+
+
+
         <!-- Menu bar -->
-        
+
         <div id="menu">
         	<ul>
         		<li class="mainSection">Association</li>
@@ -48,18 +48,19 @@
                 <li><?php echo link_to('D&eacute;connexion', 'association/logout') ?></li>
                 <li><?php echo link_to('Exporter les donn&eacute;es', 'association/export') ?></li>
                 <li><?php echo link_to('Mailing', 'association/mailing') ?></li>
+                <li><a href="http://code.google.com/p/piwam/issues/entry" target="_blank">Rapporter un bug</a></li>
             </ul>
             <br />
         </div>
-        
-        
-        
+
+
+
         <!-- Main part of the content  -->
-        
+
         <div id="content">
             <?php echo $sf_content ?>
         </div>
-        
+
     </div>
 </body>
 </html>

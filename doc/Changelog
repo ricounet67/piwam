@@ -1,3 +1,12 @@
+r41 - may, 10, 2009
+	* Association : bilanSuccess.php : the blank line before 'total' line got
+	  light grey color
+	* /doc/index.html : updated
+	* loginSuccess.php : we notice that that it's a beta version
+	* layout.php : links to 'report bug' form has been added in the menu
+	* README : new part 'troubleshooting'
+	
+
 r40 - may, 10, 2009
 	* CotisationPeer : new method doSeletSumForAccountId($id)
 	* Association : bilan > takes care of Cotisation objects when computing

@@ -1,6 +1,6 @@
 <p class="notice">
-	Ce programme est en version Alpha et peut contenir des bugs.<br />
-	Des mises à jour sont rapidement mises en place sur <a href="http://piwam.googlecode.com">le site du projet</a>.
+	Ce programme est en version Beta et peut contenir des bugs.<br />
+	En cas de problème n'hésitez pas à <a href="http://code.google.com/p/piwam/issues/entry">rapporter un bug</a>.
 </p>
 
 <h2>Identification</h2>
