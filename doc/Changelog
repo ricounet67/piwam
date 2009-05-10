@@ -1,3 +1,16 @@
+r37 - may, 9, 2009
+	* README : PHP 'memory_limit' parameter is specified as requirement
+	* /doc/THANKS : new file with list of contributors
+	* Membre : fixed bug in toString() method due to accents in string given to
+	  mb_convert_case() function > encoding has been explicitely defined as UTF8
+	* CotisationForm.class.php : French date format
+	* DepenseForm.class.php : French date format
+	* RecetteForm.class.php : French date format
+	* MembreForm.class.php : French date format 
+	* /web/js/jquery-ui/js/jquery-ui-1.7.1-custom.min.js : dates have been
+	  translated to French
+	
+
 r36 - may, 8, 2009
 	* MembreForm.class.php : Critical bug has been fixed (issue of foreign key
 	  constraint with 'mis_a_jour_par' field

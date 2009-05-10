@@ -52,7 +52,8 @@ class DepenseForm extends BaseDepenseForm
 		$this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
 			'image'		=> '/images/calendar.gif',
   			'config' 	=> '{}',
-			'culture'	=> 'fr_FR'
+			'culture'	=> 'fr_FR',
+			'format'	=> '%day%.%month%.%year%',
 		));
 		$this->setDefault('date', date('y-m-d'));
 		$this->widgetSchema['compte_id']->setAttribute('class', 'formInputLarge');

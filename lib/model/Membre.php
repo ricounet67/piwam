@@ -27,7 +27,7 @@ class Membre extends BaseMembre
      */
     public function __toString()
     {
-        return mb_convert_case($this->getPrenom() . ' ' . $this->getNom(), MB_CASE_TITLE);
+        return mb_convert_case($this->getPrenom() . ' ' . $this->getNom(), MB_CASE_TITLE, "UTF8");
     }
 
 
