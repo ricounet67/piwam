@@ -1,3 +1,8 @@
+r42 - may, 10, 2009
+	* Association.php : initialize() > setAssociationId is called BEFORE
+	  setReference in order to fix FK constraints issues
+	  
+
 r41 - may, 10, 2009
 	* Association : bilanSuccess.php : the blank line before 'total' line got
 	  light grey color
