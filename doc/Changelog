@@ -1,4 +1,24 @@
-r37 - may, 9, 2009
+r38 - may, 10, 2009
+	* Cotisation : _form.php > 'delete' link has been translated to French
+	* Cotisation : indexSuccess.php > link to 'delete' action is now displayed 
+	* Compte : indexSuccess.php > link to 'delete' action is now displayed
+	* Compte.php : delete() method has been overidden
+	* Compte : actions > 'mis_a_jour_par' field gets the correct default value
+	* Compte : _form.php : correct style of 'delete' link is applied
+	* Statut : _form.php : correct style of 'delete' link is applied (and link
+	  has been translated to French)
+	* /web/images/tooltip_icon.gif : cropped to solve a very little align issue
+	* DepenseForm.class.php : image of calendar is displayed even if no virtual
+	  host has been set up
+	* RecetteForm.class.php : image of calendar is displayed even if no virtual
+	  host has been set up
+	* MembreForm.class.php : image of calendar is displayed even if no virtual
+	  host has been set up
+	* CotisationForm.class.php : image of calendar is displayed even if no
+	  virtual host has been set up
+
+
+r37 - may, 10, 2009
 	* README : PHP 'memory_limit' parameter is specified as requirement
 	* /doc/THANKS : new file with list of contributors
 	* Membre : fixed bug in toString() method due to accents in string given to

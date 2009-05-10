@@ -49,8 +49,10 @@ class DepenseForm extends BaseDepenseForm
 		// r19 : customize the appearance
 		$this->widgetSchema['libelle']->setAttribute('class', 'formInputLarge');
 		$this->widgetSchema['montant']->setAttribute('class', 'formInputShort');
+
+		sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
 		$this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
-			'image'		=> '/images/calendar.gif',
+			'image'		=> image_path('calendar.gif'),
   			'config' 	=> '{}',
 			'culture'	=> 'fr_FR',
 			'format'	=> '%day%.%month%.%year%',

@@ -106,8 +106,9 @@ class MembreForm extends BaseMembreForm
 		$this->setDefault('pays', 'FR');
 
 		unset ($this->widgetSchema['date_inscription']);
+		sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
 		$this->widgetSchema['date_inscription'] = new sfWidgetFormJQueryDate(array(
-			'image'		=> '/images/calendar.gif',
+			'image'		=> image_path('calendar.gif'),
   			'config' 	=> '{}',
 			'culture'	=> 'fr_FR',
 			'format'	=> '%day%.%month%.%year%',

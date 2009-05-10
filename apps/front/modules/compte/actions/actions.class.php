@@ -31,6 +31,7 @@ class compteActions extends sfActions
     {
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new CompteForm();
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
     }
@@ -39,6 +40,7 @@ class compteActions extends sfActions
     {
         $this->forward404Unless($compte = ComptePeer::retrieveByPk($request->getParameter('id')), sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
         $this->form = new CompteForm($compte);
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
     }
 
     public function executeUpdate(sfWebRequest $request)
@@ -46,6 +48,7 @@ class compteActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($compte = ComptePeer::retrieveByPk($request->getParameter('id')), sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
         $this->form = new CompteForm($compte);
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
         $this->processForm($request, $this->form);
         $this->redirect('compte/index');
     }

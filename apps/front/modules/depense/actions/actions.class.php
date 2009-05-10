@@ -25,6 +25,7 @@ class depenseActions extends sfActions
 	{
 		$this->form = new DepenseForm();
 		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+
 	}
 
 	public function executeCreate(sfWebRequest $request)

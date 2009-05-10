@@ -21,12 +21,18 @@
 	      	<td><?php echo $cotisation->getCotisationType() ?></td>
 	      	<td><?php echo $cotisation->getMembreRelatedByMembreId() ?></td>
 	      	<td><?php echo format_date($cotisation->getDate()) ?></td>
-	      	<td><a href="<?php echo url_for('cotisation/edit?id='.$cotisation->getId()) ?>"><?php echo image_tag('edit.png') ?></a></td>
+	      	<td>
+	      		<a href="<?php echo url_for('cotisation/edit?id='.$cotisation->getId()) ?>"><?php echo image_tag('edit.png') ?></a>
+                <?php echo link_to(image_tag('delete'),
+          	  					 	'cotisation/delete?id=' . $cotisation->getId(),
+          	   					 	array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?'));
+              	?>
+      		</td>
 	    </tr>
 	    <?php endforeach; ?>
 	  </tbody>
 	</table>
-	
+
 	<div class="addNew">
 		<?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer une cotisation', 'cotisation/new') ?>
 	</div>
@@ -38,5 +44,5 @@
 		d'enregistrer les cotisations de vos membres, vous devez <br />d'abord
 		<?php echo link_to('créer un nouveau type de cotisation', 'cotisationtype/new?first=1') ?>.
 	</p>
-	
+
 <?php endif; ?>

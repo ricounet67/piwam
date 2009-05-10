@@ -23,6 +23,10 @@
             <td>
                 <a href="<?php echo url_for('recette/show?id='.$recette->getId()) ?>"><?php echo image_tag('details.png') ?></a>
                 <a href="<?php echo url_for('recette/edit?id='.$recette->getId()) ?>"><?php echo image_tag('edit.png') ?></a>
+                <?php echo link_to(image_tag('delete'),
+          	  					 	'recette/delete?id=' . $recette->getId(),
+          	   					 	array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?'));
+              	?>
             </td>
         </tr>
         <?php endforeach; ?>

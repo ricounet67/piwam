@@ -14,7 +14,7 @@
                 	'class'	=> 'formLinkButton'
                 )) ?>
                 <?php if (!$form->getObject()->isNew()): ?>
-                    <?php echo link_to('Supprimer', 'statut/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Are you sure?')) ?>
+                    <?php echo link_to('Supprimer', 'statut/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?', 'class' => 'formLinkButton')) ?>
                 <?php endif; ?>
                 <input class="button" type="submit" value="Enregistrer" />
             </td>
