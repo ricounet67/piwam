@@ -1,5 +1,6 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
+<?php use_helper('Tooltip') ?>
 
 <form
     action="<?php echo url_for('cotisationtype/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>"
@@ -37,7 +38,8 @@
         <tr>
             <th>Montant</th>
             <td>
-            	<?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?> 
+            	<?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?>
+                <?php echo tooltip_tag("ATTENTION", "Si vous modifiez cette valeur, les montants de toutes les cotisations de ce type seront affectés !") ?>
             </td>
         </tr>
     </tbody>

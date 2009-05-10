@@ -48,8 +48,9 @@ class RecetteForm extends BaseRecetteForm
 		$this->widgetSchema['montant']->setAttribute('class', 'formInputShort');
 		$this->widgetSchema['compte_id']->setAttribute('class', 'formInputLarge');
 		$this->widgetSchema['activite_id']->setAttribute('class', 'formInputLarge');
+		sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
 		$this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
-			'image'		=> '/images/calendar.gif',
+			'image'		=> image_path('calendar.gif'),
   			'config' 	=> '{}',
 			'culture'	=> 'fr_FR',
 			'format'	=> '%day%.%month%.%year%',

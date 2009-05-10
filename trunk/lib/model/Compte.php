@@ -39,11 +39,11 @@ class Compte extends BaseCompte
 			$row = $result->fetch();
 			$this->_totalDepenses = $row['TOTAL_DEPENSES'];
 		}
-		
+
 		return $this->_totalDepenses;
 	}
-	
-	
+
+
 	/**
 	 * Retrieve the total amount of Recettes within the Compte
 	 *
@@ -62,14 +62,14 @@ class Compte extends BaseCompte
 			$row = $result->fetch();
 			$this->_totalRecettes = $row['TOTAL_RECETTES'];
 		}
-		
+
 		return $this->_totalRecettes;
 	}
-	
-	
+
+
 	/**
 	 * Retrieve the actual total (recettes - depenses) of the current account
-	 * 
+	 *
 	 * @return 	integer
 	 * @since	r9
 	 */
@@ -77,26 +77,47 @@ class Compte extends BaseCompte
 	{
 		return $this->getTotalRecettes() - $this->getTotalDepenses();
 	}
-	
-	
+
+
 	/**
 	 * Determines if the Compte is negative of not
-	 * 
+	 *
 	 * @return	boolean
 	 */
 	public function isNegative()
 	{
 		return $this->getTotal() < 0;
 	}
-	
+
 	/**
 	 * Set the reference of the Compte but force the upper case
-	 * 
-	 * @param 	string	$value
+	 *
+	 * @param 	string		$value
+	 * @param	PropelPDO	$con
 	 * @since	r25
 	 */
 	public function setReference($value)
 	{
 		parent::setReference(strtoupper($value));
+				if (false) {
+			parent::delete($con);
+		}
+		else {
+			$this->setActif(DISABLED);
+			$this->save();
+		}
+
+	}
+
+	/**
+	 * Delete the current Compte logically
+	 *
+	 * @param 	PropelPDO	$con
+	 * @since	r38
+	 */
+	public function delete(PropelPDO $con = null)
+	{
+		$this->setActif(DISABLED);
+		$this->save();
 	}
 }

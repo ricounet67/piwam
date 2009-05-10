@@ -23,6 +23,10 @@
             <td>
                 <a href="<?php echo url_for('depense/show?id=' . $depense->getId()) ?>"><?php echo image_tag('details.png') ?></a>
                 <a href="<?php echo url_for('depense/edit?id=' . $depense->getId()) ?>"><?php echo image_tag('edit.png') ?></a>
+                <?php echo link_to(image_tag('delete'),
+          	  					 	'depense/delete?id=' . $depense->getId(),
+          	   					 	array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?'));
+              	?>
             </td>
         </tr>
         <?php endforeach; ?>

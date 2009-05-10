@@ -1,4 +1,9 @@
 
+	* Issue when deleting compte :
+		-> recette / depense still exist
+		- ... but don't appear in bilan !
+	* Update mis_a_jour_par after deleting objects
+	* Bilan > take care of fees
 	* Create cookie when log in
 	* History table to keep history of each update
 	* Activite : add description field
