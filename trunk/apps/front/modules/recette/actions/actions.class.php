@@ -10,6 +10,39 @@
  */
 class recetteActions extends sfActions
 {
+	/**
+	 * Export the list of Depense within a file
+	 *
+	 * @param 	sfWebRequest	$request
+	 * @since	r39
+	 */
+	public function executeExport(sfWebRequest $request)
+	{
+		sfContext::getInstance()->getConfiguration()->loadHelpers('Number');
+		$csv = new FileExporter('liste-recettes.csv');
+		$recettes = RecettePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+
+		echo $csv->addLineCSV(array(
+			'Libellé',
+			'Montant (euros)',
+			'Compte',
+			'Activité',
+			'Date',
+		));
+
+		foreach ($recettes as $recette)
+		{
+			echo $csv->addLineCSV(array(
+				$recette->getLibelle(),
+				format_currency($recette->getMontant()),
+				$recette->getCompte(),
+				$recette->getActivite(),
+				$recette->getDate(),
+			));
+		}
+		$csv->exportContentAsFile();
+	}
+
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->recette_list = RecettePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));

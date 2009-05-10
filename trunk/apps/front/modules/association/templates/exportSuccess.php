@@ -2,6 +2,6 @@
 <p>Choisissez les données que vous souhaitez exporter :</p>
 <ul>
 	<li><?php echo link_to('Liste des membres', 'membre/export') ?></li>
-	<li>Recettes</li>
-	<li>Dépenses</li>
+	<li><?php echo link_to('Recettes', 'recette/export') ?></li>
+	<li><?php echo link_to('Dépenses', 'depense/export') ?></li>
 </ul>
