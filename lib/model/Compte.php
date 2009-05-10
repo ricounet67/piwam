@@ -40,12 +40,13 @@ class Compte extends BaseCompte
 			$this->_totalDepenses = $row['TOTAL_DEPENSES'];
 		}
 
-		return $this->_totalDepenses;
+		return ($this->_totalDepenses == null) ? 0 : $this->_totalDepenses;
 	}
 
 
 	/**
-	 * Retrieve the total amount of Recettes within the Compte
+	 * Retrieve the total amount of Recettes within the Compte. We also
+	 * compute the SUM of Cotisation which are related to this Compte
 	 *
 	 * @return	integer
 	 * @since	r9
@@ -60,10 +61,12 @@ class Compte extends BaseCompte
 			$c->add(RecettePeer::COMPTE_ID, $this->getId());
 			$result = RecettePeer::doSelectStmt($c);
 			$row = $result->fetch();
-			$this->_totalRecettes = $row['TOTAL_RECETTES'];
+
+			$totalCotisations = CotisationPeer::doSeletSumForAccountId($this->getId());
+			$this->_totalRecettes = $row['TOTAL_RECETTES'] + $totalCotisations;
 		}
 
-		return $this->_totalRecettes;
+		return ($this->_totalRecettes == null) ? 0 : $this->_totalRecettes;
 	}
 
 
@@ -75,7 +78,8 @@ class Compte extends BaseCompte
 	 */
 	public function getTotal()
 	{
-		return $this->getTotalRecettes() - $this->getTotalDepenses();
+		$total = $this->getTotalRecettes() - $this->getTotalDepenses();
+		return ($total == null) ? 0 : $total;
 	}
 
 

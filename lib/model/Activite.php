@@ -6,7 +6,7 @@ class Activite extends BaseActivite
 	// this Activite
 	protected $_totalDepenses = null;
 	protected $_totalRecettes = null;
-	
+
     /**
      * We display the label of the activity if we would like to display the
      * value of the object
@@ -18,7 +18,7 @@ class Activite extends BaseActivite
     {
         return $this->getLibelle();
     }
-    
+
 
 	/**
 	 * Retrieve the total amount of Depenses for this Activite
@@ -38,11 +38,11 @@ class Activite extends BaseActivite
 			$row = $result->fetch();
 			$this->_totalDepenses = $row['TOTAL_DEPENSES'];
 		}
-		
-		return $this->_totalDepenses;
+
+		return ($this->_totalDepenses == null) ? 0 : $this->_totalDepenses;
 	}
-	
-	
+
+
 	/**
 	 * Retrieve the total amount of Recettes within the Compte
 	 *
@@ -61,19 +61,20 @@ class Activite extends BaseActivite
 			$row = $result->fetch();
 			$this->_totalRecettes = $row['TOTAL_RECETTES'];
 		}
-		
-		return $this->_totalRecettes;
+
+		return ($this->_totalRecettes == null) ? 0 : $this->_totalRecettes;
 	}
-	
-	
+
+
 	/**
 	 * Retrieve the actual total (recettes - depenses) of the current account
-	 * 
+	 *
 	 * @return 	integer
 	 * @since	r9
 	 */
 	public function getTotal()
 	{
-		return $this->getTotalRecettes() - $this->getTotalDepenses();
+		$total = $this->getTotalRecettes() - $this->getTotalDepenses();
+		return ($total == null) ? 0 : $total;
 	}
 }

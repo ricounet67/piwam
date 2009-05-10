@@ -1,3 +1,13 @@
+r40 - may, 10, 2009
+	* CotisationPeer : new method doSeletSumForAccountId($id)
+	* Association : bilan > takes care of Cotisation objects when computing
+	  total amounts
+	* CotisationPeer : new method doSeletSumForAssociationId($id)
+	* Association : action > bilan > action class gives the $totalCotisations to
+	  the view
+	* Activite.php : each method returns 0 instead of null
+
+
 r39 - may, 10, 2009
 	* /lib/misc\StringTools.class.php : new file
 	* StringTools.class.php : new method to7bits()
