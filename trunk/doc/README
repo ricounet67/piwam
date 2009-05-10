@@ -47,10 +47,20 @@
 			
 		You are currently pleased to use only `dev` environment, otherwise
 		you have to set up another one (`prod` ?) by yourself.
+	
+	
+	3) Troubleshooting
+	------------------
+	
+		If you get troubles... you can :
+			1- Check that you followed README instructions
+			2- Check that your Apache/MySQL servers are working properly
+			3- Launch /web/check_configuration.php
+			4- Subscribe and write to http://groups.google.com/group/piwam
+			5- Report a bug (http://code.google.com/p/piwam/issues/entry)	
 		
 		
-		
-    3) See also
+    4) See also
     -----------
 		
 		* How to deploy Symfony application :

@@ -41,7 +41,7 @@ $total			= 0;
 	<?php endforeach; ?>
 	</tbody>
 	<tfoot>
-		<tr>
+		<tr style="background-color: #eee;">
 			<td colspan="4">&nbsp;</td>
 		</tr>
 		<tr <?php
@@ -105,7 +105,7 @@ $total			= 0;
 	<?php endforeach; ?>
 	</tbody>
 	<tfoot>
-		<tr><td colspan="4">&nbsp;</td></tr>
+		<tr style="background-color: #eee;"><td colspan="4">&nbsp;</td></tr>
 		<tr <?php
 				if ($total < 0) {
 					echo 'class="compteNegatif"';
