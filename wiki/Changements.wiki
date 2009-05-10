@@ -1,0 +1,41 @@
+#summary Liste de changements au fil des versions
+#labels Featured
+
+= Liste des changements =
+
+Au fil des versions, Piwam évolue...
+
+    * Version 1.1.0 beta (10 mai 2009)
+        * Bugs critiques corrigés lors de la création de nouveaux comptes associatifs
+        * Bugs d'encodage corrigés
+        * Formats de date français dans les formulaires
+        * Icône "calendrier" affichée même pour les utilisateurs n'utilisant pas de Virtual Host
+        * Export des _recettes_ et des _dépenses_ au format _CSV_
+        * Les cotisations sont prises en compte dans l'écran _bilan_
+        * README et documentation mis à jour
+
+    * Version 1.1.0 alpha3.2 (8 mai 2009)
+        * Correction d'un bug critique introduit dans la version 3.1, empêchant tout enregistrement d'une nouvelle association
+
+    * Version 1.1.0 alpha3.1 (7 mai 2009)
+        * Nouveau bug fixé avec l'information "mis a jour par" dans le formulaire d'enregistrement d'un nouveau membre
+        * Bug fixé avec l'inclusion d'une bibliotheque JavaScript mal orthographiée
+        * <b>Note :</b> Je publie souvent les mises a jour des versions alpha en version packagée pour faciliter le travail aux personnes préférant cette solution a celle des dépot SVN
+
+    * Version 1.1.0 alpha3 (6 mai 2009)
+        * Bugs fixés avec l'information "mis a jour par" au sein des formulaires
+        * Pages d'erreur personnalisées
+        * Le pseudo et le mot de passe ne sont plus obligatoires lors de l'enregistrement d'un nouvel utilisateur
+        * Début de documentation utilisateur (repertoire `/doc/html`)
+        * Bugs majeurs fixés dans la gestion de plusieurs associations
+
+
+    * Version 1.1.0 alpha2 (3 mai 2009) :
+        * Système d'envoi de mails amélioré
+        * Bugs fixés pour la gestion multi-associations
+        * Système de bulles d'aides pour certains formulaires
+        * Script de création de tables SQL présent dans le repertoire /doc
+        * Documentation d'installation _technique_ (en anglais) dans le repertoire /doc
+
+
+[http://code.google.com/p/piwam/source/browse/trunk/doc/Changelog Le changelog complet]
