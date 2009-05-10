@@ -109,7 +109,8 @@ class MembreForm extends BaseMembreForm
 		$this->widgetSchema['date_inscription'] = new sfWidgetFormJQueryDate(array(
 			'image'		=> '/images/calendar.gif',
   			'config' 	=> '{}',
-			'culture'	=> 'fr_FR'
+			'culture'	=> 'fr_FR',
+			'format'	=> '%day%.%month%.%year%',
 			));
 
 		$this->_setCssClasses();
