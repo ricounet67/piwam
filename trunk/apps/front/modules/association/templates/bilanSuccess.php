@@ -2,7 +2,7 @@
 
 <h2>Bilan</h2>
 
-<?php 
+<?php
 // Even if it's not really MVC compliant, we compute the total
 // amount of Recette / Depense line by line directly within
 // this view
@@ -24,12 +24,12 @@ $total			= 0;
 	</thead>
 	<tbody>
 	<?php foreach ($comptes as $compte): ?>
-	
+
 		<tr <?php
 				if ($compte->isNegative()) {
 					echo 'class="compteNegatif"';
 				}
-				else { 
+				else {
 					echo 'class="comptePositif"';
 				}
 			?>>
@@ -44,7 +44,7 @@ $total			= 0;
 		<tr>
 			<td colspan="4">&nbsp;</td>
 		</tr>
-		<tr <?php 
+		<tr <?php
 			if ($total < 0) {
 				echo 'class="compteNegatif"';
 			}
@@ -64,7 +64,7 @@ $total			= 0;
 
 <h3>Par activité</h3>
 
-<?php 
+<?php
 // We re-initialize our counters
 $totalDepenses	= 0;
 $totalRecettes	= 0;
@@ -81,12 +81,19 @@ $total			= 0;
 		</tr>
 	</thead>
 	<tbody>
+		<tr class="comptePositif">
+			<td>Cotisations</td>
+			<td><?php echo format_currency(0) ?></td>
+			<td><?php echo format_currency($totalCotisations); $totalRecettes += $totalCotisations ?></td>
+			<td><?php echo format_currency($totalCotisations); $total += $totalCotisations ?></td>
+		</tr>
+
 	<?php foreach ($activites as $activite): ?>
 		<tr <?php
 				if ($activite->getTotal() < 0) {
 					echo 'class="compteNegatif"';
 				}
-				else { 
+				else {
 					echo 'class="comptePositif"';
 				}
 			?>>
@@ -103,14 +110,14 @@ $total			= 0;
 				if ($total < 0) {
 					echo 'class="compteNegatif"';
 				}
-				else { 
+				else {
 					echo 'class="comptePositif"';
 				}
 			?>>
 			<td><strong>TOTAL</strong></td>
 			<td><?php echo format_currency($totalDepenses, '&euro;') ?></td>
 			<td><?php echo format_currency($totalRecettes, '&euro;') ?></td>
-			<td><?php echo format_currency($total, '&euro;') ?></td>	
+			<td><?php echo format_currency($total, '&euro;') ?></td>
 		</tr>
 	</tfoot>
 </table>

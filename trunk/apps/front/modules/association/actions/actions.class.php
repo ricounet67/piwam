@@ -73,8 +73,10 @@ class associationActions extends sfActions
      */
     public function executeBilan(sfWebRequest $request)
     {
-        $this->comptes 		= ComptePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
-        $this->activites	= ActivitePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
+    	$associationId			= $this->getUser()->getAttribute('association_id', null, 'user');
+        $this->comptes 			= ComptePeer::doSelectEnabled($associationId);
+        $this->activites		= ActivitePeer::doSelectEnabled($associationId);
+        $this->totalCotisations = CotisationPeer::doSeletSumForAssociationId($associationId);
     }
 
 
