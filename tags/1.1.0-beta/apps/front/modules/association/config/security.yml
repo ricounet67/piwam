@@ -1,0 +1,9 @@
+
+# We allow unregistered user to create a new association
+new:
+  is_secure: off
+  
+create:
+  is_secure: off
+  
+  

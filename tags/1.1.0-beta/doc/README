@@ -1,0 +1,73 @@
+
+	=========================================================================
+	|																		|
+	|		########  ########    ###    ########  ##     ## ######## 		|
+	|		##     ## ##         ## ##   ##     ## ###   ### ##       		|
+	|		##     ## ##        ##   ##  ##     ## #### #### ##       		|
+	|		########  ######   ##     ## ##     ## ## ### ## ######   		|
+	|		##   ##   ##       ######### ##     ## ##     ## ##       		|
+	|		##    ##  ##       ##     ## ##     ## ##     ## ##       		|
+	|		##     ## ######## ##     ## ########  ##     ## ######## 		|
+	|																		|
+	|																		|
+	=========================================================================
+
+
+	LICENCE
+	-------
+	This program is provided under MIT licence. You can find this complete
+	licence in /doc/LICENCE file
+
+
+	1) Required Configuration
+	------------------------
+	
+		PHP >= 5.2.4
+			mb_string module
+			php_openssl
+			php_smtp
+			memory_limit: 128M
+		MySQL
+		Apache
+
+
+	2) How To Set Up Piwam
+	---------------------
+
+		For those who got this release through SVN repository :
+			1- For those who are using Piwam thanks to SVN repository :
+			`  Fix config/ProjectConfiguration.class. Include the correct
+			   location of your sfCoreAutoload class
+			   /!\ If you got a packaged tarball, you don't need to do that.
+			2- Edit apps/front/config/settings.yml with your own settings
+			3- Edit config/databases.yml settings to be able to access to
+			   your own DB
+			4- Launch SQL file `doc/piwam-install.sql` 
+			5- Create a `cache` folder which is writable
+			
+		You are currently pleased to use only `dev` environment, otherwise
+		you have to set up another one (`prod` ?) by yourself.
+	
+	
+	3) Troubleshooting
+	------------------
+	
+		If you get troubles... you can :
+			1- Check that you followed README instructions
+			2- Check that your Apache/MySQL servers are working properly
+			3- Launch /web/check_configuration.php
+			4- Subscribe and write to http://groups.google.com/group/piwam
+			5- Report a bug (http://code.google.com/p/piwam/issues/entry)	
+		
+		
+    4) See also
+    -----------
+		
+		* How to deploy Symfony application :
+		  http://www.symfony-project.org/jobeet/1_2/Propel/en/23
+		
+		
+	-------------------------------------------------------------------------
+	| (c) 2009																|
+	-------------------------------------------------------------------------
+	
