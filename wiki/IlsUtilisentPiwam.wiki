@@ -1,0 +1,11 @@
+#summary Quelques références...
+#labels Featured
+
+= Ils utilisent Piwam ! =
+
+  * [http://www.tekover.net Tekover]
+  * [http://www.cycom.org Cycom]
+
+
+
+Vous utilisez *Piwam* ? Faîtes le nous savoir ! Ajoutez un commentaire sur cette page, ou envoyez un mail sur [http://groups.google.fr/group/piwam la mailing list].
