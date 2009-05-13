@@ -74,8 +74,8 @@ all:
     default_culture:        fr_FR
 
     # Output escaping settings
-    escaping_strategy:      false            # Determines how variables are made available to templates. Accepted values: on, off.
-    escaping_method:        ESC_SPECIALCHARS # Function or helper used for escaping. Accepted values: ESC_RAW, ESC_ENTITIES, ESC_JS, ESC_JS_NO_ENTITIES, and ESC_SPECIALCHARS.
+    escaping_strategy:      on              # Determines how variables are made available to templates. Accepted values: on, off.
+    escaping_method:        ESC_ENTITIES    # Function or helper used for escaping. Accepted values: ESC_RAW, ESC_ENTITIES, ESC_JS, ESC_JS_NO_ENTITIES, and ESC_SPECIALCHARS.
 
   .actions:
     # Set location of the login action
