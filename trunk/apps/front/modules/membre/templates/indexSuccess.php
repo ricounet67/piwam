@@ -39,8 +39,8 @@
 </table>
 
 
+<?php include_partial('global/pager', array('pager' => $membresPager, 'module' => 'membre', 'action' => 'index', 'params' => array('orderby' => 'NOM'))) ?>
+
 <div class="addNew">
 	<?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer un membre', 'membre/new') ?>
 </div>
-
-<?php include_partial('global/pager', array('pager' => $membresPager, 'module' => 'membre', 'action' => 'index'))?>

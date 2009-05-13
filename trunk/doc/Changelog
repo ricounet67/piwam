@@ -1,3 +1,25 @@
+r46 - may, 13, 2009
+    * Membre : actions > we list the first page by default (we displayed the
+      20th page because of a stupid bug)
+    * /web/css/pagination.css : new pager style to improve the appearance
+    * Membre : indexSuccess.php > new argument is given to _pager slot. This is
+      a 'params' argument in order to provider custom parameters. In this view
+      we put the 'order by' parameter to keep ordering column in different pages
+    * _pager.php : we process the new 'params' argument
+
+
+r45 - may, 11, 2009
+    * Created wiki page through web user interface.
+
+
+r44 - may, 10, 2009
+    * Created wiki page through web user interface.
+
+
+r43 - may, 10, 2009
+    * Version 1.1.0 beta
+
+
 r42 - may, 10, 2009
 	* Association.php : initialize() > setAssociationId is called BEFORE
 	  setReference in order to fix FK constraints issues

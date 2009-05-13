@@ -23,8 +23,8 @@ class membreActions extends sfActions
 	{
 		$orderByColumn = $request->getParameter('orderby', MembrePeer::PSEUDO);
 		$this->membresPager = MembrePeer::doSelectOrderBy($this->getUser()->getAttribute('association_id', null, 'user'),
-		$request->getParameter('page', 20),
-		$orderByColumn);
+                                                    		$request->getParameter('page', 1),
+                                                    		$orderByColumn);
 	}
 
 	/**
