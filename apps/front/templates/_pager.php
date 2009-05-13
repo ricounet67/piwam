@@ -4,6 +4,23 @@
  * sfPropelPager object given as argument
  */
 ?>
+
+<?php 
+/*
+ * Perform the 'params' parameter and build a string
+ * to add within our paging links
+ */
+
+if (isset($params))
+{
+    $urlParams = '';
+    foreach ($params as $key => $value) {
+        $urlParams .= '&' . $key . '=' . $value;
+    }
+}
+?>
+
+<div id="pager">
 <ul id="pagination">
 
 	<?php
@@ -11,7 +28,7 @@
 	{
 		// Display `previous` link
 		if ($pager->getPage() > 1) {
-			echo  '<li class="previous">' . link_to('&laquo; Précédent', $module . '/' . $action . '?page=' . $pager->getPreviousPage()) . '</li>';
+			echo  '<li class="previous">' . link_to('&laquo; Précédent', $module . '/' . $action . '?page=' . $pager->getPreviousPage() . $urlParams) .  '</li>';
 		}
 		else {
 			echo '<li class="previous-off">&laquo; Précédent</li>';
@@ -26,7 +43,7 @@
 				echo '<li class="active">' . $page . '</li>';
 			}
 			else {
-				echo '<li>' . link_to($page, $module . '/' . $action . '?page=' . $page) . '</li>';
+				echo '<li>' . link_to($page, $module . '/' . $action . '?page=' . $page . $urlParams) . '</li>';
 			}
 		}
 		
@@ -35,9 +52,10 @@
 			echo '<li class="next-off">Suivant &raquo;</li>';	
 		}
 		else {
-			echo '<li class="next">' . link_to('Suivant &raquo;', $module . '/' . $action . '?page=' . $pager->getNextPage()) . '</li>';
+			echo '<li class="next">' . link_to('Suivant &raquo;', $module . '/' . $action . '?page=' . $pager->getNextPage() . $urlParams) . '</li>';
 		}
 	}
 	?>
 
 </ul>
+</div>
