@@ -1,3 +1,11 @@
+r47 - may, 13, 2009
+    * CotisationPeer.php : doSeletSumForAssociationId > fixed bug #3. new GROUP
+      BY clause to make SQL query valid with SUM computation
+    * /apps/front/config/settings.yml : fixed bug #2. 'escaping_strategy' has 
+      been set to 'on' with method 'entities' to avoid user typing HTML content
+      in form elements
+      
+
 r46 - may, 13, 2009
     * Membre : actions > we list the first page by default (we displayed the
       20th page because of a stupid bug)
