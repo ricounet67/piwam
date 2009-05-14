@@ -1,3 +1,11 @@
+r48 - may, 14, 2009
+    * CotisationTypeForm.class.php : Fixed bug #11. Integer can't be negative
+    * Association : bilanSuccess.php > fixed bug #8. Tfoot has been removed to
+      ensure respect of XHTML
+    * DepenseForm.class.php : fixed bug #4. Amount can't be negative
+    * RecetteForm.class.php : fixed bug #4. Amount can't be negative
+
+
 r47 - may, 13, 2009
     * CotisationPeer.php : doSeletSumForAssociationId > fixed bug #3. new GROUP
       BY clause to make SQL query valid with SUM computation

@@ -42,6 +42,7 @@ class RecetteForm extends BaseRecetteForm
 
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
+		$this->validatorSchema['montant'] = new sfValidatorInteger(array('min' => 0), array('min' => 'ne peut être négatif'));
 
 		// r19 : customize the appearance
 		$this->widgetSchema['libelle']->setAttribute('class', 'formInputLarge');
@@ -56,6 +57,5 @@ class RecetteForm extends BaseRecetteForm
 			'format'	=> '%day%.%month%.%year%',
 		));
 		$this->setDefault('date', date('y-m-d'));
-
 	}
 }

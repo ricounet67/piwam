@@ -36,6 +36,11 @@ class CotisationTypeForm extends BaseCotisationTypeForm
 		$this->widgetSchema['libelle']->setAttribute('class', 'formInputLarge');
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
+		
+		      
+        // We do not allow negative values
+        $this->validatorSchema['montant'] = new sfValidatorInteger(array('min' => 0), array('min' => 'ne peut être négatif'));
+        $this->validatorSchema['valide'] = new sfValidatorInteger(array('min' => 0), array('min' => 'ne peut être négatif'));
 	
 	}
 }
