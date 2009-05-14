@@ -1,3 +1,23 @@
+r49
+    * /doc/piwam-install.sql : DECIMAL amounts are now in 10,2 format
+    * Association : new action 'crendentials' to deal with credentials
+    * Association : new template 'credentialsError.php'
+    * Membre : actions > executeShow > fixed bug #15. checks that you have the
+      right to watch the user profile
+    * Depense : actions > executeShow > fixed bug #15. checks that you have the
+      right to watch the information
+    * Recette : actions > executeShow > fixed bug #17. checks that you have the
+      right to watch the information
+    * Compte : actions > executeShow > fixed bug #17. checks that you have the
+      right to watch the information
+    * CotisationType : actions > executeShow > fixed bug #16. checks that you
+      have the right to watch the information
+    * Statut : actions > executeShow > fixed bug #16. checks that you have the
+      right to watch the information
+    * Cotisation : actions > executeShow > checks that you have the right to 
+      watch the information
+    
+
 r48 - may, 14, 2009
     * CotisationTypeForm.class.php : Fixed bug #11. Integer can't be negative
     * Association : bilanSuccess.php > fixed bug #8. Tfoot has been removed to

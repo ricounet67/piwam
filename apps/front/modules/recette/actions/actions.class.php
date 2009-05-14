@@ -51,7 +51,13 @@ class recetteActions extends sfActions
 	public function executeShow(sfWebRequest $request)
 	{
 		$this->recette = RecettePeer::retrieveByPk($request->getParameter('id'));
-		$this->forward404Unless($this->recette);
+		
+		if ($this->recette->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+    		$this->forward404Unless($this->recette);
+		}
+		else {
+		    $this->forward('association', 'credentials');
+		}
 	}
 
 	public function executeNew(sfWebRequest $request)
