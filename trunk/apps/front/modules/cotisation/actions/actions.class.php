@@ -25,7 +25,13 @@ class cotisationActions extends sfActions
 	public function executeShow(sfWebRequest $request)
 	{
 		$this->cotisation = CotisationPeer::retrieveByPk($request->getParameter('id'));
-		$this->forward404Unless($this->cotisation);
+		
+		if ($this->cotisation->getCotisationType()->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+    		$this->forward404Unless($this->cotisation);
+		}
+		else {
+		    $this->forward('association', 'credentials');
+		}
 	}
 
 	public function executeNew(sfWebRequest $request)

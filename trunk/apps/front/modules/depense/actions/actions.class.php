@@ -52,7 +52,13 @@ class depenseActions extends sfActions
 	public function executeShow(sfWebRequest $request)
 	{
 		$this->depense = DepensePeer::retrieveByPk($request->getParameter('id'));
-		$this->forward404Unless($this->depense);
+		
+		if ($this->depense->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+    		$this->forward404Unless($this->depense);
+		}
+		else {
+		    $this->forward('association', 'credentials');
+		}
 	}
 
 	public function executeNew(sfWebRequest $request)

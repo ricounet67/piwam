@@ -18,7 +18,13 @@ class compteActions extends sfActions
     public function executeShow(sfWebRequest $request)
     {
         $this->compte = ComptePeer::retrieveByPk($request->getParameter('id'));
-        $this->forward404Unless($this->compte);
+        
+        if ($this->compte->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward404Unless($this->compte);
+        }
+        else {
+            $this->forward('association', 'credentials');
+        }
     }
 
     public function executeNew(sfWebRequest $request)

@@ -18,7 +18,13 @@ class statutActions extends sfActions
     public function executeShow(sfWebRequest $request)
     {
         $this->statut = StatutPeer::retrieveByPk($request->getParameter('id'));
-        $this->forward404Unless($this->statut);
+        
+        if ($this->statut->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward404Unless($this->statut);
+        }
+        else {
+            $this->forward('association', 'credentials');
+        }
     }
 
     public function executeNew(sfWebRequest $request)

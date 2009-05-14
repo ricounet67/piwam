@@ -13,6 +13,17 @@ class associationActions extends sfActions
     private $_association = null;
 
     /**
+     * If we reach this actions, this is because we met a credential issue.
+     * 
+     * @param   sfWebRequest    $request
+     * @since   r49
+     */
+    public function executeCredentials(sfWebRequest $request)
+    {
+        return sfView::ERROR;
+    }
+    
+    /**
      * Provides a view to allows current user to export the different data
      * he wants to export
      *
