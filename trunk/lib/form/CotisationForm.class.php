@@ -53,7 +53,7 @@ class CotisationForm extends BaseCotisationForm
 
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
-		$this->validatorSchema['montant'] = new sfValidatorInteger(array('min' => 0), array('min' => 'ne peut être négatif'));
+		$this->validatorSchema['montant'] = new sfValidatorNumber(array('min' => 0), array('min' => 'ne peut être négatif'));
 		
 		sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
 		$this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(

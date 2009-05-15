@@ -39,7 +39,7 @@ class CotisationTypeForm extends BaseCotisationTypeForm
 		
 		      
         // We do not allow negative values
-        $this->validatorSchema['montant'] = new sfValidatorInteger(array('min' => 0), array('min' => 'ne peut être négatif'));
+        $this->validatorSchema['montant'] = new sfValidatorNumber(array('min' => 0), array('min' => 'ne peut être négatif'));
         $this->validatorSchema['valide'] = new sfValidatorInteger(array('min' => 0), array('min' => 'ne peut être négatif'));
 	
 	}

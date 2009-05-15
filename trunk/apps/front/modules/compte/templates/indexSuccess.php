@@ -20,9 +20,9 @@ use_helper('Date');
       <td><?php echo $compte->getReference() ?></td>
       <td><?php echo format_date($compte->getCreatedAt()) ?></td>
       <td>
-        <a href="<?php echo url_for('compte/show?id='.$compte->getId()) ?>"><?php echo image_tag('details.png'); ?></a>
-        <a href="<?php echo url_for('compte/edit?id='.$compte->getId()) ?>"><?php echo image_tag('edit.png'); ?></a>
-        <?php echo link_to(image_tag('delete'),
+        <a href="<?php echo url_for('compte/show?id='.$compte->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[details]')); ?></a>
+        <a href="<?php echo url_for('compte/edit?id='.$compte->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')); ?></a>
+        <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')),
             			 	'compte/delete?id=' . $compte->getId(),
         	     		 	array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?'));
         ?>

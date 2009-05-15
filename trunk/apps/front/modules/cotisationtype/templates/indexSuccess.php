@@ -22,7 +22,7 @@
       <td><?php echo format_currency($cotisation_type->getMontant(), '&euro;') ?></td>
       <td><?php echo format_date($cotisation_type->getCreatedAt()) ?></td>
       <td><?php echo format_date($cotisation_type->getUpdatedAt()) ?></td>
-      <td><?php echo link_to(image_tag('edit'), 'cotisationtype/edit?id=' . $cotisation_type->getId())?></td>
+      <td><?php echo link_to(image_tag('edit', array('alt' => '[éditer]')), 'cotisationtype/edit?id=' . $cotisation_type->getId())?></td>
     </tr>
     <?php endforeach; ?>
   </tbody>

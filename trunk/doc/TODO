@@ -5,6 +5,8 @@ SQL:
 ALTER TABLE `cotisation` ADD `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `cotisation_type_id` ;
 
 
+    * Association : add 'credentials' error in error module
+    * Association : block index action
 	* Display a legend when displaying icons (edit, delete...)
 	* Issue when deleting compte :
 		-> recette / depense still exist
