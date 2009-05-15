@@ -10,9 +10,23 @@
  */
 class cotisationtypeActions extends sfActions
 {    
+    /**
+     * Called by AJAX updater in 'cotisation/new' action.
+     * 
+     * @param $request
+     * @return unknown_type
+     */
     public function executeAjaxgetamountfor(sfWebRequest $request)
     {
-        echo $request->getParameter('id', 'erreur');
+        $id = $request->getParameter('id', false);
+        
+        if (!$id) {
+            echo 'Pas de montant';
+        }
+        else {
+            echo CotisationTypePeer::getAmountForTypeId($id);
+        }
+        
         return sfView::NONE;
     }
     

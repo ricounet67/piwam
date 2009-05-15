@@ -71,7 +71,7 @@
     Ajax updater can't update input form directly,
     so we update the following hidden <div> 
 -->
-<div id="hiddenMontantValue" style="display: none">Montant actuel:</div>
+<div id="hiddenMontantValue" style="display: none"></div>
 
 <!-- 
     The following AJAX behaviour update the hidden field
@@ -88,7 +88,7 @@ new Form.Element.EventObserver('cotisation_cotisation_type_id',
 );
 
 function updateAmont(v) {
-      document.getElementById('cotisation_montant').value = v;   
+      document.getElementById('cotisation_montant').value = document.getElementById('hiddenMontantValue').innerHTML;   
     }
 //-->
 </script>
