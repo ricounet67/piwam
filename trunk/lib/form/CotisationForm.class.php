@@ -43,6 +43,7 @@ class CotisationForm extends BaseCotisationForm
 		$id = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
 		$this->widgetSchema['membre_id']->setOption('criteria', MembrePeer::getCriteriaForAssociationId($id));
 		$this->widgetSchema['cotisation_type_id']->setOption('criteria', CotisationTypePeer::getCriteriaForAssociationId($id));
+		$this->widgetSchema['cotisation_type_id']->setOption('add_empty', true);
 		$this->widgetSchema['compte_id']->setOption('criteria', ComptePeer::getCriteriaForAssociationId($id));
 
 		$this->widgetSchema['compte_id']->setAttribute('class', 'formInputLarge');

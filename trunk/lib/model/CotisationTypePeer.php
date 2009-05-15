@@ -2,6 +2,19 @@
 
 class CotisationTypePeer extends BaseCotisationTypePeer
 {    
+    /**
+     * Get the amount of a Cotisation according to its ID
+     * 
+     * @param   integer $id : type id
+     * @return  integer     : amount
+     * @since   r51
+     */
+    public static function getAmountForTypeId($id)
+    {
+        $type = self::retrieveByPK($id);
+        return $type->getMontant();
+    }
+    
 	/**
 	 * Retrieve CotisationType only for the $associationId in argument
 	 * 

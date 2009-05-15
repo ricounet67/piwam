@@ -1,3 +1,15 @@
+r52 - may, 15, 2009
+    * Missing files when commiting revision 51
+
+
+r51 - may, 15, 2009
+    * CotisationForm.class.php : add empty choice to force user to select a
+      value (which will be updated thanks to  AJAX updater)
+    * CotisationType : actions > executeAjaxgetamountfor() gets the amount and
+      not the ID
+    * => Issue #5 has been really done !
+
+
 r50 - may, 15, 2009
     * /config/schema.yml : Cotisation got a new field 'montant'
     * symfony propel:build-model
