@@ -1,3 +1,9 @@
+update from 1.1.0beta to final :
+
+SQL:
+
+ALTER TABLE `cotisation` ADD `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `cotisation_type_id` ;
+
 
 	* Display a legend when displaying icons (edit, delete...)
 	* Issue when deleting compte :
