@@ -15,7 +15,7 @@
     <tr>
       <td><?php echo $activite->getLibelle() ?></td>
       <td><?php echo format_date($activite->getCreatedAt()) ?></td>
-      <td><a href="<?php echo url_for('activite/edit?id=' . $activite->getId()) ?>"><?php echo image_tag('edit.png') ?></a></td>
+      <td><a href="<?php echo url_for('activite/edit?id=' . $activite->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')) ?></a></td>
     </tr>
     <?php endforeach; ?>
   </tbody>

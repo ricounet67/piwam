@@ -21,9 +21,9 @@
             <td><?php echo $depense->getCompte() ?></td>
             <td><?php echo format_date($depense->getDate()) ?></td>
             <td>
-                <a href="<?php echo url_for('depense/show?id=' . $depense->getId()) ?>"><?php echo image_tag('details.png') ?></a>
-                <a href="<?php echo url_for('depense/edit?id=' . $depense->getId()) ?>"><?php echo image_tag('edit.png') ?></a>
-                <?php echo link_to(image_tag('delete'),
+                <a href="<?php echo url_for('depense/show?id=' . $depense->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[details]')) ?></a>
+                <a href="<?php echo url_for('depense/edit?id=' . $depense->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')) ?></a>
+                <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')),
           	  					 	'depense/delete?id=' . $depense->getId(),
           	   					 	array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?'));
               	?>

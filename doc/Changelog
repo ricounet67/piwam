@@ -1,3 +1,21 @@
+r53 - may, 15, 2009
+    * Recette : indexSucces.php > images got 'alt' attributes
+    * Depense : indexSucces.php > images got 'alt' attributes
+    * CotisationType : indexSucces.php > images got 'alt' attributes
+    * Cotisation : indexSucces.php > images got 'alt' attributes
+    * Compte : indexSucces.php > images got 'alt' attributes
+    * Activite : indexSucces.php > images got 'alt' attributes
+    * Membre : indexSucces.php > images got 'alt' attributes
+    * Statut : indexSucces.php > images got 'alt' attributes
+    * layout.php : stupid mistake has been corrected in Javascript markup
+    * RecetteForm.class.php : Integer validator changed to Number validator for
+      amount field
+    * DepenseForm.class.php : Integer validator changed to Number validator for
+      amount field
+    * CotisationForm.class.php : Integer validator changed to Number validator 
+      for amount field
+     
+
 r52 - may, 15, 2009
     * Missing files when commiting revision 51
 

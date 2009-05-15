@@ -12,8 +12,8 @@
     <tr>
       <td><?php echo $statut->getNom() ?></td>
       <td>
-        <?php echo link_to(image_tag('edit.png'), 'statut/edit?id=' . $statut->getId()) ?>
-        <?php echo link_to(image_tag('delete.png'), 'statut/delete?id=' . $statut->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+        <?php echo link_to(image_tag('edit.png', array('alt' => '[éditer]')), 'statut/edit?id=' . $statut->getId()) ?>
+        <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'statut/delete?id=' . $statut->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
      </td>
     </tr>
     <?php endforeach; ?>

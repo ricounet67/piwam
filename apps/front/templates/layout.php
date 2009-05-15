@@ -10,7 +10,7 @@
 <body>
     
     <!-- Set Jquery's noConflict mode -->
-    <script type-"text/javascript">var J = jQuery.noConflict();</script>
+    <script type="text/javascript">var J = jQuery.noConflict();</script>
 
     
     <div id="container">

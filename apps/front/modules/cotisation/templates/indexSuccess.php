@@ -22,8 +22,8 @@
 	      	<td><?php echo $cotisation->getMembreRelatedByMembreId() ?></td>
 	      	<td><?php echo format_date($cotisation->getDate()) ?></td>
 	      	<td>
-	      		<a href="<?php echo url_for('cotisation/edit?id='.$cotisation->getId()) ?>"><?php echo image_tag('edit.png') ?></a>
-                <?php echo link_to(image_tag('delete'),
+	      		<a href="<?php echo url_for('cotisation/edit?id='.$cotisation->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')) ?></a>
+                <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')),
           	  					 	'cotisation/delete?id=' . $cotisation->getId(),
           	   					 	array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?'));
               	?>

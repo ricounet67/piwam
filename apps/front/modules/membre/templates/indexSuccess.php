@@ -28,10 +28,10 @@
         <td><?php echo $membre->getStatut() ?></td>
         <td><?php echo $membre->getVille() ?></td>
         <td>
-            <a href="mailto:<?php echo $membre->getEmail() ?>"><?php echo image_tag('mail.png') ?></a>
-            <?php echo link_to(image_tag('edit.png'), 'membre/edit?id=' . $membre->getId()) ?>
-            <?php echo link_to(image_tag('details.png'), 'membre/show?id=' . $membre->getId()) ?>
-            <?php echo link_to(image_tag('delete.png'), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+            <a href="mailto:<?php echo $membre->getEmail() ?>"><?php echo image_tag('mail.png', array('alt' => '[e-mail]')) ?></a>
+            <?php echo link_to(image_tag('edit.png', array('alt' => '[éditer]')), 'membre/edit?id=' . $membre->getId()) ?>
+            <?php echo link_to(image_tag('details.png', array('alt' => '[details]')), 'membre/show?id=' . $membre->getId()) ?>
+            <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
         </td>
     </tr>
     <?php endforeach; ?>
