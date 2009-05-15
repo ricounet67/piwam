@@ -98,8 +98,8 @@ class membreActions extends sfActions
 
         if ($membre instanceof Membre)
         {
-            $this->prenom 	= $membre->getPrenom();
-            $this->nom 		= $membre->nom();
+            // here you can access to $membre properties
+            // and methods
         }
     }
 
@@ -216,7 +216,7 @@ class membreActions extends sfActions
                 $association->setEnregistrePar($membre->getId());
                 $association->save();
                 $this->getUser()->removeTemporaryData();
-                $this->getUser()->setTemporarUserInfo($user);
+                $this->getUser()->setTemporarUserInfo($membre);
                 $this->redirect('membre/endregistration');
             }
             else {

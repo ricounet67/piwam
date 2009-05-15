@@ -9,8 +9,14 @@
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
 class cotisationtypeActions extends sfActions
-{
-	public function executeIndex(sfWebRequest $request)
+{    
+    public function executeAjaxgetamountfor(sfWebRequest $request)
+    {
+        echo $request->getParameter('id', 'erreur');
+        return sfView::NONE;
+    }
+    
+    public function executeIndex(sfWebRequest $request)
 	{
 		$this->cotisation_type_list = CotisationTypePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
 	}

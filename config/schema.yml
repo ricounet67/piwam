@@ -46,6 +46,7 @@ propel:
     membre_id:       	{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
     date:            	{ type: date, required: true }
     enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    montant:            { type: decimal, required: true }
     mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
