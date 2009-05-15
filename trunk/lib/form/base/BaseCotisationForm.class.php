@@ -6,7 +6,7 @@
  * @package    piwam
  * @subpackage form
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 16976 2009-04-04 12:47:44Z fabien $
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseCotisationForm extends BaseFormPropel
 {
@@ -19,6 +19,7 @@ class BaseCotisationForm extends BaseFormPropel
       'membre_id'          => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
       'date'               => new sfWidgetFormDate(),
       'enregistre_par'     => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
+      'montant'            => new sfWidgetFormInput(),
       'mis_a_jour_par'     => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
       'created_at'         => new sfWidgetFormDateTime(),
       'updated_at'         => new sfWidgetFormDateTime(),
@@ -31,6 +32,7 @@ class BaseCotisationForm extends BaseFormPropel
       'membre_id'          => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id')),
       'date'               => new sfValidatorDate(),
       'enregistre_par'     => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id')),
+      'montant'            => new sfValidatorNumber(),
       'mis_a_jour_par'     => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id')),
       'created_at'         => new sfValidatorDateTime(array('required' => false)),
       'updated_at'         => new sfValidatorDateTime(array('required' => false)),

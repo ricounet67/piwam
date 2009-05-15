@@ -6,7 +6,7 @@
  * @package    piwam
  * @subpackage form
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 16976 2009-04-04 12:47:44Z fabien $
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
  */
 class BaseMembreForm extends BaseFormPropel
 {
@@ -41,8 +41,8 @@ class BaseMembreForm extends BaseFormPropel
       'id'                 => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id', 'required' => false)),
       'nom'                => new sfValidatorString(array('max_length' => 255)),
       'prenom'             => new sfValidatorString(array('max_length' => 255)),
-      'pseudo'             => new sfValidatorString(array('max_length' => 255)),
-      'password'           => new sfValidatorString(array('max_length' => 255)),
+      'pseudo'             => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'password'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'statut_id'          => new sfValidatorPropelChoice(array('model' => 'Statut', 'column' => 'id')),
       'date_inscription'   => new sfValidatorDate(),
       'exempte_cotisation' => new sfValidatorBoolean(),

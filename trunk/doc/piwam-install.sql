@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.1.3.1
+-- version 2.11.9.2
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Mer 06 Mai 2009 à 15:39
--- Version du serveur: 5.1.33
--- Version de PHP: 5.2.9-2
+-- Généré le : Ven 15 Mai 2009 à 00:08
+-- Version du serveur: 5.0.67
+-- Version de PHP: 5.2.6
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -26,19 +26,19 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `activite` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(255) COLLATE utf8_bin NOT NULL,
-  `actif` tinyint(4) DEFAULT '1',
+  `id` int(11) NOT NULL auto_increment,
+  `libelle` varchar(255) NOT NULL,
+  `actif` tinyint(4) default '1',
   `association_id` int(11) NOT NULL,
-  `enregistre_par` int(11) DEFAULT NULL,
-  `mis_a_jour_par` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `enregistre_par` int(11) default NULL,
+  `mis_a_jour_par` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
   KEY `activite_FI_1` (`association_id`),
   KEY `activite_FI_2` (`enregistre_par`),
   KEY `activite_FI_3` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -47,18 +47,18 @@ CREATE TABLE IF NOT EXISTS `activite` (
 --
 
 CREATE TABLE IF NOT EXISTS `association` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(120) COLLATE utf8_bin NOT NULL,
-  `description` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `site_web` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `enregistre_par` int(11) DEFAULT NULL,
-  `mis_a_jour_par` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `id` int(11) NOT NULL auto_increment,
+  `nom` varchar(120) NOT NULL,
+  `description` varchar(255) default NULL,
+  `site_web` varchar(255) default NULL,
+  `enregistre_par` int(11) default NULL,
+  `mis_a_jour_par` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
   KEY `association_FI_1` (`enregistre_par`),
   KEY `association_FI_2` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -67,20 +67,20 @@ CREATE TABLE IF NOT EXISTS `association` (
 --
 
 CREATE TABLE IF NOT EXISTS `compte` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
+  `libelle` varchar(255) NOT NULL,
   `association_id` int(11) NOT NULL,
-  `reference` varchar(64) COLLATE utf8_bin NOT NULL,
-  `actif` tinyint(4) DEFAULT '1',
-  `enregistre_par` int(11) DEFAULT NULL,
-  `mis_a_jour_par` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `reference` varchar(64) NOT NULL,
+  `actif` tinyint(4) default '1',
+  `enregistre_par` int(11) default NULL,
+  `mis_a_jour_par` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
   KEY `compte_FI_1` (`association_id`),
   KEY `compte_FI_2` (`enregistre_par`),
   KEY `compte_FI_3` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -89,22 +89,23 @@ CREATE TABLE IF NOT EXISTS `compte` (
 --
 
 CREATE TABLE IF NOT EXISTS `cotisation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL auto_increment,
   `compte_id` int(11) NOT NULL,
   `cotisation_type_id` int(11) NOT NULL,
   `membre_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `enregistre_par` int(11) NOT NULL,
+  `montant` decimal(10,2) NOT NULL,
   `mis_a_jour_par` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
   KEY `cotisation_FI_1` (`compte_id`),
   KEY `cotisation_FI_2` (`cotisation_type_id`),
   KEY `cotisation_FI_3` (`membre_id`),
   KEY `cotisation_FI_4` (`enregistre_par`),
   KEY `cotisation_FI_5` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -113,21 +114,21 @@ CREATE TABLE IF NOT EXISTS `cotisation` (
 --
 
 CREATE TABLE IF NOT EXISTS `cotisation_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
+  `libelle` varchar(255) NOT NULL,
   `association_id` int(11) NOT NULL,
   `valide` int(11) NOT NULL,
   `montant` decimal(10,2) NOT NULL,
-  `actif` tinyint(4) DEFAULT '1',
+  `actif` tinyint(4) default '1',
   `enregistre_par` int(11) NOT NULL,
   `mis_a_jour_par` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
   KEY `cotisation_type_FI_1` (`association_id`),
   KEY `cotisation_type_FI_2` (`enregistre_par`),
   KEY `cotisation_type_FI_3` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -136,8 +137,8 @@ CREATE TABLE IF NOT EXISTS `cotisation_type` (
 --
 
 CREATE TABLE IF NOT EXISTS `depense` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
+  `libelle` varchar(255) NOT NULL,
   `montant` decimal(10,2) NOT NULL,
   `association_id` int(11) NOT NULL,
   `compte_id` int(11) NOT NULL,
@@ -145,15 +146,15 @@ CREATE TABLE IF NOT EXISTS `depense` (
   `date` date NOT NULL,
   `enregistre_par` int(11) NOT NULL,
   `mis_a_jour_par` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
   KEY `depense_FI_1` (`association_id`),
   KEY `depense_FI_2` (`compte_id`),
   KEY `depense_FI_3` (`activite_id`),
   KEY `depense_FI_4` (`enregistre_par`),
   KEY `depense_FI_5` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -162,35 +163,35 @@ CREATE TABLE IF NOT EXISTS `depense` (
 --
 
 CREATE TABLE IF NOT EXISTS `membre` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) COLLATE utf8_bin NOT NULL,
-  `prenom` varchar(255) COLLATE utf8_bin NOT NULL,
-  `pseudo` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `id` int(11) NOT NULL auto_increment,
+  `nom` varchar(255) NOT NULL,
+  `prenom` varchar(255) NOT NULL,
+  `pseudo` varchar(255) default NULL,
+  `password` varchar(255) default NULL,
   `statut_id` int(11) NOT NULL,
   `date_inscription` date NOT NULL,
   `exempte_cotisation` tinyint(4) NOT NULL,
-  `rue` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `cp` varchar(8) COLLATE utf8_bin DEFAULT NULL,
-  `ville` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `pays` varchar(8) COLLATE utf8_bin DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `website` varchar(255) COLLATE utf8_bin DEFAULT NULL,
-  `tel_fixe` varchar(16) COLLATE utf8_bin DEFAULT NULL,
-  `tel_portable` varchar(16) COLLATE utf8_bin DEFAULT NULL,
-  `actif` tinyint(4) DEFAULT '1',
+  `rue` varchar(255) default NULL,
+  `cp` varchar(8) default NULL,
+  `ville` varchar(255) default NULL,
+  `pays` varchar(8) default NULL,
+  `email` varchar(255) default NULL,
+  `website` varchar(255) default NULL,
+  `tel_fixe` varchar(16) default NULL,
+  `tel_portable` varchar(16) default NULL,
+  `actif` tinyint(4) default '1',
   `association_id` int(11) NOT NULL,
-  `enregistre_par` int(11) DEFAULT NULL,
-  `mis_a_jour_par` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `enregistre_par` int(11) default NULL,
+  `mis_a_jour_par` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
   UNIQUE KEY `membre_U_1` (`pseudo`),
   KEY `membre_FI_1` (`statut_id`),
   KEY `membre_FI_2` (`association_id`),
   KEY `membre_FI_3` (`enregistre_par`),
   KEY `membre_FI_4` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -199,8 +200,8 @@ CREATE TABLE IF NOT EXISTS `membre` (
 --
 
 CREATE TABLE IF NOT EXISTS `recette` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `libelle` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
+  `libelle` varchar(255) NOT NULL,
   `association_id` int(11) NOT NULL,
   `montant` decimal(10,2) NOT NULL,
   `compte_id` int(11) NOT NULL,
@@ -208,15 +209,15 @@ CREATE TABLE IF NOT EXISTS `recette` (
   `date` date NOT NULL,
   `enregistre_par` int(11) NOT NULL,
   `mis_a_jour_par` int(11) NOT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
   KEY `recette_FI_1` (`association_id`),
   KEY `recette_FI_2` (`compte_id`),
   KEY `recette_FI_3` (`activite_id`),
   KEY `recette_FI_4` (`enregistre_par`),
   KEY `recette_FI_5` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -225,19 +226,19 @@ CREATE TABLE IF NOT EXISTS `recette` (
 --
 
 CREATE TABLE IF NOT EXISTS `statut` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) COLLATE utf8_bin NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
+  `nom` varchar(255) NOT NULL,
   `association_id` int(11) NOT NULL,
-  `actif` tinyint(4) DEFAULT '1',
-  `enregistre_par` int(11) DEFAULT NULL,
-  `mis_a_jour_par` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
+  `actif` tinyint(4) default '1',
+  `enregistre_par` int(11) default NULL,
+  `mis_a_jour_par` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
   KEY `statut_FI_1` (`association_id`),
   KEY `statut_FI_2` (`enregistre_par`),
   KEY `statut_FI_3` (`mis_a_jour_par`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Contraintes pour les tables exportées

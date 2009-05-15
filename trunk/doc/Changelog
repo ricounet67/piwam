@@ -1,4 +1,20 @@
-r49
+r50 - may, 15, 2009
+    * /config/schema.yml : Cotisation got a new field 'montant'
+    * symfony propel:build-model
+    * /doc/piwam-install.sql : updated
+    * symfony propel:build-forms
+    * Membre : actions > processForm() > fixed error due to wrong variable
+      ($user instad of $membre)
+    * Membre : actions > executeEndregistration() > we do not try to retrieve
+      user's data anymore (these data weren't used)
+    * view.yml : prototype.js enabled to avoid JS warning
+    * layout.php : jQuery's noConflict mode enabled
+    * Cotisation : _form > AJAX behaviour to update the amount according to
+      the type of Cotisation
+    * => Issue #5 has been done
+
+
+r49 - may, 14, 2009
     * /doc/piwam-install.sql : DECIMAL amounts are now in 10,2 format
     * Association : new action 'crendentials' to deal with credentials
     * Association : new template 'credentialsError.php'

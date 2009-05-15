@@ -1,7 +1,7 @@
 <?php
 
 class CotisationTypePeer extends BaseCotisationTypePeer
-{
+{    
 	/**
 	 * Retrieve CotisationType only for the $associationId in argument
 	 * 

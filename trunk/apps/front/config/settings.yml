@@ -11,7 +11,7 @@ all:
   # You can generate your own keys here :
   # => http://code.google.com/intl/fr/apis/maps/signup.html
   
-  googlemap_key: ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhS1lNceYgF8xlyvwVnMFdwAaj__chQw8Ns5gv_V85Qsjn8lSFzeLY8r4Q
+  googlemap_key: ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhQu6C5tfcTOznQAfibWXRksA7VQJxQAvTbET15fVW6RQnHsk3BmZqGKLw
 
 
 
