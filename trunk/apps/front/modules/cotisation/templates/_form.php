@@ -11,6 +11,9 @@
       <tr>
         <td colspan="2">
           <?php echo $form->renderHiddenFields() ?>
+          <?php echo link_to('Liste', 'cotisation/index', array(
+            'class' => 'formLinkButton'
+          )) ?>
           <?php echo link_to('Annuler', 'cotisation/index', array(
           	'class'	=> 'formLinkButton'
           )) ?>
