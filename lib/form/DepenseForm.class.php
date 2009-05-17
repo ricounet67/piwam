@@ -38,7 +38,7 @@ class DepenseForm extends BaseDepenseForm
 
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
-		$this->validatorSchema['montant'] = new sfValidatorNumber(array('min' => 0), array('min' => 'ne peut être négatif'));
+		$this->validatorSchema['montant'] = new sfValidatorAmount(array('min' => 0), array('min' => 'ne peut être négatif'));
 
 		// select only Membre, CotisationType and Compte which
 		// belong to the association id

@@ -79,7 +79,8 @@ class cotisationActions extends sfActions
 		if ($form->isValid())
 		{
 			$cotisation = $form->save();
-			$this->redirect('cotisation/index');
+            $this->getUser()->setFlash('notice', 'Cotisation enregistrée avec succès.');
+			$this->redirect('cotisation/new');
 		}
 	}
 }
