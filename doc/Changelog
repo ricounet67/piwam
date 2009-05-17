@@ -1,3 +1,9 @@
+r55 - may, 17, 2009
+    * CotisationPeer.php : doSeletSumForAccountId() > fixed bug in computation.
+      Uses the new amount field in Cotisation table, and GROUP BY clause has
+      been added
+
+
 r54 - may, 17, 2009
     * /lib/validator/sfValidatorAmount.class.php : new file. This validates
       amount with French decimal separator (comma)
@@ -7,6 +13,7 @@ r54 - may, 17, 2009
     * Cotisation : actions > we show the form to add - again - a new Cotisation
       and we display a notice message after user clicking on submit button
     * Cotisation : _form > new 'Liste' button to go back to the list
+    * CotisationPeer.php : computation of SUM is up to date
 
 
 r53 - may, 15, 2009
