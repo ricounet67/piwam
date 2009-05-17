@@ -55,7 +55,8 @@ class CotisationPeer extends BaseCotisationPeer
 		$c->clearSelectColumns();
 		$c->addJoin(self::COTISATION_TYPE_ID, CotisationTypePeer::ID, Criteria::LEFT_JOIN);
 		$c->addAnd(CotisationPeer::COMPTE_ID, $id);
-		$c->addAsColumn('TOTAL_COTISATIONS', 'SUM(' . CotisationTypePeer::MONTANT . ')');
+		$c->addAsColumn('TOTAL_COTISATIONS', 'SUM(' . CotisationPeer::MONTANT . ')');
+		$c->addGroupByColumn(self::COMPTE_ID);
 		$result = self::doSelectStmt($c);
 		$row = $result->fetch();
 
