@@ -1,4 +1,21 @@
 <?php
+/**
+ * Compare 2 Depense of Recette according to the date
+ *
+ * @param 	mixed	$entry1
+ * @param 	mixed	$entry2
+ * @return 	integer
+ */
+function compare_money_entries($entry1, $entry2)
+{
+	if ($entry1->getDate() <= $entry2->getDate()) {
+		return -1;
+	}
+	else {
+		return 1;
+	}
+}
+
 
 /**
  * activite actions.
@@ -17,7 +34,13 @@ class activiteActions extends sfActions
 
 	public function executeShow(sfWebRequest $request)
 	{
-		$this->activite = ActivitePeer::retrieveByPk($request->getParameter('id'));
+		$activiteId	= $request->getParameter('id');
+		$depenses 	= DepensePeer::doSelectForActiviteId($activiteId);
+		$recettes 	= RecettePeer::doSelectForActiviteId($activiteId);
+		$data		= array_merge($depenses, $recettes);
+		$isSortOk	= usort($data, 'compare_money_entries');
+		$this->data = $data;
+		$this->activite = ActivitePeer::retrieveByPk($activiteId);
 		$this->forward404Unless($this->activite);
 	}
 
