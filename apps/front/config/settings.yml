@@ -54,7 +54,7 @@ all:
   # Configuration which is related to the user module
         
   users:
-    users_by_page:			10
+    users_by_page:			20
     
   # ----------------------------------------------------------------------------
   #

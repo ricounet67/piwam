@@ -1,3 +1,13 @@
+r57 - may, 21, 2009
+	* settings.yml : default value of 'users_by_page' has been set to 20
+	* Activite : showSuccess.php > enhanced appearance
+	* Activite : actions > new function compare_money_entries();
+	* DepensePeer : new method doSelectForActiviteId()
+	* RecettePeer : new method doSelectForActiviteId()  
+	* Activite : new feature > we can see the list of Depense / Recette for a
+	  specific Activite
+	
+
 r56 - may, 21, 2009
 	* /lib/validator/sfValidatorCustomUnique.php : new file
 	* StatutForm.class.php : validation is done using new CustomUnique validator
