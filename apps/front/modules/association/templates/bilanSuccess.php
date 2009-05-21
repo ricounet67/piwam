@@ -39,7 +39,7 @@ $total			= 0;
 			<td><?php echo format_currency($compte->getTotal()); $total += $compte->getTotal() ?></td>
 		</tr>
 	<?php endforeach; ?>
-    
+
         <tr style="background-color: #eee;">
             <td colspan="4">&nbsp;</td>
         </tr>
@@ -56,7 +56,7 @@ $total			= 0;
             <td><?php echo format_currency($totalRecettes, '&euro;') ?></td>
             <td><?php echo format_currency($total, '&euro;') ?></td>
         </tr>
-    
+
 	</tbody>
 </table>
 

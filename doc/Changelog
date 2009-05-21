@@ -1,3 +1,16 @@
+r56 - may, 21, 2009
+	* /lib/validator/sfValidatorCustomUnique.php : new file
+	* StatutForm.class.php : validation is done using new CustomUnique validator
+	* CompteForm.class.php : validation is done using new CustomUnique validator
+	* ActiviteForm.class.php : validation is done using new CustomUnique
+	  validator
+	* Fixed issue #13 (Duplicate entries)
+	* Fixed issue #12 (Duplicate entries)
+	* ActiviteForm.class.php : setting of default value for field 
+	  'mis_a_jour_par' has been removed (useless because already present in
+	  action class)
+	
+
 r55 - may, 17, 2009
     * CotisationPeer.php : doSeletSumForAccountId() > fixed bug in computation.
       Uses the new amount field in Cotisation table, and GROUP BY clause has

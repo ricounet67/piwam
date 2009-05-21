@@ -19,6 +19,9 @@ class CompteForm extends BaseCompteForm
 	 */
 	public function configure()
 	{
+		$associationId 	= sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
+		$userId			= sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user');
+
 		unset($this['created_at'], 		$this['updated_at']);
 		unset($this['enregistre_par'], 	$this['mis_a_jour_par']);
 		unset($this['actif'], 			$this['association_id']);
@@ -26,8 +29,8 @@ class CompteForm extends BaseCompteForm
 		if ($this->getObject()->isNew()) {
 			$this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
 			$this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-			$this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
-			$this->setDefault('association_id', sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user'));
+			$this->setDefault('enregistre_par', $userId);
+			$this->setDefault('association_id', $associationId);
 			$this->validatorSchema['association_id'] = new sfValidatorInteger();
 			$this->validatorSchema['enregistre_par'] = new sfValidatorInteger();
 		}
@@ -38,6 +41,8 @@ class CompteForm extends BaseCompteForm
 
 		$this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
 		$this->validatorSchema['actif'] = new sfValidatorBoolean();
+		$this->validatorSchema['reference'] = new sfValidatorCustomUnique(array('class' => 'Compte', 'fields' => array('reference' => null, 'association_id' => $associationId)));
+		$this->validatorSchema['libelle'] = new sfValidatorCustomUnique(array('class' => 'Compte', 'fields' => array('libelle' => null, 'association_id' => $associationId)));
 
 		$this->widgetSchema['libelle']->setAttribute('class', 'formInputLarge');
 		$this->widgetSchema['reference']->setAttribute('class', 'formInputNormal');
