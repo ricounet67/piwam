@@ -1,7 +1,7 @@
 <?php use_helper('Date') 	?>
 <?php use_helper('Membre') 	?>
 <?php use_helper('Boolean') ?>
-<?php use_helper('Javascript') ?> 
+<?php use_helper('Javascript') ?>
 
 <h2>Informations détaillées &nbsp; <?php echo link_to(image_tag('edit'), 'membre/edit?id='.$membre->getId()) ?></h2>
 
@@ -37,7 +37,7 @@
         </tr>
         <tr>
             <th>Pays :</th>
-            <td><?php echo $membre->getPays() ?></td>
+            <td><?php echo image_tag('flags/' . strtolower($membre->getPays()), array('alt' => $membre->getPays(), 'title' => $membre->getPays())) ?></td>
         </tr>
         <tr>
             <th>Email :</th>
@@ -82,7 +82,7 @@
 			<?php if (count($cotisations) == 0): ?>
 				<li><i>Aucune cotisation versée par ce membre.</i></li>
 			<?php endif; ?>
-		
+
 			<?php foreach ($cotisations as $cotisation): ?>
 				<li><?php echo $cotisation->getCotisationType() ?> versée le <?php echo $cotisation->getDate() ?></li>
 			<?php endforeach; ?>

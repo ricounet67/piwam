@@ -1,3 +1,12 @@
+r58 - may, 21, 2009
+	* MembreHelper.php : fixed bug in format_membre() due to sfOutputDecorator
+	  class wrapping the real Membre object
+	* Activite : showSuccess.php > use the Membre object and not the id to
+	  display date about user who registered / updated the current Activite
+	* /web/images/flags : new folder with flags of available countries
+	* Membre : showSuccess.php : display the flags of the member's country
+	
+
 r57 - may, 21, 2009
 	* settings.yml : default value of 'users_by_page' has been set to 20
 	* Activite : showSuccess.php > enhanced appearance

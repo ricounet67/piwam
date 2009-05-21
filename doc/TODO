@@ -22,3 +22,6 @@ ALTER TABLE `cotisation` ADD `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `cotisati
 	* Security issue (control association that user belongs to)
 	* Provide bilan by year
 	* PDF output for bilan
+	* Export should be put in each module
+	
+	
