@@ -8,11 +8,11 @@
   <tbody>
     <tr>
       <th><?php echo image_tag('time.png', 'align="absmiddle"')?> Enregistrée le :</th>
-      <td><?php echo format_datetime($activite->getCreatedAt(), 'dd/MM/yyyy HH:mm') ?> par <?php echo format_membre($activite->getEnregistrePar()) ?></td>
+      <td><?php echo format_datetime($activite->getCreatedAt(), 'dd/MM/yyyy HH:mm') ?> par <?php echo format_membre($activite->getMembreRelatedByEnregistrePar()) ?></td>
     </tr>
     <tr>
       <th><?php echo image_tag('time.png', 'align="absmiddle"')?> Mise à jour le :</th>
-      <td><?php echo format_datetime($activite->getUpdatedAt(), 'dd/MM/yyyy HH:mm') ?> par <?php echo format_membre($activite->getMisAJourPar())?></td>
+      <td><?php echo format_datetime($activite->getUpdatedAt(), 'dd/MM/yyyy HH:mm') ?> par <?php echo format_membre($activite->getMembreRelatedByMisAJourPar())?></td>
     </tr>
   </tbody>
 </table>
