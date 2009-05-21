@@ -24,7 +24,7 @@
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
             <th>Libellé du statut :</th>
-            <td><?php echo $form['nom']->renderError() ?> <?php echo $form['nom'] ?></td>
+            <td><?php echo $form['nom'] ?> <?php echo $form['nom']->renderError() ?> </td>
         </tr>
     </tbody>
 </table>
