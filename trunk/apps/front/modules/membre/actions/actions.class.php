@@ -251,4 +251,14 @@ class membreActions extends sfActions
 
         $this->map = $map;
     }
+
+    /**
+     * Allows the user to manager ACL for each Membre
+     * @param $request
+     * @return unknown_type
+     */
+    public function executeAcl(sfWebRequest $request)
+    {
+        $this->form = new AclCredentialForm();
+    }
 }

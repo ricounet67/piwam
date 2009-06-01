@@ -4,6 +4,58 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 #-----------------------------------------------------------------------------
+#-- acl_module
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `acl_module`;
+
+
+CREATE TABLE `acl_module`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`libelle` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- acl_action
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `acl_action`;
+
+
+CREATE TABLE `acl_action`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`acl_module_id` INTEGER,
+	`libelle` VARCHAR(255)  NOT NULL,
+	`code` VARCHAR(100)  NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `acl_action_FI_1` (`acl_module_id`),
+	CONSTRAINT `acl_action_FK_1`
+		FOREIGN KEY (`acl_module_id`)
+		REFERENCES `acl_module` (`id`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- acl_credential
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `acl_credential`;
+
+
+CREATE TABLE `acl_credential`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`membre_id` INTEGER,
+	PRIMARY KEY (`id`),
+	INDEX `acl_credential_FI_1` (`membre_id`),
+	CONSTRAINT `acl_credential_FK_1`
+		FOREIGN KEY (`membre_id`)
+		REFERENCES `membre` (`id`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- activite
 #-----------------------------------------------------------------------------
 
@@ -119,7 +171,7 @@ CREATE TABLE `cotisation`
 	`membre_id` INTEGER  NOT NULL,
 	`date` DATE  NOT NULL,
 	`enregistre_par` INTEGER  NOT NULL,
-	`montant` DECIMAL  NOT NULL,
+	`montant` DECIMAL(10,2)  NOT NULL,
 	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
@@ -164,7 +216,7 @@ CREATE TABLE `cotisation_type`
 	`libelle` VARCHAR(255)  NOT NULL,
 	`association_id` INTEGER  NOT NULL,
 	`valide` INTEGER  NOT NULL,
-	`montant` DECIMAL  NOT NULL,
+	`montant` DECIMAL(10,2)  NOT NULL,
 	`actif` TINYINT default 1,
 	`enregistre_par` INTEGER  NOT NULL,
 	`mis_a_jour_par` INTEGER  NOT NULL,
@@ -199,7 +251,7 @@ CREATE TABLE `depense`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
-	`montant` DECIMAL  NOT NULL,
+	`montant` DECIMAL(10,2)  NOT NULL,
 	`association_id` INTEGER  NOT NULL,
 	`compte_id` INTEGER  NOT NULL,
 	`activite_id` INTEGER  NOT NULL,
@@ -303,7 +355,7 @@ CREATE TABLE `recette`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
 	`association_id` INTEGER  NOT NULL,
-	`montant` DECIMAL  NOT NULL,
+	`montant` DECIMAL(10,2)  NOT NULL,
 	`compte_id` INTEGER  NOT NULL,
 	`activite_id` INTEGER  NOT NULL,
 	`date` DATE  NOT NULL,

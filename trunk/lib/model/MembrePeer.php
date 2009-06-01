@@ -140,6 +140,7 @@ class MembrePeer extends BaseMembrePeer
 	{
 		$c = new Criteria();
 		$c->add(self::ASSOCIATION_ID, $associationId);
+		$c->addAnd(self::EMAIL, null, Criteria::ISNOTNULL);
 		$c->addAnd(self::EMAIL, "", Criteria::NOT_EQUAL);
 		
 		return self::doSelect($c);

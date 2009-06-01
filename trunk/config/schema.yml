@@ -1,6 +1,32 @@
 propel:
   _attributes:   		{ package: lib.model }
 
+  #
+  # ACL Management
+  #
+
+  acl_module:           
+    _attributes:        { phpName : AclModule }
+    id:                 ~
+    libelle:            { type: varchar(255), required: true }
+  
+  acl_action:           
+    _attributes:        { phpName : AclAction }
+    id:                 ~
+    acl_module_id:      ~
+    libelle:            { type: varchar(255), required: true }
+    code:               { type: varchar(100), required: true }
+  
+  acl_credential:       
+    _attributes:        { phpName : AclCredential }
+    id:                 ~
+    membre_id:          ~
+
+
+  #
+  # Entities
+  #
+
   activite:
     _attributes:     	{ phpName: Activite }
     id:              	~
@@ -46,7 +72,7 @@ propel:
     membre_id:       	{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
     date:            	{ type: date, required: true }
     enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    montant:            { type: decimal, required: true }
+    montant:            { type: decimal, size: 10, scale: 2, required: true }
     mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
@@ -59,7 +85,7 @@ propel:
     association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
     association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
     valide:          	{ type: integer, required: true }
-    montant:         	{ type: decimal, required: true }
+    montant:         	{ type: decimal, size: 10, scale: 2, required: true }
     actif:           	{ type: boolean, default: true }
     enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
     mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
@@ -71,7 +97,7 @@ propel:
     _attributes:     	{ phpName: Depense }
     id:              	~
     libelle:         	{ type: varchar(255), required: true }
-    montant:         	{ type: decimal, required: true }
+    montant:         	{ type: decimal, size: 10, scale: 2, required: true }
     association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
     compte_id:       	{ type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: cascade }
     activite_id:     	{ type: integer, required: true, foreignTable: activite, foreignReference: id, onDelete: cascade }
@@ -113,7 +139,7 @@ propel:
     id:              	~
     libelle:         	{ type: varchar(255), required: true }
     association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
-    montant:         	{ type: decimal, required: true }
+    montant:         	{ type: decimal, size: 10, scale: 2, required: true }
     compte_id:       	{ type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: cascade }
     activite_id:     	{ type: integer, required: true, foreignTable: activite, foreignReference: id, onDelete: cascade }
     date:            	{ type: date, required: true }

@@ -1,3 +1,17 @@
+r60 - june, 1, 2009
+    * Association : mailing > error is displayed if the user doesn't have the
+      smtp module
+    * MembrePeer : doSelectWithEmailForAssociation() > fixed issue with
+      Criteria::ISNOTNULL
+    * schema.yml : model is up to date to manage credentials
+    * symfony propel:build-model
+    * fixtures.yml : filled with ACL modules and actions
+    * AclActionPeer : doSelectForModuleId() new method
+    * AclCredentialForm : new class
+    * Membre : aclSuccess.php > new file
+    * Membre : new action "acl"
+    
+
 r59 - june, 1, 2009
     * Association/Credentials action has moved to "Error" module
     * Association : credentialsError.php template has moved to "Error" module

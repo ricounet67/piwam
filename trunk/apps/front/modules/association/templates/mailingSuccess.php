@@ -8,6 +8,12 @@
   <?php echo '<p class="notice">' . $sf_user->getFlash('notice') . '</p>' ?>
 <?php endif; ?>
 
+<?php if ($sf_user->hasFlash('error')): ?>
+  <p class="error">
+        <?php echo image_tag('error', array('align' => 'top')) ?> <strong>ERREUR</strong> : <?php echo $sf_user->getFlash('error') ?>
+  </p>
+<?php endif; ?>
+
 <?php  if (isset($content)): ?>
 	<div class="mailPreview">
 		<p><strong>Votre message :</strong><hr />
