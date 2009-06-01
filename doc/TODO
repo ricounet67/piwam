@@ -4,6 +4,8 @@ SQL:
 
 ALTER TABLE `cotisation` ADD `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `cotisation_type_id` ;
 
+Export ACL_* tables and contents
+
 
     * Association : add 'credentials' error in error module
     * Association : block index action
@@ -23,5 +25,4 @@ ALTER TABLE `cotisation` ADD `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `cotisati
 	* Provide bilan by year
 	* PDF output for bilan
 	* Export should be put in each module
-	
-	
+	* Association > mailing > find a way to store error messages

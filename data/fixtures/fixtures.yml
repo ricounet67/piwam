@@ -5,87 +5,238 @@
 # # See documentation for your ORM's *:data-load task for more information.
 # 
 
-Membre:
-  admin:
-    nom:            Mogenet
-    prenom:         Adrien
-    pseudo:         cf357
-    password:       test
-    #statut_id:      president
-    date_inscription: 	2008-03-21
-    exempte_cotisation: 0
-    rue:            9 rue du general de Larminat
-    cp:             94000
-    ville:          CRETEIL
-    pays:           fr
-    email:          adrien@tekover.net
-    website:		http://adrien.frenchcomp.net
-    tel_fixe:		01 49 80 15 90
-    tel_portable:	06 59 16 64 22
-    actif:			1
-    #association_id: foobar
-    #enregistre_par:	admin
-    #mis_a_jour_par: admin
+AclModule:
+  association:
+    libelle:        Association
+  membre:
+    libelle:        Membre
+  compte:
+    libelle:        Compte
+  activite:
+    libelle:        Activité
+  depense:
+    libelle:        Dépense
+  recette:
+    libelle:        Recette
+  cotisation:
+    libelle:        Cotisations
+  statut:
+    libelle:        Statuts
+
+AclAction:
+
+  #
+  # Relatif a l'association
+  #
+  
+  edit_assoc:
+    acl_module_id:  association
+    libelle:        Éditer l'association
+    code:           edit_association
+    
+  mailing:
+    acl_module_id:  association
+    libelle:        Utiliser l'outil de mailing
+    code:           mailing
+    
+  export:
+    acl_module_id:  association
+    libelle:        Utiliser l'outil d'export
+    code:           export
+    
+  bilan:
+    acl_module_id:  association
+    libelle:        Voir les bilans
+    code:           bilan
 
 
-Association:
-  foobar:
-    nom:			foobar
-    description: 	premiere association pour tester
-    site_web:		http://www.foobar.org
-    enregistre_par: admin
-    mis_a_jour_par:	admin
+  #
+  # Gestion des activites
+  #
+  
+  add_activite:
+    acl_module_id:  activite
+    libelle:        Enregistrer une activité
+    code:           add_activite
+    
+  edit_activite:
+    acl_module_id:  activite
+    libelle:        Éditer une activité
+    code:           edit_activite
+    
+  del_activite:
+    acl_module_id:  activite
+    libelle:        Supprimer une activité
+    code:           del_activite
+    
+  list_activite:
+    acl_module_id:  activite
+    libelle:        Lister les activités
+    code:           list_activite
+    
+  show_activite:
+    acl_module_id:  activite
+    libelle:        Voir les détails d'une activités
+    code:           show_activite
     
 
-Statut:
-  president:
-    nom:			pr&eacute;sident
-    association_id:	foobar
-    actif:  		1
-    enregistre_par: admin
-    mis_a_jour_par:	admin
-  tresorier:
-    nom:			tr&eacute;sorier
-    association_id:	foobar
-    actif:			1
-    enregistre_par: admin
-    mis_a_jour_par:	admin
-  secretaire:
-    nom:			secr&eacute;taire
-    association_id:	foobar
-    actif:			1
-    enregistre_par: admin
-    mis_a_jour_par:	admin
-  membre_actif:
-    nom:			membre actif
-    association_id:	foobar
-    actif:			1
-    enregistre_par: admin
-    mis_a_jour_par:	admin
-  membre_d_honneur:
-    nom:			membre d'honneur
-    association_id:	foobar
-    actif:			1
-    enregistre_par: admin
-    mis_a_jour_par:	admin
+
+  #
+  # Gestion des membres
+  #
+
+  add_membre:
+    acl_module_id:  membre
+    libelle:        Enregistrer un membre
+    code:           add_membre
+    
+  edit_membre:
+    acl_module_id:  membre
+    libelle:        Éditer un membre
+    code:           edit_membre
+    
+  delete_membre:
+    acl_module_id:  membre
+    libelle:        Supprimer un membre
+    code:           del_membre
+    
+  list_membre:
+    acl_module_id:  membre
+    libelle:        Lister les membres
+    code:           list_membre
+    
+  show_membre:
+    acl_module_id:  membre
+    libelle:        Afficher les détails d'un membre
+    code:           show_membre
     
     
-CotisationType:
-  cotisation_annuelle:
-    libelle:		Cotisation annuelle
-    association_id:	foobar
-    valide:			12
-    montant:		10
-    actif:			1
-    enregistre_par: admin
-    mis_a_jour_par:	admin
-
-
-Compte:
-  caisse_monnaie:
-    libelle:		Caisse de monnaie
-    association_id:	foobar
-    reference:  	CAISSE_MONNAIE
-    actif:      	1
-    enregistre_par: admin
-    mis_a_jour_par:	admin
+  #
+  # Gestion des statuts
+  #
+  
+  add_statut:
+    acl_module_id:  statut
+    libelle:        Ajouter un statut
+    code:           add_statut
+  
+  edit_statut:
+    acl_module_id:  statut
+    libelle:        Éditer un statut
+    code:           edit_statut
+    
+  delete_statut:
+    acl_module_id:  statut
+    libelle:        Supprimer un statut
+    code:           del_statut
+    
+  list_statut:
+    acl_module_id:  statut
+    libelle:        Lister les statuts
+    code:           list_statut
+    
+    
+  #
+  # Gestion des cotisations
+  #
+  
+  add_cotisation:
+    acl_module_id:  cotisation
+    libelle:        Enregistrer une cotisation
+    code:           add_cotisation
+  
+  edit_cotisation:
+    acl_module_id:  cotisation
+    libelle:        Éditer une cotisation
+    code:           edit_cotisation
+    
+  delete_cotisation:
+    acl_module_id:  cotisation
+    libelle:        Supprimer une cotisation
+    code:           del_cotisation
+    
+  list_cotisation:
+    acl_module_id:  cotisation
+    libelle:        Lister les cotisations
+    code:           list_cotisation
+    
+  config_cotisations:
+    acl_module_id:  cotisation
+    libelle:        Gérer les types de cotisations
+    code:           config_cotisations
+    
+    
+  #
+  # Gestion des comptes
+  #
+  
+  add_compte:
+    acl_module_id:  compte
+    libelle:        Enregistrer un compte
+    code:           add_compte
+    
+  edit_compte:
+    acl_module_id:  compte
+    libelle:        Éditer un compte
+    code:           edit_compte
+    
+  del_compte:
+    acl_module_id:  compte
+    libelle:        Supprimer un compte
+    code:           del_compte
+    
+  list_compte:
+    acl_module_id:  compte
+    libelle:        Lister les comptes
+    code:           list_compte
+    
+    
+  #
+  # Gestion des recettes
+  #
+  
+  add_recette:
+    acl_module_id:  recette
+    libelle:        Enregistrer une recette
+    code:           add_recette
+    
+  edit_recette:
+    acl_module_id:  recette
+    libelle:        Éditer une recette
+    code:           edit_recette
+    
+  delete_recette:
+    acl_module_id:  recette
+    libelle:        Supprimer une recette
+    code:           del_recette
+    
+  list_recette:
+    acl_module_id:  recette
+    libelle:        Lister les recettes
+    code:           list_recette
+    
+    
+  #
+  # Gestion des depenses
+  #
+  
+  add_depense:
+    acl_module_id:  depense
+    libelle:        Enregistrer une dépense
+    code:           add_depense
+    
+  edit_depense:
+    acl_module_id:  depense
+    libelle:        Éditer une dépense
+    code:           edit_depense
+    
+  delete_depense:
+    acl_module_id:  depense
+    libelle:        Supprimer une dépense
+    code:           del_depense
+    
+  list_depense:
+    acl_module_id:  depense
+    libelle:        Lister les dépenses
+    code:           list_depense
+    

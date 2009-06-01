@@ -115,6 +115,10 @@ class associationActions extends sfActions
                             $methodObject = new Swift_Connection_SMTP('smtp.gmail.com', Swift_Connection_SMTP::PORT_SECURE, Swift_Connection_SMTP::ENC_TLS);
                             $methodObject->setUsername($gmailConfig['gmail_username']);
                             $methodObject->setPassword($gmailConfig['gmail_password']);
+                            
+                            if (!extension_loaded('smtp')) {
+                                $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails dans le fichier settings.yml');
+                            }
                             break;
 
                         case 'smtp':
@@ -127,6 +131,10 @@ class associationActions extends sfActions
                             $methodObject = new Swift_Connection_SMTP($smtpServer, $smtpPort, $smtpEncryption);
                             $methodObject->setUsername($smtpUsername);
                             $methodObject->setPassword($smtpPassword);
+                            
+                            if (!extension_loaded('smtp')) {
+                                $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails dans le fichier settings.yml');
+                            }
                             break;
 
                         case 'sendmail':
