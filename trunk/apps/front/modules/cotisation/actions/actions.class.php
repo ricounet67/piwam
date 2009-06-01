@@ -30,7 +30,7 @@ class cotisationActions extends sfActions
     		$this->forward404Unless($this->cotisation);
 		}
 		else {
-		    $this->forward('association', 'credentials');
+		    $this->forward('error', 'credentials');
 		}
 	}
 

@@ -10,24 +10,35 @@
  */
 class errorActions extends sfActions
 {
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeIndex(sfWebRequest $request)
-  {
-    $this->forward('default', 'module');
-  }
-  
-  /**
-   * Set 'error 404' view
-   * 
-   * @param     sfWebRequest    $request
-   * @since     r30
-   */
-  public function executeError404(sfWebRequest $request)
-  {
-      
-  }
+    /**
+     * Executes index action
+     *
+     * @param sfRequest $request A request object
+     */
+    public function executeIndex(sfWebRequest $request)
+    {
+        $this->forward('default', 'module');
+    }
+
+    /**
+     * Set 'error 404' view
+     *
+     * @param     sfWebRequest    $request
+     * @since     r30
+     */
+    public function executeError404(sfWebRequest $request)
+    {
+
+    }
+
+    /**
+     * If we reach this actions, this is because we met a credential issue.
+     *
+     * @param   sfWebRequest    $request
+     * @since   r49
+     */
+    public function executeCredentials(sfWebRequest $request)
+    {
+        return sfView::ERROR;
+    }
 }

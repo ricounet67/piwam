@@ -57,7 +57,7 @@ class depenseActions extends sfActions
     		$this->forward404Unless($this->depense);
 		}
 		else {
-		    $this->forward('association', 'credentials');
+		    $this->forward('error', 'credentials');
 		}
 	}
 

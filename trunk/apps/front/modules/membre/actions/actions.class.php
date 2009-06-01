@@ -41,7 +41,7 @@ class membreActions extends sfActions
             $this->forward404Unless($this->membre);
         }
         else {
-            $this->forward('association', 'credentials');
+            $this->forward('error', 'credentials');
         }
     }
 

@@ -11,11 +11,11 @@
 <?php  if (isset($content)): ?>
 	<div class="mailPreview">
 		<p><strong>Votre message :</strong><hr />
-		<?php echo $content ?>
+		<?php echo html_entity_decode($content) ?>
 	</div>
 <?php else: ?>
 
-	<form action=""<?php echo url_for('association/mailing') ?>" method="POST">
+	<form action="<?php echo url_for('association/mailing') ?>" method="POST">
 	<table class="formArray">
 		<tr>
 			<td colspan="2">
