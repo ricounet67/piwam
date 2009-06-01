@@ -60,11 +60,11 @@
             <td><?php echo boolean2icon($membre->getActif()) ?></td>
         </tr>
         <tr>
-            <th><?php echo image_tag('time.png', 'align="absmiddle"')?> Enregistré le :</th>
+            <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Enregistré le :</th>
             <td><?php echo format_datetime($membre->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($membre->getMembreRelatedByEnregistrePar()) ?></td>
         </tr>
         <tr>
-            <th><?php echo image_tag('time.png', 'align="absmiddle"')?> Dernière édition :</th>
+            <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Dernière édition :</th>
             <td><?php echo format_datetime($membre->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($membre->getMembreRelatedByMisAJourPar()) ?></td>
         </tr>
     </tbody>

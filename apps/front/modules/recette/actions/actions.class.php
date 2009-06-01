@@ -56,7 +56,7 @@ class recetteActions extends sfActions
     		$this->forward404Unless($this->recette);
 		}
 		else {
-		    $this->forward('association', 'credentials');
+		    $this->forward('error', 'credentials');
 		}
 	}
 

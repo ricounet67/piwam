@@ -23,7 +23,7 @@ class statutActions extends sfActions
             $this->forward404Unless($this->statut);
         }
         else {
-            $this->forward('association', 'credentials');
+            $this->forward('error', 'credentials');
         }
     }
 

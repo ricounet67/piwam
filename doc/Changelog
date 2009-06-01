@@ -1,3 +1,17 @@
+r59 - june, 1, 2009
+    * Association/Credentials action has moved to "Error" module
+    * Association : credentialsError.php template has moved to "Error" module
+    * All references to 'association/credentials' action has been changed into
+      'error/credentials'
+    * Activite : showSuccess.php > new column to display the Compte and Time
+      icons got an ALT attribute
+    * Compte : showSuccess.php > enhanced appearance
+    * Association : mailing > try/catch Connection Exception if the message
+      can't be sent
+    * Association : mailingSuccess.php > html_entity_decode() is used to display
+      contents correctly
+    
+
 r58 - may, 21, 2009
 	* MembreHelper.php : fixed bug in format_membre() due to sfOutputDecorator
 	  class wrapping the real Membre object

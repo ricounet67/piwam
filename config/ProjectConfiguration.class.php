@@ -5,8 +5,8 @@
  * Set up the correct path to reach sfCoreAutoload.class.php using your
  * own Symfony path
  */
-//require_once '/Users/adrien/Development/Symfony/1.2/lib/autoload/sfCoreAutoload.class.php';
-require_once 'C:\Development\Workspace\Symfony-1.2\lib\autoload\sfCoreAutoload.class.php';
+require_once '/Users/adrien/Development/Symfony/1.2/lib/autoload/sfCoreAutoload.class.php';
+//require_once 'C:\Development\Workspace\Symfony-1.2\lib\autoload\sfCoreAutoload.class.php';
 
 sfCoreAutoload::register();
 

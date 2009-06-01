@@ -43,7 +43,7 @@ class cotisationtypeActions extends sfActions
     		$this->forward404Unless($this->cotisation_type);
 		}
 		else {
-		    $this->forward('association', 'credentials');
+		    $this->forward('error', 'credentials');
 		}
 	}
 

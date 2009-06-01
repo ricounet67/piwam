@@ -11,17 +11,6 @@
 class associationActions extends sfActions
 {
     private $_association = null;
-
-    /**
-     * If we reach this actions, this is because we met a credential issue.
-     * 
-     * @param   sfWebRequest    $request
-     * @since   r49
-     */
-    public function executeCredentials(sfWebRequest $request)
-    {
-        return sfView::ERROR;
-    }
     
     /**
      * Provides a view to allows current user to export the different data
@@ -106,7 +95,7 @@ class associationActions extends sfActions
             if ($this->form->isValid())
             {
                 $data 	= $this->form->getValues();
-                $sentOk = 0; 	// this are 2 counters of
+                $sentOk = 0; 	// these are 2 counters of
                 $sentKo = 0;	// succeed/failed messages
 
                 // mail users
@@ -161,17 +150,18 @@ class associationActions extends sfActions
 
                     foreach ($membres as $membre)
                     {
-                        if ($mailer->send($message, $membre->getEmail(), $from)) {
+                        try {
+                            $mailer->send($message, $membre->getEmail(), $from);
                             $sentOk++;
                         }
-                        else {
+                        catch(Swift_ConnectionException $e) {
                             $sentKo++;
                         }
                     }
 
                     $mailer->disconnect();
                     sfContext::getInstance()->getConfiguration()->loadHelpers('Plural');
-                    $this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . plural_word($entOk, ' destinataire') . ' (' . $sentKo . plural_word($sentKo, ' erreur') . ')');
+                    $this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . plural_word($sentOk, ' destinataire') . ' (' . $sentKo . plural_word($sentKo, ' erreur') . ')');
                     $this->content = $data['mail_content'];
                 }
                 catch (Exception $e) {

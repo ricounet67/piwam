@@ -23,7 +23,7 @@ class compteActions extends sfActions
             $this->forward404Unless($this->compte);
         }
         else {
-            $this->forward('association', 'credentials');
+            $this->forward('error', 'credentials');
         }
     }
 
