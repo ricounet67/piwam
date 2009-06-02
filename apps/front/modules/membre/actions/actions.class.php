@@ -112,11 +112,30 @@ class membreActions extends sfActions
         $this->setTemplate('new');
     }
 
+    /**
+     * Manages 2 differents forms :
+     *  - profile editing
+     *  - rights management
+     *
+     * @param $request
+     * @return unknown_type
+     */
     public function executeEdit(sfWebRequest $request)
     {
-        $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Object membre does not exist (%s).', $request->getParameter('id')));
-        $this->form = new MembreForm($membre);
+        $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
+        $this->user_id  = $request->getParameter('id');
+        $this->forward404Unless($membre = MembrePeer::retrieveByPk($this->user_id));
+        $this->form     = new MembreForm($membre);
+        $this->aclForm  = new AclCredentialForm();
+        $membre         = MembrePeer::retrieveByPk($this->user_id);
+
+        if ($membre->getAssociationId() != $associationId) {
+            $this->redirect('error/credentials');
+        }
+
         $this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+        $this->aclForm->setUserId($this->user_id);
+        $this->aclForm->automaticCheck();
     }
 
     /**
@@ -170,7 +189,21 @@ class membreActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Object membre does not exist (%s).', $request->getParameter('id')));
         $this->form = new MembreForm($membre);
+
+        $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
+        $this->user_id  = $request->getParameter('id');
+        $this->form     = new MembreForm($membre);
+        $this->aclForm  = new AclCredentialForm();
+        $membre         = MembrePeer::retrieveByPk($this->user_id);
+
+        if ($membre->getAssociationId() != $associationId) {
+            $this->redirect('error/credentials');
+        }
+
         $this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+        $this->aclForm->setUserId($this->user_id);
+        $this->aclForm->automaticCheck();
+
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }
@@ -201,6 +234,9 @@ class membreActions extends sfActions
      * If this is a the first Membre that we registered, we redirect
      * to the `end` action to display success message about registration.
      *
+     * r62 :    We give all the credentials to the user if this is the
+     *          first user
+     *
      * @param 	sfWebRequest	$request
      * @param 	sfForm			$form
      */
@@ -218,6 +254,11 @@ class membreActions extends sfActions
                 $this->getUser()->removeTemporaryData();
                 $this->getUser()->setTemporarUserInfo($membre);
                 $this->redirect('membre/endregistration');
+
+                $credentials = AclActionPeer::doSelect(new Criteria());
+                foreach ($credentials as $credential) {
+                    $membre->addCredential($credential->getCode());
+                }
             }
             else {
                 $this->redirect('membre/index');
@@ -268,15 +309,6 @@ class membreActions extends sfActions
 
         $this->form->setUserId($this->user_id);
         $this->form->automaticCheck();
-
-
-        if (! $this->user_id) {
-            return sfView::ERROR;
-        }
-
-        if ($membre->getAssociationId() != $associationId) {
-            $this->redirect('error/credentials');
-        }
 
         if ($request->isMethod('post'))
         {

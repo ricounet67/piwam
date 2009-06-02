@@ -1,10 +1,3 @@
-<h2>Gérer les droits</h2>
-
-<?php
-echo $form->renderGlobalErrors();
-?>
-
-
 <script type="text/javascript">
     /*
      * Check the checkboxes who matches the pattern [number]
