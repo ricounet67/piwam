@@ -6,11 +6,29 @@
 # has been set correctly
 
 newfirst:
-  is_secure: off
+  is_secure:    off
   
 firstcreate:
-  is_secure: off
+  is_secure:    off
   
 endregistration:
-  is_secure: off
+  is_secure:    off
   
+  
+index:
+  credentials:  list_membre
+  
+create:
+  credentials:  add_membre
+
+new:
+  credentials:  add_membre
+    
+edit:
+  credentials:  edit_membre
+  
+delete:
+  credentials:  del_membre
+  
+show:
+  credentials:  show_membre

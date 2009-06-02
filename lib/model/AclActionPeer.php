@@ -16,4 +16,18 @@ class AclActionPeer extends BaseAclActionPeer
 
         return self::doSelect($c);
     }
+
+    /**
+     * Retrieve an action thanks to its code
+     *
+     * @param   string  $code
+     * @return  AclAction
+     */
+    public static function retrieveByCode($code)
+    {
+        $c = new Criteria();
+        $c->add(self::CODE, $code);
+
+        return self::doSelectOne($c);
+    }
 }

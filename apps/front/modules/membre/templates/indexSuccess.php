@@ -13,27 +13,29 @@
     </thead>
     <tbody>
     <?php foreach ($membresPager->getResults() as $membre): ?>
-    <?php
-    if ($membre->isAjourCotisation()) {
-        echo '<tr>';
-    }
-    else {
-        echo '<tr class="cotisationNonAjour">';
-    }
 
-    ?>
-        <td><?php echo $membre->getNom() ?></td>
-        <td><?php echo $membre->getPrenom() ?></td>
-        <td><?php echo $membre->getPseudo() ?></td>
-        <td><?php echo $membre->getStatut() ?></td>
-        <td><?php echo $membre->getVille() ?></td>
-        <td>
-            <a href="mailto:<?php echo $membre->getEmail() ?>"><?php echo image_tag('mail.png', array('alt' => '[e-mail]')) ?></a>
-            <?php echo link_to(image_tag('edit.png', array('alt' => '[éditer]')), 'membre/edit?id=' . $membre->getId()) ?>
-            <?php echo link_to(image_tag('details.png', array('alt' => '[details]')), 'membre/show?id=' . $membre->getId()) ?>
-            <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
-        </td>
-    </tr>
+        <?php if ($membre->isAjourCotisation()): ?>
+            <tr>
+        <?php else: ?>
+            <tr class="cotisationNonAjour">
+        <?php endif; ?>
+
+            <td><?php echo $membre->getNom() ?></td>
+            <td><?php echo $membre->getPrenom() ?></td>
+            <td><?php echo $membre->getPseudo() ?></td>
+            <td><?php echo $membre->getStatut() ?></td>
+            <td><?php echo $membre->getVille() ?></td>
+            <td>
+                <?php if ($membre->getEmail()) :?>
+                    <a href="mailto:<?php echo $membre->getEmail() ?>"><?php echo image_tag('mail.png', array('alt' => '[e-mail]')) ?></a>
+                <?php else: ?>
+                    <?php echo image_tag('no_mail') ?>
+                <?php endif; ?>
+                <?php echo link_to(image_tag('edit.png', array('alt' => '[éditer]')), 'membre/edit?id=' . $membre->getId()) ?>
+                <?php echo link_to(image_tag('details.png', array('alt' => '[details]')), 'membre/show?id=' . $membre->getId()) ?>
+                <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+            </td>
+        </tr>
     <?php endforeach; ?>
     </tbody>
 </table>
