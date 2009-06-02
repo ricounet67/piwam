@@ -1,9 +1,21 @@
 
 # We allow unregistered user to create a new association
 new:
-  is_secure: off
+  is_secure:    off
   
 create:
-  is_secure: off
+  is_secure:    off
   
   
+# For the other actions, we have to get the credentials
+edit:
+  credentials:  edit_association
+  
+mailing:
+  credentials:  mailing
+  
+export:
+  credentials:  export
+
+bilan:
+  credentials:  bilan

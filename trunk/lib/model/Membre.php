@@ -125,4 +125,34 @@ class Membre extends BaseMembre
     		parent::setPassword(sha1($password));
     	}
     }
+
+    /**
+     * Delete all existing ACL for the Membre
+     *
+     * @since   r60
+     */
+    public function resetAcl()
+    {
+        $credentials = AclCredentialPeer::doDeleteForMembreId($this->getId());
+    }
+
+    /**
+     * Add a new credential for the Membre
+     *
+     * @param   string  $code
+     * @since   r60
+     * @throw   Exception if invalid $code
+     */
+    public function addCredential($code)
+    {
+        $action = AclActionPeer::retrieveByCode($code);
+
+        if (is_null($action)) {
+            throw new Exception('No action has been found for code ' . $code);
+        }
+        $acl = new AclCredential();
+        $acl->setMembreId($this->getId());
+        $acl->setAclActionId($action->getId());
+        $acl->save();
+    }
 }

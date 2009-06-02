@@ -23,8 +23,8 @@ class membreActions extends sfActions
     {
         $orderByColumn = $request->getParameter('orderby', MembrePeer::PSEUDO);
         $this->membresPager = MembrePeer::doSelectOrderBy($this->getUser()->getAttribute('association_id', null, 'user'),
-                                                            $request->getParameter('page', 1),
-                                                            $orderByColumn);
+        $request->getParameter('page', 1),
+        $orderByColumn);
     }
 
     /**
@@ -253,12 +253,51 @@ class membreActions extends sfActions
     }
 
     /**
-     * Allows the user to manager ACL for each Membre
-     * @param $request
-     * @return unknown_type
+     * Allows the user to manager ACL for each Membre. Once the form is submit,
+     * the existing credentials are deleted and we created new ones.
+     *
+     * @param   sfWebRequest    $request
+     * @since   r60
      */
     public function executeAcl(sfWebRequest $request)
     {
-        $this->form = new AclCredentialForm();
+        $this->form     = new AclCredentialForm();
+        $this->user_id  = $request->getParameter('id');
+        $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
+        $membre         = MembrePeer::retrieveByPk($this->user_id);
+
+        $this->form->setUserId($this->user_id);
+        $this->form->automaticCheck();
+
+
+        if (! $this->user_id) {
+            return sfView::ERROR;
+        }
+
+        if ($membre->getAssociationId() != $associationId) {
+            $this->redirect('error/credentials');
+        }
+
+        if ($request->isMethod('post'))
+        {
+            $this->form->bind($request->getParameter('rights'));
+            if ($this->form->isValid())
+            {
+                $values = $request->getParameter('rights');
+                $membre->resetAcl();
+
+                // Browse the list of rights... first we get the 'modules' level
+                foreach ($values['rights'] as $mid => $acls)
+                {
+                    // Then, foreach module, we get the list of enabled
+                    // checkboxes. "$state" is normally always set to "ON"
+                    // because we only have checked elements
+                    foreach ($acls as $code => $state) {
+                        $membre->addCredential($code);
+                    }
+                }
+                $this->redirect('membre/index');
+            }
+        }
     }
 }

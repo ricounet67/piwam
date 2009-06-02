@@ -1,3 +1,21 @@
+r61 - june, 2, 2009
+    * AclCredentialPeer : doSelectForMembreId() method
+    * Membre.php : resetAcl() method and addCredential($code) method
+    * AclCredentialPeer : doDeleteForMembreId() method
+    * schema.yml : acl_credential got a new "acl_action_id" field
+    * symfony propel:build-model
+    * Membre : new template aclError.php which is displayed if no Member is
+      specified for edit
+    * AclActionPeer : retrieveByCode($code) method
+    * AclCredential : getCode() method
+    * AclCredentialForm.class.php : new automaticCheck() method
+    * no_mail.png image
+    * Membre : index > icon 'no_mail' is displayed without link if user has no
+      email address
+    * security.yml files have been added in each module
+    * myUser.class.php : setCredentials() method
+    
+
 r60 - june, 1, 2009
     * Association : mailing > error is displayed if the user doesn't have the
       smtp module

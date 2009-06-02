@@ -48,11 +48,16 @@ CREATE TABLE `acl_credential`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`membre_id` INTEGER,
+	`acl_action_id` INTEGER,
 	PRIMARY KEY (`id`),
 	INDEX `acl_credential_FI_1` (`membre_id`),
 	CONSTRAINT `acl_credential_FK_1`
 		FOREIGN KEY (`membre_id`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `membre` (`id`),
+	INDEX `acl_credential_FI_2` (`acl_action_id`),
+	CONSTRAINT `acl_credential_FK_2`
+		FOREIGN KEY (`acl_action_id`)
+		REFERENCES `acl_action` (`id`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------

@@ -41,15 +41,16 @@ class AclCredentialForm extends sfForm
      */
     public function configure()
     {
-        $this->widgetSchema['rights']   = new sfWidgetFormSchema();
-        $this->validatorSchema          = new sfValidatorSchema();
+        $this->widgetSchema['rights']       = new sfWidgetFormSchema();
+        $this->validatorSchema              = new sfValidatorSchema();
+        $this->validatorSchema['user_id']   = new sfValidatorInteger();
+        $this->validatorSchema['rights']    = new sfValidatorPass();
 
         $modules = AclModulePeer::doSelect(new Criteria());
         foreach ($modules as $module)
         {
             $this->widgetSchema['rights'][$module->getId()] = new sfWidgetFormSchema();
             $this->_modules[$module->getId()] = $module->getLibelle();
-
             $actions = AclActionPeer::doSelectForModuleId($module->getId());
             foreach ($actions as $action)
             {
@@ -59,6 +60,19 @@ class AclCredentialForm extends sfForm
         }
 
         $this->widgetSchema->setNameFormat('rights[%s]');
+    }
+
+    /*
+     * Check the checkboxes automatically if we are editing existing
+     * rights
+     */
+    public function automaticCheck()
+    {
+        $credentials = AclCredentialPeer::doSelectForMembreId($this->_user_id);
+
+        foreach ($credentials as $credential) {
+            $this->widgetSchema['rights'][$credential->getModuleId()][$credential->getCode()]->setAttribute('checked', 'checked');
+        }
     }
 }
 ?>
