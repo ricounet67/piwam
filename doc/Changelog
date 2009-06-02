@@ -1,3 +1,9 @@
+r63 - june, 2, 2009
+    * Membre : actions > executeAcl() has been cleaned
+    * Membre : showSuccess.php > Domtab is also used to display user information
+      in several tabs
+
+
 r62 - june, 2, 2009
     * settings.yml : secure_module and secure_action have been customized to
       redirect user to a custom page if he doesn't have required credentials
@@ -5,7 +11,7 @@ r62 - june, 2, 2009
       user
     * web/js/domtab/domtab.js : new file, Domtab library to generate HTML tabs
     * web/css/domtab.css : associated stylesheet
-    * Membre : action > edit action directly embeds AclForm
+    * Membre : actions > edit action directly embeds AclForm
     
 
 r61 - june, 2, 2009

@@ -34,10 +34,12 @@ class membreActions extends sfActions
      */
     public function executeShow(sfWebRequest $request)
     {
-        $this->membre = MembrePeer::retrieveByPk($request->getParameter('id'));
+        $membre_id = $request->getParameter('id');
+        $this->membre = MembrePeer::retrieveByPk($membre_id);
 
         if ($this->membre->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
-            $this->cotisations = CotisationPeer::doSelectForUser($request->getParameter('id'));
+            $this->cotisations = CotisationPeer::doSelectForUser($membre_id);
+            $this->credentials = AclCredentialPeer::doSelectForMembreId($membre_id);
             $this->forward404Unless($this->membre);
         }
         else {
@@ -45,6 +47,11 @@ class membreActions extends sfActions
         }
     }
 
+    /**
+     * Registration of a new Membre
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new MembreForm();
@@ -70,6 +77,7 @@ class membreActions extends sfActions
     }
 
     /**
+     * Performed action when registering the first user
      *
      * @param 	sfWebRequest	$request
      * @since	r16
@@ -184,6 +192,11 @@ class membreActions extends sfActions
         $csv->exportContentAsFile();
     }
 
+    /**
+     * Perform the update of the Membre
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
@@ -296,19 +309,15 @@ class membreActions extends sfActions
     /**
      * Allows the user to manager ACL for each Membre. Once the form is submit,
      * the existing credentials are deleted and we created new ones.
+     * The AclCredentialForm is also put on membre/edit view. If we reach the
+     * form through this action, this is because we are registering a NEW user
      *
      * @param   sfWebRequest    $request
      * @since   r60
      */
     public function executeAcl(sfWebRequest $request)
     {
-        $this->form     = new AclCredentialForm();
-        $this->user_id  = $request->getParameter('id');
-        $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
-        $membre         = MembrePeer::retrieveByPk($this->user_id);
-
-        $this->form->setUserId($this->user_id);
-        $this->form->automaticCheck();
+        $this->form = new AclCredentialForm();
 
         if ($request->isMethod('post'))
         {
@@ -316,6 +325,7 @@ class membreActions extends sfActions
             if ($this->form->isValid())
             {
                 $values = $request->getParameter('rights');
+                $membre = MembrePeer::retrieveByPk($values['user_id']);
                 $membre->resetAcl();
 
                 // Browse the list of rights... first we get the 'modules' level
@@ -324,12 +334,22 @@ class membreActions extends sfActions
                     // Then, foreach module, we get the list of enabled
                     // checkboxes. "$state" is normally always set to "ON"
                     // because we only have checked elements
+
                     foreach ($acls as $code => $state) {
                         $membre->addCredential($code);
                     }
                 }
                 $this->redirect('membre/index');
             }
+        }
+        else
+        {
+            $this->user_id  = $request->getParameter('id');
+            $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
+            $membre         = MembrePeer::retrieveByPk($this->user_id);
+
+            $this->form->setUserId($this->user_id);
+            $this->form->automaticCheck();
         }
     }
 }
