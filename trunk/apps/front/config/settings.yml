@@ -32,7 +32,7 @@ all:
     #					  username and password.
     #		* sendmail	: Use your sendmail binary. Configure the path.
 
-    method:					gmail
+    method:					mail
     
     gmail:					# If `method` has been set to gmail
       gmail_username:		foo.bar@gmail.com
@@ -40,9 +40,9 @@ all:
 
 
     smtp:					# If `method` has been set to smtp
-      smtp_username:		root
-      smtp_password:		foobar
-      smtp_server:			smtp.server.com
+      smtp_username:		
+      smtp_password:		
+      smtp_server:			smtp.free.fr
 
     sendmail:				 # If `method` has been set to sendmail
       sendmail_path:		/usr/bin/sendmail
@@ -85,6 +85,10 @@ all:
     # Set location of 404 error page
     error_404_module:       error
     error_404_action:       error404
+    
+    # Set location when user doesn't have required credentials
+    secure_module:          error
+    secure_action:          credentials
 
 
 prod:
