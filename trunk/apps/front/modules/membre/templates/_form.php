@@ -123,10 +123,6 @@
             <td><?php echo $form['tel_portable'] ?><?php echo $form['tel_portable']->renderError() ?>
             </td>
         </tr>
-        <tr>
-            <th>BETA</th>
-            <td><?php echo link_to('Editer les droits', 'membre/acl?id=' . $form->getObject()->getId())?></td>
-        </tr>
     </tbody>
 </table>
 </form>

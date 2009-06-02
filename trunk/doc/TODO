@@ -7,7 +7,6 @@ ALTER TABLE `cotisation` ADD `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `cotisati
 Export ACL_* tables and contents
 
 
-    * Association : add 'credentials' error in error module
     * Association : block index action
 	* Display a legend when displaying icons (edit, delete...)
 	* Issue when deleting compte :
@@ -21,8 +20,8 @@ Export ACL_* tables and contents
 	* Association > config > allow user to set a port and encryption settings
 	* Membre/Ajaxlist : select only membre for current association
 	* Membre : registration > set 'email' as mandatory for the first user
-	* Security issue (control association that user belongs to)
 	* Provide bilan by year
 	* PDF output for bilan
 	* Export should be put in each module
 	* Association > mailing > find a way to store error messages
+	* Create a credential for "ACL management" (membre/acl action)
