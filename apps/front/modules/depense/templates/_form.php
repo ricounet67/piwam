@@ -13,7 +13,7 @@
 		  <?php echo link_to('Annuler', 'depense/index', array(
             	'class'	=> 'formLinkButton'
             )) ?>
-          
+
           <?php if (!$form->getObject()->isNew()): ?>
                 <?php echo link_to('Supprimer', 'depense/delete?id=' . $form->getObject()->getId(), array(
                 	'class'		=> 'formLinkButton',
@@ -60,6 +60,10 @@
           <?php echo $form['date'] ?>
           <?php echo $form['date']->renderError() ?>
         </td>
+      </tr>
+      <tr>
+        <th>Payée</th>
+        <td><?php echo $form['payee'] ?></td>
       </tr>
     </tbody>
   </table>

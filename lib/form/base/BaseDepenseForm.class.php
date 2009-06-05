@@ -6,7 +6,7 @@
  * @package    piwam
  * @subpackage form
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 12815 2008-11-09 10:43:58Z fabien $
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 16976 2009-04-04 12:47:44Z fabien $
  */
 class BaseDepenseForm extends BaseFormPropel
 {
@@ -20,6 +20,7 @@ class BaseDepenseForm extends BaseFormPropel
       'compte_id'      => new sfWidgetFormPropelChoice(array('model' => 'Compte', 'add_empty' => false)),
       'activite_id'    => new sfWidgetFormPropelChoice(array('model' => 'Activite', 'add_empty' => false)),
       'date'           => new sfWidgetFormDate(),
+      'payee'          => new sfWidgetFormInputCheckbox(),
       'enregistre_par' => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
       'mis_a_jour_par' => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
       'created_at'     => new sfWidgetFormDateTime(),
@@ -34,6 +35,7 @@ class BaseDepenseForm extends BaseFormPropel
       'compte_id'      => new sfValidatorPropelChoice(array('model' => 'Compte', 'column' => 'id')),
       'activite_id'    => new sfValidatorPropelChoice(array('model' => 'Activite', 'column' => 'id')),
       'date'           => new sfValidatorDate(),
+      'payee'          => new sfValidatorBoolean(array('required' => false)),
       'enregistre_par' => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id')),
       'mis_a_jour_par' => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id')),
       'created_at'     => new sfValidatorDateTime(array('required' => false)),

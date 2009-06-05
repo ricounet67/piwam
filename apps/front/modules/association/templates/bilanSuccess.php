@@ -25,38 +25,19 @@ $total			= 0;
 	<tbody>
 	<?php foreach ($comptes as $compte): ?>
 
-		<tr <?php
-				if ($compte->isNegative()) {
-					echo 'class="compteNegatif"';
-				}
-				else {
-					echo 'class="comptePositif"';
-				}
-			?>>
+		<tr class="<?php echo ($compte->isNegative()) ? 'compteNegatif' : 'comptePositif' ?>">
 			<td><?php echo $compte->getReference() ?></td>
 			<td><?php echo format_currency($compte->getTotalDepenses()); $totalDepenses += $compte->getTotalDepenses() ?></td>
 			<td><?php echo format_currency($compte->getTotalRecettes()); $totalRecettes += $compte->getTotalRecettes() ?></td>
 			<td><?php echo format_currency($compte->getTotal()); $total += $compte->getTotal() ?></td>
 		</tr>
 	<?php endforeach; ?>
-
-        <tr style="background-color: #eee;">
-            <td colspan="4">&nbsp;</td>
-        </tr>
-        <tr <?php
-            if ($total < 0) {
-                echo 'class="compteNegatif"';
-            }
-            else {
-                echo 'class="comptePositif"';
-            }
-        ?>>
+        <tr class="<?php echo ($total < 0) ? 'compteNegatif' : 'comptePositif' ?>">
             <td><strong>TOTAL</strong></td>
             <td><?php echo format_currency($totalDepenses, '&euro;') ?></td>
             <td><?php echo format_currency($totalRecettes, '&euro;') ?></td>
             <td><?php echo format_currency($total, '&euro;') ?></td>
         </tr>
-
 	</tbody>
 </table>
 
@@ -89,14 +70,7 @@ $total			= 0;
 		</tr>
 
 	<?php foreach ($activites as $activite): ?>
-		<tr <?php
-				if ($activite->getTotal() < 0) {
-					echo 'class="compteNegatif"';
-				}
-				else {
-					echo 'class="comptePositif"';
-				}
-			?>>
+		<tr class="<?php echo ($activite->getTotal() < 0) ? 'compteNegatif' : 'comptePositif' ?>">
 			<td><?php echo $activite->getLibelle() ?></td>
 			<td><?php echo format_currency($activite->getTotalDepenses()); $totalDepenses += $activite->getTotalDepenses() ?></td>
 			<td><?php echo format_currency($activite->getTotalRecettes()); $totalRecettes += $activite->getTotalRecettes() ?></td>
@@ -105,19 +79,33 @@ $total			= 0;
 	<?php endforeach; ?>
 	</tbody>
 	<tfoot>
-		<tr style="background-color: #eee;"><td colspan="4">&nbsp;</td></tr>
-		<tr <?php
-				if ($total < 0) {
-					echo 'class="compteNegatif"';
-				}
-				else {
-					echo 'class="comptePositif"';
-				}
-			?>>
+		<tr class="<?php echo ($total < 0) ? 'compteNegatif' : 'comptePositif' ?>">
 			<td><strong>TOTAL</strong></td>
 			<td><?php echo format_currency($totalDepenses, '&euro;') ?></td>
 			<td><?php echo format_currency($totalRecettes, '&euro;') ?></td>
 			<td><?php echo format_currency($total, '&euro;') ?></td>
 		</tr>
 	</tfoot>
+</table>
+
+<h3>Créances et dettes</h3>
+<table class="tableauDonnees">
+    <tr class="comptePositif">
+        <td width="60%">Créances</td>
+        <td width="10%">-</td>
+        <td width="10%"><?php echo format_currency($totalCreances) ?></td>
+        <td width="10%">-</td>
+    </tr>
+    <tr class="<?php echo ($totalDettes == 0) ? "comptePositif" : "compteNegatif" ?>">
+        <td>Dettes</td>
+        <td><?php echo format_currency($totalDettes) ?></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr class="<?php echo ($totalPrevu < 0) ? "compteNegatif" : "comptePositif" ?>">
+        <td><strong>TOTAL</strong></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><?php echo format_currency($totalPrevu, '&euro;') ?></td>
+    </tr>
 </table>

@@ -35,6 +35,7 @@ class Compte extends BaseCompte
 			$c->clearSelectColumns();
 			$c->addAsColumn('TOTAL_DEPENSES', 'SUM(' . DepensePeer::MONTANT . ')');
 			$c->add(DepensePeer::COMPTE_ID, $this->getId());
+			$c->addAnd(DepensePeer::PAYEE, 1);
 			$result = DepensePeer::doSelectStmt($c);
 			$row = $result->fetch();
 			$this->_totalDepenses = $row['TOTAL_DEPENSES'];
@@ -59,6 +60,7 @@ class Compte extends BaseCompte
 			$c->clearSelectColumns();
 			$c->addAsColumn('TOTAL_RECETTES', 'SUM(' . RecettePeer::MONTANT . ')');
 			$c->add(RecettePeer::COMPTE_ID, $this->getId());
+			$c->addAnd(RecettePeer::PERCUE, 1);
 			$result = RecettePeer::doSelectStmt($c);
 			$row = $result->fetch();
 

@@ -274,7 +274,12 @@ class membreActions extends sfActions
                 }
             }
             else {
-                $this->redirect('membre/index');
+                if ($membre->getPseudo() && $membre->getPassword()) {
+                    $this->redirect('membre/acl?id=' . $membre->getId());
+                }
+                else {
+                    $this->redirect('membre/index');
+                }
             }
         }
     }

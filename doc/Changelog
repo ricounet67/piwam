@@ -1,3 +1,28 @@
+r66 - june, 5, 2009
+    * Membre : actions > processForm > we redirect to membre/acl after 
+      registering a new Membre if an username and password have been set
+    * schema.yml : recette > new field 'percue'
+    * schema.yml : depense : new field 'payee'
+    * symfony propel:build-model
+    * /data/updates : new folder which will store data when updating Piwam
+      version
+    * /data/updates/1.1.0beta-1.1.0 : folder to update from the public beta to
+      the final 1.1.0 version
+    * symfony propel:build-forms
+    * ActivitePeer : getCriteriaForAssociationId() > select only enabled items
+    * ComptePeer : getCriteriaForAssociationId() > select only enabled items
+    * Activite.php : getTotalDepenses() > SUM only on enabled items
+    * Activite.php : getTotalRecettes() > SUM only on enabled items
+    * Compte.php : getTotalDepenses() > SUM only on enabled items
+    * Compte.php : getTotalRecettes() > SUM only on enabled items
+    * DepensePeer : getAmountOfDettes() method
+    * RecettePeer : getAmountOfCreances() method
+    * bilanSuccess.php : new table for "dettes" and "creances"
+    * bilanSuccess.php : code has been lightly refactored. Ternary operator has
+      been used to make CSS class selection more human-readable
+    * bilanSuccess.php : empty lines before TOTAL have been removed
+
+
 r65 - june, 5, 2009
     * Membre : aclSuccess.php > temporary content when accessing to this page
     * Membre : security.yml > 'acl' crendial has been removed for the moment
