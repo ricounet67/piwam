@@ -1,4 +1,9 @@
-r64 - june
+r65 - june, 5, 2009
+    * Membre : aclSuccess.php > temporary content when accessing to this page
+    * Membre : security.yml > 'acl' crendial has been removed for the moment
+
+
+r64 - june, 5, 2009
     * lib/test : new folder storing classes which are useful when testing
     * lib/test/sfGuardTestFunctional.class.php : new class overriding the basic
       sfTestFunctional class
