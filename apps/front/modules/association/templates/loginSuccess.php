@@ -20,7 +20,7 @@
 	<tr>
 		<td>&nbsp;</td>
 		<td>
-			<input type="submit" value="S'identifier" class="button" />
+			<input type="submit" value="S'identifier" class="button" name="S'identifier" />
 		</td>
 	</tr>
 </table>

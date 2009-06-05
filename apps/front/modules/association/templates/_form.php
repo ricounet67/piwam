@@ -13,26 +13,26 @@
           <?php echo link_to('Annuler', 'membre/index', array(
           	'class'	=> 'formLinkButton'
           )) ?>
-          
+
           <?php if (!$form->getObject()->isNew()): ?>
             <?php echo link_to('Supprimer', 'association/delete?id='.$form->getObject()->getId(), array(
             	'class'		=> 'formLinkButton',
           		'method' 	=> 'delete', 'confirm' => 'Etes vous sûr ?'
             )) ?>
           <?php endif; ?>
-          
+
           <?php if ($form->getObject()->isNew()): ?>
 	          	<input type="submit" value="Étape suivante >" class="button" />
 	      <?php else: ?>
-	      		<input type="submit" value="Sauvegarder" class="button" />
+	      		<input type="submit" value="Sauvegarder" class="button" name="Sauvegarder" />
 	      <?php endif; ?>
         </td>
       </tr>
     </tfoot>
     <tbody>
     	<tr>
-    		<td colspan="2">    			
-    			<?php 
+    		<td colspan="2">
+    			<?php
     			if ($form->hasGlobalErrors())
     			{
     				echo '<div class="error">' . $form->renderGlobalErrors() . '</div>';
@@ -61,7 +61,7 @@
           <?php echo $form['site_web']->renderError() ?>
         </td>
       </tr>
-      
+
     </tbody>
   </table>
 </form>

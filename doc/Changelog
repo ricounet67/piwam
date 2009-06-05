@@ -1,3 +1,15 @@
+r64 - june
+    * lib/test : new folder storing classes which are useful when testing
+    * lib/test/sfGuardTestFunctional.class.php : new class overriding the basic
+      sfTestFunctional class
+    * associationActionsTest.php : tests have been implemented
+    * membreActionsTest.php : first tests have been implemented
+    * Membre : actions > ACL > test if we the user to edit belongs to the
+      current user's association
+    * Membre : security.yml > new 'acl' credential is required to access to
+      'acl' action
+
+
 r63 - june, 2, 2009
     * Membre : actions > executeAcl() has been cleaned
     * Membre : showSuccess.php > Domtab is also used to display user information
