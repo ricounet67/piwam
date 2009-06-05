@@ -1,11 +1,3 @@
-update from 1.1.0beta to final :
-
-SQL:
-
-ALTER TABLE `cotisation` ADD `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `cotisation_type_id` ;
-
-Export ACL_* tables and contents
-
 
     * Association : block index action
 	* Display a legend when displaying icons (edit, delete...)
@@ -25,3 +17,4 @@ Export ACL_* tables and contents
 	* Export should be put in each module
 	* Association > mailing > find a way to store error messages
 	* Create a credential for "ACL management" (membre/acl action)
+	* Add a compte > delete it > try to recreate one > error "existing record"

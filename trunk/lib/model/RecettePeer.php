@@ -29,7 +29,28 @@ class RecettePeer extends BaseRecettePeer
 	{
 		$c = new Criteria();
 		$c->add(self::ACTIVITE_ID, $id);
+		$c->add(self::PERCUE, 1);
 
 		return self::doSelect($c);
+	}
+
+    /**
+     * Get the amount of creances
+     *
+     * @param  integer $associationId
+     * @return float
+     * @since  r66
+     */
+	public static function getAmountOfCreances($associationId)
+	{
+        $c = new Criteria();
+        $c->clearSelectColumns();
+        $c->addAsColumn('TOTAL_DETTES', 'SUM(' . self::MONTANT . ')');
+        $c->add(self::ASSOCIATION_ID, $associationId);
+        $c->addAnd(self::PERCUE, 0);
+        $result = RecettePeer::doSelectStmt($c);
+        $row = $result->fetch();
+
+        return $row['TOTAL_DETTES'];
 	}
 }

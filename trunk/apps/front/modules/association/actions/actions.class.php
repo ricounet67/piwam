@@ -11,7 +11,7 @@
 class associationActions extends sfActions
 {
     private $_association = null;
-    
+
     /**
      * Provides a view to allows current user to export the different data
      * he wants to export
@@ -77,6 +77,9 @@ class associationActions extends sfActions
         $this->comptes 			= ComptePeer::doSelectEnabled($associationId);
         $this->activites		= ActivitePeer::doSelectEnabled($associationId);
         $this->totalCotisations = CotisationPeer::doSeletSumForAssociationId($associationId);
+        $this->totalDettes      = DepensePeer::getAmountOfDettes($associationId);
+        $this->totalCreances    = RecettePeer::getAmountOfCreances($associationId);
+        $this->totalPrevu       = $this->totalCreances - $this->totalDettes;
     }
 
 
@@ -115,7 +118,7 @@ class associationActions extends sfActions
                             $methodObject = new Swift_Connection_SMTP('smtp.gmail.com', Swift_Connection_SMTP::PORT_SECURE, Swift_Connection_SMTP::ENC_TLS);
                             $methodObject->setUsername($gmailConfig['gmail_username']);
                             $methodObject->setPassword($gmailConfig['gmail_password']);
-                            
+
                             if (!extension_loaded('smtp')) {
                                 $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails dans le fichier settings.yml');
                             }
@@ -131,7 +134,7 @@ class associationActions extends sfActions
                             $methodObject = new Swift_Connection_SMTP($smtpServer, $smtpPort, $smtpEncryption);
                             $methodObject->setUsername($smtpUsername);
                             $methodObject->setPassword($smtpPassword);
-                            
+
                             if (!extension_loaded('smtp')) {
                                 $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails dans le fichier settings.yml');
                             }

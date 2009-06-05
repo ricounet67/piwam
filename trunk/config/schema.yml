@@ -103,6 +103,7 @@ propel:
     compte_id:       	{ type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: cascade }
     activite_id:     	{ type: integer, required: true, foreignTable: activite, foreignReference: id, onDelete: cascade }
     date:            	{ type: date, required: true }
+    payee:              { type: boolean, default: true }
     enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
     mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
@@ -144,6 +145,7 @@ propel:
     compte_id:       	{ type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: cascade }
     activite_id:     	{ type: integer, required: true, foreignTable: activite, foreignReference: id, onDelete: cascade }
     date:            	{ type: date, required: true }
+    percue:             { type: boolean, default: true }
     enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
     mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
     created_at:      	~

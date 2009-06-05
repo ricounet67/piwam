@@ -12,7 +12,7 @@
             <td colspan="2"><?php echo $form->renderHiddenFields() ?>
 		  <?php echo link_to('Annuler', 'recette/index', array(
             	'class'	=> 'formLinkButton'
-            )) ?> 
+            )) ?>
             <?php if (!$form->getObject()->isNew()): ?>
                 <?php echo link_to('Supprimer', 'recette/delete?id=' . $form->getObject()->getId(), array(
                 	'class'		=> 'formLinkButton',
@@ -27,28 +27,28 @@
             <th>Libellé</th>
             <td>
             	<?php echo $form['libelle'] ?>
-            	<?php echo $form['libelle']->renderError() ?> 
+            	<?php echo $form['libelle']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Montant</th>
             <td>
             	<?php echo $form['montant'] ?> &euro;
-            	<?php echo $form['montant']->renderError() ?> 
+            	<?php echo $form['montant']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Compte affecté</th>
             <td>
             	<?php echo $form['compte_id'] ?>
-            	<?php echo $form['compte_id']->renderError() ?> 
+            	<?php echo $form['compte_id']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Activité</th>
             <td>
             	<?php echo $form['activite_id'] ?>
-            	<?php echo $form['activite_id']->renderError() ?> 
+            	<?php echo $form['activite_id']->renderError() ?>
             </td>
         </tr>
         <tr>
@@ -58,6 +58,10 @@
             	<?php echo $form['date']->renderError() ?>
             </td>
         </tr>
+      <tr>
+        <th>Perçue</th>
+        <td><?php echo $form['percue'] ?></td>
+      </tr>
     </tbody>
 </table>
 </form>
