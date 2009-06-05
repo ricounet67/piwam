@@ -348,6 +348,10 @@ class membreActions extends sfActions
             $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
             $membre         = MembrePeer::retrieveByPk($this->user_id);
 
+            if ($membre->getAssociationId() != $associationId) {
+                $this->forward('error', 'credentials');
+            }
+
             $this->form->setUserId($this->user_id);
             $this->form->automaticCheck();
         }

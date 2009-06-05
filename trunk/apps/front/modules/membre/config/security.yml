@@ -32,3 +32,6 @@ delete:
   
 show:
   credentials:  show_membre
+  
+acl:
+  credentials:  acl
