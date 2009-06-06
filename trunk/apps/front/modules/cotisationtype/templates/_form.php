@@ -39,7 +39,6 @@
             <th>Montant</th>
             <td>
             	<?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?>
-                <?php echo tooltip_tag("ATTENTION", "Si vous modifiez cette valeur, les montants de toutes les cotisations de ce type seront affectés !") ?>
             </td>
         </tr>
     </tbody>
