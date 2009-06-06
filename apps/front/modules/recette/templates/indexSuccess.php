@@ -19,7 +19,16 @@
             <td><?php echo $recette->getLibelle() ?></td>
             <td><?php echo format_currency($recette->getMontant()) ?></td>
             <td><?php echo $recette->getCompte() ?></td>
-            <td><?php echo format_date($recette->getDate()) ?></td>
+            <td>
+                <?php
+                if ($recette->getPercue() == 1) {
+                    echo format_date($recette->getDate());
+                }
+                else {
+                    echo 'Non perçue';
+                }
+                ?>
+            </td>
             <td>
                 <a href="<?php echo url_for('recette/show?id='.$recette->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[details]')) ?></a>
                 <a href="<?php echo url_for('recette/edit?id='.$recette->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')) ?></a>
