@@ -1,3 +1,9 @@
+r70 - june, 6, 2009
+    * phoogle.php : code has been clean a little bit. New private method
+      _isValidPoint(), and we check that a point is valid before adding it on
+      the map
+    
+
 r69 - june, 6, 2009
     * phoogle.php : test if we're trying to add null GPoint
     * CotisationType : _form > tooltip which warns user about updating amount
