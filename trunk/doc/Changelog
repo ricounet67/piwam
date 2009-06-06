@@ -1,3 +1,13 @@
+r68 - june, 7, 2009
+    * /doc/piwam-install.sql is up to date
+    * README : mod_rewrite was added as required Apache module
+    * README : link to online French version
+    * layout.php : Google Map JS is not include anymore in the global layout
+    * Membre : mapSuccess.php > include Google Map JS
+    * Recette : showSuccess.php > display if "Recette.percue == 0"
+    * Depense : showSuccess.php > display if "Depense.payee == 0"
+
+
 r67 - june, 6, 2009
     * Recette : index > don't show date if "Recette.percue == 0"
     * Depense : index > don't show date if "Depense.payee == 0"
