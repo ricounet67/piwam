@@ -19,7 +19,16 @@
             <td><?php echo $depense->getLibelle() ?></td>
             <td><?php echo format_currency($depense->getMontant()) ?></td>
             <td><?php echo $depense->getCompte() ?></td>
-            <td><?php echo format_date($depense->getDate()) ?></td>
+            <td>
+                <?php
+                if ($depense->getPayee() == 1) {
+                    echo format_date($depense->getDate());
+                }
+                else {
+                    echo 'Non payée';
+                }
+                ?>
+            </td>
             <td>
                 <a href="<?php echo url_for('depense/show?id=' . $depense->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[details]')) ?></a>
                 <a href="<?php echo url_for('depense/edit?id=' . $depense->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')) ?></a>

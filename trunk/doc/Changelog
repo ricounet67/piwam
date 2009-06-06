@@ -1,4 +1,13 @@
-r66 - june, 5, 2009
+r67 - june, 6, 2009
+    * Recette : index > don't show date if "Recette.percue == 0"
+    * Depense : index > don't show date if "Depense.payee == 0"
+    * Cotisation : actions > processForm() > Redirect again to the form if we
+      are registering new Cotisation (in order to record several Cotisation in 
+      "one time" without going back and then coming back to the form. Redirect 
+      to index action if we are editing an existing Cotisation
+
+
+r66 - june, 6, 2009
     * Membre : actions > processForm > we redirect to membre/acl after 
       registering a new Membre if an username and password have been set
     * schema.yml : recette > new field 'percue'
