@@ -1,4 +1,12 @@
-r68 - june, 7, 2009
+r69 - june, 6, 2009
+    * phoogle.php : test if we're trying to add null GPoint
+    * CotisationType : _form > tooltip which warns user about updating amount
+      has been removed because of the new field "cotisation.montant"
+    * Cotisation : indexSuccess.php > show the amount for each Cotisation
+    * FileExporter.class.php : chtinux's patch has been applied 
+    
+
+r68 - june, 6, 2009
     * /doc/piwam-install.sql is up to date
     * README : mod_rewrite was added as required Apache module
     * README : link to online French version

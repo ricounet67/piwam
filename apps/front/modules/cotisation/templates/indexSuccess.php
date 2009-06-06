@@ -1,4 +1,5 @@
 <?php use_helper('Date') ?>
+<?php use_helper('Number') ?>
 
 <h2>Liste des cotisations</h2>
 
@@ -9,6 +10,7 @@
 	    <tr class="enteteTableauDonnees">
 	      <th>Compte</th>
 	      <th>Type</th>
+          <th>Montant</th>
 	      <th>Membre</th>
 	      <th>Versée le</th>
 	      <th>Actions</th>
@@ -19,6 +21,7 @@
 	    <tr>
 	    	<td><?php echo $cotisation->getCompte() ?></td>
 	      	<td><?php echo $cotisation->getCotisationType() ?></td>
+            <td><?php echo format_currency($cotisation->getMontant(), '&euro;') ?></td>
 	      	<td><?php echo $cotisation->getMembreRelatedByMembreId() ?></td>
 	      	<td><?php echo format_date($cotisation->getDate()) ?></td>
 	      	<td>

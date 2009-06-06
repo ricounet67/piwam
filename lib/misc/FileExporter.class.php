@@ -98,7 +98,7 @@ class FileExporter
 	 */
 	public function addCellCSV($cell)
 	{
-		return '"'.addslashes($cell).'"';
+		return '"'.addcslashes($cell, '"\\').'"';
 	}
 	
 	/**

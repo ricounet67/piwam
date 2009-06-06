@@ -43,7 +43,7 @@ class PhoogleMap{
 * True/False whether to show map controls or not
 */
     var $showControl = true;
-	
+
 /**
 * showType
 * True/False whether to show map type controls or not
@@ -56,7 +56,7 @@ class PhoogleMap{
 */
 
     var $controlType = 'small';
-    
+
 /**
 * zoomLevel
 * int: 0-17
@@ -81,7 +81,7 @@ class PhoogleMap{
 	    // Valid AppId is required
 	    $appId = '32VsbTjV34FammLkBImw1f3qDTfPgtjtvv4aSdJHVNeh1VDH9h4THmx1s2LAyUpvVQ';
 		$apiURL = "http://api.local.yahoo.com/MapsService/V1/geocode?appid={$appId}&location=";
-		
+
 		$addressData = file_get_contents($apiURL.urlencode($address));
 		$results = $this->xml2array($addressData);
 		if (empty($results['ResultSet']['Result']['Address'])){
@@ -97,8 +97,8 @@ class PhoogleMap{
 			$this->validPoints[$pointer]['passedAddress'] = $address;
 			$this->validPoints[$pointer]['htmlMessage'] = $htmlMessage;
 		}
-	
-	
+
+
 	}
 /**
 * @function     showValidPoints
@@ -193,7 +193,7 @@ class PhoogleMap{
 */
 	function showMap(){
 		echo "\n<div id=\"map\" style=\"width: ".$this->mapWidth."px; height: ".$this->mapHeight."px\">\n</div>\n";
-				
+
 		echo "    <script type=\"text/javascript\">\n
     			//<![CDATA[\n
     		if (GBrowserIsCompatible()) {\n
@@ -207,29 +207,31 @@ class PhoogleMap{
 			icon.shadowSize = new GSize(22, 20);
 			icon.iconAnchor = new GPoint(6, 20);
 			icon.infoWindowAnchor = new GPoint(5, 1);
-			
+
 			";
 		if ($this->showControl){
           if ($this->controlType == 'small'){echo "map.addControl(new GSmallMapControl());\n";}
           if ($this->controlType == 'large'){echo "map.addControl(new GLargeMapControl());\n";}
-		
+
 			}
 		if ($this->showType){
 		echo "map.addControl(new GMapTypeControl());\n";
 		}
-	
+
     $numPoints = count($this->validPoints);
     for ($g = 0; $g<$numPoints; $g++){
-        echo "var point".$g." = new GPoint(".$this->validPoints[$g]['long'].",".$this->validPoints[$g]['lat'].")\n;
-              var marker".$g." = new GMarker(point".$g.");\n
-              map.addOverlay(marker".$g.")\n
-              GEvent.addListener(marker".$g.", \"click\", function() {\n";
-              if ($this->validPoints[$g]['htmlMessage']!=null){
-              echo "marker".$g.".openInfoWindowHtml(\"".$this->validPoints[$g]['htmlMessage']."\");\n";
-              }else{
-             echo "marker".$g.".openInfoWindowHtml(\"".$this->validPoints[$g]['passedAddress']."\");\n";
-                }
-              echo "});\n";
+        if ($this->validPoints[$g]['long'] && $this->validPoints[$g]['lat']) {
+            echo "var point".$g." = new GPoint(".$this->validPoints[$g]['long'].",".$this->validPoints[$g]['lat'].")\n;
+                  var marker".$g." = new GMarker(point".$g.");\n
+                  map.addOverlay(marker".$g.")\n
+                  GEvent.addListener(marker".$g.", \"click\", function() {\n";
+                  if ($this->validPoints[$g]['htmlMessage']!=null){
+                  echo "marker".$g.".openInfoWindowHtml(\"".$this->validPoints[$g]['htmlMessage']."\");\n";
+                  }else{
+                 echo "marker".$g.".openInfoWindowHtml(\"".$this->validPoints[$g]['passedAddress']."\");\n";
+                    }
+                  echo "});\n";
+        }
 	}
 		echo "    	//]]>\n
     	</script>\n";
@@ -244,10 +246,10 @@ class PhoogleMap{
 		xml_set_character_data_handler($this->xml_parser,"characterData");
 		xml_parse($this->xml_parser,$xml,true);
 		xml_parser_free($this->xml_parser);
-		
+
 		// Fixed by Adrien
 		// Check if offset 0 is defined or not
-		
+
 		if (isset($this->arrays[0])) {
 			return $this->arrays[0];
 		}
@@ -257,26 +259,26 @@ class PhoogleMap{
 
     }
     function startElement($parser, $name, $attrs){
-		   $this->keys[]=$name; 
+		   $this->keys[]=$name;
 		   $this->node_flag=1;
 		   $this->depth++;
      }
     function characterData($parser,$data){
        $key=end($this->keys);
        $this->arrays[$this->depth][$key]=$data;
-       $this->node_flag=0; 
+       $this->node_flag=0;
      }
     function endElement($parser, $name)
      {
        $key=array_pop($this->keys);
        if($this->node_flag==1){
-       	
+
        	 // Fixed by Adrien
        	 // Check that we access to correct offset
        	 if (isset($this->arrays[$this->depth + 1])) {
          	$this->arrays[$this->depth][$key]=$this->arrays[$this->depth+1];
        	 }
-       	 
+
          unset($this->arrays[$this->depth+1]);
        }
        $this->node_flag=1;
