@@ -1,6 +1,7 @@
 <?php use_helper('Date') 	?>
 <?php use_helper('Membre') 	?>
 <?php use_helper('Number') 	?>
+<?php use_helper('Boolean')  ?>
 
 <h2>Détails d'une entrée d'argent</h2>
 <table class="tableauDetails" id="details">
@@ -25,10 +26,17 @@
       <th>Activité :</th>
       <td><?php echo $recette->getActivite() ?></td>
     </tr>
+    <?php if ($recette->getPercue() == 1): ?>
     <tr>
       <th>Effective le :</th>
       <td><?php echo format_date($recette->getDate()) ?></td>
     </tr>
+    <?php else: ?>
+    <tr>
+        <th>Perçue :</th>
+        <td><?php echo boolean2icon(false) ?></td>
+    </tr>
+    <?php endif; ?>
     <tr>
       <th><?php echo image_tag('time.png', 'align="absmiddle"')?> Créée le :</th>
       <td><?php echo format_datetime($recette->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($recette->getMembreRelatedByEnregistrePar()) ?></td>

@@ -4,15 +4,14 @@
     <?php include_http_metas() ?>
     <?php include_metas() ?>
     <?php include_title() ?>
-    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<?php echo sfConfig::get('sf_googlemap_key') ?>" type="text/javascript"></script>
     <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body>
-    
+
     <!-- Set Jquery's noConflict mode -->
     <script type="text/javascript">var J = jQuery.noConflict();</script>
 
-    
+
     <div id="container">
 
         <!-- Header of the application -->

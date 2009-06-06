@@ -18,17 +18,24 @@
 	This program is provided under MIT licence. You can find this complete
 	licence in /doc/LICENCE file
 
+    
+    FRENCH VERSION
+    --------------
+    If you speak - or understand - French langage you can read the online
+    French version : http://code.google.com/p/piwam/wiki/InstallerPiwam
+
 
 	1) Required Configuration
 	------------------------
 	
 		PHP >= 5.2.4
-			mb_string module
-			php_openssl
+            mb_string module
+            php_openssl
 			php_smtp
 			memory_limit: 128M
 		MySQL
 		Apache
+            mod_rewrite
 
 
 	2) How To Set Up Piwam

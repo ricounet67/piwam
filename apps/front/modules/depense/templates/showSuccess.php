@@ -1,5 +1,6 @@
 <?php use_helper('Date') 	?>
 <?php use_helper('Membre') 	?>
+<?php use_helper('Boolean')  ?>
 <?php use_helper('Number') 	?>
 
 <h2>Détails d'une dépense d'argent</h2>
@@ -25,10 +26,17 @@
       <th>Activité :</th>
       <td><?php echo $depense->getActivite() ?></td>
     </tr>
+    <?php if ($depense->getPayee() == 1): ?>
     <tr>
       <th>Effective le :</th>
       <td><?php echo format_date($depense->getDate()) ?></td>
     </tr>
+    <?php else: ?>
+    <tr>
+        <th>Payée :</th>
+        <td><?php echo boolean2icon(false) ?></td>
+    </tr>
+    <?php endif; ?>
     <tr>
       <th><?php echo image_tag('time.png', 'align="absmiddle"')?> Créée le :</th>
       <td><?php echo format_datetime($depense->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($depense->getMembreRelatedByEnregistrePar()) ?></td>
