@@ -1,0 +1,30 @@
+#summary La feuille de route du projet
+#labels Featured
+
+= Introduction =
+
+Où en est le projet Piwam, et quelles sont les futures fonctionnalités et efforts de développement ? Cette _roadmap_ définit les axes généraux et les objectifs pour les futures versions.
+
+----
+= Axe général =
+
+Piwam est destiné à 95% aux petites associations. Des associations qui n'ont pas besoin d'une comptabilité trop avancée et complexe. Des associations à la recherche d'un outil facile à utiliser, et capable de répondre aux problèmatiques courantes :
+
+  * Gérer les membres et leurs cotisations
+  * Tenir à jour une trésorerie et pouvoir lire un bilan
+
+L'architecture de Piwam est cependant extrêmement modulaire. Derrière cette structure à la base du projet, il est possible de venir greffer des modules permettant de gérer des problèmatiques très spécifiques ou très complexes. La philosophie de développement, ou plutôt de packaging, à conserver constemment à l'esprit, sera la suivante :
+
+   * Les nouvelles fonctionnalités "génériques" pourront être intégrées en standard dans Piwam.
+   * Les fonctionnalités spécifiques, ou complexifiant de manière non négligeable l'utilisation de Piwam, seront distribuées sous forme de modules. Ces modules seront intégrés dans le projet mais désactivés par défaut.
+
+----
+= Évolutions =
+
+== Version 1.1 finale - Août 2009 ==
+|| *Résumé*      || *Description* ||  *État* ||
+|| Modularité    || Le projet sera amené à évoluer sous forme d'adjonctions de modules. Ce système de modules devra être conçu de tel sorte à faciliter le développement des nouvelles fonctionnalités et permettre leur activation/désactivation aisément || Réflexion ||
+|| Fiabilité     || Écriture de tests fonctionnels pour couvrir les différentes fonctionnalités de Piwam || En cours ||
+|| Documentation || Documentations d'installation et d'utilisation à jour, complètes || En cours ||
+|| Agréabilité   || Le soin apporté à l'interface utilisateur sera poussé à son maximum afin de rendre Piwam encore plus cohérent, ergonomique et agréable à utiliser. || En cours ||
+|| Interface d'installation || Interface d'installation assistée afin de faciliter cette étape pour l'utilisateur || n/a ||
