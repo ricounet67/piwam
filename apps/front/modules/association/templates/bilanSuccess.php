@@ -77,15 +77,14 @@ $total			= 0;
 			<td><?php echo format_currency($activite->getTotal()); $total += $activite->getTotal() ?></td>
 		</tr>
 	<?php endforeach; ?>
+
+        <tr class="<?php echo ($total < 0) ? 'compteNegatif' : 'comptePositif' ?>">
+            <td><strong>TOTAL</strong></td>
+            <td><?php echo format_currency($totalDepenses, '&euro;') ?></td>
+            <td><?php echo format_currency($totalRecettes, '&euro;') ?></td>
+            <td><?php echo format_currency($total, '&euro;') ?></td>
+        </tr>
 	</tbody>
-	<tfoot>
-		<tr class="<?php echo ($total < 0) ? 'compteNegatif' : 'comptePositif' ?>">
-			<td><strong>TOTAL</strong></td>
-			<td><?php echo format_currency($totalDepenses, '&euro;') ?></td>
-			<td><?php echo format_currency($totalRecettes, '&euro;') ?></td>
-			<td><?php echo format_currency($total, '&euro;') ?></td>
-		</tr>
-	</tfoot>
 </table>
 
 <h3>Créances et dettes</h3>

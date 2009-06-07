@@ -274,7 +274,9 @@ class membreActions extends sfActions
                 }
             }
             else {
-                if ($membre->getPseudo() && $membre->getPassword()) {
+                $data = $request->getParameter('membre');
+
+                if ((!isset($data['id'])) && ($membre->getPseudo() && $membre->getPassword())) {
                     $this->redirect('membre/acl?id=' . $membre->getId());
                 }
                 else {

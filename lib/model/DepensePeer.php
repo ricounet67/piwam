@@ -47,9 +47,49 @@ class DepensePeer extends BaseDepensePeer
         $c->addAsColumn('TOTAL_DETTES', 'SUM(' . self::MONTANT . ')');
         $c->add(self::ASSOCIATION_ID, $associationId);
         $c->addAnd(self::PAYEE, 0);
-        $result = RecettePeer::doSelectStmt($c);
+        $result = DepensePeer::doSelectStmt($c);
         $row = $result->fetch();
 
         return $row['TOTAL_DETTES'];
+	}
+
+	/**
+	 * Get the amount of debts for the activite $activiteId
+	 *
+	 * @param  integer    $activiteId
+	 * @return float
+	 * @since  r71
+	 */
+	public static function getAmountOfDettesForActivite($activiteId)
+	{
+        $c = new Criteria();
+        $c->clearSelectColumns();
+        $c->addAsColumn('TOTAL_DETTES', 'SUM(' . self::MONTANT . ')');
+        $c->add(self::ACTIVITE_ID, $activiteId);
+        $c->addAnd(self::PAYEE, 0);
+        $result = DepensePeer::doSelectStmt($c);
+        $row = $result->fetch();
+
+        return $row['TOTAL_DETTES'];
+	}
+
+	/**
+	 * Build/Complete a Criteria object
+	 *
+	 * @param  Criteria    $c
+	 * @param  Mixed       $params     array
+	 * @return Criteria
+	 * @since  r71
+	 */
+	public static function buildCriteria(&$c, $params)
+	{
+        if (is_array($params))
+        {
+            if ($activite_id = ParamsTools::get_ifset($params, 'activite_id')) {
+                $c->addAnd(self::ACTIVITE_ID, $activite_id);
+            }
+        }
+
+        return $c;
 	}
 }

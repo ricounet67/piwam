@@ -53,4 +53,24 @@ class RecettePeer extends BaseRecettePeer
 
         return $row['TOTAL_DETTES'];
 	}
+
+    /**
+     * Get the amount of creances for the activite $activiteId
+     *
+     * @param  integer    $activiteId
+     * @return float
+     * @since  r71
+     */
+    public static function getAmountOfCreancesForActivite($activiteId)
+    {
+        $c = new Criteria();
+        $c->clearSelectColumns();
+        $c->addAsColumn('TOTAL_CREANCES', 'SUM(' . self::MONTANT . ')');
+        $c->add(self::ACTIVITE_ID, $activiteId);
+        $c->addAnd(self::PERCUE, 0);
+        $result = RecettePeer::doSelectStmt($c);
+        $row = $result->fetch();
+
+        return $row['TOTAL_CREANCES'];
+    }
 }

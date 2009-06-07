@@ -62,3 +62,26 @@ $totalDepenses = 0;
 		<td><?php echo format_currency($totalRecettes - $totalDepenses) ?></td>
 	</tr>
 </table>
+
+<h3>Créances et dettes</h3>
+
+<table class="tableauDonnees">
+    <tr class="comptePositif">
+        <td width="60%">Créances</td>
+        <td width="10%">-</td>
+        <td width="10%"><?php echo format_currency($creances) ?></td>
+        <td width="10%">-</td>
+    </tr>
+    <tr class="<?php echo ($dettes == 0) ? "comptePositif" : "compteNegatif" ?>">
+        <td>Dettes</td>
+        <td><?php echo format_currency($dettes) ?></td>
+        <td>-</td>
+        <td>-</td>
+    </tr>
+    <tr class="<?php echo ($totalPrevu < 0) ? "compteNegatif" : "comptePositif" ?>">
+        <td><strong>TOTAL</strong></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><?php echo format_currency($totalPrevu, '&euro;') ?></td>
+    </tr>
+</table>
