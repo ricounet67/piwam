@@ -32,15 +32,23 @@ class activiteActions extends sfActions
 		$this->activite_list = ActivitePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
 	}
 
+	/**
+	 * List the detailed Recettes and Depenses in a merged array.
+	 *
+	 * @param  sfWebRequest    $request
+	 */
 	public function executeShow(sfWebRequest $request)
 	{
-		$activiteId	= $request->getParameter('id');
-		$depenses 	= DepensePeer::doSelectForActiviteId($activiteId);
-		$recettes 	= RecettePeer::doSelectForActiviteId($activiteId);
-		$data		= array_merge($depenses, $recettes);
-		$isSortOk	= usort($data, 'compare_money_entries');
-		$this->data = $data;
-		$this->activite = ActivitePeer::retrieveByPk($activiteId);
+		$activiteId	      = $request->getParameter('id');
+		$depenses 	      = DepensePeer::doSelectForActiviteId($activiteId);
+		$recettes 	      = RecettePeer::doSelectForActiviteId($activiteId);
+		$data		      = array_merge($depenses, $recettes);
+		$isSortOk	      = usort($data, 'compare_money_entries');
+		$this->data       = $data;
+		$this->activite   = ActivitePeer::retrieveByPk($activiteId);
+		$this->creances   = RecettePeer::getAmountOfCreancesForActivite($activiteId);
+		$this->dettes     = DepensePeer::getAmountOfDettesForActivite($activiteId);
+		$this->totalPrevu = $this->creances - $this->dettes;
 		$this->forward404Unless($this->activite);
 	}
 

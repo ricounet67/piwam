@@ -147,6 +147,18 @@ body {
     border: 1px solid black;
 }
 
+.tableauDonnees tbody tr:Hover {
+    background-color: #E8FD98;    
+}
+
+.tableauDonnees tbody td {
+    font-family: verdana, sans-serif;
+    font-size: 11px;
+    color: #162027;
+    padding-left: 5px;
+      
+}
+
 .enteteTableauDonnees {
     background: black;
     color: white;
@@ -213,17 +225,17 @@ body {
 
 /* pour l'affichage des comptes en positif */
 .comptePositif {
-    background-color: #8EECA1;
+    background-color: #C2FCC3;
 }
 
 /* pour l'affichage des comptes en negatif */
 .compteNegatif {
-    background-color: #FD9D91;
+    background-color: #EECEBE;
 }
 
 /* affichage pour les membres non a jour de cotisation */
 .cotisationNonAjour {
-    background-color: #FAC6B6;
+    background-color: #E6E0D1;
 }
 
 /* messages de notifications */

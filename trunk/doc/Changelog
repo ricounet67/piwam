@@ -1,3 +1,22 @@
+r72 - june, 7, 2009
+    * Membre : actions > don't redirect to credentials form if we just edit
+      an existing Membre
+    * /lib/misc/ParamsTools.class.php : new class to manage parameters (array,
+      sfParameterHolder...)
+    * DepensePeer.php : new buildCriteria() method
+    * DepensePeer.php : new getAmountOfDettesForActivite($activiteId) method
+    * RecettePeer.php : new getAmountOfCreancesForActivite($activiteId) method
+    * bilanSuccess.php : <tfoot> content has been moved to <tbody> to be XHTML
+      compliant
+    * main.css : new style for "tableauDonnees tbody tr:Hover"
+    * main.css : compteNegatif, comptePositif and cotisationNonAjour classes
+      have been updated (lighter background).
+
+
+r71 - june, 7, 2009
+    * Created 'Roadmap' wiki page through web user interface
+
+
 r70 - june, 6, 2009
     * phoogle.php : code has been clean a little bit. New private method
       _isValidPoint(), and we check that a point is valid before adding it on
