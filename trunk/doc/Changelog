@@ -1,3 +1,10 @@
+r74 - june, 8, 2009
+    * /lib/misc/Configurator.class.php : the aim of this class is to deal with
+      configuration variables
+    * ConfigVariablePeer : retrieveByCode($code) method
+    * ConfigValuePeer : retrieveByCode($code, $association_id) method
+    
+
 r73 - june, 8, 2009
     * THANKS : new contributors
     * /data/updates/1.1.0beta-1.1.0 has been renamed has 1.1.0-beta-to-1.1
