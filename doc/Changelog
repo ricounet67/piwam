@@ -1,3 +1,25 @@
+r73 - june, 8, 2009
+    * THANKS : new contributors
+    * /data/updates/1.1.0beta-1.1.0 has been renamed has 1.1.0-beta-to-1.1
+    * Activite : showSuccess.php > removed empty line before "TOTAL" line
+    * Membre : actions > edit > check if user has the 'edit_acl' credential
+    * Membre : editSuccess.php > show ACL management form only if we have
+      'edit_acl' credential
+    * SQL data : new entry "edit_acl" in "acl_action" table
+    * Membre : actions > executeAcl > check if user has the 'edit_acl' 
+      credential
+    * Membre : editSuccess.php > edit icon after 'Droits' title
+    * schema.yml : new table config_categorie, config_variable, config_value
+    * symfony propel:build-model
+    * /updates/1.1.0beta-to-1.1/r73.sql : new SQL content
+    * /updates/1.1.0beta-to-1.1/updates.sql : file up to date
+    * /doc/piwam-install.sql : file is up to date
+    
+    
+r73 - june, 8, 2009
+    * Created wiki page through web user interface.
+
+
 r72 - june, 7, 2009
     * Membre : actions > don't redirect to credentials form if we just edit
       an existing Membre
