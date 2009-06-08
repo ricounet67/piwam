@@ -51,9 +51,6 @@ $totalDepenses = 0;
 	</tr>
 	<?php endforeach; ?>
 
-	<tr>
-		<td colspan="4">&nbsp;</td>
-	</tr>
 	<tr class="<?php echo ($totalRecettes - $totalDepenses < 0) ? 'compteNegatif' : 'comptePositif'; ?>">
 		<td><strong>Total</strong></td>
 		<td><?php echo format_currency($totalDepenses); ?></td>

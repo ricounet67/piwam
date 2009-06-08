@@ -14,7 +14,7 @@
 
     <!-- New  tab -->
     <div>
-        <h2><a name="t1" id="t1">Informations détaillées</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => 'edit')), 'membre/edit?id='.$membre->getId()) ?></h2>
+        <h2><a name="t1" id="t1">Informations détaillées</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => 'edit')), 'membre/edit?id='.$membre->getId() . '#profil') ?></h2>
 
         <table class="tableauDetails" id="details">
             <tbody>
@@ -102,7 +102,7 @@
 
     <!-- New tab -->
     <div>
-        <h2><a name="t3" id="t3">Droits de l'utilisateur</a></h2>
+        <h2><a name="t3" id="t3">Droits de l'utilisateur</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => 'edit')), 'membre/edit?id='.$membre->getId() . '#credentials') ?></h2>
         <div>
             <ul>
                 <?php if (count($credentials) == 0): ?>

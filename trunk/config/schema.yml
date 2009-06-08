@@ -25,6 +25,32 @@ propel:
 
 
   #
+  # Configuration Management
+  #
+  
+  config_categorie:
+    _attributes:        { phpName : ConfigCategorie }
+    code:               { type: varchar(20), required: true, primaryKey: true }
+    libelle:            { type: varchar(255), required: true }
+  
+  config_variable:
+    _attributes:        { phpName: ConfigVariable }
+    id:                 ~
+    code:               { type: varchar(20), required: true }
+    categorie_code:     { type: varchar(20), required: true, foreignTable: config_categorie, foreignReference: code }
+    libelle:            { type: varchar(255), required: true }
+    description:        { type: longvarchar, required: false }
+    type:               { type: varchar(255), required: true }
+    default_value:      { type: varchar(255), required: true }
+    
+  config_value:         
+    _attributes:        { phpName : ConfigValue }
+    config_variable_id: { type: integer, foreignTable: config_variable, foreignReference: id, primaryKey: true, required: true }
+    association_id:     { type: integer, foreignTable: association, foreignReference: id, primaryKey: true, required: true }
+    custom_value:       { type: varchar(255), required: true }
+
+
+  #
   # Entities
   #
 

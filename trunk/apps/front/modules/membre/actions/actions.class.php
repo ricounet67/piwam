@@ -111,6 +111,11 @@ class membreActions extends sfActions
         }
     }
 
+    /**
+     * Perform the creation of the Membre object in database
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeCreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
@@ -136,6 +141,7 @@ class membreActions extends sfActions
         $this->form     = new MembreForm($membre);
         $this->aclForm  = new AclCredentialForm();
         $membre         = MembrePeer::retrieveByPk($this->user_id);
+        $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
 
         if ($membre->getAssociationId() != $associationId) {
             $this->redirect('error/credentials');
@@ -147,10 +153,40 @@ class membreActions extends sfActions
     }
 
     /**
+     * Perform the update of the Membre
+     *
+     * @param   sfWebRequest    $request
+     */
+    public function executeUpdate(sfWebRequest $request)
+    {
+        $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
+        $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Object membre does not exist (%s).', $request->getParameter('id')));
+        $this->form = new MembreForm($membre);
+
+        $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
+        $this->user_id  = $request->getParameter('id');
+        $this->form     = new MembreForm($membre);
+        $this->aclForm  = new AclCredentialForm();
+        $membre         = MembrePeer::retrieveByPk($this->user_id);
+        $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
+
+        if ($membre->getAssociationId() != $associationId) {
+            $this->redirect('error/credentials');
+        }
+
+        $this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+        $this->aclForm->setUserId($this->user_id);
+        $this->aclForm->automaticCheck();
+
+        $this->processForm($request, $this->form);
+        $this->setTemplate('edit');
+    }
+
+    /**
      * Export the list of Membre within a file
      *
-     * @param 	sfWebRequest	$request
-     * @since	r19
+     * @param   sfWebRequest    $request
+     * @since   r19
      */
     public function executeExport(sfWebRequest $request)
     {
@@ -158,18 +194,18 @@ class membreActions extends sfActions
         $membres = MembrePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
 
         echo $csv->addLineCSV(array(
-			'Prénom',
-			'Nom',
-			'Pseudo',
-			'Email',
-			'Tel (fixe)',
-			'Tel (mobile)',
-			'Rue',
-			'CP',
-			'Ville',
-			'Pays',
-			'Statut',
-			'Date d\'inscription',
+            'Prénom',
+            'Nom',
+            'Pseudo',
+            'Email',
+            'Tel (fixe)',
+            'Tel (mobile)',
+            'Rue',
+            'CP',
+            'Ville',
+            'Pays',
+            'Statut',
+            'Date d\'inscription',
         ));
 
         foreach ($membres as $membre)
@@ -193,34 +229,10 @@ class membreActions extends sfActions
     }
 
     /**
-     * Perform the update of the Membre
+     * Perform the deletion
      *
      * @param   sfWebRequest    $request
      */
-    public function executeUpdate(sfWebRequest $request)
-    {
-        $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Object membre does not exist (%s).', $request->getParameter('id')));
-        $this->form = new MembreForm($membre);
-
-        $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
-        $this->user_id  = $request->getParameter('id');
-        $this->form     = new MembreForm($membre);
-        $this->aclForm  = new AclCredentialForm();
-        $membre         = MembrePeer::retrieveByPk($this->user_id);
-
-        if ($membre->getAssociationId() != $associationId) {
-            $this->redirect('error/credentials');
-        }
-
-        $this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
-        $this->aclForm->setUserId($this->user_id);
-        $this->aclForm->automaticCheck();
-
-        $this->processForm($request, $this->form);
-        $this->setTemplate('edit');
-    }
-
     public function executeDelete(sfWebRequest $request)
     {
         $request->checkCSRFProtection();
@@ -235,6 +247,7 @@ class membreActions extends sfActions
      *
      * @param 	sfWebRequest	$request
      * @since	r15
+     * @unused
      */
     public function executeAjaxlist(sfWebRequest $request)
     {
@@ -355,7 +368,8 @@ class membreActions extends sfActions
             $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
             $membre         = MembrePeer::retrieveByPk($this->user_id);
 
-            if ($membre->getAssociationId() != $associationId) {
+            if (($membre->getAssociationId() != $associationId) ||
+                ($this->getUser()->hasCredential('edit_acl') == false)) {
                 $this->forward('error', 'credentials');
             }
 

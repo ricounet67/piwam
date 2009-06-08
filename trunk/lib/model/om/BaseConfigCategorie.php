@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Base class that represents a row from the 'acl_action' table.
+ * Base class that represents a row from the 'config_categorie' table.
  *
  * 
  *
@@ -11,36 +11,18 @@
  *
  * @package    lib.model.om
  */
-abstract class BaseAclAction extends BaseObject  implements Persistent {
+abstract class BaseConfigCategorie extends BaseObject  implements Persistent {
 
 
-  const PEER = 'AclActionPeer';
+  const PEER = 'ConfigCategoriePeer';
 
 	/**
 	 * The Peer class.
 	 * Instance provides a convenient way of calling static methods on a class
 	 * that calling code may not be able to identify.
-	 * @var        AclActionPeer
+	 * @var        ConfigCategoriePeer
 	 */
 	protected static $peer;
-
-	/**
-	 * The value for the id field.
-	 * @var        int
-	 */
-	protected $id;
-
-	/**
-	 * The value for the acl_module_id field.
-	 * @var        int
-	 */
-	protected $acl_module_id;
-
-	/**
-	 * The value for the libelle field.
-	 * @var        string
-	 */
-	protected $libelle;
 
 	/**
 	 * The value for the code field.
@@ -49,19 +31,20 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	protected $code;
 
 	/**
-	 * @var        AclModule
+	 * The value for the libelle field.
+	 * @var        string
 	 */
-	protected $aAclModule;
+	protected $libelle;
 
 	/**
-	 * @var        array AclCredential[] Collection to store aggregation of AclCredential objects.
+	 * @var        array ConfigVariable[] Collection to store aggregation of ConfigVariable objects.
 	 */
-	protected $collAclCredentials;
+	protected $collConfigVariables;
 
 	/**
-	 * @var        Criteria The criteria used to select the current contents of collAclCredentials.
+	 * @var        Criteria The criteria used to select the current contents of collConfigVariables.
 	 */
-	private $lastAclCredentialCriteria = null;
+	private $lastConfigVariableCriteria = null;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -78,7 +61,7 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	protected $alreadyInValidation = false;
 
 	/**
-	 * Initializes internal state of BaseAclAction object.
+	 * Initializes internal state of BaseConfigCategorie object.
 	 * @see        applyDefaults()
 	 */
 	public function __construct()
@@ -98,23 +81,13 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [id] column value.
+	 * Get the [code] column value.
 	 * 
-	 * @return     int
+	 * @return     string
 	 */
-	public function getId()
+	public function getCode()
 	{
-		return $this->id;
-	}
-
-	/**
-	 * Get the [acl_module_id] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getAclModuleId()
-	{
-		return $this->acl_module_id;
+		return $this->code;
 	}
 
 	/**
@@ -128,84 +101,10 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	}
 
 	/**
-	 * Get the [code] column value.
-	 * 
-	 * @return     string
-	 */
-	public function getCode()
-	{
-		return $this->code;
-	}
-
-	/**
-	 * Set the value of [id] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     AclAction The current object (for fluent API support)
-	 */
-	public function setId($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->id !== $v) {
-			$this->id = $v;
-			$this->modifiedColumns[] = AclActionPeer::ID;
-		}
-
-		return $this;
-	} // setId()
-
-	/**
-	 * Set the value of [acl_module_id] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     AclAction The current object (for fluent API support)
-	 */
-	public function setAclModuleId($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->acl_module_id !== $v) {
-			$this->acl_module_id = $v;
-			$this->modifiedColumns[] = AclActionPeer::ACL_MODULE_ID;
-		}
-
-		if ($this->aAclModule !== null && $this->aAclModule->getId() !== $v) {
-			$this->aAclModule = null;
-		}
-
-		return $this;
-	} // setAclModuleId()
-
-	/**
-	 * Set the value of [libelle] column.
-	 * 
-	 * @param      string $v new value
-	 * @return     AclAction The current object (for fluent API support)
-	 */
-	public function setLibelle($v)
-	{
-		if ($v !== null) {
-			$v = (string) $v;
-		}
-
-		if ($this->libelle !== $v) {
-			$this->libelle = $v;
-			$this->modifiedColumns[] = AclActionPeer::LIBELLE;
-		}
-
-		return $this;
-	} // setLibelle()
-
-	/**
 	 * Set the value of [code] column.
 	 * 
 	 * @param      string $v new value
-	 * @return     AclAction The current object (for fluent API support)
+	 * @return     ConfigCategorie The current object (for fluent API support)
 	 */
 	public function setCode($v)
 	{
@@ -215,11 +114,31 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 
 		if ($this->code !== $v) {
 			$this->code = $v;
-			$this->modifiedColumns[] = AclActionPeer::CODE;
+			$this->modifiedColumns[] = ConfigCategoriePeer::CODE;
 		}
 
 		return $this;
 	} // setCode()
+
+	/**
+	 * Set the value of [libelle] column.
+	 * 
+	 * @param      string $v new value
+	 * @return     ConfigCategorie The current object (for fluent API support)
+	 */
+	public function setLibelle($v)
+	{
+		if ($v !== null) {
+			$v = (string) $v;
+		}
+
+		if ($this->libelle !== $v) {
+			$this->libelle = $v;
+			$this->modifiedColumns[] = ConfigCategoriePeer::LIBELLE;
+		}
+
+		return $this;
+	} // setLibelle()
 
 	/**
 	 * Indicates whether the columns in this object are only set to default values.
@@ -258,10 +177,8 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	{
 		try {
 
-			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-			$this->acl_module_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-			$this->libelle = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-			$this->code = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+			$this->code = ($row[$startcol + 0] !== null) ? (string) $row[$startcol + 0] : null;
+			$this->libelle = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -271,10 +188,10 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 			}
 
 			// FIXME - using NUM_COLUMNS may be clearer.
-			return $startcol + 4; // 4 = AclActionPeer::NUM_COLUMNS - AclActionPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 2; // 2 = ConfigCategoriePeer::NUM_COLUMNS - ConfigCategoriePeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
-			throw new PropelException("Error populating AclAction object", $e);
+			throw new PropelException("Error populating ConfigCategorie object", $e);
 		}
 	}
 
@@ -294,9 +211,6 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	public function ensureConsistency()
 	{
 
-		if ($this->aAclModule !== null && $this->acl_module_id !== $this->aAclModule->getId()) {
-			$this->aAclModule = null;
-		}
 	} // ensureConsistency
 
 	/**
@@ -320,13 +234,13 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(AclActionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(ConfigCategoriePeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		// We don't need to alter the object instance pool; we're just modifying this instance
 		// already in the pool.
 
-		$stmt = AclActionPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+		$stmt = ConfigCategoriePeer::doSelectStmt($this->buildPkeyCriteria(), $con);
 		$row = $stmt->fetch(PDO::FETCH_NUM);
 		$stmt->closeCursor();
 		if (!$row) {
@@ -336,9 +250,8 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 
 		if ($deep) {  // also de-associate any related objects?
 
-			$this->aAclModule = null;
-			$this->collAclCredentials = null;
-			$this->lastAclCredentialCriteria = null;
+			$this->collConfigVariables = null;
+			$this->lastConfigVariableCriteria = null;
 
 		} // if (deep)
 	}
@@ -355,7 +268,7 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	public function delete(PropelPDO $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BaseAclAction:delete:pre') as $callable)
+    foreach (sfMixer::getCallables('BaseConfigCategorie:delete:pre') as $callable)
     {
       $ret = call_user_func($callable, $this, $con);
       if ($ret)
@@ -370,12 +283,12 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(AclActionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(ConfigCategoriePeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		
 		$con->beginTransaction();
 		try {
-			AclActionPeer::doDelete($this, $con);
+			ConfigCategoriePeer::doDelete($this, $con);
 			$this->setDeleted(true);
 			$con->commit();
 		} catch (PropelException $e) {
@@ -384,7 +297,7 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 		}
 	
 
-    foreach (sfMixer::getCallables('BaseAclAction:delete:post') as $callable)
+    foreach (sfMixer::getCallables('BaseConfigCategorie:delete:post') as $callable)
     {
       call_user_func($callable, $this, $con);
     }
@@ -406,7 +319,7 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	public function save(PropelPDO $con = null)
 	{
 
-    foreach (sfMixer::getCallables('BaseAclAction:save:pre') as $callable)
+    foreach (sfMixer::getCallables('BaseConfigCategorie:save:pre') as $callable)
     {
       $affectedRows = call_user_func($callable, $this, $con);
       if (is_int($affectedRows))
@@ -421,19 +334,19 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(AclActionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(ConfigCategoriePeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		
 		$con->beginTransaction();
 		try {
 			$affectedRows = $this->doSave($con);
 			$con->commit();
-    foreach (sfMixer::getCallables('BaseAclAction:save:post') as $callable)
+    foreach (sfMixer::getCallables('BaseConfigCategorie:save:post') as $callable)
     {
       call_user_func($callable, $this, $con, $affectedRows);
     }
 
-			AclActionPeer::addInstanceToPool($this);
+			ConfigCategoriePeer::addInstanceToPool($this);
 			return $affectedRows;
 		} catch (PropelException $e) {
 			$con->rollBack();
@@ -458,42 +371,25 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 		if (!$this->alreadyInSave) {
 			$this->alreadyInSave = true;
 
-			// We call the save method on the following object(s) if they
-			// were passed to this object by their coresponding set
-			// method.  This object relates to these object(s) by a
-			// foreign key reference.
-
-			if ($this->aAclModule !== null) {
-				if ($this->aAclModule->isModified() || $this->aAclModule->isNew()) {
-					$affectedRows += $this->aAclModule->save($con);
-				}
-				$this->setAclModule($this->aAclModule);
-			}
-
-			if ($this->isNew() ) {
-				$this->modifiedColumns[] = AclActionPeer::ID;
-			}
 
 			// If this object has been modified, then save it to the database.
 			if ($this->isModified()) {
 				if ($this->isNew()) {
-					$pk = AclActionPeer::doInsert($this, $con);
+					$pk = ConfigCategoriePeer::doInsert($this, $con);
 					$affectedRows += 1; // we are assuming that there is only 1 row per doInsert() which
 										 // should always be true here (even though technically
 										 // BasePeer::doInsert() can insert multiple rows).
 
-					$this->setId($pk);  //[IMV] update autoincrement primary key
-
 					$this->setNew(false);
 				} else {
-					$affectedRows += AclActionPeer::doUpdate($this, $con);
+					$affectedRows += ConfigCategoriePeer::doUpdate($this, $con);
 				}
 
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
 			}
 
-			if ($this->collAclCredentials !== null) {
-				foreach ($this->collAclCredentials as $referrerFK) {
+			if ($this->collConfigVariables !== null) {
+				foreach ($this->collConfigVariables as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
 						$affectedRows += $referrerFK->save($con);
 					}
@@ -566,25 +462,13 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 			$failureMap = array();
 
 
-			// We call the validate method on the following object(s) if they
-			// were passed to this object by their coresponding set
-			// method.  This object relates to these object(s) by a
-			// foreign key reference.
-
-			if ($this->aAclModule !== null) {
-				if (!$this->aAclModule->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aAclModule->getValidationFailures());
-				}
-			}
-
-
-			if (($retval = AclActionPeer::doValidate($this, $columns)) !== true) {
+			if (($retval = ConfigCategoriePeer::doValidate($this, $columns)) !== true) {
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
 
-				if ($this->collAclCredentials !== null) {
-					foreach ($this->collAclCredentials as $referrerFK) {
+				if ($this->collConfigVariables !== null) {
+					foreach ($this->collConfigVariables as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -609,7 +493,7 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	 */
 	public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = AclActionPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = ConfigCategoriePeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		$field = $this->getByPosition($pos);
 		return $field;
 	}
@@ -625,16 +509,10 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	{
 		switch($pos) {
 			case 0:
-				return $this->getId();
+				return $this->getCode();
 				break;
 			case 1:
-				return $this->getAclModuleId();
-				break;
-			case 2:
 				return $this->getLibelle();
-				break;
-			case 3:
-				return $this->getCode();
 				break;
 			default:
 				return null;
@@ -655,12 +533,10 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	 */
 	public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true)
 	{
-		$keys = AclActionPeer::getFieldNames($keyType);
+		$keys = ConfigCategoriePeer::getFieldNames($keyType);
 		$result = array(
-			$keys[0] => $this->getId(),
-			$keys[1] => $this->getAclModuleId(),
-			$keys[2] => $this->getLibelle(),
-			$keys[3] => $this->getCode(),
+			$keys[0] => $this->getCode(),
+			$keys[1] => $this->getLibelle(),
 		);
 		return $result;
 	}
@@ -677,7 +553,7 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	 */
 	public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
 	{
-		$pos = AclActionPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+		$pos = ConfigCategoriePeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 		return $this->setByPosition($pos, $value);
 	}
 
@@ -693,16 +569,10 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	{
 		switch($pos) {
 			case 0:
-				$this->setId($value);
+				$this->setCode($value);
 				break;
 			case 1:
-				$this->setAclModuleId($value);
-				break;
-			case 2:
 				$this->setLibelle($value);
-				break;
-			case 3:
-				$this->setCode($value);
 				break;
 		} // switch()
 	}
@@ -726,12 +596,10 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	 */
 	public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
 	{
-		$keys = AclActionPeer::getFieldNames($keyType);
+		$keys = ConfigCategoriePeer::getFieldNames($keyType);
 
-		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-		if (array_key_exists($keys[1], $arr)) $this->setAclModuleId($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setLibelle($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setCode($arr[$keys[3]]);
+		if (array_key_exists($keys[0], $arr)) $this->setCode($arr[$keys[0]]);
+		if (array_key_exists($keys[1], $arr)) $this->setLibelle($arr[$keys[1]]);
 	}
 
 	/**
@@ -741,12 +609,10 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	 */
 	public function buildCriteria()
 	{
-		$criteria = new Criteria(AclActionPeer::DATABASE_NAME);
+		$criteria = new Criteria(ConfigCategoriePeer::DATABASE_NAME);
 
-		if ($this->isColumnModified(AclActionPeer::ID)) $criteria->add(AclActionPeer::ID, $this->id);
-		if ($this->isColumnModified(AclActionPeer::ACL_MODULE_ID)) $criteria->add(AclActionPeer::ACL_MODULE_ID, $this->acl_module_id);
-		if ($this->isColumnModified(AclActionPeer::LIBELLE)) $criteria->add(AclActionPeer::LIBELLE, $this->libelle);
-		if ($this->isColumnModified(AclActionPeer::CODE)) $criteria->add(AclActionPeer::CODE, $this->code);
+		if ($this->isColumnModified(ConfigCategoriePeer::CODE)) $criteria->add(ConfigCategoriePeer::CODE, $this->code);
+		if ($this->isColumnModified(ConfigCategoriePeer::LIBELLE)) $criteria->add(ConfigCategoriePeer::LIBELLE, $this->libelle);
 
 		return $criteria;
 	}
@@ -761,31 +627,31 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	 */
 	public function buildPkeyCriteria()
 	{
-		$criteria = new Criteria(AclActionPeer::DATABASE_NAME);
+		$criteria = new Criteria(ConfigCategoriePeer::DATABASE_NAME);
 
-		$criteria->add(AclActionPeer::ID, $this->id);
+		$criteria->add(ConfigCategoriePeer::CODE, $this->code);
 
 		return $criteria;
 	}
 
 	/**
 	 * Returns the primary key for this object (row).
-	 * @return     int
+	 * @return     string
 	 */
 	public function getPrimaryKey()
 	{
-		return $this->getId();
+		return $this->getCode();
 	}
 
 	/**
-	 * Generic method to set the primary key (id column).
+	 * Generic method to set the primary key (code column).
 	 *
-	 * @param      int $key Primary key.
+	 * @param      string $key Primary key.
 	 * @return     void
 	 */
 	public function setPrimaryKey($key)
 	{
-		$this->setId($key);
+		$this->setCode($key);
 	}
 
 	/**
@@ -794,18 +660,16 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	 * If desired, this method can also make copies of all associated (fkey referrers)
 	 * objects.
 	 *
-	 * @param      object $copyObj An object of AclAction (or compatible) type.
+	 * @param      object $copyObj An object of ConfigCategorie (or compatible) type.
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
 	 * @throws     PropelException
 	 */
 	public function copyInto($copyObj, $deepCopy = false)
 	{
 
-		$copyObj->setAclModuleId($this->acl_module_id);
+		$copyObj->setCode($this->code);
 
 		$copyObj->setLibelle($this->libelle);
-
-		$copyObj->setCode($this->code);
 
 
 		if ($deepCopy) {
@@ -813,9 +677,9 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 			// the getter/setter methods for fkey referrer objects.
 			$copyObj->setNew(false);
 
-			foreach ($this->getAclCredentials() as $relObj) {
+			foreach ($this->getConfigVariables() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-					$copyObj->addAclCredential($relObj->copy($deepCopy));
+					$copyObj->addConfigVariable($relObj->copy($deepCopy));
 				}
 			}
 
@@ -823,8 +687,6 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 
 
 		$copyObj->setNew(true);
-
-		$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
 
 	}
 
@@ -837,7 +699,7 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	 * objects.
 	 *
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-	 * @return     AclAction Clone of current object.
+	 * @return     ConfigCategorie Clone of current object.
 	 * @throws     PropelException
 	 */
 	public function copy($deepCopy = false)
@@ -856,127 +718,76 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	 * same instance for all member of this class. The method could therefore
 	 * be static, but this would prevent one from overriding the behavior.
 	 *
-	 * @return     AclActionPeer
+	 * @return     ConfigCategoriePeer
 	 */
 	public function getPeer()
 	{
 		if (self::$peer === null) {
-			self::$peer = new AclActionPeer();
+			self::$peer = new ConfigCategoriePeer();
 		}
 		return self::$peer;
 	}
 
 	/**
-	 * Declares an association between this object and a AclModule object.
-	 *
-	 * @param      AclModule $v
-	 * @return     AclAction The current object (for fluent API support)
-	 * @throws     PropelException
-	 */
-	public function setAclModule(AclModule $v = null)
-	{
-		if ($v === null) {
-			$this->setAclModuleId(NULL);
-		} else {
-			$this->setAclModuleId($v->getId());
-		}
-
-		$this->aAclModule = $v;
-
-		// Add binding for other direction of this n:n relationship.
-		// If this object has already been added to the AclModule object, it will not be re-added.
-		if ($v !== null) {
-			$v->addAclAction($this);
-		}
-
-		return $this;
-	}
-
-
-	/**
-	 * Get the associated AclModule object
-	 *
-	 * @param      PropelPDO Optional Connection object.
-	 * @return     AclModule The associated AclModule object.
-	 * @throws     PropelException
-	 */
-	public function getAclModule(PropelPDO $con = null)
-	{
-		if ($this->aAclModule === null && ($this->acl_module_id !== null)) {
-			$c = new Criteria(AclModulePeer::DATABASE_NAME);
-			$c->add(AclModulePeer::ID, $this->acl_module_id);
-			$this->aAclModule = AclModulePeer::doSelectOne($c, $con);
-			/* The following can be used additionally to
-			   guarantee the related object contains a reference
-			   to this object.  This level of coupling may, however, be
-			   undesirable since it could result in an only partially populated collection
-			   in the referenced object.
-			   $this->aAclModule->addAclActions($this);
-			 */
-		}
-		return $this->aAclModule;
-	}
-
-	/**
-	 * Clears out the collAclCredentials collection (array).
+	 * Clears out the collConfigVariables collection (array).
 	 *
 	 * This does not modify the database; however, it will remove any associated objects, causing
 	 * them to be refetched by subsequent calls to accessor method.
 	 *
 	 * @return     void
-	 * @see        addAclCredentials()
+	 * @see        addConfigVariables()
 	 */
-	public function clearAclCredentials()
+	public function clearConfigVariables()
 	{
-		$this->collAclCredentials = null; // important to set this to NULL since that means it is uninitialized
+		$this->collConfigVariables = null; // important to set this to NULL since that means it is uninitialized
 	}
 
 	/**
-	 * Initializes the collAclCredentials collection (array).
+	 * Initializes the collConfigVariables collection (array).
 	 *
-	 * By default this just sets the collAclCredentials collection to an empty array (like clearcollAclCredentials());
+	 * By default this just sets the collConfigVariables collection to an empty array (like clearcollConfigVariables());
 	 * however, you may wish to override this method in your stub class to provide setting appropriate
 	 * to your application -- for example, setting the initial array to the values stored in database.
 	 *
 	 * @return     void
 	 */
-	public function initAclCredentials()
+	public function initConfigVariables()
 	{
-		$this->collAclCredentials = array();
+		$this->collConfigVariables = array();
 	}
 
 	/**
-	 * Gets an array of AclCredential objects which contain a foreign key that references this object.
+	 * Gets an array of ConfigVariable objects which contain a foreign key that references this object.
 	 *
 	 * If this collection has already been initialized with an identical Criteria, it returns the collection.
-	 * Otherwise if this AclAction has previously been saved, it will retrieve
-	 * related AclCredentials from storage. If this AclAction is new, it will return
+	 * Otherwise if this ConfigCategorie has previously been saved, it will retrieve
+	 * related ConfigVariables from storage. If this ConfigCategorie is new, it will return
 	 * an empty collection or the current collection, the criteria is ignored on a new object.
 	 *
 	 * @param      PropelPDO $con
 	 * @param      Criteria $criteria
-	 * @return     array AclCredential[]
+	 * @return     array ConfigVariable[]
 	 * @throws     PropelException
 	 */
-	public function getAclCredentials($criteria = null, PropelPDO $con = null)
+	public function getConfigVariables($criteria = null, PropelPDO $con = null)
 	{
 		if ($criteria === null) {
-			$criteria = new Criteria(AclActionPeer::DATABASE_NAME);
+			$criteria = new Criteria(ConfigCategoriePeer::DATABASE_NAME);
 		}
 		elseif ($criteria instanceof Criteria)
 		{
 			$criteria = clone $criteria;
 		}
 
-		if ($this->collAclCredentials === null) {
+		if ($this->collConfigVariables === null) {
 			if ($this->isNew()) {
-			   $this->collAclCredentials = array();
+			   $this->collConfigVariables = array();
 			} else {
 
-				$criteria->add(AclCredentialPeer::ACL_ACTION_ID, $this->id);
+				$criteria->add(ConfigVariablePeer::CATEGORIE_CODE, $this->code);
 
-				AclCredentialPeer::addSelectColumns($criteria);
-				$this->collAclCredentials = AclCredentialPeer::doSelect($criteria, $con);
+				ConfigVariablePeer::addSelectColumns($criteria);
+				$this->collConfigVariables = ConfigVariablePeer::doSelect($criteria, $con);
 			}
 		} else {
 			// criteria has no effect for a new object
@@ -986,31 +797,31 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 				// one, just return the collection.
 
 
-				$criteria->add(AclCredentialPeer::ACL_ACTION_ID, $this->id);
+				$criteria->add(ConfigVariablePeer::CATEGORIE_CODE, $this->code);
 
-				AclCredentialPeer::addSelectColumns($criteria);
-				if (!isset($this->lastAclCredentialCriteria) || !$this->lastAclCredentialCriteria->equals($criteria)) {
-					$this->collAclCredentials = AclCredentialPeer::doSelect($criteria, $con);
+				ConfigVariablePeer::addSelectColumns($criteria);
+				if (!isset($this->lastConfigVariableCriteria) || !$this->lastConfigVariableCriteria->equals($criteria)) {
+					$this->collConfigVariables = ConfigVariablePeer::doSelect($criteria, $con);
 				}
 			}
 		}
-		$this->lastAclCredentialCriteria = $criteria;
-		return $this->collAclCredentials;
+		$this->lastConfigVariableCriteria = $criteria;
+		return $this->collConfigVariables;
 	}
 
 	/**
-	 * Returns the number of related AclCredential objects.
+	 * Returns the number of related ConfigVariable objects.
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct
 	 * @param      PropelPDO $con
-	 * @return     int Count of related AclCredential objects.
+	 * @return     int Count of related ConfigVariable objects.
 	 * @throws     PropelException
 	 */
-	public function countAclCredentials(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	public function countConfigVariables(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
 	{
 		if ($criteria === null) {
-			$criteria = new Criteria(AclActionPeer::DATABASE_NAME);
+			$criteria = new Criteria(ConfigCategoriePeer::DATABASE_NAME);
 		} else {
 			$criteria = clone $criteria;
 		}
@@ -1021,14 +832,14 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 
 		$count = null;
 
-		if ($this->collAclCredentials === null) {
+		if ($this->collConfigVariables === null) {
 			if ($this->isNew()) {
 				$count = 0;
 			} else {
 
-				$criteria->add(AclCredentialPeer::ACL_ACTION_ID, $this->id);
+				$criteria->add(ConfigVariablePeer::CATEGORIE_CODE, $this->code);
 
-				$count = AclCredentialPeer::doCount($criteria, $con);
+				$count = ConfigVariablePeer::doCount($criteria, $con);
 			}
 		} else {
 			// criteria has no effect for a new object
@@ -1038,84 +849,37 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 				// one, just return count of the collection.
 
 
-				$criteria->add(AclCredentialPeer::ACL_ACTION_ID, $this->id);
+				$criteria->add(ConfigVariablePeer::CATEGORIE_CODE, $this->code);
 
-				if (!isset($this->lastAclCredentialCriteria) || !$this->lastAclCredentialCriteria->equals($criteria)) {
-					$count = AclCredentialPeer::doCount($criteria, $con);
+				if (!isset($this->lastConfigVariableCriteria) || !$this->lastConfigVariableCriteria->equals($criteria)) {
+					$count = ConfigVariablePeer::doCount($criteria, $con);
 				} else {
-					$count = count($this->collAclCredentials);
+					$count = count($this->collConfigVariables);
 				}
 			} else {
-				$count = count($this->collAclCredentials);
+				$count = count($this->collConfigVariables);
 			}
 		}
 		return $count;
 	}
 
 	/**
-	 * Method called to associate a AclCredential object to this object
-	 * through the AclCredential foreign key attribute.
+	 * Method called to associate a ConfigVariable object to this object
+	 * through the ConfigVariable foreign key attribute.
 	 *
-	 * @param      AclCredential $l AclCredential
+	 * @param      ConfigVariable $l ConfigVariable
 	 * @return     void
 	 * @throws     PropelException
 	 */
-	public function addAclCredential(AclCredential $l)
+	public function addConfigVariable(ConfigVariable $l)
 	{
-		if ($this->collAclCredentials === null) {
-			$this->initAclCredentials();
+		if ($this->collConfigVariables === null) {
+			$this->initConfigVariables();
 		}
-		if (!in_array($l, $this->collAclCredentials, true)) { // only add it if the **same** object is not already associated
-			array_push($this->collAclCredentials, $l);
-			$l->setAclAction($this);
+		if (!in_array($l, $this->collConfigVariables, true)) { // only add it if the **same** object is not already associated
+			array_push($this->collConfigVariables, $l);
+			$l->setConfigCategorie($this);
 		}
-	}
-
-
-	/**
-	 * If this collection has already been initialized with
-	 * an identical criteria, it returns the collection.
-	 * Otherwise if this AclAction is new, it will return
-	 * an empty collection; or if this AclAction has previously
-	 * been saved, it will retrieve related AclCredentials from storage.
-	 *
-	 * This method is protected by default in order to keep the public
-	 * api reasonable.  You can provide public methods for those you
-	 * actually need in AclAction.
-	 */
-	public function getAclCredentialsJoinMembre($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		if ($criteria === null) {
-			$criteria = new Criteria(AclActionPeer::DATABASE_NAME);
-		}
-		elseif ($criteria instanceof Criteria)
-		{
-			$criteria = clone $criteria;
-		}
-
-		if ($this->collAclCredentials === null) {
-			if ($this->isNew()) {
-				$this->collAclCredentials = array();
-			} else {
-
-				$criteria->add(AclCredentialPeer::ACL_ACTION_ID, $this->id);
-
-				$this->collAclCredentials = AclCredentialPeer::doSelectJoinMembre($criteria, $con, $join_behavior);
-			}
-		} else {
-			// the following code is to determine if a new query is
-			// called for.  If the criteria is the same as the last
-			// one, just return the collection.
-
-			$criteria->add(AclCredentialPeer::ACL_ACTION_ID, $this->id);
-
-			if (!isset($this->lastAclCredentialCriteria) || !$this->lastAclCredentialCriteria->equals($criteria)) {
-				$this->collAclCredentials = AclCredentialPeer::doSelectJoinMembre($criteria, $con, $join_behavior);
-			}
-		}
-		$this->lastAclCredentialCriteria = $criteria;
-
-		return $this->collAclCredentials;
 	}
 
 	/**
@@ -1130,23 +894,22 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
 	public function clearAllReferences($deep = false)
 	{
 		if ($deep) {
-			if ($this->collAclCredentials) {
-				foreach ((array) $this->collAclCredentials as $o) {
+			if ($this->collConfigVariables) {
+				foreach ((array) $this->collConfigVariables as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
 		} // if ($deep)
 
-		$this->collAclCredentials = null;
-			$this->aAclModule = null;
+		$this->collConfigVariables = null;
 	}
 
 
   public function __call($method, $arguments)
   {
-    if (!$callable = sfMixer::getCallable('BaseAclAction:'.$method))
+    if (!$callable = sfMixer::getCallable('BaseConfigCategorie:'.$method))
     {
-      throw new sfException(sprintf('Call to undefined method BaseAclAction::%s', $method));
+      throw new sfException(sprintf('Call to undefined method BaseConfigCategorie::%s', $method));
     }
 
     array_unshift($arguments, $this);
@@ -1155,4 +918,4 @@ abstract class BaseAclAction extends BaseObject  implements Persistent {
   }
 
 
-} // BaseAclAction
+} // BaseConfigCategorie

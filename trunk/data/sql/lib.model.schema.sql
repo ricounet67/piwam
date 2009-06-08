@@ -61,6 +61,64 @@ CREATE TABLE `acl_credential`
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
+#-- config_categorie
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `config_categorie`;
+
+
+CREATE TABLE `config_categorie`
+(
+	`code` VARCHAR(15)  NOT NULL,
+	`libelle` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`code`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- config_variable
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `config_variable`;
+
+
+CREATE TABLE `config_variable`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`categorie_code` VARCHAR(15)  NOT NULL,
+	`libelle` VARCHAR(255)  NOT NULL,
+	`description` TEXT,
+	`type` VARCHAR(255)  NOT NULL,
+	`default_value` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `config_variable_FI_1` (`categorie_code`),
+	CONSTRAINT `config_variable_FK_1`
+		FOREIGN KEY (`categorie_code`)
+		REFERENCES `config_categorie` (`code`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- config_value
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `config_value`;
+
+
+CREATE TABLE `config_value`
+(
+	`config_variable_id` INTEGER  NOT NULL,
+	`association_id` INTEGER  NOT NULL,
+	`custom_value` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`config_variable_id`,`association_id`),
+	CONSTRAINT `config_value_FK_1`
+		FOREIGN KEY (`config_variable_id`)
+		REFERENCES `config_variable` (`id`),
+	INDEX `config_value_FI_2` (`association_id`),
+	CONSTRAINT `config_value_FK_2`
+		FOREIGN KEY (`association_id`)
+		REFERENCES `association` (`id`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- activite
 #-----------------------------------------------------------------------------
 
@@ -261,6 +319,7 @@ CREATE TABLE `depense`
 	`compte_id` INTEGER  NOT NULL,
 	`activite_id` INTEGER  NOT NULL,
 	`date` DATE  NOT NULL,
+	`payee` TINYINT default 1,
 	`enregistre_par` INTEGER  NOT NULL,
 	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
@@ -364,6 +423,7 @@ CREATE TABLE `recette`
 	`compte_id` INTEGER  NOT NULL,
 	`activite_id` INTEGER  NOT NULL,
 	`date` DATE  NOT NULL,
+	`percue` TINYINT default 1,
 	`enregistre_par` INTEGER  NOT NULL,
 	`mis_a_jour_par` INTEGER  NOT NULL,
 	`created_at` DATETIME,
