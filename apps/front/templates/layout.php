@@ -11,7 +11,6 @@
     <!-- Set Jquery's noConflict mode -->
     <script type="text/javascript">var J = jQuery.noConflict();</script>
 
-
     <div id="container">
 
         <!-- Header of the application -->
