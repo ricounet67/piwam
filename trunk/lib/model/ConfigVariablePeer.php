@@ -15,4 +15,19 @@ class ConfigVariablePeer extends BaseConfigVariablePeer
 
         return self::doSelectOne($c);
     }
+
+    /**
+     * Retrieve a list of variables which belong to the module code $code
+     *
+     * @param   string  $code
+     * @return  array of ConfigVariable
+     * @since   r75
+     */
+    public static function doSelectByCategorieCode($code)
+    {
+        $c = new Criteria();
+        $c->add(self::CATEGORIE_CODE, $code);
+
+        return self::doSelect($c);
+    }
 }
