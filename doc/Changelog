@@ -1,3 +1,10 @@
+r75 - june, 9, 2009
+    * /apps/front/lib/form/ConfigForm.class.php : new form class
+    * ConfigVariablePeer : doSelectByCategorieCode($code) method
+    * Association : actions > new executeConfig() action
+    * Association : new views "configSuccess.php" and "_configForm.php"
+
+
 r74 - june, 8, 2009
     * /lib/misc/Configurator.class.php : the aim of this class is to deal with
       configuration variables

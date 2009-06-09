@@ -13,6 +13,17 @@ class associationActions extends sfActions
     private $_association = null;
 
     /**
+     * Display config form to edit Association's configuration
+     *
+     * @param   sfWebRequest    $request
+     * @since   r75
+     */
+    public function executeConfig(sfWebRequest $request)
+    {
+        $this->form = new ConfigForm();
+    }
+
+    /**
      * Provides a view to allows current user to export the different data
      * he wants to export
      *
@@ -183,17 +194,33 @@ class associationActions extends sfActions
     }
 
 
+    /**
+     * We don't have any way to list the associations
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->association_list = AssociationPeer::doSelect(new Criteria());
+        $this->forward('error', 'credentials');
+        $this->association_list = AssociationPeer::doSelect(new Criteria()); // not executed
     }
 
+    /**
+     * Display creation form to register a new Assocation
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeNew(sfWebRequest $request)
     {
         $this->getUser()->removeTemporaryData();
         $this->form = new AssociationForm();
     }
 
+    /**
+     * Perform the creation of the new Association
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeCreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
@@ -209,12 +236,22 @@ class associationActions extends sfActions
         }
     }
 
+    /**
+     * Display form to edit Association's information
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeEdit(sfWebRequest $request)
     {
         $this->forward404Unless($association = AssociationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object association does not exist (%s).', $request->getParameter('id')));
         $this->form = new AssociationForm($association);
     }
 
+    /**
+     * Perform update of fields
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
@@ -228,6 +265,11 @@ class associationActions extends sfActions
         }
     }
 
+    /**
+     * Perform the deletion
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeDelete(sfWebRequest $request)
     {
         $request->checkCSRFProtection();
