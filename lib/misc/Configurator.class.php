@@ -14,7 +14,7 @@ class Configurator
      *                      string in the database
      * @throw   Exception   if $v is invalid
      */
-    public static function get($v)
+    public static function get($v, $defaultValue = null)
     {
         $context        = sfContext::getInstance();
         $associationId  = $context->getUser()->getAttribute('association_id', null, 'user');
@@ -25,7 +25,12 @@ class Configurator
             if (is_null($configVariable)) {
                 throw new Exception('Invalid configuration variable ' . $v);
             }
-            return $configVariable->getDefaultValue();
+            if (is_null($defaultValue)) {
+	            return $configVariable->getDefaultValue();
+	        }
+	        else {
+	        	return $defaultValue;
+	        }
         }
         else {
             return $configValue->getCustomValue();

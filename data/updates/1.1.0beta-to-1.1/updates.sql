@@ -8,9 +8,9 @@
 
 -- Fixe les types des champs de montant
 
-ALTER TABLE `cotisation` ADD `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `cotisation_type_id` ;
-ALTER TABLE `depense` ADD `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `libelle` ;
-ALTER TABLE `recette` ADD `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `libelle` ;
+ALTER TABLE `cotisation` CHANGE  `montant` `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `cotisation_type_id` ;
+ALTER TABLE `depense` CHANGE  `montant` `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `libelle` ;
+ALTER TABLE `recette` CHANGE  `montant` `montant` DECIMAL( 10, 2 ) NOT NULL AFTER `libelle` ;
 
 -- Rajoute 2 nouveaux champs dans les tables recettes et depenses
 

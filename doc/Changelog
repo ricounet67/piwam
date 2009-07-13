@@ -1,18 +1,27 @@
-r75 - june, 9, 2009
+r77 - july, 13, 2009
+	* data/updates : updates.sql > fixed error, operation 'ADD' was used instead
+	  of 'CHANGE' for updating 'montant' fields
+	* Configurator.class.php : we now can give a 'custom default value' if no
+	  custom value has been set in the database
+	* MembrePeer.php : use of Configurator instead of YAML class for the number
+	  of users to display on each page
+	
+
+r76 - june, 9, 2009
     * /apps/front/lib/form/ConfigForm.class.php : new form class
     * ConfigVariablePeer : doSelectByCategorieCode($code) method
     * Association : actions > new executeConfig() action
     * Association : new views "configSuccess.php" and "_configForm.php"
 
 
-r74 - june, 8, 2009
+r75 - june, 8, 2009
     * /lib/misc/Configurator.class.php : the aim of this class is to deal with
       configuration variables
     * ConfigVariablePeer : retrieveByCode($code) method
     * ConfigValuePeer : retrieveByCode($code, $association_id) method
     
 
-r73 - june, 8, 2009
+r74 - june, 8, 2009
     * THANKS : new contributors
     * /data/updates/1.1.0beta-1.1.0 has been renamed has 1.1.0-beta-to-1.1
     * Activite : showSuccess.php > removed empty line before "TOTAL" line

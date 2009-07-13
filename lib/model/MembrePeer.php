@@ -27,7 +27,7 @@ class MembrePeer extends BaseMembrePeer
 		$c->add(self::ASSOCIATION_ID, $associationId);
 		$c->addAnd(self::ACTIF, self::IS_ACTIF);
 
-		$pager = new sfPropelPager('Membre', sfConfig::get('sf_users_users_by_page', 10));
+		$pager = new sfPropelPager('Membre', Configurator::get('users_by_page', 20));
 		$pager->setCriteria($c);
 		$pager->setPage($page);
 		$pager->init();
