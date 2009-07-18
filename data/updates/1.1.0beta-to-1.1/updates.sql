@@ -159,3 +159,5 @@ ALTER TABLE `config_value`
 
 ALTER TABLE `config_variable`
   ADD CONSTRAINT `config_variable_FK_1` FOREIGN KEY (`categorie_code`) REFERENCES `config_categorie` (`code`);
+  
+UPDATE `piwam`.`acl_action` SET `libelle` = 'Éditer et configurer l''association' WHERE `acl_action`.`id` =1 LIMIT 1 ;

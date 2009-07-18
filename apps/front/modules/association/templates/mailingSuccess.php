@@ -5,7 +5,7 @@
 
 
 <?php if ($sf_user->hasFlash('notice')): ?>
-  <?php echo '<p class="notice">' . $sf_user->getFlash('notice') . '</p>' ?>
+  <p class="notice"> <?php echo $sf_user->getFlash('notice') ?></p>
 <?php endif; ?>
 
 <?php if ($sf_user->hasFlash('error')): ?>
@@ -25,7 +25,7 @@
 	<table class="formArray">
 		<tr>
 			<td colspan="2">
-				<?php 
+				<?php
 				if ($form->hasErrors())
 				{
 					echo '<div class="error">ERREUR : Vous devez entrer un sujet et un message</div>';

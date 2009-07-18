@@ -23,8 +23,9 @@
 
         <div id="menu">
         	<ul>
-        		<li class="mainSection">Association</li>
-        		<li><?php echo link_to('Configuration', 'association/edit?id=' . sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user')) ?></li>
+        		<li class="mainSection">Configuration</li>
+        		<li><?php echo link_to('A propos de l\'association', 'association/edit?id=' . sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user')) ?></li>
+        		<li><?php echo link_to('Pr&eacute;f&eacute;rences Piwam', 'association/config') ?></li>
         	</ul>
             <ul>
                 <li class="mainSection">Membres</li>

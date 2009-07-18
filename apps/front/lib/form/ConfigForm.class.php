@@ -29,6 +29,8 @@ class ConfigForm extends sfForm
                 if ($variable->getDescription()) {
                     $this->_descriptions[$variable->getCode()] = $variable->getDescription();
                 }
+                $defaultValue = Configurator::get($variable->getCode());
+                $this->setDefault($variable->getCode(), $defaultValue);
             }
         }
         $this->widgetSchema->setNameFormat('config[%s]');
