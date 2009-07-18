@@ -1,0 +1,5 @@
+index:
+  is_secure:	off
+  
+checkconfig:
+  is_secure:	off
