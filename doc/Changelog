@@ -1,3 +1,16 @@
+r79 - juli, 18, 2009
+	* install : new module
+	* install : index > display list of tests that succeed of failed
+	* install : templates > isCacheFolderWritable partial
+	* install : templates > isLogFolderWritable partial
+	* install : templates > isPhpOpenSSLLoaded partial
+	* install : templates > isPhpSmtpLoaded partial
+	* install : templates > isMemoryLimitHighEnough partial
+	* install : templates > isApacheModRewriteenabled partial
+	* install : templates > checkConfigSuccess.php
+	* install : actions > new action 'checkConfiguration' has been implemented
+	
+
 r78 - july, 18, 2009
 	* apps/front/lib/ConfigForm.class.php : default values are set
 	* Association : config > save settings

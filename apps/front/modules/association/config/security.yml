@@ -21,4 +21,4 @@ bilan:
   credentials:  bilan
   
 config:
-  credentials:	config
+  credentials:	edit_association
