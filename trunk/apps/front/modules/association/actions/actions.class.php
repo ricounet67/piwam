@@ -20,7 +20,20 @@ class associationActions extends sfActions
      */
     public function executeConfig(sfWebRequest $request)
     {
-        $this->form = new ConfigForm();
+        if ($request->isMethod('post'))
+        {
+        	$ph = $request->getParameterHolder();
+			$data = $ph->getAll();
+			foreach ($data['config'] as $key => $value)
+			{
+				if (strlen($value) > 0) {
+					Configurator::set($key, $value);
+				}
+			}
+			$this->getUser()->setFlash('notice', 'Les préférences ont bien été prises en compte.');
+        }
+
+		$this->form = new ConfigForm();
     }
 
     /**

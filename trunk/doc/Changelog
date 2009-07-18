@@ -1,3 +1,12 @@
+r78 - july, 18, 2009
+	* apps/front/lib/ConfigForm.class.php : default values are set
+	* Association : config > save settings
+	* layout.php : new menu entry 'preferences' to configure Piwam
+	* Association : mailingSuccess.php > cleaned code which displays flash
+	* data/updates/1.1.0beta-to-1.1/r78.sql : label for field "edit 
+	  association" has been extended to "edit and configure association" 
+
+
 r77 - july, 13, 2009
 	* data/updates : updates.sql > fixed error, operation 'ADD' was used instead
 	  of 'CHANGE' for updating 'montant' fields

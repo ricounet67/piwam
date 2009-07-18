@@ -36,5 +36,37 @@ class Configurator
             return $configValue->getCustomValue();
         }
     }
+
+    /**
+     * Set $v (configuration variable) = $value (new value of this variable).
+     * We check if the variable really exists
+     *
+     * @param 	string	$v
+     * @param 	string	$value
+     * @throw	Exception	if configuration variable doesn't exist
+     */
+    public static function set($v, $value)
+    {
+		$variable = ConfigVariablePeer::retrieveByCode($v);
+		$associationId  = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
+
+		if ($variable == null) {
+			throw new Exception('Variable does not exist : ' . $v);
+		}
+
+		$configValue = ConfigValuePeer::retrieveByCode($v, $associationId);
+		if ($configValue == null)
+		{
+			$newConfigValue = new ConfigValue();
+			$newConfigValue->setConfigVariableId($variable->getId());
+			$newConfigValue->setCustomValue($value);
+			$newConfigValue->setAssociationId($associationId);
+			$newConfigValue->save();
+		}
+		else {
+			$configValue->setCustomValue($value);
+			$configValue->save();
+		}
+    }
 }
 ?>
