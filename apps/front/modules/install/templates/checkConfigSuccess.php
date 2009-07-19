@@ -7,3 +7,11 @@
 		</li>
 	<?php endforeach; ?>
 </ul>
+
+
+<!-- If no error occured, we display the button -->
+
+<?php if ($displayButton): ?>
+    <br />
+    <?php echo link_to('Suivant', 'install/configDatabase', array('class' => 'formLinkButton')) ?>
+<?php endif; ?>

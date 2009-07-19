@@ -1,5 +1,8 @@
 index:
-  is_secure:	off
+  is_secure:	Off
   
-checkconfig:
-  is_secure:	off
+checkConfig:
+  is_secure:	Off
+  
+configDatabase:
+  is_secure:    Off

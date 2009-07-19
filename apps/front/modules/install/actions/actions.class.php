@@ -35,6 +35,27 @@ class installActions extends sfActions
 	{
 		$this->checkConfiguration();
 		$this->messages = $this->_messages;
+		$this->displayButton - $this->_canContinue;
+	}
+
+	/**
+	 * DIsplay a form which allows to configure database access
+	 *
+	 * @param  sfWebRequest $request
+	 * @since  r82
+	 */
+	public function executeConfigDatabase(sfWebRequest $request)
+	{
+        $this->form = new DatabaseConfigForm();
+
+        if ($request->isMethod('post'))
+        {
+			$this->form->bind($request->getParameter('dbconfig'));
+			if ($this->form->isValid())
+			{
+
+			}
+        }
 	}
 
 	/*
