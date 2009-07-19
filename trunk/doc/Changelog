@@ -1,3 +1,9 @@
+r82 - july, 19, 2009
+    * install : configDatabase > new action
+    * apps/front/lib/DatabaseConfigForm.class.php : new form class
+    * install : templates > template to display DatabaseConfig form
+
+
 r81 - july, 19, 2009
     * DepensePeer : doSelectForAssociation() now returns a sfPropelPager
     * depense : index > paging system
