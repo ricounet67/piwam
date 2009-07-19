@@ -1,4 +1,10 @@
-r79 - juli, 18, 2009
+r80 - july, 19, 2009
+	* association  : actions > mailing > get variables from Configurator class
+	  and not from YAML file
+	* apps/front/config/settings.yml : useless variables have been removed
+
+
+r79 - july, 18, 2009
 	* install : new module
 	* install : index > display list of tests that succeed of failed
 	* install : templates > isCacheFolderWritable partial

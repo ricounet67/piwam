@@ -13,48 +13,6 @@ all:
   
   googlemap_key: ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhQu6C5tfcTOznQAfibWXRksA7VQJxQAvTbET15fVW6RQnHsk3BmZqGKLw
 
-
-
-  # Mail system configuration
-  # --------------------------
-  # This is used by all features which are e-mailing contents
-  
-  mailing:
-  
-    # Set your contact address
-    address:				info@piwam.com
-
-    # Set the methods you would like to use for sending email:
-    #
-    #		* mail		: Use the mail() php function.
-    #		* smtp		: Use a smtp server. configure the smtp_* variables.
-    #		* gmail		: If you want to use a gmail account. Configure your
-    #					  username and password.
-    #		* sendmail	: Use your sendmail binary. Configure the path.
-
-    method:					mail
-    
-    gmail:					# If `method` has been set to gmail
-      gmail_username:		foo.bar@gmail.com
-      gmail_password:		foobar
-
-
-    smtp:					# If `method` has been set to smtp
-      smtp_username:		
-      smtp_password:		
-      smtp_server:			smtp.free.fr
-
-    sendmail:				 # If `method` has been set to sendmail
-      sendmail_path:		/usr/bin/sendmail
-      
-
-
-  # User module configuration
-  # -------------------------
-  # Configuration which is related to the user module
-        
-  users:
-    users_by_page:			20
     
   # ----------------------------------------------------------------------------
   #

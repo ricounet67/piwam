@@ -135,38 +135,36 @@ class associationActions extends sfActions
                      *
                      * By default we use the mail() php function
                      */
-                    switch (sfConfig::get('sf_mailing_method', 'mail'))
+                    switch (Configurator::get('method', 'mail'))
                     {
                         case 'gmail': // yes this is just a special case for smtp ;-)
-                            $gmailConfig = sfConfig::get('sf_mailing_gmail');
                             $methodObject = new Swift_Connection_SMTP('smtp.gmail.com', Swift_Connection_SMTP::PORT_SECURE, Swift_Connection_SMTP::ENC_TLS);
-                            $methodObject->setUsername($gmailConfig['gmail_username']);
-                            $methodObject->setPassword($gmailConfig['gmail_password']);
+                            $methodObject->setUsername(Configurator::get('gmail_username'));
+                            $methodObject->setPassword(Configurator::get('gmail_password'));
 
                             if (!extension_loaded('smtp')) {
-                                $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails dans le fichier settings.yml');
+                                $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails');
                             }
                             break;
 
                         case 'smtp':
-                            $smtpConfig = sfConfig::get('sf_mailing_smtp');
-                            $smtpServer = $smtpConfig['smtp_server'];
+                            $smtpServer = Configurator::get('smtp_server');
                             $smtpPort = null;
                             $smtpEncryption = null;
-                            $smtpUsername = $smtpConfig['smtp_username'];
-                            $smtpPassword = $smtpConfig['smtp_password'];
+                            $smtpUsername = Configurator::get('smtp_username');
+                            $smtpPassword = Configurator::get('smtp_password');
                             $methodObject = new Swift_Connection_SMTP($smtpServer, $smtpPort, $smtpEncryption);
                             $methodObject->setUsername($smtpUsername);
                             $methodObject->setPassword($smtpPassword);
 
                             if (!extension_loaded('smtp')) {
-                                $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails dans le fichier settings.yml');
+                                $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails');
                             }
                             break;
 
                         case 'sendmail':
-                            $sendmailConfig = sfConfig::get('sf_mailing_sendmail');
-                            $methodObject = new Swift_Connection_Sendmail($sendmailConfig['sendmail_path']);
+                            $sendmailPath = Configurator::get('sendmail_path', '/usr/bin/sendmail');
+                            $methodObject = new Swift_Connection_Sendmail($sendmailPath);
                             break;
 
                         case 'mail':
@@ -180,13 +178,13 @@ class associationActions extends sfActions
 
                     $mailer 	= new Swift($methodObject);
                     $message	= new Swift_Message($data['subject'], $data['mail_content'], 'text/html');
-                    $from		= sfConfig::get('sf_mailing_address', 'info-association@piwam.org');
+                    $from		= Configurator::get('address', 'info-association@piwam.org');
                     $membres	= MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
 
                     foreach ($membres as $membre)
                     {
                         try {
-                            $mailer->send($message, $membre->getEmail(), $from);
+                            //$mailer->send($message, $membre->getEmail(), $from);
                             $sentOk++;
                         }
                         catch(Swift_ConnectionException $e) {
