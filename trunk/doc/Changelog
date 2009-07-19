@@ -1,37 +1,57 @@
+r81 - july, 19, 2009
+    * DepensePeer : doSelectForAssociation() now returns a sfPropelPager
+    * depense : index > paging system
+    * DepensePeer.php : doSelectForAssociationId() > order by DATE DESC
+    * RecettePeer.php : doSelectForAssociationId() > order by DATE DESC
+    * recette : index > paging system
+    * recette : actions > delete > check if user has required credentials
+    * actions > delete > check if user has required credentials
+    * membre : actions > delete > French message if failure
+    * membre : actions > delete > check if user has required credentials
+    * compte : actions > delete > check if user has required credentials
+    * compte : actions > delete > check if user has  required credentials
+    * activite : actions > delete > check if user has  required credentials
+    * activite : actions > edit > check if user has  required credentials
+    * Cotisation.php : new getAssociationId() method
+    * cotisation : actions > delete > check if user has  required credentials
+    * cotisation_type : actions > delete > check if user has  required 
+      credentials
+
+
 r80 - july, 19, 2009
-	* association  : actions > mailing > get variables from Configurator class
+    * association  : actions > mailing > get variables from Configurator class
 	  and not from YAML file
-	* apps/front/config/settings.yml : useless variables have been removed
+    * apps/front/config/settings.yml : useless variables have been removed
 
 
 r79 - july, 18, 2009
-	* install : new module
-	* install : index > display list of tests that succeed of failed
-	* install : templates > isCacheFolderWritable partial
-	* install : templates > isLogFolderWritable partial
-	* install : templates > isPhpOpenSSLLoaded partial
-	* install : templates > isPhpSmtpLoaded partial
-	* install : templates > isMemoryLimitHighEnough partial
-	* install : templates > isApacheModRewriteenabled partial
-	* install : templates > checkConfigSuccess.php
-	* install : actions > new action 'checkConfiguration' has been implemented
+    * install : new module
+    * install : index > display list of tests that succeed of failed
+    * install : templates > isCacheFolderWritable partial
+    * install : templates > isLogFolderWritable partial
+    * install : templates > isPhpOpenSSLLoaded partial
+    * install : templates > isPhpSmtpLoaded partial
+    * install : templates > isMemoryLimitHighEnough partial
+    * install : templates > isApacheModRewriteenabled partial
+    * install : templates > checkConfigSuccess.php
+    * install : actions > new action 'checkConfiguration' has been implemented
 	
 
 r78 - july, 18, 2009
-	* apps/front/lib/ConfigForm.class.php : default values are set
-	* Association : config > save settings
-	* layout.php : new menu entry 'preferences' to configure Piwam
-	* Association : mailingSuccess.php > cleaned code which displays flash
-	* data/updates/1.1.0beta-to-1.1/r78.sql : label for field "edit 
-	  association" has been extended to "edit and configure association" 
+    * apps/front/lib/ConfigForm.class.php : default values are set
+    * Association : config > save settings
+    * layout.php : new menu entry 'preferences' to configure Piwam
+    * Association : mailingSuccess.php > cleaned code which displays flash
+    * data/updates/1.1.0beta-to-1.1/r78.sql : label for field "edit 
+      association" has been extended to "edit and configure association" 
 
 
 r77 - july, 13, 2009
-	* data/updates : updates.sql > fixed error, operation 'ADD' was used instead
-	  of 'CHANGE' for updating 'montant' fields
-	* Configurator.class.php : we now can give a 'custom default value' if no
+    * data/updates : updates.sql > fixed error, operation 'ADD' was used instead
+      of 'CHANGE' for updating 'montant' fields
+    * Configurator.class.php : we now can give a 'custom default value' if no
 	  custom value has been set in the database
-	* MembrePeer.php : use of Configurator instead of YAML class for the number
+    * MembrePeer.php : use of Configurator instead of YAML class for the number
 	  of users to display on each page
 	
 

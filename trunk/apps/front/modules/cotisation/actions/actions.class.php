@@ -22,6 +22,11 @@ class cotisationActions extends sfActions
         $this->typesExist = CotisationTypePeer::doesOneTypeExist($this->getUser()->getAttribute('association_id', null, 'user'));
     }
 
+    /**
+     * Show details about a particular Cotisation
+     *
+     * @param   sfWebRequest $request
+     */
     public function executeShow(sfWebRequest $request)
     {
         $this->cotisation = CotisationPeer::retrieveByPk($request->getParameter('id'));
@@ -49,9 +54,20 @@ class cotisationActions extends sfActions
         $this->setTemplate('new');
     }
 
+    /**
+     * Edit an existing Cotisation after checking that user has required
+     * credentials
+     *
+     * @param   sfWebRequest $request
+     */
     public function executeEdit(sfWebRequest $request)
     {
         $this->forward404Unless($cotisation = CotisationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
+
+        if ($cotisation->getCotisationType()->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward('error', 'credentials');
+        }
+
         $this->form = new CotisationForm($cotisation);
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
     }
@@ -65,10 +81,20 @@ class cotisationActions extends sfActions
         $this->setTemplate('edit');
     }
 
+    /**
+     * Delete a cotisation
+     *
+     * @param   sfWebRequest $request
+     */
     public function executeDelete(sfWebRequest $request)
     {
         $request->checkCSRFProtection();
         $this->forward404Unless($cotisation = CotisationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
+
+        if ($cotisation->getCotisationType()->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward('error', 'credentials');
+        }
+
         $cotisation->delete();
         $this->redirect('cotisation/index');
     }

@@ -43,15 +43,26 @@ class recetteActions extends sfActions
 		$csv->exportContentAsFile();
 	}
 
+	/**
+	 * List Recettes
+	 *
+	 * @param  sfWebRequest $request
+	 */
 	public function executeIndex(sfWebRequest $request)
 	{
-		$this->recette_list = RecettePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+		$this->recettesPager = RecettePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'),
+		                                                              $request->getParameter('page', 1));
 	}
 
+	/**
+	 * Show details about a particular Recette
+	 *
+	 * @param  sfWebRequest $request
+	 */
 	public function executeShow(sfWebRequest $request)
 	{
 		$this->recette = RecettePeer::retrieveByPk($request->getParameter('id'));
-		
+
 		if ($this->recette->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
     		$this->forward404Unless($this->recette);
 		}
@@ -60,12 +71,22 @@ class recetteActions extends sfActions
 		}
 	}
 
+	/**
+	 * Display the form to record a new Recette
+	 *
+	 * @param  sfWebRequest $request
+	 */
 	public function executeNew(sfWebRequest $request)
 	{
 		$this->form = new RecetteForm();
 		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 	}
 
+	/**
+	 * Display form if error or record the new Recette
+	 *
+	 * @param  sfWebRequest $request
+	 */
 	public function executeCreate(sfWebRequest $request)
 	{
 		$this->forward404Unless($request->isMethod('post'));
@@ -78,6 +99,11 @@ class recetteActions extends sfActions
 	public function executeEdit(sfWebRequest $request)
 	{
 		$this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
+
+		if ($recette->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward('error', 'credentials');
+        }
+
 		$this->form = new RecetteForm($recette);
 		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 	}
@@ -92,10 +118,20 @@ class recetteActions extends sfActions
 		$this->setTemplate('edit');
 	}
 
+	/**
+	 * Delete an existing Recette. Check if user has required credentials
+	 *
+	 * @param sfWebRequest $request
+	 */
 	public function executeDelete(sfWebRequest $request)
 	{
 		$request->checkCSRFProtection();
 		$this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
+
+    	if ($recette->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward('error', 'credentials');
+        }
+
 		$recette->delete();
 		$this->redirect('recette/index');
 	}

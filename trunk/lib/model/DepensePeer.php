@@ -6,15 +6,21 @@ class DepensePeer extends BaseDepensePeer
 	 * Retrieve data only for the association referenced by $associationId
 	 *
 	 * @param 	integer	$associationId
-	 * @return 	array of Depense
+	 * @return 	sfPropelPager
 	 * @since	r14
 	 */
-	public static function doSelectForAssociation($associationId)
+	public static function doSelectForAssociation($associationId, $page = 1)
 	{
 		$c = new Criteria();
 		$c->add(self::ASSOCIATION_ID, $associationId);
+		$c->addDescendingOrderByColumn(self::DATE);
 
-		return self::doSelect($c);
+		$pager = new sfPropelPager('Depense', 20);
+		$pager->setCriteria($c);
+		$pager->setPage($page);
+		$pager->init();
+
+		return $pager;
 	}
 
 	/**
