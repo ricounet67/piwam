@@ -15,10 +15,16 @@ class statutActions extends sfActions
         $this->statut_list = StatutPeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
     }
 
+    /**
+     * Show details about a particular Statut
+     *
+     * @param $request
+     * @return unknown_type
+     */
     public function executeShow(sfWebRequest $request)
     {
         $this->statut = StatutPeer::retrieveByPk($request->getParameter('id'));
-        
+
         if ($this->statut->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
             $this->forward404Unless($this->statut);
         }
@@ -27,12 +33,23 @@ class statutActions extends sfActions
         }
     }
 
+    /**
+     * Display a form to add a new Statut
+     *
+     * @param   sfWebRequest  $request
+     */
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new StatutForm();
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
     }
 
+    /**
+     * Display the creation form if an error occured or add the new
+     * statut in the database
+     *
+     * @param   sfWebRequest $request
+     */
     public function executeCreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
@@ -42,9 +59,19 @@ class statutActions extends sfActions
         $this->setTemplate('new');
     }
 
+    /**
+     * Edit an existing Statut
+     *
+     * @param   sfWebRequest $request
+     */
     public function executeEdit(sfWebRequest $request)
     {
         $this->forward404Unless($statut = StatutPeer::retrieveByPk($request->getParameter('id')), sprintf('Object statut does not exist (%s).', $request->getParameter('id')));
+
+        if ($statut->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward('error', 'credentials');
+        }
+
         $this->form = new StatutForm($statut);
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
     }
@@ -59,14 +86,23 @@ class statutActions extends sfActions
         $this->setTemplate('edit');
     }
 
+    /**
+     * Delete a statut.
+     *
+     * @param   sfWebRequest $request
+     */
     public function executeDelete(sfWebRequest $request)
     {
         $request->checkCSRFProtection();
-        $this->forward404Unless($statut = StatutPeer::retrieveByPk($request->getParameter('id')), sprintf('Object statut does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($statut = StatutPeer::retrieveByPk($request->getParameter('id')), sprintf('Le statut n\'existe pas (%s).', $request->getParameter('id')));
+
+        if ($statut->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward('error', 'credentials');
+        }
+
         $statut->delete();
         $this->redirect('statut/index');
     }
-
 
     /**
      * If the form had been submit, we immediately set the statut

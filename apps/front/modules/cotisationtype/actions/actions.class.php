@@ -9,27 +9,32 @@
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
 class cotisationtypeActions extends sfActions
-{    
+{
     /**
      * Called by AJAX updater in 'cotisation/new' action.
-     * 
+     *
      * @param $request
      * @return unknown_type
      */
     public function executeAjaxgetamountfor(sfWebRequest $request)
     {
         $id = $request->getParameter('id', false);
-        
+
         if (!$id) {
             echo 'Pas de montant';
         }
         else {
             echo CotisationTypePeer::getAmountForTypeId($id);
         }
-        
+
         return sfView::NONE;
     }
-    
+
+    /**
+     * List existing CotisationType
+     *
+     * @param   sfWebRequest $request
+     */
     public function executeIndex(sfWebRequest $request)
 	{
 		$this->cotisation_type_list = CotisationTypePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
@@ -38,7 +43,7 @@ class cotisationtypeActions extends sfActions
 	public function executeShow(sfWebRequest $request)
 	{
 		$this->cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id'));
-		
+
 		if ($this->cotisation_type->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
     		$this->forward404Unless($this->cotisation_type);
 		}
@@ -73,9 +78,19 @@ class cotisationtypeActions extends sfActions
 		$this->setTemplate('new');
 	}
 
+	/**
+	 * Edit an existing CotisationType
+	 *
+	 * @param  sfWebRequest $request
+	 */
 	public function executeEdit(sfWebRequest $request)
 	{
 		$this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
+
+	    if ($cotisation_type->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward('error', 'credentials');
+        }
+
 		$this->form = new CotisationTypeForm($cotisation_type);
 		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 	}
@@ -90,10 +105,20 @@ class cotisationtypeActions extends sfActions
 		$this->setTemplate('edit');
 	}
 
+	/**
+	 * Delete a CotisationType if user has required credentials
+	 *
+	 * @param sfWebRequest $request
+	 */
 	public function executeDelete(sfWebRequest $request)
 	{
 		$request->checkCSRFProtection();
 		$this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
+
+	    if ($cotisation_type->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward('error', 'credentials');
+        }
+
 		$cotisation_type->delete();
 		$this->redirect('cotisationtype/index');
 	}

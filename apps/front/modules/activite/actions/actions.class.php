@@ -27,6 +27,11 @@ function compare_money_entries($entry1, $entry2)
  */
 class activiteActions extends sfActions
 {
+	/**
+	 * List existing Activite
+	 *
+	 * @param  sfWebRequest $request
+	 */
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->activite_list = ActivitePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
@@ -49,7 +54,13 @@ class activiteActions extends sfActions
 		$this->creances   = RecettePeer::getAmountOfCreancesForActivite($activiteId);
 		$this->dettes     = DepensePeer::getAmountOfDettesForActivite($activiteId);
 		$this->totalPrevu = $this->creances - $this->dettes;
-		$this->forward404Unless($this->activite);
+
+	    if ($this->activite->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward404Unless($this->activite);
+        }
+        else {
+            $this->forward('error', 'credentials');
+        }
 	}
 
 	public function executeNew(sfWebRequest $request)
@@ -67,9 +78,20 @@ class activiteActions extends sfActions
 		$this->setTemplate('new');
 	}
 
+	/**
+	 * Display a form to edit an existing Activite, if user has required
+	 * credentials
+	 *
+	 * @param  sfWebRequest $request
+	 */
 	public function executeEdit(sfWebRequest $request)
 	{
-		$this->forward404Unless($activite = ActivitePeer::retrieveByPk($request->getParameter('id')), sprintf('Object activite does not exist (%s).', $request->getParameter('id')));
+		$this->forward404Unless($activite = ActivitePeer::retrieveByPk($request->getParameter('id')), sprintf('L\'activite n\'existe pas (%s).', $request->getParameter('id')));
+
+        if ($activite->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward('error', 'credentials');
+        }
+
 		$this->form = new ActiviteForm($activite);
 		$this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
 	}
@@ -84,10 +106,20 @@ class activiteActions extends sfActions
 		$this->setTemplate('edit');
 	}
 
+	/**
+	 * Delete existing Activite if user has enough Credentials
+	 *
+	 * @param  sfWebRequest $request
+	 */
 	public function executeDelete(sfWebRequest $request)
 	{
 		$request->checkCSRFProtection();
 		$this->forward404Unless($activite = ActivitePeer::retrieveByPk($request->getParameter('id')), sprintf('Object activite does not exist (%s).', $request->getParameter('id')));
+
+        if ($activite->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+            $this->forward('error', 'credentials');
+        }
+
 		$activite->delete();
 		$this->redirect('activite/index');
 	}

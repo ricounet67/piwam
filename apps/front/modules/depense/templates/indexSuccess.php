@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($depense_list as $depense): ?>
+    <?php foreach ($depensesPager->getResults() as $depense): ?>
         <tr>
             <td><?php echo $depense->getLibelle() ?></td>
             <td><?php echo format_currency($depense->getMontant()) ?></td>
@@ -41,6 +41,8 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<?php include_partial('global/pager', array('pager' => $depensesPager, 'module' => 'depense', 'action' => 'index', 'params' => array())) ?>
 
 <div class="addNew">
 	<?php echo link_to(image_tag('add', 'align="top"'). ' Nouvelle dépense', 'depense/new') ?>

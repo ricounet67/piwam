@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($recette_list as $recette): ?>
+    <?php foreach ($recettesPager->getResults() as $recette): ?>
         <tr>
             <td><?php echo $recette->getLibelle() ?></td>
             <td><?php echo format_currency($recette->getMontant()) ?></td>
@@ -41,6 +41,8 @@
         <?php endforeach; ?>
     </tbody>
 </table>
+
+<?php include_partial('global/pager', array('pager' => $recettesPager, 'module' => 'recette', 'action' => 'index', 'params' => array())) ?>
 
 <div class="addNew">
 	<?php echo link_to(image_tag('add', 'align="top"'). ' Nouvelle recette', 'recette/new') ?>
