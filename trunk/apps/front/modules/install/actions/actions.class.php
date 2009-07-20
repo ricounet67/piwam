@@ -33,9 +33,9 @@ class installActions extends sfActions
 	 */
 	public function executeCheckConfig(sfWebRequest $request)
 	{
-		$this->checkConfiguration();
+		$this->_checkConfiguration();
 		$this->messages = $this->_messages;
-		$this->displayButton - $this->_canContinue;
+		$this->displayButton = $this->_canContinue;
 	}
 
 	/**
@@ -53,21 +53,45 @@ class installActions extends sfActions
 			$this->form->bind($request->getParameter('dbconfig'));
 			if ($this->form->isValid())
 			{
-
+				$config 	= $request->getParameter('dbconfig');
+				$host 		= $config['mysql_server'];
+				$username 	= $config['mysql_username'];
+				$password 	= $config['mysql_password'];
+				$dbname 	= $config['mysql_dbname'];
+				$this->_generateConfigFile($host, $username, $password, $dbname);
+				$this->getContext()->getConfigCache()->clear();
 			}
         }
 	}
 
 	/*
+	 * Write new content of config file. Search occurences of string we want
+	 * to match, and then replace the line by a new one.
+	 * We flush the new content to the file at the end
+	 */
+	private function _generateConfigFile($server, $username, $password, $dbname)
+	{
+		$fileManager = new FileModifier('../config/databases.yml');
+		$line = $fileManager->searchLineBeginningBy('dsn:');
+		$fileManager->setLineContent($line, "dsn:      mysql:dbname={$dbname};host={$server}", true);
+		$line = $fileManager->searchLineBeginningBy('username:');
+		$fileManager->setLineContent($line, "username: {$username}", true);
+		$line = $fileManager->searchLineBeginningBy('password:');
+		$fileManager->setLineContent($line, "password: {$password}", true);
+		$fileManager->flush();
+	}
+
+	/*
 	 * Check the current system configuration
 	 */
-	private function checkConfiguration()
+	private function _checkConfiguration()
 	{
-		$this->_addMessage(is_writable('../cache'), 			'isCacheFolderWritable');
-		$this->_addMessage(is_writable('../log'),				'isLogFolderWritable');
-		$this->_addMessage(extension_loaded('smtp'), 			'isPhpSmtpLoaded',				true);
-		$this->_addMessage(extension_loaded('openssl'),			'isPhpOpenSSLLoaded',			true);
-		$this->_addMessage($this->_checkMemoryLimit('128M'),	'isMemoryLimitHighEnough');
+		$this->_addMessage(is_writable('../cache'), 				'isCacheFolderWritable');
+		$this->_addMessage(is_writable('../log'),					'isLogFolderWritable');
+		$this->_addMessage(is_writable('../config/databases.yml'),	'isDatabasesFileWritable');
+		$this->_addMessage(extension_loaded('smtp'), 				'isPhpSmtpLoaded',				true);
+		$this->_addMessage(extension_loaded('openssl'),				'isPhpOpenSSLLoaded',			true);
+		$this->_addMessage($this->_checkMemoryLimit('128M'),		'isMemoryLimitHighEnough');
 		$this->_addMessage($this->_isApacheModuleEnabled('mod_rewrite'),	'isModRewriteEnabled');
 	}
 
