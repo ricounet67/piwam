@@ -1,3 +1,10 @@
+r83 - july, 20, 2009
+	* lib/misc/FileModifier.class.php : new class file
+	* install : actions > checkConfiguration > new tests has been added. the
+	  config/databases.yml file has to be writable
+	* install : configDatabase action has been implemented
+
+
 r82 - july, 19, 2009
     * install : configDatabase > new action
     * apps/front/lib/DatabaseConfigForm.class.php : new form class

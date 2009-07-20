@@ -1,4 +1,9 @@
 <?php
+/**
+ * This forms allows to configure MySQL accesss.
+ *
+ * @author Adrien Mogenet
+ */
 class DatabaseConfigForm extends sfForm
 {
 	/**
@@ -42,9 +47,9 @@ class DatabaseConfigForm extends sfForm
 	 */
 	private function _setDefaults()
 	{
-		$this->setDefault('mysql_server', 'localhost');
+		$this->setDefault('mysql_server', 	'localhost');
 		$this->setDefault('mysql_username', 'root');
-		$this->setDefault('mysql_dbname', 'piwam');
+		$this->setDefault('mysql_dbname', 	'piwam');
 	}
 }
 ?>
