@@ -27,4 +27,4 @@ L'architecture de Piwam est cependant extrêmement modulaire. Derrière cette st
 || Fiabilité     || Écriture de tests fonctionnels pour couvrir les différentes fonctionnalités de Piwam || En cours ||
 || Documentation || Documentations d'installation et d'utilisation à jour, complètes || En cours ||
 || Agréabilité   || Le soin apporté à l'interface utilisateur sera poussé à son maximum afin de rendre Piwam encore plus cohérent, ergonomique et agréable à utiliser. || En cours ||
-|| Interface d'installation || Interface d'installation assistée afin de faciliter cette étape pour l'utilisateur || n/a ||
+|| Interface d'installation || Interface d'installation assistée afin de faciliter cette étape pour l'utilisateur || Fini ^[r84]^ ||
