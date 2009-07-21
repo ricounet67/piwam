@@ -6,3 +6,6 @@ checkConfig:
   
 configDatabase:
   is_secure:    Off
+  
+end:
+  is_secure:	Off
