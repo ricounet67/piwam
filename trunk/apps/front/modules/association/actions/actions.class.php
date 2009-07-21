@@ -184,7 +184,7 @@ class associationActions extends sfActions
                     foreach ($membres as $membre)
                     {
                         try {
-                            //$mailer->send($message, $membre->getEmail(), $from);
+                            $mailer->send($message, $membre->getEmail(), $from);
                             $sentOk++;
                         }
                         catch(Swift_ConnectionException $e) {

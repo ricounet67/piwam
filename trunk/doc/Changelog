@@ -1,3 +1,13 @@
+r84 - july, 21, 2009
+	* assocation : mailing > sendMail line has been uncommented
+	* install : configDatabase > display flash message if user give wrong
+	  mysql settings
+	* install : new action 'end' which displays information once configuration
+	  is complete
+	* install : config/security.yml > access is granted for action 'end'
+	* install : launch SQL file to create tables and insert data
+
+
 r83 - july, 20, 2009
 	* lib/misc/FileModifier.class.php : new class file
 	* install : actions > checkConfiguration > new tests has been added. the
