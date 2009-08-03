@@ -10,6 +10,12 @@
  */
 class statutActions extends sfActions
 {
+	/**
+	 * Default action. Display the list of statut available for the current
+	 * association
+	 *
+	 * @param 	sfWebRequest 	$request
+	 */
     public function executeIndex(sfWebRequest $request)
     {
         $this->statut_list = StatutPeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
@@ -18,8 +24,7 @@ class statutActions extends sfActions
     /**
      * Show details about a particular Statut
      *
-     * @param $request
-     * @return unknown_type
+     * @param 	sfWebRequest	$request
      */
     public function executeShow(sfWebRequest $request)
     {
@@ -36,7 +41,7 @@ class statutActions extends sfActions
     /**
      * Display a form to add a new Statut
      *
-     * @param   sfWebRequest  $request
+     * @param   sfWebRequest	$request
      */
     public function executeNew(sfWebRequest $request)
     {
@@ -48,7 +53,7 @@ class statutActions extends sfActions
      * Display the creation form if an error occured or add the new
      * statut in the database
      *
-     * @param   sfWebRequest $request
+     * @param   sfWebRequest 	$request
      */
     public function executeCreate(sfWebRequest $request)
     {
@@ -62,7 +67,7 @@ class statutActions extends sfActions
     /**
      * Edit an existing Statut
      *
-     * @param   sfWebRequest $request
+     * @param   sfWebRequest	$request
      */
     public function executeEdit(sfWebRequest $request)
     {
@@ -76,6 +81,11 @@ class statutActions extends sfActions
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
     }
 
+    /**
+     * Perform update of values
+     *
+     * @param 	sfWebRequest 	$request
+     */
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
@@ -89,7 +99,7 @@ class statutActions extends sfActions
     /**
      * Delete a statut.
      *
-     * @param   sfWebRequest $request
+     * @param   sfWebRequest 	$request
      */
     public function executeDelete(sfWebRequest $request)
     {

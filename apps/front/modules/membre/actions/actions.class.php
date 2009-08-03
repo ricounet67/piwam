@@ -325,7 +325,7 @@ class membreActions extends sfActions
 
         foreach ($membres as $membre) {
             if (strlen($membre->getVille()) > 0) {
-                @$map->addAddress($membre->getCompleteAddress(), $membre->getInfoForGmap());
+                $map->addAddress($membre->getCompleteAddress(), $membre->getInfoForGmap());
             }
         }
 
