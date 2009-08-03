@@ -5,6 +5,71 @@
 # # See documentation for your ORM's *:data-load task for more information.
 # 
 
+
+
+###############################################################################
+
+Association:
+  the_fakers:
+    nom:			The Fakers
+    description:	Fausse association pour tester
+    site_web:		http://www.the-fakers.com
+
+
+
+
+
+
+
+###############################################################################
+
+
+Statut:
+  president:
+    nom:			Président
+    association_id: the_fakers
+    actif:			1
+    
+  tresorier:
+    nom:			Trésorier
+    association_id: the_fakers
+    actif:			1
+    
+  secretaire:
+    nom:			Secrétaire
+    association_id: the_fakers
+    actif:			1
+    
+  membre_actif:
+    nom:			"Membre actif"
+    association_id: the_fakers
+    actif:			1
+    
+  membre_d_honneur:
+    nom:			"Membre d'honneur"
+    association_id: the_fakers
+    actif:			1
+   
+   
+   
+   
+   
+   
+###############################################################################
+       
+Membre:
+  demo:
+    prenom:			Roger
+    nom:			Faker
+    pseudo:			demo
+    password:		demo
+    statut_id:		president
+    association_id:	the_fakers
+
+
+
+
+
 ###############################################################################
 
 AclModule:
@@ -30,7 +95,7 @@ AclModule:
 ###############################################################################
 
 AclAction:
-  edit_assoc:
+  edit_association:
     acl_module_id:  association
     libelle:        Éditer l'association
     code:           edit_association
@@ -60,7 +125,7 @@ AclAction:
     libelle:        Éditer une activité
     code:           edit_activite
     
-  del_activite:
+  delete_activite:
     acl_module_id:  activite
     libelle:        Supprimer une activité
     code:           del_activite
@@ -155,7 +220,7 @@ AclAction:
     libelle:        Éditer un compte
     code:           edit_compte
     
-  del_compte:
+  delete_compte:
     acl_module_id:  compte
     libelle:        Supprimer un compte
     code:           del_compte
@@ -209,6 +274,167 @@ AclAction:
    
    
    
+###############################################################################
+
+AclCredential:
+  demo_acl1:
+    membre_id:		demo
+    acl_action_id:	list_depense
+    
+  demo_acl2:
+    membre_id:		demo
+    acl_action_id:	delete_depense
+    
+  demo_acl3:
+    membre_id:		demo
+    acl_action_id:	edit_depense
+    
+  demo_acl4:
+    membre_id:		demo
+    acl_action_id:	add_depense
+    
+  demo_acl5:
+    membre_id:		demo
+    acl_action_id:	list_recette
+    
+  demo_acl6:
+    membre_id:		demo
+    acl_action_id:	delete_recette
+    
+  demo_acl7:
+    membre_id:		demo
+    acl_action_id:	edit_recette
+    
+  demo_acl8:
+    membre_id:		demo
+    acl_action_id:	add_recette
+    
+  demo_acl9:
+    membre_id:		demo
+    acl_action_id:	list_compte
+    
+  demo_acl10:
+    membre_id:		demo
+    acl_action_id:	delete_compte
+    
+  demo_acl11:
+    membre_id:		demo
+    acl_action_id:	edit_compte
+    
+  demo_acl12:
+    membre_id:		demo
+    acl_action_id:	add_compte
+    
+  demo_acl13:
+    membre_id:		demo
+    acl_action_id:	list_membre
+    
+  demo_acl14:
+    membre_id:		demo
+    acl_action_id:	delete_membre
+    
+  demo_acl15:
+    membre_id:		demo
+    acl_action_id:	edit_membre
+    
+  demo_acl16:
+    membre_id:		demo
+    acl_action_id:	add_membre
+    
+  demo_acl17:
+    membre_id:		demo
+    acl_action_id:	show_membre
+    
+  demo_acl18:
+    membre_id:		demo
+    acl_action_id:	list_activite
+    
+  demo_acl19:
+    membre_id:		demo
+    acl_action_id:	delete_activite
+    
+  demo_acl20:
+    membre_id:		demo
+    acl_action_id:	edit_activite
+    
+  demo_acl21:
+    membre_id:		demo
+    acl_action_id:	add_activite
+    
+  demo_acl22:
+    membre_id:		demo
+    acl_action_id:	show_activite
+    
+  demo_acl23:
+    membre_id:		demo
+    acl_action_id:	edit_association
+    
+  demo_acl24:
+    membre_id:		demo
+    acl_action_id:	mailing
+    
+  demo_acl25:
+    membre_id:		demo
+    acl_action_id:	export
+    
+  demo_acl26:
+    membre_id:		demo
+    acl_action_id:	bilan
+   
+  demo_acl27:
+    membre_id:		demo
+    acl_action_id:	list_statut
+    
+  demo_acl28:
+    membre_id:		demo
+    acl_action_id:	delete_statut
+    
+  demo_acl29:
+    membre_id:		demo
+    acl_action_id:	edit_statut
+    
+  demo_acl30:
+    membre_id:		demo
+    acl_action_id:	add_statut
+    
+  demo_acl31:
+    membre_id:		demo
+    acl_action_id:	list_cotisation
+    
+  demo_acl32:
+    membre_id:		demo
+    acl_action_id:	delete_cotisation
+    
+  demo_acl33:
+    membre_id:		demo
+    acl_action_id:	edit_cotisation
+    
+  demo_acl34:
+    membre_id:		demo
+    acl_action_id:	add_cotisation
+    
+  demo_acl35:
+    membre_id:		demo
+    acl_action_id:	config_cotisations
+    
+   
+   
+
+
+   
+###############################################################################
+
+Compte:
+  caisse_monnaie:
+    libelle:		Caisse de monnaie
+    association_id:	the_fakers
+    reference:		CAISSE_MONNAIE
+    enregistre_par:	demo
+    mis_a_jour_par:	demo   
+   
+   
+   
+   
    
    
 ###############################################################################
@@ -221,6 +447,8 @@ ConfigCategorie:
   mailing:
     code:			mailing
     libelle:		mailing
+
+
 
 
 

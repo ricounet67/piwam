@@ -1,3 +1,11 @@
+r89 - august, 2, 2009
+	* test_data.yml : fixtures for all the tables
+	* piwam-install.sql is up to date
+	* README is up to date : information about Virtual Host configuration
+	* install : actions > hide error if user provides wrong username/password
+	* README-FR : new file with French version of documentation
+
+
 r88 - august, 2, 2009
 	* fixtures.yml has been renamed as test_data.yml
 	* test_data.yml : filled for being ready for tests

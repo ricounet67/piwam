@@ -569,3 +569,29 @@ ALTER TABLE `statut`
   ADD CONSTRAINT `statut_FK_1` FOREIGN KEY (`association_id`) REFERENCES `association` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `statut_FK_2` FOREIGN KEY (`enregistre_par`) REFERENCES `membre` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `statut_FK_3` FOREIGN KEY (`mis_a_jour_par`) REFERENCES `membre` (`id`) ON DELETE CASCADE;
+  
+--
+-- Mise a jour avec la r78
+--
+
+UPDATE `piwam`.`acl_action` SET `libelle` = 'Éditer et configurer l''association' WHERE `acl_action`.`id` =1 LIMIT 1 ;
+
+--
+-- Mise a jour avec la r88
+--
+
+-- Suppression des ACL en cascande
+-- Important pour le bon fonctionnement du modele, et notamment pour le bon
+-- deroulement des tests
+
+ALTER TABLE  `acl_credential` DROP FOREIGN KEY  `acl_credential_FK_1` ;
+
+ALTER TABLE  `acl_credential` ADD FOREIGN KEY (  `membre_id` ) REFERENCES  `piwam-test`.`membre` (
+`id`
+) ON DELETE CASCADE ON UPDATE CASCADE ;
+
+ALTER TABLE  `acl_credential` DROP FOREIGN KEY  `acl_credential_FK_2` ;
+
+ALTER TABLE  `acl_credential` ADD FOREIGN KEY (  `acl_action_id` ) REFERENCES  `piwam-test`.`acl_action` (
+`id`
+) ON DELETE CASCADE ON UPDATE CASCADE ;

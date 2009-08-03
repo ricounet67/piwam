@@ -8,7 +8,7 @@ $browser = new sfGuardTestFunctional(new sfBrowser('docbook'), false);
 $association_ok             = array('nom' => 'Test', 'description' => 'Description association', 'site_web' => 'http://www.association.com');
 $association_with_bad_url   = array('nom' => 'Test', 'description' => 'Description association', 'site_web' => 'mywebsite');
 $association_empty          = array('nom' => '', 'description' => '', 'site_web' => '');
-$membre_ok					= array('nom' => 'Foobar', 'prenom' => 'Roger', 'pseudo' => 'demo', 'password' => 'demo');
+$membre_ok					= array('nom' => 'Foobar', 'prenom' => 'Roger', 'pseudo' => 'foobar_123', 'password' => 'passwrd29');
 $membre_empty				= array('nom' => '', 'prenom' => '', 'pseudo' => '', 'password' => '');
 
 
