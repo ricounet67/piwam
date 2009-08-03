@@ -1,3 +1,12 @@
+r87 - august, 2, 2009
+	* statut : delete > we can't delete if there are Membres who belong to
+	  the statut
+	* statut : delete > physical deletion
+	* statut : index > display error message if we try to delete a used item
+	* Statut.php : countMembers has been removed to use the original
+	  countMembres instead
+	  
+
 r86 - august, 2, 2009
 	* Statut.php : countMembers() method
 	* statut : index > display number of members who belong to each statut
