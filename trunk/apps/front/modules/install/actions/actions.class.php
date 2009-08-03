@@ -180,7 +180,7 @@ class installActions extends sfActions
 	 */
 	private function _checkMySQLConnection($host, $user, $password, $dbname)
 	{
-		$link = mysql_connect($host, $user, $password);
+		$link = @mysql_connect($host, $user, $password);
 		if (! $link) {
 			return false;
 		}
