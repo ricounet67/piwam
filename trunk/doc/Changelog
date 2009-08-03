@@ -1,3 +1,14 @@
+r86 - august, 2, 2009
+	* Statut.php : countMembers() method
+	* statut : index > display number of members who belong to each statut
+	* statut : index > icon and link to go to the details
+	* statut : show > template has been enhanced
+	
+	
+r85 - july, 21, 2009
+	* Edited wiki page through web user interface.
+	
+
 r84 - july, 21, 2009
 	* assocation : mailing > sendMail line has been uncommented
 	* install : configDatabase > display flash message if user give wrong

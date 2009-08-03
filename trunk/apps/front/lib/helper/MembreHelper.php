@@ -10,7 +10,7 @@
  */
 function format_membre($membre, $pseudo = false)
 {
-	if ((is_null($membre)) || (!$membre->getRawValue() instanceof  Membre)) {
+	if ((is_null($membre)) || (! $membre->getRawValue() instanceof  Membre)) {
 		$str = '<i>Système</i>';
 	}
 	else {
@@ -23,7 +23,6 @@ function format_membre($membre, $pseudo = false)
 		}
 		$str .= '</a>';
 	}
-
 	return $str;
 }
 ?>
