@@ -13,20 +13,6 @@ class Statut extends BaseStatut
     }
 
     /**
-     * Get the number of members who belong to the current Statut
-     * Note: this also count disabled users
-     *
-     * @return	integer
-     */
-    public function countMembers()
-    {
-		$c = new Criteria();
-		$c->add(StatutPeer::ID, $this->getId());
-
-		return MembrePeer::doCountJoinStatut($c);
-    }
-
-    /**
      * Disable the account of the member
      */
     public function disable()
@@ -36,11 +22,18 @@ class Statut extends BaseStatut
     }
 
     /**
-     * Override the delete methods. We have to not be able to delete
+     * Override the delete methods.
      *
+     * r87: 	we also can't delete if there are Membres who belong
+     * 			to the statut
      */
     public function delete(PropelPDO $con = null)
     {
-        $this->disable();
+    	if ($this->countMembres() == 0) {
+	        parent::delete($con);
+    	}
+    	else {
+			sfContext::getInstance()->getUser()->setFlash('notice', "Le statut n'a pas pu être supprimé car il est encore utilisé");
+    	}
     }
 }
