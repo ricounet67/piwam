@@ -1,3 +1,14 @@
+r88 - august, 2, 2009
+	* fixtures.yml has been renamed as test_data.yml
+	* test_data.yml : filled for being ready for tests
+	* test/bootstrap/functional.php : load fixtures
+	* associationActionsTest.php : new tests (creation of association)
+	* membre : actions > processForm > when registering the first user, ACL
+	  are given before redirecting to success page
+	* updates/1.1.0beta-to-1.1/r88.sql : CASCADE for on delete action has been
+	  set to acl_credential table
+	
+
 r87 - august, 2, 2009
 	* statut : delete > we can't delete if there are Membres who belong to
 	  the statut
