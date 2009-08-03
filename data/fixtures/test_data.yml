@@ -5,6 +5,8 @@
 # # See documentation for your ORM's *:data-load task for more information.
 # 
 
+###############################################################################
+
 AclModule:
   association:
     libelle:        Association
@@ -23,12 +25,11 @@ AclModule:
   statut:
     libelle:        Statuts
 
-AclAction:
 
-  #
-  # Relatif a l'association
-  #
-  
+
+###############################################################################
+
+AclAction:
   edit_assoc:
     acl_module_id:  association
     libelle:        Éditer l'association
@@ -48,11 +49,6 @@ AclAction:
     acl_module_id:  association
     libelle:        Voir les bilans
     code:           bilan
-
-
-  #
-  # Gestion des activites
-  #
   
   add_activite:
     acl_module_id:  activite
@@ -78,12 +74,6 @@ AclAction:
     acl_module_id:  activite
     libelle:        Voir les détails d'une activités
     code:           show_activite
-    
-
-
-  #
-  # Gestion des membres
-  #
 
   add_membre:
     acl_module_id:  membre
@@ -109,11 +99,6 @@ AclAction:
     acl_module_id:  membre
     libelle:        Afficher les détails d'un membre
     code:           show_membre
-    
-    
-  #
-  # Gestion des statuts
-  #
   
   add_statut:
     acl_module_id:  statut
@@ -134,11 +119,6 @@ AclAction:
     acl_module_id:  statut
     libelle:        Lister les statuts
     code:           list_statut
-    
-    
-  #
-  # Gestion des cotisations
-  #
   
   add_cotisation:
     acl_module_id:  cotisation
@@ -164,12 +144,7 @@ AclAction:
     acl_module_id:  cotisation
     libelle:        Gérer les types de cotisations
     code:           config_cotisations
-    
-    
-  #
-  # Gestion des comptes
-  #
-  
+
   add_compte:
     acl_module_id:  compte
     libelle:        Enregistrer un compte
@@ -189,12 +164,7 @@ AclAction:
     acl_module_id:  compte
     libelle:        Lister les comptes
     code:           list_compte
-    
-    
-  #
-  # Gestion des recettes
-  #
-  
+
   add_recette:
     acl_module_id:  recette
     libelle:        Enregistrer une recette
@@ -214,11 +184,6 @@ AclAction:
     acl_module_id:  recette
     libelle:        Lister les recettes
     code:           list_recette
-    
-    
-  #
-  # Gestion des depenses
-  #
   
   add_depense:
     acl_module_id:  depense
@@ -239,4 +204,96 @@ AclAction:
     acl_module_id:  depense
     libelle:        Lister les dépenses
     code:           list_depense
+   
+   
+   
+   
+   
+   
+   
+###############################################################################
+
+ConfigCategorie:
+  affichage:
+    code:			affichage
+    libelle:		affichage
     
+  mailing:
+    code:			mailing
+    libelle:		mailing
+
+
+
+
+###############################################################################
+
+ConfigVariable:
+  address:
+    code:			address
+    categorie_code:	mailing
+    libelle:		adresse
+    description:
+    type:			EMAIL
+    default_value:	info@piwam.org
+    
+  method:
+    code:			method
+    categorie_code:	mailing
+    libelle:		methode
+    description:	
+    type:			"{mail,smtp,gmail,sendmail}"
+    default_value:	mail
+    
+  gmail_username:
+    code:			gmail_username
+    categorie_code:	mailing
+    libelle:		gmail username
+    description:	
+    type:			EMAIL
+    default_value:	user@gmail.com
+    
+  gmail_password:
+    code:			gmail_password
+    categorie_code:	mailing
+    libelle:		gmail password
+    type:			VARCHAR
+    default_value:	password
+    
+  smtp_server:
+    code:			smtp_server
+    categorie_code:	mailing
+    libelle:		smtp server
+    description:	
+    type:			VARCHAR
+    default_value:	smtp.host.com
+    
+  smtp_username:
+    code:			smtp_username
+    categorie_code:	mailing
+    libelle:		smtp username
+    description:	
+    type:			VARCHAR
+    default_value:	admin
+    
+  smtp_password:
+    code:			smtp_password
+    categorie_code:	mailing
+    libelle:		smtp password
+    type:			VARCHAR
+    default_value:	password
+    
+  sendmail_path:
+    code:			sendmail_path
+    categorie_code:	mailing
+    libelle:		sendmail path
+    description:	
+    type:			VARCHAR
+    default_value:	/usr/bin/sendmail
+    
+  users_by_page:
+    code:			users_by_page
+    categorie_code:	affichage
+    libelle:		users_by_page
+    description:	
+    type:			INTEGER
+    default_value:	20

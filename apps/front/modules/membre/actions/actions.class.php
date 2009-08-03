@@ -285,12 +285,11 @@ class membreActions extends sfActions
                 $association->save();
                 $this->getUser()->removeTemporaryData();
                 $this->getUser()->setTemporarUserInfo($membre);
-                $this->redirect('membre/endregistration');
-
                 $credentials = AclActionPeer::doSelect(new Criteria());
                 foreach ($credentials as $credential) {
                     $membre->addCredential($credential->getCode());
                 }
+                $this->redirect('membre/endregistration');
             }
             else {
                 $data = $request->getParameter('membre');

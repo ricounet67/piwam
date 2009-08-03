@@ -2,16 +2,61 @@
 
 include(dirname(__FILE__).'/../../bootstrap/functional.php');
 
-$browser = new sfGuardTestFunctional(new sfBrowser('docbook'));
+$browser = new sfGuardTestFunctional(new sfBrowser('docbook'), false);
 
 // Array of data we will put on the forms
 $association_ok             = array('nom' => 'Test', 'description' => 'Description association', 'site_web' => 'http://www.association.com');
 $association_with_bad_url   = array('nom' => 'Test', 'description' => 'Description association', 'site_web' => 'mywebsite');
 $association_empty          = array('nom' => '', 'description' => '', 'site_web' => '');
+$membre_ok					= array('nom' => 'Foobar', 'prenom' => 'Roger', 'pseudo' => 'demo', 'password' => 'demo');
+$membre_empty				= array('nom' => '', 'prenom' => '', 'pseudo' => '', 'password' => '');
 
 
 $browser->
 
+	info("Creation d'une nouvelle association avec donnees invalides")->
+	get('/association/new')->
+	with('response')->begin()->
+		click("Étape suivante >", array('association' => $association_empty))->
+	end()->
+	with('form')->begin()->
+		hasErrors(true)->
+	end()->
+	info("Creation d'une nouvelle association avec donnees valides")->
+	with('response')->begin()->
+		click("Étape suivante >", array('association' => $association_ok))->
+	end()->
+	followRedirect()->
+	with('request')->begin()->
+		isParameter('module', 'membre')->
+		isParameter('action', 'newfirst')->
+	end()->
+
+
+
+
+	info("Enregistrement du premier membre avec donnees invalides")->
+	with('response')->begin()->
+		click("Étape suivante >", array('membre' => $membre_empty))->
+	end()->
+	with('form')->begin()->
+		hasErrors(true)->
+	end()->
+	info("Enregistrement du premier membre avec donnes valides")->
+	with('response')->begin()->
+		click("Étape suivante >", array('membre' => $membre_ok))->
+	end()->
+	followRedirect()->
+	with('request')->begin()->
+		isParameter('module', 'membre')->
+		isParameter('action', 'endregistration')->
+	end();
+
+
+
+$browser = new sfGuardTestFunctional(new sfBrowser('docbook'));
+
+$browser->
     info("Acces a la page d'edition sans specifier d'id d'association")->
     get('/association/edit')->
     with('response')->begin()->
@@ -21,7 +66,7 @@ $browser->
 
 
     info("Acces a la page d'edition en specifiant un id d'association")->
-    get('/association/edit/id/2')->
+    click("A propos de l'association")->
     checkResponseElement('form input', true, array('count' => 7))->
     with('response')->begin()->
         isStatusCode(200)->
