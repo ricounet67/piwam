@@ -11,7 +11,7 @@ Vous trouverez ici la procédure à suivre pour installer _Piwam_ au sein de vot
         * module `mb_string`
         * module `php_openssl` (pour envoyer des e-mails _via_ un canal sécurisé)
         * module `php_smtp` (pour l'envoi d'e-mails via un serveur smtp)
-        * paramètre `memory_limit` >= 8 Mo
+        * paramètre `memory_limit` >= 128 Mo
     * [http://www.mysql.com/ MySQL]
     * [http://www.apache.org/ Apache]
         * module `mod_rewrite`
