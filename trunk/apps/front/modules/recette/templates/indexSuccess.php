@@ -30,8 +30,8 @@
                 ?>
             </td>
             <td>
-                <a href="<?php echo url_for('recette/show?id='.$recette->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[details]')) ?></a>
-                <a href="<?php echo url_for('recette/edit?id='.$recette->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')) ?></a>
+                <a href="<?php echo url_for('recette/show?id=' . $recette->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[détails]')) ?></a>
+                <a href="<?php echo url_for('recette/edit?id=' . $recette->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')) ?></a>
                 <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')),
           	  					 	'recette/delete?id=' . $recette->getId(),
           	   					 	array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?'));

@@ -29,9 +29,9 @@
 	-------------------------
 	
 		PHP >= 5.2.4
-            module mb_string
-            module php_openssl
-			module php_smtp
+            mb_string
+            php_openssl (pour envoyer des e-mails via un canal sécurisé)
+			php_smtp (pour l'envoi d'e-mails via un serveur smtp)
 			memory_limit: 128M
 		MySQL
 		Apache
@@ -44,8 +44,8 @@
 		A- Depuis le dépôt SVN :
 		
 			0- Vous devez posséder Symfony 1.2
-			1- Ouvrez le fichier config/ProjectConfiguration.class. Modifier
-			   l'inclusion du fichier `sfCoreAutoload` en spécifiant le
+			1- Ouvrez  le fichier config/ProjectConfiguration.class. Modifiez
+			   l'inclusion  du  fichier  `sfCoreAutoload`  en  spécifiant  le
 			   chemin correct.
 			2- Éditez le fichier apps/front/config/settings.yml et remplissez
 			   les paramètres à configurer avec vos propres réglages 
@@ -55,7 +55,7 @@
 		B- Configurer un Virtual Host
 				
 			Si vous utilisez  Piwam  sur votre serveur web,  il est fortement
-			recommendé  de configurer un accès par VirtualHost.  Par exemple, 
+			recommandé  de configurer un accès par VirtualHost.  Par exemple, 
 			"http://piwam.mon-domain.com"  doit faire référence au répertoire
 			/path/to/piwam/web.
 			
@@ -82,7 +82,7 @@
 
 		C- Accéder à Piwam
 		
-			Lancez  votre navigateur Interner - essayez de choisir Firefox ou
+			Lancez  votre navigateur Internet - essayez de choisir Firefox ou
 			Google Chrome ;-)   Si un  VirtualHost a été  configuré,  allez à 
 			l'adresse configuré (ici: http://piwam.mon-domain.com).
 			Autrement,  vous  pouvez  accéder  à Piwam  directement  par  une
@@ -110,11 +110,11 @@
 	------------------------
 	
 		Si vous rencontrez des soucis, vous pouvez :
-			1- Vérifiez que vous avez correctement suivi ce README
+			1- Vérifier que vous avez correctement suivi ce README
 			2- Vérifier que vos serveurs Apache/MySQL fonctionnent normalement
 			3- Lancer /web/check_configuration.php
 			4- Vous abonner et écrire à http://groups.google.com/group/piwam
-			5- Rappotrer un bug sur http://code.google.com/p/piwam/issues/entry	
+			5- Rapporter un bug à http://code.google.com/p/piwam/issues/entry	
 		
 		
     4) À voir aussi

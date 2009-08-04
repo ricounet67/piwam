@@ -14,7 +14,30 @@ Association:
     nom:			The Fakers
     description:	Fausse association pour tester
     site_web:		http://www.the-fakers.com
+    
+  private:
+    nom:			Private Ltd
+    description:	Association dont les données doivent rester privées
+    site_web:		http://www.private.org
 
+
+
+
+
+
+###############################################################################
+
+Activite:
+  fonctionnement_general:
+    libelle:		Fonctionnement général de l'association
+    actif:			1
+    association_id:	the_fakers
+    
+  fonctionnement_general_2:
+    libelle:		Fonctionnement général de l'association
+    actif:			1
+    association_id:	private
+    
 
 
 
@@ -49,6 +72,31 @@ Statut:
     nom:			"Membre d'honneur"
     association_id: the_fakers
     actif:			1
+    
+  president2:
+    nom:			Président
+    association_id: private
+    actif:			1
+    
+  tresorier2:
+    nom:			Trésorier
+    association_id: private
+    actif:			1
+    
+  secretaire2:
+    nom:			Secrétaire
+    association_id: private
+    actif:			1
+    
+  membre_actif2:
+    nom:			"Membre actif"
+    association_id: private
+    actif:			1
+    
+  membre_d_honneur2:
+    nom:			"Membre d'honneur"
+    association_id: private
+    actif:			1
    
    
    
@@ -65,6 +113,23 @@ Membre:
     password:		demo
     statut_id:		president
     association_id:	the_fakers
+    
+  user_without_acl:
+    prenom:			Julie
+    nom:			Lescou
+    pseudo:			useless
+    password:		useless
+    statut_id:		tresorier
+    association_id:	the_fakers
+    
+  private_user:
+    prenom:			Alexander
+    nom:			Vinokourov
+    pseudo:			avi
+    password:		epo
+    statut_id:		president2
+    association_id:	private
+
 
 
 
@@ -89,6 +154,8 @@ AclModule:
     libelle:        Cotisations
   statut:
     libelle:        Statuts
+
+
 
 
 
@@ -430,7 +497,16 @@ Compte:
     association_id:	the_fakers
     reference:		CAISSE_MONNAIE
     enregistre_par:	demo
-    mis_a_jour_par:	demo   
+    mis_a_jour_par:	demo
+    actif:			1
+    
+  caisse_monnaie_2:
+    libelle:		Caisse de monnaie
+    association_id:	private
+    reference:		CAISSE_MONNAIE
+    enregistre_par:	avi
+    mis_a_jour_par:	avi
+    actif:			1
    
    
    
@@ -447,6 +523,7 @@ ConfigCategorie:
   mailing:
     code:			mailing
     libelle:		mailing
+
 
 
 

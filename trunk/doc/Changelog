@@ -1,3 +1,21 @@
+r92 - august, 3, 2009
+	* /data/updates/1.1.0beta-to-1.1/r92.sql : CASCADE behaviour added for some
+	  tables
+	* piwam-install.sql is up to date
+	* test_data.yml : new fixtures for 'Activite' table
+	* test_data.yml : fixtures for 'Compte' table are set as enabled
+	* test_data.yml : fixtures for a second private association
+	* recetteActionsTest.php : tests implemented
+	
+
+r91 - august, 3, 2009
+	* Edited wiki page through web user interface.
+	
+
+r90 - august, 3, 2009
+	* Edited wiki page through web user interface
+	
+
 r89 - august, 2, 2009
 	* test_data.yml : fixtures for all the tables
 	* piwam-install.sql is up to date
