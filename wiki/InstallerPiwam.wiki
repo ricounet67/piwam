@@ -33,22 +33,80 @@ Vous trouverez ici la procédure à suivre pour installer _Piwam_ au sein de vot
 
 Après avoir récupérer le _trunk_ ou une version tagguée présente sur le dépôt SVN, il y a un peu de configuration pour faire fonctionner Piwam. Les manipulations sont décrites au sein du fichier `/doc/README`.
 
-    # Ouvrez le fichier `/config/ProjectConfiguration.class` ; indiquez-y la localisation du fichier `sfCoreAutload.class.php` de Symfony. 
-        * <u>Note</u>: À l'heure actuelle (1.1.0 alpha2), ce fichier est relativement _lourd_, n'hésitez pas à supprimer le bloc `switch/case` complet comme mentionné dans les commentaires.
-    # Ouvrez le fichier `/apps/front/config/settings.yml` et remplissez le avec vos propres paramètres. Chaque paramètre est documenté.
-    # Ouvrez le fichier `/config/databases.yml` et indiquez-y vos paramètres de connexion à la base de données.
-    # Exécutez le script `/doc/piwam-install.sql` dans votre base de données.
-    # Créez un repertoire `cache` à la racine de Piwam en s'assurant que celui-ci est accessible en écriture.
+    # Vous devez posséder Symfony 1.2
+    # Ouvrez le fichier [http://code.google.com/p/piwam/source/browse/trunk/config/ProjectConfiguration.class.php config/ProjectConfiguration.class.php] Modifiez l'inclusion du fichier `sfCoreAutoload.class.php` en spécifiant le chemin correct.
+    # Éditez le fichier [http://code.google.com/p/piwam/source/browse/trunk/apps/front/config/settings.yml apps/front/config/settings.yml] et remplissez les paramètres à configurer avec vos propres réglages 
+    # Créez un répertoire `cache` inscriptible
 
-
-=== Configuration du serveur ===
-
-Pour fonctionner pleinement sur un serveur en production, Piwam peut nécessiter la configuration d'un Virtual Host, pour pouvoir exploiter convenablement certains éléments. Cependant, Piwam peut fonctionner via un accès direct à `http://localhost`, seules quelques différences d'affichage peuvent se produire.
-
-En cas de soucis ou en guise de complément d'information, n'hésitez pas à nous [mailto:adrien.mogenet@gmail.com contacter] ou accéder aux [http://trac.symfony-project.org/wiki/Resources/fr_FR#Installation documentations] de Symfony disponibles.
 
 
 <hr />
-== Utilisation ==
+== Configurer un Virtual Host ==
+				
+Si vous utilisez  Piwam  sur votre serveur web,  il est fortement recommandé  de configurer un accès par VirtualHost.  Par exemple, "http://piwam.mon-domaine.com"  doit faire référence au répertoire `/path/to/piwam/web`.
+			
+Voici  un exemple de configuration que vous  devriez placer  dans votre fichier `apache/conf/httpd.conf` :
 
-Lancez votre serveur Apache, MySQL, et allez à l'adresse http://virtualhost.piwam.org/. Pour plus d'information sur l'utilisation de Piwam veuillez consulter la documentation utilisateur ^à venir^
+{{{		
+<VirtualHost *:80>
+    ServerName piwam.my-domain.com
+    DocumentRoot "/home/foobar/piwam/web"
+    DirectoryIndex index.php
+    <Directory "/home/foobar/piwam/web">
+        AllowOverride All
+        Allow from All
+    </Directory>
+</VirtualHost>
+}}}
+			
+Si vous souhaitez juste essayer Piwam,  ou si Piwam est installé sur  votre  ordinateur personnel  est  n'est pas  accessible  par Internet,  vous   pouvez  sans  soucis   ne  pas configurer  de VirtualHost.
+			
+
+
+<hr />
+== Accéder à Piwam ==
+		
+Lancez  votre navigateur Internet - essayez de choisir Firefox ou Google Chrome ;-)   Si un  VirtualHost a été  configuré,  allez à l'adresse configuré (ici: http://piwam.mon-domaine.com). Autrement,  vous  pouvez  accéder  à Piwam  directement  par  une adresse telle que http://your-server.com/piwam/web
+
+
+
+
+<hr />
+== Finir l'installation depuis l'interface web ==
+		
+Maintenant  que vous savez comment accéder à Piwam,  il est temps de  vérifier votre configuration  et  de finir  quelques réglages.	Allez  à  l'adresse http://piwam.mon-domain.com/install et suivez les instructions. Cette partie se déroule en 2 étapes :
+
+    # Piwam vérifie votre configuration.  Est-ce que les modules PHP nécessaires  sont bien activés, est-ce que les répertoires qui doivent être inscriptibles le sont bien, etc.
+
+|| http://adrien.frenchcomp.net/images/piwam/screenshots/install_step1.png ||
+
+    # Configuration de  l'accès à  votre base de  données MySQL. Une vérification  des  paramètres  est  effectuée  et  un  message d'erreur apparaîtra si ceux-ci sont incorrects.
+
+|| http://adrien.frenchcomp.net/images/piwam/screenshots/install_step2.png ||
+
+|| http://adrien.frenchcomp.net/images/piwam/screenshots/install_step2_error.png ||
+
+|| http://adrien.frenchcomp.net/images/piwam/screenshots/install_end.png ||
+		
+
+
+
+<hr />
+== En cas de problème... ==
+
+Si vous rencontrez des soucis, vous pouvez :
+    # Vérifier que vous avez correctement suivi ce `README`
+    # Vérifier que vos serveurs Apache/MySQL fonctionnent normalement
+    # Lancer `/web/check_configuration.php`
+    # Vous abonner et écrire à http://groups.google.com/group/piwam
+    # Rapporter un bug sur http://code.google.com/p/piwam/issues/entry	
+	
+	
+	
+<hr />	
+==  À voir aussi ==
+		
+    * Comment déployer une application Symfony :
+      http://www.symfony-project.org/jobeet/1_2/Propel/en/23
+    * Commencer avec Symfony (configuration de VirtualHost) :
+      http://www.symfony-project.org/book/1_2/03-Running-Symfony
