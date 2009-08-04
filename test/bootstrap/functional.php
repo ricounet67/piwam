@@ -18,7 +18,7 @@ if (!isset($app))
   $app = array_pop($dirPieces);
 }
 
-require_once dirname(__FILE__).'/../../config/ProjectConfiguration.class.php';
+require_once dirname(__FILE__) . '/../../config/ProjectConfiguration.class.php';
 $configuration = ProjectConfiguration::getApplicationConfiguration($app, 'test', isset($debug) ? $debug : true);
 sfContext::createInstance($configuration);
 
@@ -28,4 +28,4 @@ sfToolkit::clearDirectory(sfConfig::get('sf_app_cache_dir'));
 // load fixtures
 $data = new sfPropelData();
 $data->setDeleteCurrentData(true);
-$data->loadData(sfConfig::get('sf_data_dir').'/fixtures/test_data.yml');
+$data->loadData(sfConfig::get('sf_data_dir') . '/fixtures/test_data.yml');
