@@ -1,3 +1,9 @@
+r95 - august, 14, 2009
+	* test_data.yml : reference to object 'private_user' have been updated
+	* associationActionsTest.php : refactored code and 1 test has been commented
+	  to allow tests to be launched more than one time
+
+
 r94 - august, 14, 2009
 	* piwam-install.sql : error in constraint name 'acl_action_FK_1' has been
 	  fixed

@@ -504,8 +504,8 @@ Compte:
     libelle:		Caisse de monnaie
     association_id:	private
     reference:		CAISSE_MONNAIE
-    enregistre_par:	avi
-    mis_a_jour_par:	avi
+    enregistre_par:	private_user
+    mis_a_jour_par:	private_user
     actif:			1
    
    
