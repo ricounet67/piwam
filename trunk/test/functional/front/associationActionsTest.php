@@ -2,8 +2,6 @@
 
 include(dirname(__FILE__).'/../../bootstrap/functional.php');
 
-$browser = new sfGuardTestFunctional(new sfBrowser('docbook'), false);
-
 // Array of data we will put on the forms
 $association_ok             = array('nom' => 'Test', 'description' => 'Description association', 'site_web' => 'http://www.association.com');
 $association_with_bad_url   = array('nom' => 'Test', 'description' => 'Description association', 'site_web' => 'mywebsite');
@@ -11,6 +9,7 @@ $association_empty          = array('nom' => '', 'description' => '', 'site_web'
 $membre_ok					= array('nom' => 'Foobar', 'prenom' => 'Roger', 'pseudo' => 'foobar_123', 'password' => 'passwrd29');
 $membre_empty				= array('nom' => '', 'prenom' => '', 'pseudo' => '', 'password' => '');
 
+$browser = new sfGuardTestFunctional(new sfBrowser('docbook'), false);
 
 $browser->
 
@@ -22,6 +21,9 @@ $browser->
 	with('form')->begin()->
 		hasErrors(true)->
 	end()->
+
+
+
 	info("Creation d'une nouvelle association avec donnees valides")->
 	with('response')->begin()->
 		click("Étape suivante >", array('association' => $association_ok))->
@@ -34,7 +36,6 @@ $browser->
 
 
 
-
 	info("Enregistrement du premier membre avec donnees invalides")->
 	with('response')->begin()->
 		click("Étape suivante >", array('membre' => $membre_empty))->
@@ -42,21 +43,25 @@ $browser->
 	with('form')->begin()->
 		hasErrors(true)->
 	end()->
-	info("Enregistrement du premier membre avec donnes valides")->
-	with('response')->begin()->
-		click("Étape suivante >", array('membre' => $membre_ok))->
-	end()->
-	followRedirect()->
-	with('request')->begin()->
-		isParameter('module', 'membre')->
-		isParameter('action', 'endregistration')->
-	end();
 
 
 
-$browser = new sfGuardTestFunctional(new sfBrowser('docbook'));
+//	info("Enregistrement du premier membre avec donnes valides")->
+//	with('response')->begin()->
+//		click("Étape suivante >", array('membre' => $membre_ok))->
+//	end()->
+//	followRedirect()->
+//	with('request')->begin()->
+//		isParameter('module', 'membre')->
+//		isParameter('action', 'endregistration')->
+//	end();
 
-$browser->
+
+
+	signin(array('username' => sfGuardTestFunctional::LOGIN_OK, 'password' => sfGuardTestFunctional::PASSWORD_OK))->
+
+
+
     info("Acces a la page d'edition sans specifier d'id d'association")->
     get('/association/edit')->
     with('response')->begin()->
