@@ -601,7 +601,7 @@ ALTER TABLE  `acl_credential` ADD FOREIGN KEY (  `acl_action_id` ) REFERENCES `a
 -- Mise a jour avec la r92
 --
 
-ALTER TABLE  `acl_action` DROP FOREIGN KEY  `acl_action_ibfk_1` ;
+ALTER TABLE  `acl_action` DROP FOREIGN KEY  `acl_action_FK_1` ;
 
 ALTER TABLE  `acl_action` ADD FOREIGN KEY (  `acl_module_id` ) REFERENCES `acl_module` (
 `id`

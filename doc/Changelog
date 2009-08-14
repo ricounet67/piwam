@@ -1,3 +1,10 @@
+r94 - august, 14, 2009
+	* piwam-install.sql : error in constraint name 'acl_action_FK_1' has been
+	  fixed
+	* /data/updates/1.1.0beta-to-1.1/r92.sql : error in constraint name 
+	  'acl_action_FK_1' has been fixed
+
+
 r93 - august, 14, 2009
 	* piwam-install.sql : explicit DB names have been removed
 	* /data/updates/1.1.0beta-to-1.1/*.sql : explicit DB names have been removed
