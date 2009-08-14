@@ -1,3 +1,8 @@
+r93 - august, 14, 2009
+	* piwam-install.sql : explicit DB names have been removed
+	* /data/updates/1.1.0beta-to-1.1/*.sql : explicit DB names have been removed
+	
+
 r92 - august, 3, 2009
 	* /data/updates/1.1.0beta-to-1.1/r92.sql : CASCADE behaviour added for some
 	  tables
