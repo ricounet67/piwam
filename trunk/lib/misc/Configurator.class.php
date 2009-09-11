@@ -23,7 +23,12 @@ class Configurator
         if (is_null($configValue)) {
             $configVariable = ConfigVariablePeer::retrieveByCode($v);
             if (is_null($configVariable)) {
-                throw new Exception('Invalid configuration variable ' . $v);
+                if (is_null($defaultValue)) {
+                    throw new Exception('Invalid configuration variable ' . $v);
+                }
+                else {
+                    return $defaultValue;
+                }
             }
             if (is_null($defaultValue)) {
 	            return $configVariable->getDefaultValue();

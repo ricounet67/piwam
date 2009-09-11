@@ -15,13 +15,13 @@ class BaseAclCredentialForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'            => new sfWidgetFormInputHidden(),
       'membre_id'     => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),
-      'acl_action_id' => new sfWidgetFormPropelChoice(array('model' => 'AclAction', 'add_empty' => true)),
+      'acl_action_id' => new sfWidgetFormPropelChoice(array('model' => 'AclAction', 'add_empty' => false)),
     ));
 
     $this->setValidators(array(
       'id'            => new sfValidatorPropelChoice(array('model' => 'AclCredential', 'column' => 'id', 'required' => false)),
       'membre_id'     => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id', 'required' => false)),
-      'acl_action_id' => new sfValidatorPropelChoice(array('model' => 'AclAction', 'column' => 'id', 'required' => false)),
+      'acl_action_id' => new sfValidatorPropelChoice(array('model' => 'AclAction', 'column' => 'id')),
     ));
 
     $this->widgetSchema->setNameFormat('acl_credential[%s]');

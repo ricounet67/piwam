@@ -4,6 +4,22 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 #-----------------------------------------------------------------------------
+#-- piwam_data
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `piwam_data`;
+
+
+CREATE TABLE `piwam_data`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`key` VARCHAR(255)  NOT NULL,
+	`value` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `piwam_data_U_1` (`key`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- acl_module
 #-----------------------------------------------------------------------------
 
@@ -27,7 +43,7 @@ DROP TABLE IF EXISTS `acl_action`;
 CREATE TABLE `acl_action`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`acl_module_id` INTEGER,
+	`acl_module_id` INTEGER  NOT NULL,
 	`libelle` VARCHAR(255)  NOT NULL,
 	`code` VARCHAR(100)  NOT NULL,
 	PRIMARY KEY (`id`),
@@ -35,6 +51,7 @@ CREATE TABLE `acl_action`
 	CONSTRAINT `acl_action_FK_1`
 		FOREIGN KEY (`acl_module_id`)
 		REFERENCES `acl_module` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -48,7 +65,7 @@ CREATE TABLE `acl_credential`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`membre_id` INTEGER,
-	`acl_action_id` INTEGER,
+	`acl_action_id` INTEGER  NOT NULL,
 	PRIMARY KEY (`id`),
 	INDEX `acl_credential_FI_1` (`membre_id`),
 	CONSTRAINT `acl_credential_FK_1`
@@ -58,6 +75,7 @@ CREATE TABLE `acl_credential`
 	CONSTRAINT `acl_credential_FK_2`
 		FOREIGN KEY (`acl_action_id`)
 		REFERENCES `acl_action` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -69,7 +87,7 @@ DROP TABLE IF EXISTS `config_categorie`;
 
 CREATE TABLE `config_categorie`
 (
-	`code` VARCHAR(15)  NOT NULL,
+	`code` VARCHAR(20)  NOT NULL,
 	`libelle` VARCHAR(255)  NOT NULL,
 	PRIMARY KEY (`code`)
 )Type=InnoDB;
@@ -84,7 +102,8 @@ DROP TABLE IF EXISTS `config_variable`;
 CREATE TABLE `config_variable`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`categorie_code` VARCHAR(15)  NOT NULL,
+	`code` VARCHAR(20)  NOT NULL,
+	`categorie_code` VARCHAR(20)  NOT NULL,
 	`libelle` VARCHAR(255)  NOT NULL,
 	`description` TEXT,
 	`type` VARCHAR(255)  NOT NULL,
@@ -94,6 +113,7 @@ CREATE TABLE `config_variable`
 	CONSTRAINT `config_variable_FK_1`
 		FOREIGN KEY (`categorie_code`)
 		REFERENCES `config_categorie` (`code`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -111,7 +131,8 @@ CREATE TABLE `config_value`
 	PRIMARY KEY (`config_variable_id`,`association_id`),
 	CONSTRAINT `config_value_FK_1`
 		FOREIGN KEY (`config_variable_id`)
-		REFERENCES `config_variable` (`id`),
+		REFERENCES `config_variable` (`id`)
+		ON DELETE CASCADE,
 	INDEX `config_value_FI_2` (`association_id`),
 	CONSTRAINT `config_value_FK_2`
 		FOREIGN KEY (`association_id`)
