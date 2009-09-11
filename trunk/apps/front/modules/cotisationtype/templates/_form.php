@@ -32,7 +32,7 @@
         <tr>
             <th>Valide</th>
             <td>
-            	<?php echo $form['valide'] ?> an(s) <?php echo $form['valide']->renderError() ?>
+            	<?php echo $form['valide'] ?> mois <?php echo $form['valide']->renderError() ?>
             </td>
         </tr>
         <tr>

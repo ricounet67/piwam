@@ -30,7 +30,6 @@ class Membre extends BaseMembre
         return mb_convert_case($this->getPrenom() . ' ' . $this->getNom(), MB_CASE_TITLE, "UTF8");
     }
 
-
     /**
      * Returns a boolean showing if the member has to pay or not
      *
@@ -44,16 +43,16 @@ class Membre extends BaseMembre
         }
         else
         {
-            $today = date('Y').date('n').date('d');
             $lastPayment = CotisationPeer::getDerniereDuMembre($this->getId());
+
             if ($lastPayment)
             {
-                $dateVersement  = explode('-', $lastPayment->getDate());
-                $moisVersement  = $dateVersement['1'] + 0;
-                $anneExpire     = $dateVersement['0'] + $lastPayment->getValidity();
-                $dateFin        = $anneExpire . $moisVersement . $dateVersement['2'];
+                $dateCalculator = new DateTools($lastPayment->getDate(), 'Y-m-d');
+                $expire_date    = $dateCalculator->add('mo', $lastPayment->getValidity());
+                $today          = strtotime(date('Y-m-d'));
+                $expiration     = strtotime($expire_date);
 
-                return ($dateFin >= $today);
+                return ($expiration >= $today);
             }
             else {
                 return false;
