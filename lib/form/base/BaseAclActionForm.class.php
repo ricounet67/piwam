@@ -14,14 +14,14 @@ class BaseAclActionForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'            => new sfWidgetFormInputHidden(),
-      'acl_module_id' => new sfWidgetFormPropelChoice(array('model' => 'AclModule', 'add_empty' => true)),
+      'acl_module_id' => new sfWidgetFormPropelChoice(array('model' => 'AclModule', 'add_empty' => false)),
       'libelle'       => new sfWidgetFormInput(),
       'code'          => new sfWidgetFormInput(),
     ));
 
     $this->setValidators(array(
       'id'            => new sfValidatorPropelChoice(array('model' => 'AclAction', 'column' => 'id', 'required' => false)),
-      'acl_module_id' => new sfValidatorPropelChoice(array('model' => 'AclModule', 'column' => 'id', 'required' => false)),
+      'acl_module_id' => new sfValidatorPropelChoice(array('model' => 'AclModule', 'column' => 'id')),
       'libelle'       => new sfValidatorString(array('max_length' => 255)),
       'code'          => new sfValidatorString(array('max_length' => 100)),
     ));

@@ -1,3 +1,12 @@
+r99 - september, 11, 2009
+    * schema.yml : new PiwamData private table
+    * schema.yml : CASCADE deletion for config_ and acl_ tables
+    * symfony propel-build-all
+    * Configurator.class.php : get > if the variable has not been set in the
+      database, the default value is returned if it has been given as parameter
+    * error.html.php : error page has been customized
+
+
 r98 - september, 11, 2009
     * /web/favicon.ico : new favicon file
     * layout.php : reference to favicon.ico has been updated

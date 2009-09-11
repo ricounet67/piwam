@@ -612,3 +612,23 @@ ALTER TABLE  `config_variable` DROP FOREIGN KEY  `config_variable_FK_1` ;
 ALTER TABLE  `config_variable` ADD FOREIGN KEY (  `categorie_code` ) REFERENCES  `config_categorie` (
 `code`
 ) ON DELETE CASCADE ON UPDATE CASCADE ;
+
+
+
+--
+-- Mise a jour avec la r99
+--
+
+DROP TABLE IF EXISTS `piwam_data`;
+
+CREATE TABLE `piwam_data`
+(
+    `id` INTEGER  NOT NULL AUTO_INCREMENT,
+    `key` VARCHAR(255)  NOT NULL,
+    `value` VARCHAR(255)  NOT NULL,
+    PRIMARY KEY (`id`)
+)Type=InnoDB;
+
+INSERT INTO `piwam_data` (`id`, `key`, `value`) VALUES
+(1, 'dbversion', 'r99');
+
