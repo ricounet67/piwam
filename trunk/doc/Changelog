@@ -1,3 +1,8 @@
+r97 - september, 11, 2009
+    * cotisation : _form.php > fixes bug #22 (AJAX behaviour when installation
+      without virtualhost)
+    
+
 r96 - september, 11, 2009
     * /web/index.php : exception message if error occured
     * /apps/front/config/error/error.html.php : new file. Custom exception page

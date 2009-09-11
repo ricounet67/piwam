@@ -20,9 +20,9 @@
           <?php if (!$form->getObject()->isNew()): ?>
           	  <?php echo link_to('Supprimer',
           	  					 'cotisation/delete?id=' . $form->getObject()->getId(),
-          	   					 array('method' => 'delete',
+          	   					 array('method'  => 'delete',
           	   					 	   'confirm' => 'Ètes vous sûr ?',
-          	   					 	   'class' => 'formLinkButton'));
+          	   					 	   'class'   => 'formLinkButton'));
               ?>
           <?php endif; ?>
           <input type="submit" value="Sauvegarder" class="button" />
@@ -72,11 +72,11 @@
 
 <!--
     Ajax updater can't update input form directly,
-    so we update the following hidden <div> 
+    so we update the following hidden <div>
 -->
 <div id="hiddenMontantValue" style="display: none"></div>
 
-<!-- 
+<!--
     The following AJAX behaviour update the hidden field
     with the requested amount, and then (onComplete)
     update the text input field
@@ -86,12 +86,12 @@
 <!--
 new Form.Element.EventObserver('cotisation_cotisation_type_id',
    function( element, value ) {
-      new Ajax.Updater( 'hiddenMontantValue',  '/cotisationtype/ajaxgetamountfor?id=' + value, { onComplete: function () { updateAmont(value) }, parameters: id=value } );
+      new Ajax.Updater( 'hiddenMontantValue',  '<?php echo url_for("cotisationtype/ajaxgetamountfor") ?>?id=' + value, { onComplete: function () { updateAmont(value) }, parameters: id=value });
    }
 );
 
 function updateAmont(v) {
-      document.getElementById('cotisation_montant').value = document.getElementById('hiddenMontantValue').innerHTML;   
+      document.getElementById('cotisation_montant').value = document.getElementById('hiddenMontantValue').innerHTML;
     }
 //-->
 </script>
