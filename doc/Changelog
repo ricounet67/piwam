@@ -1,3 +1,12 @@
+r98 - september, 11, 2009
+    * /web/favicon.ico : new favicon file
+    * layout.php : reference to favicon.ico has been updated
+    * membre : templates > index > legend to show the meaning of "red"
+      background
+    * /apps/front/config/factories.yml : logger class has been set up
+    * /apps/front/config/settings.yml : logging is enabled for prod env
+    
+
 r97 - september, 11, 2009
     * cotisation : _form.php > fixes bug #22 (AJAX behaviour when installation
       without virtualhost)

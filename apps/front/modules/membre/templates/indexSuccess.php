@@ -41,6 +41,18 @@
 </table>
 
 
+<!-- Legend -->
+<table>
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+    <tr>
+        <td class="cotisationNonAjour" width="20px">&nbsp;</td>
+        <td>Cotisation non à jour</td>
+    </tr>
+</table>
+
+
 <?php include_partial('global/pager', array('pager' => $membresPager, 'module' => 'membre', 'action' => 'index', 'params' => array('orderby' => 'NOM'))) ?>
 
 <div class="addNew">
