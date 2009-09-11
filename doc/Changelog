@@ -1,3 +1,16 @@
+r96 - september, 11, 2009
+    * /web/index.php : exception message if error occured
+    * /apps/front/config/error/error.html.php : new file. Custom exception page
+    * cotisationtype : actions > edit > fixed bug > test if we are allowed to
+      edit the entry
+    * updates/1.1.0beta2-to-1.1 : r96.sql > Changing years of validity by months
+      of validity
+    * /lib/misc/DateTools.class.php : new class file
+    * Membre.php : isAjourCotisation() is up to date
+    * cotisationtype : _form.php > label of field 'validity' is up to date (year
+      is now months)
+    
+
 r95 - august, 14, 2009
 	* test_data.yml : reference to object 'private_user' have been updated
 	* associationActionsTest.php : refactored code and 1 test has been commented

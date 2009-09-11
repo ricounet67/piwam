@@ -87,7 +87,7 @@ class cotisationtypeActions extends sfActions
 	{
 		$this->forward404Unless($cotisation_type = CotisationTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
 
-	    if ($cotisation_type->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+	    if ($cotisation_type->getAssociationId() !== $this->getUser()->getAttribute('association_id', null, 'user')) {
             $this->forward('error', 'credentials');
         }
 
