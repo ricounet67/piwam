@@ -1,4 +1,4 @@
-INSERT INTO  acl_module` (
+INSERT INTO  `acl_module` (
 `id` ,
 `libelle`
 )
@@ -6,7 +6,7 @@ VALUES (
 9 ,  'Piwam'
 );
 
-INSERT INTO  acl_action` (
+INSERT INTO  `acl_action` (
 `id` ,
 `acl_module_id` ,
 `libelle` ,

@@ -1,3 +1,7 @@
+r101 - september, 12, 2009
+    * updates/1.1beta2-to-1.1/r100.sql : fixes syntax error
+
+
 r100 - september, 12, 2009
     * install : config/cache.yml > new file disabling the cache for this module
     * update : new module
