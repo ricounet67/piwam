@@ -86,7 +86,7 @@ class PhoogleMap
 		// Fixed by Adrien
 		// Valid AppId is required
 		$apiURL         = "http://api.local.yahoo.com/MapsService/V1/geocode?appid=" . self::APP_ID . "&location=";
-		$addressData    = file_get_contents($apiURL . urlencode($address));
+		$addressData    = @file_get_contents($apiURL . urlencode($address));
 		$results        = $this->xml2array($addressData);
 
 		if (empty($results['ResultSet']['Result']['Address']))

@@ -78,9 +78,24 @@
 			sur  votre  ordinateur personnel  est  n'est pas  accessible  par
 			Internet,  vous   pouvez  sans  soucis   ne  pas   configurer  de 
 			VirtualHost.
-			
+		
+		
+        C- Create cache and log directories
+            
+            Dans le répertoire principal de Piwam (disons /var/ww/piwam), créez
+            les répertoires 'log' et 'cache',  tous deux inscriptibles.  Ce qui
+            pourrait simplement correspondre aux lignes de commande suivantes :
+            
+            -----------------------------------------------------------------
+            > cd /var/www/piwam
+            > mkdir cache log
+            > chmod 777 cache log
+            -----------------------------------------------------------------
 
-		C- Accéder à Piwam
+            Si vous oubliez cette étape, vous obtiendrez un message d'erreur
+	
+
+		D- Accéder à Piwam
 		
 			Lancez  votre navigateur Internet - essayez de choisir Firefox ou
 			Google Chrome ;-)   Si un  VirtualHost a été  configuré,  allez à 
@@ -89,7 +104,7 @@
 			adresse telle que http://your-server.com/piwam/web
 			
 			
-		D- Finir l'installation depuis l'interface web
+		E- Finir l'installation depuis l'interface web
 		
 			Maintenant  que vous savez comment accéder à Piwam,  il est temps
 			de  vérifier votre configuration  et  de finir  quelques réglages.

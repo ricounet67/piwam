@@ -37,7 +37,7 @@ class DbTools
      *
      * @todo extend to others DBMS
      */
-    private function checkMySQLConnection($host, $user, $password, $dbname)
+    public static function checkMySQLConnection($host, $user, $password, $dbname)
     {
         $link = @mysql_connect($host, $user, $password);
         if (! $link) {

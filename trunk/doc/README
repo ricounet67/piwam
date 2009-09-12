@@ -78,8 +78,23 @@
 			your  personnal  computer and not reachable by Internet,  you can
 			skip Virtual Host configuration.
 			
+			
+		C- Create cache and log directories
+			
+            In the main  Piwam directory  (let say it's /var/ww/piwam), create 
+            the 'log' and 'cache' directories, which are both writable. Simple
+            command lines could be : 
+            
+            -----------------------------------------------------------------
+            > cd /var/www/piwam
+            > mkdir cache log
+            > chmod 777 cache log
+            -----------------------------------------------------------------
 
-		C- How To Access To Piwam
+            If you forget this step, you will get an error message.
+
+
+		D- How To Access To Piwam
 		
 			Launch your browser  -  try to chose Firefox or Google Chrome ;-) 
 			If  a  Virtual Host  entry has been set up,  type  the configured 
@@ -88,7 +103,7 @@
 			http://your-server.com/piwam/web
 			
 			
-		D- For everyone, Installing from the web interface :
+		E- For everyone, Installing from the web interface :
 		
 			Now  you have to  check that your configuration is OK  and finish
 			setting up some stuffs. Go to http://piwam.your-domain.com/install
