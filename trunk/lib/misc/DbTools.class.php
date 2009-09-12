@@ -31,5 +31,29 @@ class DbTools
             }
         }
     }
+
+    /**
+     * Check if MySQL settings are allright or not
+     *
+     * @todo extend to others DBMS
+     */
+    private function checkMySQLConnection($host, $user, $password, $dbname)
+    {
+        $link = @mysql_connect($host, $user, $password);
+        if (! $link) {
+            return false;
+        }
+        else
+        {
+            $isConnected = mysql_select_db($dbname, $link);
+            if ($isConnected)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
 }
 ?>

@@ -59,11 +59,11 @@ class installActions extends sfActions
 				$password 	= $config['mysql_password'];
 				$dbname 	= $config['mysql_dbname'];
 
-				if ($this->_checkMySQLConnection($host, $username, $password, $dbname))
+				if (DbTools::checkMySQLConnection($host, $username, $password, $dbname))
 				{
 					$this->_generateConfigFile($host, $username, $password, $dbname);
 					$this->getContext()->getConfigCache()->clear();
-					$this->_executeSQLFile('../doc/piwam-install.sql');
+					DbTools::executeSQLFile('../doc/piwam-install.sql');
 					$this->redirect('install/end');
 				}
 				else {
@@ -171,46 +171,6 @@ class installActions extends sfActions
 		);
 
 		$this->_messages[] = $newEntry;
-	}
-
-	/*
-	 * Check if MySQL settings are allright or not
-	 *
-	 * @todo extend to others DBMS
-	 */
-	private function _checkMySQLConnection($host, $user, $password, $dbname)
-	{
-		$link = @mysql_connect($host, $user, $password);
-		if (! $link) {
-			return false;
-		}
-		else
-		{
-			$isConnected = mysql_select_db($dbname, $link);
-			if ($isConnected)
-			{
-				return true;
-			}
-			else {
-				return false;
-			}
-		}
-	}
-
-	/*
-	 * Launch a SQL file (execute all the queries).
-	 * This is a very simple SQL file executor
-	 *
-	 * @todo Improve
-	 */
-	private function _executeSQLFile($file)
-	{
-		$content = file_get_contents($file);
-		$queries = explode(';', $content);
-
-		foreach ($queries as $query) {
-			mysql_query($query);
-		}
 	}
 
 	/*

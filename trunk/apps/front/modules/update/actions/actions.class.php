@@ -10,8 +10,9 @@
  */
 class updateActions extends sfActions
 {
-    const SQL_DIR = '../data/updates/';
-
+    const SQL_DIR           = '../data/updates/';
+    const PERFORM_SUCCESS   = 1;
+    const PERFORM_ERROR     = 2;
 
     /**
      * Executes index action
@@ -24,7 +25,6 @@ class updateActions extends sfActions
         $this->files            = $this->_checkSQLFilesSince($this->currentDBVersion);
     }
 
-
     /**
      * Perform the update : execute SQL files
      *
@@ -33,13 +33,18 @@ class updateActions extends sfActions
     public function executePerform(sfWebRequest $request)
     {
         $this->currentDBVersion = PiwamDataPeer::get('dbversion');
-        $files                  = $this->_checkSQLFilesSince($this->currentDBVersion, true);
-    }
+        $perform                = $this->_checkSQLFilesSince($this->currentDBVersion, true);
 
+        if ($perform === self::PERFORM_ERROR) {
+            return sfView::ERROR;
+        }
+    }
 
     /*
      * Look for SQL files to execute since version $version
      * All SQL files have to be in /data/updates/* folder
+     *
+     * @todo    Fix bug 'access violation'
      */
     private function _checkSQLFilesSince($version, $execute = false)
     {
@@ -71,7 +76,8 @@ class updateActions extends sfActions
                                 PiwamDataPeer::set('dbversion', $newVersion);
                             }
                             catch (PDOException $e) {
-                                // do nothing
+                                $this->error = $e;
+                                return self::PERFORM_ERROR;
                             }
                         }
                     }
@@ -86,7 +92,6 @@ class updateActions extends sfActions
         return $sqlFiles;
     }
 
-
     /*
      * Check if $dir is Piwam directory (not .svn, '.' or '..', etc)
      */
@@ -94,7 +99,6 @@ class updateActions extends sfActions
     {
         return $dir[0] !== '.';
     }
-
 
     /*
      * Check if $file is a SQL file to execute. Filenames have to follow this
@@ -113,7 +117,6 @@ class updateActions extends sfActions
             return $version > $currentVersion;
         }
     }
-
 
     /*
      * Get the DB version of the file $file.
