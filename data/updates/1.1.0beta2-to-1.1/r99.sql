@@ -13,4 +13,4 @@ CREATE TABLE `piwam_data`
 )Type=InnoDB;
 
 INSERT INTO `piwam_data` (`id`, `key`, `value`) VALUES
-(1, 'dbversion', 'r99');
+(1, 'dbversion', '99');

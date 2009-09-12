@@ -630,5 +630,36 @@ CREATE TABLE `piwam_data`
 )Type=InnoDB;
 
 INSERT INTO `piwam_data` (`id`, `key`, `value`) VALUES
-(1, 'dbversion', 'r99');
+(1, 'dbversion', '99');
 
+--
+-- Mise a jour avec la r100
+--
+
+INSERT INTO  acl_module` (
+`id` ,
+`libelle`
+)
+VALUES (
+9 ,  'Piwam'
+);
+
+INSERT INTO  acl_action` (
+`id` ,
+`acl_module_id` ,
+`libelle` ,
+`code`
+)
+VALUES (
+NULL ,  '9',  'Mettre à jour Piwam',  'update_piwam'
+);
+
+INSERT INTO `acl_action` (
+`id` ,
+`acl_module_id` ,
+`libelle` ,
+`code`
+)
+VALUES (
+NULL ,  '9',  'Éditer les préférences',  'edit_piwam_preferences'
+);
