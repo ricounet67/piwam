@@ -1,3 +1,15 @@
+r100 - september, 12, 2009
+    * install : config/cache.yml > new file disabling the cache for this module
+    * update : new module
+    * update : index > check existing SQL files to execute
+    * /lib/misc/DbTools.class.php : new class
+    * main.css : custom a:Visited color has been removed
+    * updates/1.1.0beta2-to-1.1 : r100.sql > new credential entries (edit and
+      update Piwam)
+    * /doc/piwam-install.sql is up date
+    * update : security.yml > new file
+
+
 r99 - september, 11, 2009
     * schema.yml : new PiwamData private table
     * schema.yml : CASCADE deletion for config_ and acl_ tables

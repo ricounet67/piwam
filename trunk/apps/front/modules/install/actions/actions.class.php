@@ -189,7 +189,6 @@ class installActions extends sfActions
 			$isConnected = mysql_select_db($dbname, $link);
 			if ($isConnected)
 			{
-				//mysql_close();
 				return true;
 			}
 			else {
