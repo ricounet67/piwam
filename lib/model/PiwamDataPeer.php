@@ -17,9 +17,7 @@ class PiwamDataPeer extends BasePiwamDataPeer
      */
     public static function get($key)
     {
-        $c = new Criteria();
-        $c->add(self::KEY, $key);
-        $piwamData = self::doSelectOne($c);
+        $piwamData = self::retrieveByKey($key);
 
         if ($piwamData) {
             return $piwamData->getValue();
@@ -41,7 +39,7 @@ class PiwamDataPeer extends BasePiwamDataPeer
      */
     public static function set($key, $value, $override = true)
     {
-        $existingKey = self::get($key);
+        $existingKey = self::retrieveByKey($key);
 
         if (is_null($existingKey))
         {
@@ -58,5 +56,19 @@ class PiwamDataPeer extends BasePiwamDataPeer
                 $existingKey->save();
             }
         }
+    }
+
+    /**
+     * Retrieve a unique PiwamData object according to the $key
+     *
+     * @param   string  $key
+     * @return  PiwamData
+     */
+    public static function retrieveByKey($key)
+    {
+        $c = new Criteria();
+        $c->add(self::KEY, $key);
+
+        return self::doSelectOne($c);
     }
 }

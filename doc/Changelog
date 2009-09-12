@@ -1,3 +1,11 @@
+r102 - september, 12, 2009
+    * update : new template 'performError.php'
+    * PiwamDataPeer : new retrieveByKey($key) method
+    * PiwamDataPeer : fixes bug in set() method
+    * install : actions > methods _executeSQLFile and _checkMySQLConnection have
+      been replaced by the DbTools call
+
+
 r101 - september, 12, 2009
     * updates/1.1beta2-to-1.1/r100.sql : fixes syntax error
 
