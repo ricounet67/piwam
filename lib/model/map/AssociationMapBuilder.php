@@ -19,69 +19,69 @@
  */
 class AssociationMapBuilder implements MapBuilder {
 
-	/**
-	 * The (dot-path) name of this class
-	 */
-	const CLASS_NAME = 'lib.model.map.AssociationMapBuilder';
+    /**
+     * The (dot-path) name of this class
+     */
+    const CLASS_NAME = 'lib.model.map.AssociationMapBuilder';
 
-	/**
-	 * The database map.
-	 */
-	private $dbMap;
+    /**
+     * The database map.
+     */
+    private $dbMap;
 
-	/**
-	 * Tells us if this DatabaseMapBuilder is built so that we
-	 * don't have to re-build it every time.
-	 *
-	 * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
-	 */
-	public function isBuilt()
-	{
-		return ($this->dbMap !== null);
-	}
+    /**
+     * Tells us if this DatabaseMapBuilder is built so that we
+     * don't have to re-build it every time.
+     *
+     * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
+     */
+    public function isBuilt()
+    {
+        return ($this->dbMap !== null);
+    }
 
-	/**
-	 * Gets the databasemap this map builder built.
-	 *
-	 * @return     the databasemap
-	 */
-	public function getDatabaseMap()
-	{
-		return $this->dbMap;
-	}
+    /**
+     * Gets the databasemap this map builder built.
+     *
+     * @return     the databasemap
+     */
+    public function getDatabaseMap()
+    {
+        return $this->dbMap;
+    }
 
-	/**
-	 * The doBuild() method builds the DatabaseMap
-	 *
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function doBuild()
-	{
-		$this->dbMap = Propel::getDatabaseMap(AssociationPeer::DATABASE_NAME);
+    /**
+     * The doBuild() method builds the DatabaseMap
+     *
+     * @return     void
+     * @throws     PropelException
+     */
+    public function doBuild()
+    {
+        $this->dbMap = Propel::getDatabaseMap(AssociationPeer::DATABASE_NAME);
 
-		$tMap = $this->dbMap->addTable(AssociationPeer::TABLE_NAME);
-		$tMap->setPhpName('Association');
-		$tMap->setClassname('Association');
+        $tMap = $this->dbMap->addTable(AssociationPeer::TABLE_NAME);
+        $tMap->setPhpName('Association');
+        $tMap->setClassname('Association');
 
-		$tMap->setUseIdGenerator(true);
+        $tMap->setUseIdGenerator(true);
 
-		$tMap->addPrimaryKey('ID', 'Id', 'INTEGER', true, null);
+        $tMap->addPrimaryKey('ID', 'Id', 'INTEGER', true, null);
 
-		$tMap->addColumn('NOM', 'Nom', 'VARCHAR', true, 120);
+        $tMap->addColumn('NOM', 'Nom', 'VARCHAR', true, 120);
 
-		$tMap->addColumn('DESCRIPTION', 'Description', 'VARCHAR', false, 255);
+        $tMap->addColumn('DESCRIPTION', 'Description', 'VARCHAR', false, 255);
 
-		$tMap->addColumn('SITE_WEB', 'SiteWeb', 'VARCHAR', false, 255);
+        $tMap->addColumn('SITE_WEB', 'SiteWeb', 'VARCHAR', false, 255);
 
-		$tMap->addForeignKey('ENREGISTRE_PAR', 'EnregistrePar', 'INTEGER', 'membre', 'ID', false, null);
+        $tMap->addForeignKey('ENREGISTRE_PAR', 'EnregistrePar', 'INTEGER', 'membre', 'ID', false, null);
 
-		$tMap->addForeignKey('MIS_A_JOUR_PAR', 'MisAJourPar', 'INTEGER', 'membre', 'ID', false, null);
+        $tMap->addForeignKey('MIS_A_JOUR_PAR', 'MisAJourPar', 'INTEGER', 'membre', 'ID', false, null);
 
-		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'TIMESTAMP', false, null);
+        $tMap->addColumn('CREATED_AT', 'CreatedAt', 'TIMESTAMP', false, null);
 
-		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'TIMESTAMP', false, null);
+        $tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'TIMESTAMP', false, null);
 
-	} // doBuild()
+    } // doBuild()
 
 } // AssociationMapBuilder

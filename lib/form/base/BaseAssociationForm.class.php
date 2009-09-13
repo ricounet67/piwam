@@ -10,9 +10,9 @@
  */
 class BaseAssociationForm extends BaseFormPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
       'nom'               => new sfWidgetFormInput(),
       'description'       => new sfWidgetFormInput(),
@@ -22,9 +22,9 @@ class BaseAssociationForm extends BaseFormPropel
       'created_at'        => new sfWidgetFormDateTime(),
       'updated_at'        => new sfWidgetFormDateTime(),
       'config_value_list' => new sfWidgetFormPropelChoiceMany(array('model' => 'ConfigVariable')),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'id'                => new sfValidatorPropelChoice(array('model' => 'Association', 'column' => 'id', 'required' => false)),
       'nom'               => new sfValidatorString(array('max_length' => 120)),
       'description'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
@@ -34,78 +34,78 @@ class BaseAssociationForm extends BaseFormPropel
       'created_at'        => new sfValidatorDateTime(array('required' => false)),
       'updated_at'        => new sfValidatorDateTime(array('required' => false)),
       'config_value_list' => new sfValidatorPropelChoiceMany(array('model' => 'ConfigVariable', 'required' => false)),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('association[%s]');
+        $this->widgetSchema->setNameFormat('association[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
-
-  public function getModelName()
-  {
-    return 'Association';
-  }
-
-
-  public function updateDefaultsFromObject()
-  {
-    parent::updateDefaultsFromObject();
-
-    if (isset($this->widgetSchema['config_value_list']))
-    {
-      $values = array();
-      foreach ($this->object->getConfigValues() as $obj)
-      {
-        $values[] = $obj->getConfigVariableId();
-      }
-
-      $this->setDefault('config_value_list', $values);
+        parent::setup();
     }
 
-  }
-
-  protected function doSave($con = null)
-  {
-    parent::doSave($con);
-
-    $this->saveConfigValueList($con);
-  }
-
-  public function saveConfigValueList($con = null)
-  {
-    if (!$this->isValid())
+    public function getModelName()
     {
-      throw $this->getErrorSchema();
+        return 'Association';
     }
 
-    if (!isset($this->widgetSchema['config_value_list']))
+
+    public function updateDefaultsFromObject()
     {
-      // somebody has unset this widget
-      return;
+        parent::updateDefaultsFromObject();
+
+        if (isset($this->widgetSchema['config_value_list']))
+        {
+            $values = array();
+            foreach ($this->object->getConfigValues() as $obj)
+            {
+                $values[] = $obj->getConfigVariableId();
+            }
+
+            $this->setDefault('config_value_list', $values);
+        }
+
     }
 
-    if (is_null($con))
+    protected function doSave($con = null)
     {
-      $con = $this->getConnection();
+        parent::doSave($con);
+
+        $this->saveConfigValueList($con);
     }
 
-    $c = new Criteria();
-    $c->add(ConfigValuePeer::ASSOCIATION_ID, $this->object->getPrimaryKey());
-    ConfigValuePeer::doDelete($c, $con);
-
-    $values = $this->getValue('config_value_list');
-    if (is_array($values))
+    public function saveConfigValueList($con = null)
     {
-      foreach ($values as $value)
-      {
-        $obj = new ConfigValue();
-        $obj->setAssociationId($this->object->getPrimaryKey());
-        $obj->setConfigVariableId($value);
-        $obj->save();
-      }
+        if (!$this->isValid())
+        {
+            throw $this->getErrorSchema();
+        }
+
+        if (!isset($this->widgetSchema['config_value_list']))
+        {
+            // somebody has unset this widget
+            return;
+        }
+
+        if (is_null($con))
+        {
+            $con = $this->getConnection();
+        }
+
+        $c = new Criteria();
+        $c->add(ConfigValuePeer::ASSOCIATION_ID, $this->object->getPrimaryKey());
+        ConfigValuePeer::doDelete($c, $con);
+
+        $values = $this->getValue('config_value_list');
+        if (is_array($values))
+        {
+            foreach ($values as $value)
+            {
+                $obj = new ConfigValue();
+                $obj->setAssociationId($this->object->getPrimaryKey());
+                $obj->setConfigVariableId($value);
+                $obj->save();
+            }
+        }
     }
-  }
 
 }

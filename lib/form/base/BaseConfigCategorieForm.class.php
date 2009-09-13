@@ -10,29 +10,29 @@
  */
 class BaseConfigCategorieForm extends BaseFormPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'code'    => new sfWidgetFormInputHidden(),
       'libelle' => new sfWidgetFormInput(),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'code'    => new sfValidatorPropelChoice(array('model' => 'ConfigCategorie', 'column' => 'code', 'required' => false)),
       'libelle' => new sfValidatorString(array('max_length' => 255)),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('config_categorie[%s]');
+        $this->widgetSchema->setNameFormat('config_categorie[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'ConfigCategorie';
-  }
+    public function getModelName()
+    {
+        return 'ConfigCategorie';
+    }
 
 
 }

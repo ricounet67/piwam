@@ -10,7 +10,7 @@
  */
 class DepenseFormFilter extends BaseDepenseFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

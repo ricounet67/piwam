@@ -9,59 +9,46 @@
 <table class="formArray">
     <tfoot>
         <tr>
-            <td colspan="2"><?php echo $form->renderHiddenFields() ?>
-		  <?php echo link_to('Annuler', 'recette/index', array(
+            <td colspan="2"><?php echo $form->renderHiddenFields() ?> <?php echo link_to('Annuler', 'recette/index', array(
             	'class'	=> 'formLinkButton'
-            )) ?>
-            <?php if (!$form->getObject()->isNew()): ?>
-                <?php echo link_to('Supprimer', 'recette/delete?id=' . $form->getObject()->getId(), array(
+            	)) ?> <?php if (!$form->getObject()->isNew()): ?> <?php echo link_to('Supprimer', 'recette/delete?id=' . $form->getObject()->getId(), array(
                 	'class'		=> 'formLinkButton',
                 	'method' 	=> 'delete', 'confirm' => 'Êtes vous sûr ?'
-                )) ?>
-            <?php endif; ?> <input type="submit" value="Sauvegarder" class="button" /></td>
+                	)) ?> <?php endif; ?> <input type="submit" value="Sauvegarder"
+                class="button" /></td>
         </tr>
     </tfoot>
     <tbody>
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
             <th>Libellé</th>
-            <td>
-            	<?php echo $form['libelle'] ?>
-            	<?php echo $form['libelle']->renderError() ?>
+            <td><?php echo $form['libelle'] ?> <?php echo $form['libelle']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Montant</th>
-            <td>
-            	<?php echo $form['montant'] ?> &euro;
-            	<?php echo $form['montant']->renderError() ?>
+            <td><?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Compte affecté</th>
-            <td>
-            	<?php echo $form['compte_id'] ?>
-            	<?php echo $form['compte_id']->renderError() ?>
+            <td><?php echo $form['compte_id'] ?> <?php echo $form['compte_id']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Activité</th>
-            <td>
-            	<?php echo $form['activite_id'] ?>
-            	<?php echo $form['activite_id']->renderError() ?>
+            <td><?php echo $form['activite_id'] ?> <?php echo $form['activite_id']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th><?php echo $form['date']->renderLabel() ?></th>
-            <td>
-            	<?php echo $form['date'] ?>
-            	<?php echo $form['date']->renderError() ?>
+            <td><?php echo $form['date'] ?> <?php echo $form['date']->renderError() ?>
             </td>
         </tr>
-      <tr>
-        <th>Perçue</th>
-        <td><?php echo $form['percue'] ?></td>
-      </tr>
+        <tr>
+            <th>Perçue</th>
+            <td><?php echo $form['percue'] ?></td>
+        </tr>
     </tbody>
 </table>
 </form>

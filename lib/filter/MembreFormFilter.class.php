@@ -10,7 +10,7 @@
  */
 class MembreFormFilter extends BaseMembreFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

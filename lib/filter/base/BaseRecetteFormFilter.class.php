@@ -12,9 +12,9 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  */
 class BaseRecetteFormFilter extends BaseFormFilterPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'libelle'        => new sfWidgetFormFilterInput(),
       'association_id' => new sfWidgetFormPropelChoice(array('model' => 'Association', 'add_empty' => true)),
       'montant'        => new sfWidgetFormFilterInput(),
@@ -26,9 +26,9 @@ class BaseRecetteFormFilter extends BaseFormFilterPropel
       'mis_a_jour_par' => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),
       'created_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'libelle'        => new sfValidatorPass(array('required' => false)),
       'association_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Association', 'column' => 'id')),
       'montant'        => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
@@ -40,23 +40,23 @@ class BaseRecetteFormFilter extends BaseFormFilterPropel
       'mis_a_jour_par' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Membre', 'column' => 'id')),
       'created_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('recette_filters[%s]');
+        $this->widgetSchema->setNameFormat('recette_filters[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'Recette';
-  }
+    public function getModelName()
+    {
+        return 'Recette';
+    }
 
-  public function getFields()
-  {
-    return array(
+    public function getFields()
+    {
+        return array(
       'id'             => 'Number',
       'libelle'        => 'Text',
       'association_id' => 'ForeignKey',
@@ -69,6 +69,6 @@ class BaseRecetteFormFilter extends BaseFormFilterPropel
       'mis_a_jour_par' => 'ForeignKey',
       'created_at'     => 'Date',
       'updated_at'     => 'Date',
-    );
-  }
+        );
+    }
 }

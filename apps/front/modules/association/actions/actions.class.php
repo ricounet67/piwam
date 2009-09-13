@@ -22,18 +22,20 @@ class associationActions extends sfActions
     {
         if ($request->isMethod('post'))
         {
-        	$ph = $request->getParameterHolder();
-			$data = $ph->getAll();
-			foreach ($data['config'] as $key => $value)
-			{
-				if (strlen($value) > 0) {
-					Configurator::set($key, $value);
-				}
-			}
-			$this->getUser()->setFlash('notice', 'Les préférences ont bien été prises en compte.');
+            $ph = $request->getParameterHolder();
+            $data = $ph->getAll();
+            foreach ($data['config'] as $key => $value)
+            {
+                if (strlen($value) > 0)
+                {
+                    $associationId  = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
+                    Configurator::set($key, $value, $associationId);
+                }
+            }
+            $this->getUser()->setFlash('notice', 'Les préférences ont bien été prises en compte.');
         }
 
-		$this->form = new ConfigForm();
+        $this->form = new ConfigForm();
     }
 
     /**
@@ -97,7 +99,7 @@ class associationActions extends sfActions
      */
     public function executeBilan(sfWebRequest $request)
     {
-    	$associationId			= $this->getUser()->getAttribute('association_id', null, 'user');
+        $associationId			= $this->getUser()->getAttribute('association_id', null, 'user');
         $this->comptes 			= ComptePeer::doSelectEnabled($associationId);
         $this->activites		= ActivitePeer::doSelectEnabled($associationId);
         $this->totalCotisations = CotisationPeer::doSeletSumForAssociationId($associationId);

@@ -10,7 +10,7 @@
  */
 class AclActionFormFilter extends BaseAclActionFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

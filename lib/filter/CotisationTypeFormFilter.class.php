@@ -10,7 +10,7 @@
  */
 class CotisationTypeFormFilter extends BaseCotisationTypeFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

@@ -1,34 +1,43 @@
-#datepicker { 
-    background: url('/sfExtraWidgetsPlugin/img/datepicker/vista/calendar_background.png');
+#datepicker {
+    background:
+        url('/sfExtraWidgetsPlugin/img/datepicker/vista/calendar_background.png')
+        ;
     padding-top: 15px;
     width: 198px;
     height: 144px;
 }
 
-#datepicker td { 
+#datepicker td {
     font-size: 10px;
-    color: #000; 
+    color: #000;
 }
 
-#datepicker .title-container .arrow-right, #datepicker .title-container .arrow-left {
+#datepicker .title-container .arrow-right,#datepicker .title-container .arrow-left
+    {
     cursor: pointer;
     width: 20px;
 }
 
 #datepicker .title-container .arrow-right {
-    background: url('/sfExtraWidgetsPlugin/img/datepicker/vista/arrowright.gif') no-repeat center center;
+    background: url('/sfExtraWidgetsPlugin/img/datepicker/vista/arrowright.gif')
+        no-repeat center center;
 }
 
 #datepicker .title-container .arrow-right:hover {
-    background: url('/sfExtraWidgetsPlugin/img/datepicker/vista/arrowright_hover.gif') no-repeat center center;
+    background:
+        url('/sfExtraWidgetsPlugin/img/datepicker/vista/arrowright_hover.gif')
+        no-repeat center center;
 }
 
 #datepicker .title-container .arrow-left {
-    background: url('/sfExtraWidgetsPlugin/img/datepicker/vista/arrowleft.gif') no-repeat center center;
+    background: url('/sfExtraWidgetsPlugin/img/datepicker/vista/arrowleft.gif')
+        no-repeat center center;
 }
 
 #datepicker .title-container .arrow-left:hover {
-    background: url('/sfExtraWidgetsPlugin/img/datepicker/vista/arrowleft_hover.gif') no-repeat center center;
+    background:
+        url('/sfExtraWidgetsPlugin/img/datepicker/vista/arrowleft_hover.gif')
+        no-repeat center center;
 }
 
 #datepicker .title-container {
@@ -72,8 +81,10 @@
     color: #0066CC;
 }
 
-#datepicker .days-container td.selected:hover  {
-    background: url('/sfExtraWidgetsPlugin/img/datepicker/vista/day_selected_hover.gif');
+#datepicker .days-container td.selected:hover {
+    background:
+        url('/sfExtraWidgetsPlugin/img/datepicker/vista/day_selected_hover.gif')
+        ;
     cursor: pointer;
 }
 

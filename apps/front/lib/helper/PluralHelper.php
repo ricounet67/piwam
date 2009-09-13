@@ -11,11 +11,11 @@
  */
 function plural_word($howMany, $word, $plural = 's')
 {
-	if (abs($howMany) <= 1) {
-		return $word;
-	}
-	else {
-		return $word . $plural;
-	}
+    if (abs($howMany) <= 1) {
+        return $word;
+    }
+    else {
+        return $word . $plural;
+    }
 }
 ?>

@@ -1,10 +1,10 @@
 <?php
 /*
-TinyBrowser 1.32 - A TinyMCE file browser (C) 2008  Bryn Jones
-Default Language 'fr'
-Author: Laurent Hayoun
-email: contact[at]h2lsoft[dot]com
-*/
+ TinyBrowser 1.32 - A TinyMCE file browser (C) 2008  Bryn Jones
+ Default Language 'fr'
+ Author: Laurent Hayoun
+ email: contact[at]h2lsoft[dot]com
+ */
 define("TB_BROWSE", "Ouvrir...");
 define("TB_EDIT", "Editer");
 define("TB_UPLOAD", "Upload");

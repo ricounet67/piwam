@@ -5,24 +5,28 @@
 
 
 <table class="tableauDetails">
-  <tbody>
-    <tr>
-      <th>Libellé :</th>
-      <td><?php echo $compte->getLibelle() ?></td>
-    </tr>
-    <tr>
-      <th>Référence :</th>
-      <td><?php echo $compte->getReference() ?></td>
-    </tr>
-    <tr>
-      <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Enregistré le :</th>
-      <td><?php echo format_datetime($compte->getCreatedAt(), 'dd/MM/yyyy HH:mm') ?> par  <?php echo format_membre($compte->getMembreRelatedByEnregistrePar()) ?></td>
-    </tr>
-    <tr>
-      <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Mise à jour le :</th>
-      <td><?php echo format_datetime($compte->getUpdatedAt(), 'dd/MM/yyyy HH:mm') ?> par  <?php echo format_membre($compte->getMembreRelatedByMisAJourPar()) ?></td>
-    </tr>    
-  </tbody>
+    <tbody>
+        <tr>
+            <th>Libellé :</th>
+            <td><?php echo $compte->getLibelle() ?></td>
+        </tr>
+        <tr>
+            <th>Référence :</th>
+            <td><?php echo $compte->getReference() ?></td>
+        </tr>
+        <tr>
+            <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+            Enregistré le :</th>
+            <td><?php echo format_datetime($compte->getCreatedAt(), 'dd/MM/yyyy HH:mm') ?>
+            par <?php echo format_membre($compte->getMembreRelatedByEnregistrePar()) ?></td>
+        </tr>
+        <tr>
+            <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+            Mise à jour le :</th>
+            <td><?php echo format_datetime($compte->getUpdatedAt(), 'dd/MM/yyyy HH:mm') ?>
+            par <?php echo format_membre($compte->getMembreRelatedByMisAJourPar()) ?></td>
+        </tr>
+    </tbody>
 </table>
 
 <hr />

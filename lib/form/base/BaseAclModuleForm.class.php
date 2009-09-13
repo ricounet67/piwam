@@ -10,29 +10,29 @@
  */
 class BaseAclModuleForm extends BaseFormPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'id'      => new sfWidgetFormInputHidden(),
       'libelle' => new sfWidgetFormInput(),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'id'      => new sfValidatorPropelChoice(array('model' => 'AclModule', 'column' => 'id', 'required' => false)),
       'libelle' => new sfValidatorString(array('max_length' => 255)),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('acl_module[%s]');
+        $this->widgetSchema->setNameFormat('acl_module[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'AclModule';
-  }
+    public function getModelName()
+    {
+        return 'AclModule';
+    }
 
 
 }

@@ -36,25 +36,25 @@ class sfGuardTestFunctional extends sfTestFunctional
     public function signin($user_data)
     {
         return  $this->info(sprintf('Connection with login: "%s" and password: "%s".', $user_data['username'], $user_data['password']))->
-                get('/association/login')->
-                click("S'identifier", array('login' => $user_data))->
+        get('/association/login')->
+        click("S'identifier", array('login' => $user_data))->
 
-                with('form')->begin()->
-                    hasErrors(false)->
-                end()->
+        with('form')->begin()->
+        hasErrors(false)->
+        end()->
 
-                with('user')->begin()->
-                    isCulture('fr_FR')->
-                    isAuthenticated(true)->
-                end()->
+        with('user')->begin()->
+        isCulture('fr_FR')->
+        isAuthenticated(true)->
+        end()->
 
-                with('request')->begin()->
-                    isParameter('module', 'association')->
-                    isParameter('action', 'login')->
-                end()->
+        with('request')->begin()->
+        isParameter('module', 'association')->
+        isParameter('action', 'login')->
+        end()->
 
-                isRedirected()->
-                followRedirect();
+        isRedirected()->
+        followRedirect();
     }
 }
 

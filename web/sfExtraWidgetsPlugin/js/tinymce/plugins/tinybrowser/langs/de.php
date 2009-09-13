@@ -1,10 +1,10 @@
-<?php 
+<?php
 /*
-TinyBrowser 1.32 - A TinyMCE file browser (C) 2008  Bryn Jones
-Language 'de'
-Author: Matthias Geissler
-email: matthias[at]etconline[dot]de
-*/
+ TinyBrowser 1.32 - A TinyMCE file browser (C) 2008  Bryn Jones
+ Language 'de'
+ Author: Matthias Geissler
+ email: matthias[at]etconline[dot]de
+ */
 define("TB_BROWSE", "Durchsuchen");
 define("TB_EDIT", "Bearbeiten");
 define("TB_UPLOAD", "Hochladen");

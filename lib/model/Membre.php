@@ -2,22 +2,22 @@
 
 class Membre extends BaseMembre
 {
-	/**
-	 * Overrides the setPseudo() method. Store NULL if value
-	 * is an empty string
-	 *
-	 * @param 	string	$v
-	 * @since	r35
-	 */
-	public function setPseudo($v)
-	{
-		if ($v == "") {
-			parent::setPseudo(null);
-		}
-		else {
-			parent::setPseudo($v);
-		}
-	}
+    /**
+     * Overrides the setPseudo() method. Store NULL if value
+     * is an empty string
+     *
+     * @param 	string	$v
+     * @since	r35
+     */
+    public function setPseudo($v)
+    {
+        if ($v == "") {
+            parent::setPseudo(null);
+        }
+        else {
+            parent::setPseudo($v);
+        }
+    }
 
     /**
      * Convert the object to a displayable string
@@ -90,7 +90,7 @@ class Membre extends BaseMembre
      */
     public function getCompleteAddress()
     {
-    	return StringTools::to7bit($this->getRue()) . ', ' . $this->getCp() . ' ' . StringTools::to7bit($this->getVille());
+        return StringTools::to7bit($this->getRue()) . ', ' . $this->getCp() . ' ' . StringTools::to7bit($this->getVille());
     }
 
     /**
@@ -102,13 +102,13 @@ class Membre extends BaseMembre
      */
     public function getInfoForGmap()
     {
-    	$result = '<b>' . $this->__toString() . '</b>';
-    	$result .= ' (<i>' . $this->getPseudo() . '</i>)<br /><br />';
-    	$result .= $this->getRue() . ',<br />';
-    	$result .= $this->getCp() . ' ' . $this->getVille() . '<br />';
-    	$result .= $this->getPays() . '<br /><br />';
+        $result = '<b>' . $this->__toString() . '</b>';
+        $result .= ' (<i>' . $this->getPseudo() . '</i>)<br /><br />';
+        $result .= $this->getRue() . ',<br />';
+        $result .= $this->getCp() . ' ' . $this->getVille() . '<br />';
+        $result .= $this->getPays() . '<br /><br />';
 
-    	return $result;
+        return $result;
     }
 
     /**
@@ -120,9 +120,9 @@ class Membre extends BaseMembre
      */
     public function setPassword($password)
     {
-    	if (strlen($password) > 0) {
-    		parent::setPassword(sha1($password));
-    	}
+        if (strlen($password) > 0) {
+            parent::setPassword(sha1($password));
+        }
     }
 
     /**

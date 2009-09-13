@@ -10,7 +10,7 @@
  */
 class AclModuleFormFilter extends BaseAclModuleFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

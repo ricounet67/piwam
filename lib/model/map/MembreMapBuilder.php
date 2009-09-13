@@ -19,97 +19,97 @@
  */
 class MembreMapBuilder implements MapBuilder {
 
-	/**
-	 * The (dot-path) name of this class
-	 */
-	const CLASS_NAME = 'lib.model.map.MembreMapBuilder';
+    /**
+     * The (dot-path) name of this class
+     */
+    const CLASS_NAME = 'lib.model.map.MembreMapBuilder';
 
-	/**
-	 * The database map.
-	 */
-	private $dbMap;
+    /**
+     * The database map.
+     */
+    private $dbMap;
 
-	/**
-	 * Tells us if this DatabaseMapBuilder is built so that we
-	 * don't have to re-build it every time.
-	 *
-	 * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
-	 */
-	public function isBuilt()
-	{
-		return ($this->dbMap !== null);
-	}
+    /**
+     * Tells us if this DatabaseMapBuilder is built so that we
+     * don't have to re-build it every time.
+     *
+     * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
+     */
+    public function isBuilt()
+    {
+        return ($this->dbMap !== null);
+    }
 
-	/**
-	 * Gets the databasemap this map builder built.
-	 *
-	 * @return     the databasemap
-	 */
-	public function getDatabaseMap()
-	{
-		return $this->dbMap;
-	}
+    /**
+     * Gets the databasemap this map builder built.
+     *
+     * @return     the databasemap
+     */
+    public function getDatabaseMap()
+    {
+        return $this->dbMap;
+    }
 
-	/**
-	 * The doBuild() method builds the DatabaseMap
-	 *
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function doBuild()
-	{
-		$this->dbMap = Propel::getDatabaseMap(MembrePeer::DATABASE_NAME);
+    /**
+     * The doBuild() method builds the DatabaseMap
+     *
+     * @return     void
+     * @throws     PropelException
+     */
+    public function doBuild()
+    {
+        $this->dbMap = Propel::getDatabaseMap(MembrePeer::DATABASE_NAME);
 
-		$tMap = $this->dbMap->addTable(MembrePeer::TABLE_NAME);
-		$tMap->setPhpName('Membre');
-		$tMap->setClassname('Membre');
+        $tMap = $this->dbMap->addTable(MembrePeer::TABLE_NAME);
+        $tMap->setPhpName('Membre');
+        $tMap->setClassname('Membre');
 
-		$tMap->setUseIdGenerator(true);
+        $tMap->setUseIdGenerator(true);
 
-		$tMap->addPrimaryKey('ID', 'Id', 'INTEGER', true, null);
+        $tMap->addPrimaryKey('ID', 'Id', 'INTEGER', true, null);
 
-		$tMap->addColumn('NOM', 'Nom', 'VARCHAR', true, 255);
+        $tMap->addColumn('NOM', 'Nom', 'VARCHAR', true, 255);
 
-		$tMap->addColumn('PRENOM', 'Prenom', 'VARCHAR', true, 255);
+        $tMap->addColumn('PRENOM', 'Prenom', 'VARCHAR', true, 255);
 
-		$tMap->addColumn('PSEUDO', 'Pseudo', 'VARCHAR', false, 255);
+        $tMap->addColumn('PSEUDO', 'Pseudo', 'VARCHAR', false, 255);
 
-		$tMap->addColumn('PASSWORD', 'Password', 'VARCHAR', false, 255);
+        $tMap->addColumn('PASSWORD', 'Password', 'VARCHAR', false, 255);
 
-		$tMap->addForeignKey('STATUT_ID', 'StatutId', 'INTEGER', 'statut', 'ID', true, null);
+        $tMap->addForeignKey('STATUT_ID', 'StatutId', 'INTEGER', 'statut', 'ID', true, null);
 
-		$tMap->addColumn('DATE_INSCRIPTION', 'DateInscription', 'DATE', true, null);
+        $tMap->addColumn('DATE_INSCRIPTION', 'DateInscription', 'DATE', true, null);
 
-		$tMap->addColumn('EXEMPTE_COTISATION', 'ExempteCotisation', 'BOOLEAN', true, null);
+        $tMap->addColumn('EXEMPTE_COTISATION', 'ExempteCotisation', 'BOOLEAN', true, null);
 
-		$tMap->addColumn('RUE', 'Rue', 'VARCHAR', false, 255);
+        $tMap->addColumn('RUE', 'Rue', 'VARCHAR', false, 255);
 
-		$tMap->addColumn('CP', 'Cp', 'VARCHAR', false, 8);
+        $tMap->addColumn('CP', 'Cp', 'VARCHAR', false, 8);
 
-		$tMap->addColumn('VILLE', 'Ville', 'VARCHAR', false, 255);
+        $tMap->addColumn('VILLE', 'Ville', 'VARCHAR', false, 255);
 
-		$tMap->addColumn('PAYS', 'Pays', 'VARCHAR', false, 8);
+        $tMap->addColumn('PAYS', 'Pays', 'VARCHAR', false, 8);
 
-		$tMap->addColumn('EMAIL', 'Email', 'VARCHAR', false, 255);
+        $tMap->addColumn('EMAIL', 'Email', 'VARCHAR', false, 255);
 
-		$tMap->addColumn('WEBSITE', 'Website', 'VARCHAR', false, 255);
+        $tMap->addColumn('WEBSITE', 'Website', 'VARCHAR', false, 255);
 
-		$tMap->addColumn('TEL_FIXE', 'TelFixe', 'VARCHAR', false, 16);
+        $tMap->addColumn('TEL_FIXE', 'TelFixe', 'VARCHAR', false, 16);
 
-		$tMap->addColumn('TEL_PORTABLE', 'TelPortable', 'VARCHAR', false, 16);
+        $tMap->addColumn('TEL_PORTABLE', 'TelPortable', 'VARCHAR', false, 16);
 
-		$tMap->addColumn('ACTIF', 'Actif', 'BOOLEAN', false, null);
+        $tMap->addColumn('ACTIF', 'Actif', 'BOOLEAN', false, null);
 
-		$tMap->addForeignKey('ASSOCIATION_ID', 'AssociationId', 'INTEGER', 'association', 'ID', true, null);
+        $tMap->addForeignKey('ASSOCIATION_ID', 'AssociationId', 'INTEGER', 'association', 'ID', true, null);
 
-		$tMap->addForeignKey('ENREGISTRE_PAR', 'EnregistrePar', 'INTEGER', 'membre', 'ID', false, null);
+        $tMap->addForeignKey('ENREGISTRE_PAR', 'EnregistrePar', 'INTEGER', 'membre', 'ID', false, null);
 
-		$tMap->addForeignKey('MIS_A_JOUR_PAR', 'MisAJourPar', 'INTEGER', 'membre', 'ID', false, null);
+        $tMap->addForeignKey('MIS_A_JOUR_PAR', 'MisAJourPar', 'INTEGER', 'membre', 'ID', false, null);
 
-		$tMap->addColumn('CREATED_AT', 'CreatedAt', 'TIMESTAMP', false, null);
+        $tMap->addColumn('CREATED_AT', 'CreatedAt', 'TIMESTAMP', false, null);
 
-		$tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'TIMESTAMP', false, null);
+        $tMap->addColumn('UPDATED_AT', 'UpdatedAt', 'TIMESTAMP', false, null);
 
-	} // doBuild()
+    } // doBuild()
 
 } // MembreMapBuilder

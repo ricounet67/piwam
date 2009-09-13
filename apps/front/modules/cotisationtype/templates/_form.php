@@ -10,16 +10,13 @@
 <table class="formArray">
     <tfoot>
         <tr>
-            <td colspan="2"><?php echo $form->renderHiddenFields() ?>
-            <?php echo link_to('Annuler', 'cotisationtype/index', array(
+            <td colspan="2"><?php echo $form->renderHiddenFields() ?> <?php echo link_to('Annuler', 'cotisationtype/index', array(
             	'class'	=> 'formLinkButton'
-            )) ?>
-                <?php if (!$form->getObject()->isNew()): ?>
-                <?php echo link_to('Supprimer', 'cotisationtype/delete?id='.$form->getObject()->getId(), array(
+            	)) ?> <?php if (!$form->getObject()->isNew()): ?> <?php echo link_to('Supprimer', 'cotisationtype/delete?id='.$form->getObject()->getId(), array(
                 	'class'		=> 'formLinkButton',
                 	'method' 	=> 'delete', 'confirm' => 'Êtes vous sûr ?'
-                )) ?>
-                <?php endif; ?> <input type="submit" value="Enregistrer" class="button" /></td>
+                	)) ?> <?php endif; ?> <input type="submit" value="Enregistrer"
+                class="button" /></td>
         </tr>
     </tfoot>
     <tbody>
@@ -31,14 +28,12 @@
         </tr>
         <tr>
             <th>Valide</th>
-            <td>
-            	<?php echo $form['valide'] ?> mois <?php echo $form['valide']->renderError() ?>
+            <td><?php echo $form['valide'] ?> mois <?php echo $form['valide']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Montant</th>
-            <td>
-            	<?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?>
+            <td><?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?>
             </td>
         </tr>
     </tbody>

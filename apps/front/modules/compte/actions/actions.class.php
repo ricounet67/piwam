@@ -10,11 +10,11 @@
  */
 class compteActions extends sfActions
 {
-	/**
-	 * List existing Compte
-	 *
-	 * @param  sfWebRequest $request
-	 */
+    /**
+     * List existing Compte
+     *
+     * @param  sfWebRequest $request
+     */
     public function executeIndex(sfWebRequest $request)
     {
         $this->compte_list = ComptePeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));

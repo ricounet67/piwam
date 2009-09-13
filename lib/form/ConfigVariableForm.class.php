@@ -10,7 +10,7 @@
  */
 class ConfigVariableForm extends BaseConfigVariableForm
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

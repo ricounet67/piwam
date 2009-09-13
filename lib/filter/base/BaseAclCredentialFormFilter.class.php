@@ -12,36 +12,36 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  */
 class BaseAclCredentialFormFilter extends BaseFormFilterPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'membre_id'     => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),
       'acl_action_id' => new sfWidgetFormPropelChoice(array('model' => 'AclAction', 'add_empty' => true)),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'membre_id'     => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Membre', 'column' => 'id')),
       'acl_action_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'AclAction', 'column' => 'id')),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('acl_credential_filters[%s]');
+        $this->widgetSchema->setNameFormat('acl_credential_filters[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'AclCredential';
-  }
+    public function getModelName()
+    {
+        return 'AclCredential';
+    }
 
-  public function getFields()
-  {
-    return array(
+    public function getFields()
+    {
+        return array(
       'id'            => 'Number',
       'membre_id'     => 'ForeignKey',
       'acl_action_id' => 'ForeignKey',
-    );
-  }
+        );
+    }
 }

@@ -12,34 +12,34 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  */
 class BaseConfigValueFormFilter extends BaseFormFilterPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'custom_value'       => new sfWidgetFormFilterInput(),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'custom_value'       => new sfValidatorPass(array('required' => false)),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('config_value_filters[%s]');
+        $this->widgetSchema->setNameFormat('config_value_filters[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'ConfigValue';
-  }
+    public function getModelName()
+    {
+        return 'ConfigValue';
+    }
 
-  public function getFields()
-  {
-    return array(
+    public function getFields()
+    {
+        return array(
       'config_variable_id' => 'ForeignKey',
       'association_id'     => 'ForeignKey',
       'custom_value'       => 'Text',
-    );
-  }
+        );
+    }
 }

@@ -10,7 +10,7 @@
  */
 class ConfigCategorieForm extends BaseConfigCategorieForm
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

@@ -23,8 +23,8 @@ class membreActions extends sfActions
     {
         $orderByColumn = $request->getParameter('orderby', MembrePeer::PSEUDO);
         $this->membresPager = MembrePeer::doSelectOrderBy($this->getUser()->getAttribute('association_id', null, 'user'),
-														        $request->getParameter('page', 1),
-														        $orderByColumn);
+        $request->getParameter('page', 1),
+        $orderByColumn);
     }
 
     /**
@@ -374,7 +374,7 @@ class membreActions extends sfActions
             $membre         = MembrePeer::retrieveByPk($this->user_id);
 
             if (($membre->getAssociationId() != $associationId) ||
-                ($this->getUser()->hasCredential('edit_acl') == false)) {
+            ($this->getUser()->hasCredential('edit_acl') == false)) {
                 $this->forward('error', 'credentials');
             }
 

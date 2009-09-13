@@ -19,59 +19,59 @@
  */
 class PiwamDataMapBuilder implements MapBuilder {
 
-	/**
-	 * The (dot-path) name of this class
-	 */
-	const CLASS_NAME = 'lib.model.map.PiwamDataMapBuilder';
+    /**
+     * The (dot-path) name of this class
+     */
+    const CLASS_NAME = 'lib.model.map.PiwamDataMapBuilder';
 
-	/**
-	 * The database map.
-	 */
-	private $dbMap;
+    /**
+     * The database map.
+     */
+    private $dbMap;
 
-	/**
-	 * Tells us if this DatabaseMapBuilder is built so that we
-	 * don't have to re-build it every time.
-	 *
-	 * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
-	 */
-	public function isBuilt()
-	{
-		return ($this->dbMap !== null);
-	}
+    /**
+     * Tells us if this DatabaseMapBuilder is built so that we
+     * don't have to re-build it every time.
+     *
+     * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
+     */
+    public function isBuilt()
+    {
+        return ($this->dbMap !== null);
+    }
 
-	/**
-	 * Gets the databasemap this map builder built.
-	 *
-	 * @return     the databasemap
-	 */
-	public function getDatabaseMap()
-	{
-		return $this->dbMap;
-	}
+    /**
+     * Gets the databasemap this map builder built.
+     *
+     * @return     the databasemap
+     */
+    public function getDatabaseMap()
+    {
+        return $this->dbMap;
+    }
 
-	/**
-	 * The doBuild() method builds the DatabaseMap
-	 *
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function doBuild()
-	{
-		$this->dbMap = Propel::getDatabaseMap(PiwamDataPeer::DATABASE_NAME);
+    /**
+     * The doBuild() method builds the DatabaseMap
+     *
+     * @return     void
+     * @throws     PropelException
+     */
+    public function doBuild()
+    {
+        $this->dbMap = Propel::getDatabaseMap(PiwamDataPeer::DATABASE_NAME);
 
-		$tMap = $this->dbMap->addTable(PiwamDataPeer::TABLE_NAME);
-		$tMap->setPhpName('PiwamData');
-		$tMap->setClassname('PiwamData');
+        $tMap = $this->dbMap->addTable(PiwamDataPeer::TABLE_NAME);
+        $tMap->setPhpName('PiwamData');
+        $tMap->setClassname('PiwamData');
 
-		$tMap->setUseIdGenerator(true);
+        $tMap->setUseIdGenerator(true);
 
-		$tMap->addPrimaryKey('ID', 'Id', 'INTEGER', true, null);
+        $tMap->addPrimaryKey('ID', 'Id', 'INTEGER', true, null);
 
-		$tMap->addColumn('KEY', 'Key', 'VARCHAR', true, 255);
+        $tMap->addColumn('KEY', 'Key', 'VARCHAR', true, 255);
 
-		$tMap->addColumn('VALUE', 'Value', 'VARCHAR', true, 255);
+        $tMap->addColumn('VALUE', 'Value', 'VARCHAR', true, 255);
 
-	} // doBuild()
+    } // doBuild()
 
 } // PiwamDataMapBuilder

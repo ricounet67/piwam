@@ -1,10 +1,10 @@
-<?php 
+<?php
 /*
-TinyBrowser 1.32 - A TinyMCE file browser (C) 2008  Bryn Jones
-Default Language 'en'
-Author: Maja Bielawa
-email: ivoryeve[at]wp[dot]pl
-*/
+ TinyBrowser 1.32 - A TinyMCE file browser (C) 2008  Bryn Jones
+ Default Language 'en'
+ Author: Maja Bielawa
+ email: ivoryeve[at]wp[dot]pl
+ */
 define("TB_BROWSE", "Przeglądaj");
 define("TB_EDIT", "Edytuj");
 define("TB_UPLOAD", "Załaduj");

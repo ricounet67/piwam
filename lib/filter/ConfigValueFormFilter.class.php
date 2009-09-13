@@ -10,7 +10,7 @@
  */
 class ConfigValueFormFilter extends BaseConfigValueFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

@@ -7,7 +7,7 @@
 ?>
 
 <?php if ($error): ?>
-	Le module Apache mod_rewrite n'est pas activé
+Le module Apache mod_rewrite n'est pas activé
 <?php else: ?>
-	Le module Apache mod_rewrite est activé
+Le module Apache mod_rewrite est activé
 <?php endif; ?>
