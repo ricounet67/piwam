@@ -95,6 +95,11 @@ class cotisationtypeActions extends sfActions
 		$this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
 	}
 
+	/**
+	 * Perform the update if no error occured
+	 *
+	 * @param  sfWebRequest    $request
+	 */
 	public function executeUpdate(sfWebRequest $request)
 	{
 		$this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));

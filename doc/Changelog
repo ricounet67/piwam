@@ -1,11 +1,22 @@
+r104 - september, 13, 2009
+    * /doc/TROUBLESHOOTING-FR : new file, indexing known issues
+    * /doc/README-FR refers to TROUBLESHOOTING-FR in case of issue
+    * membre : indexSuccess.php > legend block has been redesigned
+    * cotisationtype : indexSuccess.php > validity entry in the header of table
+      is now specified as months and not in years
+    * CotisationTypeForm.class.php : default value of 'valide' has been set to
+      12 months
+    * form.css : formLinkButton size has been adjusted (a little bit smaller)
+
+
 r103 - september, 12, 2009
     * /web/install.php : has been removed to avoid loop issue
     * /lib/vendor/phoogle/phoogle.php : we prevent error when using function
       file_get_contents with Yahoo API
     * /lib/misc/DbTools.class.php : checkMySQLConnection() method has been set
       as public static instead of being private
-    * README : up to date
-    * README-FR : up to date
+    * /doc/README : up to date
+    * /doc/README-FR : up to date
 
 
 r102 - september, 12, 2009
