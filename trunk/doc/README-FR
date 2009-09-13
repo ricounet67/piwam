@@ -126,10 +126,11 @@
 	
 		Si vous rencontrez des soucis, vous pouvez :
 			1- Vérifier que vous avez correctement suivi ce README
-			2- Vérifier que vos serveurs Apache/MySQL fonctionnent normalement
-			3- Lancer /web/check_configuration.php
-			4- Vous abonner et écrire à http://groups.google.com/group/piwam
-			5- Rapporter un bug à http://code.google.com/p/piwam/issues/entry	
+			2- Consulter le fichier TROUBLESHOOTING-FR
+			3- Vérifier que vos serveurs Apache/MySQL fonctionnent normalement
+			4- Lancer /web/check_configuration.php
+			5- Vous abonner et écrire à http://groups.google.com/group/piwam
+			6- Rapporter un bug à http://code.google.com/p/piwam/issues/entry
 		
 		
     4) À voir aussi

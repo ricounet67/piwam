@@ -42,19 +42,24 @@
 
 
 <!-- Legend -->
-<table>
-    <tr>
-        <td colspan="2">&nbsp;</td>
+<table style="border: 1px solid #999; margin-top: 15px; width: 200px;">
+    <tr style="font-weight: bold; background-color: #ddd; color: #555;">
+        <td colspan="2">Légende&nbsp;</td>
     </tr>
     <tr>
         <td class="cotisationNonAjour" width="20px">&nbsp;</td>
         <td>Cotisation non à jour</td>
     </tr>
+    <tr>
+        <td style="border: 1px solid #bbb;" width="20px">&nbsp;</td>
+        <td>Cotisation à jour</td>
+    </tr>
 </table>
 
 
-<?php include_partial('global/pager', array('pager' => $membresPager, 'module' => 'membre', 'action' => 'index', 'params' => array('orderby' => 'NOM'))) ?>
-
-<div class="addNew">
-	<?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer un membre', 'membre/new') ?>
+<div class="addNew" style="width: 194px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
+    <?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer un membre', 'membre/new') ?>
 </div>
+
+
+<?php include_partial('global/pager', array('pager' => $membresPager, 'module' => 'membre', 'action' => 'index', 'params' => array('orderby' => 'NOM'))) ?>

@@ -1,0 +1,62 @@
+
+    =========================================================================
+    |                                                                       |
+    |       ########  ########    ###    ########  ##     ## ########       |
+    |       ##     ## ##         ## ##   ##     ## ###   ### ##             |
+    |       ##     ## ##        ##   ##  ##     ## #### #### ##             |
+    |       ########  ######   ##     ## ##     ## ## ### ## ######         |
+    |       ##   ##   ##       ######### ##     ## ##     ## ##             |
+    |       ##    ##  ##       ##     ## ##     ## ##     ## ##             |
+    |       ##     ## ######## ##     ## ########  ##     ## ########       |
+    |                                                                       |
+    |                                                                       |
+    =========================================================================
+
+
+    LICENCE
+    -------
+    Ce programme est fourni sous licence MIT.  Vous pouvez trouver la licence
+    complète dans le fichier /doc/LICENCE
+
+
+    PROBLEMES CONNUS
+    ----------------
+
+        A- Je n'arrive pas à accéder à Piwam
+        
+            - vérifiez que votre serveur Apache est lancé
+            - vérifiez que Piwam est placé dans  un repertoire pris en compte
+              par Apache
+              
+
+        B- J'obtiens un message d'erreur quand je vais à la page d'accueil
+        
+            - vérifiez que le répertoire 'cache' existe et est inscriptible
+            - vérifiez que le répertoire 'log' exist et est inscriptible
+            - en cas de doute, lancez la commande suivante :
+            
+                > mkdir log cache && chmod 777 log cache
+                
+            - si vous ne pouvez pas lancer de lignes de commande,  vous pouvez
+              configure ces deux répertoires via votre client FTP.
+                
+                
+        C- Je  viens  de  mettre à jour  Piwam  et même  la page d'accueil ne
+           fonctionne plus !
+           
+            - voir le point "B"
+            
+            
+        D- J'ai installé Piwam par SVN, et j'ai un message d'erreur de fichier
+           introuvable
+           
+            - vérifiez qu'une version de symfony 1.2 est présente sur votre
+              machine. Si ce n'est pas le cas, vous pouvez récupérer symfony
+              sur http://www.symfony-project.com. Ensuite, éditez le fichier
+              config/ProjectConfiguration.class.php et modifiez la première
+              ligne d'inclusion du fichier 'sfCoreAutoload'.
+        
+        
+    -------------------------------------------------------------------------
+    | (c) 2009                                                              |
+    -------------------------------------------------------------------------

@@ -7,7 +7,7 @@
   <thead>
     <tr class="enteteTableauDonnees">
       <th>Libellé</th>
-      <th>Valide (ans)</th>
+      <th>Valide (mois)</th>
       <th>Montant</th>
       <th>Créé le</th>
       <th>Dernière édition</th>
