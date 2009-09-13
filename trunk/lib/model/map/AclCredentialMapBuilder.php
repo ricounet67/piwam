@@ -19,59 +19,59 @@
  */
 class AclCredentialMapBuilder implements MapBuilder {
 
-	/**
-	 * The (dot-path) name of this class
-	 */
-	const CLASS_NAME = 'lib.model.map.AclCredentialMapBuilder';
+    /**
+     * The (dot-path) name of this class
+     */
+    const CLASS_NAME = 'lib.model.map.AclCredentialMapBuilder';
 
-	/**
-	 * The database map.
-	 */
-	private $dbMap;
+    /**
+     * The database map.
+     */
+    private $dbMap;
 
-	/**
-	 * Tells us if this DatabaseMapBuilder is built so that we
-	 * don't have to re-build it every time.
-	 *
-	 * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
-	 */
-	public function isBuilt()
-	{
-		return ($this->dbMap !== null);
-	}
+    /**
+     * Tells us if this DatabaseMapBuilder is built so that we
+     * don't have to re-build it every time.
+     *
+     * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
+     */
+    public function isBuilt()
+    {
+        return ($this->dbMap !== null);
+    }
 
-	/**
-	 * Gets the databasemap this map builder built.
-	 *
-	 * @return     the databasemap
-	 */
-	public function getDatabaseMap()
-	{
-		return $this->dbMap;
-	}
+    /**
+     * Gets the databasemap this map builder built.
+     *
+     * @return     the databasemap
+     */
+    public function getDatabaseMap()
+    {
+        return $this->dbMap;
+    }
 
-	/**
-	 * The doBuild() method builds the DatabaseMap
-	 *
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function doBuild()
-	{
-		$this->dbMap = Propel::getDatabaseMap(AclCredentialPeer::DATABASE_NAME);
+    /**
+     * The doBuild() method builds the DatabaseMap
+     *
+     * @return     void
+     * @throws     PropelException
+     */
+    public function doBuild()
+    {
+        $this->dbMap = Propel::getDatabaseMap(AclCredentialPeer::DATABASE_NAME);
 
-		$tMap = $this->dbMap->addTable(AclCredentialPeer::TABLE_NAME);
-		$tMap->setPhpName('AclCredential');
-		$tMap->setClassname('AclCredential');
+        $tMap = $this->dbMap->addTable(AclCredentialPeer::TABLE_NAME);
+        $tMap->setPhpName('AclCredential');
+        $tMap->setClassname('AclCredential');
 
-		$tMap->setUseIdGenerator(true);
+        $tMap->setUseIdGenerator(true);
 
-		$tMap->addPrimaryKey('ID', 'Id', 'INTEGER', true, null);
+        $tMap->addPrimaryKey('ID', 'Id', 'INTEGER', true, null);
 
-		$tMap->addForeignKey('MEMBRE_ID', 'MembreId', 'INTEGER', 'membre', 'ID', false, null);
+        $tMap->addForeignKey('MEMBRE_ID', 'MembreId', 'INTEGER', 'membre', 'ID', false, null);
 
-		$tMap->addForeignKey('ACL_ACTION_ID', 'AclActionId', 'INTEGER', 'acl_action', 'ID', true, null);
+        $tMap->addForeignKey('ACL_ACTION_ID', 'AclActionId', 'INTEGER', 'acl_action', 'ID', true, null);
 
-	} // doBuild()
+    } // doBuild()
 
 } // AclCredentialMapBuilder

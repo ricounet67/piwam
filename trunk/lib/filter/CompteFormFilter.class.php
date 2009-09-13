@@ -10,7 +10,7 @@
  */
 class CompteFormFilter extends BaseCompteFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

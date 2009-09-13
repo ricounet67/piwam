@@ -10,7 +10,7 @@ a {
 }
 
 a:Visited {
-
+    
 }
 
 a:hover {
@@ -18,7 +18,7 @@ a:hover {
 }
 
 #content li {
-	list-style:	none;
+    list-style: none;
 }
 
 /*****************************************************************************
@@ -26,8 +26,7 @@ a:hover {
 ** TITRES
 **
 *****************************************************************************/
-
-/* titre general present et commun sur chaque page */
+    /* titre general present et commun sur chaque page */
 h1 {
     background-color: #1472B4;
     color: white;
@@ -43,15 +42,13 @@ h2 {
 h3 {
     color: black;
     font-size: 13px;
-    font-weight: bold;   
+    font-weight: bold;
 }
 
 /* titre de rubrique */
 h4 {
     
-    }
-
-
+}
 
 /*****************************************************************************
 **
@@ -60,8 +57,7 @@ h4 {
 ** Représente l'agencement visuel des différents blocs de l'interface
 **
 *****************************************************************************/
-
-/* le corps */
+    /* le corps */
 body {
     margin: 0;
     padding: 10px;
@@ -119,21 +115,17 @@ body {
     border-bottom: 1px solid #555;
 }
 
-
-
-
 /* utilisé pour les formulaires imbriqués */
-.subform
-{
-	
+.subform {
+    
 }
-.subform table th
-{
-	text-align: left;
-	font-weight: normal;
-	background-color: #eeeeff;	
-	padding: 10px;
-	color: #666;
+
+.subform table th {
+    text-align: left;
+    font-weight: normal;
+    background-color: #eeeeff;
+    padding: 10px;
+    color: #666;
 }
 
 /*****************************************************************************
@@ -141,14 +133,14 @@ body {
 ** DIFFERENTS ELEMENTS
 **
 *****************************************************************************/
-/* represente les tableaux de listing : membres, comptes, etc... */
+    /* represente les tableaux de listing : membres, comptes, etc... */
 .tableauDonnees {
     width: 90%;
     border: 1px solid black;
 }
 
 .tableauDonnees tbody tr:Hover {
-    background-color: #E8FD98;    
+    background-color: #E8FD98;
 }
 
 .tableauDonnees tbody td {
@@ -156,7 +148,6 @@ body {
     font-size: 11px;
     color: #162027;
     padding-left: 5px;
-      
 }
 
 .enteteTableauDonnees {
@@ -168,6 +159,7 @@ body {
     color: white;
     text-decoration: underline;
 }
+
 .enteteTableauDonnees a:Hover {
     text-decoration: none;
 }
@@ -214,13 +206,12 @@ body {
     color: red;
 }
 
-
 /* notifications d'erreur */
 .error {
-	background-color: #ffeeee;
-	color: red;
-	padding: 7px;
-	margin: 0px 0px 20px 0px;
+    background-color: #ffeeee;
+    color: red;
+    padding: 7px;
+    margin: 0px 0px 20px 0px;
 }
 
 /* pour l'affichage des comptes en positif */
@@ -247,22 +238,20 @@ p.notice {
 }
 
 /* cadres donnant plus d informations */
-.info
-{
-	background-color: #dedede;
-	padding: 20px;
+.info {
+    background-color: #dedede;
+    padding: 20px;
 }
-.info ul
-{
-	list-style: none;
+
+.info ul {
+    list-style: none;
 }
 
 /* for the mailing feature > preview of content */
-.mailPreview
-{
-	padding: 15px;
-	background-color: #efefff;
-	border: 1px dotted #ccc;
+.mailPreview {
+    padding: 15px;
+    background-color: #efefff;
+    border: 1px dotted #ccc;
 }
 
 /*****************************************************************************
@@ -270,25 +259,25 @@ p.notice {
 ** RESULTATS DE TESTS
 **
 *****************************************************************************/
-
-.test_error, .test_warning, .test_success, .test_help {
-	padding: 10px;
-	width: 80%;
-	margin: 3px;
-	border: 1px dotted #333;
+.test_error,.test_warning,.test_success,.test_help {
+    padding: 10px;
+    width: 80%;
+    margin: 3px;
+    border: 1px dotted #333;
 }
 
 .test_error {
-	background-color: #F1C5C5;
+    background-color: #F1C5C5;
 }
 
 .test_warning {
-	background-color: #FFE28E;
+    background-color: #FFE28E;
 }
 
 .test_success {
-	background-color: #B0FF98;
+    background-color: #B0FF98;
 }
 
 .test_help {
+    
 }

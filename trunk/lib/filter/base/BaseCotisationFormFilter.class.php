@@ -12,9 +12,9 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  */
 class BaseCotisationFormFilter extends BaseFormFilterPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'compte_id'          => new sfWidgetFormPropelChoice(array('model' => 'Compte', 'add_empty' => true)),
       'cotisation_type_id' => new sfWidgetFormPropelChoice(array('model' => 'CotisationType', 'add_empty' => true)),
       'membre_id'          => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),
@@ -24,9 +24,9 @@ class BaseCotisationFormFilter extends BaseFormFilterPropel
       'mis_a_jour_par'     => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),
       'created_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
       'updated_at'         => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => true)),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'compte_id'          => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Compte', 'column' => 'id')),
       'cotisation_type_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'CotisationType', 'column' => 'id')),
       'membre_id'          => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Membre', 'column' => 'id')),
@@ -36,23 +36,23 @@ class BaseCotisationFormFilter extends BaseFormFilterPropel
       'mis_a_jour_par'     => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Membre', 'column' => 'id')),
       'created_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'         => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('cotisation_filters[%s]');
+        $this->widgetSchema->setNameFormat('cotisation_filters[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'Cotisation';
-  }
+    public function getModelName()
+    {
+        return 'Cotisation';
+    }
 
-  public function getFields()
-  {
-    return array(
+    public function getFields()
+    {
+        return array(
       'id'                 => 'Number',
       'compte_id'          => 'ForeignKey',
       'cotisation_type_id' => 'ForeignKey',
@@ -63,6 +63,6 @@ class BaseCotisationFormFilter extends BaseFormFilterPropel
       'mis_a_jour_par'     => 'ForeignKey',
       'created_at'         => 'Date',
       'updated_at'         => 'Date',
-    );
-  }
+        );
+    }
 }

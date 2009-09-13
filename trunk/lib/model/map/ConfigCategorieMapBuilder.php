@@ -19,57 +19,57 @@
  */
 class ConfigCategorieMapBuilder implements MapBuilder {
 
-	/**
-	 * The (dot-path) name of this class
-	 */
-	const CLASS_NAME = 'lib.model.map.ConfigCategorieMapBuilder';
+    /**
+     * The (dot-path) name of this class
+     */
+    const CLASS_NAME = 'lib.model.map.ConfigCategorieMapBuilder';
 
-	/**
-	 * The database map.
-	 */
-	private $dbMap;
+    /**
+     * The database map.
+     */
+    private $dbMap;
 
-	/**
-	 * Tells us if this DatabaseMapBuilder is built so that we
-	 * don't have to re-build it every time.
-	 *
-	 * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
-	 */
-	public function isBuilt()
-	{
-		return ($this->dbMap !== null);
-	}
+    /**
+     * Tells us if this DatabaseMapBuilder is built so that we
+     * don't have to re-build it every time.
+     *
+     * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
+     */
+    public function isBuilt()
+    {
+        return ($this->dbMap !== null);
+    }
 
-	/**
-	 * Gets the databasemap this map builder built.
-	 *
-	 * @return     the databasemap
-	 */
-	public function getDatabaseMap()
-	{
-		return $this->dbMap;
-	}
+    /**
+     * Gets the databasemap this map builder built.
+     *
+     * @return     the databasemap
+     */
+    public function getDatabaseMap()
+    {
+        return $this->dbMap;
+    }
 
-	/**
-	 * The doBuild() method builds the DatabaseMap
-	 *
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function doBuild()
-	{
-		$this->dbMap = Propel::getDatabaseMap(ConfigCategoriePeer::DATABASE_NAME);
+    /**
+     * The doBuild() method builds the DatabaseMap
+     *
+     * @return     void
+     * @throws     PropelException
+     */
+    public function doBuild()
+    {
+        $this->dbMap = Propel::getDatabaseMap(ConfigCategoriePeer::DATABASE_NAME);
 
-		$tMap = $this->dbMap->addTable(ConfigCategoriePeer::TABLE_NAME);
-		$tMap->setPhpName('ConfigCategorie');
-		$tMap->setClassname('ConfigCategorie');
+        $tMap = $this->dbMap->addTable(ConfigCategoriePeer::TABLE_NAME);
+        $tMap->setPhpName('ConfigCategorie');
+        $tMap->setClassname('ConfigCategorie');
 
-		$tMap->setUseIdGenerator(false);
+        $tMap->setUseIdGenerator(false);
 
-		$tMap->addPrimaryKey('CODE', 'Code', 'VARCHAR', true, 20);
+        $tMap->addPrimaryKey('CODE', 'Code', 'VARCHAR', true, 20);
 
-		$tMap->addColumn('LIBELLE', 'Libelle', 'VARCHAR', true, 255);
+        $tMap->addColumn('LIBELLE', 'Libelle', 'VARCHAR', true, 255);
 
-	} // doBuild()
+    } // doBuild()
 
 } // ConfigCategorieMapBuilder

@@ -10,31 +10,31 @@
  */
 class BaseConfigValueForm extends BaseFormPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'config_variable_id' => new sfWidgetFormInputHidden(),
       'association_id'     => new sfWidgetFormInputHidden(),
       'custom_value'       => new sfWidgetFormInput(),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'config_variable_id' => new sfValidatorPropelChoice(array('model' => 'ConfigVariable', 'column' => 'id', 'required' => false)),
       'association_id'     => new sfValidatorPropelChoice(array('model' => 'Association', 'column' => 'id', 'required' => false)),
       'custom_value'       => new sfValidatorString(array('max_length' => 255)),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('config_value[%s]');
+        $this->widgetSchema->setNameFormat('config_value[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'ConfigValue';
-  }
+    public function getModelName()
+    {
+        return 'ConfigValue';
+    }
 
 
 }

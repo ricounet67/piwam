@@ -12,36 +12,36 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  */
 class BasePiwamDataFormFilter extends BaseFormFilterPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'key'   => new sfWidgetFormFilterInput(),
       'value' => new sfWidgetFormFilterInput(),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'key'   => new sfValidatorPass(array('required' => false)),
       'value' => new sfValidatorPass(array('required' => false)),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('piwam_data_filters[%s]');
+        $this->widgetSchema->setNameFormat('piwam_data_filters[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'PiwamData';
-  }
+    public function getModelName()
+    {
+        return 'PiwamData';
+    }
 
-  public function getFields()
-  {
-    return array(
+    public function getFields()
+    {
+        return array(
       'id'    => 'Number',
       'key'   => 'Text',
       'value' => 'Text',
-    );
-  }
+        );
+    }
 }

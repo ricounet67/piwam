@@ -10,7 +10,7 @@
  */
 class ActiviteFormFilter extends BaseActiviteFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

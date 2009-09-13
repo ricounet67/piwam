@@ -10,7 +10,7 @@
  */
 class PiwamDataForm extends BasePiwamDataForm
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

@@ -3,22 +3,17 @@
 /**
  * Feuille de style entièrement dédiée aux styles
  * de formulaires
- */
- 
-/* Engloble les tableaux mettant en page les formulaires */
-.formArray
-{
-
+ */ /* Engloble les tableaux mettant en page les formulaires */
+.formArray {
+    
 }
 
-.formArray th
-{
-	background-color: #eeeeff;
-	text-align: left;
-	color: #888;
-	padding: 10px;
+.formArray th {
+    background-color: #eeeeff;
+    text-align: left;
+    color: #888;
+    padding: 10px;
 }
-
 
 /* Styles par défauts */
 input {
@@ -40,46 +35,39 @@ input {
 }
 
 /* Properties applied to form input elements who got this class */
-.formInputLarge
-{
+.formInputLarge {
     border: 1px solid #aaa;
     padding: 4px;
     background-color: #fff;
-	width: 350px;
+    width: 350px;
 }
 
 /* Elements de taille normale */
-.formInputNormal
-{
-	border: 1px solid #aaa;
+.formInputNormal {
+    border: 1px solid #aaa;
     padding: 4px;
     background-color: #fff;
-	width: 200px;
+    width: 200px;
 }
 
 /* Elements de taille normale */
-.formInputXtraLarge
-{
-	border: 1px solid #aaa;
+.formInputXtraLarge {
+    border: 1px solid #aaa;
     padding: 4px;
     background-color: #fff;
-	width: 98%;
+    width: 98%;
 }
 
 /* Elements de courte taille */
-.formInputShort
-{
-	border: 1px solid #aaa;
+.formInputShort {
+    border: 1px solid #aaa;
     padding: 4px;
     background-color: #fff;
-	width: 80px;
+    width: 80px;
 }
 
-
-
 /* liens/boutons "annuler/supprimer" */
-.formLinkButton
-{
+.formLinkButton {
     border-left: 1px solid #A1BCD4;
     border-bottom: 1px solid #666;
     border-right: 1px solid #666;
@@ -90,27 +78,23 @@ input {
     padding: 2px 5px 2px 5px;
     font-size: 12px;
 }
-.formLinkButton:Hover
-{
-	text-decoration: none;
+
+.formLinkButton:Hover {
+    text-decoration: none;
 }
-
-
-
 
 /* liens/boutons "ajouter un nouveau..." */
-.addNew
-{
-	margin-top: 10px;
+.addNew {
+    margin-top: 10px;
 }
-.addNew a
-{
-	color: #777;
-	font-weight: bold;
-	background-color: #eaeaea;
-	padding: 3px 5px 3px 3px;
+
+.addNew a {
+    color: #777;
+    font-weight: bold;
+    background-color: #eaeaea;
+    padding: 3px 5px 3px 3px;
 }
-.addNew a:Hover
-{
-	text-decoration: none;
+
+.addNew a:Hover {
+    text-decoration: none;
 }

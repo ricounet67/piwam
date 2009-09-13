@@ -10,7 +10,7 @@
  */
 class AssociationFormFilter extends BaseAssociationFormFilter
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

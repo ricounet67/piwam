@@ -12,35 +12,21 @@
     	}
     	?>"
     method="post"
-    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
-    <?php if (!$form->getObject()->isNew()): ?>
-		<input type="hidden" name="sf_method" value="put" />
-	<?php endif; ?>
+    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>><?php if (!$form->getObject()->isNew()): ?>
+<input type="hidden" name="sf_method" value="put" /> <?php endif; ?>
 <table class="formArray">
     <tfoot>
         <tr>
-            <td colspan="2">
-                <?php echo $form->renderHiddenFields() ?>
-
-
-                <?php if (!isset($first)): ?>
-	                <?php echo link_to('Annuler', 'membre/index', array(
+            <td colspan="2"><?php echo $form->renderHiddenFields() ?> <?php if (!isset($first)): ?>
+            <?php echo link_to('Annuler', 'membre/index', array(
 	                	'class'	=> 'formLinkButton'
-	                )) ?>
-                <?php endif; ?>
-
-                <?php if (!$form->getObject()->isNew()): ?>
-                	<?php echo link_to('Supprimer', 'membre/delete?id='.$form->getObject()->getId(), array(
+	                	)) ?> <?php endif; ?> <?php if (!$form->getObject()->isNew()): ?>
+	                	<?php echo link_to('Supprimer', 'membre/delete?id='.$form->getObject()->getId(), array(
                 		'class'		=> 'formLinkButton',
                 		'method' 	=> 'delete', 'confirm' => 'Etes vous sûr ?'
-                	)) ?>
-                <?php endif; ?>
-
-                <?php if ((isset($first)) && ($first)): ?>
-	                <input type="submit" value="Étape suivante >" class="button" />
-	            <?php else: ?>
-	            	<input type="submit" value="Sauvegarder" class="button" />
-	            <?php endif; ?>
+                		)) ?> <?php endif; ?> <?php if ((isset($first)) && ($first)): ?>
+            <input type="submit" value="Étape suivante >" class="button" /> <?php else: ?>
+            <input type="submit" value="Sauvegarder" class="button" /> <?php endif; ?>
             </td>
         </tr>
     </tfoot>
@@ -63,8 +49,7 @@
         </tr>
         <tr>
             <th>Mot de passe <?php echo ($form->isFirstRegistration()) ? '*' : ''; ?></th>
-            <td>
-            	<?php echo $form['password'] ?><?php echo $form['password']->renderError() ?>
+            <td><?php echo $form['password'] ?><?php echo $form['password']->renderError() ?>
             </td>
         </tr>
         <tr>
@@ -79,8 +64,7 @@
         </tr>
         <tr>
             <th>Exempté de cotisation</th>
-            <td>
-            	<?php echo $form['exempte_cotisation'] ?><?php echo $form['exempte_cotisation']->renderError() ?>
+            <td><?php echo $form['exempte_cotisation'] ?><?php echo $form['exempte_cotisation']->renderError() ?>
             </td>
         </tr>
         <tr>

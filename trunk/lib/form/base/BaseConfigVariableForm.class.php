@@ -10,9 +10,9 @@
  */
 class BaseConfigVariableForm extends BaseFormPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
       'code'              => new sfWidgetFormInput(),
       'categorie_code'    => new sfWidgetFormPropelChoice(array('model' => 'ConfigCategorie', 'add_empty' => false)),
@@ -21,9 +21,9 @@ class BaseConfigVariableForm extends BaseFormPropel
       'type'              => new sfWidgetFormInput(),
       'default_value'     => new sfWidgetFormInput(),
       'config_value_list' => new sfWidgetFormPropelChoiceMany(array('model' => 'Association')),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'id'                => new sfValidatorPropelChoice(array('model' => 'ConfigVariable', 'column' => 'id', 'required' => false)),
       'code'              => new sfValidatorString(array('max_length' => 20)),
       'categorie_code'    => new sfValidatorPropelChoice(array('model' => 'ConfigCategorie', 'column' => 'code')),
@@ -32,78 +32,78 @@ class BaseConfigVariableForm extends BaseFormPropel
       'type'              => new sfValidatorString(array('max_length' => 255)),
       'default_value'     => new sfValidatorString(array('max_length' => 255)),
       'config_value_list' => new sfValidatorPropelChoiceMany(array('model' => 'Association', 'required' => false)),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('config_variable[%s]');
+        $this->widgetSchema->setNameFormat('config_variable[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
-
-  public function getModelName()
-  {
-    return 'ConfigVariable';
-  }
-
-
-  public function updateDefaultsFromObject()
-  {
-    parent::updateDefaultsFromObject();
-
-    if (isset($this->widgetSchema['config_value_list']))
-    {
-      $values = array();
-      foreach ($this->object->getConfigValues() as $obj)
-      {
-        $values[] = $obj->getAssociationId();
-      }
-
-      $this->setDefault('config_value_list', $values);
+        parent::setup();
     }
 
-  }
-
-  protected function doSave($con = null)
-  {
-    parent::doSave($con);
-
-    $this->saveConfigValueList($con);
-  }
-
-  public function saveConfigValueList($con = null)
-  {
-    if (!$this->isValid())
+    public function getModelName()
     {
-      throw $this->getErrorSchema();
+        return 'ConfigVariable';
     }
 
-    if (!isset($this->widgetSchema['config_value_list']))
+
+    public function updateDefaultsFromObject()
     {
-      // somebody has unset this widget
-      return;
+        parent::updateDefaultsFromObject();
+
+        if (isset($this->widgetSchema['config_value_list']))
+        {
+            $values = array();
+            foreach ($this->object->getConfigValues() as $obj)
+            {
+                $values[] = $obj->getAssociationId();
+            }
+
+            $this->setDefault('config_value_list', $values);
+        }
+
     }
 
-    if (is_null($con))
+    protected function doSave($con = null)
     {
-      $con = $this->getConnection();
+        parent::doSave($con);
+
+        $this->saveConfigValueList($con);
     }
 
-    $c = new Criteria();
-    $c->add(ConfigValuePeer::CONFIG_VARIABLE_ID, $this->object->getPrimaryKey());
-    ConfigValuePeer::doDelete($c, $con);
-
-    $values = $this->getValue('config_value_list');
-    if (is_array($values))
+    public function saveConfigValueList($con = null)
     {
-      foreach ($values as $value)
-      {
-        $obj = new ConfigValue();
-        $obj->setConfigVariableId($this->object->getPrimaryKey());
-        $obj->setAssociationId($value);
-        $obj->save();
-      }
+        if (!$this->isValid())
+        {
+            throw $this->getErrorSchema();
+        }
+
+        if (!isset($this->widgetSchema['config_value_list']))
+        {
+            // somebody has unset this widget
+            return;
+        }
+
+        if (is_null($con))
+        {
+            $con = $this->getConnection();
+        }
+
+        $c = new Criteria();
+        $c->add(ConfigValuePeer::CONFIG_VARIABLE_ID, $this->object->getPrimaryKey());
+        ConfigValuePeer::doDelete($c, $con);
+
+        $values = $this->getValue('config_value_list');
+        if (is_array($values))
+        {
+            foreach ($values as $value)
+            {
+                $obj = new ConfigValue();
+                $obj->setConfigVariableId($this->object->getPrimaryKey());
+                $obj->setAssociationId($value);
+                $obj->save();
+            }
+        }
     }
-  }
 
 }

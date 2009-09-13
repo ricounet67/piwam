@@ -9,22 +9,19 @@
 <table class="formArray">
     <tfoot>
         <tr>
-            <td colspan="2"><?php echo $form->renderHiddenFields() ?>
-                <?php echo link_to('Annuler', 'statut/index', array(
+            <td colspan="2"><?php echo $form->renderHiddenFields() ?> <?php echo link_to('Annuler', 'statut/index', array(
                 	'class'	=> 'formLinkButton'
-                )) ?>
-                <?php if (!$form->getObject()->isNew()): ?>
-                    <?php echo link_to('Supprimer', 'statut/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?', 'class' => 'formLinkButton')) ?>
-                <?php endif; ?>
-                <input class="button" type="submit" value="Enregistrer" />
-            </td>
+                	)) ?> <?php if (!$form->getObject()->isNew()): ?> <?php echo link_to('Supprimer', 'statut/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?', 'class' => 'formLinkButton')) ?>
+                	<?php endif; ?> <input class="button" type="submit"
+                value="Enregistrer" /></td>
         </tr>
     </tfoot>
     <tbody>
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
             <th>Libellé du statut :</th>
-            <td><?php echo $form['nom'] ?> <?php echo $form['nom']->renderError() ?> </td>
+            <td><?php echo $form['nom'] ?> <?php echo $form['nom']->renderError() ?>
+            </td>
         </tr>
     </tbody>
 </table>

@@ -2,42 +2,42 @@
 
 class RecettePeer extends BaseRecettePeer
 {
-	/**
-	 * Select only data which belong to the association
-	 * in argument
-	 *
-	 * @param 	integer	$id
-	 * @return 	sfPropelPager
-	 * @since	r23
-	 */
-	public static function doSelectForAssociation($associationId, $page = 1)
-	{
-		$c = new Criteria();
-		$c->add(self::ASSOCIATION_ID, $associationId);
+    /**
+     * Select only data which belong to the association
+     * in argument
+     *
+     * @param 	integer	$id
+     * @return 	sfPropelPager
+     * @since	r23
+     */
+    public static function doSelectForAssociation($associationId, $page = 1)
+    {
+        $c = new Criteria();
+        $c->add(self::ASSOCIATION_ID, $associationId);
 
         $pager = new sfPropelPager('Recette', 20);
         $pager->setCriteria($c);
         $pager->setPage($page);
         $pager->init();
 
-		return $pager;
-	}
+        return $pager;
+    }
 
-	/**
-	 * Retrieve data for the association given in argument
-	 *
-	 * @param 	integer	$id
-	 * @return 	array of Recette
-	 * @since	r57
-	 */
-	public static function doSelectForActiviteId($id)
-	{
-		$c = new Criteria();
-		$c->add(self::ACTIVITE_ID, $id);
-		$c->add(self::PERCUE, 1);
+    /**
+     * Retrieve data for the association given in argument
+     *
+     * @param 	integer	$id
+     * @return 	array of Recette
+     * @since	r57
+     */
+    public static function doSelectForActiviteId($id)
+    {
+        $c = new Criteria();
+        $c->add(self::ACTIVITE_ID, $id);
+        $c->add(self::PERCUE, 1);
 
-		return self::doSelect($c);
-	}
+        return self::doSelect($c);
+    }
 
     /**
      * Get the amount of creances
@@ -46,8 +46,8 @@ class RecettePeer extends BaseRecettePeer
      * @return float
      * @since  r66
      */
-	public static function getAmountOfCreances($associationId)
-	{
+    public static function getAmountOfCreances($associationId)
+    {
         $c = new Criteria();
         $c->clearSelectColumns();
         $c->addAsColumn('TOTAL_DETTES', 'SUM(' . self::MONTANT . ')');
@@ -57,7 +57,7 @@ class RecettePeer extends BaseRecettePeer
         $row = $result->fetch();
 
         return $row['TOTAL_DETTES'];
-	}
+    }
 
     /**
      * Get the amount of creances for the activite $activiteId

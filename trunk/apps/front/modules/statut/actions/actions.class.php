@@ -10,12 +10,12 @@
  */
 class statutActions extends sfActions
 {
-	/**
-	 * Default action. Display the list of statut available for the current
-	 * association
-	 *
-	 * @param 	sfWebRequest 	$request
-	 */
+    /**
+     * Default action. Display the list of statut available for the current
+     * association
+     *
+     * @param 	sfWebRequest 	$request
+     */
     public function executeIndex(sfWebRequest $request)
     {
         $this->statut_list = StatutPeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));

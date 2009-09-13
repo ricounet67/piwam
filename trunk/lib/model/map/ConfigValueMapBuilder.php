@@ -19,59 +19,59 @@
  */
 class ConfigValueMapBuilder implements MapBuilder {
 
-	/**
-	 * The (dot-path) name of this class
-	 */
-	const CLASS_NAME = 'lib.model.map.ConfigValueMapBuilder';
+    /**
+     * The (dot-path) name of this class
+     */
+    const CLASS_NAME = 'lib.model.map.ConfigValueMapBuilder';
 
-	/**
-	 * The database map.
-	 */
-	private $dbMap;
+    /**
+     * The database map.
+     */
+    private $dbMap;
 
-	/**
-	 * Tells us if this DatabaseMapBuilder is built so that we
-	 * don't have to re-build it every time.
-	 *
-	 * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
-	 */
-	public function isBuilt()
-	{
-		return ($this->dbMap !== null);
-	}
+    /**
+     * Tells us if this DatabaseMapBuilder is built so that we
+     * don't have to re-build it every time.
+     *
+     * @return     boolean true if this DatabaseMapBuilder is built, false otherwise.
+     */
+    public function isBuilt()
+    {
+        return ($this->dbMap !== null);
+    }
 
-	/**
-	 * Gets the databasemap this map builder built.
-	 *
-	 * @return     the databasemap
-	 */
-	public function getDatabaseMap()
-	{
-		return $this->dbMap;
-	}
+    /**
+     * Gets the databasemap this map builder built.
+     *
+     * @return     the databasemap
+     */
+    public function getDatabaseMap()
+    {
+        return $this->dbMap;
+    }
 
-	/**
-	 * The doBuild() method builds the DatabaseMap
-	 *
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function doBuild()
-	{
-		$this->dbMap = Propel::getDatabaseMap(ConfigValuePeer::DATABASE_NAME);
+    /**
+     * The doBuild() method builds the DatabaseMap
+     *
+     * @return     void
+     * @throws     PropelException
+     */
+    public function doBuild()
+    {
+        $this->dbMap = Propel::getDatabaseMap(ConfigValuePeer::DATABASE_NAME);
 
-		$tMap = $this->dbMap->addTable(ConfigValuePeer::TABLE_NAME);
-		$tMap->setPhpName('ConfigValue');
-		$tMap->setClassname('ConfigValue');
+        $tMap = $this->dbMap->addTable(ConfigValuePeer::TABLE_NAME);
+        $tMap->setPhpName('ConfigValue');
+        $tMap->setClassname('ConfigValue');
 
-		$tMap->setUseIdGenerator(false);
+        $tMap->setUseIdGenerator(false);
 
-		$tMap->addForeignPrimaryKey('CONFIG_VARIABLE_ID', 'ConfigVariableId', 'INTEGER' , 'config_variable', 'ID', true, null);
+        $tMap->addForeignPrimaryKey('CONFIG_VARIABLE_ID', 'ConfigVariableId', 'INTEGER' , 'config_variable', 'ID', true, null);
 
-		$tMap->addForeignPrimaryKey('ASSOCIATION_ID', 'AssociationId', 'INTEGER' , 'association', 'ID', true, null);
+        $tMap->addForeignPrimaryKey('ASSOCIATION_ID', 'AssociationId', 'INTEGER' , 'association', 'ID', true, null);
 
-		$tMap->addColumn('CUSTOM_VALUE', 'CustomValue', 'VARCHAR', true, 255);
+        $tMap->addColumn('CUSTOM_VALUE', 'CustomValue', 'VARCHAR', true, 255);
 
-	} // doBuild()
+    } // doBuild()
 
 } // ConfigValueMapBuilder

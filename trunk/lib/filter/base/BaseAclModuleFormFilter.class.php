@@ -12,33 +12,33 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  */
 class BaseAclModuleFormFilter extends BaseFormFilterPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'libelle' => new sfWidgetFormFilterInput(),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'libelle' => new sfValidatorPass(array('required' => false)),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('acl_module_filters[%s]');
+        $this->widgetSchema->setNameFormat('acl_module_filters[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'AclModule';
-  }
+    public function getModelName()
+    {
+        return 'AclModule';
+    }
 
-  public function getFields()
-  {
-    return array(
+    public function getFields()
+    {
+        return array(
       'id'      => 'Number',
       'libelle' => 'Text',
-    );
-  }
+        );
+    }
 }

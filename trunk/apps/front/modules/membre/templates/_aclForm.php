@@ -18,39 +18,34 @@
 </script>
 
 
-<form name="rightform" action="<?php echo url_for('membre/acl?id=' . $user_id) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
-<?php echo $form->renderHiddenFields() ?>
+<form name="rightform"
+    action="<?php echo url_for('membre/acl?id=' . $user_id) ?>" method="post"
+    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>><?php echo $form->renderHiddenFields() ?>
 <table class="formArray">
     <tfoot>
         <tr>
             <td colspan="2">&nbsp;</td>
         </tr>
         <tr>
-            <td colspan="2">
-                <input type="submit" value="Sauvegarder" class="button" />
-            </td>
+            <td colspan="2"><input type="submit" value="Sauvegarder"
+                class="button" /></td>
         </tr>
     </tfoot>
 
     <?php foreach ($form['rights'] as $key => $oneForm): ?>
-        <tr>
-            <td>
-                <h3><?php echo $form->getModuleName($key) ?></h3>
-            </td>
-            <td>
-                 <a onClick="checkAll(<?php echo $key ?>)"><?php echo image_tag('arrow_down', array('align' => 'absmiddle', 'alt' => '>')) ?> tout cocher<a>
-            </td>
-        </tr>
-        <?php foreach ($oneForm as $right): ?>
-        <tr>
-            <th>
-                <?php echo $right->renderLabel() ?>
-            </th>
-            <td>
-                <?php echo $right->render() ?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
+    <tr>
+        <td>
+        <h3><?php echo $form->getModuleName($key) ?></h3>
+        </td>
+        <td><a onClick="checkAll(<?php echo $key ?>)"><?php echo image_tag('arrow_down', array('align' => 'absmiddle', 'alt' => '>')) ?>
+        tout cocher<a></td>
+    </tr>
+    <?php foreach ($oneForm as $right): ?>
+    <tr>
+        <th><?php echo $right->renderLabel() ?></th>
+        <td><?php echo $right->render() ?></td>
+    </tr>
+    <?php endforeach; ?>
     <?php endforeach; ?>
 </table>
 </form>

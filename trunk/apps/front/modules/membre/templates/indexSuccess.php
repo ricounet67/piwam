@@ -14,10 +14,12 @@
     <tbody>
     <?php foreach ($membresPager->getResults() as $membre): ?>
 
-        <?php if ($membre->isAjourCotisation()): ?>
-            <tr>
+    <?php if ($membre->isAjourCotisation()): ?>
+        <tr>
         <?php else: ?>
-            <tr class="cotisationNonAjour">
+        
+        
+        <tr class="cotisationNonAjour">
         <?php endif; ?>
 
             <td><?php echo $membre->getNom() ?></td>
@@ -25,18 +27,15 @@
             <td><?php echo $membre->getPseudo() ?></td>
             <td><?php echo $membre->getStatut() ?></td>
             <td><?php echo $membre->getVille() ?></td>
-            <td>
-                <?php if ($membre->getEmail()) :?>
-                    <a href="mailto:<?php echo $membre->getEmail() ?>"><?php echo image_tag('mail.png', array('alt' => '[e-mail]')) ?></a>
-                <?php else: ?>
-                    <?php echo image_tag('no_mail') ?>
-                <?php endif; ?>
+            <td><?php if ($membre->getEmail()) :?> <a
+                href="mailto:<?php echo $membre->getEmail() ?>"><?php echo image_tag('mail.png', array('alt' => '[e-mail]')) ?></a>
+                <?php else: ?> <?php echo image_tag('no_mail') ?> <?php endif; ?>
                 <?php echo link_to(image_tag('edit.png', array('alt' => '[éditer]')), 'membre/edit?id=' . $membre->getId()) ?>
                 <?php echo link_to(image_tag('details.png', array('alt' => '[details]')), 'membre/show?id=' . $membre->getId()) ?>
                 <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
             </td>
         </tr>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
     </tbody>
 </table>
 
@@ -57,9 +56,10 @@
 </table>
 
 
-<div class="addNew" style="width: 194px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
-    <?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer un membre', 'membre/new') ?>
+<div class="addNew"
+    style="width: 194px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
+        <?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer un membre', 'membre/new') ?>
 </div>
 
 
-<?php include_partial('global/pager', array('pager' => $membresPager, 'module' => 'membre', 'action' => 'index', 'params' => array('orderby' => 'NOM'))) ?>
+        <?php include_partial('global/pager', array('pager' => $membresPager, 'module' => 'membre', 'action' => 'index', 'params' => array('orderby' => 'NOM'))) ?>

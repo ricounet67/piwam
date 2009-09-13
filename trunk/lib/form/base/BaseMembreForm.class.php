@@ -10,9 +10,9 @@
  */
 class BaseMembreForm extends BaseFormPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'id'                 => new sfWidgetFormInputHidden(),
       'nom'                => new sfWidgetFormInput(),
       'prenom'             => new sfWidgetFormInput(),
@@ -35,9 +35,9 @@ class BaseMembreForm extends BaseFormPropel
       'mis_a_jour_par'     => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),
       'created_at'         => new sfWidgetFormDateTime(),
       'updated_at'         => new sfWidgetFormDateTime(),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'id'                 => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id', 'required' => false)),
       'nom'                => new sfValidatorString(array('max_length' => 255)),
       'prenom'             => new sfValidatorString(array('max_length' => 255)),
@@ -60,23 +60,23 @@ class BaseMembreForm extends BaseFormPropel
       'mis_a_jour_par'     => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id', 'required' => false)),
       'created_at'         => new sfValidatorDateTime(array('required' => false)),
       'updated_at'         => new sfValidatorDateTime(array('required' => false)),
-    ));
+        ));
 
-    $this->validatorSchema->setPostValidator(
-      new sfValidatorPropelUnique(array('model' => 'Membre', 'column' => array('pseudo')))
-    );
+        $this->validatorSchema->setPostValidator(
+        new sfValidatorPropelUnique(array('model' => 'Membre', 'column' => array('pseudo')))
+        );
 
-    $this->widgetSchema->setNameFormat('membre[%s]');
+        $this->widgetSchema->setNameFormat('membre[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
+        parent::setup();
+    }
 
-  public function getModelName()
-  {
-    return 'Membre';
-  }
+    public function getModelName()
+    {
+        return 'Membre';
+    }
 
 
 }

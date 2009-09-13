@@ -1,3 +1,17 @@
+r105
+    * /test/bootstrap/unit.php : creation of a sfContext
+    * /test/unit/ConfiguratorTest.php : new file implementing tests for
+      Configurator class
+    * /lib/misc/Configuration.class.php : $associationId is now given as
+      parameter to avoid use of sfContext in this class
+    * ConfigForm.class.php : code has been refactored to give $associationId
+    * association : actions > code has been refactored to give $associationId
+    * MembrePeer.php : doSelectOrderBy > code has been refactored to provide 
+      $associationId to Configurator
+    * AssociationPeer.php : new method retrieveByName($name)
+    * All the files : tabs have been replaced by spaces
+    
+
 r104 - september, 13, 2009
     * /doc/TROUBLESHOOTING-FR : new file, indexing known issues
     * /doc/README-FR refers to TROUBLESHOOTING-FR in case of issue

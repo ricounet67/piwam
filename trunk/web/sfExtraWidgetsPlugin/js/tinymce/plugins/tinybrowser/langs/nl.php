@@ -1,10 +1,10 @@
-<?php 
+<?php
 /*
-TinyBrowser 1.32 - A TinyMCE file browser (C) 2008  Bryn Jones
-Language: nl
-Author: Rudy Mens
-email: ruud[at]lazyadmin[dot]nl
-*/
+ TinyBrowser 1.32 - A TinyMCE file browser (C) 2008  Bryn Jones
+ Language: nl
+ Author: Rudy Mens
+ email: ruud[at]lazyadmin[dot]nl
+ */
 define("TB_BROWSE", "Bladeren");
 define("TB_EDIT", "Aanpassen");
 define("TB_UPLOAD", "Upload");

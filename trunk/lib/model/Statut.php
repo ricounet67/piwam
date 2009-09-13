@@ -29,11 +29,11 @@ class Statut extends BaseStatut
      */
     public function delete(PropelPDO $con = null)
     {
-    	if ($this->countMembres() == 0) {
-	        parent::delete($con);
-    	}
-    	else {
-			sfContext::getInstance()->getUser()->setFlash('notice', "Le statut n'a pas pu être supprimé car il est encore utilisé");
-    	}
+        if ($this->countMembres() == 0) {
+            parent::delete($con);
+        }
+        else {
+            sfContext::getInstance()->getUser()->setFlash('notice', "Le statut n'a pas pu être supprimé car il est encore utilisé");
+        }
     }
 }

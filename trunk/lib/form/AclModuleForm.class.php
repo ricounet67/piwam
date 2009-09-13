@@ -10,7 +10,7 @@
  */
 class AclModuleForm extends BaseAclModuleForm
 {
-  public function configure()
-  {
-  }
+    public function configure()
+    {
+    }
 }

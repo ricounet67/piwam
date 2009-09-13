@@ -29,7 +29,9 @@ class ConfigForm extends sfForm
                 if ($variable->getDescription()) {
                     $this->_descriptions[$variable->getCode()] = $variable->getDescription();
                 }
-                $defaultValue = Configurator::get($variable->getCode());
+
+                $associationId  = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
+                $defaultValue   = Configurator::get($variable->getCode(), $associationId);
                 $this->setDefault($variable->getCode(), $defaultValue);
             }
         }

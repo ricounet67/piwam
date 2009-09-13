@@ -7,7 +7,7 @@
 ?>
 
 <?php if ($error): ?>
-	Le fichier config/databases.yml n'est pas inscriptible
+Le fichier config/databases.yml n'est pas inscriptible
 <?php else: ?>
-	Le fichier config/databases.yml est inscriptible
+Le fichier config/databases.yml est inscriptible
 <?php endif; ?>

@@ -5,15 +5,15 @@ include(dirname(__FILE__).'/../../bootstrap/functional.php');
 $browser = new sfTestFunctional(new sfBrowser());
 
 $browser->
-  get('/compte/index')->
+get('/compte/index')->
 
-  with('request')->begin()->
-    isParameter('module', 'compte')->
-    isParameter('action', 'index')->
-  end()->
+with('request')->begin()->
+isParameter('module', 'compte')->
+isParameter('action', 'index')->
+end()->
 
-  with('response')->begin()->
-    isStatusCode(200)->
-    checkElement('body', '!/This is a temporary page/')->
-  end()
+with('response')->begin()->
+isStatusCode(200)->
+checkElement('body', '!/This is a temporary page/')->
+end()
 ;

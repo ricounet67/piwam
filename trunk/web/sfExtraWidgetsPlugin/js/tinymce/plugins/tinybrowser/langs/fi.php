@@ -1,10 +1,10 @@
 <?php
 /*
-TinyBrowser 1.32 - A TinyMCE file browser (C) 2008  Bryn Jones
-Language 'fi'
-Author: Iisakki Pirilä
-email: iisakki[at]piuha[dot]fi
-*/
+ TinyBrowser 1.32 - A TinyMCE file browser (C) 2008  Bryn Jones
+ Language 'fi'
+ Author: Iisakki Pirilä
+ email: iisakki[at]piuha[dot]fi
+ */
 define("TB_BROWSE", "Selaa");
 define("TB_EDIT", "Muokkaa");
 define("TB_UPLOAD", "Lataa palvelimelle");

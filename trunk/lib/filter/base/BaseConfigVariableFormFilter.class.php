@@ -12,9 +12,9 @@ require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.clas
  */
 class BaseConfigVariableFormFilter extends BaseFormFilterPropel
 {
-  public function setup()
-  {
-    $this->setWidgets(array(
+    public function setup()
+    {
+        $this->setWidgets(array(
       'code'              => new sfWidgetFormFilterInput(),
       'categorie_code'    => new sfWidgetFormPropelChoice(array('model' => 'ConfigCategorie', 'add_empty' => true)),
       'libelle'           => new sfWidgetFormFilterInput(),
@@ -22,9 +22,9 @@ class BaseConfigVariableFormFilter extends BaseFormFilterPropel
       'type'              => new sfWidgetFormFilterInput(),
       'default_value'     => new sfWidgetFormFilterInput(),
       'config_value_list' => new sfWidgetFormPropelChoice(array('model' => 'Association', 'add_empty' => true)),
-    ));
+        ));
 
-    $this->setValidators(array(
+        $this->setValidators(array(
       'code'              => new sfValidatorPass(array('required' => false)),
       'categorie_code'    => new sfValidatorPropelChoice(array('required' => false, 'model' => 'ConfigCategorie', 'column' => 'code')),
       'libelle'           => new sfValidatorPass(array('required' => false)),
@@ -32,48 +32,48 @@ class BaseConfigVariableFormFilter extends BaseFormFilterPropel
       'type'              => new sfValidatorPass(array('required' => false)),
       'default_value'     => new sfValidatorPass(array('required' => false)),
       'config_value_list' => new sfValidatorPropelChoice(array('model' => 'Association', 'required' => false)),
-    ));
+        ));
 
-    $this->widgetSchema->setNameFormat('config_variable_filters[%s]');
+        $this->widgetSchema->setNameFormat('config_variable_filters[%s]');
 
-    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-    parent::setup();
-  }
-
-  public function addConfigValueListColumnCriteria(Criteria $criteria, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
+        parent::setup();
     }
 
-    if (!count($values))
+    public function addConfigValueListColumnCriteria(Criteria $criteria, $field, $values)
     {
-      return;
+        if (!is_array($values))
+        {
+            $values = array($values);
+        }
+
+        if (!count($values))
+        {
+            return;
+        }
+
+        $criteria->addJoin(ConfigValuePeer::CONFIG_VARIABLE_ID, ConfigVariablePeer::ID);
+
+        $value = array_pop($values);
+        $criterion = $criteria->getNewCriterion(ConfigValuePeer::ASSOCIATION_ID, $value);
+
+        foreach ($values as $value)
+        {
+            $criterion->addOr($criteria->getNewCriterion(ConfigValuePeer::ASSOCIATION_ID, $value));
+        }
+
+        $criteria->add($criterion);
     }
 
-    $criteria->addJoin(ConfigValuePeer::CONFIG_VARIABLE_ID, ConfigVariablePeer::ID);
-
-    $value = array_pop($values);
-    $criterion = $criteria->getNewCriterion(ConfigValuePeer::ASSOCIATION_ID, $value);
-
-    foreach ($values as $value)
+    public function getModelName()
     {
-      $criterion->addOr($criteria->getNewCriterion(ConfigValuePeer::ASSOCIATION_ID, $value));
+        return 'ConfigVariable';
     }
 
-    $criteria->add($criterion);
-  }
-
-  public function getModelName()
-  {
-    return 'ConfigVariable';
-  }
-
-  public function getFields()
-  {
-    return array(
+    public function getFields()
+    {
+        return array(
       'id'                => 'Number',
       'code'              => 'Text',
       'categorie_code'    => 'ForeignKey',
@@ -82,6 +82,6 @@ class BaseConfigVariableFormFilter extends BaseFormFilterPropel
       'type'              => 'Text',
       'default_value'     => 'Text',
       'config_value_list' => 'ManyKey',
-    );
-  }
+        );
+    }
 }

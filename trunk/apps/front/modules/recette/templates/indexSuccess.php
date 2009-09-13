@@ -19,31 +19,28 @@
             <td><?php echo $recette->getLibelle() ?></td>
             <td><?php echo format_currency($recette->getMontant()) ?></td>
             <td><?php echo $recette->getCompte() ?></td>
-            <td>
-                <?php
-                if ($recette->getPercue() == 1) {
-                    echo format_date($recette->getDate());
-                }
-                else {
-                    echo 'Non perçue';
-                }
-                ?>
-            </td>
-            <td>
-                <a href="<?php echo url_for('recette/show?id=' . $recette->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[détails]')) ?></a>
-                <a href="<?php echo url_for('recette/edit?id=' . $recette->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')) ?></a>
+            <td><?php
+            if ($recette->getPercue() == 1) {
+                echo format_date($recette->getDate());
+            }
+            else {
+                echo 'Non perçue';
+            }
+            ?></td>
+            <td><a
+                href="<?php echo url_for('recette/show?id=' . $recette->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[détails]')) ?></a>
+            <a
+                href="<?php echo url_for('recette/edit?id=' . $recette->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')) ?></a>
                 <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')),
           	  					 	'recette/delete?id=' . $recette->getId(),
-          	   					 	array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?'));
-              	?>
-            </td>
+                array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?'));
+                ?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
 
-<?php include_partial('global/pager', array('pager' => $recettesPager, 'module' => 'recette', 'action' => 'index', 'params' => array())) ?>
+        <?php include_partial('global/pager', array('pager' => $recettesPager, 'module' => 'recette', 'action' => 'index', 'params' => array())) ?>
 
-<div class="addNew">
-	<?php echo link_to(image_tag('add', 'align="top"'). ' Nouvelle recette', 'recette/new') ?>
+<div class="addNew"><?php echo link_to(image_tag('add', 'align="top"'). ' Nouvelle recette', 'recette/new') ?>
 </div>
