@@ -1,3 +1,12 @@
+r107 - september, 15, 2009
+    * form.css : custom .button class
+    * schema.yml : prefix "piwam_" has been added to all the tables
+    * symfony propel:build-model
+    * /data/updates/1.1beta2-to-1.1/r107.sql : we rename all the tables
+    * /doc/piwam-install.sql : up to date
+    * issue #22 has been fixed
+
+
 r106 - september, 15, 2009
     * /test/unit/DateToolsTest.php : new file implementing tests for DateTools
     * /test/unit/ParamsToolsTest.php : new file implementing tests for

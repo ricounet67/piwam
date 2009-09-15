@@ -18,8 +18,10 @@ En cas de problème n'hésitez pas à <a
     </tr>
     <tr>
         <td>&nbsp;</td>
-        <td><input type="submit" value="S'identifier" class="button"
-            name="S'identifier" /></td>
+        <td>
+            <?php use_helper('Form') ?>
+            <input type="submit" value="S'identifier" class="button" name="S'identifier" />
+        </td>
     </tr>
 </table>
 </form>
