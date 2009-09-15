@@ -1,10 +1,17 @@
+r108 - september, 15, 2009
+    * TROUBLESHOOTING-FR : a few words about /update and about Google API key
+    * README-FR : a part has been added about Google API key
+    * association : loginSuccess.php > warning message has been replaced by a
+      welcome message
+
+
 r107 - september, 15, 2009
     * form.css : custom .button class
     * schema.yml : prefix "piwam_" has been added to all the tables
     * symfony propel:build-model
     * /data/updates/1.1beta2-to-1.1/r107.sql : we rename all the tables
     * /doc/piwam-install.sql : up to date
-    * issue #22 has been fixed
+    * issue #23 has been fixed
 
 
 r106 - september, 15, 2009

@@ -7,7 +7,6 @@
  */
 
 require_once '/Users/adrien/Development/Symfony/1.2/lib/autoload/sfCoreAutoload.class.php';
-//require_once 'C:\Development\Workspace\Symfony-1.2\lib\autoload\sfCoreAutoload.class.php';
 
 sfCoreAutoload::register();
 

@@ -1,6 +1,4 @@
-<p class="notice">Ce programme est en version Beta et peut contenir des bugs.<br />
-En cas de problème n'hésitez pas à <a
-    href="http://code.google.com/p/piwam/issues/entry">rapporter un bug</a>.</p>
+<p class="notice">Bienvenue dans la version 1.1 de Piwam !</p>
 
 <h2>Identification</h2>
 <form action="<?php echo url_for('association/login') ?>" method="POST">

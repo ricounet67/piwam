@@ -37,8 +37,13 @@
             
                 > mkdir log cache && chmod 777 log cache
                 
-            - si vous ne pouvez pas lancer de lignes de commande,  vous pouvez
+            - si vous ne pouvez pas lancer de lignes de commande, vous pouvez
               configure ces deux répertoires via votre client FTP.
+            - si vous venez de mettre à jour, accédez à
+            
+                http://piwam.domaine.com/update
+                
+              vous pourrez alors lancer les mises à jour nécessaires.
                 
                 
         C- Je  viens  de  mettre à jour  Piwam  et même  la page d'accueil ne
@@ -50,11 +55,19 @@
         D- J'ai installé Piwam par SVN, et j'ai un message d'erreur de fichier
            introuvable
            
-            - vérifiez qu'une version de symfony 1.2 est présente sur votre
-              machine. Si ce n'est pas le cas, vous pouvez récupérer symfony
-              sur http://www.symfony-project.com. Ensuite, éditez le fichier
-              config/ProjectConfiguration.class.php et modifiez la première
+            - vérifiez  qu'une version de symfony 1.2 est  présente sur votre
+              machine. Si ce n'est pas le cas, vous pouvez  récupérer symfony
+              sur http://www.symfony-project.com.  Ensuite, éditez le fichier
+              config/ProjectConfiguration.class.php  et modifiez  la première
               ligne d'inclusion du fichier 'sfCoreAutoload'.
+        
+        
+        E- La carte de géo-localisation des membres ne s'affiche pas
+        
+            - ouvrez le fichier /apps/front/config/settings.yml  et remplacez
+              la clé existante par la votre. (Voir la documentation pour plus
+              d'informations)
+        
         
         
     -------------------------------------------------------------------------
