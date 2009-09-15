@@ -22,48 +22,48 @@ propel:
   # ACL Management
   #
 
-  acl_module:           
+  piwam_acl_module:           
     _attributes:        { phpName : AclModule }
     id:                 ~
     libelle:            { type: varchar(255), required: true }
   
-  acl_action:           
+  piwam_acl_action:           
     _attributes:        { phpName : AclAction }
     id:                 ~
-    acl_module_id:      { type: integer, required: true, foreignTable: acl_module, foreignReference: id, onDelete: cascade }
+    acl_module_id:      { type: integer, required: true, foreignTable: piwam_acl_module, foreignReference: id, onDelete: cascade }
     libelle:            { type: varchar(255), required: true }
     code:               { type: varchar(100), required: true }
   
-  acl_credential:       
+  piwam_acl_credential:       
     _attributes:        { phpName : AclCredential }
     id:                 ~
-    membre_id:          ~
-    acl_action_id:      { type: integer, required: true, foreignTable: acl_action, foreignReference: id, onDelete: cascade }
+    membre_id:          { type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
+    acl_action_id:      { type: integer, required: true, foreignTable: piwam_acl_action, foreignReference: id, onDelete: cascade }
 
 
   #
   # Configuration Management
   #
   
-  config_categorie:
+  piwam_config_categorie:
     _attributes:        { phpName : ConfigCategorie }
     code:               { type: varchar(20), required: true, primaryKey: true }
     libelle:            { type: varchar(255), required: true }
   
-  config_variable:
+  piwam_config_variable:
     _attributes:        { phpName: ConfigVariable }
     id:                 ~
     code:               { type: varchar(20), required: true }
-    categorie_code:     { type: varchar(20), required: true, foreignTable: config_categorie, foreignReference: code, onDelete: cascade }
+    categorie_code:     { type: varchar(20), required: true, foreignTable: piwam_config_categorie, foreignReference: code, onDelete: cascade }
     libelle:            { type: varchar(255), required: true }
     description:        { type: longvarchar, required: false }
     type:               { type: varchar(255), required: true }
     default_value:      { type: varchar(255), required: true }
     
-  config_value:         
+  piwam_config_value:         
     _attributes:        { phpName : ConfigValue }
-    config_variable_id: { type: integer, foreignTable: config_variable, foreignReference: id, primaryKey: true, required: true, onDelete: cascade }
-    association_id:     { type: integer, foreignTable: association, foreignReference: id, primaryKey: true, required: true }
+    config_variable_id: { type: integer, foreignTable: piwam_config_variable, foreignReference: id, primaryKey: true, required: true, onDelete: cascade }
+    association_id:     { type: integer, foreignTable: piwam_association, foreignReference: id, primaryKey: true, required: true }
     custom_value:       { type: varchar(255), required: true }
 
 
@@ -71,96 +71,96 @@ propel:
   # Entities
   #
 
-  activite:
+  piwam_activite:
     _attributes:     	{ phpName: Activite }
     id:              	~
     libelle:         	{ type: varchar(255), required: true }
     actif:           	{ type: boolean, default: true }
-    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
-    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    association_id:	 	{ type: integer, required: true, foreignTable: piwam_association, foreignReference: id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~  
   
   
-  association:
+  piwam_association:
     _attributes:	 	{ phpName: Association }
     id:				 	~
     nom:			 	{ type: varchar(120), required: true }
     description:	 	{ type: varchar(255), required: false }
     site_web:		 	{ type: varchar(255), required: false }
-    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     created_at:		 	~
     updated_at:		 	~
   
   
-  compte:
+  piwam_compte:
     _attributes:     	{ phpName: Compte }
     id:              	~
     libelle:         	{ type: varchar(255), required: true }
-    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    association_id:	 	{ type: integer, required: true, foreignTable: piwam_association, foreignReference: id, onDelete: cascade }
     reference:       	{ type: varchar(64), required: true }
     actif:           	{ type: boolean, default: true }
-    enregistre_par:	    { type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:     { type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:	    { type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:     { type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
     
     
-  cotisation:
+  piwam_cotisation:
     _attributes:     	{ phpName: Cotisation }
     id:              	~
-    compte_id:       	{ type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: cascade }
-    cotisation_type_id: { type: integer, required: true, foreignTable: cotisation_type, foreignReference: id, onDelete: cascade }
-    membre_id:       	{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    compte_id:       	{ type: integer, required: true, foreignTable: piwam_compte, foreignReference: id, onDelete: cascade }
+    cotisation_type_id: { type: integer, required: true, foreignTable: piwam_cotisation_type, foreignReference: id, onDelete: cascade }
+    membre_id:       	{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     date:            	{ type: date, required: true }
-    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     montant:            { type: decimal, size: 10, scale: 2, required: true }
-    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
     
     
-  cotisation_type:
+  piwam_cotisation_type:
     _attributes:     	{ phpName: CotisationType }
     id:              	~
     libelle:         	{ type: varchar(255), required: true }
-    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
-    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    association_id:	 	{ type: integer, required: true, foreignTable: piwam_association, foreignReference: id, onDelete: cascade }
+    association_id:	 	{ type: integer, required: true, foreignTable: piwam_association, foreignReference: id, onDelete: cascade }
     valide:          	{ type: integer, required: true }
     montant:         	{ type: decimal, size: 10, scale: 2, required: true }
     actif:           	{ type: boolean, default: true }
-    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
     
     
-  depense:
+  piwam_depense:
     _attributes:     	{ phpName: Depense }
     id:              	~
     libelle:         	{ type: varchar(255), required: true }
     montant:         	{ type: decimal, size: 10, scale: 2, required: true }
-    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
-    compte_id:       	{ type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: cascade }
-    activite_id:     	{ type: integer, required: true, foreignTable: activite, foreignReference: id, onDelete: cascade }
+    association_id:	 	{ type: integer, required: true, foreignTable: piwam_association, foreignReference: id, onDelete: cascade }
+    compte_id:       	{ type: integer, required: true, foreignTable: piwam_compte, foreignReference: id, onDelete: cascade }
+    activite_id:     	{ type: integer, required: true, foreignTable: piwam_activite, foreignReference: id, onDelete: cascade }
     date:            	{ type: date, required: true }
     payee:              { type: boolean, default: true }
-    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
   
   
-  membre:
+  piwam_membre:
     _attributes:     	{ phpName: Membre }
     id:              	~
     nom:             	{ type: varchar(255), required: true }
     prenom:          	{ type: varchar(255), required: true }
     pseudo:          	{ type: varchar(255), required: false, index: unique }
     password:        	{ type: varchar(255), required: false }
-    statut_id:          { type: integer, required: true, foreignTable: statut, foreignReference: id, onDelete: cascade }
+    statut_id:          { type: integer, required: true, foreignTable: piwam_statut, foreignReference: id, onDelete: cascade }
     date_inscription: 	{ type: date, required: true }
     exempte_cotisation: { type: boolean, required: true }
     rue:             	{ type: varchar(255) }
@@ -172,36 +172,36 @@ propel:
     tel_fixe:        	{ type: varchar(16) }
     tel_portable:    	{ type: varchar(16) }
     actif:           	{ type: boolean, default: true }
-    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
-    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    association_id:	 	{ type: integer, required: true, foreignTable: piwam_association, foreignReference: id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
     
     
-  recette:
+  piwam_recette:
     _attributes:     	{ phpName: Recette }
     id:              	~
     libelle:         	{ type: varchar(255), required: true }
-    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    association_id:	 	{ type: integer, required: true, foreignTable: piwam_association, foreignReference: id, onDelete: cascade }
     montant:         	{ type: decimal, size: 10, scale: 2, required: true }
-    compte_id:       	{ type: integer, required: true, foreignTable: compte, foreignReference: id, onDelete: cascade }
-    activite_id:     	{ type: integer, required: true, foreignTable: activite, foreignReference: id, onDelete: cascade }
+    compte_id:       	{ type: integer, required: true, foreignTable: piwam_compte, foreignReference: id, onDelete: cascade }
+    activite_id:     	{ type: integer, required: true, foreignTable: piwam_activite, foreignReference: id, onDelete: cascade }
     date:            	{ type: date, required: true }
     percue:             { type: boolean, default: true }
-    enregistre_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: true, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
     
     
-  statut:
+  piwam_statut:
     _attributes:     	{ phpName: Statut }
     id:              	~
     nom:             	{ type: varchar(255), required: true }
-    association_id:	 	{ type: integer, required: true, foreignTable: association, foreignReference: id, onDelete: cascade }
+    association_id:	 	{ type: integer, required: true, foreignTable: piwam_association, foreignReference: id, onDelete: cascade }
     actif:           	{ type: boolean, default: true }
-    enregistre_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
-    mis_a_jour_par:		{ type: integer, required: false, foreignTable: membre, foreignReference:id, onDelete: cascade }
+    enregistre_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
