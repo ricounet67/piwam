@@ -1,4 +1,12 @@
-r105
+r106 - september, 15, 2009
+    * /test/unit/DateToolsTest.php : new file implementing tests for DateTools
+    * /test/unit/ParamsToolsTest.php : new file implementing tests for
+      ParamsTools class
+    * /test/unit/StringToolsTest.php : new file implementing tests for
+      StringTools class
+    
+
+r105 - september, 13, 2009
     * /test/bootstrap/unit.php : creation of a sfContext
     * /test/unit/ConfiguratorTest.php : new file implementing tests for
       Configurator class
