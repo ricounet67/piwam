@@ -80,7 +80,7 @@
 			VirtualHost.
 		
 		
-        C- Create cache and log directories
+        C- Créez les répertoires cache et log
             
             Dans le répertoire principal de Piwam (disons /var/ww/piwam), créez
             les répertoires 'log' et 'cache',  tous deux inscriptibles.  Ce qui
@@ -119,6 +119,14 @@
 			   vérification  des  paramètres  est  effectuée  et  un  message 
 			   d'erreur apparaîtra si ceux-ci sont incorrects.
 		
+		
+		F- Configurer Google Map
+		
+		    Pour accéder à la fonctionnalité  "localisation des membres", vous
+		    devez  utiliser une  clé Google API qui vous sera propre.  Il faut
+		    pour   cela   modifiez  la   clé   existante.  Ouvrez  le  fichier 
+		    /apps/front/config/settings.yml  et remplacez la clé existante par
+		    la votre.
 		
 	
 	3) En cas de problème...
