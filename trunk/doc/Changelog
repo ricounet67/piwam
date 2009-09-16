@@ -1,3 +1,13 @@
+r112 - september, 16, 2009
+    * update : actions > executePerform > if it works we clear the cache
+    * /web/cache_error.php : new file, user friendly error message when cache
+      folder is not writable
+    * /web/index.php : cache_error.php is displayed if we catch a
+      sfCacheException
+    * /apps/front/config/error/error_html.php : user friendly error message is
+      displayed if an exception occurs
+
+
 r111 - september, 16, 2009
     * Piwam 1.1 RC2
 

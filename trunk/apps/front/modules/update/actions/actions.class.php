@@ -33,18 +33,19 @@ class updateActions extends sfActions
     public function executePerform(sfWebRequest $request)
     {
         $this->currentDBVersion = PiwamDataPeer::get('dbversion');
-        $perform                = $this->_checkSQLFilesSince($this->currentDBVersion, true);
+        $performResult          = $this->_checkSQLFilesSince($this->currentDBVersion, true);
 
-        if ($perform === self::PERFORM_ERROR) {
+        if ($performResult === self::PERFORM_ERROR) {
             return sfView::ERROR;
+        }
+        else {
+            $this->getContext()->getConfigCache()->clear();
         }
     }
 
     /*
      * Look for SQL files to execute since version $version
      * All SQL files have to be in /data/updates/* folder
-     *
-     * @todo    Fix bug 'access violation'
      */
     private function _checkSQLFilesSince($version, $execute = false)
     {
