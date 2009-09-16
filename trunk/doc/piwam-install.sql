@@ -630,7 +630,7 @@ CREATE TABLE `piwam_data`
 )Type=InnoDB;
 
 INSERT INTO `piwam_data` (`id`, `key`, `value`) VALUES
-(1, 'dbversion', '99');
+(1, 'dbversion', '107');
 
 --
 -- Mise a jour avec la r100

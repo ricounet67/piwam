@@ -1,3 +1,15 @@
+r111 - september, 16, 2009
+    * Piwam 1.1 RC2
+
+
+r110 - september, 16, 2009
+    * /doc/piwam-install.sql : piwam_data > dbversion has been updated
+
+
+r109 - september, 15, 2009
+    * Piwam 1.1 RC1
+
+
 r108 - september, 15, 2009
     * TROUBLESHOOTING-FR : a few words about /update and about Google API key
     * README-FR : a part has been added about Google API key
