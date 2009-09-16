@@ -1,0 +1,20 @@
+
+    * Association : block index action
+	* Display a legend when displaying icons (edit, delete...)
+	* Issue when deleting compte :
+		-> recette / depense still exist
+		- ... but don't appear in bilan !
+	* Update mis_a_jour_par after deleting objects
+	* Bilan > take care of fees
+	* Create cookie when log in
+	* History table to keep history of each update
+	* Activite : add description field
+	* Association > config > allow user to set a port and encryption settings
+	* Membre/Ajaxlist : select only membre for current association
+	* Membre : registration > set 'email' as mandatory for the first user
+	* Provide bilan by year
+	* PDF output for bilan
+	* Export should be put in each module
+	* Association > mailing > find a way to store error messages
+	* Create a credential for "ACL management" (membre/acl action)
+	* Add a compte > delete it > try to recreate one > error "existing record"
