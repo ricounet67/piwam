@@ -20,13 +20,13 @@ CREATE TABLE `piwam_data`
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- acl_module
+#-- piwam_acl_module
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `acl_module`;
+DROP TABLE IF EXISTS `piwam_acl_module`;
 
 
-CREATE TABLE `acl_module`
+CREATE TABLE `piwam_acl_module`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
@@ -34,58 +34,59 @@ CREATE TABLE `acl_module`
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- acl_action
+#-- piwam_acl_action
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `acl_action`;
+DROP TABLE IF EXISTS `piwam_acl_action`;
 
 
-CREATE TABLE `acl_action`
+CREATE TABLE `piwam_acl_action`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`acl_module_id` INTEGER  NOT NULL,
 	`libelle` VARCHAR(255)  NOT NULL,
 	`code` VARCHAR(100)  NOT NULL,
 	PRIMARY KEY (`id`),
-	INDEX `acl_action_FI_1` (`acl_module_id`),
-	CONSTRAINT `acl_action_FK_1`
+	INDEX `piwam_acl_action_FI_1` (`acl_module_id`),
+	CONSTRAINT `piwam_acl_action_FK_1`
 		FOREIGN KEY (`acl_module_id`)
-		REFERENCES `acl_module` (`id`)
+		REFERENCES `piwam_acl_module` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- acl_credential
+#-- piwam_acl_credential
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `acl_credential`;
+DROP TABLE IF EXISTS `piwam_acl_credential`;
 
 
-CREATE TABLE `acl_credential`
+CREATE TABLE `piwam_acl_credential`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`membre_id` INTEGER,
+	`membre_id` INTEGER  NOT NULL,
 	`acl_action_id` INTEGER  NOT NULL,
 	PRIMARY KEY (`id`),
-	INDEX `acl_credential_FI_1` (`membre_id`),
-	CONSTRAINT `acl_credential_FK_1`
+	INDEX `piwam_acl_credential_FI_1` (`membre_id`),
+	CONSTRAINT `piwam_acl_credential_FK_1`
 		FOREIGN KEY (`membre_id`)
-		REFERENCES `membre` (`id`),
-	INDEX `acl_credential_FI_2` (`acl_action_id`),
-	CONSTRAINT `acl_credential_FK_2`
+		REFERENCES `piwam_membre` (`id`)
+		ON DELETE CASCADE,
+	INDEX `piwam_acl_credential_FI_2` (`acl_action_id`),
+	CONSTRAINT `piwam_acl_credential_FK_2`
 		FOREIGN KEY (`acl_action_id`)
-		REFERENCES `acl_action` (`id`)
+		REFERENCES `piwam_acl_action` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- config_categorie
+#-- piwam_config_categorie
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `config_categorie`;
+DROP TABLE IF EXISTS `piwam_config_categorie`;
 
 
-CREATE TABLE `config_categorie`
+CREATE TABLE `piwam_config_categorie`
 (
 	`code` VARCHAR(20)  NOT NULL,
 	`libelle` VARCHAR(255)  NOT NULL,
@@ -93,13 +94,13 @@ CREATE TABLE `config_categorie`
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- config_variable
+#-- piwam_config_variable
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `config_variable`;
+DROP TABLE IF EXISTS `piwam_config_variable`;
 
 
-CREATE TABLE `config_variable`
+CREATE TABLE `piwam_config_variable`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`code` VARCHAR(20)  NOT NULL,
@@ -109,44 +110,44 @@ CREATE TABLE `config_variable`
 	`type` VARCHAR(255)  NOT NULL,
 	`default_value` VARCHAR(255)  NOT NULL,
 	PRIMARY KEY (`id`),
-	INDEX `config_variable_FI_1` (`categorie_code`),
-	CONSTRAINT `config_variable_FK_1`
+	INDEX `piwam_config_variable_FI_1` (`categorie_code`),
+	CONSTRAINT `piwam_config_variable_FK_1`
 		FOREIGN KEY (`categorie_code`)
-		REFERENCES `config_categorie` (`code`)
+		REFERENCES `piwam_config_categorie` (`code`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- config_value
+#-- piwam_config_value
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `config_value`;
+DROP TABLE IF EXISTS `piwam_config_value`;
 
 
-CREATE TABLE `config_value`
+CREATE TABLE `piwam_config_value`
 (
 	`config_variable_id` INTEGER  NOT NULL,
 	`association_id` INTEGER  NOT NULL,
 	`custom_value` VARCHAR(255)  NOT NULL,
 	PRIMARY KEY (`config_variable_id`,`association_id`),
-	CONSTRAINT `config_value_FK_1`
+	CONSTRAINT `piwam_config_value_FK_1`
 		FOREIGN KEY (`config_variable_id`)
-		REFERENCES `config_variable` (`id`)
+		REFERENCES `piwam_config_variable` (`id`)
 		ON DELETE CASCADE,
-	INDEX `config_value_FI_2` (`association_id`),
-	CONSTRAINT `config_value_FK_2`
+	INDEX `piwam_config_value_FI_2` (`association_id`),
+	CONSTRAINT `piwam_config_value_FK_2`
 		FOREIGN KEY (`association_id`)
-		REFERENCES `association` (`id`)
+		REFERENCES `piwam_association` (`id`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- activite
+#-- piwam_activite
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `activite`;
+DROP TABLE IF EXISTS `piwam_activite`;
 
 
-CREATE TABLE `activite`
+CREATE TABLE `piwam_activite`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
@@ -157,31 +158,31 @@ CREATE TABLE `activite`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `activite_FI_1` (`association_id`),
-	CONSTRAINT `activite_FK_1`
+	INDEX `piwam_activite_FI_1` (`association_id`),
+	CONSTRAINT `piwam_activite_FK_1`
 		FOREIGN KEY (`association_id`)
-		REFERENCES `association` (`id`)
+		REFERENCES `piwam_association` (`id`)
 		ON DELETE CASCADE,
-	INDEX `activite_FI_2` (`enregistre_par`),
-	CONSTRAINT `activite_FK_2`
+	INDEX `piwam_activite_FI_2` (`enregistre_par`),
+	CONSTRAINT `piwam_activite_FK_2`
 		FOREIGN KEY (`enregistre_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE,
-	INDEX `activite_FI_3` (`mis_a_jour_par`),
-	CONSTRAINT `activite_FK_3`
+	INDEX `piwam_activite_FI_3` (`mis_a_jour_par`),
+	CONSTRAINT `piwam_activite_FK_3`
 		FOREIGN KEY (`mis_a_jour_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- association
+#-- piwam_association
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `association`;
+DROP TABLE IF EXISTS `piwam_association`;
 
 
-CREATE TABLE `association`
+CREATE TABLE `piwam_association`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`nom` VARCHAR(120)  NOT NULL,
@@ -192,26 +193,26 @@ CREATE TABLE `association`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `association_FI_1` (`enregistre_par`),
-	CONSTRAINT `association_FK_1`
+	INDEX `piwam_association_FI_1` (`enregistre_par`),
+	CONSTRAINT `piwam_association_FK_1`
 		FOREIGN KEY (`enregistre_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE,
-	INDEX `association_FI_2` (`mis_a_jour_par`),
-	CONSTRAINT `association_FK_2`
+	INDEX `piwam_association_FI_2` (`mis_a_jour_par`),
+	CONSTRAINT `piwam_association_FK_2`
 		FOREIGN KEY (`mis_a_jour_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- compte
+#-- piwam_compte
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `compte`;
+DROP TABLE IF EXISTS `piwam_compte`;
 
 
-CREATE TABLE `compte`
+CREATE TABLE `piwam_compte`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
@@ -223,31 +224,31 @@ CREATE TABLE `compte`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `compte_FI_1` (`association_id`),
-	CONSTRAINT `compte_FK_1`
+	INDEX `piwam_compte_FI_1` (`association_id`),
+	CONSTRAINT `piwam_compte_FK_1`
 		FOREIGN KEY (`association_id`)
-		REFERENCES `association` (`id`)
+		REFERENCES `piwam_association` (`id`)
 		ON DELETE CASCADE,
-	INDEX `compte_FI_2` (`enregistre_par`),
-	CONSTRAINT `compte_FK_2`
+	INDEX `piwam_compte_FI_2` (`enregistre_par`),
+	CONSTRAINT `piwam_compte_FK_2`
 		FOREIGN KEY (`enregistre_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE,
-	INDEX `compte_FI_3` (`mis_a_jour_par`),
-	CONSTRAINT `compte_FK_3`
+	INDEX `piwam_compte_FI_3` (`mis_a_jour_par`),
+	CONSTRAINT `piwam_compte_FK_3`
 		FOREIGN KEY (`mis_a_jour_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- cotisation
+#-- piwam_cotisation
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `cotisation`;
+DROP TABLE IF EXISTS `piwam_cotisation`;
 
 
-CREATE TABLE `cotisation`
+CREATE TABLE `piwam_cotisation`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`compte_id` INTEGER  NOT NULL,
@@ -260,41 +261,41 @@ CREATE TABLE `cotisation`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `cotisation_FI_1` (`compte_id`),
-	CONSTRAINT `cotisation_FK_1`
+	INDEX `piwam_cotisation_FI_1` (`compte_id`),
+	CONSTRAINT `piwam_cotisation_FK_1`
 		FOREIGN KEY (`compte_id`)
-		REFERENCES `compte` (`id`)
+		REFERENCES `piwam_compte` (`id`)
 		ON DELETE CASCADE,
-	INDEX `cotisation_FI_2` (`cotisation_type_id`),
-	CONSTRAINT `cotisation_FK_2`
+	INDEX `piwam_cotisation_FI_2` (`cotisation_type_id`),
+	CONSTRAINT `piwam_cotisation_FK_2`
 		FOREIGN KEY (`cotisation_type_id`)
-		REFERENCES `cotisation_type` (`id`)
+		REFERENCES `piwam_cotisation_type` (`id`)
 		ON DELETE CASCADE,
-	INDEX `cotisation_FI_3` (`membre_id`),
-	CONSTRAINT `cotisation_FK_3`
+	INDEX `piwam_cotisation_FI_3` (`membre_id`),
+	CONSTRAINT `piwam_cotisation_FK_3`
 		FOREIGN KEY (`membre_id`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE,
-	INDEX `cotisation_FI_4` (`enregistre_par`),
-	CONSTRAINT `cotisation_FK_4`
+	INDEX `piwam_cotisation_FI_4` (`enregistre_par`),
+	CONSTRAINT `piwam_cotisation_FK_4`
 		FOREIGN KEY (`enregistre_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE,
-	INDEX `cotisation_FI_5` (`mis_a_jour_par`),
-	CONSTRAINT `cotisation_FK_5`
+	INDEX `piwam_cotisation_FI_5` (`mis_a_jour_par`),
+	CONSTRAINT `piwam_cotisation_FK_5`
 		FOREIGN KEY (`mis_a_jour_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- cotisation_type
+#-- piwam_cotisation_type
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `cotisation_type`;
+DROP TABLE IF EXISTS `piwam_cotisation_type`;
 
 
-CREATE TABLE `cotisation_type`
+CREATE TABLE `piwam_cotisation_type`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
@@ -307,31 +308,31 @@ CREATE TABLE `cotisation_type`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `cotisation_type_FI_1` (`association_id`),
-	CONSTRAINT `cotisation_type_FK_1`
+	INDEX `piwam_cotisation_type_FI_1` (`association_id`),
+	CONSTRAINT `piwam_cotisation_type_FK_1`
 		FOREIGN KEY (`association_id`)
-		REFERENCES `association` (`id`)
+		REFERENCES `piwam_association` (`id`)
 		ON DELETE CASCADE,
-	INDEX `cotisation_type_FI_2` (`enregistre_par`),
-	CONSTRAINT `cotisation_type_FK_2`
+	INDEX `piwam_cotisation_type_FI_2` (`enregistre_par`),
+	CONSTRAINT `piwam_cotisation_type_FK_2`
 		FOREIGN KEY (`enregistre_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE,
-	INDEX `cotisation_type_FI_3` (`mis_a_jour_par`),
-	CONSTRAINT `cotisation_type_FK_3`
+	INDEX `piwam_cotisation_type_FI_3` (`mis_a_jour_par`),
+	CONSTRAINT `piwam_cotisation_type_FK_3`
 		FOREIGN KEY (`mis_a_jour_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- depense
+#-- piwam_depense
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `depense`;
+DROP TABLE IF EXISTS `piwam_depense`;
 
 
-CREATE TABLE `depense`
+CREATE TABLE `piwam_depense`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
@@ -346,41 +347,41 @@ CREATE TABLE `depense`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `depense_FI_1` (`association_id`),
-	CONSTRAINT `depense_FK_1`
+	INDEX `piwam_depense_FI_1` (`association_id`),
+	CONSTRAINT `piwam_depense_FK_1`
 		FOREIGN KEY (`association_id`)
-		REFERENCES `association` (`id`)
+		REFERENCES `piwam_association` (`id`)
 		ON DELETE CASCADE,
-	INDEX `depense_FI_2` (`compte_id`),
-	CONSTRAINT `depense_FK_2`
+	INDEX `piwam_depense_FI_2` (`compte_id`),
+	CONSTRAINT `piwam_depense_FK_2`
 		FOREIGN KEY (`compte_id`)
-		REFERENCES `compte` (`id`)
+		REFERENCES `piwam_compte` (`id`)
 		ON DELETE CASCADE,
-	INDEX `depense_FI_3` (`activite_id`),
-	CONSTRAINT `depense_FK_3`
+	INDEX `piwam_depense_FI_3` (`activite_id`),
+	CONSTRAINT `piwam_depense_FK_3`
 		FOREIGN KEY (`activite_id`)
-		REFERENCES `activite` (`id`)
+		REFERENCES `piwam_activite` (`id`)
 		ON DELETE CASCADE,
-	INDEX `depense_FI_4` (`enregistre_par`),
-	CONSTRAINT `depense_FK_4`
+	INDEX `piwam_depense_FI_4` (`enregistre_par`),
+	CONSTRAINT `piwam_depense_FK_4`
 		FOREIGN KEY (`enregistre_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE,
-	INDEX `depense_FI_5` (`mis_a_jour_par`),
-	CONSTRAINT `depense_FK_5`
+	INDEX `piwam_depense_FI_5` (`mis_a_jour_par`),
+	CONSTRAINT `piwam_depense_FK_5`
 		FOREIGN KEY (`mis_a_jour_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- membre
+#-- piwam_membre
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `membre`;
+DROP TABLE IF EXISTS `piwam_membre`;
 
 
-CREATE TABLE `membre`
+CREATE TABLE `piwam_membre`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`nom` VARCHAR(255)  NOT NULL,
@@ -405,37 +406,37 @@ CREATE TABLE `membre`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	UNIQUE KEY `membre_U_1` (`pseudo`),
-	INDEX `membre_FI_1` (`statut_id`),
-	CONSTRAINT `membre_FK_1`
+	UNIQUE KEY `piwam_membre_U_1` (`pseudo`),
+	INDEX `piwam_membre_FI_1` (`statut_id`),
+	CONSTRAINT `piwam_membre_FK_1`
 		FOREIGN KEY (`statut_id`)
-		REFERENCES `statut` (`id`)
+		REFERENCES `piwam_statut` (`id`)
 		ON DELETE CASCADE,
-	INDEX `membre_FI_2` (`association_id`),
-	CONSTRAINT `membre_FK_2`
+	INDEX `piwam_membre_FI_2` (`association_id`),
+	CONSTRAINT `piwam_membre_FK_2`
 		FOREIGN KEY (`association_id`)
-		REFERENCES `association` (`id`)
+		REFERENCES `piwam_association` (`id`)
 		ON DELETE CASCADE,
-	INDEX `membre_FI_3` (`enregistre_par`),
-	CONSTRAINT `membre_FK_3`
+	INDEX `piwam_membre_FI_3` (`enregistre_par`),
+	CONSTRAINT `piwam_membre_FK_3`
 		FOREIGN KEY (`enregistre_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE,
-	INDEX `membre_FI_4` (`mis_a_jour_par`),
-	CONSTRAINT `membre_FK_4`
+	INDEX `piwam_membre_FI_4` (`mis_a_jour_par`),
+	CONSTRAINT `piwam_membre_FK_4`
 		FOREIGN KEY (`mis_a_jour_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- recette
+#-- piwam_recette
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `recette`;
+DROP TABLE IF EXISTS `piwam_recette`;
 
 
-CREATE TABLE `recette`
+CREATE TABLE `piwam_recette`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`libelle` VARCHAR(255)  NOT NULL,
@@ -450,41 +451,41 @@ CREATE TABLE `recette`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `recette_FI_1` (`association_id`),
-	CONSTRAINT `recette_FK_1`
+	INDEX `piwam_recette_FI_1` (`association_id`),
+	CONSTRAINT `piwam_recette_FK_1`
 		FOREIGN KEY (`association_id`)
-		REFERENCES `association` (`id`)
+		REFERENCES `piwam_association` (`id`)
 		ON DELETE CASCADE,
-	INDEX `recette_FI_2` (`compte_id`),
-	CONSTRAINT `recette_FK_2`
+	INDEX `piwam_recette_FI_2` (`compte_id`),
+	CONSTRAINT `piwam_recette_FK_2`
 		FOREIGN KEY (`compte_id`)
-		REFERENCES `compte` (`id`)
+		REFERENCES `piwam_compte` (`id`)
 		ON DELETE CASCADE,
-	INDEX `recette_FI_3` (`activite_id`),
-	CONSTRAINT `recette_FK_3`
+	INDEX `piwam_recette_FI_3` (`activite_id`),
+	CONSTRAINT `piwam_recette_FK_3`
 		FOREIGN KEY (`activite_id`)
-		REFERENCES `activite` (`id`)
+		REFERENCES `piwam_activite` (`id`)
 		ON DELETE CASCADE,
-	INDEX `recette_FI_4` (`enregistre_par`),
-	CONSTRAINT `recette_FK_4`
+	INDEX `piwam_recette_FI_4` (`enregistre_par`),
+	CONSTRAINT `piwam_recette_FK_4`
 		FOREIGN KEY (`enregistre_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE,
-	INDEX `recette_FI_5` (`mis_a_jour_par`),
-	CONSTRAINT `recette_FK_5`
+	INDEX `piwam_recette_FI_5` (`mis_a_jour_par`),
+	CONSTRAINT `piwam_recette_FK_5`
 		FOREIGN KEY (`mis_a_jour_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- statut
+#-- piwam_statut
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `statut`;
+DROP TABLE IF EXISTS `piwam_statut`;
 
 
-CREATE TABLE `statut`
+CREATE TABLE `piwam_statut`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`nom` VARCHAR(255)  NOT NULL,
@@ -495,20 +496,20 @@ CREATE TABLE `statut`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `statut_FI_1` (`association_id`),
-	CONSTRAINT `statut_FK_1`
+	INDEX `piwam_statut_FI_1` (`association_id`),
+	CONSTRAINT `piwam_statut_FK_1`
 		FOREIGN KEY (`association_id`)
-		REFERENCES `association` (`id`)
+		REFERENCES `piwam_association` (`id`)
 		ON DELETE CASCADE,
-	INDEX `statut_FI_2` (`enregistre_par`),
-	CONSTRAINT `statut_FK_2`
+	INDEX `piwam_statut_FI_2` (`enregistre_par`),
+	CONSTRAINT `piwam_statut_FK_2`
 		FOREIGN KEY (`enregistre_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE,
-	INDEX `statut_FI_3` (`mis_a_jour_par`),
-	CONSTRAINT `statut_FK_3`
+	INDEX `piwam_statut_FI_3` (`mis_a_jour_par`),
+	CONSTRAINT `piwam_statut_FK_3`
 		FOREIGN KEY (`mis_a_jour_par`)
-		REFERENCES `membre` (`id`)
+		REFERENCES `piwam_membre` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
