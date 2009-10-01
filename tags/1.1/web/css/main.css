@@ -1,0 +1,283 @@
+/*
+** Styles classiques sur les liens et images
+*/
+a img,:link img,:visited img {
+    border: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:Visited {
+    
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#content li {
+    list-style: none;
+}
+
+/*****************************************************************************
+**
+** TITRES
+**
+*****************************************************************************/
+    /* titre general present et commun sur chaque page */
+h1 {
+    background-color: #1472B4;
+    color: white;
+    padding: 10px;
+}
+
+/* titre de chaque section */
+h2 {
+    color: #329126;
+}
+
+/* titre parsemant une pagne */
+h3 {
+    color: black;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* titre de rubrique */
+h4 {
+    
+}
+
+/*****************************************************************************
+**
+** BLOCS DE LA PAGE
+** ----------------
+** Représente l'agencement visuel des différents blocs de l'interface
+**
+*****************************************************************************/
+    /* le corps */
+body {
+    margin: 0;
+    padding: 10px;
+    font-family: Helvertica, Verdana, Arial, sans-serif;
+    font-size: 12px;
+    background-color: #fff;
+}
+
+/* le blog global qui contient tous les autres */
+#container {
+    margin: auto;
+    width: 90%;
+}
+
+/* le bloc de menu */
+#menu {
+    position: relative;
+    float: left;
+    width: 200px;
+}
+
+/* le bloc de contenu */
+#content {
+    margin-top: 25px;
+    margin-left: 250px;
+}
+
+/* ----------------------------------- MENU -------------------------------- */
+#menu ul {
+    padding-left: 10px;
+}
+
+#menu li {
+    display: block;
+    padding: 2px;
+}
+
+#menu a {
+    text-decoration: none;
+    color: #999;
+}
+
+#menu a:Hover {
+    color: #000;
+}
+
+.mainSection {
+    background-color: #41B200;
+    color: white;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 10px;
+    border-bottom: 1px solid #555;
+}
+
+/* utilisé pour les formulaires imbriqués */
+.subform {
+    
+}
+
+.subform table th {
+    text-align: left;
+    font-weight: normal;
+    background-color: #eeeeff;
+    padding: 10px;
+    color: #666;
+}
+
+/*****************************************************************************
+**
+** DIFFERENTS ELEMENTS
+**
+*****************************************************************************/
+    /* represente les tableaux de listing : membres, comptes, etc... */
+.tableauDonnees {
+    width: 90%;
+    border: 1px solid black;
+}
+
+.tableauDonnees tbody tr:Hover {
+    background-color: #E8FD98;
+}
+
+.tableauDonnees tbody td {
+    font-family: verdana, sans-serif;
+    font-size: 11px;
+    color: #162027;
+    padding-left: 5px;
+}
+
+.enteteTableauDonnees {
+    background: black;
+    color: white;
+}
+
+.enteteTableauDonnees a {
+    color: white;
+    text-decoration: underline;
+}
+
+.enteteTableauDonnees a:Hover {
+    text-decoration: none;
+}
+
+/* cellules de gauche des tableau de details */
+.tableauDetails th {
+    text-align: left;
+    padding: 5px;
+    border-bottom: 1px dotted black;
+    background-color: #efefff;
+}
+
+/* cellules de droite */
+.tableauDetails td {
+    border-bottom: 1px dotted black;
+    padding: 5px 5px 5px 10px;
+}
+
+/* cellules de gauche des tableau d'ajout/edition */
+.tableauAjout th {
+    text-align: left;
+    padding: 3px;
+}
+
+/* cellules de droite */
+.tableauAjout td {
+    padding: 3px;
+}
+
+/* messages d'erreur */
+.error_list {
+    list-style: none;
+    display: inline;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* element des liste de messages d'erreur */
+.error_list li {
+    list-style: none;
+    display: inline;
+    padding: 0px;
+    margin: 0px;
+    color: red;
+}
+
+/* notifications d'erreur */
+.error {
+    background-color: #ffeeee;
+    color: red;
+    padding: 7px;
+    margin: 0px 0px 20px 0px;
+}
+
+/* pour l'affichage des comptes en positif */
+.comptePositif {
+    background-color: #C2FCC3;
+}
+
+/* pour l'affichage des comptes en negatif */
+.compteNegatif {
+    background-color: #EECEBE;
+}
+
+/* affichage pour les membres non a jour de cotisation */
+.cotisationNonAjour {
+    background-color: #E6E0D1;
+}
+
+/* messages de notifications */
+p.notice {
+    background-color: #80FA46;
+    padding: 9px;
+    border: 1px dotted #777;
+    font-weight: bold;
+}
+
+/* cadres donnant plus d informations */
+.info {
+    background-color: #dedede;
+    padding: 20px;
+}
+
+.info ul {
+    list-style: none;
+}
+
+/* for the mailing feature > preview of content */
+.mailPreview {
+    padding: 15px;
+    background-color: #efefff;
+    border: 1px dotted #ccc;
+}
+
+/*****************************************************************************
+**
+** RESULTATS DE TESTS
+**
+*****************************************************************************/
+.test_error,.test_warning,.test_success,.test_help {
+    padding: 10px;
+    width: 80%;
+    margin: 3px;
+    border: 1px dotted #333;
+}
+
+.test_error {
+    background-color: #F1C5C5;
+}
+
+.test_warning {
+    background-color: #FFE28E;
+}
+
+.test_success {
+    background-color: #B0FF98;
+}
+
+.test_help {
+    
+}
