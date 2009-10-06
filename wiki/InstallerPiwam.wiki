@@ -17,17 +17,17 @@ Vous trouverez ici la procédure à suivre pour installer _Piwam_ au sein de vot
         * module `mod_rewrite`
 
 <hr />
-== Installation ==
+== A- Installation ==
 
-=== Depuis la tarball ===
+=== A.1- Depuis la tarball ===
 
     # Décompressez la tarball
     # Lancez Apache/MySQL
     # Accédez à "http://server/piwam/web/install"
-    # Si une erreur s'affiche, vos répertoires `cache` et `log` doivent être inscriptibles, ainsi que le fichier `databases.yml`
-    # Suivez la procédure d'installation
+    # Rendez vos répertoires `cache` et `log` inscriptibles, ainsi que le fichier `/config/databases.yml`. Si le serveur tourne sous Windows, vous pouvez oublier cette étape.
+    # Passez à l'étape B !
 
-=== Depuis le dépôt SVN ===
+=== A.2- Depuis le dépôt SVN ===
 
 *IMPORTANT*: Symfony 1.2 est requis pour faire fonctionner Piwam.
 
@@ -41,7 +41,7 @@ Après avoir récupérer le _trunk_ ou une version tagguée présente sur le dé
 
 
 <hr />
-== Configurer un Virtual Host ==
+== B- Configurer un Virtual Host ==
 				
 Si vous utilisez  Piwam  sur votre serveur web,  il est fortement recommandé  de configurer un accès par VirtualHost.  Par exemple, "http://piwam.mon-domaine.com"  doit faire référence au répertoire `/path/to/piwam/web`.
 			
@@ -64,7 +64,7 @@ Si vous souhaitez juste essayer Piwam,  ou si Piwam est installé sur  votre  or
 
 
 <hr />
-== Accéder à Piwam ==
+== C- Accéder à Piwam ==
 		
 Lancez  votre navigateur Internet - essayez de choisir Firefox ou Google Chrome ;-)   Si un  VirtualHost a été  configuré,  allez à l'adresse configuré (ici: http://piwam.mon-domaine.com). Autrement,  vous  pouvez  accéder  à Piwam  directement  par  une adresse telle que http://your-server.com/piwam/web
 
@@ -72,7 +72,7 @@ Lancez  votre navigateur Internet - essayez de choisir Firefox ou Google Chrome 
 
 
 <hr />
-== Finir l'installation depuis l'interface web ==
+== D- Finir l'installation depuis l'interface web ==
 		
 Maintenant  que vous savez comment accéder à Piwam,  il est temps de  vérifier votre configuration  et  de finir  quelques réglages.	Allez  à  l'adresse http://piwam.mon-domain.com/install et suivez les instructions. Cette partie se déroule en 2 étapes :
 
@@ -89,6 +89,11 @@ Maintenant  que vous savez comment accéder à Piwam,  il est temps de  vérifie
 || http://adrien.frenchcomp.net/images/piwam/screenshots/install_end.png ||
 		
 
+<hr />
+== E- Configurer Google Map ==
+
+Pour accéder à la fonctionnalité  "localisation des membres", vous devez  utiliser une  clé Google API qui vous sera propre.  Il faut pour   cela   modifiez  la   clé   existante.  Ouvrez  le  fichier `/apps/front/config/settings.yml`  et remplacez la clé existante par la votre.
+La modification de ce fichier nécessite une suppression du contenu du répertoire `cache`.
 
 
 <hr />
