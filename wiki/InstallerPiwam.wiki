@@ -21,11 +21,11 @@ Vous trouverez ici la procédure à suivre pour installer _Piwam_ au sein de vot
 
 === Depuis la tarball ===
 
-    # Ouvrez le fichier `/apps/front/config/settings.yml` et remplissez le avec vos propres paramètres. Chaque paramètre est documenté.
-    # Ouvrez le fichier `/config/databases.yml` et indiquez-y vos paramètres de connexion à la base de données.
-    # Exécutez le script `/doc/piwam-install.sql` dans votre base de données.
-    # Créez un repertoire `cache` à la racine de Piwam en s'assurant que celui-ci est accessible en écriture.
-
+    # Décompressez la tarball
+    # Lancez Apache/MySQL
+    # Accédez à "http://server/piwam/web/install"
+    # Si une erreur s'affiche, vos répertoires `cache` et `log` doivent être inscriptibles, ainsi que le fichier `databases.yml`
+    # Suivez la procédure d'installation
 
 === Depuis le dépôt SVN ===
 
