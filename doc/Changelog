@@ -1,3 +1,26 @@
+r116 - october, 7, 2009
+    * README-FR has been updated
+    * TROUBLESHOOTING-FR has been updated
+    * mailing module has been removed because empty
+    * databases.yml : fixed wrong encoding value for 'all'
+    * Association : actions > executeMailing() > missing attributes 
+      $associationId has been added when calling 'Configurator::get()'
+    * /doc/piwam-install.sql : collation and charset for piwam_data has been
+      set explicitely
+
+
+r115 - october, 6, 2009
+    * Edited 'installerPiwam' wiki page through web user interface.
+
+
+r114 - october, 6, 2009
+    * Edited 'installerPiwam' wiki page through web user interface.
+
+
+r113 - october, 1, 2009
+    * Piwam 1.1
+
+
 r112 - september, 16, 2009
     * update : actions > executePerform > if it works we clear the cache
     * /web/cache_error.php : new file, user friendly error message when cache

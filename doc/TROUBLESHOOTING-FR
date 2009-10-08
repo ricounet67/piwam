@@ -69,6 +69,23 @@
               d'informations)
         
         
+        F- Je n'arrive pas à accéder à /web/install (erreur 404)
+        
+            - vérifiez que le mod_rewrite d'Apache est activé
+            - si celui-ci est activé, vérifiez que le fichier ".htaccess" est
+              pris en compte.  Remplacez son contenu par la seule instruction
+              "deny  from  all".  Si  vous  n'obtenez  pas une erreur "Access
+              denied",  c'est que les fichiers  .htaccess ne sont pas pris en
+              compte  (problème du  à  certaines  configurations  par  défaut
+              d'Apache).   Pour  remédier  au  problème,  éditez  le  fichier
+              httpd.conf.   Dans les  zones  <directory...>  correspondantes, 
+              modifiez    les    instructions    "AllowOverride   None"   par
+              "AllowOverride All",  ou rajoutez simplement  cette instruction 
+              si celle-ci n'est pas présente. Relancez Apache et ré-essayez.
+              
+              Discussion en ligne :
+              http://groups.google.fr/group/piwam/browse_thread/thread/bdd6e5a73504f0c2
+        
         
     -------------------------------------------------------------------------
     | (c) 2009                                                              |
