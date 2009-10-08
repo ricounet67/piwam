@@ -627,7 +627,7 @@ CREATE TABLE `piwam_data`
     `key` VARCHAR(255)  NOT NULL,
     `value` VARCHAR(255)  NOT NULL,
     PRIMARY KEY (`id`)
-)Type=InnoDB;
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO `piwam_data` (`id`, `key`, `value`) VALUES
 (1, 'dbversion', '107');

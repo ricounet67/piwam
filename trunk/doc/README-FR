@@ -41,16 +41,36 @@
 	2) Comment Installer Piwam
 	--------------------------
 
-		A- Depuis le dépôt SVN :
+		A.1- Depuis le dépôt SVN :
 		
+		    Si  vous possédez  une tarball  directement installable,  passez à
+		    l'étape A-.2 :-)
+		    
 			0- Vous devez posséder Symfony 1.2
 			1- Ouvrez  le fichier config/ProjectConfiguration.class. Modifiez
 			   l'inclusion  du  fichier  `sfCoreAutoload`  en  spécifiant  le
 			   chemin correct.
-			2- Éditez le fichier apps/front/config/settings.yml et remplissez
-			   les paramètres à configurer avec vos propres réglages 
-			3- Créez un répertoire `cache` inscriptible
+			2- Dans  le  répertoire principal de Piwam (disons /var/ww/piwam),
+			   créez   les    répertoires  'log'   et   'cache',   tous   deux
+			   inscriptibles.  Ce  qui  pourrait  simplement  correspondre aux
+			   lignes de commande suivantes :
+            
+                -------------------------------------------------------------
+                > cd /var/www/piwam
+                > mkdir cache log
+                > chmod 777 cache log
+                -------------------------------------------------------------
+
+               Si vous oubliez cette étape, vous obtiendrez un message d'erreur
+			   
+			   
+        A.2- Depuis une tarball téléchargée :
 		
+		    0- Décompressez la tarball
+            1- Rendez inscriptibles les répertoires  'cache' et 'log',  ainsi
+               que le fichier '/config/databases.yml' (sous un serveur Windows,
+               vous pouvez oublier cette étape !)
+               
 					
 		B- Configurer un Virtual Host
 				
@@ -78,22 +98,7 @@
 			sur  votre  ordinateur personnel  est  n'est pas  accessible  par
 			Internet,  vous   pouvez  sans  soucis   ne  pas   configurer  de 
 			VirtualHost.
-		
-		
-        C- Créez les répertoires cache et log
-            
-            Dans le répertoire principal de Piwam (disons /var/ww/piwam), créez
-            les répertoires 'log' et 'cache',  tous deux inscriptibles.  Ce qui
-            pourrait simplement correspondre aux lignes de commande suivantes :
-            
-            -----------------------------------------------------------------
-            > cd /var/www/piwam
-            > mkdir cache log
-            > chmod 777 cache log
-            -----------------------------------------------------------------
 
-            Si vous oubliez cette étape, vous obtiendrez un message d'erreur
-	
 
 		D- Accéder à Piwam
 		
@@ -127,6 +132,8 @@
 		    pour   cela   modifiez  la   clé   existante.  Ouvrez  le  fichier 
 		    /apps/front/config/settings.yml  et remplacez la clé existante par
 		    la votre.
+		    La modification de ce fichier nécessite une suppression du contenu
+		    du répertoire `cache`.
 		
 	
 	3) En cas de problème...
@@ -146,6 +153,9 @@
 		
 		* Comment déployer une application Symfony :
 		  http://www.symfony-project.org/jobeet/1_2/Propel/en/23
+		  
+		* Version en ligne de cette documentation :
+		  http://code.google.com/p/piwam/wiki/InstallerPiwam
 		
 		
 	-------------------------------------------------------------------------

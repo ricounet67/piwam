@@ -123,6 +123,7 @@ class associationActions extends sfActions
             $this->form->bind($request->getParameter('mailing'));
             if ($this->form->isValid())
             {
+                $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
                 $data 	= $this->form->getValues();
                 $sentOk = 0; 	// these are 2 counters of
                 $sentKo = 0;	// succeed/failed messages
@@ -137,12 +138,12 @@ class associationActions extends sfActions
                      *
                      * By default we use the mail() php function
                      */
-                    switch (Configurator::get('method', 'mail'))
+                    switch (Configurator::get('method', $associationId, 'mail'))
                     {
                         case 'gmail': // yes this is just a special case for smtp ;-)
                             $methodObject = new Swift_Connection_SMTP('smtp.gmail.com', Swift_Connection_SMTP::PORT_SECURE, Swift_Connection_SMTP::ENC_TLS);
-                            $methodObject->setUsername(Configurator::get('gmail_username'));
-                            $methodObject->setPassword(Configurator::get('gmail_password'));
+                            $methodObject->setUsername(Configurator::get('gmail_username', $associationId));
+                            $methodObject->setPassword(Configurator::get('gmail_password', $associationId));
 
                             if (!extension_loaded('smtp')) {
                                 $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails');
@@ -150,11 +151,11 @@ class associationActions extends sfActions
                             break;
 
                         case 'smtp':
-                            $smtpServer = Configurator::get('smtp_server');
+                            $smtpServer = Configurator::get('smtp_server', $associationId);
                             $smtpPort = null;
                             $smtpEncryption = null;
-                            $smtpUsername = Configurator::get('smtp_username');
-                            $smtpPassword = Configurator::get('smtp_password');
+                            $smtpUsername = Configurator::get('smtp_username', $associationId);
+                            $smtpPassword = Configurator::get('smtp_password', $associationId);
                             $methodObject = new Swift_Connection_SMTP($smtpServer, $smtpPort, $smtpEncryption);
                             $methodObject->setUsername($smtpUsername);
                             $methodObject->setPassword($smtpPassword);
@@ -165,7 +166,7 @@ class associationActions extends sfActions
                             break;
 
                         case 'sendmail':
-                            $sendmailPath = Configurator::get('sendmail_path', '/usr/bin/sendmail');
+                            $sendmailPath = Configurator::get('sendmail_path', $associationId, '/usr/bin/sendmail');
                             $methodObject = new Swift_Connection_Sendmail($sendmailPath);
                             break;
 
@@ -180,7 +181,7 @@ class associationActions extends sfActions
 
                     $mailer 	= new Swift($methodObject);
                     $message	= new Swift_Message($data['subject'], $data['mail_content'], 'text/html');
-                    $from		= Configurator::get('address', 'info-association@piwam.org');
+                    $from		= Configurator::get('address', $associationId, 'info-association@piwam.org');
                     $membres	= MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
 
                     foreach ($membres as $membre)
