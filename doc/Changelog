@@ -1,3 +1,8 @@
+r118 - october, 8, 2009
+    * install : actions > we check if Piwam is already installed
+    * install : templates > indexError.php > new file
+
+
 r117 - october, 8, 2009
     * /doc/UPDATE-FR : new file
     * /data/updates/1.1-to-1.1.1 : new folder
