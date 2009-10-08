@@ -1,0 +1,68 @@
+
+    =========================================================================
+    |                                                                       |
+    |            #     # ######  ######     #    ####### #######            |
+    |            #     # #     # #     #   # #      #    #                  |
+    |            #     # #     # #     #  #   #     #    #                  |
+    |            #     # ######  #     # #     #    #    #####              |
+    |            #     # #       #     # #######    #    #                  |
+    |            #     # #       #     # #     #    #    #                  |
+    |             #####  #       ######  #     #    #    #######            |
+    |                                                                       |
+    =========================================================================
+
+
+    1) Configuration Requise
+    -------------------------
+    
+        Vérifiez  dans  le fichie r README-FR que la configuration requise est
+        toujours identique.
+
+
+    2) Précautions
+    --------------
+
+        Aucune donnée  n'est  actualement  stocké  sur le système de fichiers,
+        seulement  des paramètres de configuration.  Il  vous  est  recommandé
+        toutefois  de procéder  à  un  enregistrement  complet  du  répertoire
+        piwam actuel, au cas où un bug  important  encore  non  détecté serait
+        présent dans la nouvelle version, où en cas d'échec de la mise à jour.
+        
+        En revanche,  la sauvegarde complète de votre base de données est hau-
+        tement  conseillée  au cas où  une erreur innatendue survenait pendant
+        la mise à jour par le module d'update de Piwam.
+        
+
+    3) Comment mettre à jour Piwam
+    ------------------------------
+
+        A.1- Depuis le dépôt SVN :
+        
+            0- lancez la commande `svn up`
+            1- Si   un  conflit   est  détecté  sur  /config/databases.yml  ou
+               /config/projectConfiguration.yml,  sauvegardez   votre  fichier
+               actuel, remplacez-le par la nouvelle version, et ré-ajustez les
+               paramètres au sein  de ces fichiers,  qui sont amenés à changer
+               *TRÈS* exceptionnellement.
+            2- Lancez le module de mise à jour.  L'URL  devrait ressembler à : 
+               http://votre-serveur/piwam/web/update
+               
+               
+        A.2- Depuis une tarball téléchargée :
+        
+            0- Sauvegardez votre fichier /config/datanases/yml
+            1- Décompressez la nouvelle tarball
+            2- Remplacez le répertoire de la version actuellement utilisée par
+               celui de la nouvelle version
+            3- Remettez en place votre fichier /config/databases.yml
+            4- Rendez inscriptibles les répertoires  'cache' et 'log',  ainsi
+               que le fichier '/config/databases.yml' (sous un serveur Windows,
+               vous pouvez oublier cette étape !)
+            5- Accédez au module de mise à jour. L'URL devrait ressmbler à :
+               http://votre-serveur/piwam/web/update
+               
+        
+    -------------------------------------------------------------------------
+    | (c) 2009                                                              |
+    -------------------------------------------------------------------------
+    
