@@ -12,7 +12,7 @@ class DbTools
      * This is a very simple SQL file executor
      *
      * @param   string          $file
-     * @throw   PDOException    unknown reason
+     * @throw   PDOException    $propelConnection   unknown reason
      * @todo    Improve
      */
     public static function executeSQLFile($file, $propelConnection = null)

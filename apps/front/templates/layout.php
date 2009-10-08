@@ -52,6 +52,8 @@
     <li><?php echo link_to('Mailing', 'association/mailing') ?></li>
     <li><a href="http://code.google.com/p/piwam/issues/entry" target="_blank">Rapporter
     un bug</a></li>
+    <li><?php echo link_to('Installation', 'install/index') ?></li>
+    <li><?php echo link_to('Mise à jour', 'update/index') ?></li>
 </ul>
 <br />
 </div>

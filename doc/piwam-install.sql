@@ -630,7 +630,7 @@ CREATE TABLE `piwam_data`
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 INSERT INTO `piwam_data` (`id`, `key`, `value`) VALUES
-(1, 'dbversion', '107');
+(1, 'dbversion', '117');
 
 --
 -- Mise a jour avec la r100
@@ -686,3 +686,26 @@ RENAME TABLE `recette`          TO `piwam_recette` ;
 RENAME TABLE `membre`           TO `piwam_membre` ;
 RENAME TABLE `statut`           TO `piwam_statut` ;
 SET FOREIGN_KEY_CHECKS=1;
+
+
+INSERT INTO `piwam_config_categorie` (
+`code` ,
+`libelle`
+)
+VALUES (
+'services', 'services'
+);
+
+INSERT INTO `piwam_config_variable` (
+`id` ,
+`code` ,
+`categorie_code` ,
+`libelle` ,
+`description` ,
+`type` ,
+`default_value`
+)
+VALUES (
+NULL , 'googlemap_key', 'services', 'Clé Google Map', 'Clé utilisée pour accéder à Google Map. Générez la votre sur http://code.google.com/intl/fr-FR/apis/maps/signup.html.', 'VARCHAR', 'ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhQu6C5tfcTOznQAfibWXRksA7VQJxQAvTbET15fVW6RQnHsk3BmZqGKLw'
+);
+
