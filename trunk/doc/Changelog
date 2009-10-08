@@ -1,4 +1,14 @@
-r116 - october, 7, 2009
+r117 - october, 8, 2009
+    * /doc/UPDATE-FR : new file
+    * /data/updates/1.1-to-1.1.1 : new folder
+    * /data/updates/1.1-to-1.1.1/r117.sql : new file
+    * /config/databases.yml : added to svn:ignore
+    * /apps/front/config/settings.yml : Google Map Key has been removed (put
+      into the database)
+    * layout.php : new menu entry (install and update)
+
+
+r116 - october, 8, 2009
     * README-FR has been updated
     * TROUBLESHOOTING-FR has been updated
     * mailing module has been removed because empty

@@ -1,29 +1,5 @@
 all:
-    
-  # ----------------------------------------------------------------------------
-  #
-  #      						EDITABLE AREA
-  #
-  # ----------------------------------------------------------------------------
   
-  # Key to use Google MAP API
-  # -------------------------
-  # You can generate your own keys here :
-  # => http://code.google.com/intl/fr/apis/maps/signup.html
-  
-  googlemap_key: ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhQu6C5tfcTOznQAfibWXRksA7VQJxQAvTbET15fVW6RQnHsk3BmZqGKLw
-
-    
-  # ----------------------------------------------------------------------------
-  #
-  #      					   END OF EDITABLE AREA
-  #							   Do not edit following lines !
-  #							   (it's at your own risks...)
-  #
-  # ----------------------------------------------------------------------------
-
-
-
   .settings:
     # Form security secret (CSRF protection)
     csrf_secret:       		false     # Unique secret to enable CSRF protection or false to disable

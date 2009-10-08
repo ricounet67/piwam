@@ -87,6 +87,13 @@
               http://groups.google.fr/group/piwam/browse_thread/thread/bdd6e5a73504f0c2
         
         
+        G- Quand je tente de faire une mise à jour, j'obtiens une erreur 
+          "(1065) Query was empty"
+          
+            - vérifiez le fichier SQL en question, et supprimez le point
+              virgule à la fin du fichier
+        
+        
     -------------------------------------------------------------------------
     | (c) 2009                                                              |
     -------------------------------------------------------------------------
