@@ -11,8 +11,10 @@ class DbTools
      * Launch a SQL file (execute all the queries).
      * This is a very simple SQL file executor
      *
-     * @param   string          $file
-     * @throw   PDOException    $propelConnection   unknown reason
+     * @param   string              $file
+     * @param   PDO                 $propelConnection
+     * @throw   PDOException        If error in query (displayed as empty query
+     *                              if $file ends with a coma `;`
      * @todo    Improve
      */
     public static function executeSQLFile($file, $propelConnection = null)

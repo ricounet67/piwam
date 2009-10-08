@@ -5,7 +5,7 @@
  *
  * @package    piwam
  * @subpackage install
- * @author     Your name here
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class installActions extends sfActions
@@ -23,7 +23,12 @@ class installActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->forward('install', 'checkConfig');
+        if ($this->_isInstalled()) {
+            return sfView::ERROR;
+        }
+        else {
+            $this->forward('install', 'checkConfig');
+        }
     }
 
     /**
@@ -171,6 +176,23 @@ class installActions extends sfActions
         );
 
         $this->_messages[] = $newEntry;
+    }
+
+    /*
+     * Checks if Piwam is alreay installed.
+     * It's currently based on SQL configuration
+     */
+    private function _isInstalled()
+    {
+        try
+        {
+            Propel::getConnection();
+            return true;
+        }
+        catch (PropelException $e)
+        {
+            return false;
+        }
     }
 
     /*
