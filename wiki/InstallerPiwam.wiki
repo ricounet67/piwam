@@ -45,7 +45,7 @@ Après avoir récupérer le _trunk_ ou une version tagguée présente sur le dé
 				
 Si vous utilisez  Piwam  sur votre serveur web,  il est fortement recommandé  de configurer un accès par VirtualHost.  Par exemple, "http://piwam.mon-domaine.com"  doit faire référence au répertoire `/path/to/piwam/web`.
 			
-Voici  un exemple de configuration que vous  devriez placer  dans votre fichier `apache/conf/httpd.conf` :
+Voici  un exemple de configuration que vous  devriez placer  dans votre fichier de configuration Apache (`apache/conf/httpd.conf` ou `apache2/sites-available/piwam` par exemple) :
 
 {{{		
 <VirtualHost *:80>
@@ -55,6 +55,16 @@ Voici  un exemple de configuration que vous  devriez placer  dans votre fichier 
     <Directory "/home/foobar/piwam/web">
         AllowOverride All
         Allow from All
+        # Forcer la configuration PHP pour Piwam
+        <IfModule mod_php5.c>
+                php_value magic_quotes_gpc                0
+                php_value register_globals                0
+                php_value session.auto_start              0
+                php_value mbstring.http_input             pass
+                php_value mbstring.http_output            pass
+                php_value mbstring.encoding_translation   0
+                php_value memory_limit      128M
+        </IfModule>
     </Directory>
 </VirtualHost>
 }}}
