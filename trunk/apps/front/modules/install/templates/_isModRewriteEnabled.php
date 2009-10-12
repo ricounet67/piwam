@@ -7,7 +7,17 @@
 ?>
 
 <?php if ($error): ?>
-Le module Apache mod_rewrite n'est pas activé
+
+    <strong>
+        Module <span style="font-family: courier">mod_rewrite</span> : désactivé
+    </strong><br />
+
+    Le module Apache <span style="font-family: courier">mod_rewrite</span> n'est
+    pas activé
+
 <?php else: ?>
-Le module Apache mod_rewrite est activé
+
+    Le module Apache <span style="font-family: courier">mod_rewrite</span> est
+    activé
+
 <?php endif; ?>

@@ -1,9 +1,18 @@
+r121 - october, 12, 2009
+    * install : actions > _checkConfiguration() > We can install Piwam even if
+      memory_limit is not greater or equal to 128M
+    * install : actions > _checkConfiguration() > Apache modules are not tested
+      if apache_get_modules function is not available
+    * install : templates > error partials have been enhanced to be more 
+      readable
+      
+
 r120 - october, 12, 2009
     * update : actions > _checkSQLFilesSince() > updates are performed within
       SQL transactions
     * DBTools.class.php : executeSQLFile() > we check that query is not empty
       before launching it
-      
+            
 
 r119 - october, 8, 2009
     * Piwam 1.1.1
