@@ -1,3 +1,14 @@
+r120 - october, 12, 2009
+    * update : actions > _checkSQLFilesSince() > updates are performed within
+      SQL transactions
+    * DBTools.class.php : executeSQLFile() > we check that query is not empty
+      before launching it
+      
+
+r119 - october, 8, 2009
+    * Piwam 1.1.1
+    
+
 r118 - october, 8, 2009
     * install : actions > we check if Piwam is already installed
     * install : templates > indexError.php > new file
