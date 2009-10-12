@@ -13,8 +13,7 @@ class DbTools
      *
      * @param   string              $file
      * @param   PDO                 $propelConnection
-     * @throw   PDOException        If error in query (displayed as empty query
-     *                              if $file ends with a coma `;`
+     * @throw   PDOException        If an error occured in a query
      * @todo    Improve
      */
     public static function executeSQLFile($file, $propelConnection = null)
@@ -24,12 +23,15 @@ class DbTools
 
         foreach ($queries as $query) {
 
-            if (is_null($propelConnection)) {
-                mysql_query($query);
-            }
-            else {
-                $statement = $propelConnection->prepare($query);
-                $statement->execute();
+            if ($query !== '')
+            {
+                if (is_null($propelConnection)) {
+                    mysql_query($query);
+                }
+                else {
+                    $statement = $propelConnection->prepare($query);
+                    $statement->execute();
+                }
             }
         }
     }

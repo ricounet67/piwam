@@ -1,5 +1,4 @@
 
-    * Association : block index action
 	* Display a legend when displaying icons (edit, delete...)
 	* Issue when deleting compte :
 		-> recette / depense still exist
@@ -16,5 +15,4 @@
 	* PDF output for bilan
 	* Export should be put in each module
 	* Association > mailing > find a way to store error messages
-	* Create a credential for "ACL management" (membre/acl action)
 	* Add a compte > delete it > try to recreate one > error "existing record"

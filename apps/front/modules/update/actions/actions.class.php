@@ -1,11 +1,11 @@
 <?php
 
 /**
- * update actions.
+ * Manage the update of Piwam versions
  *
  * @package    piwam
  * @subpackage update
- * @author     Your name here
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class updateActions extends sfActions
@@ -46,6 +46,9 @@ class updateActions extends sfActions
     /*
      * Look for SQL files to execute since version $version
      * All SQL files have to be in /data/updates/* folder
+     *
+     * We launch queries within transactions, to keep consistence of
+     * the DB
      */
     private function _checkSQLFilesSince($version, $execute = false)
     {
@@ -66,17 +69,22 @@ class updateActions extends sfActions
 
                 while ($file = $sqlDir->read())
                 {
-                    if ($this->_isValidSQLfile($file, $version)) {
+                    if ($this->_isValidSQLfile($file, $version))
+                    {
                         $sqlFiles[] = self::SQL_DIR . $entry . '/' . $file;
 
                         if ($execute)
                         {
+                            $propelConnection = Propel::getConnection();
                             try {
-                                DbTools::executeSQLFile($file, Propel::getConnection());
+                                $propelConnection->beginTransaction();
+                                DbTools::executeSQLFile($file, $propelConnection);
                                 $newVersion = $this->_getVersionFromFile($file);
                                 PiwamDataPeer::set('dbversion', $newVersion);
+                                $propelConnection->commit();
                             }
                             catch (PDOException $e) {
+                                $propelConnection->rollback();
                                 $this->error = $e;
                                 return self::PERFORM_ERROR;
                             }
@@ -95,6 +103,7 @@ class updateActions extends sfActions
 
     /*
      * Check if $dir is Piwam directory (not .svn, '.' or '..', etc)
+     * So we check if the first char is a dot
      */
     private function _isPiwamDir($dir)
     {
