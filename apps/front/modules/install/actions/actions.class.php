@@ -110,16 +110,21 @@ class installActions extends sfActions
 
     /*
      * Check the current system configuration
+     *
+     * @version 121 : we check that we are able to perform some checkings
      */
     private function _checkConfiguration()
     {
-        $this->_addMessage(is_writable('../cache'), 				'isCacheFolderWritable');
-        $this->_addMessage(is_writable('../log'),					'isLogFolderWritable');
-        $this->_addMessage(is_writable('../config/databases.yml'),	'isDatabasesFileWritable');
-        $this->_addMessage(extension_loaded('smtp'), 				'isPhpSmtpLoaded',				true);
-        $this->_addMessage(extension_loaded('openssl'),				'isPhpOpenSSLLoaded',			true);
-        $this->_addMessage($this->_checkMemoryLimit('128M'),		'isMemoryLimitHighEnough');
-        $this->_addMessage($this->_isApacheModuleEnabled('mod_rewrite'),	'isModRewriteEnabled');
+        $this->_addMessage(is_writable('../cache'),                 'isCacheFolderWritable');
+        $this->_addMessage(is_writable('../log'),                   'isLogFolderWritable');
+        $this->_addMessage(is_writable('../config/databases.yml'),  'isDatabasesFileWritable');
+        $this->_addMessage(extension_loaded('smtp'),                'isPhpSmtpLoaded',          true);
+        $this->_addMessage(extension_loaded('openssl'),             'isPhpOpenSSLLoaded',       true);
+        $this->_addMessage($this->_checkMemoryLimit('128M'),        'isMemoryLimitHighEnough',  true);
+
+        if (function_exists('apache_get_modules')) {
+            $this->_addMessage($this->_isApacheModuleEnabled('mod_rewrite'), 'isModRewriteEnabled');
+        }
     }
 
     /*

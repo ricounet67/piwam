@@ -7,7 +7,16 @@
 ?>
 
 <?php if ($error): ?>
-Le répertoire cache n'est pas inscriptible
+
+    <strong>
+        Répertoire non inscriptible
+    </strong><br />
+
+    Le répertoire <span style="font-family: courier">cache</span> n'est
+    pas inscriptible
+
 <?php else: ?>
-Le répertoire cache est inscriptible
+
+    Le répertoire <span style="font-family: courier">cache</span> est inscriptible
+
 <?php endif; ?>

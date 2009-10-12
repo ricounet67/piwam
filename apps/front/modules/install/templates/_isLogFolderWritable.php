@@ -7,7 +7,16 @@
 ?>
 
 <?php if ($error): ?>
-Le répertoire log'est pas inscriptible
+
+    <strong>
+        Répertoire non inscriptible
+    </strong><br />
+
+    Le répertoire <span style="font-family: courier">log</span> n'est pas
+    inscriptible
+
 <?php else: ?>
-Le répertoire log est inscriptible
+
+    Le répertoire <span style="font-family: courier">log</span> est inscriptible
+
 <?php endif; ?>

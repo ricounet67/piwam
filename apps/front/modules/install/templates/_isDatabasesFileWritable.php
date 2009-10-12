@@ -7,7 +7,17 @@
 ?>
 
 <?php if ($error): ?>
-Le fichier config/databases.yml n'est pas inscriptible
+
+    <strong>
+        Fichier non inscriptible
+    </strong><br />
+
+    Le fichier <span style="font-family: courier">config/databases.yml</span>
+    n'est pas inscriptible
+
 <?php else: ?>
-Le fichier config/databases.yml est inscriptible
+
+    Le fichier <span style="font-family: courier">config/databases.yml</span>
+    est inscriptible
+
 <?php endif; ?>
