@@ -145,8 +145,8 @@ class associationActions extends sfActions
                             $methodObject->setUsername(Configurator::get('gmail_username', $associationId));
                             $methodObject->setPassword(Configurator::get('gmail_password', $associationId));
 
-                            if (!extension_loaded('smtp')) {
-                                $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails');
+                            if (!extension_loaded('openssl')) {
+                                $this->getUser()->setFlash('error', 'Le module "openssl" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails');
                             }
                             break;
 
@@ -160,9 +160,6 @@ class associationActions extends sfActions
                             $methodObject->setUsername($smtpUsername);
                             $methodObject->setPassword($smtpPassword);
 
-                            if (!extension_loaded('smtp')) {
-                                $this->getUser()->setFlash('error', 'Le module "smtp" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails');
-                            }
                             break;
 
                         case 'sendmail':
