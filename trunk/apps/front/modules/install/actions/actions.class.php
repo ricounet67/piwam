@@ -118,7 +118,6 @@ class installActions extends sfActions
         $this->_addMessage(is_writable('../cache'),                 'isCacheFolderWritable');
         $this->_addMessage(is_writable('../log'),                   'isLogFolderWritable');
         $this->_addMessage(is_writable('../config/databases.yml'),  'isDatabasesFileWritable');
-        $this->_addMessage(extension_loaded('smtp'),                'isPhpSmtpLoaded',          true);
         $this->_addMessage(extension_loaded('openssl'),             'isPhpOpenSSLLoaded',       true);
         $this->_addMessage($this->_checkMemoryLimit('128M'),        'isMemoryLimitHighEnough',  true);
 

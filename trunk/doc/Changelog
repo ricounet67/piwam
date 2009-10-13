@@ -1,3 +1,15 @@
+r123 - october, 13, 2009
+    * Compte.php : fetch() calls have been replaced by fetchAll(), fixes 
+      issue 28
+    * association : actions > mailing > smtp module is not required anymore to
+      send emails through smtp servers, but openssl module is required to use
+      GMail
+
+
+r122 - october, 13, 2009 (Grd Scarabe)
+    * Wiki page 'installerPiwam' has been updated 
+
+
 r121 - october, 12, 2009
     * install : actions > _checkConfiguration() > We can install Piwam even if
       memory_limit is not greater or equal to 128M

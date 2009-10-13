@@ -37,7 +37,8 @@ class Compte extends BaseCompte
             $c->add(DepensePeer::COMPTE_ID, $this->getId());
             $c->addAnd(DepensePeer::PAYEE, 1);
             $result = DepensePeer::doSelectStmt($c);
-            $row = $result->fetch();
+            $rows = $result->fetchAll();
+            $row = $rows[0];
             $this->_totalDepenses = $row['TOTAL_DEPENSES'];
         }
 
@@ -62,7 +63,8 @@ class Compte extends BaseCompte
             $c->add(RecettePeer::COMPTE_ID, $this->getId());
             $c->addAnd(RecettePeer::PERCUE, 1);
             $result = RecettePeer::doSelectStmt($c);
-            $row = $result->fetch();
+            $rows = $result->fetchAll();
+            $row = $rows[0];
 
             $totalCotisations = CotisationPeer::doSeletSumForAccountId($this->getId());
             $this->_totalRecettes = $row['TOTAL_RECETTES'] + $totalCotisations;
