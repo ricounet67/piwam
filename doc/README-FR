@@ -90,6 +90,20 @@
 			  	<Directory "/home/foobar/piwam/web">
 			    	AllowOverride All
 			    	Allow from All
+			    	
+                    # Forcer la configuration PHP pour Piwam
+                    # Retirez ce bloc s'il provoque une erreur 500
+                    # sur votre serveur
+                    <IfModule mod_php5.c>
+                            php_value magic_quotes_gpc                0
+                            php_value register_globals                0
+                            php_value session.auto_start              0
+                            php_value mbstring.http_input             pass
+                            php_value mbstring.http_output            pass
+                            php_value mbstring.encoding_translation   0
+                            php_value memory_limit      128M
+                    </IfModule>
+
 			  	</Directory>
 			</VirtualHost>
 			-----------------------------------------------------------------
