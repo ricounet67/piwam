@@ -1,3 +1,10 @@
+r125 - october, 14, 2009
+    * README-FR : VirtualHost example has been updated
+    * TROUBLESHOOTING-FR : has been updated to reference some possible 500 
+      errors
+    * THANKS : has been updated
+    
+
 r124 - october, 14, 2009
     * membre : templates > _form.php : javascript helper has been replaced by
       JavascriptBase helper, fixes bug 29

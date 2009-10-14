@@ -87,11 +87,30 @@
               http://groups.google.fr/group/piwam/browse_thread/thread/bdd6e5a73504f0c2
         
         
-        G- Quand je tente de faire une mise à jour, j'obtiens une erreur 
-          "(1065) Query was empty"
-          
-            - vérifiez le fichier SQL en question, et supprimez le point
-              virgule à la fin du fichier
+        G- J'obtiens une erreur 500 en essayant d'accéder à Piwam
+            
+            - Si  vous utilisez  un  Virtual Host,  vérifiez que  celui-ci est
+              correctement configuré, et que le bloc de configuration propre à
+              PHP ne pose pas de problème (essayez de le retirer si besoin).
+            - Vérifiez que les fichiers  ".htaccess" sont correctement suppor-
+              tés par votre serveur.
+              
+              
+              
+              
+    CORRIGÉS DEPUIS PIWAM 1.1.1
+    ---------------------------
+    
+        A- Je ne peux pas enregistrer le premier membre lorsque je crée mon
+           association
+           
+            - Soucis résolu
+            
+            
+        B- J'obtiens une erreur lorsque je tente d'accéder au bilan
+        
+            - Soucis résolu
+              
         
         
     -------------------------------------------------------------------------
