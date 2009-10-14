@@ -1,7 +1,7 @@
 <?php use_helper('Date') 	?>
 <?php use_helper('Membre') 	?>
 <?php use_helper('Boolean') ?>
-<?php use_helper('Javascript') ?>
+<?php use_helper('JavascriptBase') ?>
 <?php use_javascript('domtab/domtab.js') ?>
 <?php use_stylesheet('domtab.css') ?>
 

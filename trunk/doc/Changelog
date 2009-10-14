@@ -1,3 +1,10 @@
+r124 - october, 14, 2009
+    * membre : templates > _form.php : javascript helper has been replaced by
+      JavascriptBase helper, fixes bug 29
+    * membre : templates > showSuccess.php : javascript helper has been replaced
+      by JavascriptBase helper, fixes bug 29
+    
+
 r123 - october, 13, 2009
     * Compte.php : fetch() calls have been replaced by fetchAll(), fixes 
       issue 28
