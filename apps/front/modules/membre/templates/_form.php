@@ -1,6 +1,6 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
-<?php use_helper('Javascript') ?>
+<?php use_helper('JavascriptBase') ?>
 
 <form
     action="<?php
