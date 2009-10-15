@@ -17,8 +17,8 @@
     <?php if ($membre->isAjourCotisation()): ?>
         <tr>
         <?php else: ?>
-        
-        
+
+
         <tr class="cotisationNonAjour">
         <?php endif; ?>
 
@@ -29,9 +29,9 @@
             <td><?php echo $membre->getVille() ?></td>
             <td><?php if ($membre->getEmail()) :?> <a
                 href="mailto:<?php echo $membre->getEmail() ?>"><?php echo image_tag('mail.png', array('alt' => '[e-mail]')) ?></a>
-                <?php else: ?> <?php echo image_tag('no_mail') ?> <?php endif; ?>
-                <?php echo link_to(image_tag('edit.png', array('alt' => '[éditer]')), 'membre/edit?id=' . $membre->getId()) ?>
-                <?php echo link_to(image_tag('details.png', array('alt' => '[details]')), 'membre/show?id=' . $membre->getId()) ?>
+                <?php else: ?> <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?> <?php endif; ?>
+                <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'membre/edit?id=' . $membre->getId()) ?>
+                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'membre/show?id=' . $membre->getId()) ?>
                 <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
             </td>
         </tr>
@@ -58,7 +58,7 @@
 
 <div class="addNew"
     style="width: 194px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
-        <?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer un membre', 'membre/new') ?>
+        <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer un membre', 'membre/new') ?>
 </div>
 
 

@@ -38,12 +38,12 @@
         </tr>
         <?php endif; ?>
         <tr>
-            <th><?php echo image_tag('time.png', 'align="absmiddle"')?> Créée le
+            <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Créée le
             :</th>
             <td><?php echo format_datetime($depense->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($depense->getMembreRelatedByEnregistrePar()) ?></td>
         </tr>
         <tr>
-            <th><?php echo image_tag('time.png', 'align="absmiddle"')?> Mise à
+            <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Mise à
             jour le :</th>
             <td><?php echo format_datetime($depense->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($depense->getMembreRelatedByMisAJourPar()) ?></td>
         </tr>

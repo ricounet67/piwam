@@ -1,3 +1,7 @@
+r128 - october, 15, 2009
+    * Fixes issue #7 : missing ALT attirbut for images
+
+
 r127 - october, 15, 2009
     * membre : actions > executeMap > Google Map API key is directly given to
       the view

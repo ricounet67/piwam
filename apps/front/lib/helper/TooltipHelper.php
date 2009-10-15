@@ -21,7 +21,8 @@ function tooltip_tag($header, $body, $linkText = null, $params = null)
     $result = '<a href="#" title="header=[' . $header . '] body=[' . $body . ']">';
 
     if (is_null($linkText)) {
-        $result .= image_tag("tooltip_icon.gif", "align=absmiddle");
+        $result .= image_tag("tooltip_icon.gif", 
+        				array('align' => 'absmiddle', 'alt' => 'Aide'));
     }
     else {
         $result .= $linkText;

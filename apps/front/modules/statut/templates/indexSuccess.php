@@ -18,7 +18,7 @@
             <td><?php echo $statut->getNom() ?></td>
             <td><?php echo $statut->countMembres() ?></td>
             <td><?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'statut/show?id=' . $statut->getId()) ?>
-            <?php echo link_to(image_tag('edit.png', array('alt' => '[éditer]')), 'statut/edit?id=' . $statut->getId()) ?>
+            <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'statut/edit?id=' . $statut->getId()) ?>
             <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'statut/delete?id=' . $statut->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
             </td>
         </tr>
@@ -26,5 +26,5 @@
     </tbody>
 </table>
 
-<div class="addNew"><?php echo link_to(image_tag('add', 'align="top"'). ' Nouveau statut', 'statut/new') ?>
+<div class="addNew"><?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'Time')). ' Nouveau statut', 'statut/new') ?>
 </div>
