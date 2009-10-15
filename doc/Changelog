@@ -1,3 +1,8 @@
+r129 - october, 15, 2009
+    * membre : actions > executeMap > fixes issue with Google Map API key (old
+      name was used)
+    
+
 r128 - october, 15, 2009
     * Fixes issue #7 : missing ALT attirbut for images
 
