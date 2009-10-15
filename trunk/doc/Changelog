@@ -1,3 +1,8 @@
+r127 - october, 15, 2009
+    * membre : actions > executeMap > Google Map API key is directly given to
+      the view
+      
+
 r126 - october, 15, 2009
     * membre : actions > executeMap() > associationId is given to the view
     * membre : templates > mapSuccess.php > get the API key for the current 

@@ -328,7 +328,7 @@ class membreActions extends sfActions
             }
         }
 
-        $this->associationId = $associationId;
+        $this->GMapKey = Configurator::get('sf_googlemap_key', $associationId);
         $this->map = $map;
     }
 
