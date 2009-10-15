@@ -9,7 +9,7 @@
 <?php endif; ?>
 
 <?php if ($sf_user->hasFlash('error')): ?>
-<p class="error"><?php echo image_tag('error', array('align' => 'top')) ?> <strong>ERREUR</strong>
+<p class="error"><?php echo image_tag('error', array('align' => 'top', 'alt' => 'Erreur')) ?> <strong>ERREUR</strong>
 : <?php echo $sf_user->getFlash('error') ?></p>
 <?php endif; ?>
 

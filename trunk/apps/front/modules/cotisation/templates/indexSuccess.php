@@ -25,7 +25,7 @@
             <td><?php echo $cotisation->getMembreRelatedByMembreId() ?></td>
             <td><?php echo format_date($cotisation->getDate()) ?></td>
             <td><a
-                href="<?php echo url_for('cotisation/edit?id='.$cotisation->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[éditer]')) ?></a>
+                href="<?php echo url_for('cotisation/edit?id='.$cotisation->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[modifier]')) ?></a>
                 <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')),
           	  					 	'cotisation/delete?id=' . $cotisation->getId(),
                 array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?'));
@@ -35,7 +35,7 @@
     </tbody>
 </table>
 
-<div class="addNew"><?php echo link_to(image_tag('add', 'align="top"'). ' Enregistrer une cotisation', 'cotisation/new') ?>
+<div class="addNew"><?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer une cotisation', 'cotisation/new') ?>
 </div>
 
         <?php else: ?>
