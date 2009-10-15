@@ -1,3 +1,11 @@
+r126 - october, 15, 2009
+    * membre : actions > executeMap() > associationId is given to the view
+    * membre : templates > mapSuccess.php > get the API key for the current 
+      association
+    * association : templates > loginSuccess.php > version of piwam in welcome
+      message is up to date
+
+
 r125 - october, 14, 2009
     * README-FR : VirtualHost example has been updated
     * TROUBLESHOOTING-FR : has been updated to reference some possible 500 

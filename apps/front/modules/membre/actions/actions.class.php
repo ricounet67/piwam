@@ -328,6 +328,7 @@ class membreActions extends sfActions
             }
         }
 
+        $this->associationId = $associationId;
         $this->map = $map;
     }
 
