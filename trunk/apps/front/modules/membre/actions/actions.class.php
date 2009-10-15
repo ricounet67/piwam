@@ -313,8 +313,9 @@ class membreActions extends sfActions
      */
     public function executeMap(sfWebRequest $request)
     {
+        $GMapKey = Configurator::get('googlemap_key', $associationId);
         $map = new PhoogleMap();
-        $map->setApiKey(sfConfig::get('sf_googlemap_key'));
+        $map->setApiKey($GMapKey);
         $map->zoomLevel = 12;
         $map->setWidth(600);
         $map->setHeight(400);
@@ -328,7 +329,7 @@ class membreActions extends sfActions
             }
         }
 
-        $this->GMapKey = Configurator::get('sf_googlemap_key', $associationId);
+        $this->GMapKey = $GMapKey;
         $this->map = $map;
     }
 
