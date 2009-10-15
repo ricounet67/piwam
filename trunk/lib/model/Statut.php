@@ -22,6 +22,20 @@ class Statut extends BaseStatut
     }
 
     /**
+     * Count active Membres
+     *
+     * @return  integer
+     * @since   r130
+     */
+    public function countActiveMembres()
+    {
+        $c = new Criteria();
+        $c->add(MembrePeer::ACTIF, MembrePeer::IS_ACTIF);
+
+        return $this->countMembres($c);
+    }
+
+    /**
      * Override the delete methods.
      *
      * r87: 	we also can't delete if there are Membres who belong
@@ -31,6 +45,9 @@ class Statut extends BaseStatut
     {
         if ($this->countMembres() == 0) {
             parent::delete($con);
+        }
+        elseif ($this->countActiveMembres($c)) {
+            $this->disable();
         }
         else {
             sfContext::getInstance()->getUser()->setFlash('notice', "Le statut n'a pas pu être supprimé car il est encore utilisé");

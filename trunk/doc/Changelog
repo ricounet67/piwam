@@ -1,3 +1,12 @@
+r130 - october, 15, 2009
+    * Statut.php : delete() > statut is disabled if there is no longer active
+      Membre
+    * Statut.php : countActiveMembres() > new method, counting only active
+      members 
+    * statut : templates > indexSuccess.php > we show active members who belong
+      to the Statut
+
+
 r129 - october, 15, 2009
     * membre : actions > executeMap > fixes issue with Google Map API key (old
       name was used)
