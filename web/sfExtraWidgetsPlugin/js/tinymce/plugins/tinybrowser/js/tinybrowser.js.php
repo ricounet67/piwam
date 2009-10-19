@@ -41,8 +41,7 @@ img").src = url; } self.close(); }
 ?>
 
 rowHighlight = function() { var x = document.getElementsByTagName('tr'); for
-(var i=0;i
-<x.length ;i++) 
+(var i=0;i < x.length ;i++)
 	{
 	x[i].onmouseover=function () {this.className="over "
     + this.className;}
@@ -52,8 +51,7 @@ rowHighlight = function() { var x = document.getElementsByTagName('tr'); for
 	}
 var
     y=document.getElementsByTagName( 'th');
-for (var ii=0;ii
-    <y.length;ii++) 
+for (var ii=0;ii  < y.length; ii++)
 	{
 	y[ii].onmouseover = function () {if(this.className != "nohover") this.className = "over " + this.className;}
 	y[ii].onmouseout = function () {this.className = this.className.replace("over", ""); this.className = this.className.replace(" ", "");}

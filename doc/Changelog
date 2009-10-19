@@ -1,3 +1,8 @@
+r131 - october, 19, 2009
+    * MembreForm : configure() > 'unique' error message has been set for the
+      'pseudo' field by a sfPropelUniqueValidator 
+    
+
 r130 - october, 15, 2009
     * Statut.php : delete() > statut is disabled if there is no longer active
       Membre
