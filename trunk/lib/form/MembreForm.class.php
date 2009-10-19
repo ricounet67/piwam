@@ -91,6 +91,8 @@ class MembreForm extends BaseMembreForm
             $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => true));
         }
 
+        $this->validatorSchema->setPostValidator(new sfValidatorPropelUnique(array('model' => 'Membre', 'column' => 'pseudo'), array('invalid' => 'Ce pseudo existe déjà')));
+
         // New validators for Email and Website fields
         unset($this->validatorSchema['email']);
         unset($this->validatorSchema['website']);
