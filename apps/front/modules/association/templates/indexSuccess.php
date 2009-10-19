@@ -1,33 +1,35 @@
-<h1>Association List</h1>
+<?php use_helper('website') ?>
 
-<table>
+<h2>Associations enregistrées</h2>
+
+<table class="tableauDonnees">
     <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Site web</th>
-            <th>Enregistre par</th>
-            <th>Mis a jour par</th>
-            <th>Created at</th>
-            <th>Updated at</th>
+        <tr class="enteteTableauDonnees">
+            <th style="width: 25%">Nom</th>
+            <th style="width: 40%">Description</th>
+            <th style="width: 20%">Site web</th>
+            <th style="width: 15%">Enregistrée par</th>
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($association_list as $association): ?>
+    <?php foreach ($associationsPager->getResults() as $association): ?>
         <tr>
-            <td><a
-                href="<?php echo url_for('association/edit?id='.$association->getId()) ?>"><?php echo $association->getId() ?></a></td>
             <td><?php echo $association->getNom() ?></td>
             <td><?php echo $association->getDescription() ?></td>
-            <td><?php echo $association->getSiteWeb() ?></td>
-            <td><?php echo $association->getEnregistrePar() ?></td>
-            <td><?php echo $association->getMisAJourPar() ?></td>
-            <td><?php echo $association->getCreatedAt() ?></td>
-            <td><?php echo $association->getUpdatedAt() ?></td>
+            <td>
+                <?php if ($association->getSiteWeb()): ?>
+                    <?php echo link_to(short_website_url($association->getSiteWeb()),  $association->getSiteWeb()) ?>
+                <?php endif ?>
+            </td>
+            <td><?php echo $association->getMembreRelatedByEnregistrePar() ?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
 
-<a href="<?php echo url_for('association/new') ?>">New</a>
+<div class="addNew"
+    style="width: 214px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
+        <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer une association', 'association/new') ?>
+</div>
+
+<?php include_partial('global/pager', array('pager' => $associationsPager, 'module' => 'association', 'action' => 'index', 'params' => array())) ?>

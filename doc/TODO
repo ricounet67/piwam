@@ -1,4 +1,5 @@
 
+    * Write tests for short_website_url
 	* Display a legend when displaying icons (edit, delete...)
 	* Issue when deleting compte :
 		-> recette / depense still exist

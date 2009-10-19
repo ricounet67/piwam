@@ -1,3 +1,10 @@
+r132 - october, 19, 2009
+    * /apps/front/lib/helper/WebsiteHelper.php : new helper with function 
+      short_website_url to display short URL
+    * association : actions > index > display list of enabled associations
+    * association : templates > index > display list of enabled associations
+
+
 r131 - october, 19, 2009
     * MembreForm : configure() > 'unique' error message has been set for the
       'pseudo' field by a sfPropelUniqueValidator 

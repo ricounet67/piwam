@@ -6,6 +6,10 @@ new:
 create:
   is_secure:    off
   
+# And also to list current associations
+index:
+  is_secure:    off
+  
   
 # For the other actions, we have to get the credentials
 edit:
