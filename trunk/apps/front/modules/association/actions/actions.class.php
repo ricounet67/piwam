@@ -212,8 +212,7 @@ class associationActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->forward('error', 'credentials');
-        $this->association_list = AssociationPeer::doSelect(new Criteria()); // not executed
+        $this->associationsPager = AssociationPeer::doSelectActiveAssociations($request->getParameter('page', 1));
     }
 
     /**
