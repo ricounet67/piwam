@@ -1,0 +1,23 @@
+#summary Page de réflexion concernant les améliorations à apporter à la comptabilité dans Piwam pour obtenir une solution complète et simple.
+#labels Phase-Requirements
+
+= Introduction =
+
+La comptabilité est certainement l'aspect de gestion le plus technique au sein des associations. Pour autant, toute association se doit de tenir une comptabilité minimum et lorsque cette dernière reçoit des subventions publiques, il peut lui être demandé de fournir un bilan comptable respectant le [http://www.associanet.com/docs/plan-compt.html plan comptable associatif].
+
+Piwam 1.1 est livré avec des outils comptables minimaux permettant d'ores et déjà de tenir une comptabilité simple. Cette page a pour objectif de poser les besoins et les idées discutés pour améliorer les outils comptables livrés dans Piwam.
+
+----
+
+= Demandes à considérer =
+
+  * L'ajout d'un champ "solde de départ" à un compte. En effet, l'association qui utilise Piwam peut avoir un compte créditeur ou débiteur au début d'un exercice et pouvoir utiliser une valeur de départ != de 0. J'ai pensé au départ utiliser une dépense ou une recette mais du coup cela gène la sortie d'un bilan.
+
+  * La capacité à sortir un bilan qui prenne en compte ou non les valeurs de dépenses créditées ou débitées (payées ou reçues) ce qui permettrait d'avoir un bilan virtuel et un bilan réel de l'état des comptes (genre case à cocher pour prendre en compte les non-reçues,
+non-payée).
+
+  * La gestion d'écritures comptables récurrentes (mensuelles, notamment) : proposition énoncé dans le cadre des cotisations.
+
+  * Intégration et contraintes du plan comptable association
+
+  * Comptabilité journalisée à double champs
