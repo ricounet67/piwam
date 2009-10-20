@@ -13,11 +13,14 @@ Piwam 1.1 est livré avec des outils comptables minimaux permettant d'ores et d�
 
   * L'ajout d'un champ "solde de départ" à un compte. En effet, l'association qui utilise Piwam peut avoir un compte créditeur ou débiteur au début d'un exercice et pouvoir utiliser une valeur de départ != de 0. J'ai pensé au départ utiliser une dépense ou une recette mais du coup cela gène la sortie d'un bilan.
 
-  * La capacité à sortir un bilan qui prenne en compte ou non les valeurs de dépenses créditées ou débitées (payées ou reçues) ce qui permettrait d'avoir un bilan virtuel et un bilan réel de l'état des comptes (genre case à cocher pour prendre en compte les non-reçues,
-non-payée).
+  * La capacité à sortir un bilan qui prenne en compte ou non les valeurs de dépenses créditées ou débitées (payées ou reçues) ce qui permettrait d'avoir un bilan virtuel et un bilan réel de l'état des comptes (genre case à cocher pour prendre en compte les non-reçues, non-payée).
 
   * La gestion d'écritures comptables récurrentes (mensuelles, notamment) : proposition énoncé dans le cadre des cotisations.
 
   * Intégration et contraintes du plan comptable association
 
   * Comptabilité journalisée à double champs
+
+  * Sélection de l'année sur laquelle afficher le bilan
+
+  * Export du bilan au format PDF
