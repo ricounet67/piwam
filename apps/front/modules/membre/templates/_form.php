@@ -33,6 +33,10 @@
     <tbody>
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
+            <th>Photo</th>
+            <td><?php echo $form['picture'] . $form['picture']->renderError() ?></td>
+        </tr>
+        <tr>
             <th><?php echo $form['nom']->renderLabel() ?>*</th>
             <td><?php echo $form['nom'] ?><?php echo $form['nom']->renderError() ?>
             </td>

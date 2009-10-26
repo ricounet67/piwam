@@ -709,3 +709,7 @@ VALUES (
 NULL , 'googlemap_key', 'services', 'Clé Google Map', 'Clé utilisée pour accéder à Google Map. Générez la votre sur http://code.google.com/intl/fr-FR/apis/maps/signup.html.', 'VARCHAR', 'ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhQu6C5tfcTOznQAfibWXRksA7VQJxQAvTbET15fVW6RQnHsk3BmZqGKLw'
 );
 
+--
+-- r137
+--
+ALTER TABLE `piwam_membre` ADD `picture` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL AFTER `pays` ;

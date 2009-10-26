@@ -19,6 +19,10 @@
 <table class="tableauDetails" id="details">
     <tbody>
         <tr>
+            <th>Photo :</th>
+            <td><?php echo image_tag('/uploads/trombinoscope/' . $membre->getPicture()) ?></td>
+        </tr>
+        <tr>
             <th>Nom :</th>
             <td><?php echo $membre->getNom() ?></td>
         </tr>
