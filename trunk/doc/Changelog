@@ -1,3 +1,8 @@
+r133 - october, 26, 2009
+    * install : actions > _isInstallerd() > checks that tables have been created
+    * install : templates > indexError.php > error message has been completed
+    
+
 r132 - october, 19, 2009
     * /apps/front/lib/helper/WebsiteHelper.php : new helper with function 
       short_website_url to display short URL
