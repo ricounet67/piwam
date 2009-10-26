@@ -38,7 +38,7 @@
         <h3><?php echo $form->getModuleName($key) ?></h3>
         </td>
         <td><a onClick="checkAll(<?php echo $key ?>)"><?php echo image_tag('arrow_down', array('align' => 'absmiddle', 'alt' => '>')) ?>
-        tout cocher<a></td>
+        tout cocher</a></td>
     </tr>
     <?php foreach ($oneForm as $right): ?>
     <tr>

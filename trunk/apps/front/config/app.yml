@@ -1,2 +1,8 @@
-# default values
-#all:
+all:
+  .general:
+  
+    # Set it to `false` if you wan't to use Piwam to manage only one
+    # association
+    
+    multi_association:  false
+ 
