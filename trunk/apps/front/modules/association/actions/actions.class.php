@@ -62,25 +62,7 @@ class associationActions extends sfActions
     public function executeLogin(sfWebRequest $request)
     {
         $this->form = new LoginForm();
-
-        if (sfConfig::get('app_multi_association')) {
-            $this->displayRegisterLink = true;
-        }
-        else
-        {
-            try
-            {
-                if (AssociationPeer::doCount(new Criteria()) === 0) {
-                    $this->displayRegisterLink = true;
-                }
-                else {
-                    $this->displayRegisterLink = false;
-                }
-            }
-            catch (PropelException $e) {
-                $this->redirect('/install/index');
-            }
-        }
+        $this->displayRegisterLink = $this->_canRegisterAnotherAssociation();
 
         if ($request->isMethod('post'))
         {
@@ -97,7 +79,6 @@ class associationActions extends sfActions
         }
     }
 
-
     /**
      * Logout action
      *
@@ -108,7 +89,6 @@ class associationActions extends sfActions
     {
         $this->getUser()->logout();
     }
-
 
     /**
      * Display the current overview of the association, for each Compte and
@@ -128,7 +108,6 @@ class associationActions extends sfActions
         $this->totalCreances    = RecettePeer::getAmountOfCreances($associationId);
         $this->totalPrevu       = $this->totalCreances - $this->totalDettes;
     }
-
 
     /**
      * Mailing action
@@ -225,7 +204,6 @@ class associationActions extends sfActions
         }
     }
 
-
     /**
      * We don't have any way to list the associations
      *
@@ -243,6 +221,10 @@ class associationActions extends sfActions
      */
     public function executeNew(sfWebRequest $request)
     {
+        if (! $this->_canRegisterAnotherAssociation()) {
+            $this->redirect('/error/credentials');
+        }
+
         $this->getUser()->removeTemporaryData();
         $this->form = new AssociationForm();
     }
@@ -318,5 +300,30 @@ class associationActions extends sfActions
             return true;
         }
         return false;
+    }
+
+    /*
+     * Check if we can register another new association
+     */
+    private function _canRegisterAnotherAssociation()
+    {
+        if (sfConfig::get('app_multi_association')) {
+            return true;
+        }
+        else
+        {
+            try
+            {
+                if (AssociationPeer::doCount(new Criteria()) === 0) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            catch (PropelException $e) {
+                $this->redirect('/install/index');
+            }
+        }
     }
 }

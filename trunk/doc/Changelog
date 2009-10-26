@@ -1,3 +1,8 @@
+r137 - october, 26, 2009
+    * association : actions > new > can't access to the form if this is
+      forbidden
+      
+
 r136 - october, 26, 2009
     * membre : templates > _aclForm.php > fixed missing </a> tag
     * apps/front/app.yml : new setting to use Piwam for only one association
