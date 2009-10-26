@@ -1,6 +1,21 @@
-r133 - october, 26, 2009
+r136 - october, 26, 2009
+    * membre : templates > _aclForm.php > fixed missing </a> tag
+    * apps/front/app.yml : new setting to use Piwam for only one association
+    * association : actions > login > set a new variable 'displayRegisterLink'
+    * association : actions > login > redirect to /install if Propel error
+
+
+r135 - october, 26, 2009
     * install : actions > _isInstallerd() > checks that tables have been created
-    * install : templates > indexError.php > error message has been completed
+    * install : templates > indexError.php > error message has been completed    
+    
+    
+r134 - october, 20, 2009
+    * Edited wiki page through web user interface.
+    
+    
+r133 - october, 20, 2009 (Grd Scarabe)
+    * Création d'une page de réflexion sur la comptabilité
     
 
 r132 - october, 19, 2009

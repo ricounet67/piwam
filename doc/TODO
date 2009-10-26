@@ -1,4 +1,6 @@
 
+    * Install : _generateConfigFile : make better replacements (thanks to pseudo
+      constant like #DB_HOST
     * Write tests for short_website_url
 	* Display a legend when displaying icons (edit, delete...)
 	* Issue when deleting compte :

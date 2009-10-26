@@ -52,7 +52,9 @@ class associationActions extends sfActions
     }
 
     /**
-     * Login action
+     * Login action. This is the default action if we are not authenticated.
+     * If we can't perform the Propel operations, we consider the database
+     * settings are not correct and we redirect to /install automatically
      *
      * @param 	sfWebRequest $request
      * @since	r7
@@ -60,6 +62,25 @@ class associationActions extends sfActions
     public function executeLogin(sfWebRequest $request)
     {
         $this->form = new LoginForm();
+
+        if (sfConfig::get('app_multi_association')) {
+            $this->displayRegisterLink = true;
+        }
+        else
+        {
+            try
+            {
+                if (AssociationPeer::doCount(new Criteria()) === 0) {
+                    $this->displayRegisterLink = true;
+                }
+                else {
+                    $this->displayRegisterLink = false;
+                }
+            }
+            catch (PropelException $e) {
+                $this->redirect('/install/index');
+            }
+        }
 
         if ($request->isMethod('post'))
         {

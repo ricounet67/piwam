@@ -24,5 +24,10 @@
 </table>
 </form>
 
-<h2>Nouveau compte</h2>
-<p>Pas encore de compte Piwam ? Vous pouvez enregistrer votre association sur <?php echo link_to('la page d\'inscription', 'association/new')?></p>
+<!-- If multi mode -->
+<?php if ($displayRegisterLink): ?>
+
+    <h2>Nouveau compte</h2>
+    <p>Pas encore de compte Piwam ? Vous pouvez enregistrer votre association sur <?php echo link_to('la page d\'inscription', 'association/new')?></p>
+
+<?php endif; ?>
