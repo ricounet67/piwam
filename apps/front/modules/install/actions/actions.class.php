@@ -183,14 +183,24 @@ class installActions extends sfActions
     }
 
     /*
-     * Checks if Piwam is alreay installed.
-     * It's currently based on SQL configuration
+     * Checks if Piwam is alreay installed. It's currently based on SQL
+     * configuration, and check if piwam tables are present or not
      */
     private function _isInstalled()
     {
         try
         {
             Propel::getConnection();
+            AssociationPeer::doCount(new Criteria());
+            ConfigVariablePeer::doCount(new Criteria());
+            MembrePeer::doCount(new Criteria());
+            StatutPeer::doCount(new Criteria());
+            ComptePeer::doCount(new Criteria());
+            CotisationPeer::doCount(new Criteria());
+            CotisationTypePeer::doCount(new Criteria());
+            RecettePeer::doCount(new Criteria());
+            DepensePeer::doCount(new Criteria());
+
             return true;
         }
         catch (PropelException $e)
