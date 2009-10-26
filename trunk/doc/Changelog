@@ -1,3 +1,14 @@
+r138 - october, 26, 2009
+    * schema.yml : membre > new field 'picture'
+    * membre : templates > _form > field 'picture' has been added
+    * propel:build-model
+    * /data/updates/sql/1.1.1-to-1.1.2/r138.sql
+    * piwam-install.sql > new field membre.picture
+    * MembreForm.class.php : new 'picture' field and validator, with custom
+      French error messages
+    * membre : templates > showSuccess.php > display picture if any
+    
+
 r137 - october, 26, 2009
     * association : actions > new > can't access to the form if this is
       forbidden

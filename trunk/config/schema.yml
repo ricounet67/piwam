@@ -167,6 +167,7 @@ propel:
     cp:              	{ type: varchar(8) }
     ville:           	{ type: varchar(255) }
     pays:            	{ type: varchar(8) }
+    picture:            { type: varchar(255) }
     email:           	{ type: varchar(255) }
     website:         	{ type: varchar(255) }
     tel_fixe:        	{ type: varchar(16) }
