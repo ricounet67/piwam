@@ -263,11 +263,24 @@ class membreActions extends sfActions
     }
 
     /**
+     * Display images
+     *
+     * @param 	sfWebRequest $request
+     * @since	r139
+     */
+    public function executeFaces(sfWebRequest $request)
+    {
+        $this->membres = MembrePeer::doSelectForAssociation($associationId = $this->getUser()->getAttribute('association_id', null, 'user'));
+    }
+
+    /**
      * If this is a the first Membre that we registered, we redirect
      * to the `end` action to display success message about registration.
      *
      * r62 :    We give all the credentials to the user if this is the
      *          first user
+     *
+     * r139 :	resize pictures
      *
      * @param 	sfWebRequest	$request
      * @param 	sfForm			$form
@@ -279,7 +292,14 @@ class membreActions extends sfActions
         {
             $membre = $form->save();
 
-            if ($request->getAttribute('first') == true) {
+            if ($membre->getPicture())
+            {
+            $img = new sfImage(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture(), 'image/jpg');
+            $img->thumbnail(sfConfig::get('app_picture_width', 120), sfConfig::get('app_picture_height', 150));
+            $img->saveAs(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture());
+            }
+            if ($request->getAttribute('first') == true)
+            {
                 $association = AssociationPeer::retrieveByPK($membre->getAssociationId());
                 $association->setEnregistrePar($membre->getId());
                 $association->save();

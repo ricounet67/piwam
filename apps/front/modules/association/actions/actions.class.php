@@ -322,7 +322,7 @@ class associationActions extends sfActions
                 }
             }
             catch (PropelException $e) {
-                $this->redirect('/install/index');
+                $this->redirect('install/index');
             }
         }
     }

@@ -33,10 +33,6 @@
     <tbody>
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
-            <th>Photo</th>
-            <td><?php echo $form['picture'] . $form['picture']->renderError() ?></td>
-        </tr>
-        <tr>
             <th><?php echo $form['nom']->renderLabel() ?>*</th>
             <td><?php echo $form['nom'] ?><?php echo $form['nom']->renderError() ?>
             </td>
@@ -60,6 +56,10 @@
             <th>Statut</th>
             <td><?php echo $form['statut_id'] ?><?php echo $form['statut_id']->renderError() ?>
             </td>
+        </tr>
+        <tr>
+            <th>Photo</th>
+            <td><?php echo $form['picture'] . $form['picture']->renderError() ?></td>
         </tr>
         <tr>
             <th>Date d'inscription</th>

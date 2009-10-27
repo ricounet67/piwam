@@ -94,6 +94,17 @@
             If you forget this step, you will get an error message.
 
 
+		D- Make the 'uploads' folder writable
+		
+			To be able to upload user's pictures, you have to make  the folder
+			/web/uploads writable.
+			
+			-----------------------------------------------------------------
+			> cd /var/www/piwam
+			> chmod 777 web/uploads
+			-----------------------------------------------------------------
+
+
 		D- How To Access To Piwam
 		
 			Launch your browser  -  try to chose Firefox or Google Chrome ;-) 

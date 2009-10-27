@@ -3,6 +3,9 @@ all:
   
     # Set it to `false` if you wan't to use Piwam to manage only one
     # association
-    
     multi_association:  false
  
+ 
+    # Size of user's pictures thumbnails
+    picture_width:		116
+    picture_height:		116

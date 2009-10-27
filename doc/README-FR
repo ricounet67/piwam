@@ -41,28 +41,29 @@
 	2) Comment Installer Piwam
 	--------------------------
 
+########
 		A.1- Depuis le dépôt SVN :
 		
 		    Si  vous possédez  une tarball  directement installable,  passez à
 		    l'étape A-.2 :-)
 		    
 			0- Vous devez posséder Symfony 1.2
-			1- Ouvrez  le fichier config/ProjectConfiguration.class. Modifiez
-			   l'inclusion  du  fichier  `sfCoreAutoload`  en  spécifiant  le
+			1- Ouvrez  le   fichier  config/ProjectConfiguration.class.php  et
+			   modifiez le chemin du fichier `sfCoreAutoload` en spécifiant le
 			   chemin correct.
 			2- Dans  le  répertoire principal de Piwam (disons /var/ww/piwam),
 			   créez   les    répertoires  'log'   et   'cache',   tous   deux
 			   inscriptibles.  Ce  qui  pourrait  simplement  correspondre aux
 			   lignes de commande suivantes :
             
-                -------------------------------------------------------------
-                > cd /var/www/piwam
-                > mkdir cache log
-                > chmod 777 cache log
-                -------------------------------------------------------------
+               -------------------------------------------------------------
+               > cd /var/www/piwam
+               > mkdir cache log
+               > chmod 777 cache log
+               -------------------------------------------------------------
 
-               Si vous oubliez cette étape, vous obtiendrez un message d'erreur
-			   
+               Si  vous  oubliez  cette  étape,  vous  obtiendrez  un  message 
+               d'erreur.   
 			   
         A.2- Depuis une tarball téléchargée :
 		
@@ -70,9 +71,21 @@
             1- Rendez inscriptibles les répertoires  'cache' et 'log',  ainsi
                que le fichier '/config/databases.yml' (sous un serveur Windows,
                vous pouvez oublier cette étape !)
+        
                
-					
-		B- Configurer un Virtual Host
+########       
+        B- Répertoire d'upload d'avatars
+        
+    	    Pour utiliser  l'upload  d'avatars pour les membres, vous devez
+            rendre également le répertoire 'web/uploads' inscriptible :
+           
+            -------------------------------------------------------------
+            > chmod 777 web/uploads
+            -------------------------------------------------------------
+		
+		
+########			
+		C- Configurer un Virtual Host
 				
 			Si vous utilisez  Piwam  sur votre serveur web,  il est fortement
 			recommandé  de configurer un accès par VirtualHost.  Par exemple, 
@@ -114,6 +127,7 @@
 			VirtualHost.
 
 
+########
 		D- Accéder à Piwam
 		
 			Lancez  votre navigateur Internet - essayez de choisir Firefox ou
@@ -123,6 +137,7 @@
 			adresse telle que http://your-server.com/piwam/web
 			
 			
+########	
 		E- Finir l'installation depuis l'interface web
 		
 			Maintenant  que vous savez comment accéder à Piwam,  il est temps
@@ -138,7 +153,7 @@
 			   vérification  des  paramètres  est  effectuée  et  un  message 
 			   d'erreur apparaîtra si ceux-ci sont incorrects.
 		
-		
+########		
 		F- Configurer Google Map
 		
 		    Pour accéder à la fonctionnalité  "localisation des membres", vous

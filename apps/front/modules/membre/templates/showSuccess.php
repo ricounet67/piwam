@@ -20,7 +20,7 @@
     <tbody>
         <tr>
             <th>Photo :</th>
-            <td><?php echo image_tag('/uploads/trombinoscope/' . $membre->getPicture()) ?></td>
+            <td><?php echo image_tag($membre->getPictureURI()) ?></td>
         </tr>
         <tr>
             <th>Nom :</th>
