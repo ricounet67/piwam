@@ -30,6 +30,7 @@
     <li class="mainSection">Membres</li>
     <li><?php echo link_to('Gestion des membres', 'membre/index') ?></li>
     <li><?php echo link_to('Situation g&eacute;ographique', 'membre/map') ?></li>
+    <li><?php echo link_to('Trombinoscope', 'membre/faces') ?></li>
     <li><?php echo link_to('G&eacute;rer les statuts', 'statut/index') ?></li>
 </ul>
 <ul>

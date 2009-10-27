@@ -154,4 +154,20 @@ class Membre extends BaseMembre
         $acl->setAclActionId($action->getId());
         $acl->save();
     }
+
+    /**
+     * Get the complete URI of the user's picture
+     *
+     * @return	string	complete URI
+     * @since	r139
+     */
+    public function getPictureURI()
+    {
+        if ($this->getPicture()) {
+            return '/uploads/trombinoscope/' . $this->getPicture();
+        }
+        else {
+            return 'no_picture';
+        }
+    }
 }

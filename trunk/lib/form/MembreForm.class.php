@@ -117,10 +117,10 @@ class MembreForm extends BaseMembreForm
         ));
 
         $this->widgetSchema['picture'] = new sfWidgetFormInputFile();
-        $this->validatorSchema['picture'] = new sfValidatorFile(array(  'path' => sfConfig::get('sf_upload_dir').'/trombinoscope',
-                                                                        'required' => false,
+        $this->validatorSchema['picture'] = new sfValidatorFile(array(  'path'       => MembrePeer::PICTURE_DIR,
+                                                                        'required'   => false,
                                                                         'mime_types' => 'web_images'),
-                                                                array(  'max_size' => 'La taille du fichier est trop importante',
+                                                                array(  'max_size'   => 'La taille du fichier est trop importante',
                                                                         'mime_types' => 'Seules les images sont acceptées'));
 
         $this->_setCssClasses();

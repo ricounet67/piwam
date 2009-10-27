@@ -94,7 +94,17 @@
               PHP ne pose pas de problème (essayez de le retirer si besoin).
             - Vérifiez que les fichiers  ".htaccess" sont correctement suppor-
               tés par votre serveur.
-              
+           
+           
+        H- Je n'arrive pas à mettre une photo pour un membre   
+          
+          	- Vous devez rendre le répertoire  /web/uploads  inscriptible afin
+          	  que les images  puissent être  mises  en ligne. En supposant que
+          	  Piwam  est  installé  dans   `/var/www`,   tapez  les  commandes 
+          	  suivantes :
+          	  
+          	   > cd /var/www/piwam
+          	   > chmod 777 web/uploads
               
               
               

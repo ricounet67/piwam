@@ -2,6 +2,7 @@
 
 class MembrePeer extends BaseMembrePeer
 {
+    const PICTURE_DIR = 'uploads/trombinoscope';
     const IS_ACTIF = 1;
 
     /**

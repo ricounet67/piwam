@@ -1,3 +1,23 @@
+r139 - october, 26, 2009
+	* ProjectConfiguration.class.php > checks that the file exists or display
+	  a friendly error message
+	* login : module has been removed (currently empty so useless)
+	* association : actions > _canRegisterAnotherAssociation > redirect to
+	  install and not to /install
+	* install : templates > configDatabaseSuccess.php > error icon is displayed
+	* new plugin has been set up : sfImageTransformPlugin	  
+	* membre : actions > processForm > make thumbnails when uploading 
+	  user's picture
+	* layout.php : new menu item "faces"
+	* membre : new action "faces"
+	* MembrePeer : new constant PICTURE_DIR
+	* Membre : new method getPictureURI
+	* Membre : new partial _picture
+	* main.css : custom style for "_picture" partial
+	* main.css : comments have been translated to english
+	* README, README-FR and TROUBLESHOOTING-FR are up to date
+	
+
 r138 - october, 26, 2009
     * schema.yml : membre > new field 'picture'
     * membre : templates > _form > field 'picture' has been added
