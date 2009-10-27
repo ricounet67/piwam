@@ -22,8 +22,7 @@
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
             <th>Libellé :</th>
-            <td><?php echo $form['libelle']->renderError() ?> <?php echo $form['libelle'] ?>
-            </td>
+            <td><?php echo $form['libelle'] ?> <?php echo $form['libelle']->renderError() ?></td>
         </tr>
     </tbody>
 </table>

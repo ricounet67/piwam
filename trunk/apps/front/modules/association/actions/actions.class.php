@@ -5,7 +5,7 @@
  *
  * @package    piwam
  * @subpackage association
- * @author     Your name here
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
 class associationActions extends sfActions
@@ -28,7 +28,7 @@ class associationActions extends sfActions
             {
                 if (strlen($value) > 0)
                 {
-                    $associationId  = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
+                    $associationId  = $this->getUser()->getAssociationId();
                     Configurator::set($key, $value, $associationId);
                 }
             }
@@ -100,9 +100,9 @@ class associationActions extends sfActions
      */
     public function executeBilan(sfWebRequest $request)
     {
-        $associationId			= $this->getUser()->getAttribute('association_id', null, 'user');
-        $this->comptes 			= ComptePeer::doSelectEnabled($associationId);
-        $this->activites		= ActivitePeer::doSelectEnabled($associationId);
+        $associationId          = $this->getUser()->getAssociationId();
+        $this->comptes          = ComptePeer::doSelectEnabled($associationId);
+        $this->activites        = ActivitePeer::doSelectEnabled($associationId);
         $this->totalCotisations = CotisationPeer::doSeletSumForAssociationId($associationId);
         $this->totalDettes      = DepensePeer::getAmountOfDettes($associationId);
         $this->totalCreances    = RecettePeer::getAmountOfCreances($associationId);
@@ -123,8 +123,8 @@ class associationActions extends sfActions
             $this->form->bind($request->getParameter('mailing'));
             if ($this->form->isValid())
             {
-                $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
-                $data 	= $this->form->getValues();
+                $associationId = $this->getUser()->getAssociationId();
+                $data   = $this->form->getValues();
                 $sentOk = 0; 	// these are 2 counters of
                 $sentKo = 0;	// succeed/failed messages
 
@@ -159,7 +159,6 @@ class associationActions extends sfActions
                             $methodObject = new Swift_Connection_SMTP($smtpServer, $smtpPort, $smtpEncryption);
                             $methodObject->setUsername($smtpUsername);
                             $methodObject->setPassword($smtpPassword);
-
                             break;
 
                         case 'sendmail':
@@ -176,18 +175,20 @@ class associationActions extends sfActions
                             break;
                     }
 
-                    $mailer 	= new Swift($methodObject);
-                    $message	= new Swift_Message($data['subject'], $data['mail_content'], 'text/html');
-                    $from		= Configurator::get('address', $associationId, 'info-association@piwam.org');
-                    $membres	= MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+                    $mailer   = new Swift($methodObject);
+                    $message  = new Swift_Message($data['subject'], $data['mail_content'], 'text/html');
+                    $from     = Configurator::get('address', $associationId, 'info-association@piwam.org');
+                    $membres  = MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAssociationId());
 
                     foreach ($membres as $membre)
                     {
-                        try {
+                        try
+                        {
                             $mailer->send($message, $membre->getEmail(), $from);
                             $sentOk++;
                         }
-                        catch(Swift_ConnectionException $e) {
+                        catch(Swift_ConnectionException $e)
+                        {
                             $sentKo++;
                         }
                     }
@@ -197,7 +198,8 @@ class associationActions extends sfActions
                     $this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . plural_word($sentOk, ' destinataire') . ' (' . $sentKo . plural_word($sentKo, ' erreur') . ')');
                     $this->content = $data['mail_content'];
                 }
-                catch (Exception $e) {
+                catch (Exception $e)
+                {
                     //
                 }
             }
@@ -221,7 +223,8 @@ class associationActions extends sfActions
      */
     public function executeNew(sfWebRequest $request)
     {
-        if (! $this->_canRegisterAnotherAssociation()) {
+        if (! $this->_canRegisterAnotherAssociation())
+        {
             $this->redirect('/error/credentials');
         }
 
@@ -239,7 +242,8 @@ class associationActions extends sfActions
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new AssociationForm();
 
-        if ($this->processForm($request, $this->form)) {
+        if ($this->processForm($request, $this->form))
+        {
             $this->_association->initialize();
             $this->getUser()->setTemporaryAssociationId($this->_association->getId());
             $this->redirect('membre/newfirst');
@@ -256,7 +260,7 @@ class associationActions extends sfActions
      */
     public function executeEdit(sfWebRequest $request)
     {
-        $this->forward404Unless($association = AssociationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object association does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($association = AssociationPeer::retrieveByPk($request->getParameter('id')), sprintf('L\'association n\'existe pas (%s).', $request->getParameter('id')));
         $this->form = new AssociationForm($association);
     }
 
@@ -270,7 +274,8 @@ class associationActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($association = AssociationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object association does not exist (%s).', $request->getParameter('id')));
         $this->form = new AssociationForm($association);
-        if ($this->processForm($request, $this->form)) {
+        if ($this->processForm($request, $this->form))
+        {
             $this->redirect('membre/index');
         }
         else {
@@ -291,6 +296,9 @@ class associationActions extends sfActions
         $this->redirect('association/index');
     }
 
+    /*
+     * Process data sent from the form
+     */
     protected function processForm(sfWebRequest $request, sfForm $form)
     {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
@@ -307,21 +315,25 @@ class associationActions extends sfActions
      */
     private function _canRegisterAnotherAssociation()
     {
-        if (sfConfig::get('app_multi_association')) {
+        if (sfConfig::get('app_multi_association'))
+        {
             return true;
         }
         else
         {
             try
             {
-                if (AssociationPeer::doCount(new Criteria()) === 0) {
+                if (AssociationPeer::doCount(new Criteria()) === 0)
+                {
                     return true;
                 }
-                else {
+                else
+                {
                     return false;
                 }
             }
-            catch (PropelException $e) {
+            catch (PropelException $e)
+            {
                 $this->redirect('install/index');
             }
         }

@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Represents the current user session. myUser is able to manage temporary
+ * information (when user is registering a new association and so he's not
+ * registered yet) and persistent information about him (once he's registered)
+ *
+ * @author Adrien Mogenet
+ */
 class myUser extends sfBasicSecurityUser
 {
     /**
@@ -33,6 +39,30 @@ class myUser extends sfBasicSecurityUser
         $this->getAttributeHolder()->removeNamespace('user');
         $this->getAttributeHolder()->removeNamespace('temp');
         $this->clearCredentials();
+    }
+
+    /**
+     * Get the current association ID of the user
+     *
+     * @param	integer	$default (optional)
+     * @return	integer
+     * @since	r140
+     */
+    public function getAssociationId($default = null)
+    {
+        return $this->getAttribute('association_id', $default, 'user');
+    }
+
+    /**
+     * Get the current user ID of the user
+     *
+     * @param	integer	$default (optional)
+     * @return	integer
+     * @since	r140
+     */
+    public function getUserId($default = null)
+    {
+        return $this->getAttribute('association_id', $default, 'user');
     }
 
     /**
