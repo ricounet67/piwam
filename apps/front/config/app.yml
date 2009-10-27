@@ -1,4 +1,4 @@
-all:
+prod:
   .general:
   
     # Set it to `false` if you wan't to use Piwam to manage only one
@@ -9,3 +9,12 @@ all:
     # Size of user's pictures thumbnails
     picture_width:		116
     picture_height:		116
+    
+
+# Test values
+test:
+ .general:
+    multi_association:  true
+    picture_width:		116
+    picture_height:		116
+    

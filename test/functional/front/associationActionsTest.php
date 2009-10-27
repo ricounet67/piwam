@@ -13,32 +13,33 @@ $browser = new sfGuardTestFunctional(new sfBrowser('docbook'), false);
 
 $browser->
 
-info("Creation d'une nouvelle association avec donnees invalides")->
+
+info("New association with empty data")->
 get('/association/new')->
 with('response')->begin()->
-click("Étape suivante >", array('association' => $association_empty))->
+    click("Étape suivante >", array('association' => $association_empty))->
 end()->
 with('form')->begin()->
-hasErrors(true)->
+    hasErrors(true)->
 end()->
 
 
 
-info("Creation d'une nouvelle association avec donnees valides")->
+info("New association with correct data")->
 with('response')->begin()->
-click("Étape suivante >", array('association' => $association_ok))->
+    click("Étape suivante >", array('association' => $association_ok))->
 end()->
 followRedirect()->
 with('request')->begin()->
-isParameter('module', 'membre')->
-isParameter('action', 'newfirst')->
+    isParameter('module', 'membre')->
+    isParameter('action', 'newfirst')->
 end()->
 
 
 
-info("Enregistrement du premier membre avec donnees invalides")->
+info("Register the first member with empty data")->
 with('response')->begin()->
-click("Étape suivante >", array('membre' => $membre_empty))->
+    click("Étape suivante >", array('membre' => $membre_empty))->
 end()->
 with('form')->begin()->
 hasErrors(true)->
@@ -54,7 +55,7 @@ end()->
 //	with('request')->begin()->
 //		isParameter('module', 'membre')->
 //		isParameter('action', 'endregistration')->
-//	end();
+//	end()->
 
 
 
@@ -62,49 +63,50 @@ signin(array('username' => sfGuardTestFunctional::LOGIN_OK, 'password' => sfGuar
 
 
 
-info("Acces a la page d'edition sans specifier d'id d'association")->
+info("Try to edit without giving ID as argument : custom error page")->
 get('/association/edit')->
 with('response')->begin()->
-isStatusCode(404)->
+    isStatusCode(200)->
+    checkElement('body', '/Page introuvable/')->
 end()->
 
 
 
-info("Acces a la page d'edition en specifiant un id d'association")->
+info("Access to the edit page")->
 click("A propos de l'association")->
 checkResponseElement('form input', true, array('count' => 7))->
 with('response')->begin()->
-isStatusCode(200)->
-checkElement('body', '/Nom de l\'association/')->
-info("Formulaire non rempli")->
-click('Sauvegarder', array('association' => $association_empty))->
+    isStatusCode(200)->
+    checkElement('body', '/Nom de l\'association/')->
+    info("Submit with empty form")->
+    click('Sauvegarder', array('association' => $association_empty))->
 end()->
 with('request')->begin()->
-isParameter('module', 'association')->
-isParameter('action', 'update')->
+    isParameter('module', 'association')->
+    isParameter('action', 'update')->
 end()->
 with('form')->begin()->
-hasErrors(true)->
+    hasErrors(true)->
 end()->
 
 
 
-info("Formulaire avec site web incorrect")->
+info("Form filled with wrong website")->
 with('response')->begin()->
-isStatusCode(200)->
-click('Sauvegarder', array('association' => $association_with_bad_url))->
+    isStatusCode(200)->
+    click('Sauvegarder', array('association' => $association_with_bad_url))->
 end()->
 with('form')->begin()->
-hasErrors(true)->
+    hasErrors(true)->
 end()->
 
 
 
-info("Formulaire avec donnees correctes")->
+info("Form with correct data")->
 with('response')->begin()->
-isStatusCode(200)->
-click('Sauvegarder', array('association' => $association_ok))->
+    isStatusCode(200)->
+    click('Sauvegarder', array('association' => $association_ok))->
 end()->
 with('form')->begin()->
-hasErrors(false)->
+    hasErrors(false)->
 end();

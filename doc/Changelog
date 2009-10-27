@@ -1,4 +1,17 @@
-r139 - october, 26, 2009
+r140 - october, 27, 2009
+	* membre : templates > _picture > input is a Membre object, and 'alt'
+	  attribute has been set for the picture
+	* myUser.class.php : getAssociationId() and getUserId()
+	* activite : actions > code refactoring to use new myUser methods
+	* symfony configure:author Adrien Mogenet
+	* activite : templates > _form.php > error message is displayed after the
+	  input field
+	* activiteActionsTest.php : basic scenarios
+	* association : actions > code refactoring to use new myUser methods
+	* associationActionsTest.php : code beautifier ;-)
+	
+
+r139 - october, 27, 2009
 	* ProjectConfiguration.class.php > checks that the file exists or display
 	  a friendly error message
 	* login : module has been removed (currently empty so useless)

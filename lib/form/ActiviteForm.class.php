@@ -23,8 +23,8 @@ class ActiviteForm extends BaseActiviteForm
         $userId			= sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user');
 
         unset($this['created_at'], $this['updated_at']);
-        unset($this['enregistre_par'], 	$this['mis_a_jour_par']);
-        unset($this['actif'], 			$this['association_id']);
+        unset($this['enregistre_par'], $this['mis_a_jour_par']);
+        unset($this['actif'], $this['association_id']);
 
         if ($this->getObject()->isNew()) {
             $this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();

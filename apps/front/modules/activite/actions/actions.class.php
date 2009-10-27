@@ -8,21 +8,22 @@
  */
 function compare_money_entries($entry1, $entry2)
 {
-    if ($entry1->getDate() <= $entry2->getDate()) {
+    if ($entry1->getDate() <= $entry2->getDate())
+    {
         return -1;
     }
-    else {
+    else
+    {
         return 1;
     }
 }
-
 
 /**
  * activite actions.
  *
  * @package    piwam
  * @subpackage activite
- * @author     Your name here
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
 class activiteActions extends sfActions
@@ -55,25 +56,39 @@ class activiteActions extends sfActions
         $this->dettes     = DepensePeer::getAmountOfDettesForActivite($activiteId);
         $this->totalPrevu = $this->creances - $this->dettes;
 
-        if ($this->activite->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+        if ($this->activite->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user'))
+        {
             $this->forward404Unless($this->activite);
         }
-        else {
+        else
+        {
             $this->forward('error', 'credentials');
         }
     }
 
+    /**
+     * Display the form to create a new Activity and set the default values.
+     *
+     * @param 	sfWebRequest $request
+     */
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new ActiviteForm();
-        $this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('enregistre_par', $this->getUser()->getUserId());
     }
 
+    /**
+     * Create the new Activity after performing operations. Form will be
+     * displayed again if required.
+     *
+     * @param 	sfWebRequest	$request
+     */
     public function executeCreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new ActiviteForm();
-        $this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
     }
@@ -88,20 +103,26 @@ class activiteActions extends sfActions
     {
         $this->forward404Unless($activite = ActivitePeer::retrieveByPk($request->getParameter('id')), sprintf('L\'activite n\'existe pas (%s).', $request->getParameter('id')));
 
-        if ($activite->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+        if ($activite->getAssociationId() != $this->getUser()->getAssociationId())
+        {
             $this->forward('error', 'credentials');
         }
 
         $this->form = new ActiviteForm($activite);
-        $this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
+    /**
+     * Perform update of fields about an Activity
+     *
+     * @param 	sfWebRequest	$request
+     */
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $this->forward404Unless($activite = ActivitePeer::retrieveByPk($request->getParameter('id')), sprintf('Object activite does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($activite = ActivitePeer::retrieveByPk($request->getParameter('id')), sprintf('L\'activité (%s) n\'existe pas.', $request->getParameter('id')));
         $this->form = new ActiviteForm($activite);
-        $this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }
@@ -116,7 +137,8 @@ class activiteActions extends sfActions
         $request->checkCSRFProtection();
         $this->forward404Unless($activite = ActivitePeer::retrieveByPk($request->getParameter('id')), sprintf('Object activite does not exist (%s).', $request->getParameter('id')));
 
-        if ($activite->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+        if ($activite->getAssociationId() != $this->getUser()->getAssociationId())
+        {
             $this->forward('error', 'credentials');
         }
 
@@ -124,6 +146,10 @@ class activiteActions extends sfActions
         $this->redirect('activite/index');
     }
 
+    /*
+     * Process the different operations with data get from the form. Redirects
+     * to main screen if everything is OK
+     */
     protected function processForm(sfWebRequest $request, sfForm $form)
     {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));

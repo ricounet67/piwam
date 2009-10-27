@@ -1,4 +1,6 @@
 
+	* associationActionsTest : solve issue of blocking code
+	* activiteActionsTest : solve $userID issue
     * Install : _generateConfigFile : make better replacements (thanks to pseudo
       constant like #DB_HOST
     * Write tests for short_website_url
