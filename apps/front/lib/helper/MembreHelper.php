@@ -10,19 +10,25 @@
  */
 function format_membre($membre, $pseudo = false)
 {
-    if ((is_null($membre)) || (! $membre->getRawValue() instanceof  Membre)) {
+    if ((is_null($membre)) || (! $membre->getRawValue() instanceof  Membre))
+    {
         $str = '<i>Système</i>';
     }
-    else {
+    else
+    {
         $str = '<a href="' . url_for('membre/show?id=' . $membre->getId()) . '">';
-        if ($pseudo) {
+
+        if ($pseudo)
+        {
             $str .= $membre->getPseudo();
         }
-        else {
+        else
+        {
             $str .= $membre->getPrenom() . ' ' .$membre->getNom();
         }
         $str .= '</a>';
     }
+
     return $str;
 }
 ?>

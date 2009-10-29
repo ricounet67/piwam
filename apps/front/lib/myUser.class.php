@@ -62,7 +62,7 @@ class myUser extends sfBasicSecurityUser
      */
     public function getUserId($default = null)
     {
-        return $this->getAttribute('association_id', $default, 'user');
+        return $this->getAttribute('user_id', $default, 'user');
     }
 
     /**

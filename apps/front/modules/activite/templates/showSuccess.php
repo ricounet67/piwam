@@ -15,8 +15,14 @@
         <tr>
             <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
             Mise à jour le :</th>
-            <td><?php echo format_datetime($activite->getUpdatedAt(), 'dd/MM/yyyy HH:mm') ?>
-            par <?php echo format_membre($activite->getMembreRelatedByMisAJourPar())?></td>
+            <td>
+            	<?php if ($activite->getMisAJourPar()):?>
+	                <?php echo format_datetime($activite->getUpdatedAt(), 'dd/MM/yyyy HH:mm') ?>
+            		par <?php echo format_membre($activite->getMembreRelatedByMisAJourPar())?>
+                <?php else: ?>
+                    <i>Aucune mise à jour pour le moment</i>
+                <?php endif; ?>
+        	</td>
         </tr>
     </tbody>
 </table>

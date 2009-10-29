@@ -13,16 +13,12 @@ class AssociationForm extends BaseAssociationForm
     public function configure()
     {
         unset($this['created_at'], $this['updated_at']);
-        unset($this['enregistre_par'], 	$this['mis_a_jour_par']);
-        unset($this['actif'], 			$this['association_id']);
+        unset($this['enregistre_par'], $this['mis_a_jour_par']);
+        unset($this['actif'], $this['association_id']);
         unset($this['description']);
 
-        if ($this->getObject()->isNew()) {
-            $this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
-            $this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
-            $this->validatorSchema['enregistre_par'] = new sfValidatorInteger(array('required' => false));
-        }
-        else {
+        if (! $this->getObject()->isNew())
+        {
             $this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
             $this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
             $this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger(array('required' => false));
