@@ -6,8 +6,11 @@
  */
 class sfGuardTestFunctional extends sfTestFunctional
 {
-    const LOGIN_OK      = "demo";       // set a valid login
-    const PASSWORD_OK   = "demo";       // set a valid password
+    const LOGIN_OK          = "demo";       // set a valid login
+    const PASSWORD_OK       = "demo";       // set a valid password
+    var $userId             = null;
+    var $associationId      = null;
+    var $foreignAssociation = null;
 
 
     /**
@@ -17,10 +20,13 @@ class sfGuardTestFunctional extends sfTestFunctional
      * @param boolean   $login      (optional) Do we have to perform user login
      * @param           $lime		(optional)
      * @param           $testers	(optional)
+     * @return			sfGuardTestFunctional $this
      */
     public function __construct($browser, $login = true, $lime = null, $testers = array())
     {
         parent::__construct($browser, $lime, $testers);
+
+        $this->signout();
 
         if ($login)
         {
@@ -36,7 +42,7 @@ class sfGuardTestFunctional extends sfTestFunctional
      */
     public function signin($user_data)
     {
-        return  $this->info(sprintf('Connection with login: "%s" and password: "%s".', $user_data['username'], $user_data['password']))->
+        $this->info(sprintf('Connection with login: "%s" and password: "%s".', $user_data['username'], $user_data['password']))->
         get('/association/login')->
         click("S'identifier", array('login' => $user_data))->
 
@@ -56,6 +62,22 @@ class sfGuardTestFunctional extends sfTestFunctional
 
         isRedirected()->
         followRedirect();
+
+        $this->userId = $this->getContext()->getUser()->getUserId();
+        $this->associationId = $this->getContext()->getUser()->getAssociationId();
+        $this->foreignAssociation = $this->associationId + 1;
+
+        return $this;
+    }
+
+    /**
+     * Logout the current user
+     *
+     * @return sfGuardTestFunctional $this
+     */
+    public function signout()
+    {
+        return $this->get('/association/logout');
     }
 }
 

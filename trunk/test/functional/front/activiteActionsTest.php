@@ -4,8 +4,6 @@ include(dirname(__FILE__).'/../../bootstrap/functional.php');
 
 $browser = new sfGuardTestFunctional(new sfBrowser('docbook'));
 
-$userId = sfContext::getInstance()->getUser()->getUserId();
-
 // Inputs
 $empty    = array();
 $correct  = array('libelle' => "C'est une première activité");
@@ -21,7 +19,7 @@ with('request')->begin()->
 end()->
 with('response')->begin()->
     isStatusCode(200)->
-    checkElement('body', '!/This is a temporary page/')->
+    checkElement('h2', 'Liste des activités')->
 end()->
 
 
@@ -40,7 +38,7 @@ end()->
 
 
 
-info('Add a correct activity for ' . $userId)->
+info('Add a correct activity')->
 with('response')->begin()->
     click('Sauvegarder', array('activite' => $correct))->
 end()->

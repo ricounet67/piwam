@@ -1,4 +1,18 @@
-r140 - october, 27, 2009
+r142 - october, 29, 209
+	* compte : actions > code refactoring to use new myUser methods
+	* compteActionsTest.php : new tests
+	* loginActionsTest.php has been removed (module doesn't longer exist)
+	* AssociationForm.class.php : field 'enregistre_par' has been removed to
+	  avoid bugs due to session behaviour
+	* sfGuardTestFunctional : signout() method
+	* activite : actions > new > field 'mis_a_jour_par' is not set for creation
+	* myUser : getUserId() > fixed awesome bug... (association id was returned)
+	* MembreHelper : format_membre > code is more beautiful !
+	* activite : templates > showSuccess > a special message is displayed if
+	  activity has not been edited yet
+	  
+
+r141 - october, 27, 2009
 	* membre : templates > _picture > input is a Membre object, and 'alt'
 	  attribute has been set for the picture
 	* myUser.class.php : getAssociationId() and getUserId()
@@ -11,7 +25,7 @@ r140 - october, 27, 2009
 	* associationActionsTest.php : code beautifier ;-)
 	
 
-r139 - october, 27, 2009
+r140 - october, 27, 2009
 	* ProjectConfiguration.class.php > checks that the file exists or display
 	  a friendly error message
 	* login : module has been removed (currently empty so useless)
@@ -30,6 +44,10 @@ r139 - october, 27, 2009
 	* main.css : comments have been translated to english
 	* README, README-FR and TROUBLESHOOTING-FR are up to date
 	
+	
+r139 - october, 26, 2009
+	* svn:ignore /web/uploads/trombinoscope/*	
+
 
 r138 - october, 26, 2009
     * schema.yml : membre > new field 'picture'

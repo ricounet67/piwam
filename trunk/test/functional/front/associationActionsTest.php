@@ -62,11 +62,10 @@ end()->
 signin(array('username' => sfGuardTestFunctional::LOGIN_OK, 'password' => sfGuardTestFunctional::PASSWORD_OK))->
 
 
-
 info("Try to edit without giving ID as argument : custom error page")->
 get('/association/edit')->
 with('response')->begin()->
-    isStatusCode(200)->
+    isStatusCode(404)->
     checkElement('body', '/Page introuvable/')->
 end()->
 
@@ -109,4 +108,10 @@ with('response')->begin()->
 end()->
 with('form')->begin()->
     hasErrors(false)->
-end();
+end()->
+
+
+
+info("Access to the index page")->
+get('/association/index');
+;

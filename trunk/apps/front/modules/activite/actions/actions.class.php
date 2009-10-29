@@ -74,8 +74,8 @@ class activiteActions extends sfActions
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new ActiviteForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
         $this->form->setDefault('enregistre_par', $this->getUser()->getUserId());
+        $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
     }
 
     /**
@@ -89,6 +89,7 @@ class activiteActions extends sfActions
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new ActiviteForm();
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
     }
@@ -110,6 +111,7 @@ class activiteActions extends sfActions
 
         $this->form = new ActiviteForm($activite);
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
     }
 
     /**
@@ -123,6 +125,7 @@ class activiteActions extends sfActions
         $this->forward404Unless($activite = ActivitePeer::retrieveByPk($request->getParameter('id')), sprintf('L\'activité (%s) n\'existe pas.', $request->getParameter('id')));
         $this->form = new ActiviteForm($activite);
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }
