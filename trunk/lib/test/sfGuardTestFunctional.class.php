@@ -97,6 +97,15 @@ class sfGuardTestFunctional extends sfTestFunctional
 
         return $foreignAccount->getId();
     }
+
+    /**
+     * When testing cotisations, we need to create at least one valid
+     * type
+     */
+    public function addNewCotisationType()
+    {
+
+    }
 }
 
 ?>
