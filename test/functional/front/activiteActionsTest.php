@@ -20,6 +20,7 @@ end()->
 with('response')->begin()->
     isStatusCode(200)->
     checkElement('h2', 'Liste des activités')->
+    checkElement('tr', 2)->
 end()->
 
 
@@ -46,5 +47,12 @@ followRedirect()->
 with('request')->begin()->
     isParameter('module', 'activite')->
     isParameter('action', 'index')->
+end()->
+
+
+
+info('Check that we now have 2 activities')->
+with('response')->begin()->
+    checkElement('tr', 3)->
 end()
 ;
