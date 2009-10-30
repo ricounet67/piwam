@@ -1,3 +1,10 @@
+r144 - october, 30, 2009
+	* cotisation : actions > code refactoring to use new myUser methods
+	* CotisationForm : default values are set within the action
+	* CotisationForm : field 'mis_a_jour_par' is set only when updating
+	* cotisationActionsTests : new tests
+
+
 r143 - october, 30, 2009
 	* sfGuardTestFunctional : new method to create a foreign account
 	* compteActionsTest : complete tests
