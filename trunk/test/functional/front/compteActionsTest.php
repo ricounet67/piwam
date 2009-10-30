@@ -1,8 +1,9 @@
 <?php
 include(dirname(__FILE__).'/../../bootstrap/functional.php');
 
-$browser = new sfGuardTestFunctional(new sfBrowser('docbook'));
 
+$browser   = new sfGuardTestFunctional(new sfBrowser('docbook'));
+$foreignId = $browser->addForeignAccount();
 
 // Inputs
 $empty       = array();
@@ -107,30 +108,27 @@ with('request')->begin()->
 end()->
 with('response')->begin()->
     checkElement('body', '/Un enregistrement similaire existe déjà./')->
-end()
-;
-
-
-/*
- * Creation of an account which belongs to another
- * association
- */
-$foreignAccount = new Compte();
-$foreignAccount->setAssociationId($browser->foreignAssociation);
-$foreignAccount->setLibelle('Foreign account');
-$foreignAccount->setReference('FA');
-$foreignAccount->setActif(1);
-$foreignAccount->save();
-$foreignId = $foreignAccount->getId();
+end()->
 
 
 
 
-$browser->
 info('Try to access to foreign account')->
 get('/compte/show/id/' . $foreignId)->
 with('response')->begin()->
     isStatusCode(200)->
     checkElement('h2', '!/Détails/')->
     checkElement('h2', '/Problème de droits/')->
+end()->
+
+
+
+
+info('Try to access to the lastly created account')->
+get('/compte/show/id/' . ($foreignId + 1))->
+with('response')->begin()->
+    isStatusCode(200)->
+    checkElement('h2', '/Détails du compte CDT/')->
+    checkElement('body', '/par Roger Faker/')->
+    checkElement('body', '/Compte de test/')->
 end();

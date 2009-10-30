@@ -79,6 +79,24 @@ class sfGuardTestFunctional extends sfTestFunctional
     {
         return $this->get('/association/logout');
     }
+
+    /**
+     * Creation of an account which belongs to another
+     * association
+     *
+     * @return	integer	 ID of the new account
+     */
+    public function addForeignAccount()
+    {
+        $foreignAccount = new Compte();
+        $foreignAccount->setAssociationId($this->foreignAssociation);
+        $foreignAccount->setLibelle('Foreign account');
+        $foreignAccount->setReference('FA');
+        $foreignAccount->setActif(1);
+        $foreignAccount->save();
+
+        return $foreignAccount->getId();
+    }
 }
 
 ?>

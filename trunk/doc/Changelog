@@ -1,4 +1,9 @@
-r142 - october, 29, 209
+r143 - october, 30, 2009
+	* sfGuardTestFunctional : new method to create a foreign account
+	* compteActionsTest : complete tests
+
+
+r142 - october, 29, 2009
 	* compte : actions > code refactoring to use new myUser methods
 	* compteActionsTest.php : new tests
 	* loginActionsTest.php has been removed (module doesn't longer exist)
