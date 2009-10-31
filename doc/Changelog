@@ -1,3 +1,10 @@
+r147 - october, 31, 2009
+    * compte : actions > default values are set when required
+    * compte : templates > showSuccess.php > display a message if no update has
+      been done yet
+    * compteForm : initialize 'mis_a_jour_par' only if object already exists
+    
+
 r146 - october, 31, 2009
     * activite : actions > index, show > uses the new myUser method
     * activite : actions > default values are set only when required (new and
