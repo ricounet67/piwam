@@ -629,8 +629,7 @@ CREATE TABLE `piwam_data`
     PRIMARY KEY (`id`)
 )ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `piwam_data` (`id`, `key`, `value`) VALUES
-(1, 'dbversion', '117');
+
 
 --
 -- Mise a jour avec la r100
@@ -713,3 +712,17 @@ NULL , 'googlemap_key', 'services', 'Clé Google Map', 'Clé utilisée pour acc�
 -- r137
 --
 ALTER TABLE `piwam_membre` ADD `picture` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL AFTER `pays` ;
+
+
+--
+-- r145
+--
+ ALTER TABLE `piwam_cotisation_type` CHANGE `mis_a_jour_par` `mis_a_jour_par` INT( 11 ) NULL DEFAULT NULL  ;
+ 
+ 
+ --
+ -- Think about updating the version !!
+ --
+ 
+ INSERT INTO `piwam_data` (`id`, `key`, `value`) VALUES
+(1, 'dbversion', '145');

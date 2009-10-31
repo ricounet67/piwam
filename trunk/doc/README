@@ -96,12 +96,12 @@
 
 		D- Make the 'uploads' folder writable
 		
-			To be able to upload user's pictures, you have to make  the folder
+			To be able  to upload files, you  have to make the  sub-folders of
 			/web/uploads writable.
 			
 			-----------------------------------------------------------------
 			> cd /var/www/piwam
-			> chmod 777 web/uploads
+			> chmod 777 web/uploads/*
 			-----------------------------------------------------------------
 
 

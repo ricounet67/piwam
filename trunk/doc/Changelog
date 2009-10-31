@@ -1,3 +1,15 @@
+r145 - october, 31, 2009
+    * README and README-FR are up to date
+    * CotisationTypeForm : mis_a_jour_par is used only when updating
+    * cotisationtype : actions > code refactoring to use new myUser methods
+    * /data/updates/r145.sql : 'cotisationtype.mis_a_jour_par' can be null
+    * piwam-install.sql is up to date
+    * cotisationtype : templates > showSuccess.php has been removed because
+      unused
+    * cotisationtype : actions > executeShow() has been removed because
+      unused
+    
+
 r144 - october, 30, 2009
 	* cotisation : actions > code refactoring to use new myUser methods
 	* CotisationForm : default values are set within the action
