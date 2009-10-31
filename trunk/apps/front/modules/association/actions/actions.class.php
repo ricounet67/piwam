@@ -28,8 +28,7 @@ class associationActions extends sfActions
             {
                 if (strlen($value) > 0)
                 {
-                    $associationId  = $this->getUser()->getAssociationId();
-                    Configurator::set($key, $value, $associationId);
+                    Configurator::set($key, $value, $this->getUser()->getAssociationId());
                 }
             }
             $this->getUser()->setFlash('notice', 'Les préférences ont bien été prises en compte.');
@@ -145,7 +144,8 @@ class associationActions extends sfActions
                             $methodObject->setUsername(Configurator::get('gmail_username', $associationId));
                             $methodObject->setPassword(Configurator::get('gmail_password', $associationId));
 
-                            if (!extension_loaded('openssl')) {
+                            if (!extension_loaded('openssl'))
+                            {
                                 $this->getUser()->setFlash('error', 'Le module "openssl" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails');
                             }
                             break;
@@ -248,7 +248,8 @@ class associationActions extends sfActions
             $this->getUser()->setTemporaryAssociationId($this->_association->getId());
             $this->redirect('membre/newfirst');
         }
-        else {
+        else
+        {
             $this->setTemplate('new');
         }
     }
