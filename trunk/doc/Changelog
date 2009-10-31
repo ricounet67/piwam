@@ -1,3 +1,9 @@
+r146 - october, 31, 2009
+    * activite : actions > index, show > uses the new myUser method
+    * activite : actions > default values are set only when required (new and
+      edit)
+
+
 r145 - october, 31, 2009
     * README and README-FR are up to date
     * CotisationTypeForm : mis_a_jour_par is used only when updating
