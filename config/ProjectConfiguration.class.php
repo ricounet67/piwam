@@ -7,7 +7,7 @@
  */
 
 
-$file = 'C:\Development\Workspace\Symfony-1.2\lib\autoload\sfCoreAutoload.class.php';
+$file = '/Users/adrien/Development/Symfony/1.2/lib/autoload/sfCoreAutoload.class.php';
 
 if (file_exists($file))
 {
