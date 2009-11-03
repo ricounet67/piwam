@@ -106,9 +106,9 @@ input {
 /* custom input file */
 .SI-FILES-STYLIZED label.custom
 {
-    width: 79px;
+    width: 100px;
     height: 22px;
-    background: url(browse.gif) 0 0 no-repeat;
+    background: url(browse.png) 0 0 no-repeat;
 
     display: block;
     overflow: hidden;
