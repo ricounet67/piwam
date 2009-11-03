@@ -87,6 +87,7 @@ class associationActions extends sfActions
     public function executeLogout(sfWebRequest $request)
     {
         $this->getUser()->logout();
+        $this->redirect('@homepage');
     }
 
     /**
