@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <th>Email :</th>
-            <td><?php echo '<a href="' . $membre->getEmail() . '">' . $membre->getEmail() . '</a>' ?></td>
+            <td><?php echo mail_to($membre->getEmail()) ?></td>
         </tr>
         <tr>
             <th>Site Internet :</th>

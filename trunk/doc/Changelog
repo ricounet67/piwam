@@ -1,3 +1,10 @@
+r148 - october, 3, 2009
+    * membre : templates > showSuccess.php > email is crypted thanks to mail
+      helper
+    * membre : templates > indexSuccess.php > email is crypted thanks to mail
+      helper
+
+
 r147 - october, 31, 2009
     * compte : actions > default values are set when required
     * compte : templates > showSuccess.php > display a message if no update has
