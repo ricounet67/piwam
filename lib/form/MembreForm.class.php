@@ -36,10 +36,12 @@ class MembreForm extends BaseMembreForm
      */
     public function configure()
     {
-        if (sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'temp')) {
+        if (sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'temp'))
+        {
             $this->_firstRegistration = true;
         }
-        else {
+        else
+        {
             $this->_firstRegistration = false;
         }
 
@@ -47,18 +49,20 @@ class MembreForm extends BaseMembreForm
         unset($this['enregistre_par'], 	$this['mis_a_jour_par']);
         unset($this['actif'], 			$this['association_id']);
 
-        if ($this->getObject()->isNew()) {
-
+        if ($this->getObject()->isNew())
+        {
             // If this is the user is not the one who
             // is currently registering a new Association
-            if (! $this->_firstRegistration) {
+
+            if (! $this->_firstRegistration)
+            {
                 $this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
-                $this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+                $this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getUserId());
                 $this->validatorSchema['enregistre_par'] = new sfValidatorInteger(array('required' => false));
             }
 
             $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-            $this->setDefault('association_id', sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user'));
+            $this->setDefault('association_id', sfContext::getInstance()->getUser()->getAssociationId());
             $this->validatorSchema['association_id'] = new sfValidatorInteger();
 
         } // new object
@@ -69,7 +73,6 @@ class MembreForm extends BaseMembreForm
         $this->setDefault('pays', 'FRANCE');
         $this->setDefault('actif', 1);
 
-        // Customize Password field
         unset($this['password']);
         $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
 
@@ -80,20 +83,21 @@ class MembreForm extends BaseMembreForm
          * Otherwise, user MUST give a passsword and pseudo
          */
 
-        if (! $this->_firstRegistration) {
+        if (! $this->_firstRegistration)
+        {
             $this->validatorSchema['password'] = new sfValidatorString(array('required' => false));
             $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => false));
             $this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
             $this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
         }
-        else {
+        else
+        {
             $this->validatorSchema['password'] = new sfValidatorString(array('required' => true));
             $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => true));
         }
 
         $this->validatorSchema->setPostValidator(new sfValidatorPropelUnique(array('model' => 'Membre', 'column' => 'pseudo'), array('invalid' => 'Ce pseudo existe déjà')));
 
-        // New validators for Email and Website fields
         unset($this->validatorSchema['email']);
         unset($this->validatorSchema['website']);
         $this->validatorSchema['email'] = new sfValidatorEmail(array('required' => false));
@@ -144,5 +148,6 @@ class MembreForm extends BaseMembreForm
         $this->widgetSchema['tel_portable']->setAttribute('class', 'formInputNormal');
         $this->widgetSchema['statut_id']->setAttribute('class', 'formInputNormal');
         $this->widgetSchema['pays']->setAttribute('class', 'formInputNormal');
+        $this->widgetSchema['picture']->setAttribute('class', 'file');
     }
 }

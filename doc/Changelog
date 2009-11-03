@@ -1,3 +1,7 @@
+r151 - october, 3, 2009
+    * membre : templates > _form > custom 'browse' button
+
+
 r150 - october, 3, 2009
     * association : actions > logout > redirect to homepage
     * association : templates > loginSuccess.php > new welcome message
