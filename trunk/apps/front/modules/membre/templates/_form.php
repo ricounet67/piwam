@@ -1,6 +1,13 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
 <?php use_helper('JavascriptBase') ?>
+<?php use_javascript('custom-forms/si.files.js') ?>
+
+<script type="text/javascript" language="javascript">
+// <![CDATA[
+
+SI.Files.stylizeAll();
+</script>
 
 <form
     action="<?php
@@ -59,7 +66,7 @@
         </tr>
         <tr>
             <th>Photo</th>
-            <td><?php echo $form['picture'] . $form['picture']->renderError() ?></td>
+            <td><label class="custom"><?php echo $form['picture'] ?><?php echo $form['picture']->renderError() ?></label></td>
         </tr>
         <tr>
             <th>Date d'inscription</th>
