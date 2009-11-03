@@ -1,4 +1,7 @@
-<p class="notice">Bienvenue dans la version 1.1.1 de Piwam !</p>
+<p class="notice">
+    Bienvenue dans la version 1.1.2 de Piwam !<br />
+    Ceci est une version de développement, des bugs peuvent subsister.
+</p>
 
 <h2>Identification</h2>
 <form action="<?php echo url_for('association/login') ?>" method="POST">
