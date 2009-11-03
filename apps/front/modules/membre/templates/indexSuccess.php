@@ -27,9 +27,12 @@
             <td><?php echo $membre->getPseudo() ?></td>
             <td><?php echo $membre->getStatut() ?></td>
             <td><?php echo $membre->getVille() ?></td>
-            <td><?php if ($membre->getEmail()) :?> <a
-                href="mailto:<?php echo $membre->getEmail() ?>"><?php echo image_tag('mail.png', array('alt' => '[e-mail]')) ?></a>
-                <?php else: ?> <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?> <?php endif; ?>
+            <td>
+                <?php if ($membre->getEmail()) :?>
+                    <?php echo mail_to($membre->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
+                <?php else: ?>
+                    <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
+                <?php endif; ?>
                 <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'membre/edit?id=' . $membre->getId()) ?>
                 <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'membre/show?id=' . $membre->getId()) ?>
                 <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
