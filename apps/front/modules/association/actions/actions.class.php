@@ -124,13 +124,14 @@ class associationActions extends sfActions
                         $newPassword = StringTools::generatePassword(8);
                         $user->setPassword($newPassword);
                         $user->save();
+
                         $mailer   = MailerFactory::get($user->getAssociationId(), $this->getUser());
-                        $message  = new Swift_Message('Votre mot de passe', 'Votre mot de passe est ' . $newPassword, 'text/html');
+                        $message  = new Swift_Message('Votre mot de passe', 'Bonjour, votre nouveau mot de passe pour acc&eacute;der au gestionnaire d\'association est ' . $newPassword, 'text/html');
                         $from     = Configurator::get('address', $user->getAssociationId(), 'info-association@piwam.org');
 
                         try
                         {
-                            $mailer->send($message, $user->getEmail(), $from);
+                            $mailer->send($message, $email, $from);
                         }
                         catch(Swift_ConnectionException $e)
                         {
@@ -191,8 +192,6 @@ class associationActions extends sfActions
                 $sentOk = 0; 	// these are 2 counters of
                 $sentKo = 0;	// succeed/failed messages
 
-                // mail users
-                // r11
                 try
                 {
                     $mailer   = MailerFactory::get($associationId, $this->getUser());
@@ -332,7 +331,10 @@ class associationActions extends sfActions
     }
 
     /*
-     * Check if we can register another new association
+     * Check if we can register another new association. Because this method
+     * is called in the default action, we check if PDO is correctly set up.
+     *
+     * If not, we redirect to install module
      */
     private function _canRegisterAnotherAssociation()
     {

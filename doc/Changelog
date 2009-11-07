@@ -1,4 +1,8 @@
-r154 - october, 3, 2009
+r155 - october, 7, 2009
+    * StringToolsTest : new test for generatePassword method
+    
+
+r154 - october, 7, 2009
     * membre : security.yml > edit and show credentials have been documented
     * /apps/front/lib/form/ForgottenPasswordForm : new class
     * association : actions > new action Forgottenpassword
@@ -10,7 +14,7 @@ r154 - october, 3, 2009
       index
     
 
-r153 - october, 3, 2009
+r153 - october, 7, 2009
     * membre : security.yml > removed credential auto-checking for edit and show
     * membre : actions > edit and show actions are available for the user
     * membrePeer.php : new const IS_PENDING
