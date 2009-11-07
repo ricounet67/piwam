@@ -1,3 +1,15 @@
+r153 - october, 3, 2009
+    * membre : security.yml > removed credential auto-checking for edit and show
+    * membre : actions > edit and show actions are available for the user
+    * membrePeer.php : new const IS_PENDING
+    * association : actions > login > redirect to user profile if he can't list
+      the members (default homepage)
+
+
+r152 - october, 3, 2009
+    * /web/css : new 'browse' button
+    
+
 r151 - october, 3, 2009
     * membre : templates > _form > custom 'browse' button
 

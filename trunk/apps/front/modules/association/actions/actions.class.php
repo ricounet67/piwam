@@ -72,7 +72,15 @@ class associationActions extends sfActions
                 if (! is_null($user))
                 {
                     $this->getUser()->login($user);
-                    $this->redirect('membre/index');
+
+                    if ($this->getUser()->hasCredential('list_membre'))
+                    {
+                        $this->redirect('membre/index');
+                    }
+                    else
+                    {
+                        $this->redirect('membre/show?id=' . $user->getId());
+                    }
                 }
             }
         }

@@ -4,6 +4,7 @@ class MembrePeer extends BaseMembrePeer
 {
     const PICTURE_DIR = 'uploads/trombinoscope';
     const IS_ACTIF = 1;
+    const IS_PENDING = 2;
 
     /**
      * Retrieve all the members. Order the list according to the first
@@ -19,7 +20,8 @@ class MembrePeer extends BaseMembrePeer
      */
     public static function doSelectOrderBy($associationId, $page = 1, $column = self::PSEUDO)
     {
-        if (! in_array($column, array('NOM', 'PRENOM', 'PSEUDO', 'STATUT_ID', 'VILLE'))) {
+        if (! in_array($column, array('NOM', 'PRENOM', 'PSEUDO', 'STATUT_ID', 'VILLE')))
+        {
             $column = self::PSEUDO;
         }
 
