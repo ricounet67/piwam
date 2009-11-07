@@ -99,6 +99,61 @@ class associationActions extends sfActions
     }
 
     /**
+     * Allows an user to retrieve a forget password. Set flash message if user
+     * does not exist or if password has been set correctly
+     *
+     * @param   sfWebRequest    $request
+     */
+    public function executeForgottenpassword(sfWebRequest $request)
+    {
+        $this->form = new ForgottenPasswordForm();
+        $this->displayRegisterLink = $this->_canRegisterAnotherAssociation();
+
+        if ($request->isMethod('post'))
+        {
+            $this->form->bind($request->getParameter('password'));
+            if ($this->form->isValid())
+            {
+                $user = MembrePeer::retrieveByPseudo($request->getParameter('password[username]'));
+                if (! is_null($user))
+                {
+                    if ($user->getEmail())
+                    {
+                        $email = $user->getEmail();
+
+                        $newPassword = StringTools::generatePassword(8);
+                        $user->setPassword($newPassword);
+                        $user->save();
+                        $mailer   = MailerFactory::get($user->getAssociationId(), $this->getUser());
+                        $message  = new Swift_Message('Votre mot de passe', 'Votre mot de passe est ' . $newPassword, 'text/html');
+                        $from     = Configurator::get('address', $user->getAssociationId(), 'info-association@piwam.org');
+
+                        try
+                        {
+                            $mailer->send($message, $user->getEmail(), $from);
+                        }
+                        catch(Swift_ConnectionException $e)
+                        {
+                            $this->getUser()->setFlash('error', 'Le mot de passe n\'a pu être envoyé par e-mail');
+                        }
+
+                        $mailer->disconnect();
+                        $this->getUser()->setFlash('notice', 'Le nouveau mot de passe a été envoyé par e-mail', false);
+                        }
+                        else
+                        {
+                            $this->getUser()->setFlash('error', 'L\'utilisateur ne possède pas d\'adresse e-mail', false);
+                        }
+                }
+                else
+                {
+                    $this->getUser()->setFlash('error', 'Le nom d\'utilisateur n\'existe pas', false);
+                }
+            }
+        }
+    }
+
+    /**
      * Display the current overview of the association, for each Compte and
      * each Activite.
      * We provide the lists of the Compte and Activite to the view.
@@ -140,51 +195,7 @@ class associationActions extends sfActions
                 // r11
                 try
                 {
-                    /*
-                     * The user is able to select the method he prefers to use
-                     * for sending emails.
-                     *
-                     * By default we use the mail() php function
-                     */
-                    switch (Configurator::get('method', $associationId, 'mail'))
-                    {
-                        case 'gmail': // yes this is just a special case for smtp ;-)
-                            $methodObject = new Swift_Connection_SMTP('smtp.gmail.com', Swift_Connection_SMTP::PORT_SECURE, Swift_Connection_SMTP::ENC_TLS);
-                            $methodObject->setUsername(Configurator::get('gmail_username', $associationId));
-                            $methodObject->setPassword(Configurator::get('gmail_password', $associationId));
-
-                            if (!extension_loaded('openssl'))
-                            {
-                                $this->getUser()->setFlash('error', 'Le module "openssl" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi de mails');
-                            }
-                            break;
-
-                        case 'smtp':
-                            $smtpServer = Configurator::get('smtp_server', $associationId);
-                            $smtpPort = null;
-                            $smtpEncryption = null;
-                            $smtpUsername = Configurator::get('smtp_username', $associationId);
-                            $smtpPassword = Configurator::get('smtp_password', $associationId);
-                            $methodObject = new Swift_Connection_SMTP($smtpServer, $smtpPort, $smtpEncryption);
-                            $methodObject->setUsername($smtpUsername);
-                            $methodObject->setPassword($smtpPassword);
-                            break;
-
-                        case 'sendmail':
-                            $sendmailPath = Configurator::get('sendmail_path', $associationId, '/usr/bin/sendmail');
-                            $methodObject = new Swift_Connection_Sendmail($sendmailPath);
-                            break;
-
-                        case 'mail':
-                            $methodObject = new Swift_Connection_NativeMail();
-                            break;
-
-                        default:
-                            $methodObject = new Swift_Connection_NativeMail();
-                            break;
-                    }
-
-                    $mailer   = new Swift($methodObject);
+                    $mailer   = MailerFactory::get($associationId, $this->getUser());
                     $message  = new Swift_Message($data['subject'], $data['mail_content'], 'text/html');
                     $from     = Configurator::get('address', $associationId, 'info-association@piwam.org');
                     $membres  = MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAssociationId());

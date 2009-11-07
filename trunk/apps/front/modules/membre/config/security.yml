@@ -14,21 +14,30 @@ firstcreate:
 endregistration:
   is_secure:    off
   
-  
 index:
-  credentials:  list_membre
+  # Credentials are checked in action class since revision r154
+  #credentials:  list_membre
   
 create:
   credentials:  add_membre
 
 new:
   credentials:  add_membre
-    
-edit:
-  #credentials:  edit_membre
-  
+
 delete:
   credentials:  del_membre
+
+
+  
+edit:
+
+  # To strictly forbid users to edit their own profile, and just allow
+  # users who have the credential, just uncomment the following line
+  #credentials:  edit_membre
+  
   
 show:
+
+  # To strictly forbid users to show their own profile, and just allow
+  # users who have the credential, just uncomment the following line
   #credentials:  show_membre

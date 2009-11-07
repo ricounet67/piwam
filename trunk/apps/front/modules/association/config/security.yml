@@ -9,7 +9,11 @@ create:
 # And also to list current associations
 index:
   is_secure:    off
-  
+
+# And of curse to retrieve a password
+forgottenpassword:
+  is_secure:    off 
+   
   
 # For the other actions, we have to get the credentials
 edit:
@@ -26,3 +30,4 @@ bilan:
   
 config:
   credentials:	edit_association
+ 

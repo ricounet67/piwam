@@ -21,6 +21,11 @@ class membreActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
+        if (! $this->getUser()->hasCredential('list_membre'))
+        {
+            $this->redirect('membre/show?id=' . $this->getUser()->getUserId());
+        }
+
         $orderByColumn = $request->getParameter('orderby', MembrePeer::PSEUDO);
         $this->membresPager = MembrePeer::doSelectOrderBy($this->getUser()->getAttribute('association_id', null, 'user'),
         $request->getParameter('page', 1),
@@ -149,9 +154,9 @@ class membreActions extends sfActions
         $membre         = MembrePeer::retrieveByPk($this->user_id);
         $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
 
-        if (($membre->getAssociationId() != $associationId) &&
-                (($this->getUser()->hasCredential('edit_membre')) ||
-                ($this->getUser()->getUserId() == $this->user_id))
+        if (($membre->getAssociationId() != $associationId) ||
+                (($this->getUser()->hasCredential('edit_membre') == false) &&
+                ($this->getUser()->getUserId() != $this->user_id))
             )
         {
             $this->redirect('error/credentials');
@@ -173,16 +178,16 @@ class membreActions extends sfActions
         $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Object membre does not exist (%s).', $request->getParameter('id')));
         $this->form = new MembreForm($membre);
 
-        $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
+        $associationId  = $this->getUser()->getAssociationId();
         $this->user_id  = $request->getParameter('id');
         $this->form     = new MembreForm($membre);
         $this->aclForm  = new AclCredentialForm();
         $membre         = MembrePeer::retrieveByPk($this->user_id);
         $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
 
-        if (($membre->getAssociationId() != $associationId) &&
-                (($this->getUser()->hasCredential('edit_membre')) ||
-                ($this->getUser()->getUserId() == $this->user_id))
+        if (($membre->getAssociationId() != $associationId) ||
+                (($this->getUser()->hasCredential('edit_membre') == false) &&
+                ($this->getUser()->getUserId() != $request->getParameter('id')))
             )
         {
             $this->redirect('error/credentials');

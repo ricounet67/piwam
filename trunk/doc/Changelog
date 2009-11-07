@@ -1,3 +1,15 @@
+r154 - october, 3, 2009
+    * membre : security.yml > edit and show credentials have been documented
+    * /apps/front/lib/form/ForgottenPasswordForm : new class
+    * association : actions > new action Forgottenpassword
+    * association : templates > loginSuccess.php > link if forgotten password
+    * StringTools : new method generatePassword()
+    * /lib/misc/MailerFactory.class.php : new class to generate swift object
+    * association : actions > executeMailing > use new mailer factory class
+    * membre : actions > index > redirect to show if we don't have access to
+      index
+    
+
 r153 - october, 3, 2009
     * membre : security.yml > removed credential auto-checking for edit and show
     * membre : actions > edit and show actions are available for the user

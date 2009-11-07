@@ -21,12 +21,42 @@ class StringTools
     {
         $text = mb_convert_encoding($text, 'HTML-ENTITIES', $from_enc);
         $text = preg_replace(	array('/ß/','/&(..)lig;/', '/&([aouAOU])uml;/','/&(.)[^;]*;/'),
-        array('ss',"$1","$1".'e',"$1"),
-        $text);
-
+        array('ss',"$1","$1".'e',"$1"), $text);
         $result = eregi_replace("[^a-z0-9 ]",'',$text);
 
         return $result;
     }
+
+    /**
+     * Generate a random password, without double chars
+     *
+     * @param   integer     $length
+     * @return  string
+     * @since   r154
+     */
+    public static function generatePassword($length = 8)
+    {
+        $password = "";
+        $possible = "0123456789bcdfghjkmnpqrstvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ+-_?!";
+
+        for ($i = 0; $i < $length; ++$i)
+        {
+            $char = substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+            if (! strstr($password, $char))
+            {
+                $password .= $char;
+            }
+            else
+            {
+                if ($length < strlen($possible))
+                {
+                    $i--;
+                }
+            }
+        }
+
+        return $password;
+    }
+
 }
 ?>

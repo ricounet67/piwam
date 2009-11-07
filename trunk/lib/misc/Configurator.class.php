@@ -17,8 +17,8 @@ class Configurator
      */
     public static function get($v, $associationId, $defaultValue = null)
     {
-        $context        = sfContext::getInstance();
-        $configValue    = ConfigValuePeer::retrieveByCode($v, $associationId);
+        $context     = sfContext::getInstance();
+        $configValue = ConfigValuePeer::retrieveByCode($v, $associationId);
 
         if (is_null($configValue)) {
             $configVariable = ConfigVariablePeer::retrieveByCode($v);

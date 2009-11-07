@@ -19,6 +19,10 @@
     </tr>
     <tr>
         <td>&nbsp;</td>
+        <td><?php echo link_to('Mot de passe oublié ?', 'association/forgottenpassword') ?></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
         <td>
             <?php use_helper('Form') ?>
             <input type="submit" value="S'identifier" class="button" name="S'identifier" />
