@@ -28,7 +28,8 @@ class membreActions extends sfActions
     }
 
     /**
-     * Provide all information about the member to the view
+     * Provide all information about the member to the view. We check if we have
+     * the right to see profile of someone else
      *
      * @param 	sfWebRequest	$request
      */
@@ -37,12 +38,17 @@ class membreActions extends sfActions
         $membre_id = $request->getParameter('id');
         $this->membre = MembrePeer::retrieveByPk($membre_id);
 
-        if ($this->membre->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+        if (($this->membre->getAssociationId() == $this->getUser()->getAssociationId()) &&
+                (($this->getUser()->hasCredential('show_membre')) ||
+                ($this->getUser()->getUserId() == $membre_id))
+            )
+        {
             $this->cotisations = CotisationPeer::doSelectForUser($membre_id);
             $this->credentials = AclCredentialPeer::doSelectForMembreId($membre_id);
             $this->forward404Unless($this->membre);
         }
-        else {
+        else
+        {
             $this->forward('error', 'credentials');
         }
     }
@@ -135,7 +141,7 @@ class membreActions extends sfActions
      */
     public function executeEdit(sfWebRequest $request)
     {
-        $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
+        $associationId  = $this->getUser()->getAssociationId();
         $this->user_id  = $request->getParameter('id');
         $this->forward404Unless($membre = MembrePeer::retrieveByPk($this->user_id));
         $this->form     = new MembreForm($membre);
@@ -143,11 +149,15 @@ class membreActions extends sfActions
         $membre         = MembrePeer::retrieveByPk($this->user_id);
         $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
 
-        if ($membre->getAssociationId() != $associationId) {
+        if (($membre->getAssociationId() != $associationId) &&
+                (($this->getUser()->hasCredential('edit_membre')) ||
+                ($this->getUser()->getUserId() == $this->user_id))
+            )
+        {
             $this->redirect('error/credentials');
         }
 
-        $this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
         $this->aclForm->setUserId($this->user_id);
         $this->aclForm->automaticCheck();
     }
@@ -170,11 +180,14 @@ class membreActions extends sfActions
         $membre         = MembrePeer::retrieveByPk($this->user_id);
         $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
 
-        if ($membre->getAssociationId() != $associationId) {
+        if (($membre->getAssociationId() != $associationId) &&
+                (($this->getUser()->hasCredential('edit_membre')) ||
+                ($this->getUser()->getUserId() == $this->user_id))
+            )
+        {
             $this->redirect('error/credentials');
         }
 
-        $this->form->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
         $this->aclForm->setUserId($this->user_id);
         $this->aclForm->automaticCheck();
 
@@ -191,7 +204,7 @@ class membreActions extends sfActions
     public function executeExport(sfWebRequest $request)
     {
         $csv = new FileExporter('liste-membres.csv');
-        $membres = MembrePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+        $membres = MembrePeer::doSelectForAssociation($this->getUser()->getAssociationId());
 
         echo $csv->addLineCSV(array(
             'Prénom',

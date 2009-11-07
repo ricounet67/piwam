@@ -25,10 +25,10 @@ new:
   credentials:  add_membre
     
 edit:
-  credentials:  edit_membre
+  #credentials:  edit_membre
   
 delete:
   credentials:  del_membre
   
 show:
-  credentials:  show_membre
+  #credentials:  show_membre
