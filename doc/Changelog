@@ -1,3 +1,8 @@
+r162 - october, 8, 2009
+    * membre : security.yml > edit credentials is required to valide a pending
+      subscription
+      
+
 r161 - october, 8, 2009
     * MembrePeer : doSelectOrderBy() > useless associationId computation has 
       been removed

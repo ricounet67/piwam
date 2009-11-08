@@ -36,6 +36,9 @@ createpending:
 pending:
   is_secure:    off
   
+validate :
+  credentials:  edit_membre
+  
 edit:
 
   # To strictly forbid users to edit their own profile, and just allow
@@ -48,3 +51,4 @@ show:
   # To strictly forbid users to show their own profile, and just allow
   # users who have the credential, just uncomment the following line
   #credentials:  show_membre
+  
