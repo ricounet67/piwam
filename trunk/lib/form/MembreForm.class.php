@@ -36,6 +36,11 @@ class MembreForm extends BaseMembreForm
      */
     public function configure()
     {
+        if ($this->getOption('associationId'))
+        {
+            $associationId = $this->getOption('associationId');
+        }
+
         if (sfContext::getInstance()->getUser()->getAssociationId())
         {
             $this->_firstRegistration = false;
@@ -63,11 +68,11 @@ class MembreForm extends BaseMembreForm
         } // new object
 
         $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-        $this->setDefault('association_id', $this->getOption('associationId'));
+        $this->setDefault('association_id', $associationId);
         $this->validatorSchema['association_id'] = new sfValidatorInteger();
 
         $this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
-        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaEnabledForAssociation($this->getOption('associationId')));
+        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaEnabledForAssociation($associationId));
         $this->setDefault('date_inscription', date('d-m-Y'));
         $this->setDefault('pays', 'FRANCE');
         $this->setDefault('actif', 1);

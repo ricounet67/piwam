@@ -135,7 +135,7 @@ class membreActions extends sfActions
     public function executeFirstcreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
-        $this->form = new MembreForm();
+        $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getTemporaryAssociationId()));
         $request->setAttribute('first', true);
         $this->processForm($request, $this->form);
         $this->setTemplate('newfirst');
@@ -240,8 +240,6 @@ class membreActions extends sfActions
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Member does not exist (%s).', $request->getParameter('id')));
-        $this->form = new MembreForm($membre);
-
         $associationId  = $this->getUser()->getAssociationId();
         $this->user_id  = $request->getParameter('id');
         $this->form     = new MembreForm($membre, array('associationId' => $request->getParameter('membre[association_id]')));

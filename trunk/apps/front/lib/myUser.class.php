@@ -79,6 +79,18 @@ class myUser extends sfBasicSecurityUser
     }
 
     /**
+     * Retrieve the temporary Association ID in session, previously set
+     * by setTemporaryAssociationId
+     *
+     * @return  integer
+     * @since   r159
+     */
+    public function getTemporaryAssociationId()
+    {
+        return $this->getAttribute('association_id', null, 'temp');
+    }
+
+    /**
      * Store temporary values about user
      *
      * @param 	Membre	$value
