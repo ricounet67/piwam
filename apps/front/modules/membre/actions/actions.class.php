@@ -43,7 +43,7 @@ class membreActions extends sfActions
      */
     public function executeFaces(sfWebRequest $request)
     {
-        $this->membres = MembrePeer::doSelectForAssociation($associationId = $this->getUser()->getAttribute('association_id', null, 'user'));
+        $this->membres = MembrePeer::doSelectForAssociation($associationId = $this->getUser()->getAssociationId());
     }
 
     /**

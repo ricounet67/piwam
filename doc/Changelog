@@ -1,3 +1,8 @@
+r167 - october, 8, 2009
+    * MembrePeer.php : doSelectForAssociation() retrieve only active members
+    * fixes a bug in user's picture directory which listed disabled members
+    
+
 r166 - october, 8, 2009
     * /data/updates/1.1.1-to-1.1.2 : r166.sql > makes membre.pseudo field case
       insensitive
