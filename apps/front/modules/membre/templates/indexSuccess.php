@@ -1,3 +1,43 @@
+<?php if (count($pending)): ?>
+    <h2>Demandes d'adhésion en attente...</h2>
+
+    <table class="tableauDonnees">
+        <thead>
+            <tr class="enteteTableauDonnees">
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Pseudo</th>
+                <th>Statut</th>
+                <th>Ville</th>
+                <th width="100px">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($pending as $membre): ?>
+            <tr>
+                <td><?php echo $membre->getNom() ?></td>
+                <td><?php echo $membre->getPrenom() ?></td>
+                <td><?php echo $membre->getPseudo() ?></td>
+                <td><?php echo $membre->getStatut() ?></td>
+                <td><?php echo $membre->getVille() ?></td>
+                <td>
+                    <?php echo link_to(image_tag('state_ok.png', array('alt' => '[valider]')), 'membre/validate?id=' . $membre->getId()) ?>
+                    <?php if ($membre->getEmail()) :?>
+                        <?php echo mail_to($membre->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
+                    <?php else: ?>
+                        <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
+                    <?php endif; ?>
+                    <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'membre/edit?id=' . $membre->getId()) ?>
+                    <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'membre/show?id=' . $membre->getId()) ?>
+                    <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif ?>
+
+
 <h2>Liste des membres</h2>
 
 <table class="tableauDonnees">

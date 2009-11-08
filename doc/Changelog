@@ -1,3 +1,11 @@
+r161 - october, 8, 2009
+    * MembrePeer : doSelectOrderBy() > useless associationId computation has 
+      been removed
+    * membre : actions > index > retrieve pending subscriptions
+    * membre : templates > index > pending subscriptions are displayed
+    * membre : actions > new action executeValidate
+
+
 r160 - october, 8, 2009
     * association : templates > loginSuccess.php > explicit message
     * MembrePeer : doSelectPending() method
