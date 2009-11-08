@@ -36,11 +36,6 @@ class MembreForm extends BaseMembreForm
      */
     public function configure()
     {
-        if ($this->getOption('associationId'))
-        {
-            $associationId = $this->getOption('associationId');
-        }
-
         if (sfContext::getInstance()->getUser()->getAssociationId())
         {
             $this->_firstRegistration = false;
@@ -65,15 +60,14 @@ class MembreForm extends BaseMembreForm
                 $this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getUserId());
                 $this->validatorSchema['enregistre_par'] = new sfValidatorInteger(array('required' => false));
             }
-
-            $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-            $this->setDefault('association_id', sfContext::getInstance()->getUser()->getAssociationId());
-            $this->validatorSchema['association_id'] = new sfValidatorInteger();
-
         } // new object
 
+        $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
+        $this->setDefault('association_id', $this->getOption('associationId'));
+        $this->validatorSchema['association_id'] = new sfValidatorInteger();
+
         $this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
-        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled($associationId));
+        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaEnabledForAssociation($this->getOption('associationId')));
         $this->setDefault('date_inscription', date('d-m-Y'));
         $this->setDefault('pays', 'FRANCE');
         $this->setDefault('actif', 1);

@@ -27,7 +27,7 @@ class StatutPeer extends BaseStatutPeer
      * @return  Criteria
      *
      */
-    public static function getCriteriaForEnabled($associationId)
+    public static function getCriteriaEnabledForAssociation($associationId)
     {
         $c = new Criteria();
         $c->add(self::ACTIF, self::IS_ACTIF);
