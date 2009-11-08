@@ -27,7 +27,14 @@ new:
 delete:
   credentials:  del_membre
 
-
+requestsubscription:
+  is_secure:    off
+  
+createpending:
+  is_secure:    off
+  
+pending:
+  is_secure:    off
   
 edit:
 

@@ -37,4 +37,9 @@
     <h2>Nouveau compte</h2>
     <p>Pas encore de compte Piwam ? Vous pouvez enregistrer votre association sur <?php echo link_to('la page d\'inscription', 'association/new')?></p>
 
+<?php else: ?>
+
+    <h2>S'inscrire</h2>
+    <?php echo link_to('Créer un compte',  'membre/requestsubscription') ?>
+
 <?php endif; ?>

@@ -36,7 +36,7 @@ class MembreForm extends BaseMembreForm
      */
     public function configure()
     {
-        if (sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'temp'))
+        if (! sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'temp'))
         {
             $this->_firstRegistration = true;
         }
@@ -103,7 +103,7 @@ class MembreForm extends BaseMembreForm
         $this->validatorSchema['email'] = new sfValidatorEmail(array('required' => false));
         $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
 
-        $this->validatorSchema['actif'] = new sfValidatorBoolean();
+        $this->validatorSchema['actif'] = new sfValidatorInteger();
         $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled());
 
         unset ($this->widgetSchema['pays']);

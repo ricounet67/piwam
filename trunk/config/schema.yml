@@ -172,7 +172,7 @@ propel:
     website:         	{ type: varchar(255) }
     tel_fixe:        	{ type: varchar(16) }
     tel_portable:    	{ type: varchar(16) }
-    actif:           	{ type: boolean, default: true }
+    actif:           	{ type: integer, default: 1 }
     association_id:	 	{ type: integer, required: true, foreignTable: piwam_association, foreignReference: id, onDelete: cascade }
     enregistre_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     mis_a_jour_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
