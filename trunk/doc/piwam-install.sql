@@ -719,10 +719,16 @@ ALTER TABLE `piwam_membre` ADD `picture` VARCHAR( 255 ) CHARACTER SET utf8 COLLA
 --
  ALTER TABLE `piwam_cotisation_type` CHANGE `mis_a_jour_par` `mis_a_jour_par` INT( 11 ) NULL DEFAULT NULL  ;
  
+--
+-- r166
+--
+
+ALTER TABLE `piwam_membre` CHANGE `pseudo` `pseudo` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL  ;
+ 
  
  --
  -- Think about updating the version !!
  --
  
  INSERT INTO `piwam_data` (`id`, `key`, `value`) VALUES
-(1, 'dbversion', '145');
+(1, 'dbversion', '166');
