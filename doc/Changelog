@@ -1,3 +1,9 @@
+r164 - october, 8, 2009
+    * membre : actions > executeAcl > fixes a bug if no credentials has been set
+    * membre : actions > _processForm > redirect to ACL form after creation of
+      a new member
+      
+
 r163 - october, 8, 2009
     * membre : actions > fixes a bug in executeMap
     
