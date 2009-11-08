@@ -1,3 +1,8 @@
+r159 - october, 8, 2009
+    * myUser.class.php : new method getTemporaryAssociationId()
+    * membre : actions > executeFirstcreate > give the temporary associationId
+    
+
 r158 - october, 8, 2009
     * StatutPeer::getCriteriaEnabled() is now getCriteriaEnabledForAssociation()
     * MembreForm.class.php is up date
