@@ -1,3 +1,9 @@
+r166 - october, 8, 2009
+    * /data/updates/1.1.1-to-1.1.2 : r166.sql > makes membre.pseudo field case
+      insensitive
+    * piwam-install.sql is up date
+    
+
 r165 - october, 8, 2009
     * membre : actions > executeCreatepending > clever determination of
       associationId
