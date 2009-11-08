@@ -1,42 +1,89 @@
 <?php include_stylesheets_for_form($form) ?>
-<?php include_javascripts_for_form($form) ?>
-<?php use_helper('JavascriptBase') ?>
-<?php use_javascript('custom-forms/si.files.js') ?>
+<?php
+include_javascripts_for_form($form);
+use_helper('JavascriptBase');
+use_javascript('custom-forms/si.files.js')
 
+/**
+ * Possible input values:
+ * ======================
+ *
+ *  - $first    : set if we are registering the first user which is himself
+ *                registering a new association
+ *
+ *  - $pending  : set if the form is filled by a user which is requesing
+ *                a subscription to an existing association
+ */
+?>
+
+
+<!-- To customize "browse" button -->
 <script type="text/javascript" language="javascript">
-// <![CDATA[
-
-SI.Files.stylizeAll();
+    // <![CDATA[
+    SI.Files.stylizeAll();
 </script>
 
-<form
-    action="<?php
-    	if (!isset($first)) {
-    		echo url_for('membre/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : ''));
-    	}
-    	else {
+
+<form action="<?php
+    	if (isset($first))
+    	{
     		echo url_for('membre/firstcreate');
+    	}
+    	elseif (isset($pending))
+    	{
+            echo url_for('membre/createpending');
+    	}
+    	else
+    	{
+    		echo url_for('membre/' . ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '?id=' . $form->getObject()->getId() : ''));
     	}
     	?>"
     method="post"
     <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>><?php if (!$form->getObject()->isNew()): ?>
 <input type="hidden" name="sf_method" value="put" /> <?php endif; ?>
 <table class="formArray">
+
+    <!-- Form footer which display buttons -->
+
     <tfoot>
         <tr>
-            <td colspan="2"><?php echo $form->renderHiddenFields() ?> <?php if (!isset($first)): ?>
-            <?php echo link_to('Annuler', 'membre/index', array(
-	                	'class'	=> 'formLinkButton'
-	                	)) ?> <?php endif; ?> <?php if (!$form->getObject()->isNew()): ?>
-	                	<?php echo link_to('Supprimer', 'membre/delete?id='.$form->getObject()->getId(), array(
-                		'class'		=> 'formLinkButton',
-                		'method' 	=> 'delete', 'confirm' => 'Etes vous sûr ?'
-                		)) ?> <?php endif; ?> <?php if ((isset($first)) && ($first)): ?>
-            <input type="submit" value="Étape suivante >" class="button" /> <?php else: ?>
-            <input type="submit" value="Sauvegarder" class="button" /> <?php endif; ?>
+            <td colspan="2">
+                <?php echo $form->renderHiddenFields() ?>
+
+                <!-- Cancel button only if this is not the first member -->
+
+                <?php if (! isset($first)): ?>
+                        <?php echo link_to('Annuler', 'membre/index', array('class'	=> 'formLinkButton')) ?>
+                <?php endif; ?>
+
+
+
+                <!-- Delete button only if object already exists -->
+
+                <?php if (! $form->getObject()->isNew()): ?>
+	                	<?php echo link_to('Supprimer', 'membre/delete?id=' . $form->getObject()->getId(),
+	                	                                 array(
+                                                    		'class'   => 'formLinkButton',
+                                                    		'method'  => 'delete',
+                                                    		'confirm' => 'Etes vous sûr ?'
+                                                		)) ?>
+        		<?php endif; ?>
+
+
+
+                <!-- Submit button value according to the state -->
+
+        		<?php if ((isset($first)) && ($first)): ?>
+                    <input type="submit" value="Étape suivante >" class="button" />
+                <?php else: ?>
+                    <input type="submit" value="Sauvegarder" class="button" />
+                <?php endif; ?>
+
             </td>
         </tr>
     </tfoot>
+
+
     <tbody>
     <?php echo $form->renderGlobalErrors() ?>
         <tr>

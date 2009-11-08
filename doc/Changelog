@@ -1,3 +1,11 @@
+r156 - october, 8, 2009
+    * membre : actions > new action requestSubscription
+    * membre : templates > loginSuccess > link to request a member subscription
+    * membre : templates > _form has been refactored
+    * schema.yml : membre.actif is now an integer and not a boolean
+    * model has been rebuilt
+    
+
 r155 - october, 7, 2009
     * StringToolsTest : new test for generatePassword method
     

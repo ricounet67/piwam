@@ -27,7 +27,7 @@ class membreActions extends sfActions
         }
 
         $orderByColumn = $request->getParameter('orderby', MembrePeer::PSEUDO);
-        $this->membresPager = MembrePeer::doSelectOrderBy($this->getUser()->getAttribute('association_id', null, 'user'),
+        $this->membresPager = MembrePeer::doSelectOrderBy($this->getUser()->getAssociationId(),
         $request->getParameter('page', 1),
         $orderByColumn);
     }
@@ -59,6 +59,39 @@ class membreActions extends sfActions
     }
 
     /**
+     *
+     * @param $request
+     * @return unknown_type
+     */
+    public function executeRequestsubscription(sfWebRequest $request)
+    {
+        if (sfConfig::get('app_multi_association'))
+        {
+            $associationId = $request->getParameter('id', null);
+            $this->forward404Unless($association = AssociationPeer::retrieveByPK($associationId), sprintf("L'association %s n'existe pas.", $associationId));
+        }
+        else
+        {
+            $association = AssociationPeer::doSelectOne(new Criteria());
+            $associationId = $association->getId();
+        }
+
+        $this->form = new MembreForm();
+        $this->form->setDefault('association_id', $associationId);
+        $this->form->setDefault('actif', MembrePeer::IS_PENDING);
+    }
+
+    /**
+     * Once subscription request form has been completed, we display a
+     * message to the user
+     *e
+     */
+    public function executePending()
+    {
+        // do nothing, just display template
+    }
+
+    /**
      * Registration of a new Membre
      *
      * @param   sfWebRequest    $request
@@ -81,7 +114,8 @@ class membreActions extends sfActions
     {
         $this->form = new MembreForm();
         $associationId = $this->getUser()->getAttribute('association_id', null, 'temp');
-        if (is_null($associationId)) {
+        if (is_null($associationId))
+        {
             throw new sfException('Erreur lors de la première étape d\'enregistrement');
         }
         $this->form->setDefault('association_id', $associationId);
@@ -120,6 +154,21 @@ class membreActions extends sfActions
             // here you can access to $membre properties
             // and methods
         }
+    }
+
+    /**
+     * Register a new pending user which requested a subscription to an existing
+     * association
+     *
+     * @param   sfWebRequest    $request
+     */
+    public function executeCreatepending(sfWebRequest $request)
+    {
+        $this->forward404Unless($request->isMethod('post'));
+        $this->form = new MembreForm();
+        $request->setAttribute('pending', true);
+        $this->processForm($request, $this->form);
+        $this->setTemplate('requestsubscription');
     }
 
     /**
@@ -175,7 +224,7 @@ class membreActions extends sfActions
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Object membre does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Member does not exist (%s).', $request->getParameter('id')));
         $this->form = new MembreForm($membre);
 
         $associationId  = $this->getUser()->getAssociationId();
@@ -312,9 +361,9 @@ class membreActions extends sfActions
 
             if ($membre->getPicture())
             {
-            $img = new sfImage(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture(), 'image/jpg');
-            $img->thumbnail(sfConfig::get('app_picture_width', 120), sfConfig::get('app_picture_height', 150));
-            $img->saveAs(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture());
+                $img = new sfImage(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture(), 'image/jpg');
+                $img->thumbnail(sfConfig::get('app_picture_width', 120), sfConfig::get('app_picture_height', 150));
+                $img->saveAs(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture());
             }
             if ($request->getAttribute('first') == true)
             {
@@ -324,10 +373,17 @@ class membreActions extends sfActions
                 $this->getUser()->removeTemporaryData();
                 $this->getUser()->setTemporarUserInfo($membre);
                 $credentials = AclActionPeer::doSelect(new Criteria());
-                foreach ($credentials as $credential) {
+                foreach ($credentials as $credential)
+                {
                     $membre->addCredential($credential->getCode());
                 }
                 $this->redirect('membre/endregistration');
+            }
+            elseif ($request->getAttribute('pending') == true)
+            {
+                //$membre->setActif(MembrePeer::IS_PENDING);
+                //$membre->save();
+                $this->redirect('membre/pending');
             }
             else {
                 $data = $request->getParameter('membre');

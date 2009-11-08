@@ -39,6 +39,7 @@ class StatutPeer extends BaseStatutPeer
         else {
             $associationId = $user->getAttribute('association_id', null, 'user');
         }
+        $associationId = 1;
         $c->addAnd(self::ASSOCIATION_ID, $associationId);
 
         return $c;
