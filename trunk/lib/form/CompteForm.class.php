@@ -19,6 +19,7 @@ class CompteForm extends BaseCompteForm
      */
     public function configure()
     {
+        $associationId = $this->getOption('associationId');
         unset($this['created_at'], $this['updated_at']);
         unset($this['enregistre_par'], $this['mis_a_jour_par']);
         unset($this['actif'], $this['association_id']);

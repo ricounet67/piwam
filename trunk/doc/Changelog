@@ -1,3 +1,10 @@
+r165 - october, 8, 2009
+    * membre : actions > executeCreatepending > clever determination of
+      associationId
+    * CompteForm : takes associationId as parameter
+    * compte : actions > give associationId as parameter to the form
+    
+
 r164 - october, 8, 2009
     * membre : actions > executeAcl > fixes a bug if no credentials has been set
     * membre : actions > _processForm > redirect to ACL form after creation of
