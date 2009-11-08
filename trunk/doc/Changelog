@@ -1,3 +1,7 @@
+r163 - october, 8, 2009
+    * membre : actions > fixes a bug in executeMap
+    
+
 r162 - october, 8, 2009
     * membre : security.yml > edit credentials is required to valide a pending
       subscription

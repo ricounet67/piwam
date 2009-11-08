@@ -444,18 +444,19 @@ class membreActions extends sfActions
      */
     public function executeMap(sfWebRequest $request)
     {
+        $associationId = $this->getUser()->getAssociationId();
         $GMapKey = Configurator::get('googlemap_key', $associationId);
         $map = new PhoogleMap();
         $map->setApiKey($GMapKey);
         $map->zoomLevel = 12;
         $map->setWidth(600);
         $map->setHeight(400);
-
-        $associationId = $this->getUser()->getAttribute('association_id', null, 'user');
         $membres = MembrePeer::doSelectForAssociation($associationId);
 
-        foreach ($membres as $membre) {
-            if (strlen($membre->getVille()) > 0) {
+        foreach ($membres as $membre)
+        {
+            if (strlen($membre->getVille()) > 0)
+            {
                 $map->addAddress($membre->getCompleteAddress(), $membre->getInfoForGmap());
             }
         }
@@ -493,7 +494,8 @@ class membreActions extends sfActions
                     // checkboxes. "$state" is normally always set to "ON"
                     // because we only have checked elements
 
-                    foreach ($acls as $code => $state) {
+                    foreach ($acls as $code => $state)
+                    {
                         $membre->addCredential($code);
                     }
                 }
@@ -503,11 +505,11 @@ class membreActions extends sfActions
         else
         {
             $this->user_id  = $request->getParameter('id');
-            $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
             $membre         = MembrePeer::retrieveByPk($this->user_id);
 
-            if (($membre->getAssociationId() != $associationId) ||
-            ($this->getUser()->hasCredential('edit_acl') == false)) {
+            if (($membre->getAssociationId() != $this->getUser()->getAssociationId()) ||
+                ($this->getUser()->hasCredential('edit_acl') == false))
+            {
                 $this->forward('error', 'credentials');
             }
 
