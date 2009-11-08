@@ -76,7 +76,7 @@ class membreActions extends sfActions
             $associationId = $association->getId();
         }
 
-        $this->form = new MembreForm();
+        $this->form = new MembreForm(null, array('associationId' => $associationId));
         $this->form->setDefault('association_id', $associationId);
         $this->form->setDefault('actif', MembrePeer::IS_PENDING);
     }
@@ -164,8 +164,19 @@ class membreActions extends sfActions
      */
     public function executeCreatepending(sfWebRequest $request)
     {
+        if (sfConfig::get('app_multi_association'))
+        {
+            $associationId = $request->getParameter('id', null);
+            $this->forward404Unless($association = AssociationPeer::retrieveByPK($associationId), sprintf("L'association %s n'existe pas.", $associationId));
+        }
+        else
+        {
+            $association = AssociationPeer::doSelectOne(new Criteria());
+            $associationId = $association->getId();
+        }
+
         $this->forward404Unless($request->isMethod('post'));
-        $this->form = new MembreForm();
+        $this->form = new MembreForm(null, array('associationId' => $associationId));
         $request->setAttribute('pending', true);
         $this->processForm($request, $this->form);
         $this->setTemplate('requestsubscription');
@@ -381,8 +392,6 @@ class membreActions extends sfActions
             }
             elseif ($request->getAttribute('pending') == true)
             {
-                //$membre->setActif(MembrePeer::IS_PENDING);
-                //$membre->save();
                 $this->redirect('membre/pending');
             }
             else {

@@ -27,19 +27,10 @@ class StatutPeer extends BaseStatutPeer
      * @return  Criteria
      *
      */
-    public static function getCriteriaForEnabled()
+    public static function getCriteriaForEnabled($associationId)
     {
         $c = new Criteria();
         $c->add(self::ACTIF, self::IS_ACTIF);
-
-        $user = sfContext::getInstance()->getUser();
-        if (!is_null($user->getAttribute('association_id', null, 'temp'))) {
-            $associationId = $user->getAttribute('association_id', null, 'temp');
-        }
-        else {
-            $associationId = $user->getAttribute('association_id', null, 'user');
-        }
-        $associationId = 1;
         $c->addAnd(self::ASSOCIATION_ID, $associationId);
 
         return $c;

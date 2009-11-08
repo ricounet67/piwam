@@ -1,3 +1,8 @@
+r157 - october, 8, 2009
+    * membre : templates > pendingSuccess.php > explicit message
+    * StatutPeer::getCriteriaForEnabled() takes associationId as parameter
+
+
 r156 - october, 8, 2009
     * membre : actions > new action requestSubscription
     * membre : templates > loginSuccess > link to request a member subscription
