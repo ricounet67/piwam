@@ -36,25 +36,30 @@ class MembreForm extends BaseMembreForm
      */
     public function configure()
     {
-        if (! sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'temp'))
+        if ($this->getOption('associationId'))
         {
-            $this->_firstRegistration = true;
+            $associationId = $this->getOption('associationId');
         }
-        else
+
+        if (sfContext::getInstance()->getUser()->getAssociationId())
         {
             $this->_firstRegistration = false;
         }
+        else
+        {
+            $this->_firstRegistration = true;
+        }
 
-        unset($this['created_at'], 		$this['updated_at']);
-        unset($this['enregistre_par'], 	$this['mis_a_jour_par']);
-        unset($this['actif'], 			$this['association_id']);
+        unset($this['created_at'], $this['updated_at']);
+        unset($this['enregistre_par'], $this['mis_a_jour_par']);
+        unset($this['actif'], $this['association_id']);
 
         if ($this->getObject()->isNew())
         {
             // If this is the user is not the one who
             // is currently registering a new Association
 
-            if (! $this->_firstRegistration)
+            if (! $this->isFirstRegistration())
             {
                 $this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
                 $this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getUserId());
@@ -68,7 +73,7 @@ class MembreForm extends BaseMembreForm
         } // new object
 
         $this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
-        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled());
+        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled($associationId));
         $this->setDefault('date_inscription', date('d-m-Y'));
         $this->setDefault('pays', 'FRANCE');
         $this->setDefault('actif', 1);
@@ -83,7 +88,7 @@ class MembreForm extends BaseMembreForm
          * Otherwise, user MUST give a passsword and pseudo
          */
 
-        if (! $this->_firstRegistration)
+        if (! $this->isFirstRegistration())
         {
             $this->validatorSchema['password'] = new sfValidatorString(array('required' => false));
             $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => false));
@@ -102,9 +107,7 @@ class MembreForm extends BaseMembreForm
         unset($this->validatorSchema['website']);
         $this->validatorSchema['email'] = new sfValidatorEmail(array('required' => false));
         $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
-
         $this->validatorSchema['actif'] = new sfValidatorInteger();
-        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaForEnabled());
 
         unset ($this->widgetSchema['pays']);
         $countries = array('FR', 'BE', 'ES', 'DE', 'NL', 'CH', 'LU');
