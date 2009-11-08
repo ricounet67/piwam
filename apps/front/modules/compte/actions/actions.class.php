@@ -46,7 +46,7 @@ class compteActions extends sfActions
      */
     public function executeNew(sfWebRequest $request)
     {
-        $this->form = new CompteForm();
+        $this->form = new CompteForm(null, array('associationId' => $this->getUser()->getAssociationId()));
         $this->form->setDefault('enregistre_par', $this->getUser()->getUserId());
         $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
     }
@@ -59,7 +59,7 @@ class compteActions extends sfActions
     public function executeCreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
-        $this->form = new CompteForm();
+        $this->form = new CompteForm(null, array('associationId' => $request->getParameter('compte[association_id]')));
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
     }
@@ -78,7 +78,7 @@ class compteActions extends sfActions
             $this->forward('error', 'credentials');
         }
 
-        $this->form = new CompteForm($compte);
+        $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
@@ -91,7 +91,7 @@ class compteActions extends sfActions
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($compte = ComptePeer::retrieveByPk($request->getParameter('id')), sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
-        $this->form = new CompteForm($compte);
+        $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
         $this->processForm($request, $this->form);
         $this->redirect('compte/index');
     }

@@ -36,6 +36,17 @@ class membreActions extends sfActions
     }
 
     /**
+     * Display images
+     *
+     * @param   sfWebRequest $request
+     * @since   r139
+     */
+    public function executeFaces(sfWebRequest $request)
+    {
+        $this->membres = MembrePeer::doSelectForAssociation($associationId = $this->getUser()->getAttribute('association_id', null, 'user'));
+    }
+
+    /**
      * Provide all information about the member to the view. We check if we have
      * the right to see profile of someone else
      *
@@ -59,233 +70,6 @@ class membreActions extends sfActions
         {
             $this->forward('error', 'credentials');
         }
-    }
-
-    /**
-     *
-     * @param $request
-     * @return unknown_type
-     */
-    public function executeRequestsubscription(sfWebRequest $request)
-    {
-        if (sfConfig::get('app_multi_association'))
-        {
-            $associationId = $request->getParameter('id', null);
-            $this->forward404Unless($association = AssociationPeer::retrieveByPK($associationId), sprintf("L'association %s n'existe pas.", $associationId));
-        }
-        else
-        {
-            $association = AssociationPeer::doSelectOne(new Criteria());
-            $associationId = $association->getId();
-        }
-
-        $this->form = new MembreForm(null, array('associationId' => $associationId));
-        $this->form->setDefault('association_id', $associationId);
-        $this->form->setDefault('actif', MembrePeer::IS_PENDING);
-    }
-
-    /**
-     * Once subscription request form has been completed, we display a
-     * message to the user
-     *e
-     */
-    public function executePending()
-    {
-        // do nothing, just display template
-    }
-
-    /**
-     * Registration of a new Membre
-     *
-     * @param   sfWebRequest    $request
-     */
-    public function executeNew(sfWebRequest $request)
-    {
-        $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getAssociationId()));
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
-    }
-
-    /**
-     * Register a new Membre - and the first one ! - for an
-     * Association. This is a special method which use the temporary
-     * AssociationID instead of using an already-registered AssociationID
-     *
-     * @param 	sfWebRequest	$request
-     * @since	r16
-     */
-    public function executeNewfirst(sfWebRequest $request)
-    {
-        $associationId = $this->getUser()->getAttribute('association_id', null, 'temp');
-
-        if (is_null($associationId))
-        {
-            throw new sfException('Erreur lors de la première étape d\'enregistrement');
-        }
-        else
-        {
-            $this->form = new MembreForm(null, array('associationId' => $associationId));
-        }
-
-        $this->form->setDefault('association_id', $associationId);
-    }
-
-    /**
-     * Performed action when registering the first user
-     *
-     * @param 	sfWebRequest	$request
-     * @since	r16
-     */
-    public function executeFirstcreate(sfWebRequest $request)
-    {
-        $this->forward404Unless($request->isMethod('post'));
-        $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getTemporaryAssociationId()));
-        $request->setAttribute('first', true);
-        $this->processForm($request, $this->form);
-        $this->setTemplate('newfirst');
-    }
-
-    /**
-     * Display information about the just finished registration. We use
-     * keyword 'instanceof' because getTemporaryUserInfo() returns
-     * unserialized object - which can be null.
-     *
-     * @param 	sfWebRequest	$request
-     * @see 	getTemporaryUserInfo()
-     * @since	r16
-     */
-    public function executeEndregistration(sfWebRequest $request)
-    {
-        $membre = $this->getUser()->getTemporaryUserInfo();
-
-        if ($membre instanceof Membre)
-        {
-            // here you can access to $membre properties
-            // and methods
-        }
-    }
-
-    /**
-     * Register a new pending user which requested a subscription to an existing
-     * association
-     *
-     * @param   sfWebRequest    $request
-     */
-    public function executeCreatepending(sfWebRequest $request)
-    {
-        if (sfConfig::get('app_multi_association'))
-        {
-            $associationId = $request->getParameter('id', null);
-            $this->forward404Unless($association = AssociationPeer::retrieveByPK($associationId), sprintf("L'association %s n'existe pas.", $associationId));
-        }
-        else
-        {
-            $association = AssociationPeer::doSelectOne(new Criteria());
-            $associationId = $association->getId();
-        }
-
-        $this->forward404Unless($request->isMethod('post'));
-        $this->form = new MembreForm(null, array('associationId' => $associationId));
-        $request->setAttribute('pending', true);
-        $this->processForm($request, $this->form);
-        $this->setTemplate('requestsubscription');
-    }
-
-    /**
-     * Validate a pending subscription
-     *
-     * @param   sfWebRequest    $request
-     * @since   r160
-     */
-    public function executeValidate(sfWebRequest $request)
-    {
-        $membre_id = $request->getParameter('id');
-        $membre = MembrePeer::retrieveByPk($membre_id);
-
-        if ($membre->getAssociationId() == $this->getUser()->getAssociationId())
-        {
-            $membre->setActif(MembrePeer::IS_ACTIF);
-            $membre->save();
-            $this->redirect('membre/index');
-        }
-        else
-        {
-            $this->forward('error', 'credentials');
-        }
-    }
-
-    /**
-     * Perform the creation of the Membre object in database
-     *
-     * @param   sfWebRequest    $request
-     */
-    public function executeCreate(sfWebRequest $request)
-    {
-        $this->forward404Unless($request->isMethod('post'));
-        $this->form = new MembreForm(null, array('associationId' => $request->getParameter('membre[association_id]')));
-        $this->processForm($request, $this->form);
-        $this->setTemplate('new');
-    }
-
-    /**
-     * Manages 2 differents forms :
-     *  - profile editing
-     *  - rights management
-     *
-     * @param $request
-     * @return unknown_type
-     */
-    public function executeEdit(sfWebRequest $request)
-    {
-        $associationId  = $this->getUser()->getAssociationId();
-        $this->user_id  = $request->getParameter('id');
-        $this->forward404Unless($membre = MembrePeer::retrieveByPk($this->user_id));
-        $this->form     = new MembreForm($membre, array('associationId' => $membre->getAssociationId()));
-        $this->aclForm  = new AclCredentialForm();
-        $membre         = MembrePeer::retrieveByPk($this->user_id);
-        $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
-
-        if (($membre->getAssociationId() != $associationId) ||
-                (($this->getUser()->hasCredential('edit_membre') == false) &&
-                ($this->getUser()->getUserId() != $this->user_id))
-            )
-        {
-            $this->redirect('error/credentials');
-        }
-
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
-        $this->aclForm->setUserId($this->user_id);
-        $this->aclForm->automaticCheck();
-    }
-
-    /**
-     * Perform the update of the Membre
-     *
-     * @param   sfWebRequest    $request
-     */
-    public function executeUpdate(sfWebRequest $request)
-    {
-        $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Member does not exist (%s).', $request->getParameter('id')));
-        $associationId  = $this->getUser()->getAssociationId();
-        $this->user_id  = $request->getParameter('id');
-        $this->form     = new MembreForm($membre, array('associationId' => $request->getParameter('membre[association_id]')));
-        $this->aclForm  = new AclCredentialForm();
-        $membre         = MembrePeer::retrieveByPk($this->user_id);
-        $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
-
-        if (($membre->getAssociationId() != $associationId) ||
-                (($this->getUser()->hasCredential('edit_membre') == false) &&
-                ($this->getUser()->getUserId() != $request->getParameter('id')))
-            )
-        {
-            $this->redirect('error/credentials');
-        }
-
-        $this->aclForm->setUserId($this->user_id);
-        $this->aclForm->automaticCheck();
-
-        $this->processForm($request, $this->form);
-        $this->setTemplate('edit');
     }
 
     /**
@@ -343,9 +127,9 @@ class membreActions extends sfActions
     {
         $request->checkCSRFProtection();
         $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Le membre n\'existe pas (%s).', $request->getParameter('id')));
-        $associationId  = $this->getUser()->getAttribute('association_id', null, 'user');
 
-        if ($membre->getAssociationId() != $associationId) {
+        if ($membre->getAssociationId() != $this->getUser()->getAssociationId())
+        {
             $this->redirect('error/credentials');
         }
 
@@ -357,8 +141,8 @@ class membreActions extends sfActions
      * Called method to display list of Membre within an autocompleted
      * form field.
      *
-     * @param 	sfWebRequest	$request
-     * @since	r15
+     * @param   sfWebRequest    $request
+     * @since   r15
      * @unused
      */
     public function executeAjaxlist(sfWebRequest $request)
@@ -368,87 +152,13 @@ class membreActions extends sfActions
         return $this->renderText(json_encode($membres));
     }
 
-    /**
-     * Display images
-     *
-     * @param 	sfWebRequest $request
-     * @since	r139
-     */
-    public function executeFaces(sfWebRequest $request)
-    {
-        $this->membres = MembrePeer::doSelectForAssociation($associationId = $this->getUser()->getAttribute('association_id', null, 'user'));
-    }
-
-    /**
-     * If this is a the first Membre that we registered, we redirect
-     * to the `end` action to display success message about registration.
-     *
-     * r62 :    We give all the credentials to the user if this is the
-     *          first user
-     *
-     * r139 :	resize pictures
-     *
-     * @param 	sfWebRequest	$request
-     * @param 	sfForm			$form
-     */
-    protected function processForm(sfWebRequest $request, sfForm $form)
-    {
-        $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-        if ($form->isValid())
-        {
-            $membre = $form->save();
-
-            if ($membre->getPicture())
-            {
-                $img = new sfImage(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture(), 'image/jpg');
-                $img->thumbnail(sfConfig::get('app_picture_width', 120), sfConfig::get('app_picture_height', 150));
-                $img->saveAs(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture());
-            }
-            if ($request->getAttribute('first') == true)
-            {
-                $association = AssociationPeer::retrieveByPK($membre->getAssociationId());
-                $association->setEnregistrePar($membre->getId());
-                $association->save();
-                $this->getUser()->removeTemporaryData();
-                $this->getUser()->setTemporarUserInfo($membre);
-                $credentials = AclActionPeer::doSelect(new Criteria());
-
-                // we don't need to clear existing credentials before,
-                // because we are sure the user doesn't have anyone
-
-                foreach ($credentials as $credential)
-                {
-                    $membre->addCredential($credential->getCode());
-                }
-
-                $this->redirect('membre/endregistration');
-            }
-            elseif ($request->getAttribute('pending') == true)
-            {
-                $this->redirect('membre/pending');
-            }
-            else
-            {
-                $data = $request->getParameter('membre');
-
-                if ((isset($data['enregistre_par'])) && ($membre->getPseudo() && $membre->getPassword()))
-                {
-                    $this->redirect('membre/acl?id=' . $membre->getId());
-                }
-                else
-                {
-                    $this->redirect('membre/index');
-                }
-            }
-        }
-    }
 
     /**
      * Geo-localize members within a map thanks to Google MAP
      * API.
      *
-     * @param 	sfWebRequest	$request
-     * @since	r17
+     * @param   sfWebRequest    $request
+     * @since   r17
      */
     public function executeMap(sfWebRequest $request)
     {
@@ -517,16 +227,327 @@ class membreActions extends sfActions
         else
         {
             $this->user_id  = $request->getParameter('id');
-            $membre         = MembrePeer::retrieveByPk($this->user_id);
+            $membre  = MembrePeer::retrieveByPk($this->user_id);
 
             if (($membre->getAssociationId() != $this->getUser()->getAssociationId()) ||
                 ($this->getUser()->hasCredential('edit_acl') == false))
             {
-                $this->forward('error', 'credentials');
+                $this->redirect('error/credentials');
             }
 
             $this->form->setUserId($this->user_id);
             $this->form->automaticCheck();
+        }
+    }
+
+
+
+    /* -------------------------------------------------------------------------
+     *
+     * Classic user management (creation, edition of existing users)
+     * for an existing association
+     *
+     * ---------------------------------------------------------------------- */
+
+    /**
+     * Registration of a new Membre
+     *
+     * @param   sfWebRequest    $request
+     */
+    public function executeNew(sfWebRequest $request)
+    {
+        $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getAssociationId()));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+    }
+
+    /**
+     * Perform the creation of the Membre object in database
+     *
+     * @param   sfWebRequest    $request
+     */
+    public function executeCreate(sfWebRequest $request)
+    {
+        $this->forward404Unless($request->isMethod('post'));
+        $this->form = new MembreForm(null, array('associationId' => $request->getParameter('membre[association_id]')));
+        $this->processForm($request, $this->form);
+        $this->setTemplate('new');
+    }
+
+    /**
+     * Manages 2 differents forms :
+     *  - profile editing
+     *  - rights management
+     *
+     * @param $request
+     * @return unknown_type
+     */
+    public function executeEdit(sfWebRequest $request)
+    {
+        $associationId  = $this->getUser()->getAssociationId();
+        $this->user_id  = $request->getParameter('id');
+        $this->forward404Unless($membre = MembrePeer::retrieveByPk($this->user_id));
+        $this->form     = new MembreForm($membre, array('associationId' => $membre->getAssociationId()));
+        $this->aclForm  = new AclCredentialForm();
+        $membre         = MembrePeer::retrieveByPk($this->user_id);
+        $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
+
+        if (($membre->getAssociationId() != $associationId) ||
+                (($this->getUser()->hasCredential('edit_membre') == false) &&
+                ($this->getUser()->getUserId() != $this->user_id))
+            )
+        {
+            $this->redirect('error/credentials');
+        }
+
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->aclForm->setUserId($this->user_id);
+        $this->aclForm->automaticCheck();
+    }
+
+    /**
+     * Perform the update of the Membre
+     *
+     * @param   sfWebRequest    $request
+     */
+    public function executeUpdate(sfWebRequest $request)
+    {
+        $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
+        $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Member does not exist (%s).', $request->getParameter('id')));
+        $this->user_id  = $request->getParameter('id');
+        $this->form     = new MembreForm($membre, array('associationId' => $request->getParameter('membre[association_id]')));
+        $this->aclForm  = new AclCredentialForm();
+        $membre         = MembrePeer::retrieveByPk($this->user_id);
+        $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
+
+        if (($membre->getAssociationId() != $this->getUser()->getAssociationId()) ||
+                (($this->getUser()->hasCredential('edit_membre') == false) &&
+                ($this->getUser()->getUserId() != $request->getParameter('id')))
+            )
+        {
+            $this->redirect('error/credentials');
+        }
+
+        $this->aclForm->setUserId($this->user_id);
+        $this->aclForm->automaticCheck();
+
+        $this->processForm($request, $this->form);
+        $this->setTemplate('edit');
+    }
+
+
+
+    /* -------------------------------------------------------------------------
+     *
+     * Actions to manage users who are requesting a subscription to an
+     * existing association
+     *
+     * ---------------------------------------------------------------------- */
+
+    /**
+     * Display the form to request a new subscription to an existing
+     * association. This action is -normally- reachable only if Piwam
+     * is not in multi_association_mode, that's why we are selecting
+     * with "doSelectOne" method
+     *
+     * @param   sfWebRequest    $request
+     */
+    public function executeRequestsubscription(sfWebRequest $request)
+    {
+        if (sfConfig::get('app_multi_association'))
+        {
+            $associationId = $request->getParameter('id', null);
+            $this->forward404Unless($association = AssociationPeer::retrieveByPK($associationId), sprintf("L'association %s n'existe pas.", $associationId));
+        }
+        else
+        {
+            $association = AssociationPeer::doSelectOne(new Criteria());
+            $associationId = $association->getId();
+        }
+
+        $this->form = new MembreForm(null, array('associationId' => $associationId));
+        $this->form->setDefault('association_id', $associationId);
+        $this->form->setDefault('actif', MembrePeer::IS_PENDING);
+    }
+
+    /**
+     * Register a new pending user which requested a subscription to an existing
+     * association
+     *
+     * @param   sfWebRequest    $request
+     */
+    public function executeCreatepending(sfWebRequest $request)
+    {
+        $this->forward404Unless($request->isMethod('post'));
+        $this->form = new MembreForm(null, array('associationId' => $request->getParameter("membre[association_id]")));
+        $request->setAttribute('pending', true);
+        $this->processForm($request, $this->form);
+        $this->setTemplate('requestsubscription');
+    }
+
+    /**
+     * Once subscription request form has been completed, we display a
+     * message to the user
+     *e
+     */
+    public function executePending()
+    {
+        // do nothing, just display template
+    }
+
+    /**
+     * Validate a pending subscription
+     *
+     * @param   sfWebRequest    $request
+     * @since   r160
+     */
+    public function executeValidate(sfWebRequest $request)
+    {
+        $membre_id = $request->getParameter('id');
+        $membre = MembrePeer::retrieveByPk($membre_id);
+
+        if ($membre->getAssociationId() == $this->getUser()->getAssociationId())
+        {
+            $membre->setActif(MembrePeer::IS_ACTIF);
+            $membre->save();
+            $this->redirect('membre/index');
+        }
+        else
+        {
+            $this->forward('error', 'credentials');
+        }
+    }
+
+
+
+    /* -------------------------------------------------------------------------
+     *
+     * Actions to manage the creation of the first user (who is registering
+     * a new association)
+     *
+     * ---------------------------------------------------------------------- */
+
+    /**
+     * Register a new Membre - and the first one ! - for an
+     * Association. This is a special method which use the temporary
+     * AssociationID instead of using an already-registered AssociationID
+     *
+     * @param 	sfWebRequest	$request
+     * @since	r16
+     */
+    public function executeNewfirst(sfWebRequest $request)
+    {
+        $associationId = $this->getUser()->getAttribute('association_id', null, 'temp');
+
+        if (is_null($associationId))
+        {
+            throw new sfException('Erreur lors de la première étape d\'enregistrement');
+        }
+        else
+        {
+            $this->form = new MembreForm(null, array('associationId' => $associationId));
+        }
+
+        $this->form->setDefault('association_id', $associationId);
+    }
+
+    /**
+     * Performed action when registering the first user
+     *
+     * @param 	sfWebRequest	$request
+     * @since	r16
+     */
+    public function executeFirstcreate(sfWebRequest $request)
+    {
+        $this->forward404Unless($request->isMethod('post'));
+        $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getTemporaryAssociationId()));
+        $request->setAttribute('first', true);
+        $this->processForm($request, $this->form);
+        $this->setTemplate('newfirst');
+    }
+
+    /**
+     * Display information about the just finished registration. We use
+     * keyword 'instanceof' because getTemporaryUserInfo() returns
+     * unserialized object - which can be null.
+     *
+     * @param 	sfWebRequest	$request
+     * @see 	getTemporaryUserInfo()
+     * @since	r16
+     */
+    public function executeEndregistration(sfWebRequest $request)
+    {
+        $membre = $this->getUser()->getTemporaryUserInfo();
+
+        if ($membre instanceof Membre)
+        {
+            // here you can access to $membre properties
+            // and methods
+        }
+    }
+
+
+
+    /**
+     * If this is a the first Membre that we registered, we redirect
+     * to the `end` action to display success message about registration.
+     *
+     * r62 :    We give all the credentials to the user if this is the
+     *          first user
+     *
+     * r139 :   resize pictures
+     *
+     * @param   sfWebRequest    $request
+     * @param   sfForm          $form
+     */
+    protected function processForm(sfWebRequest $request, sfForm $form)
+    {
+        $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+        if ($form->isValid())
+        {
+            $membre = $form->save();
+
+            if ($membre->getPicture())
+            {
+                $img = new sfImage(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture(), 'image/jpg');
+                $img->thumbnail(sfConfig::get('app_picture_width', 120), sfConfig::get('app_picture_height', 150));
+                $img->saveAs(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture());
+            }
+            if ($request->getAttribute('first') == true)
+            {
+                $association = AssociationPeer::retrieveByPK($membre->getAssociationId());
+                $association->setEnregistrePar($membre->getId());
+                $association->save();
+                $this->getUser()->removeTemporaryData();
+                $this->getUser()->setTemporarUserInfo($membre);
+                $credentials = AclActionPeer::doSelect(new Criteria());
+
+                // we don't need to clear existing credentials before,
+                // because we are sure the user doesn't have anyone
+
+                foreach ($credentials as $credential)
+                {
+                    $membre->addCredential($credential->getCode());
+                }
+
+                $this->redirect('membre/endregistration');
+            }
+            elseif ($request->getAttribute('pending') == true)
+            {
+                $this->redirect('membre/pending');
+            }
+            else
+            {
+                $data = $request->getParameter('membre');
+
+                if ((isset($data['enregistre_par'])) && ($membre->getPseudo() && $membre->getPassword()))
+                {
+                    $this->redirect('membre/acl?id=' . $membre->getId());
+                }
+                else
+                {
+                    $this->redirect('membre/index');
+                }
+            }
         }
     }
 }
