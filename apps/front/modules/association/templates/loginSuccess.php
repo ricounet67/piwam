@@ -40,6 +40,6 @@
 <?php else: ?>
 
     <h2>S'inscrire</h2>
-    <?php echo link_to('Créer un compte',  'membre/requestsubscription') ?>
+    <p>Si vous n'avez pas encore de compte, vous pouvez déposer une <?php echo link_to('demande d\'adhésion',  'membre/requestsubscription') ?></p>
 
 <?php endif; ?>

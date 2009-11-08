@@ -19,11 +19,11 @@ class myUser extends sfBasicSecurityUser
     {
         $this->setAuthenticated(true);
         $this->setCulture('fr_FR');
-        $this->setAttribute('association_id', 	$user->getAssociationId(), 			'user');
-        $this->setAttribute('association_name', $user->getAssociation()->getNom(), 	'user');
-        $this->setAttribute('user_id',			$user->getId(), 					'user');
-        $this->setAttribute('user_name', 		$user->getPseudo(), 				'user');
-        $this->getAttributeHolder()->removeNamespace('temp');
+        $this->setAttribute('association_id',   $user->getAssociationId(),          'user');
+        $this->setAttribute('association_name', $user->getAssociation()->getNom(),  'user');
+        $this->setAttribute('user_id',          $user->getId(),                     'user');
+        $this->setAttribute('user_name',        $user->getPseudo(),	                'user');
+        $this->removeTemporaryData();
         $this->setCredentials();
     }
 
@@ -128,7 +128,9 @@ class myUser extends sfBasicSecurityUser
     protected function setCredentials()
     {
         $credentials = AclCredentialPeer::doSelectForMembreId($this->getAttribute('user_id', null, 'user'));
-        foreach ($credentials as $credential) {
+
+        foreach ($credentials as $credential)
+        {
             $this->addCredential($credential->getCode());
         }
     }

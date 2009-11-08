@@ -39,6 +39,23 @@ class MembrePeer extends BaseMembrePeer
         return $pager;
     }
 
+    /**
+     * Retrieve the member who have a pending subscription
+     *
+     * @param   integer $associationId
+     * @return  array of Membre
+     * @since   r160
+     */
+    public static function doSelectPending($associationId)
+    {
+        $c = new Criteria();
+        $c->add(self::ACTIF, self::IS_PENDING);
+        $c->addAnd(self::ASSOCIATION_ID, $associationId);
+        $c->addDescendingOrderByColumn(self::CREATED_AT);
+
+        return self::doSelect($c);
+    }
+
 
     /**
      * Try to select users matching $username and $password.
