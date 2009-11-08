@@ -28,8 +28,11 @@ class membreActions extends sfActions
 
         $orderByColumn = $request->getParameter('orderby', MembrePeer::PSEUDO);
         $this->membresPager = MembrePeer::doSelectOrderBy($this->getUser()->getAssociationId(),
-        $request->getParameter('page', 1),
-        $orderByColumn);
+                                                            $request->getParameter('page', 1),
+                                                            $orderByColumn
+                                                          );
+
+        $this->pending = MembrePeer::doSelectPending($this->getUser()->getAssociationId());
     }
 
     /**
@@ -185,6 +188,29 @@ class membreActions extends sfActions
         $request->setAttribute('pending', true);
         $this->processForm($request, $this->form);
         $this->setTemplate('requestsubscription');
+    }
+
+    /**
+     * Validate a pending subscription
+     *
+     * @param   sfWebRequest    $request
+     * @since   r160
+     */
+    public function executeValidate(sfWebRequest $request)
+    {
+        $membre_id = $request->getParameter('id');
+        $membre = MembrePeer::retrieveByPk($membre_id);
+
+        if ($membre->getAssociationId() == $this->getUser()->getAssociationId())
+        {
+            $membre->setActif(MembrePeer::IS_ACTIF);
+            $membre->save();
+            $this->redirect('membre/index');
+        }
+        else
+        {
+            $this->forward('error', 'credentials');
+        }
     }
 
     /**
