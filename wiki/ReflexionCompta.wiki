@@ -24,3 +24,5 @@ Piwam 1.1 est livré avec des outils comptables minimaux permettant d'ores et d�
   * Sélection de l'année sur laquelle afficher le bilan
 
   * Export du bilan au format PDF
+
+  * Import/Export des données comptables ([http://en.wikipedia.org/wiki/Quicken_Interchange_Format QIF] ? [http://en.wikipedia.org/wiki/Open_Financial_Exchange OFE] ?)
