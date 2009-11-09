@@ -3,6 +3,39 @@
 class Membre extends BaseMembre
 {
     /**
+     * Overrides getter for Ville field.
+     *
+     * @see     lib/model/om/BaseMembre#getVille()
+     * @return  string  well-formated city
+     */
+    public function getVille()
+    {
+        return strtoupper(parent::getVille());
+    }
+
+    /**
+     * Format the name of the member
+     *
+     * @see     lib/model/om/BaseMembre#getNom()
+     * @return  string
+     */
+    public function getNom()
+    {
+        return mb_convert_case(parent::getNom(), MB_CASE_TITLE, "UTF8");
+    }
+
+    /**
+     * Format last-name of the member
+     *
+     * @see     lib/model/om/BaseMembre#getPrenom()
+     * @return  string
+     */
+    public function getPrenom()
+    {
+        return mb_convert_case(parent::getPrenom(), MB_CASE_TITLE, "UTF8");
+    }
+
+    /**
      * Overrides the setPseudo() method. Store NULL if value
      * is an empty string
      *
@@ -11,10 +44,12 @@ class Membre extends BaseMembre
      */
     public function setPseudo($v)
     {
-        if ($v == "") {
+        if ($v == "")
+        {
             parent::setPseudo(null);
         }
-        else {
+        else
+        {
             parent::setPseudo($v);
         }
     }
@@ -27,7 +62,7 @@ class Membre extends BaseMembre
      */
     public function __toString()
     {
-        return mb_convert_case($this->getPrenom() . ' ' . $this->getNom(), MB_CASE_TITLE, "UTF8");
+        return $this->getPrenom() . ' ' . $this->getNom();
     }
 
     /**
@@ -54,12 +89,12 @@ class Membre extends BaseMembre
 
                 return ($expiration >= $today);
             }
-            else {
+            else
+            {
                 return false;
             }
         }
     }
-
 
     /**
      * Disable the account of the member
@@ -165,10 +200,12 @@ class Membre extends BaseMembre
      */
     public function getPictureURI()
     {
-        if ($this->getPicture()) {
+        if ($this->getPicture())
+        {
             return '/uploads/trombinoscope/' . $this->getPicture();
         }
-        else {
+        else
+        {
             return 'no_picture';
         }
     }

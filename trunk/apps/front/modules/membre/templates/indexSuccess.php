@@ -43,11 +43,11 @@
 <table class="tableauDonnees">
     <thead>
         <tr class="enteteTableauDonnees">
-            <th><?php echo link_to('Nom', 		'membre/index?orderby=NOM') ?></th>
-            <th><?php echo link_to('Prénom', 	'membre/index?orderby=PRENOM') ?></th>
-            <th><?php echo link_to('Pseudo', 	'membre/index?orderby=PSEUDO') ?></th>
-            <th><?php echo link_to('Statut', 	'membre/index?orderby=STATUT_ID') ?></th>
-            <th><?php echo link_to('Ville', 	'membre/index?orderby=VILLE') ?></th>
+            <th><?php echo link_to('Nom',    'membre/index?orderby=NOM') ?></th>
+            <th><?php echo link_to('Prénom', 'membre/index?orderby=PRENOM') ?></th>
+            <th><?php echo link_to('Pseudo', 'membre/index?orderby=PSEUDO') ?></th>
+            <th><?php echo link_to('Statut', 'membre/index?orderby=STATUT_ID') ?></th>
+            <th><?php echo link_to('Ville',  'membre/index?orderby=VILLE') ?></th>
             <th width="75px">Actions</th>
         </tr>
     </thead>
@@ -56,11 +56,9 @@
 
     <?php if ($membre->isAjourCotisation()): ?>
         <tr>
-        <?php else: ?>
-
-
+    <?php else: ?>
         <tr class="cotisationNonAjour">
-        <?php endif; ?>
+    <?php endif; ?>
 
             <td><?php echo $membre->getNom() ?></td>
             <td><?php echo $membre->getPrenom() ?></td>
