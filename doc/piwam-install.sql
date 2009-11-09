@@ -727,8 +727,14 @@ ALTER TABLE `piwam_membre` CHANGE `pseudo` `pseudo` VARCHAR( 255 ) CHARACTER SET
  
  
  --
+ -- r172
+ --
+ 
+  ALTER TABLE `piwam_cotisation` CHANGE `mis_a_jour_par` `mis_a_jour_par` INT( 11 ) NULL DEFAULT NULL  ;
+ 
+ --
  -- Think about updating the version !!
  --
  
  INSERT INTO `piwam_data` (`id`, `key`, `value`) VALUES
-(1, 'dbversion', '166');
+(1, 'dbversion', '172');
