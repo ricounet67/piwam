@@ -1,3 +1,8 @@
+r178 - october, 9, 2009
+    * member : actions > validate() > user who is validating the pending
+      subscription is stored in 'updated by' field
+
+
 r177 - october, 9, 2009
     * association : templates > loginSuccess.php : display message if login or 
       password is invalid

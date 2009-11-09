@@ -408,6 +408,7 @@ class membreActions extends sfActions
         if ($membre->getAssociationId() == $this->getUser()->getAssociationId())
         {
             $membre->setActif(MembrePeer::IS_ACTIF);
+            $membre->setMisAJourPar($this->getUser()->getUserId());
             $membre->save();
             $this->redirect('membre/index');
         }
