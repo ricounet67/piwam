@@ -66,6 +66,8 @@ class Membre extends BaseMembre
      */
     public function disable()
     {
+        $this->setPseudo(null);
+        $this->setPassword(null);
         $this->setActif(false);
         $this->save();
     }
