@@ -1,3 +1,9 @@
+r177 - october, 9, 2009
+    * association : templates > loginSuccess.php : display message if login or 
+      password is invalid
+    * association : actions > set flash message if login failed
+    
+
 r176 - october, 9, 2009
     * StatutPeer : getCriteriaEnabledForAssociation() ordered by name (trick to
       display 'active member' status first)

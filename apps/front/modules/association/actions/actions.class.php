@@ -82,6 +82,17 @@ class associationActions extends sfActions
                         $this->redirect('membre/show?id=' . $user->getId());
                     }
                 }
+                else
+                {
+                    if (MembrePeer::retrieveByPseudo($request->getParameter('login[username]')))
+                    {
+                        $this->getUser()->setFlash('error', "Le mot de passe est invalide", false);
+                    }
+                    else
+                    {
+                        $this->getUser()->setFlash('error', "Le nom d'utilisateur est invalide", false);
+                    }
+                }
             }
         }
     }
