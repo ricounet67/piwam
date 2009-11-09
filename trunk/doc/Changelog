@@ -1,3 +1,9 @@
+r172 - october, 9, 2009
+    * r172.sql : cotisation.mis_a_jour_par is not mandatory and can be null
+    * schema.yml is up to date
+    * propel:build-model
+    
+
 r171 - october, 9, 2009
     * MembrePeer.php : doSelectByUsernameAndPassword() > check only active
       members

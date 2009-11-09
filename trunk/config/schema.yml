@@ -117,7 +117,7 @@ propel:
     date:            	{ type: date, required: true }
     enregistre_par:		{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     montant:            { type: decimal, size: 10, scale: 2, required: true }
-    mis_a_jour_par:		{ type: integer, required: true, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
+    mis_a_jour_par:		{ type: integer, required: false, foreignTable: piwam_membre, foreignReference:id, onDelete: cascade }
     created_at:      	~
     updated_at:      	~
     
