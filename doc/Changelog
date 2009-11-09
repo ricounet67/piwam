@@ -1,3 +1,7 @@
+r173 - october, 9, 2009
+    * main.css : style for visited links
+
+
 r172 - october, 9, 2009
     * r172.sql : cotisation.mis_a_jour_par is not mandatory and can be null
     * schema.yml is up to date
