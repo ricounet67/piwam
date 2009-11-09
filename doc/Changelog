@@ -1,4 +1,8 @@
-r168 - october, 8, 2009
+r170 - october, 8, 2009
+    * MembrePeer : doSelectWithEmailForAssociation() selects only active members
+    
+
+r169 - october, 8, 2009
     * MembreForm : fileValidator set a limit of 500 ko
     
 
