@@ -44,22 +44,25 @@
                actuel, remplacez-le par la nouvelle version, et ré-ajustez les
                paramètres au sein  de ces fichiers,  qui sont amenés à changer
                *TRÈS* exceptionnellement.
-            2- Lancez le module de mise à jour.  L'URL  devrait ressembler à : 
-               http://votre-serveur/piwam/web/update
+            2- Cliquez sur `mise à jour` dans le menu.
                
                
         A.2- Depuis une tarball téléchargée :
         
-            0- Sauvegardez votre fichier /config/datanases/yml
-            1- Décompressez la nouvelle tarball
-            2- Remplacez le répertoire de la version actuellement utilisée par
+            0- Sauvegardez votre fichier /config/databases/yml. Si vous avez
+               modifié le fichier /apps/fornt/config/app.yml, sauvegardez le
+               également
+            1- Sauvegardez également le contenu du dossier /web/uploads/
+            2- Décompressez la nouvelle tarball
+            3- Remplacez le répertoire de la version actuellement utilisée par
                celui de la nouvelle version
-            3- Remettez en place votre fichier /config/databases.yml
-            4- Rendez inscriptibles les répertoires  'cache' et 'log',  ainsi
-               que le fichier '/config/databases.yml' (sous un serveur Windows,
-               vous pouvez oublier cette étape !)
-            5- Accédez au module de mise à jour. L'URL devrait ressmbler à :
-               http://votre-serveur/piwam/web/update
+            4- Remettez en place votre fichier /config/databases.yml et le cas
+               échéant, le fichier app.yml
+            5- Replacez le contenu sauvegardé dans /web/uploads/
+            6- Rendez inscriptibles les répertoires  'cache' et 'log',  ainsi
+               que les répertoires dans '/web/uploads/' (sous un serveur 
+               Windows, vous pouvez oublier cette étape !)
+            7- Cliquez sur `mise à jour` dans le menu.
                
         
     -------------------------------------------------------------------------
