@@ -22,11 +22,11 @@ class cotisationtypeActions extends sfActions
 
         if (! $id)
         {
-            echo 'Pas de montant';
+            return $this->renderText('Pas de montant') ;
         }
         else
         {
-            echo CotisationTypePeer::getAmountForTypeId($id);
+            return $this->renderText(CotisationTypePeer::getAmountForTypeId($id)) ;
         }
 
         return sfView::NONE;
