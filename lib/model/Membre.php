@@ -73,7 +73,8 @@ class Membre extends BaseMembre
      */
     public function isAjourCotisation()
     {
-        if ($this->getExempteCotisation()) {
+        if ($this->getExempteCotisation())
+        {
             return true;
         }
         else
@@ -157,7 +158,8 @@ class Membre extends BaseMembre
      */
     public function setPassword($password)
     {
-        if (strlen($password) > 0) {
+        if (strlen($password) > 0)
+        {
             parent::setPassword(sha1($password));
         }
     }
@@ -183,7 +185,8 @@ class Membre extends BaseMembre
     {
         $action = AclActionPeer::retrieveByCode($code);
 
-        if (is_null($action)) {
+        if (is_null($action))
+        {
             throw new Exception('No action has been found for code ' . $code);
         }
         $acl = new AclCredential();

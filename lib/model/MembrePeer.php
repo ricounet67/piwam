@@ -69,6 +69,7 @@ class MembrePeer extends BaseMembrePeer
         $c = new Criteria();
         $c->add(self::PSEUDO, $username);
         $c->addAnd(self::PASSWORD, sha1($password));
+        $c->addAnd(self::ACTIF, self::IS_ACTIF);
 
         return self::doSelectOne($c);
     }

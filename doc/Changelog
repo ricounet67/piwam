@@ -1,4 +1,9 @@
 r171 - october, 9, 2009
+    * MembrePeer.php : doSelectByUsernameAndPassword() > check only active
+      members
+    
+
+r172 - october, 9, 2009
     * Membre.php : getters to format name, last name and city
     
 
