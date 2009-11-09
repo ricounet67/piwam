@@ -7,10 +7,11 @@ a img,:link img,:visited img {
 
 a {
     text-decoration: none;
+    cursor: pointer;
 }
 
 a:Visited {
-    
+    color: blue;
 }
 
 a:hover {
@@ -37,6 +38,10 @@ h1 {
 /* section title */
 h2 {
     color: #329126;
+}
+
+h2 a:Hover {
+    text-decoration: none;   
 }
 
 /* subtitle which may be on a page */
