@@ -1,8 +1,12 @@
-r170 - october, 8, 2009
+r171 - october, 9, 2009
+    * Membre.php : delete() > pseudo and passwords are set to null
+    
+
+r170 - october, 9, 2009
     * MembrePeer : doSelectWithEmailForAssociation() selects only active members
     
 
-r169 - october, 8, 2009
+r169 - october, 9, 2009
     * MembreForm : fileValidator set a limit of 500 ko
     
 
