@@ -5,6 +5,7 @@ a img,:link img,:visited img {
     border: none;
 }
 
+/* Explicit cursor for links without href attribute */
 a {
     text-decoration: none;
     cursor: pointer;

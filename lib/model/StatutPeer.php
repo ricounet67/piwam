@@ -32,6 +32,7 @@ class StatutPeer extends BaseStatutPeer
         $c = new Criteria();
         $c->add(self::ACTIF, self::IS_ACTIF);
         $c->addAnd(self::ASSOCIATION_ID, $associationId);
+        $c->addAscendingOrderByColumn(self::NOM);
 
         return $c;
     }

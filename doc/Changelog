@@ -1,14 +1,19 @@
-r173 - october, 9, 2009
+r176 - october, 9, 2009
+    * StatutPeer : getCriteriaEnabledForAssociation() ordered by name (trick to
+      display 'active member' status first)
+    
+
+r175 - october, 9, 2009
     * main.css : style for visited links
 
 
-r172 - october, 9, 2009
+r175 - october, 9, 2009
     * r172.sql : cotisation.mis_a_jour_par is not mandatory and can be null
     * schema.yml is up to date
     * propel:build-model
     
 
-r171 - october, 9, 2009
+r174 - october, 9, 2009
     * MembrePeer.php : doSelectByUsernameAndPassword() > check only active
       members
     
