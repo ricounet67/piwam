@@ -125,7 +125,8 @@ class MembreForm extends BaseMembreForm
         $this->widgetSchema['picture'] = new sfWidgetFormInputFile();
         $this->validatorSchema['picture'] = new sfValidatorFile(array(  'path'       => MembrePeer::PICTURE_DIR,
                                                                         'required'   => false,
-                                                                        'mime_types' => 'web_images'),
+                                                                        'mime_types' => 'web_images',
+                                                                        'max_size'   => 1024 * 500),
                                                                 array(  'max_size'   => 'La taille du fichier est trop importante',
                                                                         'mime_types' => 'Seules les images sont acceptées'));
 
