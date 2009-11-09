@@ -3,6 +3,13 @@
     Ceci est une version de développement, des bugs peuvent subsister.
 </p>
 
+<?php if ($sf_user->hasFlash('error')):?>
+    <p class="error">
+        <?php echo image_tag('error', array('alt' => '[erreur]', 'align' => 'top')) . ' ' . $sf_user->getFlash('error') ?>
+    </p>
+<?php endif ?>
+
+
 <h2>Identification</h2>
 <form action="<?php echo url_for('association/login') ?>" method="POST">
 <table class="formArray">
