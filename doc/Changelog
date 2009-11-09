@@ -1,4 +1,8 @@
 r171 - october, 9, 2009
+    * Membre.php : getters to format name, last name and city
+    
+
+r171 - october, 9, 2009
     * Membre.php : delete() > pseudo and passwords are set to null
     
 
