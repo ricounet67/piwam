@@ -395,7 +395,8 @@ class membreActions extends sfActions
     }
 
     /**
-     * Validate a pending subscription
+     * Validate a pending subscription. Send an email to the member if an
+     * email has been given when subscribing
      *
      * @param   sfWebRequest    $request
      * @since   r160
@@ -410,6 +411,23 @@ class membreActions extends sfActions
             $membre->setActif(MembrePeer::IS_ACTIF);
             $membre->setMisAJourPar($this->getUser()->getUserId());
             $membre->save();
+
+            if ($membre->getEmail() && $membre->getPseudo())
+            {
+                $mailer  = MailerFactory::get($this->getUser()->getAssociationId(), $this->getUser());
+                $message = new Swift_Message('Activation du compte', "Bonjour {$membre}, votre compte a bien &eacute;t&eacute; activ&eacute;. Vous pouvez d&egrave;s maintenant vous identifier en tant que '{$membre->getPseudo()}'", 'text/html');
+                $from    = Configurator::get('address', $membre->getAssociationId(), 'info-association@piwam.org');
+
+                try
+                {
+                    $mailer->send($message, $membre->getEmail(), $from);
+                }
+                catch(Swift_ConnectionException $e)
+                {
+                    // do nothing
+                }
+            }
+
             $this->redirect('membre/index');
         }
         else
