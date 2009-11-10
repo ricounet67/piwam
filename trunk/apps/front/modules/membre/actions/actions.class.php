@@ -68,7 +68,7 @@ class membreActions extends sfActions
         }
         else
         {
-            $this->forward('error', 'credentials');
+            $this->redirect('error/credentials');
         }
     }
 

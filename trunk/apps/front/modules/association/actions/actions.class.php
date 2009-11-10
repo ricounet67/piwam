@@ -73,13 +73,20 @@ class associationActions extends sfActions
                 {
                     $this->getUser()->login($user);
 
-                    if ($this->getUser()->hasCredential('list_membre'))
+                    if (! $request->getCookie(session_name()))
                     {
-                        $this->redirect('membre/index');
+                        $this->getUser()->setFlash('error', 'Les cookies doivent être activés', false);
                     }
                     else
                     {
-                        $this->redirect('membre/show?id=' . $user->getId());
+                        if ($this->getUser()->hasCredential('list_membre'))
+                        {
+                            $this->redirect('membre/index');
+                        }
+                        else
+                        {
+                            $this->redirect('membre/show?id=' . $user->getId());
+                        }
                     }
                 }
                 else
