@@ -22,7 +22,7 @@ class MembrePeer extends BaseMembrePeer
     {
         if (! in_array($column, array('NOM', 'PRENOM', 'PSEUDO', 'STATUT_ID', 'VILLE')))
         {
-            $column = self::PSEUDO;
+            $column = self::NOM;
         }
 
         $c = new Criteria();

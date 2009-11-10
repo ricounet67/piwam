@@ -26,10 +26,10 @@ class membreActions extends sfActions
             $this->redirect('membre/show?id=' . $this->getUser()->getUserId());
         }
 
-        $orderByColumn = $request->getParameter('orderby', MembrePeer::PSEUDO);
+        $this->orderByColumn = $request->getParameter('orderby', MembrePeer::NOM);
         $this->membresPager = MembrePeer::doSelectOrderBy($this->getUser()->getAssociationId(),
                                                             $request->getParameter('page', 1),
-                                                            $orderByColumn
+                                                            $this->orderByColumn
                                                           );
 
         $this->pending = MembrePeer::doSelectPending($this->getUser()->getAssociationId());
