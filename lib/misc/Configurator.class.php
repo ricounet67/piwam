@@ -17,27 +17,34 @@ class Configurator
      */
     public static function get($v, $associationId, $defaultValue = null)
     {
-        $context     = sfContext::getInstance();
         $configValue = ConfigValuePeer::retrieveByCode($v, $associationId);
 
-        if (is_null($configValue)) {
+        if (is_null($configValue))
+        {
             $configVariable = ConfigVariablePeer::retrieveByCode($v);
-            if (is_null($configVariable)) {
-                if (is_null($defaultValue)) {
+
+            if (is_null($configVariable))
+            {
+                if (is_null($defaultValue))
+                {
                     throw new Exception('Invalid configuration variable ' . $v);
                 }
-                else {
+                else
+                {
                     return $defaultValue;
                 }
             }
-            if (is_null($defaultValue)) {
+            if (is_null($defaultValue))
+            {
                 return $configVariable->getDefaultValue();
             }
-            else {
+            else
+            {
                 return $defaultValue;
             }
         }
-        else {
+        else
+        {
             return $configValue->getCustomValue();
         }
     }
