@@ -62,11 +62,13 @@ class Configurator
     {
         $variable = ConfigVariablePeer::retrieveByCode($v);
 
-        if ($variable == null) {
+        if ($variable == null)
+        {
             throw new Exception('Variable does not exist : ' . $v);
         }
 
         $configValue = ConfigValuePeer::retrieveByCode($v, $associationId);
+
         if ($configValue == null)
         {
             $newConfigValue = new ConfigValue();
@@ -75,7 +77,8 @@ class Configurator
             $newConfigValue->setAssociationId($associationId);
             $newConfigValue->save();
         }
-        else {
+        else
+        {
             $configValue->setCustomValue($value);
             $configValue->save();
         }
