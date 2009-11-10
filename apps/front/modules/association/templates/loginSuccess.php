@@ -1,5 +1,5 @@
 <p class="notice">
-    Bienvenue dans la version 1.1.2 de Piwam !<br />
+    Bienvenue dans la version 1.1.2-dev de Piwam !<br />
     Ceci est une version de développement, des bugs peuvent subsister.
 </p>
 
