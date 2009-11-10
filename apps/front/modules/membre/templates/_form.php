@@ -39,8 +39,12 @@ use_javascript('custom-forms/si.files.js')
     	}
     	?>"
     method="post"
-    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>><?php if (!$form->getObject()->isNew()): ?>
-<input type="hidden" name="sf_method" value="put" /> <?php endif; ?>
+    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+
+    <?php if (!$form->getObject()->isNew()): ?>
+        <input type="hidden" name="sf_method" value="put" />
+    <?php endif; ?>
+
 <table class="formArray">
 
     <!-- Form footer which display buttons -->
@@ -88,23 +92,19 @@ use_javascript('custom-forms/si.files.js')
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
             <th><?php echo $form['nom']->renderLabel() ?>*</th>
-            <td><?php echo $form['nom'] ?><?php echo $form['nom']->renderError() ?>
-            </td>
+            <td><?php echo $form['nom'] ?><?php echo $form['nom']->renderError() ?></td>
         </tr>
         <tr>
             <th><?php echo $form['prenom']->renderLabel() ?>*</th>
-            <td><?php echo $form['prenom'] ?><?php echo $form['prenom']->renderError() ?>
-            </td>
+            <td><?php echo $form['prenom'] ?><?php echo $form['prenom']->renderError() ?></td>
         </tr>
         <tr>
             <th>Pseudo <?php echo ($form->isFirstRegistration()) ? '*' : ''; ?></th>
-            <td><?php echo $form['pseudo'] ?><?php echo $form['pseudo']->renderError() ?>
-            </td>
+            <td><?php echo $form['pseudo'] ?><?php echo $form['pseudo']->renderError() ?></td>
         </tr>
         <tr>
             <th>Mot de passe <?php echo ($form->isFirstRegistration()) ? '*' : ''; ?></th>
-            <td><?php echo $form['password'] ?><?php echo $form['password']->renderError() ?>
-            </td>
+            <td><?php echo $form['password'] ?><?php echo $form['password']->renderError() ?></td>
         </tr>
         <tr>
             <th>Statut</th>
@@ -122,48 +122,39 @@ use_javascript('custom-forms/si.files.js')
         </tr>
         <tr>
             <th>Exempté de cotisation</th>
-            <td><?php echo $form['exempte_cotisation'] ?><?php echo $form['exempte_cotisation']->renderError() ?>
-            </td>
+            <td><?php echo $form['exempte_cotisation'] ?><?php echo $form['exempte_cotisation']->renderError() ?></td>
         </tr>
         <tr>
             <th><?php echo $form['rue']->renderLabel() ?></th>
-            <td><?php echo $form['rue'] ?><?php echo $form['rue']->renderError() ?>
-            </td>
+            <td><?php echo $form['rue'] ?><?php echo $form['rue']->renderError() ?></td>
         </tr>
         <tr>
             <th>Code postal</th>
-            <td><?php echo $form['cp'] ?><?php echo $form['cp']->renderError() ?>
-            </td>
+            <td><?php echo $form['cp'] ?><?php echo $form['cp']->renderError() ?></td>
         </tr>
         <tr>
             <th><?php echo $form['ville']->renderLabel() ?></th>
-            <td><?php echo $form['ville'] ?><?php echo $form['ville']->renderError() ?>
-            </td>
+            <td><?php echo $form['ville'] ?><?php echo $form['ville']->renderError() ?></td>
         </tr>
         <tr>
             <th><?php echo $form['pays']->renderLabel() ?></th>
-            <td><?php echo $form['pays'] ?><?php echo $form['pays']->renderError() ?>
-            </td>
+            <td><?php echo $form['pays'] ?><?php echo $form['pays']->renderError() ?></td>
         </tr>
         <tr>
             <th><?php echo $form['email']->renderLabel() ?></th>
-            <td><?php echo $form['email'] ?><?php echo $form['email']->renderError() ?>
-            </td>
+            <td><?php echo $form['email'] ?><?php echo $form['email']->renderError() ?></td>
         </tr>
         <tr>
             <th>Site internet/blog</th>
-            <td><?php echo $form['website'] ?><?php echo $form['website']->renderError() ?>
-            </td>
+            <td><?php echo $form['website'] ?><?php echo $form['website']->renderError() ?></td>
         </tr>
         <tr>
             <th>Téléphone fixe</th>
-            <td><?php echo $form['tel_fixe'] ?><?php echo $form['tel_fixe']->renderError() ?>
-            </td>
+            <td><?php echo $form['tel_fixe'] ?><?php echo $form['tel_fixe']->renderError() ?></td>
         </tr>
         <tr>
             <th>Téléphone portable</th>
-            <td><?php echo $form['tel_portable'] ?><?php echo $form['tel_portable']->renderError() ?>
-            </td>
+            <td><?php echo $form['tel_portable'] ?><?php echo $form['tel_portable']->renderError() ?></td>
         </tr>
     </tbody>
 </table>
