@@ -90,7 +90,16 @@ class MembreForm extends BaseMembreForm
         if (! $this->isFirstRegistration())
         {
             $this->validatorSchema['password'] = new sfValidatorString(array('required' => false));
-            $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => false));
+
+            if ($this->_canDeletePseudo($this->getObject()->getId(), $associationId))
+            {
+                $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => false));
+            }
+            else
+            {
+                $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => true));
+            }
+
             $this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
             $this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
         }
@@ -131,6 +140,22 @@ class MembreForm extends BaseMembreForm
                                                                         'mime_types' => 'Seules les images sont acceptées'));
 
         $this->_setCssClasses();
+    }
+
+    /*
+     * Check if we can delete the pseudo (we can't delete the pseudo of the
+     * "master" member
+     */
+    private function _canDeletePseudo($currentUserId, $associationId)
+    {
+        $association = AssociationPeer::retrieveByPK($associationId);
+
+        if ($currentUserId == $association->getEnregistrePar())
+        {
+            return false;
+        }
+
+        return true;
     }
 
     /*
