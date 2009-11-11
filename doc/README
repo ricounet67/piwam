@@ -40,19 +40,8 @@
 
 	2) How To Set Up Piwam
 	----------------------
-
-		A- For those who got this release through SVN repository :
-		
-			0- Symfony 1.2 is required
-			1- For  those  who are  using  Piwam thanks to  SVN  repository :
-			`  Fix  config/ProjectConfiguration.class.  Include  the  correct
-			   location of your sfCoreAutoload class
-			   /!\ If you got a packaged tarball,  you don't need to do that.
-			2- Edit  apps/front/config/settings.yml  with  your own  settings 
-			3- Create a `cache` folder which is writable
-		
-					
-		B- For everyone, setting up a Virtual Host
+							
+		A- Setting up a Virtual Host
 				
 			If  you  are  using  Piwam  on  your  webserver,  it is  strongly
 			recommended  to  configure  a  VirtualHost access.  For  example, 
@@ -70,6 +59,20 @@
 			  	<Directory "/home/foobar/piwam/web">
 			    	AllowOverride All
 			    	Allow from All
+			    	
+                    # Forcer la configuration PHP pour Piwam
+                    # Retirez ce bloc s'il provoque une erreur 500
+                    # sur votre serveur
+                    <IfModule mod_php5.c>
+                            php_value magic_quotes_gpc                0
+                            php_value register_globals                0
+                            php_value session.auto_start              0
+                            php_value mbstring.http_input             pass
+                            php_value mbstring.http_output            pass
+                            php_value mbstring.encoding_translation   0
+                            php_value memory_limit      128M
+                    </IfModule>
+
 			  	</Directory>
 			</VirtualHost>
 			-----------------------------------------------------------------
@@ -79,33 +82,20 @@
 			skip Virtual Host configuration.
 			
 			
-		C- Create cache and log directories
+		B- Configure files and directories
 			
-            In the main  Piwam directory  (let say it's /var/ww/piwam), create 
-            the 'log' and 'cache' directories, which are both writable. Simple
-            command lines could be : 
+            Let say piwam has been installed in /var/www/piwam directory.  We
+            have to make some files and folders writable :
             
             -----------------------------------------------------------------
             > cd /var/www/piwam
-            > mkdir cache log
-            > chmod 777 cache log
+            > chmod 777 cache log config/databases.yml web/uploads/*
             -----------------------------------------------------------------
 
             If you forget this step, you will get an error message.
+            
 
-
-		D- Make the 'uploads' folder writable
-		
-			To be able  to upload files, you  have to make the  sub-folders of
-			/web/uploads writable.
-			
-			-----------------------------------------------------------------
-			> cd /var/www/piwam
-			> chmod 777 web/uploads/*
-			-----------------------------------------------------------------
-
-
-		D- How To Access To Piwam
+		C- How To Access To Piwam
 		
 			Launch your browser  -  try to chose Firefox or Google Chrome ;-) 
 			If  a  Virtual Host  entry has been set up,  type  the configured 
@@ -114,7 +104,7 @@
 			http://your-server.com/piwam/web
 			
 			
-		E- For everyone, Installing from the web interface :
+		D- For everyone, Installing from the web interface :
 		
 			Now  you have to  check that your configuration is OK  and finish
 			setting up some stuffs. Go to http://piwam.your-domain.com/install
