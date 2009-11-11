@@ -1,25 +1,6 @@
 <?php
-/*
- * Configuration
- * -------------
- * Set up the correct path to reach sfCoreAutoload.class.php using your
- * own Symfony path
- */
 
-
-$file = '/Users/adrien/Development/Symfony/1.2/lib/autoload/sfCoreAutoload.class.php';
-
-if (file_exists($file))
-{
-	require_once $file;
-}
-else
-{
-    echo '<h2>Oups, on dirait qu\'il y a une erreur...</h2>';
-    echo 'Le fichier ' . basename($file) . ' n\'est pas accessible. Éditez le fichier <strong>ProjectConfiguration.class.php</strong> !';
-    echo '<p>Vous pouvez demander de l\'aide sur <a href="http://groups.google.com/group/piwam">http://groups.google.com/group/piwam</a>.</p>';
-    exit;
-}
+require_once dirname(__FILE__) . '/../lib/vendor/symfony/1.2/lib/autoload/sfCoreAutoload.class.php';
 
 sfCoreAutoload::register();
 
