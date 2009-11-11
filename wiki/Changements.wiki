@@ -5,7 +5,7 @@
 
 Au fil des versions, Piwam évolue...
 
-    * version 1.2 (fin novembre)
+    * version 1.1.2 (fin novembre)
           * trombinoscope
           * mode multi-associations paramétrable
           * possibilité d'effectuer des demandes d'adhésion
