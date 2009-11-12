@@ -737,12 +737,6 @@ ALTER TABLE `piwam_membre` CHANGE `pseudo` `pseudo` VARCHAR( 255 ) CHARACTER SET
 --
 ALTER TABLE `piwam_membre` CHANGE `nom` `nom` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 
---
--- r205
---
-
-ALTER TABLE `piwam_cotisation_type` CHANGE `mis_a_jour_par` `mis_a_jour_par` INT( 11 ) NULL DEFAULT NULL ;
-
  --
  -- Think about updating the version !!
  --
