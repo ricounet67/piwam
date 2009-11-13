@@ -146,6 +146,7 @@ class MembrePeer extends BaseMembrePeer
     {
         $c = new Criteria();
         $c->add(self::ASSOCIATION_ID, $id);
+        $c->addAnd(self::ACTIF, self::IS_ACTIF);
 
         return $c;
     }
