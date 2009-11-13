@@ -127,9 +127,7 @@ class MembrePeer extends BaseMembrePeer
      */
     public static function doSelectForAssociation($id)
     {
-        $c = new Criteria();
-        $c->add(self::ASSOCIATION_ID, $id);
-        $c->add(self::ACTIF, self::IS_ACTIF);
+        $c = self::getCriteriaForAssociationId($id);
 
         return self::doSelect($c);
     }
