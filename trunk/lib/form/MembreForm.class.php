@@ -5,7 +5,7 @@
  *
  * @package    piwam
  * @subpackage form
- * @author     Your name here
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: sfPropelFormTemplate.php 10377 2008-07-21 07:10:32Z dwhittle $
  */
 class MembreForm extends BaseMembreForm
@@ -36,12 +36,14 @@ class MembreForm extends BaseMembreForm
      */
     public function configure()
     {
+        $context = $this->getOption('context');
+
         if ($this->getOption('associationId'))
         {
             $associationId = $this->getOption('associationId');
         }
 
-        if (sfContext::getInstance()->getUser()->getAssociationId())
+        if ($context->getUser()->getAssociationId())
         {
             $this->_firstRegistration = false;
         }
@@ -62,7 +64,7 @@ class MembreForm extends BaseMembreForm
             if (! $this->isFirstRegistration())
             {
                 $this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
-                $this->setDefault('enregistre_par', sfContext::getInstance()->getUser()->getUserId());
+                $this->setDefault('enregistre_par', $context->getUser()->getUserId());
                 $this->validatorSchema['enregistre_par'] = new sfValidatorInteger(array('required' => false));
             }
         } // new object
@@ -91,13 +93,13 @@ class MembreForm extends BaseMembreForm
         {
             $this->validatorSchema['password'] = new sfValidatorString(array('required' => false));
 
-            if ($this->_canDeletePseudo($this->getObject()->getId(), $associationId))
+            if ($this->_isUsernameMandatory($associationId))
             {
-                $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => false));
+                $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => true));
             }
             else
             {
-                $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => true));
+                $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => false));
             }
 
             $this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
@@ -123,7 +125,7 @@ class MembreForm extends BaseMembreForm
         $this->setDefault('pays', 'FR');
 
         unset ($this->widgetSchema['date_inscription']);
-        sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
+        $context->getConfiguration()->loadHelpers("Asset");
         $this->widgetSchema['date_inscription'] = new sfWidgetFormJQueryDate(array(
 			'image'		=> image_path('calendar.gif'),
   			'config' 	=> '{}',
@@ -146,16 +148,23 @@ class MembreForm extends BaseMembreForm
      * Check if we can delete the pseudo (we can't delete the pseudo of the
      * "master" member
      */
-    private function _canDeletePseudo($currentUserId, $associationId)
+    private function _isUsernameMandatory($associationId)
     {
-        $association = AssociationPeer::retrieveByPK($associationId);
+        if ((false === $this->getObject()->isNew()) && $this->getObject()->getId())
+        {
+            $association = AssociationPeer::retrieveByPK($associationId);
 
-        if ($currentUserId == $association->getEnregistrePar())
+            if ($editedUserId == $association->getEnregistrePar())
+            {
+                return true;
+            }
+
+            return false;
+        }
+        else
         {
             return false;
         }
-
-        return true;
     }
 
     /*
