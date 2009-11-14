@@ -10,8 +10,25 @@
  */
 class updateActions extends sfActions
 {
+    /**
+     * Locates the folder which has the files to update SQL model
+     *
+     * @var string
+     */
     const SQL_DIR           = '../data/updates/';
+
+    /**
+     * Defines success code
+     *
+     * @var integer
+     */
     const PERFORM_SUCCESS   = 1;
+
+    /**
+     * Defines error code
+     *
+     * @var integer
+     */
     const PERFORM_ERROR     = 2;
 
     /**
@@ -22,7 +39,7 @@ class updateActions extends sfActions
     public function executeIndex(sfWebRequest $request)
     {
         $this->currentDBVersion = PiwamDataPeer::get('dbversion');
-        $this->files            = $this->_checkSQLFilesSince($this->currentDBVersion);
+        $this->files = $this->_checkSQLFilesSince($this->currentDBVersion);
     }
 
     /**
@@ -33,12 +50,14 @@ class updateActions extends sfActions
     public function executePerform(sfWebRequest $request)
     {
         $this->currentDBVersion = PiwamDataPeer::get('dbversion');
-        $performResult          = $this->_checkSQLFilesSince($this->currentDBVersion, true);
+        $performResult = $this->_checkSQLFilesSince($this->currentDBVersion, true);
 
-        if ($performResult === self::PERFORM_ERROR) {
+        if ($performResult === self::PERFORM_ERROR)
+        {
             return sfView::ERROR;
         }
-        else {
+        else
+        {
             $this->getContext()->getConfigCache()->clear();
         }
     }
@@ -76,14 +95,16 @@ class updateActions extends sfActions
                         if ($execute)
                         {
                             $propelConnection = Propel::getConnection();
-                            try {
+                            try
+                            {
                                 $propelConnection->beginTransaction();
                                 DbTools::executeSQLFile($file, $propelConnection);
                                 $newVersion = $this->_getVersionFromFile($file);
                                 PiwamDataPeer::set('dbversion', $newVersion);
                                 $propelConnection->commit();
                             }
-                            catch (PDOException $e) {
+                            catch (PDOException $e)
+                            {
                                 $propelConnection->rollback();
                                 $this->error = $e;
                                 return self::PERFORM_ERROR;
@@ -120,10 +141,12 @@ class updateActions extends sfActions
     {
         $version = $this->_getVersionFromFile($file);
 
-        if (false === $version) {
+        if (false === $version)
+        {
             return false;
         }
-        else {
+        else
+        {
             return $version > $currentVersion;
         }
     }
@@ -136,23 +159,29 @@ class updateActions extends sfActions
     {
         $a = explode('.', $file);
 
-        if (count($a) != 2) {
+        if (count($a) != 2)
+        {
             return false;
         }
         else
         {
             $filename   = $a[0];
             $extension  = $a[1];
+
             if ($extension === 'sql')
             {
                 $explode = explode('r', $a[0]);
-                if (count($explode) !== 2) {
+
+                if (count($explode) !== 2)
+                {
                     return false;
                 }
                 else
                 {
                     $version = $explode[1];
-                    if (is_numeric($version)) {
+
+                    if (is_numeric($version))
+                    {
                         return intval($version);
                     }
                 }
