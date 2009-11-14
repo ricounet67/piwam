@@ -23,10 +23,12 @@ class installActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        if ($this->_isInstalled()) {
+        if ($this->_isInstalled())
+        {
             return sfView::ERROR;
         }
-        else {
+        else
+        {
             $this->forward('install', 'checkConfig');
         }
     }
@@ -71,7 +73,8 @@ class installActions extends sfActions
                     DbTools::executeSQLFile('../doc/piwam-install.sql');
                     $this->redirect('install/end');
                 }
-                else {
+                else
+                {
                     $this->getUser()->setFlash('error', 'Impossible de se connecter à la base de données');
                 }
             }
@@ -117,6 +120,7 @@ class installActions extends sfActions
     {
         $this->_addMessage(is_writable('../cache'),                 'isCacheFolderWritable');
         $this->_addMessage(is_writable('../log'),                   'isLogFolderWritable');
+        $this->_addMessage(is_writable('../web/uploads/trombinoscope/'), 'isTrombinoscopeFolderWritable');
         $this->_addMessage(is_writable('../config/databases.yml'),  'isDatabasesFileWritable');
         $this->_addMessage(extension_loaded('openssl'),             'isPhpOpenSSLLoaded',       true);
         $this->_addMessage($this->_checkMemoryLimit('128M'),        'isMemoryLimitHighEnough',  true);
