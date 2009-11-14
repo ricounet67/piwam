@@ -5,7 +5,7 @@
  *
  * @package    piwam
  * @subpackage membre
- * @author     Your name here
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
 class membreActions extends sfActions
@@ -68,16 +68,14 @@ class membreActions extends sfActions
     public function executeShow(sfWebRequest $request)
     {
         $membre_id = $request->getParameter('id');
-        $this->membre = MembrePeer::retrieveByPk($membre_id);
+        $profile = MembrePeer::retrieveByPk($membre_id);
 
-        if (($this->membre->getAssociationId() == $this->getUser()->getAssociationId()) &&
-                (($this->getUser()->hasCredential('show_membre')) ||
-                ($this->getUser()->getUserId() == $membre_id))
-            )
+        if ($this->isAllowedToManageProfile($profile, 'show_membre'))
         {
             $this->cotisations = CotisationPeer::doSelectForUser($membre_id);
             $this->credentials = AclCredentialPeer::doSelectForMembreId($membre_id);
-            $this->forward404Unless($this->membre);
+            $this->forward404Unless($profile);
+            $this->membre = $profile;
         }
         else
         {
@@ -298,23 +296,19 @@ class membreActions extends sfActions
      */
     public function executeEdit(sfWebRequest $request)
     {
-        $associationId  = $this->getUser()->getAssociationId();
-        $this->user_id  = $request->getParameter('id');
+        $associationId = $this->getUser()->getAssociationId();
+        $this->user_id = $request->getParameter('id');
         $this->forward404Unless($membre = MembrePeer::retrieveByPk($this->user_id));
-        $this->form     = new MembreForm($membre, array('associationId' => $membre->getAssociationId(),
-                                                        'context'       => $this->getContext()));
-        $this->aclForm  = new AclCredentialForm();
-        $membre         = MembrePeer::retrieveByPk($this->user_id);
-        $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
 
-        if (($membre->getAssociationId() != $associationId) ||
-                (($this->getUser()->hasCredential('edit_membre') == false) &&
-                ($this->getUser()->getUserId() != $this->user_id))
-            )
+        if (false === $this->isAllowedToManageProfile($membre, 'edit_membre'))
         {
             $this->redirect('error/credentials');
         }
 
+        $this->form = new MembreForm($membre, array('associationId' => $membre->getAssociationId(),
+                                                    'context'       => $this->getContext()));
+        $this->aclForm  = new AclCredentialForm();
+        $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
         $this->aclForm->setUserId($this->user_id);
         $this->aclForm->automaticCheck();
@@ -328,25 +322,20 @@ class membreActions extends sfActions
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Member does not exist (%s).', $request->getParameter('id')));
         $this->user_id  = $request->getParameter('id');
-        $this->form     = new MembreForm($membre, array('associationId' => $request->getParameter('membre[association_id]'),
-                                                        'context'       => $this->getContext()));
-        $this->aclForm  = new AclCredentialForm();
-        $membre         = MembrePeer::retrieveByPk($this->user_id);
-        $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
+        $this->forward404Unless($user = MembrePeer::retrieveByPk($this->user_id), sprintf('Member does not exist (%s).', $this->user_id));
 
-        if (($membre->getAssociationId() != $this->getUser()->getAssociationId()) ||
-                (($this->getUser()->hasCredential('edit_membre') == false) &&
-                ($this->getUser()->getUserId() != $request->getParameter('id')))
-            )
+        if (false === $this->isAllowedToManageProfile($user, 'edit_membre'))
         {
             $this->redirect('error/credentials');
         }
 
+        $this->form = new MembreForm($user, array('associationId' => $request->getParameter('membre[association_id]'),
+                                                  'context'       => $this->getContext()));
+        $this->aclForm  = new AclCredentialForm();
+        $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
         $this->aclForm->setUserId($this->user_id);
         $this->aclForm->automaticCheck();
-
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }
@@ -587,5 +576,36 @@ class membreActions extends sfActions
                 }
             }
         }
+    }
+
+    /**
+     * Checks if we are allowed to edit/show profile of $user
+     *
+     * @param   Membre  $user
+     * @return  boolean
+     */
+    protected function isAllowedToManageProfile(Membre $user, $globalCredential = null)
+    {
+        if (($user->getAssociationId() != $this->getUser()->getAssociationId()))
+        {
+            return false;
+        }
+        else
+        {
+            if (! is_null($globalCredential))
+            {
+                if ($this->getUser()->hasCredential($globalCredential) == true)
+                {
+                    return true;
+                }
+            }
+
+            if ($this->getUser()->getUserId() == $user->getId())
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
