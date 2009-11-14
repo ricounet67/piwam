@@ -1,5 +1,6 @@
 <?php use_helper('Date') 	?>
 <?php use_helper('Membre') 	?>
+<?php use_helper('Phone')  ?>
 <?php use_helper('Boolean') ?>
 <?php use_helper('JavascriptBase') ?>
 <?php use_javascript('domtab/domtab.js') ?>
@@ -64,11 +65,11 @@
         </tr>
         <tr>
             <th>Téléphone fixe :</th>
-            <td><?php echo $membre->getTelfixe() ?></td>
+            <td><?php echo format_phonenumber($membre->getTelfixe()) ?></td>
         </tr>
         <tr>
             <th>Téléphone portable :</th>
-            <td><?php echo $membre->getTelportable() ?></td>
+            <td><?php echo format_phonenumber($membre->getTelportable()) ?></td>
         </tr>
         <tr>
             <th>Actif :</th>
