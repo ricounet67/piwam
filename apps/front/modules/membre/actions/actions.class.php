@@ -269,7 +269,8 @@ class membreActions extends sfActions
      */
     public function executeNew(sfWebRequest $request)
     {
-        $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getAssociationId()));
+        $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getAssociationId(),
+                                                 'context'       => $this->getContext()));
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
@@ -281,7 +282,8 @@ class membreActions extends sfActions
     public function executeCreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
-        $this->form = new MembreForm(null, array('associationId' => $request->getParameter('membre[association_id]')));
+        $this->form = new MembreForm(null, array('associationId' => $request->getParameter('membre[association_id]'),
+                                                 'context'       => $this->getContext()));
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
     }
@@ -299,7 +301,8 @@ class membreActions extends sfActions
         $associationId  = $this->getUser()->getAssociationId();
         $this->user_id  = $request->getParameter('id');
         $this->forward404Unless($membre = MembrePeer::retrieveByPk($this->user_id));
-        $this->form     = new MembreForm($membre, array('associationId' => $membre->getAssociationId()));
+        $this->form     = new MembreForm($membre, array('associationId' => $membre->getAssociationId(),
+                                                        'context'       => $this->getContext()));
         $this->aclForm  = new AclCredentialForm();
         $membre         = MembrePeer::retrieveByPk($this->user_id);
         $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
@@ -327,7 +330,8 @@ class membreActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Member does not exist (%s).', $request->getParameter('id')));
         $this->user_id  = $request->getParameter('id');
-        $this->form     = new MembreForm($membre, array('associationId' => $request->getParameter('membre[association_id]')));
+        $this->form     = new MembreForm($membre, array('associationId' => $request->getParameter('membre[association_id]'),
+                                                        'context'       => $this->getContext()));
         $this->aclForm  = new AclCredentialForm();
         $membre         = MembrePeer::retrieveByPk($this->user_id);
         $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
@@ -377,7 +381,8 @@ class membreActions extends sfActions
             $associationId = $association->getId();
         }
 
-        $this->form = new MembreForm(null, array('associationId' => $associationId));
+        $this->form = new MembreForm(null, array('associationId' => $associationId,
+                                                 'context'       => $this->getContext()));
         $this->form->setDefault('association_id', $associationId);
         $this->form->setDefault('actif', MembrePeer::IS_PENDING);
     }
@@ -391,7 +396,8 @@ class membreActions extends sfActions
     public function executeCreatepending(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
-        $this->form = new MembreForm(null, array('associationId' => $request->getParameter("membre[association_id]")));
+        $this->form = new MembreForm(null, array('associationId' => $request->getParameter("membre[association_id]"),
+                                                 'context'       => $this->getContext()));
         $request->setAttribute('pending', true);
         $this->processForm($request, $this->form);
         $this->setTemplate('requestsubscription');
@@ -476,7 +482,8 @@ class membreActions extends sfActions
         }
         else
         {
-            $this->form = new MembreForm(null, array('associationId' => $associationId));
+            $this->form = new MembreForm(null, array('associationId' => $associationId,
+                                                     'context'       => $this->getContext()));
         }
 
         $this->form->setDefault('association_id', $associationId);
@@ -491,7 +498,8 @@ class membreActions extends sfActions
     public function executeFirstcreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
-        $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getTemporaryAssociationId()));
+        $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getTemporaryAssociationId(),
+                                                 'context'       => $this->getContext()));
         $request->setAttribute('first', true);
         $this->processForm($request, $this->form);
         $this->setTemplate('newfirst');
@@ -516,8 +524,6 @@ class membreActions extends sfActions
             // and methods
         }
     }
-
-
 
     /**
      * If this is a the first Membre that we registered, we redirect
