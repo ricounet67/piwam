@@ -193,58 +193,6 @@ class associationActions extends sfActions
     }
 
     /**
-     * Mailing action
-     *
-     * @param 	sfWebRequest	$request
-     * @since	r10
-     */
-    public function executeMailing(sfWebRequest $request)
-    {
-        $this->form = new MailingForm(array(), array('url' => $this->getController()->genUrl('membre/ajaxlist')));
-        if ($request->isMethod('post'))
-        {
-            $this->form->bind($request->getParameter('mailing'));
-            if ($this->form->isValid())
-            {
-                $associationId = $this->getUser()->getAssociationId();
-                $data   = $this->form->getValues();
-                $sentOk = 0; 	// these are 2 counters of
-                $sentKo = 0;	// succeed/failed messages
-
-                try
-                {
-                    $mailer   = MailerFactory::get($associationId, $this->getUser());
-                    $message  = new Swift_Message($data['subject'], $data['mail_content'], 'text/html');
-                    $from     = Configurator::get('address', $associationId, 'info-association@piwam.org');
-                    $membres  = MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAssociationId());
-
-                    foreach ($membres as $membre)
-                    {
-                        try
-                        {
-                            $mailer->send($message, $membre->getEmail(), $from);
-                            $sentOk++;
-                        }
-                        catch(Swift_ConnectionException $e)
-                        {
-                            $sentKo++;
-                        }
-                    }
-
-                    $mailer->disconnect();
-                    sfContext::getInstance()->getConfiguration()->loadHelpers('Plural');
-                    $this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . plural_word($sentOk, ' destinataire') . ' (' . $sentKo . plural_word($sentKo, ' erreur') . ')');
-                    $this->content = $data['mail_content'];
-                }
-                catch (Exception $e)
-                {
-                    //
-                }
-            }
-        }
-    }
-
-    /**
      * We don't have any way to list the associations
      *
      * @param   sfWebRequest    $request
