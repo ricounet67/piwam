@@ -21,14 +21,16 @@ class DbTools
         $content = file_get_contents($file);
         $queries = explode(';', $content);
 
-        foreach ($queries as $query) {
-
-            if ($query !== '')
+        foreach ($queries as $query)
+        {
+            if (trim($query) !== '')
             {
-                if (is_null($propelConnection)) {
+                if (is_null($propelConnection))
+                {
                     mysql_query($query);
                 }
-                else {
+                else
+                {
                     $statement = $propelConnection->prepare($query);
                     $statement->execute();
                 }
@@ -44,17 +46,21 @@ class DbTools
     public static function checkMySQLConnection($host, $user, $password, $dbname)
     {
         $link = @mysql_connect($host, $user, $password);
-        if (! $link) {
+
+        if (! $link)
+        {
             return false;
         }
         else
         {
             $isConnected = mysql_select_db($dbname, $link);
+
             if ($isConnected)
             {
                 return true;
             }
-            else {
+            else
+            {
                 return false;
             }
         }
