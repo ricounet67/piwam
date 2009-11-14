@@ -25,10 +25,8 @@ class MembrePeer extends BaseMembrePeer
             $column = self::NOM;
         }
 
-        $c = new Criteria();
+        $c = self::buildCriteria(array(), true, $associationId);
         $c->addAscendingOrderByColumn($column);
-        $c->add(self::ASSOCIATION_ID, $associationId);
-        $c->addAnd(self::ACTIF, self::IS_ACTIF);
 
         $pager = new sfPropelPager('Membre', Configurator::get('users_by_page', $associationId, 20));
         $pager->setCriteria($c);
@@ -214,7 +212,7 @@ class MembrePeer extends BaseMembrePeer
         // override $params['associationId']
         if (! is_null($associationId))
         {
-           $c->addAnd(self::ASSOCIATION_ID, $params['associationId']);
+           $c->addAnd(self::ASSOCIATION_ID, $associationId);
         }
 
         if ($active)
