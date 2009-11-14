@@ -10,11 +10,40 @@
  */
 class installActions extends sfActions
 {
-    private $_messages 		= array();
+    /**
+     * Store error and warning messages (states, messages...)
+     *
+     * @var array of array
+     */
+    private $_messages = array();
+
+    /**
+     * Indicates if user can continue install or not
+     *
+     * @var boolean
+     */
     private $_canContinue	= true;
-    const STATE_ERROR		= 1;
-    const STATE_WARNING		= 2;
-    const STATE_SUCCESS		= 3;
+
+    /**
+     * Error code
+     *
+     * @var integer
+     */
+    const STATE_ERROR = 1;
+
+    /**
+     * Warning code
+     *
+     * @var integer
+     */
+    const STATE_WARNING = 2;
+
+    /**
+     * Success code
+     *
+     * @var integer
+     */
+    const STATE_SUCCESS	= 3;
 
     /**
      * Executes index action
@@ -118,14 +147,16 @@ class installActions extends sfActions
      */
     private function _checkConfiguration()
     {
-        $this->_addMessage(is_writable('../cache'),                 'isCacheFolderWritable');
-        $this->_addMessage(is_writable('../log'),                   'isLogFolderWritable');
+        $this->_addMessage(is_writable('../cache'), 'isCacheFolderWritable');
+        $this->_addMessage(is_writable('../log'), 'isLogFolderWritable');
         $this->_addMessage(is_writable('../web/uploads/trombinoscope/'), 'isTrombinoscopeFolderWritable', true);
         $this->_addMessage(is_writable('../config/databases.yml'),  'isDatabasesFileWritable');
-        $this->_addMessage(extension_loaded('openssl'),             'isPhpOpenSSLLoaded',       true);
-        $this->_addMessage($this->_checkMemoryLimit('128M'),        'isMemoryLimitHighEnough',  true);
+        $this->_addMessage(extension_loaded('openssl'), 'isPhpOpenSSLLoaded', true);
+        $this->_addMessage(extension_loaded('gd'), 'isPhpGdLoaded');
+        $this->_addMessage($this->_checkMemoryLimit('128M'), 'isMemoryLimitHighEnough', true);
 
-        if (function_exists('apache_get_modules')) {
+        if (function_exists('apache_get_modules'))
+        {
             $this->_addMessage($this->_isApacheModuleEnabled('mod_rewrite'), 'isModRewriteEnabled');
         }
     }
@@ -218,15 +249,20 @@ class installActions extends sfActions
      */
     private function _boolean2state($bool, $warning = false)
     {
-        if ($bool) {
+        if ($bool)
+        {
             return self::STATE_SUCCESS;
         }
-        else {
-            if ($warning) {
+        else
+        {
+            if ($warning)
+            {
                 return self::STATE_WARNING;
             }
-            else {
+            else
+            {
                 $this->_canContinue = false;
+
                 return self::STATE_ERROR;
             }
         }
