@@ -1,9 +1,31 @@
 <?php
 
+/**
+ * Peer class for managing members
+ *
+ * @author adrien
+ */
 class MembrePeer extends BaseMembrePeer
 {
+    /**
+     * Set upload directory for user's pictures
+     *
+     * @var string
+     */
     const PICTURE_DIR = 'uploads/trombinoscope';
+
+    /**
+     * Set constant for active members
+     *
+     * @var integer
+     */
     const IS_ACTIF = 1;
+
+    /**
+     * Set constant for pending subscriptions
+     *
+     * @var integer
+     */
     const IS_PENDING = 2;
 
     /**
@@ -197,7 +219,7 @@ class MembrePeer extends BaseMembrePeer
         if (isset($params['magic']))
         {
             $criterion1 = $c->getNewCriterion(self::PSEUDO, $params['magic'], Criteria::LIKE);
-            $criterion2 = $c->getnewCriterion(self::ID,  "LOWER(CONCAT(CONCAT(" . self::PRENOM . ", ' '), " . self::NOM . ")) LIKE '" . strtolower($params['magic']) . "'", Criteria::CUSTOM);
+            $criterion2 = $c->getnewCriterion(self::ID, "LOWER(CONCAT(CONCAT(" . self::PRENOM . ", ' '), " . self::NOM . ")) LIKE '" . strtolower($params['magic']) . "'", Criteria::CUSTOM);
             $criterion3 = $c->getNewCriterion(self::EMAIL, $params['magic'], Criteria::LIKE);
             $criterion1->addOr($criterion2);
             $criterion1->addOr($criterion3);
