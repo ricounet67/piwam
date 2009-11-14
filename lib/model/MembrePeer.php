@@ -77,17 +77,12 @@ class MembrePeer extends BaseMembrePeer
     /**
      * Perform a research
      *
+     * @params  array           $params
      * @return  array of Membre
      */
-    public static function doSearch($words, $associationId)
+    public static function doSearch($params)
     {
-        $c = new Criteria();
-
-        $criterion1 = $c->getNewCriterion(self::PSEUDO, $words, Criteria::LIKE);
-        $criterion2 = $c->getnewCriterion(self::ID,  "LOWER(CONCAT(CONCAT(" . self::PRENOM . ", ' '), " . self::NOM . ")) LIKE '" . strtolower($words) . "'", Criteria::CUSTOM);
-        $criterion1->addOr($criterion2);
-        $c->add($criterion1);
-        $c->addAnd(self::ASSOCIATION_ID, $associationId);
+        $c = self::buildCriteria($params);
 
         return self::doSelect($c);
     }
@@ -183,5 +178,32 @@ class MembrePeer extends BaseMembrePeer
         $c->addAnd(self::ACTIF, self::IS_ACTIF);
 
         return self::doSelect($c);
+    }
+
+    /**
+     * Build a search Critera based on params
+     *
+     * @param   array       $params
+     * @return  Criteria
+     * @since   r212
+     */
+    private static function buildCriteria($params)
+    {
+        $c = new Criteria();
+
+        if (isset($params['magic']))
+        {
+            $criterion1 = $c->getNewCriterion(self::PSEUDO, $params['magic'], Criteria::LIKE);
+            $criterion2 = $c->getnewCriterion(self::ID,  "LOWER(CONCAT(CONCAT(" . self::PRENOM . ", ' '), " . self::NOM . ")) LIKE '" . strtolower($params['magic']) . "'", Criteria::CUSTOM);
+            $criterion1->addOr($criterion2);
+            $c->add($criterion1);
+        }
+
+        if (isset($params['associationId']))
+        {
+            $c->addAnd(self::ASSOCIATION_ID, $params['associationId']);
+        }
+
+        return $c;
     }
 }

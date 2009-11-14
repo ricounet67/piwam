@@ -55,7 +55,7 @@ class membreActions extends sfActions
     public function executeSearch(sfWebRequest $request)
     {
         $params = $request->getParameter('search');
-        $this->membres = MembrePeer::doSearch($params['query'], $params['associationId']);
+        $this->membres = MembrePeer::doSearch($params);
         $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId()));
     }
 

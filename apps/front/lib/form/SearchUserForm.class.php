@@ -9,14 +9,14 @@ class SearchUserForm extends sfForm
     public function configure()
     {
         $this->setWidgets(array(
-          'query'           => new sfWidgetFormInput(),
+          'magic'           => new sfWidgetFormInput(),
           'associationId'   => new sfWidgetFormInputHidden(),
         ));
 
         $this->widgetSchema->setNameFormat('search[%s]');
 
         $this->setValidators(array(
-          'query'           => new sfValidatorString(array('required' => true)),
+          'magic'           => new sfValidatorString(array('required' => true)),
           'associationId'   => new sfValidatorInteger(array('required' => true)),
         ));
 
