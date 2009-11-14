@@ -187,10 +187,12 @@ class MembrePeer extends BaseMembrePeer
      *      o associationId
      *
      * @param   array       $params
+     * @param   boolean     $active         : search only active members
+     * @param   integer     $associationId  : override $params['associationId']
      * @return  Criteria
      * @since   r212
      */
-    private static function buildCriteria($params)
+    private static function buildCriteria($params, $active = true, $associationId = null)
     {
         $c = new Criteria();
 
@@ -207,6 +209,17 @@ class MembrePeer extends BaseMembrePeer
         if (isset($params['associationId']))
         {
             $c->addAnd(self::ASSOCIATION_ID, $params['associationId']);
+        }
+
+        // override $params['associationId']
+        if (! is_null($associationId))
+        {
+           $c->addAnd(self::ASSOCIATION_ID, $params['associationId']);
+        }
+
+        if ($active)
+        {
+            $c->addAnd(self::ACTIF, self::IS_ACTIF);
         }
 
         return $c;
