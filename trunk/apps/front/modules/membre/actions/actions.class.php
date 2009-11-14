@@ -31,8 +31,8 @@ class membreActions extends sfActions
                                                             $request->getParameter('page', 1),
                                                             $this->orderByColumn
                                                           );
-
         $this->pending = MembrePeer::doSelectPending($this->getUser()->getAssociationId());
+        $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId()));
     }
 
     /**
@@ -44,6 +44,19 @@ class membreActions extends sfActions
     public function executeFaces(sfWebRequest $request)
     {
         $this->membres = MembrePeer::doSelectForAssociation($associationId = $this->getUser()->getAssociationId());
+    }
+
+    /**
+     * Perform a research and return results
+     *
+     * @param   sfWebRequest    $request
+     * @since   r211
+     */
+    public function executeSearch(sfWebRequest $request)
+    {
+        $params = $request->getParameter('search');
+        $this->membres = MembrePeer::doSearch($params['query'], $params['associationId']);
+        $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId()));
     }
 
     /**

@@ -74,6 +74,23 @@ class MembrePeer extends BaseMembrePeer
         return self::doSelectOne($c);
     }
 
+    /**
+     * Perform a research
+     *
+     * @return  array of Membre
+     */
+    public static function doSearch($words, $associationId)
+    {
+        $c = new Criteria();
+
+        $criterion1 = $c->getNewCriterion(self::PSEUDO, $words, Criteria::LIKE);
+        $criterion2 = $c->getnewCriterion(self::ID,  "LOWER(CONCAT(CONCAT(" . self::PRENOM . ", ' '), " . self::NOM . ")) LIKE '" . strtolower($words) . "'", Criteria::CUSTOM);
+        $criterion1->addOr($criterion2);
+        $c->add($criterion1);
+        $c->addAnd(self::ASSOCIATION_ID, $associationId);
+
+        return self::doSelect($c);
+    }
 
     /**
      * Display Membre matching our query (actually this may
@@ -82,7 +99,7 @@ class MembrePeer extends BaseMembrePeer
      * @param	string	$q : query
      * @param	integer	$limit
      * @return 	array of Membre
-     * @since	r15\
+     * @since	r15
      */
     static public function retrieveForSelect($q, $limit)
     {
