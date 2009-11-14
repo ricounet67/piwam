@@ -1,5 +1,2 @@
-index:
-  credentials:  update_piwam
-  
-perform:
-  credentials:  update_piwam
+default:
+  is_secure: off
