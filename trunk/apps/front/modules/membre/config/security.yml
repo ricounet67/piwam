@@ -18,6 +18,9 @@ index:
   # Credentials are checked in action class since revision r154
   #credentials:  list_membre
   
+search:
+  ccredentials: list_membre
+
 create:
   credentials:  add_membre
 
