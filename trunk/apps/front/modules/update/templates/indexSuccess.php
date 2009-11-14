@@ -33,5 +33,18 @@
                 </td>
             </tr>
         <?php endif ?>
+
+        <tr>
+            <th>Dernière version en ligne :</th>
+            <td>
+                <?php if ($lastVersion == updateActions::CHECK_VERSION_ERROR): ?>
+                    Impossible de vérifier en ligne. Rendez-vous directement sur <a href="http://piwam.googlecode.com">le site officiel</a>
+                <?php elseif ($lastVersion == updateActions::CHECK_VERSION_OK): ?>
+                    Version à jour
+                <?php else: ?>
+                    Une nouvelle version est disponible ! <a href="http://code.google.com/p/piwam/downloads/list">Piwam-<?php echo $lastVersion ?></a>
+                <?php endif ?>
+            </td>
+        </tr>
     <?php endif?>
 </table>
