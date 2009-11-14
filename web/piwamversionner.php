@@ -4,6 +4,7 @@
  * or not according to the $_GET['current'] which referes to the current
  * version of Piwam
  *
+ * Returns 'OK' if this is the last version
  */
 
 define('REQUEST_KEY', 'Piwam');
@@ -22,6 +23,9 @@ if (! isset($_GET['current']))
 
 if ($_GET['current'] == '112')
 {
-    echo 'Version à jour';
+    echo 'OK';
+    exit ;
 }
+
+echo 'OK';
 ?>

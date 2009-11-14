@@ -18,28 +18,63 @@ class updateActions extends sfActions
     const SQL_DIR = '../data/updates/';
 
     /**
-     * Defines success code
+     * Defines success code if everything went fine
      *
      * @var integer
      */
     const PERFORM_SUCCESS = 1;
 
     /**
-     * Defines error code
+     * Defines error code if an error occured while getting SQL files or
+     * executing these files
      *
      * @var integer
      */
     const PERFORM_ERROR = 2;
 
     /**
+     * Defines code if current version is the last available version
+     *
+     * @var integer
+     */
+    const CHECK_VERSION_OK = 1;
+
+    /**
+     * Defines error code if we can't check the last version with
+     * online webservice
+     *
+     * @var integer
+     */
+    const CHECK_VERSION_ERROR = 2;
+
+    /**
      * Executes index action
      *
-     * @param sfRequest $request A request object
+     * @param   sfRequest $request A request object
+     * @todo    Set a dynamic $current variable
      */
     public function executeIndex(sfWebRequest $request)
     {
         $this->currentDBVersion = PiwamDataPeer::get('dbversion');
         $this->files = $this->_checkSQLFilesSince($this->currentDBVersion);
+
+        if (ini_get('allow_url_fopen'))
+        {
+            $result = file_get_contents('http://docbook/piwamversionner.php?auth=Piwam&current=112');
+
+            if ($result == 'OK')
+            {
+                $this->lastVersion = self::CHECK_VERSION_OK;
+            }
+            else
+            {
+                $this->lastVersion = $result;
+            }
+        }
+        else
+        {
+            $this->lastVersion = self::CHECK_VERSION_ERROR;
+        }
     }
 
     /**
