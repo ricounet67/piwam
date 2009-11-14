@@ -149,6 +149,14 @@ body {
 **
 *****************************************************************************/
 
+/* Search bars on top of pages */
+div#searchBar {
+    background-color: #eee;
+    padding: 10px;
+    margin-bottom: 10px;
+    -moz-border-radius: 8px;   
+}
+
 /* listing tables : members, accounts, etc... */
 .tableauDonnees {
     width: 90%;
