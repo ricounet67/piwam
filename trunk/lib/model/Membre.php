@@ -1,5 +1,9 @@
 <?php
-
+/**
+ * Represents a member of an association
+ *
+ * @author Adrien Mogenet
+ */
 class Membre extends BaseMembre
 {
     /**
