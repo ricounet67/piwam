@@ -154,7 +154,7 @@ class MembreForm extends BaseMembreForm
         {
             $association = AssociationPeer::retrieveByPK($associationId);
 
-            if ($editedUserId == $association->getEnregistrePar())
+            if ($this->getObject()->getId() == $association->getEnregistrePar())
             {
                 return true;
             }
