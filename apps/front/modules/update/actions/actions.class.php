@@ -72,8 +72,18 @@ class updateActions extends sfActions
     private function _checkSQLFilesSince($version, $execute = false)
     {
         $sqlFiles = array();
-        $d = dir(self::SQL_DIR);
-        chdir (self::SQL_DIR);
+
+        try
+        {
+            $d = dir(self::SQL_DIR);
+            chdir (self::SQL_DIR);
+        }
+        catch (Exception $e)
+        {
+            $this->error = $e;
+
+            return self::PERFORM_ERROR;
+        }
 
         while($entry = $d->read())
         {
@@ -106,6 +116,7 @@ class updateActions extends sfActions
                             {
                                 $propelConnection->rollback();
                                 $this->error = $e;
+
                                 return self::PERFORM_ERROR;
                             }
                         }

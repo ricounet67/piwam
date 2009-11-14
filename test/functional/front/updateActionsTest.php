@@ -8,12 +8,12 @@ $browser->
 get('/update/index')->
 
 with('request')->begin()->
-isParameter('module', 'update')->
-isParameter('action', 'index')->
+    isParameter('module', 'update')->
+    isParameter('action', 'index')->
 end()->
 
 with('response')->begin()->
-isStatusCode(200)->
-checkElement('body', '!/This is a temporary page/')->
+    isStatusCode(200)->
+    checkElement('body', '!/This is a temporary page/')->
 end()
 ;
