@@ -13,7 +13,7 @@
     </strong><br />
 
     Le répertoire <span style="font-family: courier">web/uploads/trombinoscope</span> n'est
-    pas inscriptible
+    pas inscriptible. Vous ne pourrez pas associer des photos aux membres.
 
 <?php else: ?>
 
