@@ -9,6 +9,13 @@
 class myUser extends sfBasicSecurityUser
 {
     /**
+     * Defines the name of cookie that will be created
+     *
+     * @var string
+     */
+    const COOKIE_NAME = 'Piwam';
+
+    /**
      * Performs all the required actions when user just
      * logged in
      *

@@ -61,7 +61,9 @@ class sfGuardTestFunctional extends sfTestFunctional
         end()->
 
         isRedirected()->
-        followRedirect();
+        followRedirect()->
+
+        with('request')->hasCookie('Piwam');
 
         $this->userId = $this->getContext()->getUser()->getUserId();
         $this->associationId = $this->getContext()->getUser()->getAssociationId();

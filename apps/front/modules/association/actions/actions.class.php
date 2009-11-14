@@ -73,20 +73,21 @@ class associationActions extends sfActions
                 {
                     $this->getUser()->login($user);
 
-                    if (! $request->getCookie(session_name()))
+                    // Unused cookie, fake value is set
+                    $this->getResponse()->setCookie(myUser::COOKIE_NAME, '1', time() + 60 * 60 * 24 * 15, '/');
+
+                    if (! $request->getCookie(myUser::COOKIE_NAME))
                     {
-                        $this->getUser()->setFlash('error', 'Les cookies doivent être activés', false);
+                        $this->getUser()->setFlash('error', 'Les cookies doivent être activés');
+                    }
+
+                    if ($this->getUser()->hasCredential('list_membre'))
+                    {
+                        $this->redirect('membre/index');
                     }
                     else
                     {
-                        if ($this->getUser()->hasCredential('list_membre'))
-                        {
-                            $this->redirect('membre/index');
-                        }
-                        else
-                        {
-                            $this->redirect('membre/show?id=' . $user->getId());
-                        }
+                        $this->redirect('membre/show?id=' . $user->getId());
                     }
                 }
                 else
@@ -158,11 +159,11 @@ class associationActions extends sfActions
 
                         $mailer->disconnect();
                         $this->getUser()->setFlash('notice', 'Le nouveau mot de passe a été envoyé par e-mail', false);
-                        }
-                        else
-                        {
-                            $this->getUser()->setFlash('error', 'L\'utilisateur ne possède pas d\'adresse e-mail', false);
-                        }
+                    }
+                    else
+                    {
+                        $this->getUser()->setFlash('error', 'L\'utilisateur ne possède pas d\'adresse e-mail', false);
+                    }
                 }
                 else
                 {
