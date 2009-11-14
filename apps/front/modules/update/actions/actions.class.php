@@ -15,21 +15,21 @@ class updateActions extends sfActions
      *
      * @var string
      */
-    const SQL_DIR           = '../data/updates/';
+    const SQL_DIR = '../data/updates/';
 
     /**
      * Defines success code
      *
      * @var integer
      */
-    const PERFORM_SUCCESS   = 1;
+    const PERFORM_SUCCESS = 1;
 
     /**
      * Defines error code
      *
      * @var integer
      */
-    const PERFORM_ERROR     = 2;
+    const PERFORM_ERROR = 2;
 
     /**
      * Executes index action
@@ -71,16 +71,15 @@ class updateActions extends sfActions
      */
     private function _checkSQLFilesSince($version, $execute = false)
     {
-        $sqlFiles   = array();
-        $d          = dir(self::SQL_DIR);
+        $sqlFiles = array();
+        $d = dir(self::SQL_DIR);
         chdir (self::SQL_DIR);
 
         while($entry = $d->read())
         {
             /*
-             * We browse directories that have been put into /data/updates
+             * We browse directories that have been put into SQL_DIR
              */
-
             if ((is_dir($entry)) && ($this->_isPiwamDir($entry)))
             {
                 $sqlDir = dir($entry);
@@ -165,8 +164,8 @@ class updateActions extends sfActions
         }
         else
         {
-            $filename   = $a[0];
-            $extension  = $a[1];
+            $filename  = $a[0];
+            $extension = $a[1];
 
             if ($extension === 'sql')
             {
