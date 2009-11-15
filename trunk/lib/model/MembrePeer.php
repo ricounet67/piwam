@@ -167,15 +167,14 @@ class MembrePeer extends BaseMembrePeer
      * Return a Criteria to select only data which belong to the association
      * in argument
      *
-     * @param 	integer	$id
+     * @param 	integer      $id : association ID
      * @return 	Criteria
      * @since	r23
      */
     public static function getCriteriaForAssociationId($id)
     {
-        $c = new Criteria();
-        $c->add(self::ASSOCIATION_ID, $id);
-        $c->addAnd(self::ACTIF, self::IS_ACTIF);
+        $c = self::buildCriteria(array(), true, $id);
+        $c->addAscendingOrderByColumn(self::PRENOM);
 
         return $c;
     }
