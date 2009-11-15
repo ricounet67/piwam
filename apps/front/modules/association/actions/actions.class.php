@@ -38,19 +38,6 @@ class associationActions extends sfActions
     }
 
     /**
-     * Provides a view to allows current user to export the different data
-     * he wants to export
-     *
-     * @param 	sfWebRequest	$request
-     * @since	r19
-     */
-    public function executeExport(sfWebRequest $request)
-    {
-        // do nothing
-        // content is set in the template file
-    }
-
-    /**
      * Login action. This is the default action if we are not authenticated.
      * If we can't perform the Propel operations, we consider the database
      * settings are not correct and we redirect to /install automatically

@@ -49,7 +49,7 @@
 <ul>
     <li class="mainSection">Fonctionnalit&eacute;s</li>
     <li><?php echo link_to('D&eacute;connexion', 'association/logout') ?></li>
-    <li><?php echo link_to('Exporter les donn&eacute;es', 'association/export') ?></li>
+    <li><?php echo link_to('Exporter les donn&eacute;es', 'export/index') ?></li>
     <li><?php echo link_to('Mailing', 'mailing/index') ?></li>
     <li><a href="http://code.google.com/p/piwam/issues/entry" target="_blank">Rapporter
     un bug</a></li>

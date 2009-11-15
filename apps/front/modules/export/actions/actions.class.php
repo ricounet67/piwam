@@ -5,18 +5,23 @@
  *
  * @package    piwam
  * @subpackage export
- * @author     Your name here
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12479 2008-10-31 10:54:40Z fabien $
  */
 class exportActions extends sfActions
 {
     /**
-     * Executes index action
+     * Provides a view to allows current user to export the different data
+     * he wants to export
      *
-     * @param sfRequest $request A request object
+     * @param   sfWebRequest    $request
+     * @since   1.1.2
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->forward('default', 'module');
+        // does nothing, just display
+        // static template
+
+        return sfView::SUCCESS;
     }
 }
