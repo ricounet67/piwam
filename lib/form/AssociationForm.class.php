@@ -23,6 +23,12 @@ class AssociationForm extends BaseAssociationForm
             $this->setDefault('mis_a_jour_par', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
             $this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger(array('required' => false));
         }
+        else
+        {
+            $this->widgetSchema['ping_piwam'] = new sfWidgetFormInputCheckbox();
+            $this->setDefault('ping_piwam', true);
+            $this->validatorSchema['ping_piwam'] = new sfValidatorBoolean();
+        }
 
         $this->widgetSchema['description'] = new sfWidgetFormTextarea();
         $this->validatorSchema['description'] = new sfValidatorString(array('required' => false));
