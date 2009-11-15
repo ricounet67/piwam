@@ -544,7 +544,6 @@ class membreActions extends sfActions
                 $association = AssociationPeer::retrieveByPK($membre->getAssociationId());
                 $association->setEnregistrePar($membre->getId());
                 $association->save();
-                $this->getUser()->removeTemporaryData();
                 $this->getUser()->setTemporarUserInfo($membre);
                 $credentials = AclActionPeer::doSelect(new Criteria());
 
@@ -556,6 +555,30 @@ class membreActions extends sfActions
                     $membre->addCredential($credential->getCode());
                 }
 
+                // We check if we can warn the author that this association
+                // is using Piwam
+
+                if ($this->getUser()->getAttribute('ping_piwam', false, 'temp'))
+                {
+                    $swiftMailer   = new Swift(new Swift_Connection_NativeMail());
+                    $subject       = '[Piwam] '    . $association->getNom() . ' utilise Piwam';
+                    $content       = 'Site web : ' . $association->getSiteWeb() . '<br />';
+                    $content      .= 'Email :    ' . $membre->getEmail() . '<br />';
+                    $content      .= 'Pseudo :   ' . $membre->getPseudo();
+                    $from          = 'info-association@piwam.org';
+                    $swiftMessage = new Swift_Message($subject, $content, 'text/html');
+
+                    try
+                    {
+                        $swiftMailer->send($swiftMessage, 'adrien@frenchcomp.net', $from);
+                    }
+                    catch(Swift_ConnectionException $e)
+                    {
+                        //
+                    }
+                }
+
+                $this->getUser()->removeTemporaryData();
                 $this->redirect('membre/endregistration');
             }
             elseif ($request->getAttribute('pending') == true)

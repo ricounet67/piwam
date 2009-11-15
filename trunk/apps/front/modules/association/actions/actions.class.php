@@ -289,9 +289,16 @@ class associationActions extends sfActions
     protected function processForm(sfWebRequest $request, sfForm $form)
     {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+
         if ($form->isValid())
         {
             $this->_association = $form->save();
+
+            if ($request->getParameter('association[ping_piwam]', false))
+            {
+                $this->getUser()->setAttribute('ping_piwam', '1', 'temp');
+            }
+
             return true;
         }
         return false;
