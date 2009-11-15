@@ -160,12 +160,14 @@ class membreActions extends sfActions
      *
      * @param   sfWebRequest    $request
      * @since   r15
-     * @unused
+     * @return  JSON response
      */
     public function executeAjaxlist(sfWebRequest $request)
     {
         $this->getResponse()->setContentType('application/json');
-        $membres = MembrePeer::retrieveForSelect($request->getParameter('q'), $request->getParameter('limit'));
+        $membres = MembrePeer::retrieveForSelect($request->getParameter('q'),
+                                                 $request->getParameter('limit'),
+                                                 $request->getParameter('association_id'));
 
         return $this->renderText(json_encode($membres));
     }

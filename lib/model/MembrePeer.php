@@ -115,15 +115,16 @@ class MembrePeer extends BaseMembrePeer
      * @return 	array of Membre
      * @since	r15
      */
-    static public function retrieveForSelect($q, $limit)
+    static public function retrieveForSelect($q, $limit, $associationId)
     {
         $criteria = new Criteria();
         $criteria->setIgnoreCase(true);
-        $criteria->add(self::PRENOM, '%' . $q . '%', Criteria::LIKE);
+        //$criteria->add(self::PRENOM, '%' . $q . '%', Criteria::LIKE);
+        $criteria->add(self::ID, "LOWER(CONCAT(CONCAT(" . self::PRENOM . ", ' '), " . self::NOM . ")) LIKE '%" . strtolower($q) . "%'", Criteria::CUSTOM);
+        $criteria->addAnd(self::ASSOCIATION_ID, $associationId);
         $criteria->addAscendingOrderByColumn(self::PRENOM);
         $criteria->setLimit($limit);
         $membres = self::doSelect($criteria);
-
         $aMembres = array();
 
         foreach ($membres as $membre)
