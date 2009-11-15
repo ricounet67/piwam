@@ -203,6 +203,11 @@ div#searchBar {
     padding: 5px 5px 5px 10px;
 }
 
+.tableauDetails tfoot td {
+    padding-top: 10px;
+    border-bottom: 0;
+}
+
 /* left cell in add/edit forms, with label */
 .tableauAjout th {
     text-align: left;
