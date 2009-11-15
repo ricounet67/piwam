@@ -28,14 +28,11 @@ class compteActions extends sfActions
     public function executeShow(sfWebRequest $request)
     {
         $this->compte = ComptePeer::retrieveByPk($request->getParameter('id'));
+        $this->forward404Unless($this->compte);
 
-        if ($this->compte->getAssociationId() == $this->getUser()->getAssociationId())
+        if ($this->compte->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->forward404Unless($this->compte);
-        }
-        else
-        {
-            $this->forward('error', 'credentials');
+            $this->redirect('error/credentials');
         }
     }
 
@@ -71,11 +68,12 @@ class compteActions extends sfActions
      */
     public function executeEdit(sfWebRequest $request)
     {
-        $this->forward404Unless($compte = ComptePeer::retrieveByPk($request->getParameter('id')), sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
+        $compte = ComptePeer::retrieveByPk($request->getParameter('id'));
+        $this->forward404Unless($compte, sprintf('Compte does not exist (%s).', $request->getParameter('id')));
 
         if ($compte->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->forward('error', 'credentials');
+            $this->redirect('error/credentials');
         }
 
         $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
@@ -90,7 +88,8 @@ class compteActions extends sfActions
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $this->forward404Unless($compte = ComptePeer::retrieveByPk($request->getParameter('id')), sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
+        $compte = ComptePeer::retrieveByPk($request->getParameter('id'));
+        $this->forward404Unless($compte, sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
         $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
         $this->processForm($request, $this->form);
         $this->redirect('compte/index');
@@ -104,23 +103,29 @@ class compteActions extends sfActions
     public function executeDelete(sfWebRequest $request)
     {
         $request->checkCSRFProtection();
-        $this->forward404Unless($compte = ComptePeer::retrieveByPk($request->getParameter('id')), sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
+        $compte = ComptePeer::retrieveByPk($request->getParameter('id'));
+        $this->forward404Unless($compte, sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
 
         if ($this->compte->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->forward('error', 'credentials');
+            $this->redirect('error/credentials');
         }
 
         $compte->delete();
         $this->redirect('compte/index');
     }
 
-    /*
-     * Process values got from the form
+    /**
+     * Process values got from the form. Redirects to the list of accounts
+     * if everything went fine
+     *
+     * @param   sfWebRequest    $request
+     * @param   sfForm          $form
      */
     protected function processForm(sfWebRequest $request, sfForm $form)
     {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+
         if ($form->isValid())
         {
             $compte = $form->save();
