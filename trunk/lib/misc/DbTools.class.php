@@ -20,10 +20,14 @@ class DbTools
     {
         $content = file_get_contents($file);
         $queries = explode(';', $content);
+        $decode = false;
 
         if (is_null($propelConnection))
         {
-            mysql_query("SET NAMES 'charset_name' COLLATE 'utf8'");
+            if (false === mysql_set_charset('utf8'))
+            {
+                $decode = true;
+            }
         }
 
         foreach ($queries as $query)
@@ -32,7 +36,14 @@ class DbTools
             {
                 if (is_null($propelConnection))
                 {
-                    mysql_query(utf8_decode($query));
+                    if ($decode)
+                    {
+                        mysql_query(utf8_decode($query));
+                    }
+                    else
+                    {
+                        mysql_query($query);
+                    }
                 }
                 else
                 {
