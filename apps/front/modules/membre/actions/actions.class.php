@@ -63,6 +63,11 @@ class membreActions extends sfActions
         if (strlen($params['magic']) > 0)
         {
             $this->membres = MembrePeer::doSearch($params);
+
+            if (count($this->membres) === 1)
+            {
+                $this->redirect('membre/show?id=' . $this->membres[0]->getId());
+            }
         }
         else
         {
