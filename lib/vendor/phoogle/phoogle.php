@@ -212,10 +212,13 @@ class PhoogleMap
     {
         echo "\n<div id=\"map\" style=\"width: " . $this->mapWidth . "px; height: " . $this->mapHeight . "px\">\n</div>\n";
 
-        if (! $this->_isValidPoint($this->validPoints[0]))
+        if (isset($this->validPoints[0]))
         {
-            $this->validPoints[0]['long'] = '2.20';
-            $this->validPoints[0]['lat'] = '47.40';
+            if (! $this->_isValidPoint($this->validPoints[0]))
+            {
+                $this->validPoints[0]['long'] = '2.20';
+                $this->validPoints[0]['lat'] = '47.40';
+            }
         }
 
         echo "<script type=\"text/javascript\">\n
