@@ -12,9 +12,9 @@ class MailerFactory
      * The user is able to select the method he prefers to use
      * for sending emails. By default we use the mail() php function
      *
-     * @param   integer     $associationId
-     * @param   sfUser      $sfUser
-     * @return  Swift
+     * @param   integer                 $associationId
+     * @param   sfUser                  $sfUser
+     * @return  Swift_ConnectionBase
      */
     public static function get($associationId, $sfUser)
     {
