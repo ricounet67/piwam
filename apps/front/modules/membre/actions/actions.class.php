@@ -59,7 +59,16 @@ class membreActions extends sfActions
         $params = $request->getParameter('search');
         $magicField  = $request->getParameter('autocomplete_search[magic]');
         $params['magic'] = $magicField;
-        $this->membres = MembrePeer::doSearch($params);
+
+        if (strlen($params['magic']) > 0)
+        {
+            $this->membres = MembrePeer::doSearch($params);
+        }
+        else
+        {
+            $this->membres = array();
+        }
+
         $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
         $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(),
                                                            'ajaxUrl'       => $ajaxUrl));
