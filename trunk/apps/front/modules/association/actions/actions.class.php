@@ -10,6 +10,11 @@
  */
 class associationActions extends sfActions
 {
+    /*
+     * Make some operations easier
+     *
+     * @var Association
+     */
     private $_association = null;
 
     /**
