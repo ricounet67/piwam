@@ -11,9 +11,9 @@ class DbTools
      * Launch a SQL file (execute all the queries).
      * This is a very simple SQL file executor
      *
-     * @param   string              $file
-     * @param   PDO                 $propelConnection
-     * @throw   PDOException        If an error occured in a query
+     * @param   string          $file
+     * @param   PDO             $propelConnection
+     * @throw   PDOException    If an error occured in a query
      * @todo    Improve
      */
     public static function executeSQLFile($file, $propelConnection = null)
@@ -21,13 +21,18 @@ class DbTools
         $content = file_get_contents($file);
         $queries = explode(';', $content);
 
+        if (is_null($propelConnection))
+        {
+            mysql_query("SET NAMES 'charset_name' COLLATE 'utf8'");
+        }
+
         foreach ($queries as $query)
         {
             if (trim($query) !== '')
             {
                 if (is_null($propelConnection))
                 {
-                    mysql_query($query);
+                    mysql_query(utf8_decode($query));
                 }
                 else
                 {
