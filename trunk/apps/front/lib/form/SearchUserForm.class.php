@@ -9,7 +9,12 @@ class SearchUserForm extends sfForm
     public function configure()
     {
         $this->setWidgets(array(
-          'magic'           => new sfWidgetFormInput(),
+          'magic'           => new sfWidgetFormJQueryAutocompleter(array(
+                                                    'url'    => $this->getOption('ajaxUrl'),
+                                                    'config' => '{ extraParams: { association_id: function() { return jQuery("#search_associationId").val(); } },
+                                                                   scrollHeight: 250 ,
+                                                                   autoFill: true
+                                                                  }')),
           'associationId'   => new sfWidgetFormInputHidden(),
         ));
 
