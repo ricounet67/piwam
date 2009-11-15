@@ -32,7 +32,9 @@ class membreActions extends sfActions
                                                             $this->orderByColumn
                                                           );
         $this->pending = MembrePeer::doSelectPending($this->getUser()->getAssociationId());
-        $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId()));
+        $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
+        $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(),
+                                                           'ajaxUrl'       => $ajaxUrl));
     }
 
     /**
@@ -55,8 +57,12 @@ class membreActions extends sfActions
     public function executeSearch(sfWebRequest $request)
     {
         $params = $request->getParameter('search');
+        $magicField  = $request->getParameter('autocomplete_search[magic]');
+        $params['magic'] = $magicField;
         $this->membres = MembrePeer::doSearch($params);
-        $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId()));
+        $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
+        $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(),
+                                                           'ajaxUrl'       => $ajaxUrl));
     }
 
     /**
@@ -160,6 +166,7 @@ class membreActions extends sfActions
     {
         $this->getResponse()->setContentType('application/json');
         $membres = MembrePeer::retrieveForSelect($request->getParameter('q'), $request->getParameter('limit'));
+
         return $this->renderText(json_encode($membres));
     }
 

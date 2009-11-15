@@ -118,10 +118,12 @@ class MembrePeer extends BaseMembrePeer
     static public function retrieveForSelect($q, $limit)
     {
         $criteria = new Criteria();
-        $criteria->add(self::PRENOM, '%'.$q.'%', Criteria::LIKE);
+        $criteria->setIgnoreCase(true);
+        $criteria->add(self::PRENOM, '%' . $q . '%', Criteria::LIKE);
         $criteria->addAscendingOrderByColumn(self::PRENOM);
         $criteria->setLimit($limit);
         $membres = self::doSelect($criteria);
+
         $aMembres = array();
 
         foreach ($membres as $membre)
@@ -152,7 +154,7 @@ class MembrePeer extends BaseMembrePeer
      * This is different from the method `doSelectOrderBy` which selects
      * members within a sfPropelPager.
      *
-     * @param 	integer	$id
+     * @param 	integer	     $id : association ID
      * @return 	array of Membre
      * @since	r17
      */
@@ -183,7 +185,7 @@ class MembrePeer extends BaseMembrePeer
      * Retrieve Membre who have an email address that had been set and who
      * belong to association in argument
      *
-     * @param 	integer	$associationId
+     * @param 	integer	    $associationId
      * @return 	array of Membre
      * @since	r25
      */
