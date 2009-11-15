@@ -6,6 +6,13 @@
  */
 class SearchUserForm extends sfForm
 {
+    /**
+     * Set fields to search a member. Be careful, the name of 'magic'
+     * field will be changed because by the sfFormExtraPlugin.
+     * The new name will be autocomplete_myform['magic']
+     *
+     * @see lib/vendor/symfony/1.2/lib/form/sfForm#configure()
+     */
     public function configure()
     {
         $this->setWidgets(array(
@@ -18,13 +25,13 @@ class SearchUserForm extends sfForm
           'associationId'   => new sfWidgetFormInputHidden(),
         ));
 
-        $this->widgetSchema->setNameFormat('search[%s]');
 
         $this->setValidators(array(
           'magic'           => new sfValidatorString(array('required' => true)),
           'associationId'   => new sfValidatorInteger(array('required' => true)),
         ));
 
+        $this->widgetSchema->setNameFormat('search[%s]');
         $this->setDefault('associationId', $this->getOption('associationId'));
     }
 }
