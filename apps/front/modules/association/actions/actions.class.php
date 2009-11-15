@@ -139,7 +139,6 @@ class associationActions extends sfActions
                     if ($user->getEmail())
                     {
                         $email = $user->getEmail();
-
                         $newPassword = StringTools::generatePassword(8);
                         $user->setPassword($newPassword);
                         $user->save();
@@ -247,7 +246,8 @@ class associationActions extends sfActions
      */
     public function executeEdit(sfWebRequest $request)
     {
-        $this->forward404Unless($association = AssociationPeer::retrieveByPk($request->getParameter('id')), sprintf('L\'association n\'existe pas (%s).', $request->getParameter('id')));
+        $association = AssociationPeer::retrieveByPk($request->getParameter('id'));
+        $this->forward404Unless($association, sprintf("L'association n'existe pas (%s).", $request->getParameter('id')));
         $this->form = new AssociationForm($association);
     }
 
@@ -259,13 +259,16 @@ class associationActions extends sfActions
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $this->forward404Unless($association = AssociationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object association does not exist (%s).', $request->getParameter('id')));
+        $association = AssociationPeer::retrieveByPk($request->getParameter('id'));
+        $this->forward404Unless($association, sprintf('Association does not exist (%s).', $request->getParameter('id')));
         $this->form = new AssociationForm($association);
+
         if ($this->processForm($request, $this->form))
         {
             $this->redirect('membre/index');
         }
-        else {
+        else
+        {
             $this->setTemplate('edit');
         }
     }
@@ -278,7 +281,8 @@ class associationActions extends sfActions
     public function executeDelete(sfWebRequest $request)
     {
         $request->checkCSRFProtection();
-        $this->forward404Unless($association = AssociationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object association does not exist (%s).', $request->getParameter('id')));
+        $association = AssociationPeer::retrieveByPk($request->getParameter('id'));
+        $this->forward404Unless($association, sprintf('Association does not exist (%s).', $request->getParameter('id')));
         $association->delete();
         $this->redirect('association/index');
     }
