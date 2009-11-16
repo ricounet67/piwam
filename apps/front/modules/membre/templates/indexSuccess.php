@@ -1,7 +1,7 @@
 <?php if (count($pending)): ?>
     <h2>Demandes d'adhésion en attente...</h2>
 
-    <table class="tableauDonnees">
+    <table class="tableauDonnees" summary="Members who would like to belong to the association">
         <thead>
             <tr class="enteteTableauDonnees">
                 <th>Nom</th>
@@ -42,7 +42,7 @@
 
 <?php include_partial('searchForm', array('form' => $searchForm)) ?>
 
-<table class="tableauDonnees">
+<table class="tableauDonnees" summary="Members who would like to belong to the association">
     <thead>
         <tr class="enteteTableauDonnees">
             <th><?php echo link_to('Nom',    'membre/index?orderby=NOM') ?></th>
