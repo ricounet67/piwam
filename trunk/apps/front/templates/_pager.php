@@ -1,61 +1,58 @@
 <?php
-/*
+/**
  * This partial displays a page list according to the
  * sfPropelPager object given as argument
  */
-?>
 
-<?php
+
 /*
  * Perform the 'params' parameter and build a string
  * to add within our paging links
  */
-
 if (isset($params))
 {
     $urlParams = '';
-    foreach ($params as $key => $value) {
+
+    foreach ($params as $key => $value)
+    {
         $urlParams .= '&' . $key . '=' . $value;
     }
 }
 ?>
 
-<div id="pager">
-<ul id="pagination">
+<?php if ($pager->haveToPaginate()): ?>
+    <div id="pager">
+        <ul id="pagination">
 
-<?php
-if ($pager->haveToPaginate())
-{
-    // Display `previous` link
-    if ($pager->getPage() > 1) {
-        echo  '<li class="previous">' . link_to('&laquo; Précédent', $module . '/' . $action . '?page=' . $pager->getPreviousPage() . $urlParams) .  '</li>';
-    }
-    else {
-        echo '<li class="previous-off">&laquo; Précédent</li>';
-    }
+            <!-- Display 'previous' link, disabled if there is no previous page -->
 
-    $links = $pager->getLinks();
+            <?php if ($pager->getPage() > 1): ?>
+                <li class="previous"><?php echo link_to('&laquo; Précédent', $module . '/' . $action . '?page=' . $pager->getPreviousPage() . $urlParams) ?></li>
+            <?php else: ?>
+                <li class="previous-off">&laquo; Précédent</li>
+            <?php endif ?>
 
-    // Generate page list. Apply a special style if
-    // this is the current page
-    foreach ($links as $page) {
-        if ($page == $pager->getPage()) {
-            echo '<li class="active">' . $page . '</li>';
-        }
-        else {
-            echo '<li>' . link_to($page, $module . '/' . $action . '?page=' . $page . $urlParams) . '</li>';
-        }
-    }
 
-    // Display `next` link
-    if ($pager->getPage() == $pager->getCurrentMaxLink()) {
-        echo '<li class="next-off">Suivant &raquo;</li>';
-    }
-    else {
-        echo '<li class="next">' . link_to('Suivant &raquo;', $module . '/' . $action . '?page=' . $pager->getNextPage() . $urlParams) . '</li>';
-    }
-}
-?>
+            <!--  Generate page list. Apply a special style if this
+                  is the current page  -->
 
-</ul>
-</div>
+            <?php $links = $pager->getLinks(); ?>
+            <?php foreach ($links as $page): ?>
+                <?php if ($page == $pager->getPage()): ?>
+                    <li class="active"><?php echo $page ?></li>
+                <?php else: ?>
+                    <li><?php echo link_to($page, $module . '/' . $action . '?page=' . $page . $urlParams) ?></li>
+                <?php endif ?>
+            <?php endforeach ?>
+
+
+            <!-- Display 'next' link, disabled if there is no next page -->
+
+            <?php if ($pager->getPage() == $pager->getCurrentMaxLink()): ?>
+                <li class="next-off">Suivant &raquo;</li>
+            <?php else: ?>
+                <li class="next"><?php echo link_to('Suivant &raquo;', $module . '/' . $action . '?page=' . $pager->getNextPage() . $urlParams) ?></li>
+            <?php endif ?>
+        </ul>
+    </div>
+<?php endif ?>
