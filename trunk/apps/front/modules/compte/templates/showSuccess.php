@@ -3,8 +3,7 @@
 
 <h2>Détails du compte <?php echo $compte->getReference() ?></h2>
 
-
-<table class="tableauDetails">
+<table class="tableauDetails" summary="Details of an account">
     <tbody>
         <tr>
             <th>Libellé :</th>

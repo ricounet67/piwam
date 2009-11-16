@@ -46,5 +46,17 @@ class CompteForm extends BaseCompteForm
 
         $this->widgetSchema['libelle']->setAttribute('class', 'formInputLarge');
         $this->widgetSchema['reference']->setAttribute('class', 'formInputNormal');
+        $this->setLabels();
+    }
+
+    /**
+     * Set the label of the different fields
+     */
+    protected function setLabels()
+    {
+        $this->widgetSchema->setLabels(array(
+            'libelle'   => 'Libellé',
+            'reference' => 'Référence',
+        ));
     }
 }
