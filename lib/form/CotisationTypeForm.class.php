@@ -42,5 +42,18 @@ class CotisationTypeForm extends BaseCotisationTypeForm
         $this->validatorSchema['montant'] = new sfValidatorNumber(array('min' => 0), array('min' => 'ne peut être négatif'));
         $this->validatorSchema['valide'] = new sfValidatorInteger(array('min' => 0), array('min' => 'ne peut être négatif'));
 
+        $this->setLabels();
+    }
+
+    /**
+     * Set labels for each widgets
+     */
+    protected function setLabels()
+    {
+        $this->widgetSchema->setLabels(array(
+            'montant'   => 'Montant',
+            'Valide'    => 'Valide',
+            'libelle'   => 'Libellé',
+        ));
     }
 }
