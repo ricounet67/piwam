@@ -37,19 +37,11 @@ class MembreForm extends BaseMembreForm
     public function configure()
     {
         $context = $this->getOption('context');
+        $this->_firstRegistration = $this->getOption('first', false);
 
         if ($this->getOption('associationId'))
         {
             $associationId = $this->getOption('associationId');
-        }
-
-        if ($context->getUser()->getAssociationId())
-        {
-            $this->_firstRegistration = false;
-        }
-        else
-        {
-            $this->_firstRegistration = true;
         }
 
         unset($this['created_at'], $this['updated_at']);
@@ -67,7 +59,12 @@ class MembreForm extends BaseMembreForm
                 $this->setDefault('enregistre_par', $context->getUser()->getUserId());
                 $this->validatorSchema['enregistre_par'] = new sfValidatorInteger(array('required' => false));
             }
-        } // new object
+        }
+        else
+        {
+            $this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
+            $this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
+        }
 
         $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
         $this->setDefault('association_id', $associationId);
@@ -91,19 +88,16 @@ class MembreForm extends BaseMembreForm
 
         if (! $this->isFirstRegistration())
         {
-            $this->validatorSchema['password'] = new sfValidatorString(array('required' => false));
-
             if ($this->_isUsernameMandatory($associationId))
             {
                 $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => true));
+                $this->validatorSchema['password'] = new sfValidatorString(array('required' => true));
             }
             else
             {
                 $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => false));
+                $this->validatorSchema['password'] = new sfValidatorString(array('required' => false));
             }
-
-            $this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
-            $this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
         }
         else
         {
