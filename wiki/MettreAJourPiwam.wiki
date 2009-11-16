@@ -8,7 +8,7 @@
 
 = Depuis une archive =
 
-  # Sauvegardez votre fichier `/config/databases/yml`. Si vous avez modifié le fichier /apps/fornt/config/app.yml, sauvegardez le également
+  # Sauvegardez votre fichier `/config/databases/yml`. Si vous avez modifié le fichier `/apps/front/config/app.yml`, sauvegardez le également
   # Sauvegardez également le contenu du dossier `/web/uploads/`
   # Décompressez la nouvelle tarball
   # Remplacez le répertoire de la version actuellement utilisée par celui de la nouvelle version
