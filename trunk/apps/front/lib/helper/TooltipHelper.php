@@ -20,11 +20,12 @@ function tooltip_tag($header, $body, $linkText = null, $params = null)
     sfContext::getInstance()->getConfiguration()->loadHelpers('Asset');
     $result = '<a href="#" title="header=[' . $header . '] body=[' . $body . ']">';
 
-    if (is_null($linkText)) {
-        $result .= image_tag("tooltip_icon.gif", 
-        				array('align' => 'absmiddle', 'alt' => 'Aide'));
+    if (is_null($linkText))
+    {
+        $result .= image_tag("tooltip_icon.gif", array('align' => 'absmiddle', 'alt' => 'Aide'));
     }
-    else {
+    else
+    {
         $result .= $linkText;
     }
 
