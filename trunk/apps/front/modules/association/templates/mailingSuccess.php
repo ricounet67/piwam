@@ -22,7 +22,7 @@
 <?php echo html_entity_decode($content) ?></div>
 <?php else: ?>
 
-<form action="<?php echo url_for('association/mailing') ?>" method="POST">
+<form action="<?php echo url_for('association/mailing') ?>" method="post">
 <table class="formArray">
     <tr>
         <td colspan="2"><?php
