@@ -11,7 +11,7 @@
 
 
 <h2>Identification</h2>
-<form action="<?php echo url_for('association/login') ?>" method="POST">
+<form action="<?php echo url_for('association/login') ?>" method="post">
 <table class="formArray">
     <tr>
         <td colspan="2"><?php echo $form->renderGlobalErrors() ?></td>

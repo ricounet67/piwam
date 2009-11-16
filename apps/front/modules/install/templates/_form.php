@@ -1,4 +1,4 @@
-<form action="<?php echo url_for('install/configDatabase') ?>" method="POST">
+<form action="<?php echo url_for('install/configDatabase') ?>" method="post">
 <table class="formArray">
     <tfoot>
         <tr>

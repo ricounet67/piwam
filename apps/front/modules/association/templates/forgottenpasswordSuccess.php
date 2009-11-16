@@ -14,7 +14,7 @@
 <?php endif; ?>
 
 
-<form action="<?php echo url_for('association/forgottenpassword') ?>" method="POST">
+<form action="<?php echo url_for('association/forgottenpassword') ?>" method="post">
 <table class="formArray">
     <tr>
         <td colspan="2"><?php echo $form->renderGlobalErrors() ?></td>
