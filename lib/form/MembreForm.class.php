@@ -88,15 +88,20 @@ class MembreForm extends BaseMembreForm
 
         if (! $this->isFirstRegistration())
         {
+            $this->validatorSchema['password'] = new sfValidatorString(array('required' => false));
+
             if ($this->_isUsernameMandatory($associationId))
             {
+                // Password is not mandatory because if we are here, we are
+                // editing the existing admin user
+                // So if no password has been provided, password won't be
+                // erased
+
                 $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => true));
-                $this->validatorSchema['password'] = new sfValidatorString(array('required' => true));
             }
             else
             {
                 $this->validatorSchema['pseudo'] = new sfValidatorString(array('required' => false));
-                $this->validatorSchema['password'] = new sfValidatorString(array('required' => false));
             }
         }
         else
