@@ -1,10 +1,16 @@
 #summary Processus de mise à jour de Piwam
+#labels Featured,Phase-Deploy
 
 = Depuis le dépôt SVN =
 
   # lancez la commande `svn up`
-  # Si   un  conflit   est  détecté  sur  `/config/databases.yml`  ou `/config/projectConfiguration.yml`,  sauvegardez   votre  fichier actuel, remplacez-le par la nouvelle version, et ré-ajustez les paramètres au sein  de ces fichiers,  qui sont amenés à changer *TRÈS* exceptionnellement.
+  # Si un conflit  est  détecté  sur  `/config/databases.yml`, conservez votre fichier
+  # Si un conflit est détecté sur `/config/projectConfiguration.yml` remplacez votre fichier par le nouveau
   # Cliquez sur `mise à jour` dans le menu.
+
+== Passage de la 1.1.1 à la 1.1.2 ==
+
+  # Symfony est directement intégré dans Piwam. Vous pouvez donc supprimer éventuellement votre ancienne installation de symfony
 
 = Depuis une archive =
 
@@ -14,5 +20,5 @@
   # Remplacez le répertoire de la version actuellement utilisée par celui de la nouvelle version
   # Remettez en place votre fichier `/config/databases.yml` et le cas échéant, le fichier `app.yml`
   # Replacez le contenu sauvegardé dans `/web/uploads/`
-  # Rendez inscriptibles les répertoires  'cache' et 'log',  ainsi que les répertoires dans '/web/uploads/' (sous un serveur Windows, vous pouvez oublier cette étape !)
+  # Rendez inscriptibles les répertoires  `cache` et `log`,  ainsi que les répertoires dans '/web/uploads/' (sous un serveur Windows, vous pouvez oublier cette étape !)
   # Cliquez sur `mise à jour` dans le menu.
