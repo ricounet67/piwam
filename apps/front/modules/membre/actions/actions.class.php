@@ -495,7 +495,8 @@ class membreActions extends sfActions
         else
         {
             $this->form = new MembreForm(null, array('associationId' => $associationId,
-                                                     'context'       => $this->getContext()));
+                                                     'context'       => $this->getContext(),
+                                                     'first'         => true));
         }
 
         $this->form->setDefault('association_id', $associationId);
@@ -511,7 +512,8 @@ class membreActions extends sfActions
     {
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getTemporaryAssociationId(),
-                                                 'context'       => $this->getContext()));
+                                                 'context'       => $this->getContext(),
+                                                 'first'         => true));
         $request->setAttribute('first', true);
         $this->processForm($request, $this->form);
         $this->setTemplate('newfirst');
