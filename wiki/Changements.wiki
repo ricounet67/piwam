@@ -8,8 +8,19 @@ Au fil des versions, Piwam évolue...
     * version 1.1.2 (fin novembre)
           * trombinoscope
           * mode multi-associations paramétrable
+          * possibilité de retrouver un mot de passe perdu
+          * message d'erreur explicite en cas d'erreur d'identification
+          * le nom d'utilisateur n'est pas sensible à la casse
           * possibilité d'effectuer des demandes d'adhésion
-          * correction de nombreux bugs depuis la 1.1.1
+          * formatage des numéros de téléphone
+          * les membres sans droit peuvent voir et éditer leurs propres informations
+          * correction des liens vers les adresses emails dans les profils utilisateurs
+          * le lien pour enregistrer une nouvelle association est masqué si le mode multi-associations est désactivé
+          * message d'erreur lorsqu'on tente d'utiliser un login déjà pris
+          * correction d'un bug lors de la récupération de paramètres en mode multi-associations
+          * correction d'un bug lors du calcul du nombre de membres ayant un certain statut
+          * début de la documentation développeur
+          * documentations README, README-FR et UPDATE-FR à jour
 
     * version 1.1.1 (8 octobre 2009)
           * fichiers UPDATE-FR, TROUBLESHOOTING-FR et README-FR mis à jour
