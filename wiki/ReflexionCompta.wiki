@@ -21,6 +21,8 @@ Piwam 1.1 est livré avec des outils comptables minimaux permettant d'ores et d�
 
   * Comptabilité journalisée à double champs
 
+  * Génération de tous les bilans selon le détail de la comptabilité : compte de résultat (produits et charges) + bilan (actif et passif)
+
   * Sélection de l'année sur laquelle afficher le bilan
 
   * Export du bilan au format PDF
