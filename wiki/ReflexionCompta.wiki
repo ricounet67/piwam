@@ -26,3 +26,20 @@ Piwam 1.1 est livré avec des outils comptables minimaux permettant d'ores et d�
   * Export du bilan au format PDF
 
   * Import/Export des données comptables ([http://en.wikipedia.org/wiki/Quicken_Interchange_Format QIF] ? [http://en.wikipedia.org/wiki/Open_Financial_Exchange OFE] ?)
+
+= Scénarios d'utilisation =
+
+== Achat de consommables : DVD-R ==
+
+Une association achète pour 40€ des DVD-R afin de produire des DVDs qu'elle revend. Les DVD-R sont donc des fourniture stockées dont le stock évolue au fil de l'exercice ou des années. Le paiement se fait en liquide.
+
+  * **Actuellement** : 
+    # On insère une nouvelle dépense dans le compte en banque d'une valeur de 40€, on l'affecte éventuellement à l'activité "Vente de DVDs"
+    # Lorsque l'on vend les DVDs, on insère une recette dans le compte banque ou caisse selon le type de paiement lié à l'activité "Vente de DVDs"
+  * **Proposition** :
+    # Nouvelle écriture pour l'achat des DVDs : crédit de 40€ du compte "Banque (512)" (oui, quand on dépense de l'argent, ça crédite) et débit de 40€ du compte "Fournitures (317)" + sauvegarde la facture des DVD-R comme pièce-justificative de l'écriture
+    # Si on veut jouer avec les stocks, on peut faire varier le compte de "Fourniture (317)" et de "Produits finis (355)", mais ça dépend du détail de la comptabilité que l'on souhaite effectuer
+    # Lors de la vente des DVDs, nouvelle écriture : on crédite le compte "Ventes de produits finis (701)" et on débite le compte "Banque (512)" + émission de la facture (enregistrement comme pièce comptable)
+    # Lors de la génération du bilan :
+      * Compte de résultat : on prend en compte les écritures du compte "Banque (512)" et on ajoute le crédit/débit au passif/actif du compte de bilan
+      * Compte de bilan : on ajoute à l'actif le restant des fournitures
