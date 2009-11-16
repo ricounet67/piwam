@@ -1,0 +1,18 @@
+#summary Processus de mise à jour de Piwam
+
+= Depuis le dépôt SVN =
+
+  # lancez la commande `svn up`
+  # Si   un  conflit   est  détecté  sur  `/config/databases.yml`  ou `/config/projectConfiguration.yml`,  sauvegardez   votre  fichier actuel, remplacez-le par la nouvelle version, et ré-ajustez les paramètres au sein  de ces fichiers,  qui sont amenés à changer *TRÈS* exceptionnellement.
+  # Cliquez sur `mise à jour` dans le menu.
+
+= Depuis une archive =
+
+  # Sauvegardez votre fichier `/config/databases/yml`. Si vous avez modifié le fichier /apps/fornt/config/app.yml, sauvegardez le également
+  # Sauvegardez également le contenu du dossier `/web/uploads/`
+  # Décompressez la nouvelle tarball
+  # Remplacez le répertoire de la version actuellement utilisée par celui de la nouvelle version
+  # Remettez en place votre fichier `/config/databases.yml` et le cas échéant, le fichier `app.yml`
+  # Replacez le contenu sauvegardé dans `/web/uploads/`
+  # Rendez inscriptibles les répertoires  'cache' et 'log',  ainsi que les répertoires dans '/web/uploads/' (sous un serveur Windows, vous pouvez oublier cette étape !)
+  # Cliquez sur `mise à jour` dans le menu.
