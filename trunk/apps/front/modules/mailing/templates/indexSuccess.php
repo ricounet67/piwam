@@ -26,7 +26,7 @@
 <?php else: ?>
 
     <form action="<?php echo url_for('mailing/index') ?>" method="post">
-    <table class="formArray">
+    <table class="formArray" title="mailing">
 
         <!-- if message or subject is empty -->
 
@@ -42,7 +42,7 @@
         <?php endif ?>
 
         <tr>
-            <th>Objet</th>
+            <th><?php echo $form['subject']->renderLabel() ?></th>
             <td><?php echo $form['subject'] ?></td>
         </tr>
         <tr>
@@ -50,7 +50,7 @@
             <td>Tout le monde</td>
         </tr>
         <tr>
-            <th valign="top">Message</th>
+            <th valign="top"><?php echo $form['mail_content']->renderLabel() ?></th>
             <td><?php echo $form['mail_content'] ?></td>
         </tr>
         <tr>
