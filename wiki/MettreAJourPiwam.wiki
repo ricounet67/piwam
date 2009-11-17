@@ -17,7 +17,7 @@
   # Sauvegardez votre fichier `/config/databases/yml`. Si vous avez modifié le fichier `/apps/front/config/app.yml`, sauvegardez le également
   # Sauvegardez également le contenu du dossier `/web/uploads/`
   # Décompressez la nouvelle tarball
-  # Remplacez le répertoire de la version actuellement utilisée par celui de la nouvelle version
+  # Remplacez le répertoire de la version actuellement utilisée par celui de la nouvelle version (pensez à renommer le nom du répertoire principal si besoin)
   # Remettez en place votre fichier `/config/databases.yml` et le cas échéant, le fichier `app.yml`
   # Replacez le contenu sauvegardé dans `/web/uploads/`
   # Rendez inscriptibles les répertoires  `cache` et `log`,  ainsi que les répertoires dans '/web/uploads/' (sous un serveur Windows, vous pouvez oublier cette étape !)
