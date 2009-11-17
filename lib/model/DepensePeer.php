@@ -56,7 +56,14 @@ class DepensePeer extends BaseDepensePeer
         $result = DepensePeer::doSelectStmt($c);
         $row = $result->fetch();
 
-        return $row['TOTAL_DETTES'];
+        if (is_null($row['TOTAL_DETTES']))
+        {
+            return 0;
+        }
+        else
+        {
+            return $row['TOTAL_DETTES'];
+        }
     }
 
     /**
@@ -76,7 +83,14 @@ class DepensePeer extends BaseDepensePeer
         $result = DepensePeer::doSelectStmt($c);
         $row = $result->fetch();
 
-        return $row['TOTAL_DETTES'];
+        if (is_null($row['TOTAL_DETTES']))
+        {
+            return 0;
+        }
+        else
+        {
+            return $row['TOTAL_DETTES'];
+        }
     }
 
     /**

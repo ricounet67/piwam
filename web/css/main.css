@@ -19,6 +19,16 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Links on complete cell */
+a.block {
+    display: block;
+    color: black;
+}
+
+a.block:Hover {
+    text-decoration: none;   
+}
+
 #content li {
     list-style: none;
 }

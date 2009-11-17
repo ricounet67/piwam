@@ -181,11 +181,6 @@ class associationActions extends sfActions
         $this->totalDettes      = DepensePeer::getAmountOfDettes($associationId);
         $this->totalCreances    = RecettePeer::getAmountOfCreances($associationId);
         $this->totalPrevu       = $this->totalCreances - $this->totalDettes;
-
-        if (null === $this->totalCotisations)
-        {
-            $this->totalCotisations = 0;
-        }
     }
 
     /**

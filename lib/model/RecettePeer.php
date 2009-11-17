@@ -50,13 +50,20 @@ class RecettePeer extends BaseRecettePeer
     {
         $c = new Criteria();
         $c->clearSelectColumns();
-        $c->addAsColumn('TOTAL_DETTES', 'SUM(' . self::MONTANT . ')');
+        $c->addAsColumn('TOTAL_CREANCES', 'SUM(' . self::MONTANT . ')');
         $c->add(self::ASSOCIATION_ID, $associationId);
         $c->addAnd(self::PERCUE, 0);
         $result = RecettePeer::doSelectStmt($c);
         $row = $result->fetch();
 
-        return $row['TOTAL_DETTES'];
+        if (is_null($row['TOTAL_CREANCES']))
+        {
+            return 0;
+        }
+        else
+        {
+            return $row['TOTAL_CREANCES'];
+        }
     }
 
     /**
@@ -76,6 +83,13 @@ class RecettePeer extends BaseRecettePeer
         $result = RecettePeer::doSelectStmt($c);
         $row = $result->fetch();
 
-        return $row['TOTAL_CREANCES'];
+        if (is_null($row['TOTAL_CREANCES']))
+        {
+            return 0;
+        }
+        else
+        {
+            return $row['TOTAL_CREANCES'];
+        }
     }
 }
