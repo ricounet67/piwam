@@ -25,8 +25,8 @@ $total          = 0;
     <tbody>
     <?php foreach ($comptes as $compte): ?>
 
-        <tr class="<?php echo ($compte->isNegative()) ? 'compteNegatif' : 'comptePositif' ?>"  onclick="document.location='<?php echo url_for('compte/show?id=' . $compte->getId()) ?>'">
-            <td><?php echo $compte->getReference() ?></td>
+        <tr class="<?php echo ($compte->isNegative()) ? 'compteNegatif' : 'comptePositif' ?>">
+            <td><?php echo link_to($compte->getReference(), 'compte/show?id=' . $compte->getId(), array('class' => 'block')) ?></td>
             <td><?php echo format_currency($compte->getTotalDepenses()); $totalDepenses += $compte->getTotalDepenses() ?></td>
             <td><?php echo format_currency($compte->getTotalRecettes()); $totalRecettes += $compte->getTotalRecettes() ?></td>
             <td><?php echo format_currency($compte->getTotal()); $total += $compte->getTotal() ?></td>
@@ -63,15 +63,15 @@ $total          = 0;
     </thead>
     <tbody>
         <tr class="comptePositif">
-            <td>Cotisations</td>
+            <td><?php echo link_to('Cotisations', 'cotisation/index', array('class' => 'block')) ?></td>
             <td><?php echo format_currency(0) ?></td>
             <td><?php echo format_currency($totalCotisations); $totalRecettes += $totalCotisations ?></td>
             <td><?php echo format_currency($totalCotisations); $total += $totalCotisations ?></td>
         </tr>
 
         <?php foreach ($activites as $activite): ?>
-        <tr class="<?php echo ($activite->getTotal() < 0) ? 'compteNegatif' : 'comptePositif' ?>"  onclick="document.location='<?php echo url_for('activite/show?id=' . $compte->getId()) ?>'">
-            <td><?php echo $activite->getLibelle() ?></td>
+        <tr class="<?php echo ($activite->getTotal() < 0) ? 'compteNegatif' : 'comptePositif' ?>">
+            <td><?php echo link_to($activite->getLibelle(), 'activite/show?id=' . $activite->getId(), array('class' => 'block')) ?></td>
             <td><?php echo format_currency($activite->getTotalDepenses()); $totalDepenses += $activite->getTotalDepenses() ?></td>
             <td><?php echo format_currency($activite->getTotalRecettes()); $totalRecettes += $activite->getTotalRecettes() ?></td>
             <td><?php echo format_currency($activite->getTotal()); $total += $activite->getTotal() ?></td>
