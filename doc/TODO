@@ -1,5 +1,5 @@
 
-    * Add link to fees on bilan 'fees' line
+    * Add version tables (triggers)
     * Mailing : store sent messages
     * Make beautiful search bar
     * Check that user picture is removed when user is deleted
