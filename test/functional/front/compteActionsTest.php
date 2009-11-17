@@ -115,6 +115,8 @@ end()->
 
 info('Try to access to foreign account')->
 get('/compte/show/id/' . $foreignId)->
+isRedirected()->
+followRedirect()->
 with('response')->begin()->
     isStatusCode(200)->
     checkElement('h2', '!/Détails/')->
