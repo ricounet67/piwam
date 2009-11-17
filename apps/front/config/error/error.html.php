@@ -51,6 +51,9 @@ function getUnwritableFolder($message)
         <div id="main">
             <h1>Oups, on dirait qu'il y a une erreur...</h1>
 
+
+            <!-- A file/folder is not writable or accessible -->
+
             <?php if (get_class($exception) == 'sfFileException'): ?>
                 <?php
                     $folder = getUnwritableFolder($exception->getMessage())
@@ -67,6 +70,25 @@ function getUnwritableFolder($message)
                 <p class="verbatim">
                     &gt; user@host: chmod 777 <?php echo $folder ?>
                 </p>
+
+
+            <!-- MySQL connection error -->
+
+            <?php elseif (get_class($exception) == 'PropelException'): ?>
+                <p>
+                    Erreur de connexion au serveur MySQL. Si vous êtes en train
+                    de mettre à jour Piwam, peut être n'avez-vous pas remis en
+                    place votre ancien fichier <span class="verbatim">
+                    /config/databases.yml</span>
+                </p>
+                <p>
+                    Vous pouvez aussi essayer de <a href="association/logout">
+                    vous déconnecter</a>
+                </p>
+
+
+            <!-- Another unknown error -->
+
             <?php else: ?>
                 <p>
                     L'erreur suivante est survenue :<br /><br />
