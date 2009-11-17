@@ -9,7 +9,12 @@
 
 	<target name="phpcpd">
 		<exec dir="${basedir}" executable="phpcpd" failonerror="false">
-			<arg line="--log-pmd=${basedir}/build/logs/pmd-cpd.xml ." />
+			<arg line="--log-pmd=${basedir}/build/logs/pmd-cpd.xml
+			    --exclude ${basedir}/lib 
+				--exclude ${basedir}/cache
+				--exclude ${basedir}/log
+				--exclude ${basedir}/plugins
+				." />
 		</exec>
 	</target>
 
@@ -30,7 +35,7 @@
 
 	<target name="phpcs">
 		<exec executable="phpcs" output="${basedir}/build/logs/checkstyle.xml" dir="${basedir}">
-			<arg line="--ignore=lib/vendor/* test cache log doc 
+			<arg line="--ignore=lib/vendor/* ./test ./cache log doc 
 			     --report=checkstyle
 			     --standard=PEAR" />
 		</exec>
