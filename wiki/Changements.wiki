@@ -20,6 +20,7 @@ Au fil des versions, Piwam évolue...
           * correction d'un bug lors de la récupération de paramètres en mode multi-associations
           * correction d'un bug lors du calcul du nombre de membres ayant un certain statut
           * début de la documentation développeur
+          * lien vers les activités et comptes mentionnés dans le bilan
           * documentations README, README-FR et UPDATE-FR à jour
 
     * version 1.1.1 (8 octobre 2009)
