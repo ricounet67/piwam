@@ -84,6 +84,13 @@ class CotisationPeer extends BaseCotisationPeer
         $result = self::doSelectStmt($c);
         $row = $result->fetch();
 
-        return $row['TOTAL_COTISATIONS'];
+        if ($row['TOTAL_COTISATIONS'] === null)
+        {
+            return 0;
+        }
+        else
+        {
+            return $row['TOTAL_COTISATIONS'];
+        }
     }
 }
