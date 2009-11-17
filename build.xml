@@ -14,7 +14,7 @@
 				--exclude ${basedir}/cache
 				--exclude ${basedir}/log
 				--exclude ${basedir}/plugins
-				." />
+				${basedir}" />
 		</exec>
 	</target>
 
@@ -35,9 +35,14 @@
 
 	<target name="phpcs">
 		<exec executable="phpcs" output="${basedir}/build/logs/checkstyle.xml" dir="${basedir}">
-			<arg line="--ignore=lib/vendor/* ./test ./cache log doc 
-			     --report=checkstyle
-			     --standard=PEAR" />
+			<arg line="--report=checkstyle
+			     --ignore=${basedir}/lib/vendor/*
+			     --ignore=${basedir}/test 
+			     --ignore=${basedir}/cache
+			     --ignore=${basedir}/log 
+			     --ignore=${basedir}/doc  
+			     --standard=PEAR
+				${basedir}" />
 		</exec>
 	</target>
 
