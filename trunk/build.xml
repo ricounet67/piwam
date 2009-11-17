@@ -41,7 +41,7 @@
 			     --ignore=${basedir}/cache
 			     --ignore=${basedir}/log 
 			     --ignore=${basedir}/doc  
-			     --standard=PEAR
+			     --standard=Symfony
 				${basedir}" />
 		</exec>
 	</target>
