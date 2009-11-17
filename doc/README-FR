@@ -33,6 +33,7 @@
             php_openssl (pour envoyer des e-mails via un canal sécurisé)
 			php_smtp (pour l'envoi d'e-mails via un serveur smtp)
 			memory_limit: 128M
+			gd ou imagemagick (optionnel : pour gérer le trombinoscope)
 		MySQL
 		Apache
             mod_rewrite

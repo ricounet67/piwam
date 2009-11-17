@@ -33,6 +33,7 @@
             php_openssl
 			php_smtp
 			memory_limit: 128M
+			gd or imagemagick (optional : for resizing pictures)
 		MySQL
 		Apache
             mod_rewrite
