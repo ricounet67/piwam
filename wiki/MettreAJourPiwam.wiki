@@ -22,3 +22,4 @@
   # Replacez le contenu sauvegardé dans `/web/uploads/`
   # Rendez inscriptibles les répertoires  `cache` et `log`,  ainsi que les répertoires dans '/web/uploads/' (sous un serveur Windows, vous pouvez oublier cette étape !)
   # Cliquez sur `mise à jour` dans le menu.
+  # *Attention* : Un bug étrange peut subvenir. Aucun message d'erreur apparaît mais la mise à jour n'est pas totalement finie. Cliquez à nouveau sur `mise à jour` pour vérifier que tout s'est correctement déroulé.
