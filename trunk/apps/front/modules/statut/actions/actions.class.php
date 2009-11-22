@@ -5,7 +5,7 @@
  *
  * @package    piwam
  * @subpackage statut
- * @author     Your name here
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
 class statutActions extends sfActions
@@ -18,7 +18,7 @@ class statutActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->statut_list = StatutPeer::doSelectEnabled($this->getUser()->getAttribute('association_id', null, 'user'));
+        $this->statut_list = StatutPeer::doSelectEnabled($this->getUser()->getAssociationId());
     }
 
     /**
@@ -30,11 +30,13 @@ class statutActions extends sfActions
     {
         $this->statut = StatutPeer::retrieveByPk($request->getParameter('id'));
 
-        if ($this->statut->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+        if ($this->statut->getAssociationId() == $this->getUser()->getAssociationId())
+        {
             $this->forward404Unless($this->statut);
         }
-        else {
-            $this->forward('error', 'credentials');
+        else
+        {
+            $this->redirect('@error_credentials');
         }
     }
 
@@ -46,7 +48,7 @@ class statutActions extends sfActions
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new StatutForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
     /**
@@ -60,7 +62,7 @@ class statutActions extends sfActions
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new StatutForm();
         $this->processForm($request, $this->form);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
         $this->setTemplate('new');
     }
 
@@ -73,12 +75,13 @@ class statutActions extends sfActions
     {
         $this->forward404Unless($statut = StatutPeer::retrieveByPk($request->getParameter('id')), sprintf('Object statut does not exist (%s).', $request->getParameter('id')));
 
-        if ($statut->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
-            $this->forward('error', 'credentials');
+        if ($statut->getAssociationId() != $this->getUser()->getAssociationId())
+        {
+            $this->redirect('@error_credentials');
         }
 
         $this->form = new StatutForm($statut);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
     /**
@@ -106,8 +109,9 @@ class statutActions extends sfActions
         $request->checkCSRFProtection();
         $this->forward404Unless($statut = StatutPeer::retrieveByPk($request->getParameter('id')), sprintf('Le statut n\'existe pas (%s).', $request->getParameter('id')));
 
-        if ($statut->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
-            $this->forward('error', 'credentials');
+        if ($statut->getAssociationId() != $this->getUser()->getAssociationId())
+        {
+            $this->redirect('@error_credentials');
         }
 
         $statut->delete();
@@ -124,6 +128,7 @@ class statutActions extends sfActions
     protected function processForm(sfWebRequest $request, sfForm $form)
     {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+
         if ($form->isValid())
         {
             $statut = $form->save();
