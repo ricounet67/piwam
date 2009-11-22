@@ -5,7 +5,7 @@
  *
  * @package    piwam
  * @subpackage depense
- * @author     Your name here
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
 class depenseActions extends sfActions
@@ -20,7 +20,7 @@ class depenseActions extends sfActions
     {
         sfContext::getInstance()->getConfiguration()->loadHelpers('Number');
         $csv = new FileExporter('liste-depenses.csv');
-        $depenses = DepensePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+        $depenses = DepensePeer::doSelectForAssociation($this->getUser()->getAssociationId());
 
         echo $csv->addLineCSV(array(
 			'Libellé',
@@ -50,7 +50,7 @@ class depenseActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->depensesPager = DepensePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'),
+        $this->depensesPager = DepensePeer::doSelectForAssociation($this->getUser()->getAssociationId(),
         $request->getParameter('page', 1));
     }
 
@@ -63,18 +63,20 @@ class depenseActions extends sfActions
     {
         $this->depense = DepensePeer::retrieveByPk($request->getParameter('id'));
 
-        if ($this->depense->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+        if ($this->depense->getAssociationId() == $this->getUser()->getAssociationId())
+        {
             $this->forward404Unless($this->depense);
         }
-        else {
-            $this->forward('error', 'credentials');
+        else
+        {
+            $this->redirect('@error_credentials');
         }
     }
 
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new DepenseForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
 
     }
 
@@ -82,7 +84,7 @@ class depenseActions extends sfActions
     {
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new DepenseForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
     }
@@ -91,12 +93,13 @@ class depenseActions extends sfActions
     {
         $this->forward404Unless($depense = DepensePeer::retrieveByPk($request->getParameter('id')), sprintf('Object depense does not exist (%s).', $request->getParameter('id')));
 
-        if ($depense->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
-            $this->forward('error', 'credentials');
+        if ($depense->getAssociationId() != $this->getUser()->getAssociationId())
+        {
+            $this->redirect('@error_credentials');
         }
 
         $this->form = new DepenseForm($depense);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
     public function executeUpdate(sfWebRequest $request)
@@ -104,7 +107,7 @@ class depenseActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($depense = DepensePeer::retrieveByPk($request->getParameter('id')), sprintf('Object depense does not exist (%s).', $request->getParameter('id')));
         $this->form = new DepenseForm($depense);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }
@@ -121,7 +124,8 @@ class depenseActions extends sfActions
         $depense->delete();
         $this->redirect('depense/index');
 
-        if ($depense->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
+        if ($depense->getAssociationId() != $this->getUser()->getAssociationId())
+        {
             $this->forward('error', 'credentials');
         }
     }
@@ -129,6 +133,7 @@ class depenseActions extends sfActions
     protected function processForm(sfWebRequest $request, sfForm $form)
     {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+
         if ($form->isValid())
         {
             $depense = $form->save();
