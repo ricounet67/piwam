@@ -37,6 +37,7 @@ dev:
     cache:                  off
     no_script_name:         off
     etag:                   off
+    enabled_modules:        [default, fcLogAnalyzer]
 
 test:
   .settings:
