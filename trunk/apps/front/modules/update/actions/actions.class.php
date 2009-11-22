@@ -60,9 +60,13 @@ class updateActions extends sfActions
 
         if (ini_get('allow_url_fopen'))
         {
-            $result = file_get_contents('http://docbook/piwamversionner.php?auth=Piwam&current=112');
+            $result = file_get_contents('http://piwam.frenchcomp.net/piwamversionner.php?auth=Piwam&current=112');
 
-            if ($result == 'OK')
+            if ($result === false)
+            {
+                $this->lastVersion = self::CHECK_VERSION_ERROR;
+            }
+            elseif ($result == 'OK')
             {
                 $this->lastVersion = self::CHECK_VERSION_OK;
             }
