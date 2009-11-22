@@ -76,7 +76,7 @@ class compteActions extends sfActions
             $this->redirect('@error_credentials');
         }
 
-//        $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
+        $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
