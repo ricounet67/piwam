@@ -99,7 +99,7 @@ class membreActions extends sfActions
         }
         else
         {
-            $this->redirect('error/credentials');
+            $this->redirect('@error_credentials');
         }
     }
 
@@ -161,7 +161,7 @@ class membreActions extends sfActions
 
         if ($membre->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->redirect('error/credentials');
+            $this->redirect('@error_credentials');
         }
 
         $membre->delete();
@@ -266,7 +266,7 @@ class membreActions extends sfActions
             if (($membre->getAssociationId() != $this->getUser()->getAssociationId()) ||
                 ($this->getUser()->hasCredential('edit_acl') == false))
             {
-                $this->redirect('error/credentials');
+                $this->redirect('@error_credentials');
             }
 
             $this->form->setUserId($this->user_id);
@@ -325,7 +325,7 @@ class membreActions extends sfActions
 
         if (false === $this->isAllowedToManageProfile($membre, 'edit_membre'))
         {
-            $this->redirect('error/credentials');
+            $this->redirect('@error_credentials');
         }
 
         $this->form = new MembreForm($membre, array('associationId' => $membre->getAssociationId(),
@@ -350,7 +350,7 @@ class membreActions extends sfActions
 
         if (false === $this->isAllowedToManageProfile($user, 'edit_membre'))
         {
-            $this->redirect('error/credentials');
+            $this->redirect('@error_credentials');
         }
 
         $this->form = new MembreForm($user, array('associationId' => $request->getParameter('membre[association_id]'),
@@ -463,7 +463,7 @@ class membreActions extends sfActions
         }
         else
         {
-            $this->forward('error', 'credentials');
+            $this->redirect('@error_credentials');
         }
     }
 
