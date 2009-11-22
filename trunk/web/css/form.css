@@ -23,7 +23,7 @@ input {
 }
 
 /* Custom "button" appearance to a submit button */
-.button, .button:Hover {
+.button, .button:Hover, .button:Visited {
     border-left: 1px solid #A1BCD4;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
