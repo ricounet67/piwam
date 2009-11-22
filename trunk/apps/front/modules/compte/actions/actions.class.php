@@ -32,7 +32,7 @@ class compteActions extends sfActions
 
         if ($this->compte->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->redirect('error/credentials');
+            $this->redirect('@error_credentials');
         }
     }
 
@@ -73,10 +73,10 @@ class compteActions extends sfActions
 
         if ($compte->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->redirect('error/credentials');
+            $this->redirect('@error_credentials');
         }
 
-        $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
+//        $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
@@ -108,7 +108,7 @@ class compteActions extends sfActions
 
         if ($this->compte->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->redirect('error/credentials');
+            $this->redirect('@error_credentials');
         }
 
         $compte->delete();
