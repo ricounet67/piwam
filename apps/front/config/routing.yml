@@ -13,3 +13,11 @@ default:
 ajax_search_members:
   url:   membre/ajaxlist
   param: { module: membre, action: ajaxlist }
+  
+mailing:
+  url:   /mailing
+  param: { module: mailing, action: index }
+  
+error_credentials:
+  url:   /error/credentials
+  param: { module: error, action: credentials }
