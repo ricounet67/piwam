@@ -46,7 +46,7 @@ class depenseActions extends sfActions
     /**
      * List Depenses of current association
      *
-     * @param 	sfWebRequest $request
+     * @param 	sfWebRequest     $request
      */
     public function executeIndex(sfWebRequest $request)
     {
@@ -57,7 +57,7 @@ class depenseActions extends sfActions
     /**
      * View details of a particular Depense
      *
-     * @param 	sfWebRequest $request
+     * @param 	sfWebRequest     $request
      */
     public function executeShow(sfWebRequest $request)
     {
@@ -73,6 +73,11 @@ class depenseActions extends sfActions
         }
     }
 
+    /**
+     * Display the form to register a new entry
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new DepenseForm();
@@ -80,6 +85,11 @@ class depenseActions extends sfActions
 
     }
 
+    /**
+     * Perform creation
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeCreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
@@ -89,6 +99,11 @@ class depenseActions extends sfActions
         $this->setTemplate('new');
     }
 
+    /**
+     * Display edit form
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeEdit(sfWebRequest $request)
     {
         $this->forward404Unless($depense = DepensePeer::retrieveByPk($request->getParameter('id')), sprintf('Object depense does not exist (%s).', $request->getParameter('id')));
@@ -102,6 +117,11 @@ class depenseActions extends sfActions
         $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
+    /**
+     * Perfoms update.
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
@@ -130,6 +150,12 @@ class depenseActions extends sfActions
         }
     }
 
+    /**
+     * Process the values given by the form. Redirects to index if success
+     *
+     * @param   sfWebRequest    $request
+     * @param   sfForm          $form
+     */
     protected function processForm(sfWebRequest $request, sfForm $form)
     {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
