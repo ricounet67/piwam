@@ -17,7 +17,7 @@ class errorActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->forward('default', 'module');
+        $this->forward('error', 'error404');
     }
 
     /**
@@ -28,7 +28,7 @@ class errorActions extends sfActions
      */
     public function executeError404(sfWebRequest $request)
     {
-
+        // do nothing : display template
     }
 
     /**
@@ -39,6 +39,7 @@ class errorActions extends sfActions
      */
     public function executeCredentials(sfWebRequest $request)
     {
+        // do nothing : display template
         return sfView::ERROR;
     }
 }
