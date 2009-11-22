@@ -31,10 +31,7 @@ class associationActions extends sfActions
             $data = $ph->getAll();
             foreach ($data['config'] as $key => $value)
             {
-                if (strlen($value) > 0)
-                {
-                    Configurator::set($key, $value, $this->getUser()->getAssociationId());
-                }
+                Configurator::set($key, $value, $this->getUser()->getAssociationId());
             }
             $this->getUser()->setFlash('notice', 'Les préférences ont bien été prises en compte.');
         }
