@@ -62,7 +62,7 @@ class activiteActions extends sfActions
         }
         else
         {
-            $this->forward('error', 'credentials');
+            $this->redirect('@error_credentials');
         }
     }
 
@@ -104,7 +104,7 @@ class activiteActions extends sfActions
 
         if ($activite->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->forward('error', 'credentials');
+            $this->redirect('@error_credentials');
         }
 
         $this->form = new ActiviteForm($activite);
@@ -137,7 +137,7 @@ class activiteActions extends sfActions
 
         if ($activite->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->forward('error', 'credentials');
+            $this->redirect('@error_credentials');
         }
 
         $activite->delete();
