@@ -5,7 +5,7 @@
  *
  * @package    piwam
  * @subpackage recette
- * @author     Your name here
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
 class recetteActions extends sfActions
@@ -63,11 +63,13 @@ class recetteActions extends sfActions
     {
         $this->recette = RecettePeer::retrieveByPk($request->getParameter('id'));
 
-        if ($this->recette->getAssociationId() == $this->getUser()->getAttribute('association_id', null, 'user')) {
+        if ($this->recette->getAssociationId() == $this->getUser()->getAssociationId())
+        {
             $this->forward404Unless($this->recette);
         }
-        else {
-            $this->forward('error', 'credentials');
+        else
+        {
+            $this->redirect('@error_credentials');
         }
     }
 
@@ -79,7 +81,7 @@ class recetteActions extends sfActions
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new RecetteForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
     /**
@@ -91,29 +93,40 @@ class recetteActions extends sfActions
     {
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new RecetteForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
     }
 
+    /**
+     * Display edit form
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeEdit(sfWebRequest $request)
     {
         $this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
 
-        if ($recette->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
-            $this->forward('error', 'credentials');
+        if ($recette->getAssociationId() != $this->getUser()->getAssociationId())
+        {
+            $this->redirect('@error_credentials');
         }
 
         $this->form = new RecetteForm($recette);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
     }
 
+    /**
+     * Performs update
+     *
+     * @param   sfWebRequest    $request
+     */
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
         $this->form = new RecetteForm($recette);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
+        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }
@@ -128,17 +141,25 @@ class recetteActions extends sfActions
         $request->checkCSRFProtection();
         $this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
 
-        if ($recette->getAssociationId() != $this->getUser()->getAttribute('association_id', null, 'user')) {
-            $this->forward('error', 'credentials');
+        if ($recette->getAssociationId() != $this->getUser()->getAssociationId())
+        {
+            $this->redirect('@error_credentials');
         }
 
         $recette->delete();
         $this->redirect('recette/index');
     }
 
+    /**
+     * Process values given by the $form
+     *
+     * @param   sfWebRequest    $request
+     * @param   sfForm          $form
+     */
     protected function processForm(sfWebRequest $request, sfForm $form)
     {
         $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+
         if ($form->isValid())
         {
             $recette = $form->save();
