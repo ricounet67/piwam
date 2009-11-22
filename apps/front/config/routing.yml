@@ -21,3 +21,7 @@ mailing:
 error_credentials:
   url:   /error/credentials
   param: { module: error, action: credentials }
+  
+setup:
+  url:   /install
+  param: { module: install, action: index }
