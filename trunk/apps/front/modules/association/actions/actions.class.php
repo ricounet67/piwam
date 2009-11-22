@@ -199,7 +199,7 @@ class associationActions extends sfActions
     {
         if (! $this->_canRegisterAnotherAssociation())
         {
-            $this->redirect('/error/credentials');
+            $this->redirect('@error_credentials');
         }
 
         $this->getUser()->removeTemporaryData();
@@ -324,7 +324,7 @@ class associationActions extends sfActions
             }
             catch (PropelException $e)
             {
-                $this->redirect('install/index');
+                $this->redirect('@setup');
             }
         }
     }
