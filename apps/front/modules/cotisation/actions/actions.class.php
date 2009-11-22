@@ -37,7 +37,7 @@ class cotisationActions extends sfActions
         }
         else
         {
-            $this->forward('error', 'credentials');
+            $this->redirect('@error_credentials');
         }
     }
 
@@ -80,7 +80,7 @@ class cotisationActions extends sfActions
 
         if ($cotisation->getCotisationType()->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->forward('error', 'credentials');
+            $this->redirect('@error_credentials');
         }
 
         $this->form = new CotisationForm($cotisation);
@@ -114,7 +114,7 @@ class cotisationActions extends sfActions
 
         if ($cotisation->getCotisationType()->getAssociationId() != $this->getUser()->getAssociationId())
         {
-            $this->forward('error', 'credentials');
+            $this->redirect('@error_credentials');
         }
 
         $cotisation->delete();
