@@ -1,6 +1,5 @@
 <p class="notice">
-    Bienvenue dans la version 1.1.2-dev de Piwam !<br />
-    Ceci est une version de développement, des bugs peuvent subsister.
+    Bienvenue dans la version 1.1.2 de Piwam !
 </p>
 
 <?php if ($sf_user->hasFlash('error')):?>
