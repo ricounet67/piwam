@@ -94,7 +94,6 @@ class statutActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($statut = StatutPeer::retrieveByPk($request->getParameter('id')), sprintf('Object statut does not exist (%s).', $request->getParameter('id')));
         $this->form = new StatutForm($statut);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getAttribute('user_id', null, 'user'));
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }
