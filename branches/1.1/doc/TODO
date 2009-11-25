@@ -1,4 +1,6 @@
 
+    * Put "static" content in artial :
+      $mailBody = $this->getPartial('mailBody', array('name' => 'John Doe'));
     * Add version tables (triggers)
     * Mailing : store sent messages
     * Make beautiful search bar
