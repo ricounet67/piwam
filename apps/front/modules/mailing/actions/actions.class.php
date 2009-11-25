@@ -41,10 +41,10 @@ class mailingActions extends sfActions
                         try
                         {
                             $message    = Swift_Message::newInstance($data['subject'])
-                                ->setBody($data['mail_content'])
-                                ->setContentType('text/html')
-                                ->setFrom(array($from_email => $from_label))
-                                ->setTo(array($membre->getEmail() => $membre->getPrenom()));
+                                            ->setBody($data['mail_content'])
+                                            ->setContentType('text/html')
+                                            ->setFrom(array($from_email => $from_label))
+                                            ->setTo(array($membre->getEmail() => $membre->getPrenom()));
                             $mailer->send($message);
                             $sentOk++;
                         }
