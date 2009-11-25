@@ -15,8 +15,8 @@ class BaseAclActionForm extends BaseFormPropel
         $this->setWidgets(array(
       'id'            => new sfWidgetFormInputHidden(),
       'acl_module_id' => new sfWidgetFormPropelChoice(array('model' => 'AclModule', 'add_empty' => false)),
-      'libelle'       => new sfWidgetFormInput(),
-      'code'          => new sfWidgetFormInput(),
+      'libelle'       => new sfWidgetFormInputText(),
+      'code'          => new sfWidgetFormInputText(),
         ));
 
         $this->setValidators(array(

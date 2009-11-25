@@ -14,9 +14,9 @@ class BaseRecetteForm extends BaseFormPropel
     {
         $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
-      'libelle'        => new sfWidgetFormInput(),
+      'libelle'        => new sfWidgetFormInputText(),
       'association_id' => new sfWidgetFormPropelChoice(array('model' => 'Association', 'add_empty' => false)),
-      'montant'        => new sfWidgetFormInput(),
+      'montant'        => new sfWidgetFormInputText(),
       'compte_id'      => new sfWidgetFormPropelChoice(array('model' => 'Compte', 'add_empty' => false)),
       'activite_id'    => new sfWidgetFormPropelChoice(array('model' => 'Activite', 'add_empty' => false)),
       'date'           => new sfWidgetFormDate(),

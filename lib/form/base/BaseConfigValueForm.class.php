@@ -15,7 +15,7 @@ class BaseConfigValueForm extends BaseFormPropel
         $this->setWidgets(array(
       'config_variable_id' => new sfWidgetFormInputHidden(),
       'association_id'     => new sfWidgetFormInputHidden(),
-      'custom_value'       => new sfWidgetFormInput(),
+      'custom_value'       => new sfWidgetFormInputText(),
         ));
 
         $this->setValidators(array(

@@ -1,11 +1,11 @@
 index:
-  enabled:      off
+  enabled:      false
     
 checkConfig:
-  enabled:      off
+  enabled:      false
   
 default:
-  enabled:      off  
+  enabled:      false  
 
 all:
   with_layout:  false

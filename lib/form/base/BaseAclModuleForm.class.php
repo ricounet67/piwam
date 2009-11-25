@@ -14,7 +14,7 @@ class BaseAclModuleForm extends BaseFormPropel
     {
         $this->setWidgets(array(
       'id'      => new sfWidgetFormInputHidden(),
-      'libelle' => new sfWidgetFormInput(),
+      'libelle' => new sfWidgetFormInputText(),
         ));
 
         $this->setValidators(array(
