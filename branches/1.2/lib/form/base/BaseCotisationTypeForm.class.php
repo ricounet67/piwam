@@ -14,10 +14,10 @@ class BaseCotisationTypeForm extends BaseFormPropel
     {
         $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
-      'libelle'        => new sfWidgetFormInput(),
+      'libelle'        => new sfWidgetFormInputText(),
       'association_id' => new sfWidgetFormPropelChoice(array('model' => 'Association', 'add_empty' => false)),
-      'valide'         => new sfWidgetFormInput(),
-      'montant'        => new sfWidgetFormInput(),
+      'valide'         => new sfWidgetFormInputText(),
+      'montant'        => new sfWidgetFormInputText(),
       'actif'          => new sfWidgetFormInputCheckbox(),
       'enregistre_par' => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
       'mis_a_jour_par' => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),

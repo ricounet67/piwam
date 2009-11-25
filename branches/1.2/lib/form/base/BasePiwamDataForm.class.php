@@ -14,8 +14,8 @@ class BasePiwamDataForm extends BaseFormPropel
     {
         $this->setWidgets(array(
       'id'    => new sfWidgetFormInputHidden(),
-      'key'   => new sfWidgetFormInput(),
-      'value' => new sfWidgetFormInput(),
+      'key'   => new sfWidgetFormInputText(),
+      'value' => new sfWidgetFormInputText(),
         ));
 
         $this->setValidators(array(

@@ -19,7 +19,7 @@ class BaseCotisationForm extends BaseFormPropel
       'membre_id'          => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
       'date'               => new sfWidgetFormDate(),
       'enregistre_par'     => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
-      'montant'            => new sfWidgetFormInput(),
+      'montant'            => new sfWidgetFormInputText(),
       'mis_a_jour_par'     => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => false)),
       'created_at'         => new sfWidgetFormDateTime(),
       'updated_at'         => new sfWidgetFormDateTime(),

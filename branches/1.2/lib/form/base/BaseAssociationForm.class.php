@@ -14,9 +14,9 @@ class BaseAssociationForm extends BaseFormPropel
     {
         $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
-      'nom'               => new sfWidgetFormInput(),
-      'description'       => new sfWidgetFormInput(),
-      'site_web'          => new sfWidgetFormInput(),
+      'nom'               => new sfWidgetFormInputText(),
+      'description'       => new sfWidgetFormInputText(),
+      'site_web'          => new sfWidgetFormInputText(),
       'enregistre_par'    => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),
       'mis_a_jour_par'    => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),
       'created_at'        => new sfWidgetFormDateTime(),

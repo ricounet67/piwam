@@ -14,12 +14,12 @@ class BaseConfigVariableForm extends BaseFormPropel
     {
         $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
-      'code'              => new sfWidgetFormInput(),
+      'code'              => new sfWidgetFormInputText(),
       'categorie_code'    => new sfWidgetFormPropelChoice(array('model' => 'ConfigCategorie', 'add_empty' => false)),
-      'libelle'           => new sfWidgetFormInput(),
+      'libelle'           => new sfWidgetFormInputText(),
       'description'       => new sfWidgetFormTextarea(),
-      'type'              => new sfWidgetFormInput(),
-      'default_value'     => new sfWidgetFormInput(),
+      'type'              => new sfWidgetFormInputText(),
+      'default_value'     => new sfWidgetFormInputText(),
       'config_value_list' => new sfWidgetFormPropelChoiceMany(array('model' => 'Association')),
         ));
 

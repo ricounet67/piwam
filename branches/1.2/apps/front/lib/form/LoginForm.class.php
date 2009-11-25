@@ -5,12 +5,12 @@
  * @author 	Adrien Mogenet
  * @since	r7
  */
-class LoginForm extends sfForm
+class LoginForm extends BaseForm
 {
     public function configure()
     {
         $this->setWidgets(array(
-	      'username' => new sfWidgetFormInput(), 
+	      'username' => new sfWidgetFormInputText(), 
 	      'password' => new sfWidgetFormInputPassword() 
         ));
 

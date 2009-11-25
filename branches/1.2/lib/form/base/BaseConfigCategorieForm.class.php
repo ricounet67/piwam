@@ -14,7 +14,7 @@ class BaseConfigCategorieForm extends BaseFormPropel
     {
         $this->setWidgets(array(
       'code'    => new sfWidgetFormInputHidden(),
-      'libelle' => new sfWidgetFormInput(),
+      'libelle' => new sfWidgetFormInputText(),
         ));
 
         $this->setValidators(array(

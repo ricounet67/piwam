@@ -14,7 +14,7 @@ class BaseStatutForm extends BaseFormPropel
     {
         $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
-      'nom'            => new sfWidgetFormInput(),
+      'nom'            => new sfWidgetFormInputText(),
       'association_id' => new sfWidgetFormPropelChoice(array('model' => 'Association', 'add_empty' => false)),
       'actif'          => new sfWidgetFormInputCheckbox(),
       'enregistre_par' => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),

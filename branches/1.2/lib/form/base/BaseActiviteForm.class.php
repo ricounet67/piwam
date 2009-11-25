@@ -14,7 +14,7 @@ class BaseActiviteForm extends BaseFormPropel
     {
         $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
-      'libelle'        => new sfWidgetFormInput(),
+      'libelle'        => new sfWidgetFormInputText(),
       'actif'          => new sfWidgetFormInputCheckbox(),
       'association_id' => new sfWidgetFormPropelChoice(array('model' => 'Association', 'add_empty' => false)),
       'enregistre_par' => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),

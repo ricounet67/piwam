@@ -6,13 +6,13 @@
 # has been set correctly
 
 newfirst:
-  is_secure:    off
+  is_secure:    false
   
 firstcreate:
-  is_secure:    off
+  is_secure:    false
   
 endregistration:
-  is_secure:    off
+  is_secure:    false
   
 index:
   # Credentials are checked in action class since revision r154
@@ -31,13 +31,13 @@ delete:
   credentials:  del_membre
 
 requestsubscription:
-  is_secure:    off
+  is_secure:    false
   
 createpending:
-  is_secure:    off
+  is_secure:    false
   
 pending:
-  is_secure:    off
+  is_secure:    false
   
 validate :
   credentials:  edit_membre

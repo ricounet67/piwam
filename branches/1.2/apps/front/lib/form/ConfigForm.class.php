@@ -4,7 +4,7 @@
  *
  * @since   r75
  */
-class ConfigForm extends sfForm
+class ConfigForm extends BaseForm
 {
     /*
      * Store the description for each field if exists
@@ -71,13 +71,13 @@ class ConfigForm extends sfForm
             return new sfWidgetFormChoice(array('choices' => $choices), array('class'=>'formInputNormal'));
         }
         if ($type == 'VARCHAR') {
-            return new sfWidgetFormInput(array(), array('class'=>'formInputNormal'));
+            return new sfWidgetFormInputText(array(), array('class'=>'formInputNormal'));
         }
         if ($type == 'INTEGER') {
-            return new sfWidgetFormInput(array(), array('class'=>'formInputShort'));
+            return new sfWidgetFormInputText(array(), array('class'=>'formInputShort'));
         }
         if ($type == 'EMAIL') {
-            return new sfWidgetFormInput(array(), array('class'=>'formInputNormal'));
+            return new sfWidgetFormInputText(array(), array('class'=>'formInputNormal'));
         }
 
 
