@@ -10,9 +10,20 @@
 
 $_test_dir = realpath(dirname(__FILE__).'/..');
 
-require_once(dirname(__FILE__).'/../../config/ProjectConfiguration.class.php');
-$configuration = new ProjectConfiguration(realpath($_test_dir.'/..'));
-include($configuration->getSymfonyLibDir().'/vendor/lime/lime.php');
+// configuration
+require_once dirname(__FILE__).'/../../config/ProjectConfiguration.class.php';
+$configuration = ProjectConfiguration::hasActive() ? ProjectConfiguration::getActive() : new ProjectConfiguration(realpath($_test_dir.'/..'));
+
+// autoloader
+$autoload = sfSimpleAutoload::getInstance(sfConfig::get('sf_cache_dir').'/project_autoload.cache');
+$autoload->loadConfiguration(sfFinder::type('file')->name('autoload.yml')->in(array(
+  sfConfig::get('sf_symfony_lib_dir').'/config/config',
+  sfConfig::get('sf_config_dir'),
+)));
+$autoload->register();
+
+// lime
+include $configuration->getSymfonyLibDir() . '/vendor/lime/lime.php';
 
 // We create a context to be able to use database
 $configuration = ProjectConfiguration::getApplicationConfiguration('front', 'test', isset($debug) ? $debug : true);
