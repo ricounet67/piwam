@@ -33,7 +33,7 @@ class mailingActions extends sfActions
                 {
                     $mailer     = MailerFactory::get($associationId, $this->getUser());
                     $from_email = Configurator::get('address', $associationId, 'info-association@piwam.org');
-                    $from_label = 'info@piwam.org';
+                    $from_label = $this->getUser()->getAssociationName('Piwam');
                     $membres    = MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAssociationId());
 
                     foreach ($membres as $membre)
@@ -43,7 +43,7 @@ class mailingActions extends sfActions
                             $message    = Swift_Message::newInstance($data['subject'])
                                 ->setBody($data['mail_content'])
                                 ->setContentType('text/html')
-                                ->setFrom(array($from_email, $from_label))
+                                ->setFrom(array($from_email => $from_label))
                                 ->setTo(array($membre->getEmail() => $membre->getPrenom()));
                             $mailer->send($message);
                             $sentOk++;
@@ -60,8 +60,7 @@ class mailingActions extends sfActions
                 }
                 catch (Exception $e)
                 {
-                    echo '<pre>' . $e . '</pre>';
-                    //
+                    $this->getUser()->setFlash('error', 'Erreur');
                 }
             }
         }
