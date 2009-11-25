@@ -1,45 +1,43 @@
 <?php
 
-require_once(sfConfig::get('sf_lib_dir').'/filter/base/BaseFormFilterPropel.class.php');
-
 /**
  * ConfigValue filter form base class.
  *
  * @package    piwam
  * @subpackage filter
- * @author     Your name here
- * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 16976 2009-04-04 12:47:44Z fabien $
+ * @author     Adrien Mogenet
+ * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 24051 2009-11-16 21:08:08Z Kris.Wallsmith $
  */
-class BaseConfigValueFormFilter extends BaseFormFilterPropel
+abstract class BaseConfigValueFormFilter extends BaseFormFilterPropel
 {
-    public function setup()
-    {
-        $this->setWidgets(array(
-      'custom_value'       => new sfWidgetFormFilterInput(),
-        ));
+  public function setup()
+  {
+    $this->setWidgets(array(
+      'custom_value'       => new sfWidgetFormFilterInput(array('with_empty' => false)),
+    ));
 
-        $this->setValidators(array(
+    $this->setValidators(array(
       'custom_value'       => new sfValidatorPass(array('required' => false)),
-        ));
+    ));
 
-        $this->widgetSchema->setNameFormat('config_value_filters[%s]');
+    $this->widgetSchema->setNameFormat('config_value_filters[%s]');
 
-        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-        parent::setup();
-    }
+    parent::setup();
+  }
 
-    public function getModelName()
-    {
-        return 'ConfigValue';
-    }
+  public function getModelName()
+  {
+    return 'ConfigValue';
+  }
 
-    public function getFields()
-    {
-        return array(
+  public function getFields()
+  {
+    return array(
       'config_variable_id' => 'ForeignKey',
       'association_id'     => 'ForeignKey',
       'custom_value'       => 'Text',
-        );
-    }
+    );
+  }
 }
