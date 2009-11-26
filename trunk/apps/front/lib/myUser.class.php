@@ -61,6 +61,18 @@ class myUser extends sfBasicSecurityUser
     }
 
     /**
+     * Get the current name of the association
+     *
+     * @param   string  $default
+     * @return  string
+     * @since   1.2
+     */
+    public function getAssociationName($default = null)
+    {
+        return $this->getAttribute('association_name', $default, 'user');
+    }
+
+    /**
      * Get the current user ID of the user
      *
      * @param	integer	$default (optional)

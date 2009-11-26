@@ -5,7 +5,7 @@
  *
  * @since   r60
  */
-class AclCredentialForm extends sfForm
+class AclCredentialForm extends BaseForm
 {
     protected $_user_id;
     protected $_modules = array();

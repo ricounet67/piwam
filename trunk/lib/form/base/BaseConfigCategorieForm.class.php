@@ -3,36 +3,38 @@
 /**
  * ConfigCategorie form base class.
  *
+ * @method ConfigCategorie getObject() Returns the current form's model object
+ *
  * @package    piwam
  * @subpackage form
- * @author     Your name here
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 16976 2009-04-04 12:47:44Z fabien $
+ * @author     Adrien Mogenet
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 24051 2009-11-16 21:08:08Z Kris.Wallsmith $
  */
-class BaseConfigCategorieForm extends BaseFormPropel
+abstract class BaseConfigCategorieForm extends BaseFormPropel
 {
-    public function setup()
-    {
-        $this->setWidgets(array(
+  public function setup()
+  {
+    $this->setWidgets(array(
       'code'    => new sfWidgetFormInputHidden(),
-      'libelle' => new sfWidgetFormInput(),
-        ));
+      'libelle' => new sfWidgetFormInputText(),
+    ));
 
-        $this->setValidators(array(
+    $this->setValidators(array(
       'code'    => new sfValidatorPropelChoice(array('model' => 'ConfigCategorie', 'column' => 'code', 'required' => false)),
       'libelle' => new sfValidatorString(array('max_length' => 255)),
-        ));
+    ));
 
-        $this->widgetSchema->setNameFormat('config_categorie[%s]');
+    $this->widgetSchema->setNameFormat('config_categorie[%s]');
 
-        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-        parent::setup();
-    }
+    parent::setup();
+  }
 
-    public function getModelName()
-    {
-        return 'ConfigCategorie';
-    }
+  public function getModelName()
+  {
+    return 'ConfigCategorie';
+  }
 
 
 }

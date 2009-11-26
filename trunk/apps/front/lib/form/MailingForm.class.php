@@ -5,7 +5,7 @@
  * @author 	Adrien Mogenet
  * @since	r10
  */
-class MailingForm extends sfForm
+class MailingForm extends BaseForm
 {
     /**
      * Set the widgets and validators for the Mailing form
@@ -13,7 +13,7 @@ class MailingForm extends sfForm
     public function configure()
     {
         $this->setWidgets(array(
-			'subject'		=> new sfWidgetFormInput(),
+			'subject'		=> new sfWidgetFormInputText(),
 			'mail_content' 	=> new sfWidgetFormTextareaTinyMCE(array(
                     			  'width'  => 550,
                     			  'height' => 350,

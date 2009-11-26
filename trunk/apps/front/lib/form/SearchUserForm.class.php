@@ -4,7 +4,7 @@
  *
  * @author adrien
  */
-class SearchUserForm extends sfForm
+class SearchUserForm extends BaseForm
 {
     /**
      * Set fields to search a member. Be careful, the name of 'magic'

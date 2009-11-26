@@ -5,12 +5,12 @@
  * @since   r154
  * @author  adrien
  */
-class ForgottenPasswordForm extends sfForm
+class ForgottenPasswordForm extends BaseForm
 {
     public function configure()
     {
         $this->setWidgets(array(
-          'username' => new sfWidgetFormInput(),
+          'username' => new sfWidgetFormInputText(),
         ));
 
         $this->widgetSchema->setNameFormat('password[%s]');

@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/../lib/vendor/symfony/1.2/lib/autoload/sfCoreAutoload.class.php';
+require_once dirname(__FILE__) . '/../lib/vendor/symfony/1.3/lib/autoload/sfCoreAutoload.class.php';
 
 sfCoreAutoload::register();
 
