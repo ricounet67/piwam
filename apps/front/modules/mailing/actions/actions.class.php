@@ -31,16 +31,21 @@ class mailingActions extends sfActions
 
                 try
                 {
-                    $mailer   = MailerFactory::get($associationId, $this->getUser());
-                    $message  = new Swift_Message($data['subject'], $data['mail_content'], 'text/html');
-                    $from     = Configurator::get('address', $associationId, 'info-association@piwam.org');
-                    $membres  = MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAssociationId());
+                    $mailer     = MailerFactory::get($associationId, $this->getUser());
+                    $from_email = Configurator::get('address', $associationId, 'info-association@piwam.org');
+                    $from_label = $this->getUser()->getAssociationName('Piwam');
+                    $membres    = MembrePeer::doSelectWithEmailForAssociation($this->getUser()->getAssociationId());
 
                     foreach ($membres as $membre)
                     {
                         try
                         {
-                            $mailer->send($message, $membre->getEmail(), $from);
+                            $message    = Swift_Message::newInstance($data['subject'])
+                                            ->setBody($data['mail_content'])
+                                            ->setContentType('text/html')
+                                            ->setFrom(array($from_email => $from_label))
+                                            ->setTo(array($membre->getEmail() => $membre->getPrenom()));
+                            $mailer->send($message);
                             $sentOk++;
                         }
                         catch(Swift_ConnectionException $e)
@@ -49,14 +54,13 @@ class mailingActions extends sfActions
                         }
                     }
 
-                    $mailer->disconnect();
                     sfContext::getInstance()->getConfiguration()->loadHelpers('Plural');
                     $this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . plural_word($sentOk, ' destinataire') . ' (' . $sentKo . plural_word($sentKo, ' erreur') . ')');
                     $this->content = $data['mail_content'];
                 }
                 catch (Exception $e)
                 {
-                    //
+                    $this->getUser()->setFlash('error', 'Erreur');
                 }
             }
         }

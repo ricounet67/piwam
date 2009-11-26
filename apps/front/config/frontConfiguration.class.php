@@ -21,7 +21,7 @@ class frontConfiguration extends sfApplicationConfiguration
 		define('CSV_SEPARATOR',	',');
 
 		// Define error messages for required/invalid fields
-		sfValidatorBase::setRequiredMessage('Requis');
-		sfValidatorBase::setInvalidMessage('Invalide');
+		sfValidatorBase::setDefaultMessage('required', 'Requis');
+		sfValidatorBase::setDefaultMessage('invalid', 'Invalide');
 	}
 }

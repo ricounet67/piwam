@@ -3,28 +3,30 @@
 /**
  * Compte form base class.
  *
+ * @method Compte getObject() Returns the current form's model object
+ *
  * @package    piwam
  * @subpackage form
- * @author     Your name here
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 16976 2009-04-04 12:47:44Z fabien $
+ * @author     Adrien Mogenet
+ * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 24051 2009-11-16 21:08:08Z Kris.Wallsmith $
  */
-class BaseCompteForm extends BaseFormPropel
+abstract class BaseCompteForm extends BaseFormPropel
 {
-    public function setup()
-    {
-        $this->setWidgets(array(
+  public function setup()
+  {
+    $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
-      'libelle'        => new sfWidgetFormInput(),
+      'libelle'        => new sfWidgetFormInputText(),
       'association_id' => new sfWidgetFormPropelChoice(array('model' => 'Association', 'add_empty' => false)),
-      'reference'      => new sfWidgetFormInput(),
+      'reference'      => new sfWidgetFormInputText(),
       'actif'          => new sfWidgetFormInputCheckbox(),
       'enregistre_par' => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),
       'mis_a_jour_par' => new sfWidgetFormPropelChoice(array('model' => 'Membre', 'add_empty' => true)),
       'created_at'     => new sfWidgetFormDateTime(),
       'updated_at'     => new sfWidgetFormDateTime(),
-        ));
+    ));
 
-        $this->setValidators(array(
+    $this->setValidators(array(
       'id'             => new sfValidatorPropelChoice(array('model' => 'Compte', 'column' => 'id', 'required' => false)),
       'libelle'        => new sfValidatorString(array('max_length' => 255)),
       'association_id' => new sfValidatorPropelChoice(array('model' => 'Association', 'column' => 'id')),
@@ -34,19 +36,19 @@ class BaseCompteForm extends BaseFormPropel
       'mis_a_jour_par' => new sfValidatorPropelChoice(array('model' => 'Membre', 'column' => 'id', 'required' => false)),
       'created_at'     => new sfValidatorDateTime(array('required' => false)),
       'updated_at'     => new sfValidatorDateTime(array('required' => false)),
-        ));
+    ));
 
-        $this->widgetSchema->setNameFormat('compte[%s]');
+    $this->widgetSchema->setNameFormat('compte[%s]');
 
-        $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
-        parent::setup();
-    }
+    parent::setup();
+  }
 
-    public function getModelName()
-    {
-        return 'Compte';
-    }
+  public function getModelName()
+  {
+    return 'Compte';
+  }
 
 
 }

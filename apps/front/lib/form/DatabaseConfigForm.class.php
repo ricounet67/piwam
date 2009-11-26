@@ -4,7 +4,7 @@
  *
  * @author Adrien Mogenet
  */
-class DatabaseConfigForm extends sfForm
+class DatabaseConfigForm extends BaseForm
 {
     /**
      * Set the different widgets and validators
@@ -12,10 +12,10 @@ class DatabaseConfigForm extends sfForm
     public function configure()
     {
         $this->setWidgets(array(
-            'mysql_server'      => new sfWidgetFormInput(),
-            'mysql_username'    => new sfWidgetFormInput(),
+            'mysql_server'      => new sfWidgetFormInputText(),
+            'mysql_username'    => new sfWidgetFormInputText(),
             'mysql_password'    => new sfWidgetFormInputPassword(),
-            'mysql_dbname'      => new sfWidgetFormInput(),
+            'mysql_dbname'      => new sfWidgetFormInputText(),
         ));
 
         $this->setValidators(array(
