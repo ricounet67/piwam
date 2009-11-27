@@ -19,9 +19,11 @@ class AclCredentialTable extends Doctrine_Table
   public static function getForMember($id)
   {
     $q = Doctrine_Query::create()
+          ->select('a.code, c.member_id')
           ->from('AclCredential c')
+          ->leftJoin('c.AclAction a')
           ->where('c.member_id = ?', $id);
 
-    return $q->fetchArray();
+    return $q->execute();
   }
 }
