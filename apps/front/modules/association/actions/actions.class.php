@@ -322,16 +322,9 @@ class associationActions extends sfActions
                     return false;
                 }
             }
-            catch (Doctrine_Exception $e)
+            catch (PropelException $e)
             {
                 $this->redirect('@setup');
-            }
-            catch (Doctrine_Connection_Exception $e)
-            {
-                /**
-                 * @todo Display message 'unable to connect', improve and check
-                 */
-                $this->redirect('http://www.google.fr');
             }
         }
     }
