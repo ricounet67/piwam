@@ -22,14 +22,14 @@ class myUser extends sfBasicSecurityUser
      * @param	Membre	$user
      * @since	r6
      */
-    public function login(Membre $user)
+    public function login(Member $user)
     {
         $this->setAuthenticated(true);
         $this->setCulture('fr_FR');
         $this->setAttribute('association_id',   $user->getAssociationId(),          'user');
-        $this->setAttribute('association_name', $user->getAssociation()->getNom(),  'user');
+        $this->setAttribute('association_name', $user->getAssociation()->getName(), 'user');
         $this->setAttribute('user_id',          $user->getId(),                     'user');
-        $this->setAttribute('user_name',        $user->getPseudo(),	                'user');
+        $this->setAttribute('user_name',        $user->getUsername(),	              'user');
         $this->removeTemporaryData();
         $this->setCredentials();
     }
