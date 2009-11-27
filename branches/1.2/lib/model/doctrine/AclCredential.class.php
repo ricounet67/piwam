@@ -21,4 +21,14 @@ class AclCredential extends BaseAclCredential
   {
     return $this->getAclAction()->getAclModuleId();
   }
+
+  /**
+   * Get code corresponding to the credential
+   *
+   * @return string
+   */
+  public function getCode()
+  {
+    return $this->getAclAction()->getCode();
+  }
 }
