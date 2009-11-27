@@ -322,7 +322,11 @@ class associationActions extends sfActions
                     return false;
                 }
             }
-            catch (PropelException $e)
+            catch (Doctrine_Exception $e)
+            {
+                $this->redirect('@setup');
+            }
+            catch (Doctrine_Connection_Mysql_Exception $e)
             {
                 $this->redirect('@setup');
             }
