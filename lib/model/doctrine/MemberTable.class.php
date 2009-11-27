@@ -12,7 +12,7 @@ class MemberTable extends Doctrine_Table
    *
    * @var string
    */
-  const PICTURE_DIR = 'trombinoscope';
+  const PICTURE_DIR = 'uploads/trombinoscope';
 
   /**
    * Value of state if user account is disabled
@@ -90,10 +90,10 @@ class MemberTable extends Doctrine_Table
           ->from('Member m')
           ->where('m.username = ?', $username)
           ->andWhere('m.password = ?', sha1($password))
-          ->limit(1)
-          ->fetchOne();
+          ->andWhere('m.state = ?', self::STATE_ENABLED)
+          ->limit(1);
 
-    return $q;
+    return $q->fetchOne();
   }
 
   /**
@@ -108,10 +108,9 @@ class MemberTable extends Doctrine_Table
           ->select('m.id')
           ->from('Member m')
           ->where('m.username = ?', $username)
-          ->limit(1)
-          ->fetchOne();
+          ->limit(1);
 
-    return $q;
+    return $q->fetchOne();
   }
 
   /**
