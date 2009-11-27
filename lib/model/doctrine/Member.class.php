@@ -13,6 +13,17 @@
 class Member extends BaseMember
 {
   /**
+   * Overrides the setPassword to encrypt it
+   *
+   * @see   lib/model/doctrine/base/BaseMember#setPassword()
+   * @param string  $v
+   */
+  public function setPassword($v)
+  {
+    return $this->_set('password', sha1($v));
+  }
+
+  /**
    * Returns the whole URI of user's picture, or 'no-picture' image
    * if he doesn't have one
    *
