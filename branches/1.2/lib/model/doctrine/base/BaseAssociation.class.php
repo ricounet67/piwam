@@ -13,8 +13,6 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @property string $website
  * @property integer $created_by
  * @property integer $updated_by
- * @property Doctrine_Collection $Member
- * @property Member $Member_2
  * @property Doctrine_Collection $Activity
  * @property Doctrine_Collection $Account
  * @property Doctrine_Collection $ConfigValue
@@ -22,6 +20,7 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @property Doctrine_Collection $Expense
  * @property Doctrine_Collection $Income
  * @property Doctrine_Collection $Status
+ * @property Doctrine_Collection $Member
  * 
  * @method integer             getId()          Returns the current record's "id" value
  * @method string              getName()        Returns the current record's "name" value
@@ -29,8 +28,6 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @method string              getWebsite()     Returns the current record's "website" value
  * @method integer             getCreatedBy()   Returns the current record's "created_by" value
  * @method integer             getUpdatedBy()   Returns the current record's "updated_by" value
- * @method Doctrine_Collection getMember()      Returns the current record's "Member" collection
- * @method Member              getMember2()     Returns the current record's "Member_2" value
  * @method Doctrine_Collection getActivity()    Returns the current record's "Activity" collection
  * @method Doctrine_Collection getAccount()     Returns the current record's "Account" collection
  * @method Doctrine_Collection getConfigValue() Returns the current record's "ConfigValue" collection
@@ -38,14 +35,13 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @method Doctrine_Collection getExpense()     Returns the current record's "Expense" collection
  * @method Doctrine_Collection getIncome()      Returns the current record's "Income" collection
  * @method Doctrine_Collection getStatus()      Returns the current record's "Status" collection
+ * @method Doctrine_Collection getMember()      Returns the current record's "Member" collection
  * @method Association         setId()          Sets the current record's "id" value
  * @method Association         setName()        Sets the current record's "name" value
  * @method Association         setDescription() Sets the current record's "description" value
  * @method Association         setWebsite()     Sets the current record's "website" value
  * @method Association         setCreatedBy()   Sets the current record's "created_by" value
  * @method Association         setUpdatedBy()   Sets the current record's "updated_by" value
- * @method Association         setMember()      Sets the current record's "Member" collection
- * @method Association         setMember2()     Sets the current record's "Member_2" value
  * @method Association         setActivity()    Sets the current record's "Activity" collection
  * @method Association         setAccount()     Sets the current record's "Account" collection
  * @method Association         setConfigValue() Sets the current record's "ConfigValue" collection
@@ -53,6 +49,7 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @method Association         setExpense()     Sets the current record's "Expense" collection
  * @method Association         setIncome()      Sets the current record's "Income" collection
  * @method Association         setStatus()      Sets the current record's "Status" collection
+ * @method Association         setMember()      Sets the current record's "Member" collection
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -96,14 +93,6 @@ abstract class BaseAssociation extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasMany('Member', array(
-             'local' => 'id',
-             'foreign' => 'association_id'));
-
-        $this->hasOne('Member as Member_2', array(
-             'local' => 'updated_by',
-             'foreign' => 'id'));
-
         $this->hasMany('Activity', array(
              'local' => 'id',
              'foreign' => 'association_id'));
@@ -129,6 +118,10 @@ abstract class BaseAssociation extends sfDoctrineRecord
              'foreign' => 'association_id'));
 
         $this->hasMany('Status', array(
+             'local' => 'id',
+             'foreign' => 'association_id'));
+
+        $this->hasMany('Member', array(
              'local' => 'id',
              'foreign' => 'association_id'));
 
