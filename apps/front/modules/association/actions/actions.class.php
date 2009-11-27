@@ -57,7 +57,7 @@ class associationActions extends sfActions
             $this->form->bind($request->getParameter('login'));
             if ($this->form->isValid())
             {
-                $user = MembrePeer::doSelectByUsernameAndPassword($request->getParameter('login[username]'), $request->getParameter('login[password]'));
+                $user = MemberTable::getByUsernameAndPassword($request->getParameter('login[username]'), $request->getParameter('login[password]'));
                 if (! is_null($user))
                 {
                     $this->getUser()->login($user);
@@ -81,7 +81,7 @@ class associationActions extends sfActions
                 }
                 else
                 {
-                    if (MembrePeer::retrieveByPseudo($request->getParameter('login[username]')))
+                    if (MemberTable::getByUsername($request->getParameter('login[username]')))
                     {
                         $this->getUser()->setFlash('error', "Le mot de passe est invalide", false);
                     }
@@ -313,7 +313,7 @@ class associationActions extends sfActions
         {
             try
             {
-                if (AssociationPeer::doCount(new Criteria()) === 0)
+                if (AssociationTable::doCount() === 0)
                 {
                     return true;
                 }
