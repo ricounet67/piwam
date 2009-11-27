@@ -26,12 +26,9 @@ class membreActions extends sfActions
             $this->redirect('membre/show?id=' . $this->getUser()->getUserId());
         }
 
-        $this->orderByColumn = $request->getParameter('orderby', MembrePeer::NOM);
-        $this->membresPager = MembrePeer::doSelectOrderBy($this->getUser()->getAssociationId(),
-                                                            $request->getParameter('page', 1),
-                                                            $this->orderByColumn
-                                                          );
-        $this->pending = MembrePeer::doSelectPending($this->getUser()->getAssociationId());
+        $this->orderByColumn = $request->getParameter('orderby', 'lastname');
+        $this->members = MemberTable::getPagerOrderBy(1, $request->getParameter('page', 1), $this->orderByColumn);
+        $this->pending = MemberTable::getPendingMembers($this->getUser()->getAssociationId());
         $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
         $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(),
                                                            'ajaxUrl'       => $ajaxUrl));
