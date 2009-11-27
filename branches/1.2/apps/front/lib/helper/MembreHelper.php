@@ -10,7 +10,7 @@
  */
 function format_member($member, $pseudo = false)
 {
-    if ((null == $member) || (! $member->getRawValue() instanceof  Member))
+    if (! $member->getRawValue()->exists())
     {
         $str = '<i>Système</i>';
     }
