@@ -146,7 +146,7 @@ class myUser extends sfBasicSecurityUser
      */
     protected function setCredentials()
     {
-        $credentials = AclCredentialPeer::doSelectForMembreId($this->getAttribute('user_id', null, 'user'));
+        $credentials = AclCredentialTable::doSelectForMembreId($this->getUserId());
 
         foreach ($credentials as $credential)
         {
