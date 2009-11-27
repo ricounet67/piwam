@@ -8,7 +8,7 @@ AclAction:
     code:           { type: string(100), notnull: true, autoincrement: false }
   relations:
     AclModule:      { local: acl_module_id, foreign: id, type: one }
-    AclCredential:  { local: id foreign: acl_action_id, type: many }
+    AclCredential:  { local: id, foreign: acl_action_id, type: many }
 
 
 
@@ -129,13 +129,13 @@ ConfigVariable:
   columns:
     id:              { type: integer(4), primary: true, autoincrement: true }
     code:            { type: string(25), notnull: true }
-    categorie_code:  { type: string(25), notnull: true }
+    category_code:   { type: string(25), notnull: true }
     label:           { type: string(255), notnull: true }
     description:     { type: string() }
     type:            { type: string(255), notnull: true }
     default_value:   { type: string(255),  notnull: true }
   relations:
-    ConfigCategorie: { local: categorie_code, foreign: code, type: one }
+    ConfigCategory:  { local: category_code, foreign: code, type: one }
     ConfigValue:     { local: id, foreign: config_variable_id, type: many }
     
     
@@ -260,7 +260,7 @@ Member:
     Expense_5:      { class: Expense, local: id, foreign: updated_by, type: many }
     Income:         { local: id, foreign: created_by, type: many }
     Income_5:       { class: Income, local: id, foreign: updated_by, type: many }
-    Status_3:       { class: Statut, local: id, foreign: updated_by, type: many }
+    Status_3:       { class: Status, local: id, foreign: updated_by, type: many }
       
       
       
@@ -281,16 +281,16 @@ Income:
     updated_by:     { type: integer(4), notnull: true }
   relations:
     Association:    { local: association_id, foreign: id, type: one }
-    Account:        { local: compte_id, foreign: id, type: one }
+    Account:        { local: account_id, foreign: id, type: one }
     Activity:       { local: activity_id, foreign: id, type: one }
     Member:         { local: created_by, foreign: id, type: one }
-    Member_5:       { class: Membre, local: updated_by, foreign: id, type: one }
+    Member_5:       { class: Member, local: updated_by, foreign: id, type: one }
     
     
     
 Status:
   connection: doctrine
-  tableName: piwam_statut
+  tableName: piwam_status
   actAs: { Timestampable: ~ }
   columns:
     id:           { type: integer(4), primary: true, autoincrement: true }
@@ -301,5 +301,5 @@ Status:
     updated_by:   { type: integer(4) }
   relations:
     Association:  { local: association_id, foreign: id, type: one}
-    Member:       { local: id, foreign: statut_id, type: many }
-    Member_3:     { class: Membre, local: updated_by, foreign: id, type: one }
+    Member:       { local: id, foreign: status_id, type: many }
+    Member_3:     { class: Member, local: updated_by, foreign: id, type: one }
