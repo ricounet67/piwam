@@ -56,17 +56,17 @@
     <tbody>
     <?php foreach ($members->getResults() as $membre): ?>
 
-    <?php if ($membre->isAjourCotisation()): ?>
-        <tr>
-    <?php else: ?>
+    <?php if ($membre->hasToPayDue()): ?>
         <tr class="cotisationNonAjour">
+    <?php else: ?>
+        <tr>
     <?php endif; ?>
 
-            <td><?php echo $membre->getNom() ?></td>
-            <td><?php echo $membre->getPrenom() ?></td>
-            <td><?php echo $membre->getPseudo() ?></td>
-            <td><?php echo $membre->getStatut() ?></td>
-            <td><?php echo $membre->getVille() ?></td>
+            <td><?php echo $membre->getLastname() ?></td>
+            <td><?php echo $membre->getFirstname() ?></td>
+            <td><?php echo $membre->getUsername() ?></td>
+            <td><?php echo $membre->getStatus() ?></td>
+            <td><?php echo $membre->getCity() ?></td>
             <td>
                 <?php if ($membre->getEmail()) :?>
                     <?php echo mail_to($membre->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
