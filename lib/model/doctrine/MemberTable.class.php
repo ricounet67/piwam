@@ -8,6 +8,13 @@
 class MemberTable extends Doctrine_Table
 {
   /**
+   * Defines folder where pictures will be stored
+   *
+   * @var string
+   */
+  const PICTURE_DIR = 'trombinoscope';
+
+  /**
    * Value of state if user account is disabled
    *
    * @var integer
