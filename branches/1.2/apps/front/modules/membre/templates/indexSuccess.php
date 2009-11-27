@@ -54,7 +54,7 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($membresPager->getResults() as $membre): ?>
+    <?php foreach ($members->getResults() as $membre): ?>
 
     <?php if ($membre->isAjourCotisation()): ?>
         <tr>
@@ -105,4 +105,4 @@
 </div>
 
 
-<?php include_partial('global/pager', array('pager' => $membresPager, 'module' => 'membre', 'action' => 'index', 'params' => array('orderby' => $orderByColumn))) ?>
+<?php include_partial('global/pager', array('pager' => $members, 'module' => 'membre', 'action' => 'index', 'params' => array('orderby' => $orderByColumn))) ?>
