@@ -1,4 +1,4 @@
-propel:
+doctrine:
   _attributes:   		{ package: lib.model }
   
   #
@@ -14,7 +14,7 @@ propel:
   piwam_data:
     _attributes:        { phpName : PiwamData }
     id:                 ~
-    key:                { type: varchar(255), required: true, index: unique }
+    config_key:             { type: varchar(255), required: true, index: unique }
     value:              { type: varchar(255), required: true }
     
 
