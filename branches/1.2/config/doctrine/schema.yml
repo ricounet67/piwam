@@ -42,7 +42,7 @@ Activity:
   actAs: { Timestampable: ~ }
   columns:
     id:     		    { type: integer(4), primary: true, autoincrement: true }
-    libelle:      	{ type: string(255), notnull: true }
+    label:          { type: string(255), notnull: true }
     state:      	  { type: integer(1), default: '1' }
     association_id: { type: integer(4), notnull: true }
     created_by:     { type: integer(4) }
@@ -68,8 +68,8 @@ Association:
     created_by:     { type: integer(4) }
     updated_by:     { type: integer(4) }
   relations:
-    Member:         { local: id, foreign: association_id, type: many }
-    Member_2:       { class: Member, local: updated_by, foreign: id, type: one }
+    CreatedByMember:{ class: Member, local: created_by, foreign: id, type: one }
+    UpdatedByMember:{ class: Member, local: updated_by, foreign: id, type: one }
     Activity:       { local: id, foreign: association_id, type: many }
     Account:        { local: id, foreign: association_id, type: many }
     ConfigValue:    { local: id, foreign: association_id, type: many }
@@ -77,6 +77,7 @@ Association:
     Expense:        { local: id, foreign: association_id, type: many }
     Income:         { local: id, foreign: association_id, type: many }
     Status:         { local: id, foreign: association_id, type: many }
+    Membre:         { local: id, foreign: association_id, type: many }
 
 
     
@@ -241,27 +242,10 @@ Member:
     created_by:     { type: integer(4) }
     updated_by:     { type: integer(4) }
   relations:
-    Status:         { local: id, foreign: created_by, type: one }
-    Association:    { local: id, foreign: created_by, type: one }
-    Member:         { local: id, foreign: created_by, type: one }
-    Member_4:       { class: Member, local: id, foreign: updated_by, type: one }
-    AclCredential:  { local: id, foreign: member_id, type: many }
-    Activity:       { local: id, foreign: created_by, type: many }
-    Activity_3:     { class: Activity, local: id, foreign: updated_by, type: many }
-    Association_2:  { class: Association, local: id, foreign: updated_by, type: many }
-    Account:        { local: id, foreign: created_by, type: many }
-    Account_3:      { class: Account, local: id, foreign: updated_by, type: many }
-    Due:            { local: id, foreign: member_id, type: many }
-    Due_4:          { class: Due, local: id, foreign: created_by, type: many }
-    Due_5:          { class: Due, local: id, foreign: updated_by, type: many }
-    DueType:        { local: id, foreign: created_by, type: many }
-    DueType_3:      { class: DueType, local: id, foreign: updated_by, type: many }
-    Expense:        { local: id, foreign: created_by, type: many }
-    Expense_5:      { class: Expense, local: id, foreign: updated_by, type: many }
-    Income:         { local: id, foreign: created_by, type: many }
-    Income_5:       { class: Income, local: id, foreign: updated_by, type: many }
-    Status_3:       { class: Status, local: id, foreign: updated_by, type: many }
-      
+    Association:     { class: Association, local: association_id, foreign: id, type: one }
+    Status:          { local: status_id, foreign: id, type: one }
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one }      
       
       
 Income:
