@@ -14,7 +14,7 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @property string $password
  * @property integer $status_id
  * @property date $subscription_date
- * @property integer $due_exempt
+ * @property boolean $due_exempt
  * @property string $street
  * @property string $zipcode
  * @property string $city
@@ -28,26 +28,18 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @property integer $association_id
  * @property integer $created_by
  * @property integer $updated_by
- * @property Status $Status
  * @property Association $Association
- * @property Member $Member
- * @property Member $Member_4
+ * @property Status $Status
+ * @property Member $CreatedByMember
+ * @property Member $UpdatedByMember
  * @property Doctrine_Collection $AclCredential
  * @property Doctrine_Collection $Activity
- * @property Doctrine_Collection $Activity_3
- * @property Doctrine_Collection $Association_2
  * @property Doctrine_Collection $Account
- * @property Doctrine_Collection $Account_3
  * @property Doctrine_Collection $Due
- * @property Doctrine_Collection $Due_4
- * @property Doctrine_Collection $Due_5
  * @property Doctrine_Collection $DueType
- * @property Doctrine_Collection $DueType_3
  * @property Doctrine_Collection $Expense
- * @property Doctrine_Collection $Expense_5
+ * @property Doctrine_Collection $Member
  * @property Doctrine_Collection $Income
- * @property Doctrine_Collection $Income_5
- * @property Doctrine_Collection $Status_3
  * 
  * @method integer             getId()                Returns the current record's "id" value
  * @method string              getLastname()          Returns the current record's "lastname" value
@@ -56,7 +48,7 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @method string              getPassword()          Returns the current record's "password" value
  * @method integer             getStatusId()          Returns the current record's "status_id" value
  * @method date                getSubscriptionDate()  Returns the current record's "subscription_date" value
- * @method integer             getDueExempt()         Returns the current record's "due_exempt" value
+ * @method boolean             getDueExempt()         Returns the current record's "due_exempt" value
  * @method string              getStreet()            Returns the current record's "street" value
  * @method string              getZipcode()           Returns the current record's "zipcode" value
  * @method string              getCity()              Returns the current record's "city" value
@@ -70,26 +62,18 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @method integer             getAssociationId()     Returns the current record's "association_id" value
  * @method integer             getCreatedBy()         Returns the current record's "created_by" value
  * @method integer             getUpdatedBy()         Returns the current record's "updated_by" value
- * @method Status              getStatus()            Returns the current record's "Status" value
  * @method Association         getAssociation()       Returns the current record's "Association" value
- * @method Member              getMember()            Returns the current record's "Member" value
- * @method Member              getMember4()           Returns the current record's "Member_4" value
+ * @method Status              getStatus()            Returns the current record's "Status" value
+ * @method Member              getCreatedByMember()   Returns the current record's "CreatedByMember" value
+ * @method Member              getUpdatedByMember()   Returns the current record's "UpdatedByMember" value
  * @method Doctrine_Collection getAclCredential()     Returns the current record's "AclCredential" collection
  * @method Doctrine_Collection getActivity()          Returns the current record's "Activity" collection
- * @method Doctrine_Collection getActivity3()         Returns the current record's "Activity_3" collection
- * @method Doctrine_Collection getAssociation2()      Returns the current record's "Association_2" collection
  * @method Doctrine_Collection getAccount()           Returns the current record's "Account" collection
- * @method Doctrine_Collection getAccount3()          Returns the current record's "Account_3" collection
  * @method Doctrine_Collection getDue()               Returns the current record's "Due" collection
- * @method Doctrine_Collection getDue4()              Returns the current record's "Due_4" collection
- * @method Doctrine_Collection getDue5()              Returns the current record's "Due_5" collection
  * @method Doctrine_Collection getDueType()           Returns the current record's "DueType" collection
- * @method Doctrine_Collection getDueType3()          Returns the current record's "DueType_3" collection
  * @method Doctrine_Collection getExpense()           Returns the current record's "Expense" collection
- * @method Doctrine_Collection getExpense5()          Returns the current record's "Expense_5" collection
+ * @method Doctrine_Collection getMember()            Returns the current record's "Member" collection
  * @method Doctrine_Collection getIncome()            Returns the current record's "Income" collection
- * @method Doctrine_Collection getIncome5()           Returns the current record's "Income_5" collection
- * @method Doctrine_Collection getStatus3()           Returns the current record's "Status_3" collection
  * @method Member              setId()                Sets the current record's "id" value
  * @method Member              setLastname()          Sets the current record's "lastname" value
  * @method Member              setFirstname()         Sets the current record's "firstname" value
@@ -111,26 +95,18 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @method Member              setAssociationId()     Sets the current record's "association_id" value
  * @method Member              setCreatedBy()         Sets the current record's "created_by" value
  * @method Member              setUpdatedBy()         Sets the current record's "updated_by" value
- * @method Member              setStatus()            Sets the current record's "Status" value
  * @method Member              setAssociation()       Sets the current record's "Association" value
- * @method Member              setMember()            Sets the current record's "Member" value
- * @method Member              setMember4()           Sets the current record's "Member_4" value
+ * @method Member              setStatus()            Sets the current record's "Status" value
+ * @method Member              setCreatedByMember()   Sets the current record's "CreatedByMember" value
+ * @method Member              setUpdatedByMember()   Sets the current record's "UpdatedByMember" value
  * @method Member              setAclCredential()     Sets the current record's "AclCredential" collection
  * @method Member              setActivity()          Sets the current record's "Activity" collection
- * @method Member              setActivity3()         Sets the current record's "Activity_3" collection
- * @method Member              setAssociation2()      Sets the current record's "Association_2" collection
  * @method Member              setAccount()           Sets the current record's "Account" collection
- * @method Member              setAccount3()          Sets the current record's "Account_3" collection
  * @method Member              setDue()               Sets the current record's "Due" collection
- * @method Member              setDue4()              Sets the current record's "Due_4" collection
- * @method Member              setDue5()              Sets the current record's "Due_5" collection
  * @method Member              setDueType()           Sets the current record's "DueType" collection
- * @method Member              setDueType3()          Sets the current record's "DueType_3" collection
  * @method Member              setExpense()           Sets the current record's "Expense" collection
- * @method Member              setExpense5()          Sets the current record's "Expense_5" collection
+ * @method Member              setMember()            Sets the current record's "Member" collection
  * @method Member              setIncome()            Sets the current record's "Income" collection
- * @method Member              setIncome5()           Sets the current record's "Income_5" collection
- * @method Member              setStatus3()           Sets the current record's "Status_3" collection
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -176,10 +152,9 @@ abstract class BaseMember extends sfDoctrineRecord
              'notnull' => true,
              'length' => '25',
              ));
-        $this->hasColumn('due_exempt', 'integer', 1, array(
-             'type' => 'integer',
+        $this->hasColumn('due_exempt', 'boolean', null, array(
+             'type' => 'boolean',
              'notnull' => true,
-             'length' => '1',
              ));
         $this->hasColumn('street', 'string', 255, array(
              'type' => 'string',
@@ -241,21 +216,21 @@ abstract class BaseMember extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
-        $this->hasOne('Status', array(
-             'local' => 'id',
-             'foreign' => 'created_by'));
-
         $this->hasOne('Association', array(
-             'local' => 'id',
-             'foreign' => 'created_by'));
+             'local' => 'association_id',
+             'foreign' => 'id'));
 
-        $this->hasOne('Member', array(
-             'local' => 'id',
-             'foreign' => 'created_by'));
+        $this->hasOne('Status', array(
+             'local' => 'status_id',
+             'foreign' => 'id'));
 
-        $this->hasOne('Member as Member_4', array(
-             'local' => 'id',
-             'foreign' => 'updated_by'));
+        $this->hasOne('Member as CreatedByMember', array(
+             'local' => 'created_by',
+             'foreign' => 'id'));
+
+        $this->hasOne('Member as UpdatedByMember', array(
+             'local' => 'updated_by',
+             'foreign' => 'id'));
 
         $this->hasMany('AclCredential', array(
              'local' => 'id',
@@ -265,61 +240,29 @@ abstract class BaseMember extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'created_by'));
 
-        $this->hasMany('Activity as Activity_3', array(
-             'local' => 'id',
-             'foreign' => 'updated_by'));
-
-        $this->hasMany('Association as Association_2', array(
-             'local' => 'id',
-             'foreign' => 'updated_by'));
-
         $this->hasMany('Account', array(
              'local' => 'id',
              'foreign' => 'created_by'));
-
-        $this->hasMany('Account as Account_3', array(
-             'local' => 'id',
-             'foreign' => 'updated_by'));
 
         $this->hasMany('Due', array(
              'local' => 'id',
              'foreign' => 'member_id'));
 
-        $this->hasMany('Due as Due_4', array(
-             'local' => 'id',
-             'foreign' => 'created_by'));
-
-        $this->hasMany('Due as Due_5', array(
-             'local' => 'id',
-             'foreign' => 'updated_by'));
-
         $this->hasMany('DueType', array(
              'local' => 'id',
              'foreign' => 'created_by'));
-
-        $this->hasMany('DueType as DueType_3', array(
-             'local' => 'id',
-             'foreign' => 'updated_by'));
 
         $this->hasMany('Expense', array(
              'local' => 'id',
              'foreign' => 'created_by'));
 
-        $this->hasMany('Expense as Expense_5', array(
+        $this->hasMany('Member', array(
              'local' => 'id',
-             'foreign' => 'updated_by'));
+             'foreign' => 'created_by'));
 
         $this->hasMany('Income', array(
              'local' => 'id',
              'foreign' => 'created_by'));
-
-        $this->hasMany('Income as Income_5', array(
-             'local' => 'id',
-             'foreign' => 'updated_by'));
-
-        $this->hasMany('Status as Status_3', array(
-             'local' => 'id',
-             'foreign' => 'updated_by'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

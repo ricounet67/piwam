@@ -16,7 +16,7 @@ abstract class BaseActivityForm extends BaseFormDoctrine
   {
     $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
-      'libelle'        => new sfWidgetFormInputText(),
+      'label'          => new sfWidgetFormInputText(),
       'state'          => new sfWidgetFormInputText(),
       'association_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Association'), 'add_empty' => false)),
       'created_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Member'), 'add_empty' => true)),
@@ -27,7 +27,7 @@ abstract class BaseActivityForm extends BaseFormDoctrine
 
     $this->setValidators(array(
       'id'             => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
-      'libelle'        => new sfValidatorString(array('max_length' => 255)),
+      'label'          => new sfValidatorString(array('max_length' => 255)),
       'state'          => new sfValidatorInteger(array('required' => false)),
       'association_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Association'))),
       'created_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Member'), 'required' => false)),

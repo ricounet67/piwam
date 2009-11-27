@@ -30,47 +30,47 @@ class Association extends BaseAssociation
    */
   public function initialize()
   {
-    $statutPresident = new Statut();
-    $statutPresident->setState(ENABLED);
+    $statutPresident = new Status();
+    $statutPresident->setState(StatusTable::STATE_ENABLED);
     $statutPresident->setAssociationId($this->getId());
-    $statutPresident->setNom('Président');
+    $statutPresident->setLabel('Président');
     $statutPresident->save();
 
-    $statutTresorier = new Statut();
-    $statutTresorier->setActif(ENABLED);
+    $statutTresorier = new Status();
+    $statutTresorier->setState(StatusTable::STATE_ENABLED);
     $statutTresorier->setAssociationId($this->getId());
-    $statutTresorier->setNom('Trésorier');
+    $statutTresorier->setLabel('Trésorier');
     $statutTresorier->save();
 
-    $statutSecretaire = new Statut();
-    $statutSecretaire->setActif(ENABLED);
+    $statutSecretaire = new Status();
+    $statutSecretaire->setState(StatusTable::STATE_ENABLED);
     $statutSecretaire->setAssociationId($this->getId());
-    $statutSecretaire->setNom('Secrétaire');
+    $statutSecretaire->setLabel('Secrétaire');
     $statutSecretaire->save();
 
-    $statutMembreActif = new Statut();
-    $statutMembreActif->setActif(ENABLED);
+    $statutMembreActif = new Status();
+    $statutMembreActif->setState(StatusTable::STATE_ENABLED);
     $statutMembreActif->setAssociationId($this->getId());
-    $statutMembreActif->setNom('Membre actif');
+    $statutMembreActif->setLabel('Membre actif');
     $statutMembreActif->save();
 
-    $statutMembreDhonneur = new Statut();
-    $statutMembreDhonneur->setActif(ENABLED);
+    $statutMembreDhonneur = new Status();
+    $statutMembreDhonneur->setState(StatusTable::STATE_ENABLED);
     $statutMembreDhonneur->setAssociationId($this->getId());
-    $statutMembreDhonneur->setNom('Membre d\'honneur');
+    $statutMembreDhonneur->setLabel('Membre d\'honneur');
     $statutMembreDhonneur->save();
 
-    $activiteGeneral = new Activite();
-    $activiteGeneral->setActif(ENABLED);
-    $activiteGeneral->setLibelle("Fonctionnement général de l'association");
+    $activiteGeneral = new Activity();
+    $activiteGeneral->setState(ActivityTable::STATE_ENABLED);
+    $activiteGeneral->setLabel("Fonctionnement général de l'association");
     $activiteGeneral->setAssociationId($this->getId());
     $activiteGeneral->save();
 
-    $compteMonnaie = new Compte();
+    $compteMonnaie = new Account();
     $compteMonnaie->setAssociationId($this->getId());
-    $compteMonnaie->setLibelle("Caisse de monnaie");
+    $compteMonnaie->setLabel("Caisse de monnaie");
     $compteMonnaie->setReference("CAISSE_MONNAIE");
-    $compteMonnaie->setActif(ENABLED);
+    $compteMonnaie->setState(AccountTable::STATE_ENABLED);
     $compteMonnaie->save();
   }
 }
