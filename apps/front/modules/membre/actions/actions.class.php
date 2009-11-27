@@ -85,7 +85,7 @@ class membreActions extends sfActions
   public function executeShow(sfWebRequest $request)
   {
     $membre_id = $request->getParameter('id');
-    $profile = MembrePeer::retrieveByPk($membre_id);
+    $profile = MemberTable::getById($membre_id);
 
     if ($this->isAllowedToManageProfile($profile, 'show_membre'))
     {
@@ -405,8 +405,8 @@ class membreActions extends sfActions
   public function executeCreatepending(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new MembreForm(null, array('associationId' => $request->getParameter("membre[association_id]"),
-                                                 'context'       => $this->getContext()));
+    $this->form = new MemberForm(null, array('associationId' => $request->getParameter("membre[association_id]"),
+                                             'context'       => $this->getContext()));
     $request->setAttribute('pending', true);
     $this->processForm($request, $this->form);
     $this->setTemplate('requestsubscription');
@@ -508,9 +508,9 @@ class membreActions extends sfActions
   public function executeFirstcreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new MembreForm(null, array('associationId' => $this->getUser()->getTemporaryAssociationId(),
-                                                 'context'       => $this->getContext(),
-                                                 'first'         => true));
+    $this->form = new MemberForm(null, array('associationId' => $this->getUser()->getTemporaryAssociationId(),
+                                             'context'       => $this->getContext(),
+                                             'first'         => true));
     $request->setAttribute('first', true);
     $this->processForm($request, $this->form);
     $this->setTemplate('newfirst');
@@ -563,11 +563,11 @@ class membreActions extends sfActions
       }
       if ($request->getAttribute('first') == true)
       {
-        $association = AssociationPeer::retrieveByPK($membre->getAssociationId());
-        $association->setEnregistrePar($membre->getId());
+        $association = AssociationTable::getById($membre->getAssociationId());
+        $association->setCreatedBy($membre->getId());
         $association->save();
         $this->getUser()->setTemporarUserInfo($membre);
-        $credentials = AclActionPeer::doSelect(new Criteria());
+        $credentials = AclActionTable::getAll();
 
         // we don't need to clear existing credentials before,
         // because we are sure the user doesn't have anyone
@@ -629,7 +629,7 @@ class membreActions extends sfActions
    * @param   Membre  $user
    * @return  boolean
    */
-  protected function isAllowedToManageProfile(Membre $user, $globalCredential = null)
+  protected function isAllowedToManageProfile(Member $user, $globalCredential = null)
   {
     if (($user->getAssociationId() != $this->getUser()->getAssociationId()))
     {
