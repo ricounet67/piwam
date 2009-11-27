@@ -18,8 +18,9 @@ class ProjectConfiguration extends sfProjectConfiguration
         //$this->setLogDir('/tmp/symfony_logs');
 
         // End of editable area. Do NOT edit following lines
-
-        // for compatibility / remove and enable only the plugins you want
-        $this->enableAllPluginsExcept(array('sfDoctrinePlugin', 'sfCompat10Plugin'));
+        $this->enablePlugins(array( 'sfDoctrinePlugin',
+                                    'sfImageTransformPlugin',
+                                    'sfFormExtraPlugin'
+                                   ));
     }
 }
