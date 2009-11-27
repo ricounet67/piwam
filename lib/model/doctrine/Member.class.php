@@ -33,4 +33,17 @@ class Member extends BaseMember
   {
     return $this->picture;
   }
+
+  /**
+   * Add a new credential to the member
+   *
+   * @param   string  $code   : Code of the AclAction
+   */
+  public function addCredential($code)
+  {
+    $credential = new AclCredential();
+    $credential->setMemberId($this->getId());
+    $credential->setAclAction(AclActionTable::getByCode($code));
+    $credential->save();
+  }
 }
