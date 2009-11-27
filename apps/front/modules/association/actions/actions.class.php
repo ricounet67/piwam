@@ -326,7 +326,7 @@ class associationActions extends sfActions
             {
                 $this->redirect('@setup');
             }
-            catch (Doctrine_Connection_Mysql_Exception $e)
+            catch (Doctrine_Connection_Exception $e)
             {
                 $this->redirect('@setup');
             }
