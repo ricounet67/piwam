@@ -48,4 +48,4 @@ Une association achète pour 40€ des DVD-R afin de produire des DVDs qu'elle r
 
 = Modélisation =
 
-[http://piwam.googlegroups.com/attach/82e489d7835176d3/compta-v20091028.png?view=1&part=3 Proposition de modélisation envoyée sur la liste de diffusion]
+[http://piwam.googlegroups.com/attach/82e489d7835176d3/compta-v20091028.png?view=1&part=3 Proposition de modélisation envoyée sur la liste de diffusion] ([http://groups.google.com/group/piwam/attach/82e489d7835176d3/compta-v20091028.dia?part=2 source])
