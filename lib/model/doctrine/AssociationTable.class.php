@@ -10,6 +10,20 @@
 class AssociationTable extends Doctrine_Table
 {
     /**
+     * Value of state field when disabled
+     *
+     * @var integer
+     */
+    const STATE_DISABLED    = 0;
+
+    /**
+     * Value of state field when enabled
+     *
+     * @var integer
+     */
+    const STATE_ENABLED     = 1;
+
+    /**
      * Count existing associations
      *
      * @return  integer
