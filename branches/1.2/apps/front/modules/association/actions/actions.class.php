@@ -81,7 +81,7 @@ class associationActions extends sfActions
         }
         else
         {
-          if (MemberTable::getByUsername($request->getParameter('login[username]')))
+          if (null != MemberTable::getByUsername($request->getParameter('login[username]')))
           {
             $this->getUser()->setFlash('error', "Le mot de passe est invalide", false);
           }
@@ -187,7 +187,7 @@ class associationActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->associationsPager = AssociationPeer::doSelectActiveAssociations($request->getParameter('page', 1));
+    $this->associationsPager = AssociationTable::doSelectActiveAssociations($request->getParameter('page', 1));
   }
 
   /**
