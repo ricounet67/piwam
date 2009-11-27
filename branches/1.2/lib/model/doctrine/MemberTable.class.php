@@ -102,6 +102,6 @@ class MemberTable extends Doctrine_Table
           ->limit(1)
           ->fetchOne();
 
-    return $q->count() >= 1;
+    return $q;
   }
 }
