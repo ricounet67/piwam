@@ -79,4 +79,15 @@ class MemberTable extends Doctrine_Table
   {
 
   }
+
+  /**
+   * Retrieve a member by his username
+   *
+   * @param   string  $username
+   * @return  Member
+   */
+  public static function getByUsername($username)
+  {
+    return self::findOneBy('username', $username);
+  }
 }
