@@ -157,7 +157,7 @@ class MemberForm extends BaseMemberForm
   {
     if ((false === $this->getObject()->isNew()) && $this->getObject()->getId())
     {
-      $association = AssociationPeer::retrieveByPK($associationId);
+      $association = AssociationTable::getById($associationId);
 
       if ($this->getObject()->getId() == $association->getCreatedBy())
       {
