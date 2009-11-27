@@ -36,12 +36,12 @@ class AssociationForm extends BaseAssociationForm
         $this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
         $this->setDefault('actif', 1);
 
-        $this->validatorSchema['site_web'] = new sfValidatorUrl(array('required' => false));
+        $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
         $this->validatorSchema['actif'] = new sfValidatorBoolean();
 
         // r15 : set length of fields
-        $this->widgetSchema['nom']->setAttribute('class', 'formInputLarge');
+        $this->widgetSchema['name']->setAttribute('class', 'formInputLarge');
         $this->widgetSchema['description']->setAttribute('class', 'formInputLarge');
-        $this->widgetSchema['site_web']->setAttribute('class', 'formInputLarge');
+        $this->widgetSchema['website']->setAttribute('class', 'formInputLarge');
     }
 }
