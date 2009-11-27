@@ -1,5 +1,4 @@
 <?php
-
 /**
  * AclCredential form.
  *
@@ -48,17 +47,18 @@ class AclCredentialForm extends BaseAclCredentialForm
     $this->validatorSchema              = new sfValidatorSchema();
     $this->validatorSchema['user_id']   = new sfValidatorInteger();
     $this->validatorSchema['rights']    = new sfValidatorPass();
-
     $modules = AclModuleTable::getAll();
+
     foreach ($modules as $module)
     {
       $this->widgetSchema['rights'][$module->getId()] = new sfWidgetFormSchema();
-      $this->_modules[$module->getId()] = $module->getLibelle();
-      $actions = AclActionPeer::doSelectForModuleId($module->getId());
+      $this->_modules[$module->getId()] = $module->getLabel();
+      $actions = $module->getAclAction();
+
       foreach ($actions as $action)
       {
         $this->widgetSchema['rights'][$module->getId()][$action->getCode()] = new sfWidgetFormInputCheckbox();
-        $this->widgetSchema['rights'][$module->getId()]->setLabel($action->getCode(), $action->getLibelle());
+        $this->widgetSchema['rights'][$module->getId()]->setLabel($action->getCode(), $action->getLabel());
       }
     }
 
@@ -74,7 +74,8 @@ class AclCredentialForm extends BaseAclCredentialForm
     $member = MemberTable::getById($this->_user_id);
     $credentials = $member->getAclCredential();
 
-    foreach ($credentials as $credential) {
+    foreach ($credentials as $credential)
+    {
       $this->widgetSchema['rights'][$credential->getModuleId()][$credential->getCode()]->setAttribute('checked', 'checked');
     }
   }
