@@ -225,20 +225,20 @@ class installActions extends sfActions
     {
         try
         {
-            Propel::getConnection();
-            AssociationPeer::doCount(new Criteria());
-            ConfigVariablePeer::doCount(new Criteria());
-            MembrePeer::doCount(new Criteria());
-            StatutPeer::doCount(new Criteria());
-            ComptePeer::doCount(new Criteria());
-            CotisationPeer::doCount(new Criteria());
-            CotisationTypePeer::doCount(new Criteria());
-            RecettePeer::doCount(new Criteria());
-            DepensePeer::doCount(new Criteria());
+            Doctrine_Manager::connection();
+            AssociationTable::doCount();
+            ConfigVariableTable::doCount();
+            MemberTable::doCount();
+            StatusTable::doCount();
+            AccountTable::doCount();
+            CotisationPeer::doCount();
+            CotisationTypePeer::doCount();
+            RecettePeer::doCount();
+            DepensePeer::doCount();
 
             return true;
         }
-        catch (PropelException $e)
+        catch (Doctrine_Connection_Exception $e)
         {
             return false;
         }
