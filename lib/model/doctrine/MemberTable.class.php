@@ -84,7 +84,15 @@ class MemberTable extends Doctrine_Table
    */
   public static function getByUsernameAndPassword($username, $password)
   {
+    $q = Doctrine_Query::create()
+          ->select('m.id')
+          ->from('Member m')
+          ->where('m.username = ?', $username)
+          ->andWhere('m.password = ?', sha1($password))
+          ->limit(1)
+          ->fetchOne();
 
+    return $q;
   }
 
   /**
@@ -103,5 +111,21 @@ class MemberTable extends Doctrine_Table
           ->fetchOne();
 
     return $q;
+  }
+
+  /**
+   * Retrieve a member by his username
+   *
+   * @param   string  $username
+   * @return  Member
+   */
+  public static function getById($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Member m')
+          ->where('m.id= ?', $id)
+          ->limit(1);
+
+    return $q->fetchOne();
   }
 }
