@@ -19,7 +19,7 @@ class AclActionTable extends Doctrine_Table
     $q = Doctrine_Query::create()
           ->from('AclAction a');
 
-    return $q->fetchArray();
+    return $q->execute();
   }
 
   /**
