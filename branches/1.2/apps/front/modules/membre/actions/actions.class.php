@@ -433,12 +433,12 @@ class membreActions extends sfActions
   public function executeValidate(sfWebRequest $request)
   {
     $membre_id = $request->getParameter('id');
-    $membre = MembrePeer::retrieveByPk($membre_id);
+    $membre = MemberTable::getById($membre_id);
 
     if ($membre->getAssociationId() == $this->getUser()->getAssociationId())
     {
-      $membre->setActif(MembrePeer::IS_ACTIF);
-      $membre->setMisAJourPar($this->getUser()->getUserId());
+      $membre->setState(MemberTable::STATE_ENABLED);
+      $membre->setUpdatedBy($this->getUser()->getUserId());
       $membre->save();
 
       if ($membre->getEmail() && $membre->getPseudo())
