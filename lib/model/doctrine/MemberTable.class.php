@@ -95,6 +95,13 @@ class MemberTable extends Doctrine_Table
    */
   public static function getByUsername($username)
   {
-    return self::findOneBy('username', $username);
+    $q = Doctrine_Query::create()
+          ->select('m.id')
+          ->from('Member m')
+          ->where('m.username = ?', $username)
+          ->limit(1)
+          ->fetchOne();
+
+    return $q->count() >= 1;
   }
 }
