@@ -71,8 +71,9 @@ class MemberTable extends Doctrine_Table
           ->select('m.*')
           ->from('Member m')
           ->where('m.association_id = ?', $association_id)
-          ->andWhere('state = ?', self::STATE_PENDING)
-          ->fetchArray();
+          ->andWhere('state = ?', self::STATE_PENDING);
+
+    return $q->execute();
   }
 
   /**
