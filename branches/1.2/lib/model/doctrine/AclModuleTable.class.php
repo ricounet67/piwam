@@ -19,6 +19,6 @@ class AclModuleTable extends Doctrine_Table
     $q = Doctrine_Query::create()
           ->from('AclModule m');
 
-    return $q->fetchArray();
+    return $q->execute();
   }
 }
