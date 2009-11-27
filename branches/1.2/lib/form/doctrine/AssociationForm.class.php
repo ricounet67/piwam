@@ -9,7 +9,7 @@
  * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class AssociationForm extends BaseAssociationForm
-    {
+{
     public function configure()
     {
         unset($this['created_at'], $this['updated_at']);
@@ -34,7 +34,7 @@ class AssociationForm extends BaseAssociationForm
         $this->validatorSchema['description'] = new sfValidatorString(array('required' => false));
 
         $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
-        $this->setDefault('state', 1);
+        $this->setDefault('state', AssociationTable::STATE_ENABLED);
 
         $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
         $this->validatorSchema['state'] = new sfValidatorBoolean();
