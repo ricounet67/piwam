@@ -227,7 +227,7 @@ Member:
     password:       { type: string(255) }
     status_id:      { type: integer(4), notnull: true }
     subscription_date: { type: date(25), notnull: true }
-    due_exempt:     { type: integer(1), notnull: true }
+    due_exempt:     { type: boolean, notnull: true }
     street:         { type: string(255) }
     zipcode:        { type: string(8) }
     city:           { type: string(255) }
