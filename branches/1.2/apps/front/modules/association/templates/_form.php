@@ -46,7 +46,7 @@
         </tr>
         <tr>
             <th>Nom de l'association :</th>
-            <td><?php echo $form['nom'] ?> <?php echo $form['nom']->renderError() ?>
+            <td><?php echo $form['name'] ?> <?php echo $form['name']->renderError() ?>
             </td>
         </tr>
         <tr>
@@ -55,8 +55,8 @@
             </td>
         </tr>
         <tr>
-            <th><?php echo $form['site_web']->renderLabel() ?></th>
-            <td><?php echo $form['site_web'] ?> <?php echo $form['site_web']->renderError() ?>
+            <th><?php echo $form['website']->renderLabel() ?></th>
+            <td><?php echo $form['website'] ?> <?php echo $form['website']->renderError() ?>
             </td>
         </tr>
 
