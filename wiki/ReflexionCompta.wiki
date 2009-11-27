@@ -45,3 +45,7 @@ Une association achète pour 40€ des DVD-R afin de produire des DVDs qu'elle r
     # Lors de la génération du bilan :
       * Compte de résultat : on prend en compte les écritures du compte "Banque (512)" et on ajoute le crédit/débit au passif/actif du compte de bilan
       * Compte de bilan : on ajoute à l'actif le restant des fournitures
+
+= Modélisation =
+
+[http://piwam.googlegroups.com/attach/82e489d7835176d3/compta-v20091028.png?view=1&part=3 Proposition de modélisation envoyée sur la liste de diffusion]
