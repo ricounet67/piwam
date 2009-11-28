@@ -24,6 +24,21 @@ class StatusTable extends Doctrine_Table
   const STATE_ENABLED     = 1;
 
   /**
+   * Retrieve an unique Status by its id
+   *
+   * @param   integer $id
+   * @return  Status
+   */
+  public static function getById($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Status s')
+          ->where('s.id = ?', $id);
+
+    return $q->fetchOne();
+  }
+
+  /**
    * Retrieve existing status for association $id
    *
    * @param   integer         $id
