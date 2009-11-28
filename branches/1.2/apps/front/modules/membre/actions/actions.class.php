@@ -558,7 +558,7 @@ class membreActions extends sfActions
       if ($membre->getPicture())
       {
         $img = new sfImage(MemberTable::PICTURE_DIR . '/' . $membre->getPicture(), 'image/jpg');
-        $img->thumbnail(sfConfig::get('app_picture_width', 120), sfConfig::get('app_picture_height', 150), 'top');
+        $img->thumbnail(sfConfig::get('app_picture_width', 116), sfConfig::get('app_picture_height', 116), 'top');
         $img->saveAs(MemberTable::PICTURE_DIR . '/' . $membre->getPicture());
       }
       if ($request->getAttribute('first') == true)
