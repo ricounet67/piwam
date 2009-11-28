@@ -81,7 +81,7 @@ class depenseActions extends sfActions
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new DepenseForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
 
     }
 
@@ -94,7 +94,7 @@ class depenseActions extends sfActions
     {
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new DepenseForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
     }
@@ -114,7 +114,7 @@ class depenseActions extends sfActions
         }
 
         $this->form = new DepenseForm($depense);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     }
 
     /**
@@ -127,7 +127,7 @@ class depenseActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($depense = DepensePeer::retrieveByPk($request->getParameter('id')), sprintf('Object depense does not exist (%s).', $request->getParameter('id')));
         $this->form = new DepenseForm($depense);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }

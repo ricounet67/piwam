@@ -54,7 +54,7 @@ class cotisationtypeActions extends sfActions
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new CotisationTypeForm();
-        $this->form->setDefault('enregistre_par', $this->getUser()->getUserId());
+        $this->form->setDefault('created_by', $this->getUser()->getUserId());
         $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
 
         if ($request->getParameter('first', false))
@@ -91,7 +91,7 @@ class cotisationtypeActions extends sfActions
         }
 
         $this->form = new CotisationTypeForm($cotisation_type);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     }
 
     /**

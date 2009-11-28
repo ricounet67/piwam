@@ -13,7 +13,7 @@
     <tbody>
     <?php foreach ($activite_list as $activite): ?>
         <tr>
-            <td><?php echo $activite->getLibelle() ?></td>
+            <td><?php echo $activite->getLabel() ?></td>
             <td><?php echo format_date($activite->getCreatedAt()) ?></td>
             <td>
                 <a href="<?php echo url_for('activite/show?id=' . $activite->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[détails]')) ?></a>

@@ -43,8 +43,8 @@ class compteActions extends sfActions
      */
     public function executeNew(sfWebRequest $request)
     {
-        $this->form = new CompteForm(null, array('associationId' => $this->getUser()->getAssociationId()));
-        $this->form->setDefault('enregistre_par', $this->getUser()->getUserId());
+        $this->form = new AccountForm(null, array('associationId' => $this->getUser()->getAssociationId()));
+        $this->form->setDefault('created_by', $this->getUser()->getUserId());
         $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
     }
 
@@ -56,7 +56,7 @@ class compteActions extends sfActions
     public function executeCreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
-        $this->form = new CompteForm(null, array('associationId' => $request->getParameter('compte[association_id]')));
+        $this->form = new AccountForm(null, array('associationId' => $request->getParameter('compte[association_id]')));
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
     }
@@ -76,8 +76,8 @@ class compteActions extends sfActions
             $this->redirect('@error_credentials');
         }
 
-        $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form = new AccountForm($compte, array('associationId' => $compte->getAssociationId()));
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     }
 
     /**
@@ -90,7 +90,7 @@ class compteActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $compte = AccountTable::getById($request->getParameter('id'));
         $this->forward404Unless($compte, sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
-        $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
+        $this->form = new AccountForm($compte, array('associationId' => $compte->getAssociationId()));
         $this->processForm($request, $this->form);
         $this->redirect('compte/index');
     }

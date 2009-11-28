@@ -58,7 +58,8 @@ class associationActions extends sfActions
       if ($this->form->isValid())
       {
         $user = MemberTable::getByUsernameAndPassword($request->getParameter('login[username]'), $request->getParameter('login[password]'));
-        if (! is_null($user))
+
+        if ($user instanceof Member)
         {
           $this->getUser()->login($user);
 

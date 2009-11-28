@@ -81,7 +81,7 @@ class recetteActions extends sfActions
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new RecetteForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     }
 
     /**
@@ -93,7 +93,7 @@ class recetteActions extends sfActions
     {
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new RecetteForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
     }
@@ -113,7 +113,7 @@ class recetteActions extends sfActions
         }
 
         $this->form = new RecetteForm($recette);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     }
 
     /**
@@ -126,7 +126,7 @@ class recetteActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($recette = RecettePeer::retrieveByPk($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
         $this->form = new RecetteForm($recette);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }
