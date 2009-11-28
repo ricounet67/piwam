@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Member
  *
@@ -12,6 +11,16 @@
  */
 class Member extends BaseMember
 {
+  /**
+   * Get Member object as string
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->getFirstname() . ' ' . $this->getLastname();
+  }
+
   /**
    * Overrides the setPassword to encrypt it
    *
@@ -45,5 +54,15 @@ class Member extends BaseMember
     $credential->setMemberId($this->getId());
     $credential->setAclAction(AclActionTable::getByCode($code));
     $credential->save();
+  }
+
+  /**
+   *
+   * @todo    implements
+   * @return  boolean
+   */
+  public function hasToPayDue()
+  {
+    return false;
   }
 }
