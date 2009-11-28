@@ -12,6 +12,9 @@
  */
 class Activity extends BaseActivity
 {
+  protected $_totalExpenses = null;
+  protected $_totalIncomes  = null;
+
   /**
    * Get Activity object as string
    *
@@ -21,4 +24,69 @@ class Activity extends BaseActivity
   {
     return $this->getLabel();
   }
+
+  /**
+   * Get total amount of expenses
+   *
+   * @return integer
+   */
+  public function getTotalExpenses()
+  {
+    if (null === $this->_totalExpenses)
+    {
+      $q = Doctrine_Query::create()
+            ->select('SUM(e.amount) AS total')
+            ->from('Expense e')
+            ->where('e.activity_id = ?', $this->getId())
+            ->groupBy('e.account_id');
+
+      $row = $q->fetchArray();
+
+      if (count($row))
+      {
+        $this->_totalExpenses = $row[0]['total'];
+      }
+    }
+
+    return ($this->_totalExpenses === null) ? 0 : $this->_totalExpenses;
+  }
+
+  /**
+   * Get total amount of incomes
+   *
+   * @return integer
+   */
+  public function getTotalIncomes()
+  {
+    if (null === $this->_totalIncomes)
+    {
+      $q = Doctrine_Query::create()
+            ->select('SUM(i.amount) AS total')
+            ->from('Income i')
+            ->where('i.activity_id = ?', $this->getId())
+            ->groupBy('i.account_id');
+
+      $row = $q->fetchArray();
+
+      if (count($row))
+      {
+        $this->_totalIncomes = $row[0]['total'];
+      }
+    }
+
+    return ($this->_totalIncomes === null) ? 0 : $this->_totalIncomes;
+  }
+
+  /**
+   * Get the total amount of this account
+   *
+   * @return integer
+   */
+  public function getTotal()
+  {
+    $total = $this->getTotalExpenses() - $this->getTotalIncomes();
+
+    return ($total == null) ? 0 : $total;
+  }
+
 }
