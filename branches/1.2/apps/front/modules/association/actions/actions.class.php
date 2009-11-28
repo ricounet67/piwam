@@ -173,11 +173,11 @@ class associationActions extends sfActions
   public function executeBilan(sfWebRequest $request)
   {
     $associationId          = $this->getUser()->getAssociationId();
-    $this->comptes          = ComptePeer::doSelectEnabled($associationId);
-    $this->activites        = ActivitePeer::doSelectEnabled($associationId);
-    $this->totalCotisations = CotisationPeer::doSeletSumForAssociationId($associationId);
-    $this->totalDettes      = DepensePeer::getAmountOfDettes($associationId);
-    $this->totalCreances    = RecettePeer::getAmountOfCreances($associationId);
+    $this->comptes          = AccountTable::getEnabledForAssociation($associationId);
+    $this->activites        = ActivityTable::getActiveForAssociation($associationId);
+    $this->totalCotisations = DueTable::getSumForAssociation($associationId);
+    $this->totalDettes      = ExpenseTable::getAmountOfDebtsForAssociation($associationId);
+    $this->totalCreances    = IncomeTable::getAmountOfDebtsForAssociation($associationId);
     $this->totalPrevu       = $this->totalCreances - $this->totalDettes;
   }
 
