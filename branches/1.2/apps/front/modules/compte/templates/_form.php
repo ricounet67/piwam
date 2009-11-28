@@ -38,14 +38,14 @@
         <tbody>
         <?php echo $form->renderGlobalErrors() ?>
             <tr>
-                <th><?php echo $form['libelle']->renderLabel() ?></th>
+                <th><?php echo $form['label']->renderLabel() ?></th>
                 <td>
-                    <?php echo $form['libelle'] ?> <?php echo $form['libelle']->renderError() ?>
+                    <?php echo $form['label'] ?> <?php echo $form['label']->renderError() ?>
                     <?php echo tooltip_tag("Libellé", "Intitulé complet du compte, avec éventuels numéro de compte, banque, etc...") ?>
                 </td>
             </tr>
             <tr>
-                <th><?php echo $form['libelle']->renderLabel() ?></th>
+                <th><?php echo $form['reference']->renderLabel() ?></th>
                 <td>
                     <?php echo $form['reference'] ?> <?php echo $form['reference']->renderError() ?>
                     <?php echo tooltip_tag("Référence", "Courte référence permettant d'identifier le compte") ?>
