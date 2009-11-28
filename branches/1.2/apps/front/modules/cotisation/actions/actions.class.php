@@ -1,5 +1,4 @@
 <?php
-
 /**
  * cotisation actions.
  *
@@ -31,7 +30,7 @@ class cotisationActions extends sfActions
   {
     $this->cotisation = DueTable::getById($request->getParameter('id'));
 
-    if ($this->cotisation->getCotisationType()->getAssociationId() == $this->getUser()->getAssociationId())
+    if ($this->cotisation->getDueType()->getAssociationId() == $this->getUser()->getAssociationId())
     {
       $this->forward404Unless($this->cotisation);
     }
@@ -112,7 +111,7 @@ class cotisationActions extends sfActions
     $request->checkCSRFProtection();
     $this->forward404Unless($cotisation = DueTable::getById($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
 
-    if ($cotisation->getCotisationType()->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($cotisation->getDueType()->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
