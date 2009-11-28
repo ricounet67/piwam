@@ -16,14 +16,16 @@
     <tbody>
     <?php foreach ($depensesPager->getResults() as $depense): ?>
         <tr>
-            <td><?php echo $depense->getLibelle() ?></td>
-            <td><?php echo format_currency($depense->getMontant()) ?></td>
-            <td><?php echo $depense->getCompte() ?></td>
+            <td><?php echo $depense->getLabel() ?></td>
+            <td><?php echo format_currency($depense->getAmount()) ?></td>
+            <td><?php echo $depense->getAccount() ?></td>
             <td><?php
-            if ($depense->getPayee() == 1) {
+            if ($depense->getPaid() == 1)
+            {
                 echo format_date($depense->getDate());
             }
-            else {
+            else
+            {
                 echo 'Non payée';
             }
             ?></td>
