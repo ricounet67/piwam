@@ -36,6 +36,22 @@ class MemberTable extends Doctrine_Table
   const STATE_PENDING   = 2;
 
   /**
+   * Retrieve list of Member who belong to association $id
+   *
+   * @param   integer $id
+   * @return  Member
+   */
+  public static function getEnabledForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Member m')
+          ->where('m.association_id = ?', $id)
+          ->andWhere('m.state = ?', self::STATE_ENABLED);
+
+    return $q->execute();
+  }
+
+  /**
    * Get the list of active members who belong to the
    * association $id
    *
