@@ -13,33 +13,33 @@ class CotisationTypeForm extends BaseCotisationTypeForm
     public function configure()
     {
         unset($this['created_at'], $this['updated_at']);
-        unset($this['enregistre_par'], 	$this['mis_a_jour_par']);
-        unset($this['actif'], 			$this['association_id']);
+        unset($this['created_by'], 	$this['updated_by']);
+        unset($this['state'], 			$this['association_id']);
 
         if ($this->getObject()->isNew())
         {
-            $this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
+            $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
             $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
             $this->validatorSchema['association_id'] = new sfValidatorInteger();
-            $this->validatorSchema['enregistre_par'] = new sfValidatorInteger();
+            $this->validatorSchema['created_by'] = new sfValidatorInteger();
         }
         else
         {
-            $this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
-            $this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
+            $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
+            $this->validatorSchema['updated_by'] = new sfValidatorInteger();
         }
 
-        $this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
-        $this->setDefault('actif', 1);
-        $this->validatorSchema['actif'] = new sfValidatorBoolean();
+        $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
+        $this->setDefault('state', 1);
+        $this->validatorSchema['state'] = new sfValidatorBoolean();
 
         $this->setDefault('valide', 12);
-        $this->widgetSchema['montant']->setAttribute('class', 'formInputShort');
+        $this->widgetSchema['amount']->setAttribute('class', 'formInputShort');
         $this->widgetSchema['valide']->setAttribute('class', 'formInputShort');
-        $this->widgetSchema['libelle']->setAttribute('class', 'formInputLarge');
+        $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
 
         // We do not allow negative values
-        $this->validatorSchema['montant'] = new sfValidatorNumber(array('min' => 0), array('min' => 'ne peut être négatif'));
+        $this->validatorSchema['amount'] = new sfValidatorNumber(array('min' => 0), array('min' => 'ne peut être négatif'));
         $this->validatorSchema['valide'] = new sfValidatorInteger(array('min' => 0), array('min' => 'ne peut être négatif'));
 
         $this->setLabels();
@@ -51,9 +51,9 @@ class CotisationTypeForm extends BaseCotisationTypeForm
     protected function setLabels()
     {
         $this->widgetSchema->setLabels(array(
-            'montant'   => 'Montant',
+            'amount'   => 'amount',
             'Valide'    => 'Valide',
-            'libelle'   => 'Libellé',
+            'label'   => 'Libellé',
         ));
     }
 }

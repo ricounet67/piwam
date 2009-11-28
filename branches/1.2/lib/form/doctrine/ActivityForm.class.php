@@ -11,7 +11,7 @@
 class ActivityForm extends BaseActivityForm
 {
   /**
-   * Customizes the Activite form. There is a lot of fields to unset in order
+   * Customizes the activity form. There is a lot of fields to unset in order
    * to re-create them from scratch with custom behaviour, especially the
    * hidden references (association, granted user id...)
    *
