@@ -18,8 +18,8 @@ class cotisationActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->cotisation_list = CotisationPeer::doSelectJoinMembreId($this->getUser()->getAssociationId());
-        $this->typesExist = CotisationTypePeer::doesOneTypeExist($this->getUser()->getAssociationId());
+        $this->cotisation_list = DueTable::getForAssociation($this->getUser()->getAssociationId());
+        $this->typesExist = DueTypeTable::countForAssociation($this->getUser()->getAssociationId());
     }
 
     /**
@@ -29,7 +29,7 @@ class cotisationActions extends sfActions
      */
     public function executeShow(sfWebRequest $request)
     {
-        $this->cotisation = CotisationPeer::retrieveByPk($request->getParameter('id'));
+        $this->cotisation = DueTable::retrieveByPk($request->getParameter('id'));
 
         if ($this->cotisation->getCotisationType()->getAssociationId() == $this->getUser()->getAssociationId())
         {
@@ -48,7 +48,7 @@ class cotisationActions extends sfActions
      */
     public function executeNew(sfWebRequest $request)
     {
-        $this->form = new CotisationForm();
+        $this->form = new DueForm();
         $this->form->setDefault('created_by', $this->getUser()->getUserId());
         $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
     }
@@ -61,7 +61,7 @@ class cotisationActions extends sfActions
     public function executeCreate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post'));
-        $this->form = new CotisationForm();
+        $this->form = new DueForm();
         $this->form->setDefault('created_by', $this->getUser()->getUserId());
         $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
         $this->processForm($request, $this->form);
@@ -76,14 +76,14 @@ class cotisationActions extends sfActions
      */
     public function executeEdit(sfWebRequest $request)
     {
-        $this->forward404Unless($cotisation = CotisationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($cotisation = DueTable::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
 
         if ($cotisation->getCotisationType()->getAssociationId() != $this->getUser()->getAssociationId())
         {
             $this->redirect('@error_credentials');
         }
 
-        $this->form = new CotisationForm($cotisation);
+        $this->form = new DueForm($cotisation);
         $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     }
 
@@ -95,8 +95,8 @@ class cotisationActions extends sfActions
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $this->forward404Unless($cotisation = CotisationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
-        $this->form = new CotisationForm($cotisation);
+        $this->forward404Unless($cotisation = DueTable::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
+        $this->form = new DueForm($cotisation);
         $this->form->setDefault('updated_by', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
@@ -110,7 +110,7 @@ class cotisationActions extends sfActions
     public function executeDelete(sfWebRequest $request)
     {
         $request->checkCSRFProtection();
-        $this->forward404Unless($cotisation = CotisationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($cotisation = DueTable::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
 
         if ($cotisation->getCotisationType()->getAssociationId() != $this->getUser()->getAssociationId())
         {
