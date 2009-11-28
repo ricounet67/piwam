@@ -10,7 +10,35 @@
  */
 class ActivityForm extends BaseActivityForm
 {
+  /**
+   * Customizes the Activite form. There is a lot of fields to unset in order
+   * to re-create them from scratch with custom behaviour, especially the
+   * hidden references (association, granted user id...)
+   *
+   * @since r9
+   */
   public function configure()
   {
+    unset($this['created_at'], $this['updated_at']);
+    unset($this['created_by'], $this['updated_by']);
+    unset($this['state'], $this['association_id']);
+
+    if ($this->getObject()->isNew())
+    {
+      $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
+      $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
+      $this->validatorSchema['association_id'] = new sfValidatorInteger();
+      $this->validatorSchema['created_by'] = new sfValidatorInteger();
+    }
+    else
+    {
+      $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
+      $this->validatorSchema['updated_by'] = new sfValidatorInteger();
+    }
+
+    $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
+    $this->setDefault('state', 1);
+    $this->validatorSchema['state'] = new sfValidatorBoolean();
+    $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
   }
 }
