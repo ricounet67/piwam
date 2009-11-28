@@ -4,11 +4,10 @@ AclAction:
   columns:
     id:             { type: integer(4), primary: true, autoincrement: true }
     acl_module_id:  { type: integer(4) }
-    label:          { type: string(255), notnull: true, autoincrement: false }
-    code:           { type: string(100), notnull: true, autoincrement: false }
+    label:          { type: string(255), notnull: true }
+    code:           { type: string(100), notnull: true }
   relations:
     AclModule:      { local: acl_module_id, foreign: id, type: one }
-    AclCredential:  { local: id, foreign: acl_action_id, type: many }
 
 
 
@@ -31,8 +30,6 @@ AclModule:
   columns:
     id:             { type: integer(4), primary: true, autoincrement: true }
     label:          { type: string(255), notnull: true }
-  relations:
-    AclAction: 		  { local: id, foreign: acl_module_id, type: many }
 
 
 
@@ -204,7 +201,7 @@ Expense:
     account_id:     { type: integer(4), notnull: true }
     activity_id:    { type: integer(4), notnull: true }
     date:           { type: date(25), notnull: true }
-    paid:           { type: integer(1), default: '1' }
+    paid:           { type: boolean, default: true }
     created_by:     { type: integer(4), notnull: true }
     updated_by:     { type: integer(4) }
   relations:
@@ -260,7 +257,7 @@ Income:
     account_id:     { type: integer(4), notnull: true }
     activity_id:    { type: integer(4), notnull: true }
     date:           { type: date(25), notnull: true }
-    received:       { type: integer(1), default: '1' }
+    received:       { type: boolean, default: true }
     created_by:     { type: integer(4), notnull: true }
     updated_by:     { type: integer(4), notnull: true }
   relations:
