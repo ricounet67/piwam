@@ -14,7 +14,7 @@ Doctrine_Manager::getInstance()->bindComponent('Expense', 'doctrine');
  * @property integer $account_id
  * @property integer $activity_id
  * @property date $date
- * @property integer $paid
+ * @property boolean $paid
  * @property integer $created_by
  * @property integer $updated_by
  * @property Association $Association
@@ -30,7 +30,7 @@ Doctrine_Manager::getInstance()->bindComponent('Expense', 'doctrine');
  * @method integer     getAccountId()      Returns the current record's "account_id" value
  * @method integer     getActivityId()     Returns the current record's "activity_id" value
  * @method date        getDate()           Returns the current record's "date" value
- * @method integer     getPaid()           Returns the current record's "paid" value
+ * @method boolean     getPaid()           Returns the current record's "paid" value
  * @method integer     getCreatedBy()      Returns the current record's "created_by" value
  * @method integer     getUpdatedBy()      Returns the current record's "updated_by" value
  * @method Association getAssociation()    Returns the current record's "Association" value
@@ -102,10 +102,9 @@ abstract class BaseExpense extends sfDoctrineRecord
              'notnull' => true,
              'length' => '25',
              ));
-        $this->hasColumn('paid', 'integer', 1, array(
-             'type' => 'integer',
-             'default' => '1',
-             'length' => '1',
+        $this->hasColumn('paid', 'boolean', null, array(
+             'type' => 'boolean',
+             'default' => true,
              ));
         $this->hasColumn('created_by', 'integer', 4, array(
              'type' => 'integer',
