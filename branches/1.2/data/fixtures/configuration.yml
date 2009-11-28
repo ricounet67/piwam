@@ -1,10 +1,13 @@
 ConfigCategory:
   ConfigCategory_affichage:
     label: Affichage
+    code: affichage
   ConfigCategory_mailing:
     label: Mailing
+    code: mailing
   ConfigCategory_services:
-    label: services
+    label: Services
+    code: services
 ConfigVariable:
   ConfigVariable_1:
     code: address
