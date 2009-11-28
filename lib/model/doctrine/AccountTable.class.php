@@ -22,4 +22,35 @@ class AccountTable extends Doctrine_Table
    * @var integer
    */
   const STATE_ENABLED     = 1;
+
+  /**
+   * Retrieve an unique account by its id
+   *
+   * @param   integer       $id
+   * @return  Account
+   */
+  public static function getById($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Account a')
+          ->where('a.id = ?', $id);
+
+    return $q->fetchOne();
+  }
+
+  /**
+   * Retrieve enabled account for association $id
+   *
+   * @param   integer         $id
+   * @return  array of Account
+   */
+  public static function getEnabledForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Account a')
+          ->where('a.state = ?', self::STATE_ENABLED)
+          ->andWhere('a.association_id = ?', $id);
+
+    return $q->execute();
+  }
 }
