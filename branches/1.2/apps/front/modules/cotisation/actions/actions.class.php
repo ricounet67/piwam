@@ -29,7 +29,7 @@ class cotisationActions extends sfActions
      */
     public function executeShow(sfWebRequest $request)
     {
-        $this->cotisation = DueTable::retrieveByPk($request->getParameter('id'));
+        $this->cotisation = DueTable::getById($request->getParameter('id'));
 
         if ($this->cotisation->getCotisationType()->getAssociationId() == $this->getUser()->getAssociationId())
         {
@@ -76,9 +76,9 @@ class cotisationActions extends sfActions
      */
     public function executeEdit(sfWebRequest $request)
     {
-        $this->forward404Unless($cotisation = DueTable::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($cotisation = DueTable::getById($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
 
-        if ($cotisation->getCotisationType()->getAssociationId() != $this->getUser()->getAssociationId())
+        if ($cotisation->getDueType()->getAssociationId() != $this->getUser()->getAssociationId())
         {
             $this->redirect('@error_credentials');
         }
@@ -95,7 +95,7 @@ class cotisationActions extends sfActions
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $this->forward404Unless($cotisation = DueTable::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($cotisation = DueTable::getById($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
         $this->form = new DueForm($cotisation);
         $this->form->setDefault('updated_by', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
@@ -110,7 +110,7 @@ class cotisationActions extends sfActions
     public function executeDelete(sfWebRequest $request)
     {
         $request->checkCSRFProtection();
-        $this->forward404Unless($cotisation = DueTable::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($cotisation = DueTable::getById($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
 
         if ($cotisation->getCotisationType()->getAssociationId() != $this->getUser()->getAssociationId())
         {
@@ -135,7 +135,7 @@ class cotisationActions extends sfActions
         {
             $cotisation = $form->save();
             $this->getUser()->setFlash('notice', 'Cotisation enregistrée avec succès.');
-            $data = $request->getParameter('cotisation');
+            $data = $request->getParameter('due');
 
             if (isset($data['id']))
             {
