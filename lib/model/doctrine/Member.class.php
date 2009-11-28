@@ -40,7 +40,14 @@ class Member extends BaseMember
    */
   public function getPictureURI()
   {
-    return $this->picture;
+    if ($this->getPicture())
+    {
+      return '/uploads/trombinoscope/' . $this->getPicture();
+    }
+    else
+    {
+      return 'no_picture';
+    }
   }
 
   /**
@@ -64,5 +71,15 @@ class Member extends BaseMember
   public function hasToPayDue()
   {
     return false;
+  }
+
+  /**
+   * Get the whole adress of the member
+   *
+   * @return string
+   */
+  public function getCompleteAddress()
+  {
+    return StringTools::to7bit($this->getStreet()) . ', ' . $this->getZipcode() . ' ' . StringTools::to7bit($this->getCity());
   }
 }
