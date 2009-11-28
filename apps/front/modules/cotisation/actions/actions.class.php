@@ -49,7 +49,7 @@ class cotisationActions extends sfActions
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new CotisationForm();
-        $this->form->setDefault('enregistre_par', $this->getUser()->getUserId());
+        $this->form->setDefault('created_by', $this->getUser()->getUserId());
         $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
     }
 
@@ -62,7 +62,7 @@ class cotisationActions extends sfActions
     {
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new CotisationForm();
-        $this->form->setDefault('enregistre_par', $this->getUser()->getUserId());
+        $this->form->setDefault('created_by', $this->getUser()->getUserId());
         $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
         $this->processForm($request, $this->form);
         $this->setTemplate('new');
@@ -84,7 +84,7 @@ class cotisationActions extends sfActions
         }
 
         $this->form = new CotisationForm($cotisation);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     }
 
     /**
@@ -97,7 +97,7 @@ class cotisationActions extends sfActions
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
         $this->forward404Unless($cotisation = CotisationPeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
         $this->form = new CotisationForm($cotisation);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
     }

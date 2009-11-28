@@ -86,12 +86,12 @@
             <tr>
                 <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
                 Enregistré le :</th>
-                <td><?php echo format_datetime($membre->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($membre->getCreatedBy()) ?></td>
+                <td><?php echo format_datetime($membre->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($membre->getCreatedByMember()) ?></td>
             </tr>
             <tr>
                 <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
                 Dernière édition :</th>
-                <td><?php echo format_datetime($membre->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($membre->getUpdatedBy()) ?></td>
+                <td><?php echo format_datetime($membre->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($membre->getUpdatedByMember()) ?></td>
             </tr>
         </tbody>
     </table>
@@ -116,20 +116,22 @@
 </div>
 
 
-<!-- New tab -->
-<div>
-<h2><a name="t3" id="t3">Droits de l'utilisateur</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), 'membre/edit?id='.$membre->getId() . '#credentials') ?></h2>
-<div>
-<ul>
-<?php if (count($credentials) == 0): ?>
-    <li><i>Ce membre n'a aucun droit pour le moment.</i></li>
-    <?php endif; ?>
 
-    <?php foreach ($credentials as $credential): ?>
-    <li>&bull; <?php echo $credential->getAclAction()->getLibelle() ?></li>
-    <?php endforeach; ?>
-</ul>
-</div>
+<!-- New tab -->
+
+<div>
+  <h2><a name="t3" id="t3">Droits de l'utilisateur</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), 'membre/edit?id='.$membre->getId() . '#credentials') ?></h2>
+  <div>
+    <ul>
+        <?php if (count($credentials) == 0): ?>
+            <li><i>Ce membre n'a aucun droit pour le moment.</i></li>
+        <?php endif; ?>
+
+        <?php foreach ($credentials as $credential): ?>
+            <li>&bull; <?php echo $credential->getAclAction()->getLabel() ?></li>
+        <?php endforeach; ?>
+    </ul>
+  </div>
 </div>
 
 

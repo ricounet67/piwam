@@ -48,7 +48,7 @@ class statutActions extends sfActions
     public function executeNew(sfWebRequest $request)
     {
         $this->form = new StatutForm();
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     }
 
     /**
@@ -62,7 +62,7 @@ class statutActions extends sfActions
         $this->forward404Unless($request->isMethod('post'));
         $this->form = new StatutForm();
         $this->processForm($request, $this->form);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
         $this->setTemplate('new');
     }
 
@@ -81,7 +81,7 @@ class statutActions extends sfActions
         }
 
         $this->form = new StatutForm($statut);
-        $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+        $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     }
 
     /**

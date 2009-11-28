@@ -31,8 +31,7 @@ class membreActions extends sfActions
     $this->members = MemberTable::getPagerOrderBy($associationId, $request->getParameter('page', 1), $this->orderByColumn);
     $this->pending = MemberTable::getPendingMembers($associationId);
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(),
-                                                       'ajaxUrl'       => $ajaxUrl));
+    $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(), 'ajaxUrl' => $ajaxUrl));
   }
 
   /**
@@ -177,7 +176,7 @@ class membreActions extends sfActions
   public function executeAjaxlist(sfWebRequest $request)
   {
     $this->getResponse()->setContentType('application/json');
-    $membres = MembrePeer::retrieveForSelect($request->getParameter('q'),
+    $membres = MemberTable::search($request->getParameter('q'),
     $request->getParameter('limit'),
     $request->getParameter('association_id'));
 
@@ -290,7 +289,7 @@ class membreActions extends sfActions
   {
     $this->form = new MemberForm(null, array('associationId' => $this->getUser()->getAssociationId(),
                                                  'context'       => $this->getContext()));
-    $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+    $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
   /**
@@ -330,7 +329,7 @@ class membreActions extends sfActions
                                                 'context'       => $this->getContext()));
     $this->aclForm  = new AclCredentialForm();
     $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
-    $this->form->setDefault('mis_a_jour_par', $this->getUser()->getUserId());
+    $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     $this->aclForm->setUserId($this->user_id);
     $this->aclForm->automaticCheck();
   }
@@ -343,16 +342,16 @@ class membreActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $this->user_id  = $request->getParameter('id');
-    $this->forward404Unless($user = MembrePeer::retrieveByPk($this->user_id), sprintf('Member does not exist (%s).', $this->user_id));
+    $this->user_id = $request->getParameter('id');
+    $this->forward404Unless($user = MemberTable::getById($this->user_id), sprintf('Member does not exist (%s).', $this->user_id));
 
     if (false === $this->isAllowedToManageProfile($user, 'edit_membre'))
     {
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new MemberForm($user, array('associationId' => $request->getParameter('membre[association_id]'),
-                                                  'context'       => $this->getContext()));
+    $this->form = new MemberForm($user, array('associationId' => $request->getParameter('member[association_id]'),
+                                              'context'       => $this->getContext()));
     $this->aclForm  = new AclCredentialForm();
     $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
     $this->aclForm->setUserId($this->user_id);
@@ -612,7 +611,7 @@ class membreActions extends sfActions
       {
         $data = $request->getParameter('membre');
 
-        if ((isset($data['enregistre_par'])) && ($membre->getPseudo() && $membre->getPassword()))
+        if ((isset($data['created_by'])) && ($membre->getPseudo() && $membre->getPassword()))
         {
           $this->redirect('membre/acl?id=' . $membre->getId());
         }

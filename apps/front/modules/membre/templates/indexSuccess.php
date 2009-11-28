@@ -15,11 +15,11 @@
         <tbody>
         <?php foreach ($pending as $membre): ?>
             <tr>
-                <td><?php echo $membre->getNom() ?></td>
-                <td><?php echo $membre->getPrenom() ?></td>
-                <td><?php echo $membre->getPseudo() ?></td>
-                <td><?php echo $membre->getStatut() ?></td>
-                <td><?php echo $membre->getVille() ?></td>
+                <td><?php echo $membre->getLastname() ?></td>
+                <td><?php echo $membre->getFirstname() ?></td>
+                <td><?php echo $membre->getUsername() ?></td>
+                <td><?php echo $membre->getStatus() ?></td>
+                <td><?php echo $membre->getCity() ?></td>
                 <td>
                     <?php echo link_to(image_tag('state_ok.png', array('alt' => '[valider]')), 'membre/validate?id=' . $membre->getId()) ?>
                     <?php if ($membre->getEmail()) :?>
