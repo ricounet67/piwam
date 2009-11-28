@@ -9,17 +9,49 @@
  */
 class ActivityTable extends Doctrine_Table
 {
-    /**
-     * Value of state field when disabled
-     *
-     * @var integer
-     */
-    const STATE_DISABLED    = 0;
+  /**
+   * Value of state field when disabled
+   *
+   * @var integer
+   */
+  const STATE_DISABLED    = 0;
 
-    /**
-     * Value of state field when enabled
-     *
-     * @var integer
-     */
-    const STATE_ENABLED     = 1;
+  /**
+   * Value of state field when enabled
+   *
+   * @var integer
+   */
+  const STATE_ENABLED     = 1;
+
+  /**
+   * Retrieve an unique Activity by its id
+   *
+   * @param   integer $id
+   * @return  Activity
+   */
+  public static function getById($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Activity a')
+          ->where('id = ?', $id);
+
+    return $q->fetchOne();
+  }
+
+  /**
+   * Retrieve list of enabled activities for association $id
+   *
+   * @param   integer $id
+   * @return  array of Activity
+   */
+  public static function getActiveForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Activity a')
+          ->where('a.association_id = ?', $id)
+          ->andWhere('a.state = ?', self::STATE_ENABLED)
+          ->orderBy('a.label ASC');
+
+    return $q->execute();
+  }
 }
