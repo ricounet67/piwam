@@ -58,7 +58,7 @@
     Ajax updater can't update input form directly,
     so we update the following hidden <div>
 -->
-<div id="hiddenMontantValue"
+<div id="hiddenAmountValue"
     style="display: none"></div>
 
 <!--
@@ -71,7 +71,7 @@
 <!--
 new Form.Element.EventObserver('due_due_type_id',
    function( element, value ) {
-      new Ajax.Updater( 'hiddenMontantValue',  '<?php echo url_for("cotisationtype/ajaxgetamountfor") ?>?id=' + value, { onComplete: function () { updateAmont(value) }, parameters: id=value });
+      new Ajax.Updater( 'hiddenAmountValue',  '<?php echo url_for("cotisationtype/ajaxgetamountfor") ?>?id=' + value, { onComplete: function () { updateAmont(value) }, parameters: id=value });
    }
 );
 
