@@ -26,13 +26,13 @@
             </td>
         </tr>
         <tr>
-            <th><?php echo $form['montant']->renderLabel() ?></th>
-            <td><?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?>
+            <th><?php echo $form['amount']->renderLabel() ?></th>
+            <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Compte affecté</th>
-            <td><?php echo $form['compte_id'] ?> <?php echo $form['compte_id']->renderError() ?>
+            <td><?php echo $form['account_id'] ?> <?php echo $form['account_id']->renderError() ?>
             </td>
         </tr>
         <tr>

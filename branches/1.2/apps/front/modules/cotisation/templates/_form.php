@@ -27,7 +27,7 @@
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
             <th>Compte bénéficiaire :</th>
-            <td><?php echo $form['compte_id'] ?> <?php echo $form['compte_id']->renderError() ?>
+            <td><?php echo $form['account_id'] ?> <?php echo $form['account_id']->renderError() ?>
             </td>
         </tr>
         <tr>
@@ -37,7 +37,7 @@
         </tr>
         <tr>
             <th>Montant</th>
-            <td><?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?>
+            <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?>
             </td>
         </tr>
         <tr>

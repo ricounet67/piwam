@@ -17,9 +17,9 @@
     <tbody>
     <?php foreach ($cotisation_type_list as $cotisation_type): ?>
         <tr>
-            <td><?php echo $cotisation_type->getLibelle() ?></td>
-            <td><?php echo $cotisation_type->getValide() ?></td>
-            <td><?php echo format_currency($cotisation_type->getMontant(), '&euro;') ?></td>
+            <td><?php echo $cotisation_type->getLabel() ?></td>
+            <td><?php echo $cotisation_type->getPeriod() ?></td>
+            <td><?php echo format_currency($cotisation_type->getAmount(), '&euro;') ?></td>
             <td><?php echo format_date($cotisation_type->getCreatedAt()) ?></td>
             <td><?php echo format_date($cotisation_type->getUpdatedAt()) ?></td>
             <td><?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), 'cotisationtype/edit?id=' . $cotisation_type->getId())?></td>
