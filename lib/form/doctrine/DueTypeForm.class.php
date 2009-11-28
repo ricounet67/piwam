@@ -51,7 +51,7 @@ class DueTypeForm extends BaseDueTypeForm
   protected function setLabels()
   {
     $this->widgetSchema->setLabels(array(
-            'amount'  => 'amount',
+            'amount'  => 'Montant',
             'period'  => 'Valide',
             'label'   => 'Libellé',
     ));
