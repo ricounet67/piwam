@@ -17,7 +17,7 @@
 
         <!-- Header of the application -->
 
-        <h1><?php echo sfContext::getInstance()->getUser()->getAssociationName() ?></h1>
+        <h1><?php echo sfContext::getInstance()->getUser()->getAssociationName('Piwam') ?></h1>
 
 
         <!-- Menu bar -->
