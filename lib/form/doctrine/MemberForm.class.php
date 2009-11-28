@@ -67,8 +67,8 @@ class MemberForm extends BaseMemberForm
     }
 
     $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-    $this->setDefault('association_id', $associationId);
     $this->validatorSchema['association_id'] = new sfValidatorInteger();
+    $this->setDefault('association_id', $associationId);
 
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     //$this->widgetSchema['status_id']->setOption('criteria', StatusTable::getCriteriaEnabledForAssociation($associationId));
