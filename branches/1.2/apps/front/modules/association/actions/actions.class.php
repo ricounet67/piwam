@@ -236,7 +236,7 @@ class associationActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $association = AssociationPeer::retrieveByPk($request->getParameter('id'));
+    $association = AssociationTable::getById($request->getParameter('id'));
     $this->forward404Unless($association, sprintf("L'association n'existe pas (%s).", $request->getParameter('id')));
     $this->form = new AssociationForm($association);
   }
@@ -249,7 +249,7 @@ class associationActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $association = AssociationPeer::retrieveByPk($request->getParameter('id'));
+    $association = AssociationTable::getById($request->getParameter('id'));
     $this->forward404Unless($association, sprintf('Association does not exist (%s).', $request->getParameter('id')));
     $this->form = new AssociationForm($association);
 
@@ -271,7 +271,7 @@ class associationActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $association = AssociationPeer::retrieveByPk($request->getParameter('id'));
+    $association = AssociationTable::getById($request->getParameter('id'));
     $this->forward404Unless($association, sprintf('Association does not exist (%s).', $request->getParameter('id')));
     $association->delete();
     $this->redirect('association/index');
