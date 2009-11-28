@@ -54,4 +54,24 @@ class DueTable extends Doctrine_Table
 
     return $q->execute();
   }
+
+  /**
+   * Get sum of Dues for association $id
+   *
+   * @param   integer     $id
+   * @return  integer
+   */
+  public static function getSumForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->select('SUM(t.amount) AS total')
+          ->from('Due d')
+          ->leftJoin('d.DueType t')
+          ->where('t.association_id = ?', $id)
+          ->groupBy('t.association_id');
+
+    $row = $q->fetchArray();
+
+    return $row[0]['total'];
+  }
 }

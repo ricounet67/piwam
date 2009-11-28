@@ -21,4 +21,14 @@ class Status extends BaseStatus
   {
     return $this->getLabel();
   }
+
+  /**
+   * Get number of members who have the current status
+   *
+   * @return integer
+   */
+  public function countEnabledMembers()
+  {
+    return $this->getMembers()->count();
+  }
 }

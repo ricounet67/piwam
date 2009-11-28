@@ -47,4 +47,31 @@ class ExpenseTable extends Doctrine_Table
 
     return $q->fetchOne();
   }
+
+  /**
+   * Get the amount of unpaid expenses by association $id
+   *
+   * @param   integer     $id
+   * @return  integer
+   */
+  public static function getAmountOfDebtsForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->select('SUM(e.amount) AS total')
+          ->from('Expense e')
+          ->where('e.association_id = ?', $id)
+          ->andWhere('e.paid = ?', false)
+          ->groupBy('e.association_id');
+
+    $row = $q->fetchArray();
+
+    if (count($row))
+    {
+      return $row[0]['total'];
+    }
+    else
+    {
+      return 0;
+    }
+  }
 }
