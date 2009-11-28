@@ -32,10 +32,27 @@ class DueTypeTable extends Doctrine_Table
   public static function countForAssociation($id)
   {
     $q = Doctrine_Query::create()
+          ->select('t.id')
           ->from('DueType t')
           ->where('t.state = ?', self::STATE_ENABLED)
           ->andWhere('t.association_id = ?', $id);
 
     return $q->count();
+  }
+
+  /**
+   * Retrieve active types for association $id
+   *
+   * @param   integer           $id
+   * @return  array of DueType
+   */
+  public static function getEnbledForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('DueType t')
+          ->where('t.state = ?', self::STATE_ENABLED)
+          ->andWhere('t.association_id = ?', $id);
+
+    return $q->execute();
   }
 }
