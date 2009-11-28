@@ -26,7 +26,7 @@ class cotisationtypeActions extends sfActions
         }
         else
         {
-            return $this->renderText(CotisationTypePeer::getAmountForTypeId($id)) ;
+            return $this->renderText(DueTypeTable::getAmountForType($id)) ;
         }
 
         return sfView::NONE;
@@ -39,7 +39,7 @@ class cotisationtypeActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->cotisation_type_list = DueTypePeer::getEnbledForAssociation($this->getUser()->getAssociationId());
+        $this->cotisation_type_list = DueTypeTable::getEnbledForAssociation($this->getUser()->getAssociationId());
     }
 
 
@@ -83,7 +83,7 @@ class cotisationtypeActions extends sfActions
      */
     public function executeEdit(sfWebRequest $request)
     {
-        $this->forward404Unless($cotisation_type = DueTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($cotisation_type = DueTypeTable::getById($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
 
         if ($cotisation_type->getAssociationId() !== $this->getUser()->getAssociationId())
         {
@@ -102,7 +102,7 @@ class cotisationtypeActions extends sfActions
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $this->forward404Unless($cotisation_type = DueTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($cotisation_type = DueTypeTable::getById($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
         $this->form = new DueTypeForm($cotisation_type);
         $this->processForm($request, $this->form);
         $this->setTemplate('edit');
@@ -116,7 +116,7 @@ class cotisationtypeActions extends sfActions
     public function executeDelete(sfWebRequest $request)
     {
         $request->checkCSRFProtection();
-        $this->forward404Unless($cotisation_type = DueTypePeer::retrieveByPk($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
+        $this->forward404Unless($cotisation_type = DueTypeTable::getById($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
 
         if ($cotisation_type->getAssociationId() == $this->getUser()->getAssociationId())
         {
