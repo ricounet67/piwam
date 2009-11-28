@@ -17,7 +17,7 @@ class compteActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->compte_list = ComptePeer::doSelectEnabled($this->getUser()->getAssociationId());
+        $this->compte_list = AccountTable::getEnabledForAssociation($this->getUser()->getAssociationId());
     }
 
     /**
@@ -27,7 +27,7 @@ class compteActions extends sfActions
      */
     public function executeShow(sfWebRequest $request)
     {
-        $this->compte = ComptePeer::retrieveByPk($request->getParameter('id'));
+        $this->compte = AccountTable::getById($request->getParameter('id'));
         $this->forward404Unless($this->compte);
 
         if ($this->compte->getAssociationId() != $this->getUser()->getAssociationId())
@@ -68,7 +68,7 @@ class compteActions extends sfActions
      */
     public function executeEdit(sfWebRequest $request)
     {
-        $compte = ComptePeer::retrieveByPk($request->getParameter('id'));
+        $compte = AccountTable::getById($request->getParameter('id'));
         $this->forward404Unless($compte, sprintf('Compte does not exist (%s).', $request->getParameter('id')));
 
         if ($compte->getAssociationId() != $this->getUser()->getAssociationId())
@@ -88,7 +88,7 @@ class compteActions extends sfActions
     public function executeUpdate(sfWebRequest $request)
     {
         $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-        $compte = ComptePeer::retrieveByPk($request->getParameter('id'));
+        $compte = AccountTable::getById($request->getParameter('id'));
         $this->forward404Unless($compte, sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
         $this->form = new CompteForm($compte, array('associationId' => $compte->getAssociationId()));
         $this->processForm($request, $this->form);
@@ -103,7 +103,7 @@ class compteActions extends sfActions
     public function executeDelete(sfWebRequest $request)
     {
         $request->checkCSRFProtection();
-        $compte = ComptePeer::retrieveByPk($request->getParameter('id'));
+        $compte = AccountTable::getById($request->getParameter('id'));
         $this->forward404Unless($compte, sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
 
         if ($this->compte->getAssociationId() != $this->getUser()->getAssociationId())
