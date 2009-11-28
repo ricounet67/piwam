@@ -6,7 +6,6 @@
  * @subpackage  model
  * @author      Adrien Mogenet
  * @since       1.2
- *
  */
 class ConfigValueTable extends Doctrine_Table
 {
