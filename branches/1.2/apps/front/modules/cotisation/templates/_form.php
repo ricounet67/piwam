@@ -69,14 +69,14 @@
 
 <script type="text/javascript">
 <!--
-new Form.Element.EventObserver('cotisation_cotisation_type_id',
+new Form.Element.EventObserver('due_due_type_id',
    function( element, value ) {
       new Ajax.Updater( 'hiddenMontantValue',  '<?php echo url_for("cotisationtype/ajaxgetamountfor") ?>?id=' + value, { onComplete: function () { updateAmont(value) }, parameters: id=value });
    }
 );
 
 function updateAmont(v) {
-      document.getElementById('cotisation_montant').value = document.getElementById('hiddenMontantValue').innerHTML;
+      document.getElementById('due_amount').value = document.getElementById('hiddenAmountValue').innerHTML;
     }
 //-->
 </script>
