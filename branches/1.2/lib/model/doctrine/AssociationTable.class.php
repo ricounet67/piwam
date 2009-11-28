@@ -48,10 +48,24 @@ class AssociationTable extends Doctrine_Table
   public static function doCount()
   {
     $q = Doctrine_Query::create()
-          ->select('count(a.id) AS n')
-          ->from('Association a')
-          ->groupBy('a.id');
+          ->select('a.id')
+          ->from('Association a');
 
     return $q->count();
+  }
+
+  /**
+   * Retrieve an Association by its name. Useful in tests when we
+   * don't know the ID
+   *
+   * @return Association
+   */
+  public static function getByName($name)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Association a')
+          ->where('a.name = ?', $name);
+
+    return $q->fetchOne();
   }
 }
