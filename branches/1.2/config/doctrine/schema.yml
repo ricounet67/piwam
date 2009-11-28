@@ -46,8 +46,8 @@ Activity:
     updated_by:     { type: integer(4) }
   relations:
     Association:    { local: association_id, foreign: id, type: one }
-    Member:         { local: created_by, foreign: id, type: one }
-    Member_3:       { class: Member, local: updated_by, foreign: id, type: one }
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one }
     Expense:        { local: id, foreign: activity_id, type: many }
     Income:         { local: id, foreign: activity_id, type: many }
 
@@ -92,8 +92,8 @@ Account:
     updated_by:     { type: integer(4) }
   relations:
     Association:    { local: association_id, foreign: id, type: one }
-    Member:         { local: created_by, foreign: id, type: one }
-    Member_3:       { class: Member, local: updated_by, foreign: id, type: one }
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one }
     Due:            { local: id, foreign: account_id, type: many }
     Expense:        { local: id, foreign: account_id, type: many }
     Income:         { local: id, foreign: account_id, type: many }
@@ -154,8 +154,8 @@ Due:
     Account:         { local: account_id, foreign: id, type: one }
     DueType:         { local: due_type_id, foreign: id, type: one }
     Member:          { local: member_id, foreign: id, type: one }
-    Member_4:        { class: Member, local: created_by, foreign: id, type: one }
-    Member_5:        { class: Member, local: updated_by, foreign: id, type: one }
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one }
     
     
 DueType:
@@ -173,10 +173,8 @@ DueType:
     updated_by:      { type: integer(4) }
   relations:
     Association:     { local: association_id, foreign: id, type: one }
-    Member:          { local: created_by, foreign: id, type: one }
-    Member_3:        { class: Member, local: updated_by, foreign: id, type: one }
-    Due:             { local: id, foreign: due_type_id, type: many }
-    
+    CreatedByMember: { local: created_by, foreign: id, type: one }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one }
     
     
 Data:
@@ -264,8 +262,8 @@ Income:
     Association:    { local: association_id, foreign: id, type: one }
     Account:        { local: account_id, foreign: id, type: one }
     Activity:       { local: activity_id, foreign: id, type: one }
-    Member:         { local: created_by, foreign: id, type: one }
-    Member_5:       { class: Member, local: updated_by, foreign: id, type: one }
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one }
     
     
     
@@ -281,6 +279,6 @@ Status:
     created_by:   { type: integer(4) }
     updated_by:   { type: integer(4) }
   relations:
-    Association:  { local: association_id, foreign: id, type: one}
-    Member:       { local: id, foreign: status_id, type: many }
-    Member_3:     { class: Member, local: updated_by, foreign: id, type: one }
+    Association:  { local: association_id, foreign: id, type: one }
+    Members:      { class: Member, local: id, foreign: status_id, type: many }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one }
