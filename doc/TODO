@@ -1,4 +1,7 @@
 
+  Use iterator/countable iface from Pagers
+  http://www.symfony-project.org/tutorial/1_4/en/whats-new
+
 	Model Updates :
 		enregistre_par	=> created_by
 		mis_a_jour_par	=> updated_by
