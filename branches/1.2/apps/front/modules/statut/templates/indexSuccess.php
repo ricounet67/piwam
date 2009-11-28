@@ -15,8 +15,8 @@
     <tbody>
     <?php foreach ($statut_list as $statut): ?>
         <tr>
-            <td><?php echo $statut->getNom() ?></td>
-            <td><?php echo $statut->countActiveMembres() ?></td>
+            <td><?php echo $statut->getLabel() ?></td>
+            <td><?php echo $statut->countEnabledMembers() ?></td>
             <td><?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'statut/show?id=' . $statut->getId()) ?>
             <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'statut/edit?id=' . $statut->getId()) ?>
             <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'statut/delete?id=' . $statut->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
