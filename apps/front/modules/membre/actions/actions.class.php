@@ -42,7 +42,7 @@ class membreActions extends sfActions
    */
   public function executeFaces(sfWebRequest $request)
   {
-    $this->membres = MemberTable::doSelectForAssociation($associationId = $this->getUser()->getAssociationId());
+    $this->membres = MemberTable::getEnabledForAssociation($associationId = $this->getUser()->getAssociationId());
   }
 
   /**
