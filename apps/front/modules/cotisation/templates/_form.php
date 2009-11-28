@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <th>Type de cotisation</th>
-            <td><?php echo $form['cotisation_type_id'] ?> <?php echo $form['cotisation_type_id']->renderError() ?>
+            <td><?php echo $form['due_type_id'] ?> <?php echo $form['due_type_id']->renderError() ?>
             </td>
         </tr>
         <tr>
@@ -42,7 +42,7 @@
         </tr>
         <tr>
             <th>Membre :</th>
-            <td><?php echo $form['membre_id'] ?> <?php echo $form['membre_id']->renderError() ?>
+            <td><?php echo $form['member_id'] ?> <?php echo $form['member_id']->renderError() ?>
             </td>
         </tr>
         <tr>
