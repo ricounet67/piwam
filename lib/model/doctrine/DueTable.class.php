@@ -21,7 +21,7 @@ class DueTable extends Doctrine_Table
           ->from('Due d')
           ->where('d.member_id = ?', $id);
 
-    return $q->fetchArray();
+    return $q->execute();
   }
 
   /**
