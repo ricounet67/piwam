@@ -42,7 +42,7 @@ class membreActions extends sfActions
    */
   public function executeFaces(sfWebRequest $request)
   {
-    $this->membres = MembrePeer::doSelectForAssociation($associationId = $this->getUser()->getAssociationId());
+    $this->membres = MemberTable::doSelectForAssociation($associationId = $this->getUser()->getAssociationId());
   }
 
   /**
@@ -59,7 +59,7 @@ class membreActions extends sfActions
 
     if (strlen($params['magic']) > 0)
     {
-      $this->membres = MembrePeer::doSearch($params);
+      $this->membres = MemberTable::doSearch($params);
 
       if (count($this->membres) === 1)
       {
@@ -109,7 +109,7 @@ class membreActions extends sfActions
   public function executeExport(sfWebRequest $request)
   {
     $csv = new FileExporter('liste-membres.csv');
-    $membres = MembrePeer::doSelectForAssociation($this->getUser()->getAssociationId());
+    $membres = MemberTable::doSelectForAssociation($this->getUser()->getAssociationId());
 
     echo $csv->addLineCSV(array(
                           'Prénom',
@@ -154,7 +154,7 @@ class membreActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $this->forward404Unless($membre = MembrePeer::retrieveByPk($request->getParameter('id')), sprintf('Le membre n\'existe pas (%s).', $request->getParameter('id')));
+    $this->forward404Unless($membre = MemberTable::retrieveByPk($request->getParameter('id')), sprintf('Le membre n\'existe pas (%s).', $request->getParameter('id')));
 
     if ($membre->getAssociationId() != $this->getUser()->getAssociationId())
     {
@@ -200,7 +200,7 @@ class membreActions extends sfActions
     $map->zoomLevel = 12;
     $map->setWidth(600);
     $map->setHeight(400);
-    $membres = MembrePeer::doSelectForAssociation($associationId);
+    $membres = MemberTable::doSelectForAssociation($associationId);
 
     foreach ($membres as $membre)
     {
@@ -233,7 +233,7 @@ class membreActions extends sfActions
       if ($this->form->isValid())
       {
         $values = $request->getParameter('rights', array());
-        $membre = MembrePeer::retrieveByPk($values['user_id']);
+        $membre = MemberTable::retrieveByPk($values['user_id']);
         $membre->resetAcl();
 
         // Browse the list of rights... first we get the 'modules' level
@@ -258,7 +258,7 @@ class membreActions extends sfActions
     else
     {
       $this->user_id  = $request->getParameter('id');
-      $membre  = MembrePeer::retrieveByPk($this->user_id);
+      $membre  = MemberTable::retrieveByPk($this->user_id);
 
       if (($membre->getAssociationId() != $this->getUser()->getAssociationId()) ||
       ($this->getUser()->hasCredential('edit_acl') == false))
@@ -393,7 +393,7 @@ class membreActions extends sfActions
     $this->form = new MemberForm(null, array('associationId' => $associationId,
                                                  'context'       => $this->getContext()));
     $this->form->setDefault('association_id', $associationId);
-    $this->form->setDefault('actif', MembrePeer::IS_PENDING);
+    $this->form->setDefault('actif', MemberTable::IS_PENDING);
   }
 
   /**
@@ -557,9 +557,9 @@ class membreActions extends sfActions
 
       if ($membre->getPicture())
       {
-        $img = new sfImage(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture(), 'image/jpg');
+        $img = new sfImage(MemberTable::PICTURE_DIR . '/' . $membre->getPicture(), 'image/jpg');
         $img->thumbnail(sfConfig::get('app_picture_width', 120), sfConfig::get('app_picture_height', 150), 'top');
-        $img->saveAs(MembrePeer::PICTURE_DIR . '/' . $membre->getPicture());
+        $img->saveAs(MemberTable::PICTURE_DIR . '/' . $membre->getPicture());
       }
       if ($request->getAttribute('first') == true)
       {
