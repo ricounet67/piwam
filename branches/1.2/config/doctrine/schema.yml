@@ -281,4 +281,5 @@ Status:
   relations:
     Association:  { local: association_id, foreign: id, type: one }
     Members:      { class: Member, local: id, foreign: status_id, type: many }
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one }
