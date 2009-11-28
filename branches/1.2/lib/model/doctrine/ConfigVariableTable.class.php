@@ -23,4 +23,19 @@ class ConfigVariableTable extends Doctrine_Table
 
     return $q->fetchOne();
   }
+
+  /**
+   * Retrieve all variables which belong to the category $code
+   *
+   * @param   string                  $code
+   * @return  array of ConfigVariable
+   */
+  public static function getByCategoryCode($code)
+  {
+    $q = Doctrine_Query::create()
+          ->from('ConfigVariable v')
+          ->where('v.category_code = ?', $code);
+
+    return $q->execute();
+  }
 }
