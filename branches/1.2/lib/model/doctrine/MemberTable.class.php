@@ -52,6 +52,10 @@ class MemberTable extends Doctrine_Table
           ->where('m.association_id = ?', $association_id)
           ->andWhere('m.state = ?', self::STATE_ENABLED);
 
+    /**
+     * @todo
+     * FIXME
+     */
     $pager = new sfDoctrinePager('Member', 20);
     $pager->setQuery($q);
     $pager->setPage($page);
@@ -127,5 +131,41 @@ class MemberTable extends Doctrine_Table
           ->limit(1);
 
     return $q->fetchOne();
+  }
+
+  /**
+   * Display Membre matching our query (actually this may
+   * only be AJAX query for autompleted fields)
+   *
+   * @param   string      $q : query
+   * @param   integer     $limit
+   * @param   integer     $associationId
+   * @return  array of Membre
+   */
+  static public function search($q, $limit, $associationId)
+  {
+    $q = Doctrine_Query::create()
+          ->select('m.firstname')
+          ->from('Member m')
+          ;
+
+    return $q->fetchArray();
+  }
+
+  /**
+   * Retrieve list of users who have an email and belong to association $id
+   *
+   * @param   integer         $id
+   * @return  array of Member
+   */
+  public function getHavingEmailForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Member m')
+          ->where('m.association_id = ?', $id)
+          ->andWhere('m.state = ?', self::STATE_ENABLED)
+          ->andWhere('m.email IS NOT NULL');
+
+    return $q->execute();
   }
 }
