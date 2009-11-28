@@ -158,13 +158,14 @@ class MemberTable extends Doctrine_Table
    * @param   integer         $id
    * @return  array of Member
    */
-  public function getHavingEmailForAssociation($id)
+  public static function getHavingEmailForAssociation($id)
   {
     $q = Doctrine_Query::create()
           ->from('Member m')
           ->where('m.association_id = ?', $id)
           ->andWhere('m.state = ?', self::STATE_ENABLED)
-          ->andWhere('m.email IS NOT NULL');
+          ->andWhere('m.email IS NOT NULL')
+          ->andWhere('m.email != ""');
 
     return $q->execute();
   }
