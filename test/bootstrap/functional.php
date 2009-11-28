@@ -26,6 +26,6 @@ sfContext::createInstance($configuration);
 sfToolkit::clearDirectory(sfConfig::get('sf_app_cache_dir'));
 
 // load fixtures
-$data = new sfPropelData();
-$data->setDeleteCurrentData(true);
-$data->loadData(sfConfig::get('sf_data_dir') . '/fixtures/test_data.yml');
+//$data = new sfDoctrineDataLoadTask();
+//$data->setDeleteCurrentData(true);
+Doctrine::loadData(sfConfig::get('sf_data_dir') . '/fixtures/test_data.yml');
