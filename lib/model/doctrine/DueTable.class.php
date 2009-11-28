@@ -12,7 +12,7 @@ class DueTable extends Doctrine_Table
   /**
    * Retrieve Dues paid by member $id
    *
-   * @param   integer $id
+   * @param   integer       $id
    * @return  array of Due
    */
   public static function getForUser($id)
@@ -22,5 +22,21 @@ class DueTable extends Doctrine_Table
           ->where('d.member_id = ?', $id);
 
     return $q->fetchArray();
+  }
+
+  /**
+   * Retrieve list of dues in association $id
+   *
+   * @param   integer       $id
+   * @return  array of Due
+   */
+  public static function getForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Due d')
+          ->leftJoin('d.DueType t')
+          ->where('t.association_id = ?', $id);
+
+    return $q->execute();
   }
 }
