@@ -31,4 +31,20 @@ class ExpenseTable extends Doctrine_Table
 
     return $pager;
   }
+
+  /**
+   * Retrieve an expense by its id
+   *
+   * @param   integer $id
+   *
+   * @return  Expense
+   */
+  public static function getById($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Expense e')
+          ->where('e.id = ?', $id);
+
+    return $q->fetchOne();
+  }
 }
