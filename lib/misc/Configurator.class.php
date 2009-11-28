@@ -23,7 +23,7 @@ class Configurator
     {
       $configVariable = ConfigVariableTable::getByCode($v);
 
-      if (is_null($configVariable))
+      if (! $configVariable)
       {
         if (is_null($defaultValue))
         {
