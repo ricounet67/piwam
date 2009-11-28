@@ -14,7 +14,7 @@ Doctrine_Manager::getInstance()->bindComponent('Income', 'doctrine');
  * @property integer $account_id
  * @property integer $activity_id
  * @property date $date
- * @property integer $received
+ * @property boolean $received
  * @property integer $created_by
  * @property integer $updated_by
  * @property Association $Association
@@ -30,7 +30,7 @@ Doctrine_Manager::getInstance()->bindComponent('Income', 'doctrine');
  * @method integer     getAccountId()      Returns the current record's "account_id" value
  * @method integer     getActivityId()     Returns the current record's "activity_id" value
  * @method date        getDate()           Returns the current record's "date" value
- * @method integer     getReceived()       Returns the current record's "received" value
+ * @method boolean     getReceived()       Returns the current record's "received" value
  * @method integer     getCreatedBy()      Returns the current record's "created_by" value
  * @method integer     getUpdatedBy()      Returns the current record's "updated_by" value
  * @method Association getAssociation()    Returns the current record's "Association" value
@@ -101,10 +101,9 @@ abstract class BaseIncome extends sfDoctrineRecord
              'notnull' => true,
              'length' => '25',
              ));
-        $this->hasColumn('received', 'integer', 1, array(
-             'type' => 'integer',
-             'default' => '1',
-             'length' => '1',
+        $this->hasColumn('received', 'boolean', null, array(
+             'type' => 'boolean',
+             'default' => true,
              ));
         $this->hasColumn('created_by', 'integer', 4, array(
              'type' => 'integer',

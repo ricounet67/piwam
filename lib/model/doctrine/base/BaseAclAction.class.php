@@ -50,13 +50,11 @@ abstract class BaseAclAction extends sfDoctrineRecord
         $this->hasColumn('label', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
-             'autoincrement' => false,
              'length' => '255',
              ));
         $this->hasColumn('code', 'string', 100, array(
              'type' => 'string',
              'notnull' => true,
-             'autoincrement' => false,
              'length' => '100',
              ));
     }
