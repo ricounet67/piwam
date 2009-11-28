@@ -109,7 +109,7 @@
             <?php endif; ?>
 
             <?php foreach ($cotisations as $cotisation): ?>
-                <li><?php echo $cotisation->getCotisationType() ?> versée le <?php echo $cotisation->getDate() ?></li>
+                <li><?php echo $cotisation->getDueType() ?> versée le <?php echo $cotisation->getDate() ?></li>
             <?php endforeach; ?>
         </ul>
     </div>
