@@ -250,7 +250,7 @@ abstract class BaseMember extends sfDoctrineRecord
 
         $this->hasMany('DueType', array(
              'local' => 'id',
-             'foreign' => 'created_by'));
+             'foreign' => 'updated_by'));
 
         $this->hasMany('Expense', array(
              'local' => 'id',
