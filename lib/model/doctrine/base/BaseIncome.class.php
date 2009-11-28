@@ -20,39 +20,39 @@ Doctrine_Manager::getInstance()->bindComponent('Income', 'doctrine');
  * @property Association $Association
  * @property Account $Account
  * @property Activity $Activity
- * @property Member $Member
- * @property Member $Member_5
+ * @property Member $CreatedByMember
+ * @property Member $UpdatedByMember
  * 
- * @method integer     getId()             Returns the current record's "id" value
- * @method string      getLabel()          Returns the current record's "label" value
- * @method integer     getAssociationId()  Returns the current record's "association_id" value
- * @method decimal     getAmount()         Returns the current record's "amount" value
- * @method integer     getAccountId()      Returns the current record's "account_id" value
- * @method integer     getActivityId()     Returns the current record's "activity_id" value
- * @method date        getDate()           Returns the current record's "date" value
- * @method boolean     getReceived()       Returns the current record's "received" value
- * @method integer     getCreatedBy()      Returns the current record's "created_by" value
- * @method integer     getUpdatedBy()      Returns the current record's "updated_by" value
- * @method Association getAssociation()    Returns the current record's "Association" value
- * @method Account     getAccount()        Returns the current record's "Account" value
- * @method Activity    getActivity()       Returns the current record's "Activity" value
- * @method Member      getMember()         Returns the current record's "Member" value
- * @method Member      getMember5()        Returns the current record's "Member_5" value
- * @method Income      setId()             Sets the current record's "id" value
- * @method Income      setLabel()          Sets the current record's "label" value
- * @method Income      setAssociationId()  Sets the current record's "association_id" value
- * @method Income      setAmount()         Sets the current record's "amount" value
- * @method Income      setAccountId()      Sets the current record's "account_id" value
- * @method Income      setActivityId()     Sets the current record's "activity_id" value
- * @method Income      setDate()           Sets the current record's "date" value
- * @method Income      setReceived()       Sets the current record's "received" value
- * @method Income      setCreatedBy()      Sets the current record's "created_by" value
- * @method Income      setUpdatedBy()      Sets the current record's "updated_by" value
- * @method Income      setAssociation()    Sets the current record's "Association" value
- * @method Income      setAccount()        Sets the current record's "Account" value
- * @method Income      setActivity()       Sets the current record's "Activity" value
- * @method Income      setMember()         Sets the current record's "Member" value
- * @method Income      setMember5()        Sets the current record's "Member_5" value
+ * @method integer     getId()              Returns the current record's "id" value
+ * @method string      getLabel()           Returns the current record's "label" value
+ * @method integer     getAssociationId()   Returns the current record's "association_id" value
+ * @method decimal     getAmount()          Returns the current record's "amount" value
+ * @method integer     getAccountId()       Returns the current record's "account_id" value
+ * @method integer     getActivityId()      Returns the current record's "activity_id" value
+ * @method date        getDate()            Returns the current record's "date" value
+ * @method boolean     getReceived()        Returns the current record's "received" value
+ * @method integer     getCreatedBy()       Returns the current record's "created_by" value
+ * @method integer     getUpdatedBy()       Returns the current record's "updated_by" value
+ * @method Association getAssociation()     Returns the current record's "Association" value
+ * @method Account     getAccount()         Returns the current record's "Account" value
+ * @method Activity    getActivity()        Returns the current record's "Activity" value
+ * @method Member      getCreatedByMember() Returns the current record's "CreatedByMember" value
+ * @method Member      getUpdatedByMember() Returns the current record's "UpdatedByMember" value
+ * @method Income      setId()              Sets the current record's "id" value
+ * @method Income      setLabel()           Sets the current record's "label" value
+ * @method Income      setAssociationId()   Sets the current record's "association_id" value
+ * @method Income      setAmount()          Sets the current record's "amount" value
+ * @method Income      setAccountId()       Sets the current record's "account_id" value
+ * @method Income      setActivityId()      Sets the current record's "activity_id" value
+ * @method Income      setDate()            Sets the current record's "date" value
+ * @method Income      setReceived()        Sets the current record's "received" value
+ * @method Income      setCreatedBy()       Sets the current record's "created_by" value
+ * @method Income      setUpdatedBy()       Sets the current record's "updated_by" value
+ * @method Income      setAssociation()     Sets the current record's "Association" value
+ * @method Income      setAccount()         Sets the current record's "Account" value
+ * @method Income      setActivity()        Sets the current record's "Activity" value
+ * @method Income      setCreatedByMember() Sets the current record's "CreatedByMember" value
+ * @method Income      setUpdatedByMember() Sets the current record's "UpdatedByMember" value
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -132,11 +132,11 @@ abstract class BaseIncome extends sfDoctrineRecord
              'local' => 'activity_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Member', array(
+        $this->hasOne('Member as CreatedByMember', array(
              'local' => 'created_by',
              'foreign' => 'id'));
 
-        $this->hasOne('Member as Member_5', array(
+        $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
              'foreign' => 'id'));
 

@@ -15,38 +15,38 @@ Doctrine_Manager::getInstance()->bindComponent('Account', 'doctrine');
  * @property integer $created_by
  * @property integer $updated_by
  * @property Association $Association
- * @property Member $Member
- * @property Member $Member_3
+ * @property Member $CreatedByMember
+ * @property Member $UpdatedByMember
  * @property Doctrine_Collection $Due
  * @property Doctrine_Collection $Expense
  * @property Doctrine_Collection $Income
  * 
- * @method integer             getId()             Returns the current record's "id" value
- * @method string              getLabel()          Returns the current record's "label" value
- * @method integer             getAssociationId()  Returns the current record's "association_id" value
- * @method string              getReference()      Returns the current record's "reference" value
- * @method integer             getState()          Returns the current record's "state" value
- * @method integer             getCreatedBy()      Returns the current record's "created_by" value
- * @method integer             getUpdatedBy()      Returns the current record's "updated_by" value
- * @method Association         getAssociation()    Returns the current record's "Association" value
- * @method Member              getMember()         Returns the current record's "Member" value
- * @method Member              getMember3()        Returns the current record's "Member_3" value
- * @method Doctrine_Collection getDue()            Returns the current record's "Due" collection
- * @method Doctrine_Collection getExpense()        Returns the current record's "Expense" collection
- * @method Doctrine_Collection getIncome()         Returns the current record's "Income" collection
- * @method Account             setId()             Sets the current record's "id" value
- * @method Account             setLabel()          Sets the current record's "label" value
- * @method Account             setAssociationId()  Sets the current record's "association_id" value
- * @method Account             setReference()      Sets the current record's "reference" value
- * @method Account             setState()          Sets the current record's "state" value
- * @method Account             setCreatedBy()      Sets the current record's "created_by" value
- * @method Account             setUpdatedBy()      Sets the current record's "updated_by" value
- * @method Account             setAssociation()    Sets the current record's "Association" value
- * @method Account             setMember()         Sets the current record's "Member" value
- * @method Account             setMember3()        Sets the current record's "Member_3" value
- * @method Account             setDue()            Sets the current record's "Due" collection
- * @method Account             setExpense()        Sets the current record's "Expense" collection
- * @method Account             setIncome()         Sets the current record's "Income" collection
+ * @method integer             getId()              Returns the current record's "id" value
+ * @method string              getLabel()           Returns the current record's "label" value
+ * @method integer             getAssociationId()   Returns the current record's "association_id" value
+ * @method string              getReference()       Returns the current record's "reference" value
+ * @method integer             getState()           Returns the current record's "state" value
+ * @method integer             getCreatedBy()       Returns the current record's "created_by" value
+ * @method integer             getUpdatedBy()       Returns the current record's "updated_by" value
+ * @method Association         getAssociation()     Returns the current record's "Association" value
+ * @method Member              getCreatedByMember() Returns the current record's "CreatedByMember" value
+ * @method Member              getUpdatedByMember() Returns the current record's "UpdatedByMember" value
+ * @method Doctrine_Collection getDue()             Returns the current record's "Due" collection
+ * @method Doctrine_Collection getExpense()         Returns the current record's "Expense" collection
+ * @method Doctrine_Collection getIncome()          Returns the current record's "Income" collection
+ * @method Account             setId()              Sets the current record's "id" value
+ * @method Account             setLabel()           Sets the current record's "label" value
+ * @method Account             setAssociationId()   Sets the current record's "association_id" value
+ * @method Account             setReference()       Sets the current record's "reference" value
+ * @method Account             setState()           Sets the current record's "state" value
+ * @method Account             setCreatedBy()       Sets the current record's "created_by" value
+ * @method Account             setUpdatedBy()       Sets the current record's "updated_by" value
+ * @method Account             setAssociation()     Sets the current record's "Association" value
+ * @method Account             setCreatedByMember() Sets the current record's "CreatedByMember" value
+ * @method Account             setUpdatedByMember() Sets the current record's "UpdatedByMember" value
+ * @method Account             setDue()             Sets the current record's "Due" collection
+ * @method Account             setExpense()         Sets the current record's "Expense" collection
+ * @method Account             setIncome()          Sets the current record's "Income" collection
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -101,11 +101,11 @@ abstract class BaseAccount extends sfDoctrineRecord
              'local' => 'association_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Member', array(
+        $this->hasOne('Member as CreatedByMember', array(
              'local' => 'created_by',
              'foreign' => 'id'));
 
-        $this->hasOne('Member as Member_3', array(
+        $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
              'foreign' => 'id'));
 

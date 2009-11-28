@@ -18,35 +18,35 @@ Doctrine_Manager::getInstance()->bindComponent('Due', 'doctrine');
  * @property Account $Account
  * @property DueType $DueType
  * @property Member $Member
- * @property Member $Member_4
- * @property Member $Member_5
+ * @property Member $CreatedByMember
+ * @property Member $UpdatedByMember
  * 
- * @method integer getId()          Returns the current record's "id" value
- * @method integer getAccountId()   Returns the current record's "account_id" value
- * @method integer getDueTypeId()   Returns the current record's "due_type_id" value
- * @method integer getMemberId()    Returns the current record's "member_id" value
- * @method date    getDate()        Returns the current record's "date" value
- * @method decimal getAmount()      Returns the current record's "amount" value
- * @method integer getCreatedBy()   Returns the current record's "created_by" value
- * @method integer getUpdatedBy()   Returns the current record's "updated_by" value
- * @method Account getAccount()     Returns the current record's "Account" value
- * @method DueType getDueType()     Returns the current record's "DueType" value
- * @method Member  getMember()      Returns the current record's "Member" value
- * @method Member  getMember4()     Returns the current record's "Member_4" value
- * @method Member  getMember5()     Returns the current record's "Member_5" value
- * @method Due     setId()          Sets the current record's "id" value
- * @method Due     setAccountId()   Sets the current record's "account_id" value
- * @method Due     setDueTypeId()   Sets the current record's "due_type_id" value
- * @method Due     setMemberId()    Sets the current record's "member_id" value
- * @method Due     setDate()        Sets the current record's "date" value
- * @method Due     setAmount()      Sets the current record's "amount" value
- * @method Due     setCreatedBy()   Sets the current record's "created_by" value
- * @method Due     setUpdatedBy()   Sets the current record's "updated_by" value
- * @method Due     setAccount()     Sets the current record's "Account" value
- * @method Due     setDueType()     Sets the current record's "DueType" value
- * @method Due     setMember()      Sets the current record's "Member" value
- * @method Due     setMember4()     Sets the current record's "Member_4" value
- * @method Due     setMember5()     Sets the current record's "Member_5" value
+ * @method integer getId()              Returns the current record's "id" value
+ * @method integer getAccountId()       Returns the current record's "account_id" value
+ * @method integer getDueTypeId()       Returns the current record's "due_type_id" value
+ * @method integer getMemberId()        Returns the current record's "member_id" value
+ * @method date    getDate()            Returns the current record's "date" value
+ * @method decimal getAmount()          Returns the current record's "amount" value
+ * @method integer getCreatedBy()       Returns the current record's "created_by" value
+ * @method integer getUpdatedBy()       Returns the current record's "updated_by" value
+ * @method Account getAccount()         Returns the current record's "Account" value
+ * @method DueType getDueType()         Returns the current record's "DueType" value
+ * @method Member  getMember()          Returns the current record's "Member" value
+ * @method Member  getCreatedByMember() Returns the current record's "CreatedByMember" value
+ * @method Member  getUpdatedByMember() Returns the current record's "UpdatedByMember" value
+ * @method Due     setId()              Sets the current record's "id" value
+ * @method Due     setAccountId()       Sets the current record's "account_id" value
+ * @method Due     setDueTypeId()       Sets the current record's "due_type_id" value
+ * @method Due     setMemberId()        Sets the current record's "member_id" value
+ * @method Due     setDate()            Sets the current record's "date" value
+ * @method Due     setAmount()          Sets the current record's "amount" value
+ * @method Due     setCreatedBy()       Sets the current record's "created_by" value
+ * @method Due     setUpdatedBy()       Sets the current record's "updated_by" value
+ * @method Due     setAccount()         Sets the current record's "Account" value
+ * @method Due     setDueType()         Sets the current record's "DueType" value
+ * @method Due     setMember()          Sets the current record's "Member" value
+ * @method Due     setCreatedByMember() Sets the current record's "CreatedByMember" value
+ * @method Due     setUpdatedByMember() Sets the current record's "UpdatedByMember" value
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -116,11 +116,11 @@ abstract class BaseDue extends sfDoctrineRecord
              'local' => 'member_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Member as Member_4', array(
+        $this->hasOne('Member as CreatedByMember', array(
              'local' => 'created_by',
              'foreign' => 'id'));
 
-        $this->hasOne('Member as Member_5', array(
+        $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
              'foreign' => 'id'));
 

@@ -16,34 +16,31 @@ Doctrine_Manager::getInstance()->bindComponent('DueType', 'doctrine');
  * @property integer $created_by
  * @property integer $updated_by
  * @property Association $Association
- * @property Member $Member
- * @property Member $Member_3
+ * @property Member $UpdatedByMember
  * @property Doctrine_Collection $Due
  * 
- * @method integer             getId()             Returns the current record's "id" value
- * @method string              getLabel()          Returns the current record's "label" value
- * @method integer             getAssociationId()  Returns the current record's "association_id" value
- * @method integer             getPeriod()         Returns the current record's "period" value
- * @method decimal             getAmount()         Returns the current record's "amount" value
- * @method integer             getState()          Returns the current record's "state" value
- * @method integer             getCreatedBy()      Returns the current record's "created_by" value
- * @method integer             getUpdatedBy()      Returns the current record's "updated_by" value
- * @method Association         getAssociation()    Returns the current record's "Association" value
- * @method Member              getMember()         Returns the current record's "Member" value
- * @method Member              getMember3()        Returns the current record's "Member_3" value
- * @method Doctrine_Collection getDue()            Returns the current record's "Due" collection
- * @method DueType             setId()             Sets the current record's "id" value
- * @method DueType             setLabel()          Sets the current record's "label" value
- * @method DueType             setAssociationId()  Sets the current record's "association_id" value
- * @method DueType             setPeriod()         Sets the current record's "period" value
- * @method DueType             setAmount()         Sets the current record's "amount" value
- * @method DueType             setState()          Sets the current record's "state" value
- * @method DueType             setCreatedBy()      Sets the current record's "created_by" value
- * @method DueType             setUpdatedBy()      Sets the current record's "updated_by" value
- * @method DueType             setAssociation()    Sets the current record's "Association" value
- * @method DueType             setMember()         Sets the current record's "Member" value
- * @method DueType             setMember3()        Sets the current record's "Member_3" value
- * @method DueType             setDue()            Sets the current record's "Due" collection
+ * @method integer             getId()              Returns the current record's "id" value
+ * @method string              getLabel()           Returns the current record's "label" value
+ * @method integer             getAssociationId()   Returns the current record's "association_id" value
+ * @method integer             getPeriod()          Returns the current record's "period" value
+ * @method decimal             getAmount()          Returns the current record's "amount" value
+ * @method integer             getState()           Returns the current record's "state" value
+ * @method integer             getCreatedBy()       Returns the current record's "created_by" value
+ * @method integer             getUpdatedBy()       Returns the current record's "updated_by" value
+ * @method Association         getAssociation()     Returns the current record's "Association" value
+ * @method Member              getUpdatedByMember() Returns the current record's "UpdatedByMember" value
+ * @method Doctrine_Collection getDue()             Returns the current record's "Due" collection
+ * @method DueType             setId()              Sets the current record's "id" value
+ * @method DueType             setLabel()           Sets the current record's "label" value
+ * @method DueType             setAssociationId()   Sets the current record's "association_id" value
+ * @method DueType             setPeriod()          Sets the current record's "period" value
+ * @method DueType             setAmount()          Sets the current record's "amount" value
+ * @method DueType             setState()           Sets the current record's "state" value
+ * @method DueType             setCreatedBy()       Sets the current record's "created_by" value
+ * @method DueType             setUpdatedBy()       Sets the current record's "updated_by" value
+ * @method DueType             setAssociation()     Sets the current record's "Association" value
+ * @method DueType             setUpdatedByMember() Sets the current record's "UpdatedByMember" value
+ * @method DueType             setDue()             Sets the current record's "Due" collection
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -105,11 +102,7 @@ abstract class BaseDueType extends sfDoctrineRecord
              'local' => 'association_id',
              'foreign' => 'id'));
 
-        $this->hasOne('Member', array(
-             'local' => 'created_by',
-             'foreign' => 'id'));
-
-        $this->hasOne('Member as Member_3', array(
+        $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
              'foreign' => 'id'));
 

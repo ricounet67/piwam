@@ -14,27 +14,27 @@ Doctrine_Manager::getInstance()->bindComponent('Status', 'doctrine');
  * @property integer $created_by
  * @property integer $updated_by
  * @property Association $Association
- * @property Doctrine_Collection $Member
- * @property Member $Member_3
+ * @property Doctrine_Collection $Members
+ * @property Member $UpdatedByMember
  * 
- * @method integer             getId()             Returns the current record's "id" value
- * @method string              getLabel()          Returns the current record's "label" value
- * @method integer             getAssociationId()  Returns the current record's "association_id" value
- * @method integer             getState()          Returns the current record's "state" value
- * @method integer             getCreatedBy()      Returns the current record's "created_by" value
- * @method integer             getUpdatedBy()      Returns the current record's "updated_by" value
- * @method Association         getAssociation()    Returns the current record's "Association" value
- * @method Doctrine_Collection getMember()         Returns the current record's "Member" collection
- * @method Member              getMember3()        Returns the current record's "Member_3" value
- * @method Status              setId()             Sets the current record's "id" value
- * @method Status              setLabel()          Sets the current record's "label" value
- * @method Status              setAssociationId()  Sets the current record's "association_id" value
- * @method Status              setState()          Sets the current record's "state" value
- * @method Status              setCreatedBy()      Sets the current record's "created_by" value
- * @method Status              setUpdatedBy()      Sets the current record's "updated_by" value
- * @method Status              setAssociation()    Sets the current record's "Association" value
- * @method Status              setMember()         Sets the current record's "Member" collection
- * @method Status              setMember3()        Sets the current record's "Member_3" value
+ * @method integer             getId()              Returns the current record's "id" value
+ * @method string              getLabel()           Returns the current record's "label" value
+ * @method integer             getAssociationId()   Returns the current record's "association_id" value
+ * @method integer             getState()           Returns the current record's "state" value
+ * @method integer             getCreatedBy()       Returns the current record's "created_by" value
+ * @method integer             getUpdatedBy()       Returns the current record's "updated_by" value
+ * @method Association         getAssociation()     Returns the current record's "Association" value
+ * @method Doctrine_Collection getMembers()         Returns the current record's "Members" collection
+ * @method Member              getUpdatedByMember() Returns the current record's "UpdatedByMember" value
+ * @method Status              setId()              Sets the current record's "id" value
+ * @method Status              setLabel()           Sets the current record's "label" value
+ * @method Status              setAssociationId()   Sets the current record's "association_id" value
+ * @method Status              setState()           Sets the current record's "state" value
+ * @method Status              setCreatedBy()       Sets the current record's "created_by" value
+ * @method Status              setUpdatedBy()       Sets the current record's "updated_by" value
+ * @method Status              setAssociation()     Sets the current record's "Association" value
+ * @method Status              setMembers()         Sets the current record's "Members" collection
+ * @method Status              setUpdatedByMember() Sets the current record's "UpdatedByMember" value
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -84,11 +84,11 @@ abstract class BaseStatus extends sfDoctrineRecord
              'local' => 'association_id',
              'foreign' => 'id'));
 
-        $this->hasMany('Member', array(
+        $this->hasMany('Member as Members', array(
              'local' => 'id',
              'foreign' => 'status_id'));
 
-        $this->hasOne('Member as Member_3', array(
+        $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
              'foreign' => 'id'));
 
