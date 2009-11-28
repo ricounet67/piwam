@@ -45,8 +45,8 @@ class MembreForm extends BaseMembreForm
         }
 
         unset($this['created_at'], $this['updated_at']);
-        unset($this['enregistre_par'], $this['mis_a_jour_par']);
-        unset($this['actif'], $this['association_id']);
+        unset($this['created_by'], $this['updated_by']);
+        unset($this['state'], $this['association_id']);
 
         if ($this->getObject()->isNew())
         {
@@ -55,26 +55,26 @@ class MembreForm extends BaseMembreForm
 
             if (! $this->isFirstRegistration())
             {
-                $this->widgetSchema['enregistre_par'] = new sfWidgetFormInputHidden();
-                $this->setDefault('enregistre_par', $context->getUser()->getUserId());
-                $this->validatorSchema['enregistre_par'] = new sfValidatorInteger(array('required' => false));
+                $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
+                $this->setDefault('created_by', $context->getUser()->getUserId());
+                $this->validatorSchema['created_by'] = new sfValidatorInteger(array('required' => false));
             }
         }
         else
         {
-            $this->widgetSchema['mis_a_jour_par'] = new sfWidgetFormInputHidden();
-            $this->validatorSchema['mis_a_jour_par'] = new sfValidatorInteger();
+            $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
+            $this->validatorSchema['updated_by'] = new sfValidatorInteger();
         }
 
         $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
         $this->setDefault('association_id', $associationId);
         $this->validatorSchema['association_id'] = new sfValidatorInteger();
 
-        $this->widgetSchema['actif'] = new sfWidgetFormInputHidden();
-        $this->widgetSchema['statut_id']->setOption('criteria', StatutPeer::getCriteriaEnabledForAssociation($associationId));
+        $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
+        $this->widgetSchema['status_id']->setOption('criteria', statusPeer::getCriteriaEnabledForAssociation($associationId));
         $this->setDefault('date_inscription', date('d-m-Y'));
         $this->setDefault('pays', 'FRANCE');
-        $this->setDefault('actif', 1);
+        $this->setDefault('state', 1);
 
         unset($this['password']);
         $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
@@ -116,7 +116,7 @@ class MembreForm extends BaseMembreForm
         unset($this->validatorSchema['website']);
         $this->validatorSchema['email'] = new sfValidatorEmail(array('required' => false));
         $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
-        $this->validatorSchema['actif'] = new sfValidatorInteger();
+        $this->validatorSchema['state'] = new sfValidatorInteger();
 
         unset ($this->widgetSchema['pays']);
         $countries = array('FR', 'BE', 'ES', 'DE', 'NL', 'CH', 'LU');
@@ -182,7 +182,7 @@ class MembreForm extends BaseMembreForm
         $this->widgetSchema['email']->setAttribute('class', 'formInputNormal');
         $this->widgetSchema['tel_fixe']->setAttribute('class', 'formInputNormal');
         $this->widgetSchema['tel_portable']->setAttribute('class', 'formInputNormal');
-        $this->widgetSchema['statut_id']->setAttribute('class', 'formInputNormal');
+        $this->widgetSchema['status_id']->setAttribute('class', 'formInputNormal');
         $this->widgetSchema['pays']->setAttribute('class', 'formInputNormal');
         $this->widgetSchema['picture']->setAttribute('class', 'file');
     }
