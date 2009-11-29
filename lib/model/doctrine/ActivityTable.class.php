@@ -41,10 +41,23 @@ class ActivityTable extends Doctrine_Table
   /**
    * Retrieve list of enabled activities for association $id
    *
-   * @param   integer $id
+   * @param   integer       $id
    * @return  array of Activity
    */
-  public static function getActiveForAssociation($id)
+  public static function getEnabledForAssociation($id)
+  {
+    $q = self::getQueryEnabledForAssociation($id);
+
+    return $q->execute();
+  }
+
+  /**
+   * Get query object to retrieve list of acitivities
+   *
+   * @param   integer       $id
+   * @return  Doctrine_Query
+   */
+  public static function getQueryEnabledForAssociation($id)
   {
     $q = Doctrine_Query::create()
           ->from('Activity a')
@@ -52,6 +65,6 @@ class ActivityTable extends Doctrine_Table
           ->andWhere('a.state = ?', self::STATE_ENABLED)
           ->orderBy('a.label ASC');
 
-    return $q->execute();
+    return $q;
   }
 }
