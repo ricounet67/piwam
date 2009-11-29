@@ -12,21 +12,21 @@
         </tr>
         <tr>
             <th>Libellé :</th>
-            <td><?php echo $recette->getLibelle() ?></td>
+            <td><?php echo $recette->getLabel() ?></td>
         </tr>
         <tr>
             <th>Montant :</th>
-            <td><?php echo format_currency($recette->getMontant(), '&euro;') ?></td>
+            <td><?php echo format_currency($recette->getAmount(), '&euro;') ?></td>
         </tr>
         <tr>
             <th>Compte affecté :</th>
-            <td><?php echo $recette->getCompte()->getLibelle() ?></td>
+            <td><?php echo $recette->getAccount() ?></td>
         </tr>
         <tr>
             <th>Activité :</th>
-            <td><?php echo $recette->getActivite() ?></td>
+            <td><?php echo $recette->getActivity() ?></td>
         </tr>
-        <?php if ($recette->getPercue() == 1): ?>
+        <?php if ($recette->getReceived() == 1): ?>
         <tr>
             <th>Effective le :</th>
             <td><?php echo format_date($recette->getDate()) ?></td>
@@ -40,12 +40,12 @@
         <tr>
             <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Créée le
             :</th>
-            <td><?php echo format_datetime($recette->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($recette->getMembreRelatedByEnregistrePar()) ?></td>
+            <td><?php echo format_datetime($recette->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($recette->getCreatedByMember()) ?></td>
         </tr>
         <tr>
             <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Mise à
             jour le :</th>
-            <td><?php echo format_datetime($recette->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($recette->getMembreRelatedByMisAJourPar()) ?></td>
+            <td><?php echo format_datetime($recette->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($recette->getUpdatedByMember()) ?></td>
         </tr>
     </tbody>
 </table>
