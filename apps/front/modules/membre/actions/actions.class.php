@@ -190,6 +190,7 @@ class membreActions extends sfActions
    *
    * @param   sfWebRequest    $request
    * @since   r17
+   * @todo    Customize size of Map
    */
   public function executeMap(sfWebRequest $request)
   {
@@ -200,11 +201,11 @@ class membreActions extends sfActions
     $map->zoomLevel = 12;
     $map->setWidth(600);
     $map->setHeight(400);
-    $membres = MemberTable::doSelectForAssociation($associationId);
+    $membres = MemberTable::getEnabledForAssociation($associationId);
 
     foreach ($membres as $membre)
     {
-      if (strlen($membre->getVille()) > 0)
+      if (strlen($membre->getCity()) > 0)
       {
         $map->addAddress($membre->getCompleteAddress(), $membre->getInfoForGmap());
       }
