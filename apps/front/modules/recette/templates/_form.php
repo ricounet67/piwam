@@ -22,7 +22,7 @@
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
             <th>Libellé</th>
-            <td><?php echo $form['libelle'] ?> <?php echo $form['libelle']->renderError() ?>
+            <td><?php echo $form['label'] ?> <?php echo $form['label']->renderError() ?>
             </td>
         </tr>
         <tr>
@@ -37,7 +37,7 @@
         </tr>
         <tr>
             <th>Activité</th>
-            <td><?php echo $form['activite_id'] ?> <?php echo $form['activite_id']->renderError() ?>
+            <td><?php echo $form['activity_id'] ?> <?php echo $form['activity_id']->renderError() ?>
             </td>
         </tr>
         <tr>
@@ -47,7 +47,7 @@
         </tr>
         <tr>
             <th>Perçue</th>
-            <td><?php echo $form['percue'] ?></td>
+            <td><?php echo $form['received'] ?></td>
         </tr>
     </tbody>
 </table>
