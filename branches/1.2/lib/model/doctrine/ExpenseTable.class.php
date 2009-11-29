@@ -14,6 +14,7 @@ class ExpenseTable extends Doctrine_Table
    *
    * @param   integer           $id
    * @return  array of Expense
+   * @todo    Customize number of results per page, add filters
    */
   public static function getPagerForAssociation($id, $page = 1)
   {
@@ -21,10 +22,6 @@ class ExpenseTable extends Doctrine_Table
           ->from('Expense e')
           ->where('e.association_id = ?', $id);
 
-    /**
-     * @todo
-     * FIXME
-     */
     $pager = new sfDoctrinePager('Expense', 20);
     $pager->setQuery($q);
     $pager->setPage($page);
