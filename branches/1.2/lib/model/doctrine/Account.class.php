@@ -102,7 +102,8 @@ class Account extends BaseAccount
   /**
    * Set the reference of the Account but force the upper case
    *
-   * @param string $value
+   * @param   string    $value
+   * @return  Account   $this
    */
   public function setReference($value)
   {
