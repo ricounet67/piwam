@@ -59,7 +59,8 @@ class MemberTable extends Doctrine_Table
     $q = Doctrine_Query::create()
           ->from('Member m')
           ->where('m.association_id = ?', $id)
-          ->andWhere('m.state = ?', self::STATE_ENABLED);
+          ->andWhere('m.state = ?', self::STATE_ENABLED)
+          ->orderBy('m.firstname ASC');
 
     return $q;
   }
@@ -82,7 +83,7 @@ class MemberTable extends Doctrine_Table
       $column = 'lastname';
     }
 
-    $q = self::getQueryEnabledForAssociation($id)
+    $q = self::getQueryEnabledForAssociation($association_id)
                 ->orderBy('m.' . $column . ' ASC');
 
     $n = Configurator::get('users_by_page', $association_id, 20);
