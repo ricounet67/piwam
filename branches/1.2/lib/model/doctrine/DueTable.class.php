@@ -64,7 +64,7 @@ class DueTable extends Doctrine_Table
   public static function getSumForAssociation($id)
   {
     $q = Doctrine_Query::create()
-          ->select('SUM(t.amount) AS total')
+          ->select('SUM(d.amount) AS total')
           ->from('Due d')
           ->leftJoin('d.DueType t')
           ->where('t.association_id = ?', $id)
@@ -72,7 +72,7 @@ class DueTable extends Doctrine_Table
 
     $row = $q->fetchArray();
 
-    return $row[0]['total'];
+    return (count($row)) ? $row[0]['total'] : 0;
   }
 
   /**
@@ -84,14 +84,13 @@ class DueTable extends Doctrine_Table
   public static function getSumForAccount($id)
   {
     $q = Doctrine_Query::create()
-          ->select('SUM(t.amount) AS total')
+          ->select('SUM(d.amount) AS total')
           ->from('Due d')
-          ->leftJoin('d.DueType t')
-          ->where('t.accpimt_id = ?', $id)
-          ->groupBy('t.account_id');
+          ->where('d.account_id = ?', $id)
+          ->groupBy('d.account_id');
 
     $row = $q->fetchArray();
 
-    return $row[0]['total'];
+    return (count($row)) ? $row[0]['total'] : 0;
   }
 }
