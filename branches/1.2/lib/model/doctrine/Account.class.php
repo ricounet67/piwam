@@ -84,7 +84,7 @@ class Account extends BaseAccount
    */
   public function getTotal()
   {
-    $total = $this->getTotalExpenses() - $this->getTotalIncomes();
+    $total = $this->getTotalIncomes() - $this->getTotalExpenses();
 
     return ($total == null) ? 0 : $total;
   }
