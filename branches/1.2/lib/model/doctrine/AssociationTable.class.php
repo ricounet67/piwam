@@ -68,4 +68,18 @@ class AssociationTable extends Doctrine_Table
 
     return $q->fetchOne();
   }
+
+  /**
+   * Retrieve the only one existing Association
+   *
+   * @return Association
+   */
+  public static function getUnique()
+  {
+    $q = Doctrine_Query::create()
+          ->from('Association a')
+          ->limit('1');
+
+    return $q->fetchOne();
+  }
 }
