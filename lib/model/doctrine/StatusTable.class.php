@@ -46,12 +46,26 @@ class StatusTable extends Doctrine_Table
    */
   public static function getEnabledForAssociation($id)
   {
-    $q = Doctrine_Query::create()
-          ->from('Status s')
-          ->where('s.association_id = ?',  $id)
-          ->andWhere('s.state = ?', self::STATE_ENABLED);
+    $q = self::getQueryEnabledForAssociation($id);
 
     return $q->execute();
   }
 
+  /**
+   * Get just the Doctrine_Query object to retrieve enabled Status
+   * of association $id. Used in forms
+   *
+   * @param   integer       $id
+   * @return  Doctrine_Query
+   */
+  public static function getQueryEnabledForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Status s')
+          ->where('s.association_id = ?',  $id)
+          ->andWhere('s.state = ?', self::STATE_ENABLED)
+          ->orderBy('s.label ASC');
+
+    return $q;
+  }
 }
