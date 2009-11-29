@@ -43,12 +43,25 @@ class MemberTable extends Doctrine_Table
    */
   public static function getEnabledForAssociation($id)
   {
+    $q = self::getQueryEnabledForAssociation($id);
+
+    return $q->execute();
+  }
+
+  /**
+   * Get the query to retrieve Members of association $id
+   *
+   * @param   integer       $id
+   * @return  Doctrine_Query
+   */
+  public static function getQueryEnabledForAssociation($id)
+  {
     $q = Doctrine_Query::create()
           ->from('Member m')
           ->where('m.association_id = ?', $id)
           ->andWhere('m.state = ?', self::STATE_ENABLED);
 
-    return $q->execute();
+    return $q;
   }
 
   /**
@@ -69,12 +82,8 @@ class MemberTable extends Doctrine_Table
       $column = 'lastname';
     }
 
-    $q = Doctrine_Query::create()
-          ->select('m.*')
-          ->from('Member m')
-          ->where('m.association_id = ?', $association_id)
-          ->andWhere('m.state = ?', self::STATE_ENABLED)
-          ->orderBy('m.' . $column . ' ASC');
+    $q = self::getQueryEnabledForAssociation($id)
+                ->orderBy('m.' . $column . ' ASC');
 
     $n = Configurator::get('users_by_page', $association_id, 20);
     $pager = new sfDoctrinePager('Member', $n);
