@@ -71,4 +71,25 @@ class ExpenseTable extends Doctrine_Table
       return 0;
     }
   }
+
+  /**
+   * Get amount of unpaid Expenses for activity $id
+   *
+   * @param   integer $id
+   * @return  integer
+   */
+  public static function getAmountOfDebtsForActivity($id)
+  {
+      $q = Doctrine_Query::create()
+          ->select('SUM(e.amount) AS total')
+          ->from('Expense e')
+          ->leftJoin('e.Activity a')
+          ->where('a.id = ?', $id)
+          ->andWhere('e.paid = ?', false)
+          ->groupBy('a.id');
+
+    $row = $q->fetchArray();
+
+    return (count($row)) ? $row[0]['total'] : 0;
+  }
 }
