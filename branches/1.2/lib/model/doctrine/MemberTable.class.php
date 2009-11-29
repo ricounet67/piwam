@@ -62,17 +62,22 @@ class MemberTable extends Doctrine_Table
    */
   public static function getPagerOrderBy($association_id, $page = 1, $column = 'lastname')
   {
+    $sortable_columns = array('lastname', 'firstname', 'username', 'city', 'status_id');
+
+    if (! in_array($column, $sortable_columns))
+    {
+      $column = 'lastname';
+    }
+
     $q = Doctrine_Query::create()
           ->select('m.*')
           ->from('Member m')
           ->where('m.association_id = ?', $association_id)
-          ->andWhere('m.state = ?', self::STATE_ENABLED);
+          ->andWhere('m.state = ?', self::STATE_ENABLED)
+          ->orderBy('m.' . $column . ' ASC');
 
-    /**
-     * @todo
-     * FIXME
-     */
-    $pager = new sfDoctrinePager('Member', 20);
+    $n = Configurator::get('users_by_page', $association_id, 20);
+    $pager = new sfDoctrinePager('Member', $n);
     $pager->setQuery($q);
     $pager->setPage($page);
 
