@@ -63,7 +63,7 @@ class DueTypeTable extends Doctrine_Table
    */
   public static function getEnabledForAssociation($id)
   {
-    $q = self::getQueryEnbledForAssociation();
+    $q = self::getQueryEnabledForAssociation($id);
 
     return $q->execute();
   }
@@ -74,7 +74,7 @@ class DueTypeTable extends Doctrine_Table
    * @param   integer $id
    * @return  Doctrine_Query
    */
-  public static function getQueryEnbledForAssociation($id)
+  public static function getQueryEnabledForAssociation($id)
   {
     $q = Doctrine_Query::create()
           ->from('DueType t')
