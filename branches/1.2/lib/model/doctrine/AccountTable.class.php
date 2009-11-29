@@ -62,7 +62,8 @@ class AccountTable extends Doctrine_Table
     $q = Doctrine_Query::create()
           ->from('Account a')
           ->where('a.state = ?', self::STATE_ENABLED)
-          ->andWhere('a.association_id = ?', $id);
+          ->andWhere('a.association_id = ?', $id)
+          ->orderBy('a.reference ASC');
 
     return $q;
   }
