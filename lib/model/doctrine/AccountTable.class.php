@@ -46,7 +46,8 @@ class AccountTable extends Doctrine_Table
    */
   public static function getEnabledForAssociation($id)
   {
-    $q = self::getQueryEnabledForAssociation($id);
+    $q = self::getQueryEnabledForAssociation($id)
+                ->orderBy('a.label');
 
     return $q->execute();
   }
