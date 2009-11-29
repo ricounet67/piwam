@@ -180,7 +180,7 @@ class associationActions extends sfActions
   {
     $associationId          = $this->getUser()->getAssociationId();
     $this->comptes          = AccountTable::getEnabledForAssociation($associationId);
-    $this->activites        = ActivityTable::getActiveForAssociation($associationId);
+    $this->activites        = ActivityTable::getEnabledForAssociation($associationId);
     $this->totalCotisations = DueTable::getSumForAssociation($associationId);
     $this->totalDettes      = ExpenseTable::getAmountOfDebtsForAssociation($associationId);
     $this->totalCreances    = IncomeTable::getAmountOfDebtsForAssociation($associationId);
@@ -222,7 +222,6 @@ class associationActions extends sfActions
   {
     $this->forward404Unless($request->isMethod('post'));
     $this->form = new AssociationForm();
-
     if ($this->processForm($request, $this->form))
     {
       $this->_association->initialize();
