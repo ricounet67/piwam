@@ -16,11 +16,11 @@
     <tbody>
     <?php foreach ($recettesPager->getResults() as $recette): ?>
         <tr>
-            <td><?php echo $recette->getLibelle() ?></td>
-            <td><?php echo format_currency($recette->getMontant()) ?></td>
-            <td><?php echo $recette->getCompte() ?></td>
+            <td><?php echo $recette->getLabel() ?></td>
+            <td><?php echo format_currency($recette->getAmount()) ?></td>
+            <td><?php echo $recette->getAccount() ?></td>
             <td><?php
-            if ($recette->getPercue() == 1) {
+            if ($recette->getReceived() == 1) {
                 echo format_date($recette->getDate());
             }
             else {
