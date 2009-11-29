@@ -46,11 +46,24 @@ class AccountTable extends Doctrine_Table
    */
   public static function getEnabledForAssociation($id)
   {
+    $q = self::getQueryEnabledForAssociation($id);
+
+    return $q->execute();
+  }
+
+  /**
+   * Get Query object to retrieve list of Accounts for association $id
+   *
+   * @param   integer       $id
+   * @return  Dotrine_Query
+   */
+  public static function getQueryEnabledForAssociation($id)
+  {
     $q = Doctrine_Query::create()
           ->from('Account a')
           ->where('a.state = ?', self::STATE_ENABLED)
           ->andWhere('a.association_id = ?', $id);
 
-    return $q->execute();
+    return $q;
   }
 }
