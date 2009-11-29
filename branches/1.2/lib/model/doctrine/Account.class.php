@@ -106,6 +106,6 @@ class Account extends BaseAccount
    */
   public function setReference($value)
   {
-    parent::setReference(strtoupper($value));
+    return $this->_set('reference', strtoupper($value));
   }
 }
