@@ -39,7 +39,7 @@ class cotisationtypeActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->cotisation_type_list = DueTypeTable::getEnbledForAssociation($this->getUser()->getAssociationId());
+    $this->cotisation_type_list = DueTypeTable::getEnabledForAssociation($this->getUser()->getAssociationId());
   }
 
 
