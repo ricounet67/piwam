@@ -29,6 +29,7 @@ class Association extends BaseAssociation
    */
   public function initialize()
   {
+
     $statutPresident = new Status();
     $statutPresident->setState(StatusTable::STATE_ENABLED);
     $statutPresident->setAssociationId($this->getId());
@@ -71,5 +72,6 @@ class Association extends BaseAssociation
     $compteMonnaie->setReference("CAISSE_MONNAIE");
     $compteMonnaie->setState(AccountTable::STATE_ENABLED);
     $compteMonnaie->save();
+
   }
 }
