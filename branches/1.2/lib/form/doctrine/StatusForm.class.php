@@ -41,13 +41,8 @@ class StatusForm extends BaseStatusForm
 
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     $this->setDefault('state', 1);
-
     $this->validatorSchema['state'] = new sfValidatorBoolean();
 
-    /**
-     * @todo
-     * FIXME
-     */
-    //$this->validatorSchema['label'] = new sfValidatorCustomUnique(array('class' => 'Statut', 'fields' => array('nom' => null, 'association_id' => $associationId)));
+    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Status', 'column' => array('label', 'association_id')), array('invalid' => 'Ce status existe déjà')));
   }
 }
