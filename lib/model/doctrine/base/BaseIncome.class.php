@@ -107,12 +107,10 @@ abstract class BaseIncome extends sfDoctrineRecord
              ));
         $this->hasColumn('created_by', 'integer', 4, array(
              'type' => 'integer',
-             'notnull' => true,
              'length' => '4',
              ));
         $this->hasColumn('updated_by', 'integer', 4, array(
              'type' => 'integer',
-             'notnull' => true,
              'length' => '4',
              ));
     }
@@ -122,23 +120,28 @@ abstract class BaseIncome extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Association', array(
              'local' => 'association_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Account', array(
              'local' => 'account_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Activity', array(
              'local' => 'activity_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Member as CreatedByMember', array(
              'local' => 'created_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

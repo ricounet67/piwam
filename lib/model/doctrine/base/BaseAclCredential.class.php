@@ -55,10 +55,12 @@ abstract class BaseAclCredential extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('AclAction', array(
              'local' => 'acl_action_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Member', array(
              'local' => 'member_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
     }
 }

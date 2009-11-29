@@ -101,4 +101,18 @@ class DueTypeTable extends Doctrine_Table
 
     return $type->getAmount();
   }
+
+  /**
+   * Count existing DueType
+   *
+   * @return  integer
+   */
+  public static function doCount()
+  {
+    $q = Doctrine_Query::create()
+          ->select('t.id')
+          ->from('DueType t');
+
+    return $q->count();
+  }
 }

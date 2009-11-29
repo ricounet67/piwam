@@ -85,7 +85,8 @@ abstract class BaseStatus extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Association', array(
              'local' => 'association_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasMany('Member as Members', array(
              'local' => 'id',
@@ -93,11 +94,13 @@ abstract class BaseStatus extends sfDoctrineRecord
 
         $this->hasOne('Member as CreatedByMember', array(
              'local' => 'created_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

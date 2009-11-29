@@ -88,7 +88,8 @@ abstract class BaseConfigVariable extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('ConfigCategory', array(
              'local' => 'category_code',
-             'foreign' => 'code'));
+             'foreign' => 'code',
+             'onDelete' => 'CASCADE'));
 
         $this->hasMany('ConfigValue', array(
              'local' => 'id',

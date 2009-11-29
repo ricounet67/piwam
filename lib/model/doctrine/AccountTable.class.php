@@ -68,4 +68,18 @@ class AccountTable extends Doctrine_Table
 
     return $q;
   }
+
+  /**
+   * Count existing Member
+   *
+   * @return  integer
+   */
+  public static function doCount()
+  {
+    $q = Doctrine_Query::create()
+          ->select('a.id')
+          ->from('Account a');
+
+    return $q->count();
+  }
 }

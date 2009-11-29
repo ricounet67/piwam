@@ -14,13 +14,14 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @property integer $created_by
  * @property integer $updated_by
  * @property Doctrine_Collection $Activity
- * @property Doctrine_Collection $Account
+ * @property Doctrine_Collection $Accounts
  * @property Doctrine_Collection $ConfigValue
- * @property DueType $DueType
- * @property Doctrine_Collection $Expense
- * @property Doctrine_Collection $Income
+ * @property DueType $DueTypes
+ * @property Doctrine_Collection $Expenses
+ * @property Doctrine_Collection $Incomes
  * @property Doctrine_Collection $Status
- * @property Doctrine_Collection $Member
+ * @property Doctrine_Collection $Members
+ * @property Doctrine_Collection $DueType
  * 
  * @method integer             getId()          Returns the current record's "id" value
  * @method string              getName()        Returns the current record's "name" value
@@ -29,13 +30,14 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @method integer             getCreatedBy()   Returns the current record's "created_by" value
  * @method integer             getUpdatedBy()   Returns the current record's "updated_by" value
  * @method Doctrine_Collection getActivity()    Returns the current record's "Activity" collection
- * @method Doctrine_Collection getAccount()     Returns the current record's "Account" collection
+ * @method Doctrine_Collection getAccounts()    Returns the current record's "Accounts" collection
  * @method Doctrine_Collection getConfigValue() Returns the current record's "ConfigValue" collection
- * @method DueType             getDueType()     Returns the current record's "DueType" value
- * @method Doctrine_Collection getExpense()     Returns the current record's "Expense" collection
- * @method Doctrine_Collection getIncome()      Returns the current record's "Income" collection
+ * @method DueType             getDueTypes()    Returns the current record's "DueTypes" value
+ * @method Doctrine_Collection getExpenses()    Returns the current record's "Expenses" collection
+ * @method Doctrine_Collection getIncomes()     Returns the current record's "Incomes" collection
  * @method Doctrine_Collection getStatus()      Returns the current record's "Status" collection
- * @method Doctrine_Collection getMember()      Returns the current record's "Member" collection
+ * @method Doctrine_Collection getMembers()     Returns the current record's "Members" collection
+ * @method Doctrine_Collection getDueType()     Returns the current record's "DueType" collection
  * @method Association         setId()          Sets the current record's "id" value
  * @method Association         setName()        Sets the current record's "name" value
  * @method Association         setDescription() Sets the current record's "description" value
@@ -43,13 +45,14 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @method Association         setCreatedBy()   Sets the current record's "created_by" value
  * @method Association         setUpdatedBy()   Sets the current record's "updated_by" value
  * @method Association         setActivity()    Sets the current record's "Activity" collection
- * @method Association         setAccount()     Sets the current record's "Account" collection
+ * @method Association         setAccounts()    Sets the current record's "Accounts" collection
  * @method Association         setConfigValue() Sets the current record's "ConfigValue" collection
- * @method Association         setDueType()     Sets the current record's "DueType" value
- * @method Association         setExpense()     Sets the current record's "Expense" collection
- * @method Association         setIncome()      Sets the current record's "Income" collection
+ * @method Association         setDueTypes()    Sets the current record's "DueTypes" value
+ * @method Association         setExpenses()    Sets the current record's "Expenses" collection
+ * @method Association         setIncomes()     Sets the current record's "Incomes" collection
  * @method Association         setStatus()      Sets the current record's "Status" collection
- * @method Association         setMember()      Sets the current record's "Member" collection
+ * @method Association         setMembers()     Sets the current record's "Members" collection
+ * @method Association         setDueType()     Sets the current record's "DueType" collection
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -97,7 +100,7 @@ abstract class BaseAssociation extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'association_id'));
 
-        $this->hasMany('Account', array(
+        $this->hasMany('Account as Accounts', array(
              'local' => 'id',
              'foreign' => 'association_id'));
 
@@ -105,23 +108,28 @@ abstract class BaseAssociation extends sfDoctrineRecord
              'local' => 'id',
              'foreign' => 'association_id'));
 
-        $this->hasOne('DueType', array(
+        $this->hasOne('DueType as DueTypes', array(
              'local' => 'id',
              'foreign' => 'association_id type: many'));
 
-        $this->hasMany('Expense', array(
+        $this->hasMany('Expense as Expenses', array(
              'local' => 'id',
              'foreign' => 'association_id'));
 
-        $this->hasMany('Income', array(
+        $this->hasMany('Income as Incomes', array(
              'local' => 'id',
              'foreign' => 'association_id'));
 
         $this->hasMany('Status', array(
              'local' => 'id',
+             'foreign' => 'association_id',
+             'onDelete' => 'CASCADE'));
+
+        $this->hasMany('Member as Members', array(
+             'local' => 'id',
              'foreign' => 'association_id'));
 
-        $this->hasMany('Member', array(
+        $this->hasMany('DueType', array(
              'local' => 'id',
              'foreign' => 'association_id'));
 

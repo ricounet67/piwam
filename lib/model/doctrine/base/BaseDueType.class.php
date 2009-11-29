@@ -16,6 +16,7 @@ Doctrine_Manager::getInstance()->bindComponent('DueType', 'doctrine');
  * @property integer $created_by
  * @property integer $updated_by
  * @property Association $Association
+ * @property Member $CreatedByMember
  * @property Member $UpdatedByMember
  * @property Doctrine_Collection $Due
  * 
@@ -28,6 +29,7 @@ Doctrine_Manager::getInstance()->bindComponent('DueType', 'doctrine');
  * @method integer             getCreatedBy()       Returns the current record's "created_by" value
  * @method integer             getUpdatedBy()       Returns the current record's "updated_by" value
  * @method Association         getAssociation()     Returns the current record's "Association" value
+ * @method Member              getCreatedByMember() Returns the current record's "CreatedByMember" value
  * @method Member              getUpdatedByMember() Returns the current record's "UpdatedByMember" value
  * @method Doctrine_Collection getDue()             Returns the current record's "Due" collection
  * @method DueType             setId()              Sets the current record's "id" value
@@ -39,6 +41,7 @@ Doctrine_Manager::getInstance()->bindComponent('DueType', 'doctrine');
  * @method DueType             setCreatedBy()       Sets the current record's "created_by" value
  * @method DueType             setUpdatedBy()       Sets the current record's "updated_by" value
  * @method DueType             setAssociation()     Sets the current record's "Association" value
+ * @method DueType             setCreatedByMember() Sets the current record's "CreatedByMember" value
  * @method DueType             setUpdatedByMember() Sets the current record's "UpdatedByMember" value
  * @method DueType             setDue()             Sets the current record's "Due" collection
  * 
@@ -86,7 +89,6 @@ abstract class BaseDueType extends sfDoctrineRecord
              ));
         $this->hasColumn('created_by', 'integer', 4, array(
              'type' => 'integer',
-             'notnull' => true,
              'length' => '4',
              ));
         $this->hasColumn('updated_by', 'integer', 4, array(
@@ -100,11 +102,18 @@ abstract class BaseDueType extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Association', array(
              'local' => 'association_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
+
+        $this->hasOne('Member as CreatedByMember', array(
+             'local' => 'created_by',
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasMany('Due', array(
              'local' => 'id',
