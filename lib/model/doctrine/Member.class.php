@@ -24,12 +24,28 @@ class Member extends BaseMember
   /**
    * Overrides the setPassword to encrypt it
    *
-   * @see   lib/model/doctrine/base/BaseMember#setPassword()
-   * @param string  $v
+   * @param   string  $v
+   * @return  Member  $this
    */
   public function setPassword($v)
   {
     return $this->_set('password', sha1($v));
+  }
+
+  /**
+   * Overrides the setUsername method (manage the null case)
+   *
+   * @param   string  $v
+   * @return  Member  $this
+   */
+  public function setUsername($v)
+  {
+    if ($v == "")
+    {
+      $v = null;
+    }
+
+    return $this->_set('username', $v);
   }
 
   /**
