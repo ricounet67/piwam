@@ -74,4 +74,24 @@ class DueTable extends Doctrine_Table
 
     return $row[0]['total'];
   }
+
+  /**
+   * Get sum of Dues for account $id
+   *
+   * @param   integer     $id
+   * @return  integer
+   */
+  public static function getSumForAccount($id)
+  {
+    $q = Doctrine_Query::create()
+          ->select('SUM(t.amount) AS total')
+          ->from('Due d')
+          ->leftJoin('d.DueType t')
+          ->where('t.accpimt_id = ?', $id)
+          ->groupBy('t.account_id');
+
+    $row = $q->fetchArray();
+
+    return $row[0]['total'];
+  }
 }
