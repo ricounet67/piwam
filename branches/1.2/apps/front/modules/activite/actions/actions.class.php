@@ -46,14 +46,14 @@ class activiteActions extends sfActions
   public function executeShow(sfWebRequest $request)
   {
     $activiteId	      = $request->getParameter('id');
-    $depenses 	      = DepensePeer::doSelectForActiviteId($activiteId);
-    $recettes 	      = RecettePeer::doSelectForActiviteId($activiteId);
+    $this->activite   = ActivityTable::getById($activiteId);
+    $depenses 	      = $this->activite->getPaidExpenses()->getData();
+    $recettes 	      = $this->activite->getReceivedIncomes()->getData();
     $data		          = array_merge($depenses, $recettes);
     $isSortOk	        = usort($data, 'compare_money_entries');
     $this->data       = $data;
-    $this->activite   = ActivityTable::getById($activiteId);
-    $this->creances   = RecettePeer::getAmountOfCreancesForActivite($activiteId);
-    $this->dettes     = DepensePeer::getAmountOfDettesForActivite($activiteId);
+    $this->creances   = IncomeTable::getAmountOfDebtsForActivity($activiteId);
+    $this->dettes     = ExpenseTable::getAmountOfDebtsForActivity($activiteId);
     $this->totalPrevu = $this->creances - $this->dettes;
 
     if ($this->activite->getAssociationId() == $this->getUser()->getAssociationId())

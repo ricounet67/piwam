@@ -26,6 +26,36 @@ class Activity extends BaseActivity
   }
 
   /**
+   * Retrieve list of paid Expense objects
+   *
+   * @return  array of Expense
+   */
+  public function getPaidExpenses()
+  {
+    $q = Doctrine_Query::create()
+          ->from('Expense e')
+          ->where('e.paid = ?', true)
+          ->andWhere('e.activity_id = ?', $this->getId());
+
+    return $q->execute();
+  }
+
+  /**
+   * Retrieve list of received Incomes
+   *
+   * @return  array of Income
+   */
+  public function getReceivedIncomes()
+  {
+    $q = Doctrine_Query::create()
+          ->from('Income i')
+          ->where('i.received = ?', true)
+          ->andWhere('i.activity_id = ?', $this->getId());
+
+    return $q->execute();
+  }
+
+  /**
    * Get total amount of expenses
    *
    * @return integer
