@@ -4,7 +4,7 @@
  *
  * @package     piwam
  * @subpackage  model
- * @author      adrien
+ * @author      Adrien Mogenet
  * @since       1.2
  */
 class StatusTable extends Doctrine_Table
