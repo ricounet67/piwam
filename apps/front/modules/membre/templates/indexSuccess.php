@@ -45,11 +45,11 @@
 <table class="tableauDonnees" summary="Members who would like to belong to the association">
     <thead>
         <tr class="enteteTableauDonnees">
-            <th><?php echo link_to('Nom',    'membre/index?orderby=NOM') ?></th>
-            <th><?php echo link_to('Prénom', 'membre/index?orderby=PRENOM') ?></th>
-            <th><?php echo link_to('Pseudo', 'membre/index?orderby=PSEUDO') ?></th>
-            <th><?php echo link_to('Statut', 'membre/index?orderby=STATUT_ID') ?></th>
-            <th><?php echo link_to('Ville',  'membre/index?orderby=VILLE') ?></th>
+            <th><?php echo link_to('Nom',    'membre/index?orderby=lastname') ?></th>
+            <th><?php echo link_to('Prénom', 'membre/index?orderby=firstname') ?></th>
+            <th><?php echo link_to('Pseudo', 'membre/index?orderby=username') ?></th>
+            <th><?php echo link_to('Statut', 'membre/index?orderby=status_id') ?></th>
+            <th><?php echo link_to('Ville',  'membre/index?orderby=city') ?></th>
             <th width="75px">Actions</th>
         </tr>
     </thead>
