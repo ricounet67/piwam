@@ -123,8 +123,9 @@ class associationActions extends sfActions
       $this->form->bind($request->getParameter('password'));
       if ($this->form->isValid())
       {
-        $user = MembrePeer::retrieveByPseudo($request->getParameter('password[username]'));
-        if (! is_null($user))
+        $user = MemberTable::getByUsername($request->getParameter('password[username]'));
+
+        if ($user)
         {
           if ($user->getEmail())
           {
@@ -133,20 +134,25 @@ class associationActions extends sfActions
             $user->setPassword($newPassword);
             $user->save();
 
-            $mailer   = MailerFactory::get($user->getAssociationId(), $this->getUser());
-            $message  = new Swift_Message('Votre mot de passe', 'Bonjour, votre nouveau mot de passe pour acc&eacute;der au gestionnaire d\'association est ' . $newPassword, 'text/html');
-            $from     = Configurator::get('address', $user->getAssociationId(), 'info-association@piwam.org');
+            $mailer     = MailerFactory::get($user->getAssociationId(), $this->getUser());
+            $content    = 'Bonjour, votre nouveau mot de passe pour acc&eacute;der au gestionnaire d\'association est ' . $newPassword;
+            $from_email = Configurator::get('address', $user->getAssociationId(), 'info-association@piwam.org');
+            $from_label = $this->getUser()->getAssociationName('Piwam');
 
+            $message    = Swift_Message::newInstance('Votre mot de passe')
+                            ->setBody($content)
+                            ->setContentType('text/html')
+                            ->setFrom(array($from_email => $from_label))
+                            ->setTo(array($user->getEmail() => $user->getFirstname()));
             try
             {
-              $mailer->send($message, $email, $from);
+              $mailer->send($message);
             }
             catch(Swift_ConnectionException $e)
             {
               $this->getUser()->setFlash('error', 'Le mot de passe n\'a pu être envoyé par e-mail');
             }
 
-            $mailer->disconnect();
             $this->getUser()->setFlash('notice', 'Le nouveau mot de passe a été envoyé par e-mail', false);
           }
           else
