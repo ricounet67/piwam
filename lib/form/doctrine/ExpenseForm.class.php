@@ -16,15 +16,16 @@ class ExpenseForm extends BaseExpenseForm
    */
   public function configure()
   {
-    unset($this['created_at'],    $this['updated_at']);
-    unset($this['created_by'],  $this['updated_by']);
-    unset($this['state'],       $this['association_id']);
+    unset($this['created_at'], $this['updated_at']);
+    unset($this['created_by'], $this['updated_by']);
+    unset($this['state'], $this['association_id']);
 
-    if ($this->getObject()->isNew()) {
+    if ($this->getObject()->isNew())
+    {
       $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
       $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-      $this->setDefault('created_by', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
-      $this->setDefault('association_id', sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user'));
+      $this->setDefault('created_by', sfContext::getInstance()->getUser()->getUserId());
+      $this->setDefault('association_id', sfContext::getInstance()->getUser()->getAssociationId());
       $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
     }
@@ -40,15 +41,9 @@ class ExpenseForm extends BaseExpenseForm
     // select only Membre, CotisationType and account which
     // belong to the association id
 
-    $id = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
-
-
-    /**
-     * @todo
-     * FIXME
-     */
-//    $this->widgetSchema['account_id']->setOption('criteria', accountPeer::getCriteriaForAssociationId($id));
-//    $this->widgetSchema['activity_id']->setOption('criteria', activityPeer::getCriteriaForAssociationId($id));
+    $id = sfContext::getInstance()->getUser()->getAssociationId();
+    $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
+    $this->widgetSchema['activity_id']->setOption('query', ActivityTable::getQueryEnabledForAssociation($id));
 
     // r19 : customize the appearance
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
@@ -57,10 +52,11 @@ class ExpenseForm extends BaseExpenseForm
     sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
     $this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
       'image'   => image_path('calendar.gif'),
-        'config'  => '{}',
+      'config'  => '{}',
       'culture' => 'fr_FR',
       'format'  => '%day%.%month%.%year%',
     ));
+
     $this->setDefault('date', date('y-m-d'));
     $this->widgetSchema['account_id']->setAttribute('class', 'formInputLarge');
     $this->widgetSchema['activity_id']->setAttribute('class', 'formInputLarge');
