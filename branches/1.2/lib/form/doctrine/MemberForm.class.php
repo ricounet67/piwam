@@ -31,8 +31,6 @@ class MemberForm extends BaseMemberForm
    *
    * r33 : At the beginning of the process we determine if we are registering
    *     the first Membre of a new association or not
-   *
-   * @since r7
    */
   public function configure()
   {
@@ -47,6 +45,7 @@ class MemberForm extends BaseMemberForm
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
     unset($this['state'], $this['association_id']);
+    unset($this['password']);
 
     if ($this->getObject()->isNew())
     {
@@ -66,15 +65,8 @@ class MemberForm extends BaseMemberForm
       $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     }
 
-    $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-    $this->validatorSchema['association_id'] = new sfValidatorInteger();
-    $this->setDefault('association_id', $associationId);
-
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
-    //$this->widgetSchema['status_id']->setOption('criteria', StatusTable::getCriteriaEnabledForAssociation($associationId));
-
-
-    unset($this['password']);
+    $this->widgetSchema['status_id']->setOption('query', StatusTable::getQueryEnabledForAssociation($associationId));
     $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
 
     /*
@@ -108,11 +100,11 @@ class MemberForm extends BaseMemberForm
       $this->validatorSchema['username'] = new sfValidatorString(array('required' => true));
     }
 
-    /**
-     * @todo
-     * FIXME
-     */
-    //$this->validatorSchema->setPostValidator(new sfValidatorPropelUnique(array('model' => 'Membre', 'column' => 'pseudo'), array('invalid' => 'Ce pseudo existe déjà')));
+    $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
+    $this->validatorSchema['association_id'] = new sfValidatorInteger();
+    $this->setDefault('association_id', $associationId);
+
+    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Member', 'column' => 'username'), array('invalid' => 'Ce pseudo existe déjà')));
 
     unset($this->validatorSchema['email']);
     unset($this->validatorSchema['website']);

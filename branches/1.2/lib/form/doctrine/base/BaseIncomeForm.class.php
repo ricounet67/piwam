@@ -23,8 +23,8 @@ abstract class BaseIncomeForm extends BaseFormDoctrine
       'activity_id'    => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Activity'), 'add_empty' => false)),
       'date'           => new sfWidgetFormDate(),
       'received'       => new sfWidgetFormInputCheckbox(),
-      'created_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Member'), 'add_empty' => false)),
-      'updated_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Member_5'), 'add_empty' => false)),
+      'created_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CreatedByMember'), 'add_empty' => false)),
+      'updated_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('UpdatedByMember'), 'add_empty' => false)),
       'created_at'     => new sfWidgetFormDateTime(),
       'updated_at'     => new sfWidgetFormDateTime(),
     ));
@@ -38,8 +38,8 @@ abstract class BaseIncomeForm extends BaseFormDoctrine
       'activity_id'    => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Activity'))),
       'date'           => new sfValidatorDate(),
       'received'       => new sfValidatorBoolean(array('required' => false)),
-      'created_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Member'))),
-      'updated_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Member_5'))),
+      'created_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CreatedByMember'))),
+      'updated_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UpdatedByMember'))),
       'created_at'     => new sfValidatorDateTime(),
       'updated_at'     => new sfValidatorDateTime(),
     ));
