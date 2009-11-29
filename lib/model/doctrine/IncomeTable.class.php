@@ -70,4 +70,24 @@ class IncomeTable extends Doctrine_Table
 
     return $q->fetchOne();
   }
+
+  /**
+   * Get amount of unreceived Incomes for association $id
+   * @param     integer $id
+   * @return    integer
+   */
+  public static function getAmountOfDebtsForActivity($id)
+  {
+      $q = Doctrine_Query::create()
+          ->select('SUM(i.amount) AS total')
+          ->from('Income i')
+          ->leftJoin('i.Activity a')
+          ->where('a.id = ?', $id)
+          ->andWhere('i.received = ?', false)
+          ->groupBy('a.id');
+
+    $row = $q->fetchArray();
+
+    return (count($row)) ? $row[0]['total'] : 0;
+  }
 }
