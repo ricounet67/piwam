@@ -43,15 +43,11 @@ class DueForm extends BaseDueForm
     // select only Membre, CotisationType and account which
     // belong to the association id
 
-    $id = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
+    $id = sfContext::getInstance()->getUser()->getAssociationId();
 
-    /**
-     * @todo
-     * FIXME
-     */
-    //$this->widgetSchema['member_id']->setOption('criteria', MembrePeer::getCriteriaForAssociationId($id));
-    //$this->widgetSchema['cotisation_type_id']->setOption('criteria', CotisationTypePeer::getCriteriaForAssociationId($id));
-    //$this->widgetSchema['account_id']->setOption('criteria', AccountTable::getCriteriaForAssociationId($id));
+    $this->widgetSchema['member_id']->setOption('query', MemberTable::getQueryEnabledForAssociation($id));
+    $this->widgetSchema['due_type_id']->setOption('query', DueTypeTable::getQueryEnabledForAssociation($id));
+    $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
     $this->widgetSchema['due_type_id']->setOption('add_empty', true);
 
     $this->widgetSchema['account_id']->setAttribute('class', 'formInputLarge');
