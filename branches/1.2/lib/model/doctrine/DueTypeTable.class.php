@@ -61,14 +61,27 @@ class DueTypeTable extends Doctrine_Table
    * @param   integer           $id
    * @return  array of DueType
    */
-  public static function getEnbledForAssociation($id)
+  public static function getEnabledForAssociation($id)
+  {
+    $q = self::getQueryEnbledForAssociation();
+
+    return $q->execute();
+  }
+
+  /**
+   * Get Query object to retrieve list of DueType
+   *
+   * @param   integer $id
+   * @return  Doctrine_Query
+   */
+  public static function getQueryEnbledForAssociation($id)
   {
     $q = Doctrine_Query::create()
           ->from('DueType t')
           ->where('t.state = ?', self::STATE_ENABLED)
           ->andWhere('t.association_id = ?', $id);
 
-    return $q->execute();
+    return $q;
   }
 
   /**
