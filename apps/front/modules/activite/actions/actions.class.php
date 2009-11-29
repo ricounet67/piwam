@@ -35,7 +35,7 @@ class activiteActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->activite_list = ActivityTable::getActiveForAssociation($this->getUser()->getAssociationId());
+    $this->activite_list = ActivityTable::getEnabledForAssociation($this->getUser()->getAssociationId());
   }
 
   /**
@@ -51,7 +51,7 @@ class activiteActions extends sfActions
     $data		          = array_merge($depenses, $recettes);
     $isSortOk	        = usort($data, 'compare_money_entries');
     $this->data       = $data;
-    $this->activite   = ActivityTable::retrieveByPk($activiteId);
+    $this->activite   = ActivityTable::getById($activiteId);
     $this->creances   = RecettePeer::getAmountOfCreancesForActivite($activiteId);
     $this->dettes     = DepensePeer::getAmountOfDettesForActivite($activiteId);
     $this->totalPrevu = $this->creances - $this->dettes;
