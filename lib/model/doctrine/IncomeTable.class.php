@@ -35,4 +35,39 @@ class IncomeTable extends Doctrine_Table
       return 0;
     }
   }
+
+  /**
+   * Retrieve enabled expenses for association $id
+   *
+   * @param   integer           $id
+   * @return  array of Income
+   * @todo    Customize number of results per page, add filters
+   */
+  public static function getPagerForAssociation($id, $page = 1)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Income i')
+          ->where('i.association_id = ?', $id);
+
+    $pager = new sfDoctrinePager('Income', 20);
+    $pager->setQuery($q);
+    $pager->setPage($page);
+
+    return $pager;
+  }
+
+  /**
+   * Retrieve an expense by its id
+   *
+   * @param   integer $id
+   * @return  Income
+   */
+  public static function getById($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Income i')
+          ->where('i.id = ?', $id);
+
+    return $q->fetchOne();
+  }
 }
