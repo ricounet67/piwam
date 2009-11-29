@@ -1,5 +1,4 @@
 <?php
-
 /**
  * compte actions.
  *
@@ -106,7 +105,7 @@ class compteActions extends sfActions
     $compte = AccountTable::getById($request->getParameter('id'));
     $this->forward404Unless($compte, sprintf('Object compte does not exist (%s).', $request->getParameter('id')));
 
-    if ($this->compte->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($compte->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
