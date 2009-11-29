@@ -52,7 +52,7 @@ class Account extends BaseAccount
   }
 
   /**
-   * Get total amount of incomes
+   * Get total amount of incomes (also add amount of dues)
    *
    * @return integer
    */
@@ -72,6 +72,8 @@ class Account extends BaseAccount
       {
         $this->_totalIncomes = $row[0]['total'];
       }
+
+      $this->_totalIncomes += DueTable::getSumForAccount($this->getId());
     }
 
     return ($this->_totalIncomes === null) ? 0 : $this->_totalIncomes;
