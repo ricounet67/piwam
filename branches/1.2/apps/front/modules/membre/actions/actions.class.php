@@ -300,8 +300,8 @@ class membreActions extends sfActions
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new MemberForm(null, array('associationId' => $request->getParameter('membre[association_id]'),
-                                                 'context'       => $this->getContext()));
+    $this->form = new MemberForm(null, array('associationId' => $request->getParameter('member[association_id]'),
+                                             'context'       => $this->getContext()));
     $this->processForm($request, $this->form);
     $this->setTemplate('new');
   }
@@ -386,14 +386,14 @@ class membreActions extends sfActions
     }
     else
     {
-      $association = AssociationPeer::doSelectOne(new Criteria());
+      $association = AssociationTable::getUnique();
       $associationId = $association->getId();
     }
 
     $this->form = new MemberForm(null, array('associationId' => $associationId,
-                                                 'context'       => $this->getContext()));
+                                                 'context'   => $this->getContext()));
     $this->form->setDefault('association_id', $associationId);
-    $this->form->setDefault('actif', MemberTable::IS_PENDING);
+    $this->form->setDefault('actif', MemberTable::STATE_PENDING);
   }
 
   /**
@@ -405,7 +405,7 @@ class membreActions extends sfActions
   public function executeCreatepending(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new MemberForm(null, array('associationId' => $request->getParameter("membre[association_id]"),
+    $this->form = new MemberForm(null, array('associationId' => $request->getParameter("member[association_id]"),
                                              'context'       => $this->getContext()));
     $request->setAttribute('pending', true);
     $this->processForm($request, $this->form);
