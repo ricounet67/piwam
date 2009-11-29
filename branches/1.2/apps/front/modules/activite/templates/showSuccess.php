@@ -2,7 +2,7 @@
 <?php use_helper('Membre') ?>
 <?php use_helper('Number') ?>
 
-<h2>Détails pour "<?php echo $activite->getLibelle() ?>"</h2>
+<h2>Détails pour "<?php echo $activite->getLabel() ?>"</h2>
 
 <table class="tableauDetails">
     <tbody>
@@ -10,15 +10,15 @@
             <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
             Enregistrée le :</th>
             <td><?php echo format_datetime($activite->getCreatedAt(), 'dd/MM/yyyy HH:mm') ?>
-            par <?php echo format_membre($activite->getMembreRelatedByEnregistrePar()) ?></td>
+            par <?php echo format_member($activite->getCreatedByMember()) ?></td>
         </tr>
         <tr>
             <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
             Mise à jour le :</th>
             <td>
-            	<?php if ($activite->getMisAJourPar()):?>
+            	<?php if ($activite->getUpdatedBy()):?>
 	                <?php echo format_datetime($activite->getUpdatedAt(), 'dd/MM/yyyy HH:mm') ?>
-            		par <?php echo format_membre($activite->getMembreRelatedByMisAJourPar())?>
+            		par <?php echo format_member($activite->getUpdatedByMember())?>
                 <?php else: ?>
                     <i>Aucune mise à jour pour le moment</i>
                 <?php endif; ?>
@@ -48,15 +48,15 @@ $totalDepenses = 0;
 
     <?php foreach ($data as $entry): ?>
     <tr>
-        <td><?php echo $entry->getLibelle() ?></td>
-        <?php if ($entry->getRawValue() instanceof Depense):?>
-        <td class="compteNegatif"><?php echo format_currency($entry->getMontant()); $totalDepenses += $entry->getMontant() ?></td>
+        <td><?php echo $entry->getLabel() ?></td>
+        <?php if ($entry->getRawValue() instanceof Expense):?>
+        <td class="compteNegatif"><?php echo format_currency($entry->getAmount()); $totalDepenses += $entry->getAmount() ?></td>
         <td>&nbsp;</td>
         <?php else: ?>
         <td>&nbsp;</td>
-        <td class="comptePositif"><?php echo format_currency($entry->getMontant()); $totalRecettes += $entry->getMontant() ?></td>
+        <td class="comptePositif"><?php echo format_currency($entry->getAmount()); $totalRecettes += $entry->getAmount() ?></td>
         <?php endif; ?>
-        <td><?php echo $entry->getCompte()->getReference() ?></td>
+        <td><?php echo $entry->getAccount() ?></td>
         <td><?php echo format_date($entry->getDate()) ?></td>
     </tr>
     <?php endforeach; ?>
