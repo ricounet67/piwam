@@ -1,4 +1,6 @@
 
+  * Specifiy table encoding in schema.yml
+
   Use iterator/countable iface from Pagers
   http://www.symfony-project.org/tutorial/1_4/en/whats-new
 
