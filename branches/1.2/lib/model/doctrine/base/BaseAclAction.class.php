@@ -64,7 +64,8 @@ abstract class BaseAclAction extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('AclModule', array(
              'local' => 'acl_module_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasMany('AclCredential', array(
              'local' => 'id',

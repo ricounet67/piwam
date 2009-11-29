@@ -20,39 +20,39 @@ Doctrine_Manager::getInstance()->bindComponent('Expense', 'doctrine');
  * @property Association $Association
  * @property Account $Account
  * @property Activity $Activity
- * @property Member $Member
- * @property Member $Member_5
+ * @property Member $CreatedByMember
+ * @property Member $UpdatedByMember
  * 
- * @method integer     getId()             Returns the current record's "id" value
- * @method string      getLabel()          Returns the current record's "label" value
- * @method decimal     getAmount()         Returns the current record's "amount" value
- * @method integer     getAssociationId()  Returns the current record's "association_id" value
- * @method integer     getAccountId()      Returns the current record's "account_id" value
- * @method integer     getActivityId()     Returns the current record's "activity_id" value
- * @method date        getDate()           Returns the current record's "date" value
- * @method boolean     getPaid()           Returns the current record's "paid" value
- * @method integer     getCreatedBy()      Returns the current record's "created_by" value
- * @method integer     getUpdatedBy()      Returns the current record's "updated_by" value
- * @method Association getAssociation()    Returns the current record's "Association" value
- * @method Account     getAccount()        Returns the current record's "Account" value
- * @method Activity    getActivity()       Returns the current record's "Activity" value
- * @method Member      getMember()         Returns the current record's "Member" value
- * @method Member      getMember5()        Returns the current record's "Member_5" value
- * @method Expense     setId()             Sets the current record's "id" value
- * @method Expense     setLabel()          Sets the current record's "label" value
- * @method Expense     setAmount()         Sets the current record's "amount" value
- * @method Expense     setAssociationId()  Sets the current record's "association_id" value
- * @method Expense     setAccountId()      Sets the current record's "account_id" value
- * @method Expense     setActivityId()     Sets the current record's "activity_id" value
- * @method Expense     setDate()           Sets the current record's "date" value
- * @method Expense     setPaid()           Sets the current record's "paid" value
- * @method Expense     setCreatedBy()      Sets the current record's "created_by" value
- * @method Expense     setUpdatedBy()      Sets the current record's "updated_by" value
- * @method Expense     setAssociation()    Sets the current record's "Association" value
- * @method Expense     setAccount()        Sets the current record's "Account" value
- * @method Expense     setActivity()       Sets the current record's "Activity" value
- * @method Expense     setMember()         Sets the current record's "Member" value
- * @method Expense     setMember5()        Sets the current record's "Member_5" value
+ * @method integer     getId()              Returns the current record's "id" value
+ * @method string      getLabel()           Returns the current record's "label" value
+ * @method decimal     getAmount()          Returns the current record's "amount" value
+ * @method integer     getAssociationId()   Returns the current record's "association_id" value
+ * @method integer     getAccountId()       Returns the current record's "account_id" value
+ * @method integer     getActivityId()      Returns the current record's "activity_id" value
+ * @method date        getDate()            Returns the current record's "date" value
+ * @method boolean     getPaid()            Returns the current record's "paid" value
+ * @method integer     getCreatedBy()       Returns the current record's "created_by" value
+ * @method integer     getUpdatedBy()       Returns the current record's "updated_by" value
+ * @method Association getAssociation()     Returns the current record's "Association" value
+ * @method Account     getAccount()         Returns the current record's "Account" value
+ * @method Activity    getActivity()        Returns the current record's "Activity" value
+ * @method Member      getCreatedByMember() Returns the current record's "CreatedByMember" value
+ * @method Member      getUpdatedByMember() Returns the current record's "UpdatedByMember" value
+ * @method Expense     setId()              Sets the current record's "id" value
+ * @method Expense     setLabel()           Sets the current record's "label" value
+ * @method Expense     setAmount()          Sets the current record's "amount" value
+ * @method Expense     setAssociationId()   Sets the current record's "association_id" value
+ * @method Expense     setAccountId()       Sets the current record's "account_id" value
+ * @method Expense     setActivityId()      Sets the current record's "activity_id" value
+ * @method Expense     setDate()            Sets the current record's "date" value
+ * @method Expense     setPaid()            Sets the current record's "paid" value
+ * @method Expense     setCreatedBy()       Sets the current record's "created_by" value
+ * @method Expense     setUpdatedBy()       Sets the current record's "updated_by" value
+ * @method Expense     setAssociation()     Sets the current record's "Association" value
+ * @method Expense     setAccount()         Sets the current record's "Account" value
+ * @method Expense     setActivity()        Sets the current record's "Activity" value
+ * @method Expense     setCreatedByMember() Sets the current record's "CreatedByMember" value
+ * @method Expense     setUpdatedByMember() Sets the current record's "UpdatedByMember" value
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -108,7 +108,6 @@ abstract class BaseExpense extends sfDoctrineRecord
              ));
         $this->hasColumn('created_by', 'integer', 4, array(
              'type' => 'integer',
-             'notnull' => true,
              'length' => '4',
              ));
         $this->hasColumn('updated_by', 'integer', 4, array(
@@ -122,23 +121,28 @@ abstract class BaseExpense extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Association', array(
              'local' => 'association_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Account', array(
              'local' => 'account_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Activity', array(
              'local' => 'activity_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
-        $this->hasOne('Member', array(
+        $this->hasOne('Member as CreatedByMember', array(
              'local' => 'created_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
-        $this->hasOne('Member as Member_5', array(
+        $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $timestampable0 = new Doctrine_Template_Timestampable();
         $this->actAs($timestampable0);

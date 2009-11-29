@@ -218,19 +218,23 @@ abstract class BaseMember extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Association', array(
              'local' => 'association_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Status', array(
              'local' => 'status_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Member as CreatedByMember', array(
              'local' => 'created_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $this->hasMany('AclCredential', array(
              'local' => 'id',
@@ -250,7 +254,7 @@ abstract class BaseMember extends sfDoctrineRecord
 
         $this->hasMany('DueType', array(
              'local' => 'id',
-             'foreign' => 'updated_by'));
+             'foreign' => 'created_by'));
 
         $this->hasMany('Expense', array(
              'local' => 'id',

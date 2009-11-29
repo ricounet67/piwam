@@ -93,4 +93,18 @@ class DueTable extends Doctrine_Table
 
     return (count($row)) ? $row[0]['total'] : 0;
   }
+
+  /**
+   * Count existing Due
+   *
+   * @return  integer
+   */
+  public static function doCount()
+  {
+    $q = Doctrine_Query::create()
+          ->select('d.id')
+          ->from('Due d');
+
+    return $q->count();
+  }
 }

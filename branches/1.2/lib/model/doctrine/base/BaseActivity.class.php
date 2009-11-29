@@ -16,8 +16,8 @@ Doctrine_Manager::getInstance()->bindComponent('Activity', 'doctrine');
  * @property Association $Association
  * @property Member $CreatedByMember
  * @property Member $UpdatedByMember
- * @property Doctrine_Collection $Expense
- * @property Doctrine_Collection $Income
+ * @property Doctrine_Collection $Expenses
+ * @property Doctrine_Collection $Incomes
  * 
  * @method integer             getId()              Returns the current record's "id" value
  * @method string              getLabel()           Returns the current record's "label" value
@@ -28,8 +28,8 @@ Doctrine_Manager::getInstance()->bindComponent('Activity', 'doctrine');
  * @method Association         getAssociation()     Returns the current record's "Association" value
  * @method Member              getCreatedByMember() Returns the current record's "CreatedByMember" value
  * @method Member              getUpdatedByMember() Returns the current record's "UpdatedByMember" value
- * @method Doctrine_Collection getExpense()         Returns the current record's "Expense" collection
- * @method Doctrine_Collection getIncome()          Returns the current record's "Income" collection
+ * @method Doctrine_Collection getExpenses()        Returns the current record's "Expenses" collection
+ * @method Doctrine_Collection getIncomes()         Returns the current record's "Incomes" collection
  * @method Activity            setId()              Sets the current record's "id" value
  * @method Activity            setLabel()           Sets the current record's "label" value
  * @method Activity            setState()           Sets the current record's "state" value
@@ -39,8 +39,8 @@ Doctrine_Manager::getInstance()->bindComponent('Activity', 'doctrine');
  * @method Activity            setAssociation()     Sets the current record's "Association" value
  * @method Activity            setCreatedByMember() Sets the current record's "CreatedByMember" value
  * @method Activity            setUpdatedByMember() Sets the current record's "UpdatedByMember" value
- * @method Activity            setExpense()         Sets the current record's "Expense" collection
- * @method Activity            setIncome()          Sets the current record's "Income" collection
+ * @method Activity            setExpenses()        Sets the current record's "Expenses" collection
+ * @method Activity            setIncomes()         Sets the current record's "Incomes" collection
  * 
  * @package    ##PACKAGE##
  * @subpackage ##SUBPACKAGE##
@@ -88,21 +88,24 @@ abstract class BaseActivity extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('Association', array(
              'local' => 'association_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Member as CreatedByMember', array(
              'local' => 'created_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
         $this->hasOne('Member as UpdatedByMember', array(
              'local' => 'updated_by',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
 
-        $this->hasMany('Expense', array(
+        $this->hasMany('Expense as Expenses', array(
              'local' => 'id',
              'foreign' => 'activity_id'));
 
-        $this->hasMany('Income', array(
+        $this->hasMany('Income as Incomes', array(
              'local' => 'id',
              'foreign' => 'activity_id'));
 

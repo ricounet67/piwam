@@ -56,10 +56,12 @@ abstract class BaseConfigValue extends sfDoctrineRecord
         parent::setUp();
         $this->hasOne('ConfigVariable', array(
              'local' => 'config_variable_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
 
         $this->hasOne('Association', array(
              'local' => 'association_id',
-             'foreign' => 'id'));
+             'foreign' => 'id',
+             'onDelete' => 'CASCADE'));
     }
 }

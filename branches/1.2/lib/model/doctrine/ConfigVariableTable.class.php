@@ -38,4 +38,18 @@ class ConfigVariableTable extends Doctrine_Table
 
     return $q->execute();
   }
+
+  /**
+   * Count existing ConfigVariable
+   *
+   * @return  integer
+   */
+  public static function doCount()
+  {
+    $q = Doctrine_Query::create()
+          ->select('v.id')
+          ->from('ConfigVariable v');
+
+    return $q->count();
+  }
 }

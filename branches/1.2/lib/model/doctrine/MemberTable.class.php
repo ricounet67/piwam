@@ -200,4 +200,18 @@ class MemberTable extends Doctrine_Table
 
     return $q->execute();
   }
+
+  /**
+   * Count existing Member
+   *
+   * @return  integer
+   */
+  public static function doCount()
+  {
+    $q = Doctrine_Query::create()
+          ->select('m.id')
+          ->from('Member m');
+
+    return $q->count();
+  }
 }

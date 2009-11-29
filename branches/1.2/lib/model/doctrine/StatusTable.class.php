@@ -68,4 +68,18 @@ class StatusTable extends Doctrine_Table
 
     return $q;
   }
+
+  /**
+   * Count existing Member
+   *
+   * @return  integer
+   */
+  public static function doCount()
+  {
+    $q = Doctrine_Query::create()
+          ->select('s.id')
+          ->from('Status s');
+
+    return $q->count();
+  }
 }

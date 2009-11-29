@@ -92,4 +92,18 @@ class ExpenseTable extends Doctrine_Table
 
     return (count($row)) ? $row[0]['total'] : 0;
   }
+
+  /**
+   * Count existing Expenses
+   *
+   * @return  integer
+   */
+  public static function doCount()
+  {
+    $q = Doctrine_Query::create()
+          ->select('e.id')
+          ->from('Expense e');
+
+    return $q->count();
+  }
 }

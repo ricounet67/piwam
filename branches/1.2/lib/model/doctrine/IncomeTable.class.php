@@ -90,4 +90,18 @@ class IncomeTable extends Doctrine_Table
 
     return (count($row)) ? $row[0]['total'] : 0;
   }
+
+  /**
+   * Count existing Income
+   *
+   * @return  integer
+   */
+  public static function doCount()
+  {
+    $q = Doctrine_Query::create()
+          ->select('i.id')
+          ->from('Income i');
+
+    return $q->count();
+  }
 }
