@@ -38,6 +38,7 @@ class Activity extends BaseActivity
             ->select('SUM(e.amount) AS total')
             ->from('Expense e')
             ->where('e.activity_id = ?', $this->getId())
+            ->andWhere('e.paid = ?', true)
             ->groupBy('e.account_id');
 
       $row = $q->fetchArray();
@@ -64,6 +65,7 @@ class Activity extends BaseActivity
             ->select('SUM(i.amount) AS total')
             ->from('Income i')
             ->where('i.activity_id = ?', $this->getId())
+            ->andWhere('i.received = ?', true)
             ->groupBy('i.account_id');
 
       $row = $q->fetchArray();
