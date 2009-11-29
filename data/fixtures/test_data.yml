@@ -312,10 +312,13 @@ Association:
 ConfigCategory:
   ConfigCategory_affichage:
     label: Affichage
+    code: affichage
   ConfigCategory_mailing:
     label: Mailing
+    code: mailing
   ConfigCategory_services:
     label: Services
+    code: services
 ConfigVariable:
   ConfigVariable_1:
     code: address
@@ -391,26 +394,6 @@ Data:
   Data_1:
     config_key: dbversion
     value: '470'
-Due:
-  Due_1:
-    Account: Account_1
-    DueType: DueType_1
-    Member: Member_1
-    date: '2009-11-28'
-    amount: '10.00'
-    CreatedByMember: Member_1
-    created_at: '2009-11-28 21:49:40'
-    updated_at: '2009-11-28 21:49:40'
-DueType:
-  DueType_1:
-    label: 'Cotisation annuelle 2009'
-    Association: Association_1
-    period: '12'
-    amount: '10.00'
-    state: '1'
-    created_by: '1'
-    created_at: '2009-11-28 21:48:33'
-    updated_at: '2009-11-28 21:48:33'
 Member:
   Member_1:
     lastname: Lastname
@@ -491,3 +474,22 @@ Status:
     created_by: null
     created_at: '2009-11-28 21:42:16'
     updated_at: '2009-11-28 21:42:16'
+Due:
+  Due_1:
+    Account: Account_1
+    DueType: DueType_1
+    Member: Member_1
+    date: '2009-11-28'
+    amount: '10.00'
+    CreatedByMember: Member_1
+    created_at: '2009-11-28 21:49:40'
+    updated_at: '2009-11-28 21:49:40'
+DueType:
+  DueType_1:
+    label: 'Cotisation annuelle 2009'
+    Association: Association_1
+    period: '12'
+    amount: '10.00'
+    state: '1'
+    created_at: '2009-11-28 21:48:33'
+    updated_at: '2009-11-28 21:48:33'
