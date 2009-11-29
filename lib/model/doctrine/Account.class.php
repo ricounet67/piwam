@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Account
  *
@@ -38,6 +37,7 @@ class Account extends BaseAccount
             ->select('SUM(e.amount) AS total')
             ->from('Expense e')
             ->where('e.account_id = ?', $this->getId())
+            ->andWhere('e.paid = ?', true)
             ->groupBy('e.account_id');
 
       $row = $q->fetchArray();
@@ -64,6 +64,7 @@ class Account extends BaseAccount
             ->select('SUM(i.amount) AS total')
             ->from('Income i')
             ->where('i.account_id = ?', $this->getId())
+            ->andWhere('i.received = ?', true)
             ->groupBy('i.account_id');
 
       $row = $q->fetchArray();
