@@ -20,8 +20,8 @@ abstract class BaseAccountForm extends BaseFormDoctrine
       'association_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Association'), 'add_empty' => false)),
       'reference'      => new sfWidgetFormInputText(),
       'state'          => new sfWidgetFormInputText(),
-      'created_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Member'), 'add_empty' => true)),
-      'updated_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Member_3'), 'add_empty' => true)),
+      'created_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CreatedByMember'), 'add_empty' => true)),
+      'updated_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('UpdatedByMember'), 'add_empty' => true)),
       'created_at'     => new sfWidgetFormDateTime(),
       'updated_at'     => new sfWidgetFormDateTime(),
     ));
@@ -32,8 +32,8 @@ abstract class BaseAccountForm extends BaseFormDoctrine
       'association_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Association'))),
       'reference'      => new sfValidatorString(array('max_length' => 64)),
       'state'          => new sfValidatorInteger(array('required' => false)),
-      'created_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Member'), 'required' => false)),
-      'updated_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Member_3'), 'required' => false)),
+      'created_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CreatedByMember'), 'required' => false)),
+      'updated_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UpdatedByMember'), 'required' => false)),
       'created_at'     => new sfValidatorDateTime(),
       'updated_at'     => new sfValidatorDateTime(),
     ));

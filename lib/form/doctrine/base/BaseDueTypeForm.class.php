@@ -21,8 +21,8 @@ abstract class BaseDueTypeForm extends BaseFormDoctrine
       'period'         => new sfWidgetFormInputText(),
       'amount'         => new sfWidgetFormInputText(),
       'state'          => new sfWidgetFormInputText(),
-      'created_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Member'), 'add_empty' => false)),
-      'updated_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Member_3'), 'add_empty' => true)),
+      'created_by'     => new sfWidgetFormInputText(),
+      'updated_by'     => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('UpdatedByMember'), 'add_empty' => true)),
       'created_at'     => new sfWidgetFormDateTime(),
       'updated_at'     => new sfWidgetFormDateTime(),
     ));
@@ -34,8 +34,8 @@ abstract class BaseDueTypeForm extends BaseFormDoctrine
       'period'         => new sfValidatorInteger(),
       'amount'         => new sfValidatorNumber(),
       'state'          => new sfValidatorInteger(array('required' => false)),
-      'created_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Member'))),
-      'updated_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Member_3'), 'required' => false)),
+      'created_by'     => new sfValidatorInteger(),
+      'updated_by'     => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UpdatedByMember'), 'required' => false)),
       'created_at'     => new sfValidatorDateTime(),
       'updated_at'     => new sfValidatorDateTime(),
     ));
