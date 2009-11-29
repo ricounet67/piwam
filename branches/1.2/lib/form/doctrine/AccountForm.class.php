@@ -18,6 +18,7 @@ class AccountForm extends BaseAccountForm
   public function configure()
   {
     $associationId = $this->getOption('associationId');
+
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
     unset($this['state'], $this['association_id']);
@@ -28,6 +29,9 @@ class AccountForm extends BaseAccountForm
       $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
       $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
+      $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
+      $this->setDefault('state', StatusTable::STATE_ENABLED);
+      $this->validatorSchema['state'] = new sfValidatorBoolean();
     }
     else
     {
@@ -35,21 +39,28 @@ class AccountForm extends BaseAccountForm
       $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     }
 
-    $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
-    $this->setDefault('state', 1);
+    $this->setClasses();
+    $this->setLabels();
 
-    $this->validatorSchema['state'] = new sfValidatorBoolean();
-
-    /**
-     * @todo
-     * FIXME
+    /*
+     * Post validators, checking uniqueness
      */
-    //$this->validatorSchema['reference'] = new sfValidatorCustomUnique(array('class' => 'account', 'fields' => array('reference' => null, 'association_id' => $associationId)));
-    //$this->validatorSchema['label'] = new sfValidatorCustomUnique(array('class' => 'account', 'fields' => array('label' => null, 'association_id' => $associationId)));
+    $referenceValidator = new sfValidatorDoctrineUnique(array('model' => 'Account', 'column' => array('reference', 'association_id')),
+                                                        array('invalid' => 'Cette référence existe déjà'));
+    $labelValidator     = new sfValidatorDoctrineUnique(array('model' => 'Account', 'column' => array('label', 'association_id')),
+                                                        array('invalid' => 'Ce libellé existe déjà'));
 
+    $this->validatorSchema->setPostValidator($referenceValidator);
+    $this->mergePostValidator($labelValidator);
+  }
+
+  /**
+   * Set classes of each widget
+   */
+  protected  function setClasses()
+  {
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
     $this->widgetSchema['reference']->setAttribute('class', 'formInputNormal');
-    $this->setLabels();
   }
 
   /**
@@ -58,7 +69,7 @@ class AccountForm extends BaseAccountForm
   protected function setLabels()
   {
     $this->widgetSchema->setLabels(array(
-            'label'   => 'Libellé',
+            'label'     => 'Libellé',
             'reference' => 'Référence',
     ));
   }
