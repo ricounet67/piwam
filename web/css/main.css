@@ -184,16 +184,6 @@ div#searchBar {
     color: red;
 }
 
-/* for accounts with positive balance */
-.comptePositif {
-    background-color: #C2FCC3;
-}
-
-/* for accounts with negative balance */
-.compteNegatif {
-    background-color: #EECEBE;
-}
-
 /* members who have to pay their fee */
 .cotisationNonAjour {
     background-color: #E6E0D1;

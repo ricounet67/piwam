@@ -5,9 +5,93 @@
  *
  */
  
+/* listing tables : members, accounts, etc... */
+table.datalist {
+    width: 90%;
+    border: 1px solid black;
+}
+
+table.datalist tbody tr:Hover {
+    background-color: #E8FD98;
+}
+
+table.datalist tbody td {
+    font-family: verdana, sans-serif;
+    font-size: 11px;
+    color: #162027;
+    padding-left: 5px;
+}
+
+/* Header of listing tables */
+table.datalist thead tr {
+    background: black;
+    color: white;
+}
+
+/* Links in header of listing tables */
+table.datalist thead tr a {
+    color: white;
+    text-decoration: underline;
+}
+table.datalist thead tr a:Hover {
+    text-decoration: none;
+}
+
+
+
+/* left cell in details tables */
+table.details th {
+    text-align: left;
+    padding: 5px;
+    border-bottom: 1px dotted black;
+    background-color: #efefff;
+}
+
+/* right cell */
+table.details td {
+    border-bottom: 1px dotted black;
+    padding: 5px 5px 5px 10px;
+}
+
+table.details tfoot td {
+    padding-top: 10px;
+    border-bottom: 0;
+}
+
+
+
+/* left cell in add/edit forms, with label */
+table.formtable th {
+    text-align: left;
+    padding: 3px;
+}
+
+/* right cell in add forms */
+table.formtable td {
+    padding: 3px;
+}
+
+
+
+/* for accounts with positive balance */
+.positive {
+    background-color: #C2FCC3;
+}
+
+/* for accounts with negative balance */
+.negative {
+    background-color: #EECEBE;
+}
+
+
+
+
+
+/* - old french names - */
+
 
 /* listing tables : members, accounts, etc... */
-.tableauDonnees {
+.tableauDonnees, table.datalist {
     width: 90%;
     border: 1px solid black;
 }
