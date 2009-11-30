@@ -54,7 +54,7 @@
 
 	<target name="test">
 		<exec executable="${basedir}/symfony">
-			<arg line=" test:undercontrol ${basedir}/build/logs/undercontrol.xml" />
+			<arg line=" test:all --xml=${basedir}/build/logs/tests.xml" />
 		</exec>
 	</target>
 

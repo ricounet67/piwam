@@ -6,82 +6,82 @@
  */
 class Configurator
 {
-    /**
-     * Get the value of the configuration variable $v
-     *
-     * @param   string      $variable
-     * @param   integer     $associationId
-     * @return  string      Value of the configuration variable, stored as
-     *                      string in the database
-     * @throw   Exception   if $v is invalid
-     */
-    public static function get($v, $associationId, $defaultValue = null)
+  /**
+   * Get the value of the configuration variable $v
+   *
+   * @param   string      $variable
+   * @param   integer     $associationId
+   * @return  string      Value of the configuration variable, stored as
+   *                      string in the database
+   * @throw   Exception   if $v is invalid
+   */
+  public static function get($v, $associationId, $defaultValue = null)
+  {
+    $configValue = ConfigValueTable::getByCodeForAssociation($v, $associationId);
+
+    if (! $configValue)
     {
-        $configValue = ConfigValuePeer::retrieveByCode($v, $associationId);
+      $configVariable = ConfigVariableTable::getByCode($v);
 
-        if (is_null($configValue))
+      if (! $configVariable)
+      {
+        if (is_null($defaultValue))
         {
-            $configVariable = ConfigVariablePeer::retrieveByCode($v);
-
-            if (is_null($configVariable))
-            {
-                if (is_null($defaultValue))
-                {
-                    throw new Exception('Invalid configuration variable ' . $v);
-                }
-                else
-                {
-                    return $defaultValue;
-                }
-            }
-            if (is_null($defaultValue))
-            {
-                return $configVariable->getDefaultValue();
-            }
-            else
-            {
-                return $defaultValue;
-            }
+          throw new Exception('Invalid configuration variable ' . $v);
         }
         else
         {
-            return $configValue->getCustomValue();
+          return $defaultValue;
         }
+      }
+      if (is_null($defaultValue))
+      {
+        return $configVariable->getDefaultValue();
+      }
+      else
+      {
+        return $defaultValue;
+      }
     }
-
-    /**
-     * Set $v (configuration variable) = $value (new value of this variable).
-     * We check if the variable really exists
-     *
-     * @param 	string	$v
-     * @param   integer $associationId
-     * @param 	string	$value
-     * @throw	Exception	if configuration variable doesn't exist
-     */
-    public static function set($v, $value, $associationId)
+    else
     {
-        $variable = ConfigVariablePeer::retrieveByCode($v);
-
-        if ($variable == null)
-        {
-            throw new Exception('Variable does not exist : ' . $v);
-        }
-
-        $configValue = ConfigValuePeer::retrieveByCode($v, $associationId);
-
-        if ($configValue == null)
-        {
-            $newConfigValue = new ConfigValue();
-            $newConfigValue->setConfigVariableId($variable->getId());
-            $newConfigValue->setCustomValue($value);
-            $newConfigValue->setAssociationId($associationId);
-            $newConfigValue->save();
-        }
-        else
-        {
-            $configValue->setCustomValue($value);
-            $configValue->save();
-        }
+      return $configValue->getCustomValue();
     }
+  }
+
+  /**
+   * Set $v (configuration variable) = $value (new value of this variable).
+   * We check if the variable really exists
+   *
+   * @param 	string	$v
+   * @param   integer $associationId
+   * @param 	string	$value
+   * @throw	Exception	if configuration variable doesn't exist
+   */
+  public static function set($v, $value, $associationId)
+  {
+    $variable = ConfigVariableTable::getByCode($v);
+
+    if ($variable == null)
+    {
+      throw new Exception('Variable does not exist : ' . $v);
+    }
+
+    $configValue = ConfigValueTable::getByCodeForAssociation($v, $associationId);
+
+    if ($configValue == null)
+    {
+      $newConfigValue = new ConfigValue();
+      $newConfigValue->setConfigVariableId($variable->getId());
+      $newConfigValue->setCustomValue($value);
+      $newConfigValue->setAssociationId($associationId);
+      $newConfigValue->save();
+    }
+    else
+    {
+      $configValue->setCustomValue($value);
+      $configValue->save();
+    }
+  }
 }
 ?>

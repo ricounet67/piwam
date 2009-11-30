@@ -27,22 +27,22 @@
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
             <th>Compte bénéficiaire :</th>
-            <td><?php echo $form['compte_id'] ?> <?php echo $form['compte_id']->renderError() ?>
+            <td><?php echo $form['account_id'] ?> <?php echo $form['account_id']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Type de cotisation</th>
-            <td><?php echo $form['cotisation_type_id'] ?> <?php echo $form['cotisation_type_id']->renderError() ?>
+            <td><?php echo $form['due_type_id'] ?> <?php echo $form['due_type_id']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Montant</th>
-            <td><?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?>
+            <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Membre :</th>
-            <td><?php echo $form['membre_id'] ?> <?php echo $form['membre_id']->renderError() ?>
+            <td><?php echo $form['member_id'] ?> <?php echo $form['member_id']->renderError() ?>
             </td>
         </tr>
         <tr>
@@ -58,7 +58,7 @@
     Ajax updater can't update input form directly,
     so we update the following hidden <div>
 -->
-<div id="hiddenMontantValue"
+<div id="hiddenAmountValue"
     style="display: none"></div>
 
 <!--
@@ -69,14 +69,14 @@
 
 <script type="text/javascript">
 <!--
-new Form.Element.EventObserver('cotisation_cotisation_type_id',
+new Form.Element.EventObserver('due_due_type_id',
    function( element, value ) {
-      new Ajax.Updater( 'hiddenMontantValue',  '<?php echo url_for("cotisationtype/ajaxgetamountfor") ?>?id=' + value, { onComplete: function () { updateAmont(value) }, parameters: id=value });
+      new Ajax.Updater( 'hiddenAmountValue',  '<?php echo url_for("cotisationtype/ajaxgetamountfor") ?>?id=' + value, { onComplete: function () { updateAmont(value) }, parameters: id=value });
    }
 );
 
 function updateAmont(v) {
-      document.getElementById('cotisation_montant').value = document.getElementById('hiddenMontantValue').innerHTML;
+      document.getElementById('due_amount').value = document.getElementById('hiddenAmountValue').innerHTML;
     }
 //-->
 </script>

@@ -1,604 +1,495 @@
-# # Populate this file with data to be loaded by your ORM's *:data-load task.
-# # You can create multiple files in this directory (i.e. 010_users.yml,
-# # 020_articles.yml, etc) which will be loaded in alphabetical order.
-# # 
-# # See documentation for your ORM's *:data-load task for more information.
-# 
-
-
-
-###############################################################################
-
-Association:
-  the_fakers:
-    nom:			The Fakers
-    description:	Fausse association pour tester
-    site_web:		http://www.the-fakers.com
-    
-  private:
-    nom:			Private Ltd
-    description:	Association dont les données doivent rester privées
-    site_web:		http://www.private.org
-
-
-
-
-
-
-###############################################################################
-
-Activite:
-  fonctionnement_general:
-    libelle:		Fonctionnement général de l'association
-    actif:			1
-    association_id:	the_fakers
-    
-  fonctionnement_general_2:
-    libelle:		Fonctionnement général de l'association
-    actif:			1
-    association_id:	private
-    
-
-
-
-
-
-
-###############################################################################
-
-
-Statut:
-  president:
-    nom:			Président
-    association_id: the_fakers
-    actif:			1
-    
-  tresorier:
-    nom:			Trésorier
-    association_id: the_fakers
-    actif:			1
-    
-  secretaire:
-    nom:			Secrétaire
-    association_id: the_fakers
-    actif:			1
-    
-  membre_actif:
-    nom:			"Membre actif"
-    association_id: the_fakers
-    actif:			1
-    
-  membre_d_honneur:
-    nom:			"Membre d'honneur"
-    association_id: the_fakers
-    actif:			1
-    
-  president2:
-    nom:			Président
-    association_id: private
-    actif:			1
-    
-  tresorier2:
-    nom:			Trésorier
-    association_id: private
-    actif:			1
-    
-  secretaire2:
-    nom:			Secrétaire
-    association_id: private
-    actif:			1
-    
-  membre_actif2:
-    nom:			"Membre actif"
-    association_id: private
-    actif:			1
-    
-  membre_d_honneur2:
-    nom:			"Membre d'honneur"
-    association_id: private
-    actif:			1
-   
-   
-   
-   
-   
-   
-###############################################################################
-       
-Membre:
-  demo:
-    prenom:			Roger
-    nom:			Faker
-    pseudo:			demo
-    password:		demo
-    statut_id:		president
-    association_id:	the_fakers
-    
-  user_without_acl:
-    prenom:			Julie
-    nom:			Lescou
-    pseudo:			useless
-    password:		useless
-    statut_id:		tresorier
-    association_id:	the_fakers
-    
-  private_user:
-    prenom:			Alexander
-    nom:			Vinokourov
-    pseudo:			avi
-    password:		epo
-    statut_id:		president2
-    association_id:	private
-
-
-
-
-
-
-###############################################################################
-
-AclModule:
-  association:
-    libelle:        Association
-  membre:
-    libelle:        Membre
-  compte:
-    libelle:        Compte
-  activite:
-    libelle:        Activité
-  depense:
-    libelle:        Dépense
-  recette:
-    libelle:        Recette
-  cotisation:
-    libelle:        Cotisations
-  statut:
-    libelle:        Statuts
-
-
-
-
-
-###############################################################################
-
+Account:
+  Account_1:
+    label: 'Caisse de monnaie'
+    Association: Association_1
+    reference: CAISSE_MONNAIE
+    state: '1'
+    created_at: '2009-11-28 21:42:16'
+    updated_at: '2009-11-28 21:42:16'
 AclAction:
-  edit_association:
-    acl_module_id:  association
-    libelle:        Éditer l'association
-    code:           edit_association
-    
-  mailing:
-    acl_module_id:  association
-    libelle:        Utiliser l'outil de mailing
-    code:           mailing
-    
-  export:
-    acl_module_id:  association
-    libelle:        Utiliser l'outil d'export
-    code:           export
-    
-  bilan:
-    acl_module_id:  association
-    libelle:        Voir les bilans
-    code:           bilan
-  
-  add_activite:
-    acl_module_id:  activite
-    libelle:        Enregistrer une activité
-    code:           add_activite
-    
-  edit_activite:
-    acl_module_id:  activite
-    libelle:        Éditer une activité
-    code:           edit_activite
-    
-  delete_activite:
-    acl_module_id:  activite
-    libelle:        Supprimer une activité
-    code:           del_activite
-    
-  list_activite:
-    acl_module_id:  activite
-    libelle:        Lister les activités
-    code:           list_activite
-    
-  show_activite:
-    acl_module_id:  activite
-    libelle:        Voir les détails d'une activités
-    code:           show_activite
-
-  add_membre:
-    acl_module_id:  membre
-    libelle:        Enregistrer un membre
-    code:           add_membre
-    
-  edit_membre:
-    acl_module_id:  membre
-    libelle:        Éditer un membre
-    code:           edit_membre
-    
-  delete_membre:
-    acl_module_id:  membre
-    libelle:        Supprimer un membre
-    code:           del_membre
-    
-  list_membre:
-    acl_module_id:  membre
-    libelle:        Lister les membres
-    code:           list_membre
-    
-  show_membre:
-    acl_module_id:  membre
-    libelle:        Afficher les détails d'un membre
-    code:           show_membre
-  
-  add_statut:
-    acl_module_id:  statut
-    libelle:        Ajouter un statut
-    code:           add_statut
-  
-  edit_statut:
-    acl_module_id:  statut
-    libelle:        Éditer un statut
-    code:           edit_statut
-    
-  delete_statut:
-    acl_module_id:  statut
-    libelle:        Supprimer un statut
-    code:           del_statut
-    
-  list_statut:
-    acl_module_id:  statut
-    libelle:        Lister les statuts
-    code:           list_statut
-  
-  add_cotisation:
-    acl_module_id:  cotisation
-    libelle:        Enregistrer une cotisation
-    code:           add_cotisation
-  
-  edit_cotisation:
-    acl_module_id:  cotisation
-    libelle:        Éditer une cotisation
-    code:           edit_cotisation
-    
-  delete_cotisation:
-    acl_module_id:  cotisation
-    libelle:        Supprimer une cotisation
-    code:           del_cotisation
-    
-  list_cotisation:
-    acl_module_id:  cotisation
-    libelle:        Lister les cotisations
-    code:           list_cotisation
-    
-  config_cotisations:
-    acl_module_id:  cotisation
-    libelle:        Gérer les types de cotisations
-    code:           config_cotisations
-
-  add_compte:
-    acl_module_id:  compte
-    libelle:        Enregistrer un compte
-    code:           add_compte
-    
-  edit_compte:
-    acl_module_id:  compte
-    libelle:        Éditer un compte
-    code:           edit_compte
-    
-  delete_compte:
-    acl_module_id:  compte
-    libelle:        Supprimer un compte
-    code:           del_compte
-    
-  list_compte:
-    acl_module_id:  compte
-    libelle:        Lister les comptes
-    code:           list_compte
-
-  add_recette:
-    acl_module_id:  recette
-    libelle:        Enregistrer une recette
-    code:           add_recette
-    
-  edit_recette:
-    acl_module_id:  recette
-    libelle:        Éditer une recette
-    code:           edit_recette
-    
-  delete_recette:
-    acl_module_id:  recette
-    libelle:        Supprimer une recette
-    code:           del_recette
-    
-  list_recette:
-    acl_module_id:  recette
-    libelle:        Lister les recettes
-    code:           list_recette
-  
-  add_depense:
-    acl_module_id:  depense
-    libelle:        Enregistrer une dépense
-    code:           add_depense
-    
-  edit_depense:
-    acl_module_id:  depense
-    libelle:        Éditer une dépense
-    code:           edit_depense
-    
-  delete_depense:
-    acl_module_id:  depense
-    libelle:        Supprimer une dépense
-    code:           del_depense
-    
-  list_depense:
-    acl_module_id:  depense
-    libelle:        Lister les dépenses
-    code:           list_depense
-   
-   
-   
-   
-   
-###############################################################################
-
+  AclAction_1:
+    AclModule: AclModule_1
+    label: 'Éditer et configurer l''association'
+    code: edit_association
+  AclAction_2:
+    AclModule: AclModule_1
+    label: 'Utiliser l''outil de mailing'
+    code: mailing
+  AclAction_3:
+    AclModule: AclModule_1
+    label: 'Utiliser l''outil d''export'
+    code: export
+  AclAction_4:
+    AclModule: AclModule_1
+    label: 'Voir les bilans'
+    code: bilan
+  AclAction_5:
+    AclModule: AclModule_4
+    label: 'Enregistrer une activité'
+    code: add_activite
+  AclAction_6:
+    AclModule: AclModule_4
+    label: 'Éditer une activité'
+    code: edit_activite
+  AclAction_7:
+    AclModule: AclModule_4
+    label: 'Supprimer une activité'
+    code: del_activite
+  AclAction_8:
+    AclModule: AclModule_4
+    label: 'Lister les activités'
+    code: list_activite
+  AclAction_9:
+    AclModule: AclModule_4
+    label: 'Voir les détails d''une activités'
+    code: show_activite
+  AclAction_10:
+    AclModule: AclModule_2
+    label: 'Enregistrer un membre'
+    code: add_membre
+  AclAction_11:
+    AclModule: AclModule_2
+    label: 'Éditer un membre'
+    code: edit_membre
+  AclAction_12:
+    AclModule: AclModule_2
+    label: 'Supprimer un membre'
+    code: del_membre
+  AclAction_13:
+    AclModule: AclModule_2
+    label: 'Lister les membres'
+    code: list_membre
+  AclAction_14:
+    AclModule: AclModule_2
+    label: 'Afficher les détails d''un membre'
+    code: show_membre
+  AclAction_15:
+    AclModule: AclModule_8
+    label: 'Ajouter un statut'
+    code: add_statut
+  AclAction_16:
+    AclModule: AclModule_8
+    label: 'Éditer un statut'
+    code: edit_statut
+  AclAction_17:
+    AclModule: AclModule_8
+    label: 'Supprimer un statut'
+    code: del_statut
+  AclAction_18:
+    AclModule: AclModule_8
+    label: 'Lister les statuts'
+    code: list_statut
+  AclAction_19:
+    AclModule: AclModule_7
+    label: 'Enregistrer une cotisation'
+    code: add_cotisation
+  AclAction_20:
+    AclModule: AclModule_7
+    label: 'Éditer une cotisation'
+    code: edit_cotisation
+  AclAction_21:
+    AclModule: AclModule_7
+    label: 'Supprimer une cotisation'
+    code: del_cotisation
+  AclAction_22:
+    AclModule: AclModule_7
+    label: 'Lister les cotisations'
+    code: list_cotisation
+  AclAction_23:
+    AclModule: AclModule_7
+    label: 'Gérer les types de cotisations'
+    code: config_cotisations
+  AclAction_24:
+    AclModule: AclModule_3
+    label: 'Enregistrer un compte'
+    code: add_compte
+  AclAction_25:
+    AclModule: AclModule_3
+    label: 'Éditer un compte'
+    code: edit_compte
+  AclAction_26:
+    AclModule: AclModule_3
+    label: 'Supprimer un compte'
+    code: del_compte
+  AclAction_27:
+    AclModule: AclModule_3
+    label: 'Lister les comptes'
+    code: list_compte
+  AclAction_28:
+    AclModule: AclModule_6
+    label: 'Enregistrer une recette'
+    code: add_recette
+  AclAction_29:
+    AclModule: AclModule_6
+    label: 'Éditer une recette'
+    code: edit_recette
+  AclAction_30:
+    AclModule: AclModule_6
+    label: 'Supprimer une recette'
+    code: del_recette
+  AclAction_31:
+    AclModule: AclModule_6
+    label: 'Lister les recettes'
+    code: list_recette
+  AclAction_32:
+    AclModule: AclModule_5
+    label: 'Enregistrer une dépense'
+    code: add_depense
+  AclAction_33:
+    AclModule: AclModule_5
+    label: 'Éditer une dépense'
+    code: edit_depense
+  AclAction_34:
+    AclModule: AclModule_5
+    label: 'Supprimer une dépense'
+    code: del_depense
+  AclAction_35:
+    AclModule: AclModule_5
+    label: 'Lister les dépenses'
+    code: list_depense
+  AclAction_36:
+    AclModule: AclModule_2
+    label: 'Gérer les droits'
+    code: edit_acl
+  AclAction_37:
+    AclModule: AclModule_9
+    label: 'Mettre à jour Piwam'
+    code: update_piwam
+  AclAction_38:
+    AclModule: AclModule_9
+    label: 'Éditer les préférences'
+    code: edit_piwam_preferences
 AclCredential:
-  demo_acl1:
-    membre_id:		demo
-    acl_action_id:	list_depense
-    
-  demo_acl2:
-    membre_id:		demo
-    acl_action_id:	delete_depense
-    
-  demo_acl3:
-    membre_id:		demo
-    acl_action_id:	edit_depense
-    
-  demo_acl4:
-    membre_id:		demo
-    acl_action_id:	add_depense
-    
-  demo_acl5:
-    membre_id:		demo
-    acl_action_id:	list_recette
-    
-  demo_acl6:
-    membre_id:		demo
-    acl_action_id:	delete_recette
-    
-  demo_acl7:
-    membre_id:		demo
-    acl_action_id:	edit_recette
-    
-  demo_acl8:
-    membre_id:		demo
-    acl_action_id:	add_recette
-    
-  demo_acl9:
-    membre_id:		demo
-    acl_action_id:	list_compte
-    
-  demo_acl10:
-    membre_id:		demo
-    acl_action_id:	delete_compte
-    
-  demo_acl11:
-    membre_id:		demo
-    acl_action_id:	edit_compte
-    
-  demo_acl12:
-    membre_id:		demo
-    acl_action_id:	add_compte
-    
-  demo_acl13:
-    membre_id:		demo
-    acl_action_id:	list_membre
-    
-  demo_acl14:
-    membre_id:		demo
-    acl_action_id:	delete_membre
-    
-  demo_acl15:
-    membre_id:		demo
-    acl_action_id:	edit_membre
-    
-  demo_acl16:
-    membre_id:		demo
-    acl_action_id:	add_membre
-    
-  demo_acl17:
-    membre_id:		demo
-    acl_action_id:	show_membre
-    
-  demo_acl18:
-    membre_id:		demo
-    acl_action_id:	list_activite
-    
-  demo_acl19:
-    membre_id:		demo
-    acl_action_id:	delete_activite
-    
-  demo_acl20:
-    membre_id:		demo
-    acl_action_id:	edit_activite
-    
-  demo_acl21:
-    membre_id:		demo
-    acl_action_id:	add_activite
-    
-  demo_acl22:
-    membre_id:		demo
-    acl_action_id:	show_activite
-    
-  demo_acl23:
-    membre_id:		demo
-    acl_action_id:	edit_association
-    
-  demo_acl24:
-    membre_id:		demo
-    acl_action_id:	mailing
-    
-  demo_acl25:
-    membre_id:		demo
-    acl_action_id:	export
-    
-  demo_acl26:
-    membre_id:		demo
-    acl_action_id:	bilan
-   
-  demo_acl27:
-    membre_id:		demo
-    acl_action_id:	list_statut
-    
-  demo_acl28:
-    membre_id:		demo
-    acl_action_id:	delete_statut
-    
-  demo_acl29:
-    membre_id:		demo
-    acl_action_id:	edit_statut
-    
-  demo_acl30:
-    membre_id:		demo
-    acl_action_id:	add_statut
-    
-  demo_acl31:
-    membre_id:		demo
-    acl_action_id:	list_cotisation
-    
-  demo_acl32:
-    membre_id:		demo
-    acl_action_id:	delete_cotisation
-    
-  demo_acl33:
-    membre_id:		demo
-    acl_action_id:	edit_cotisation
-    
-  demo_acl34:
-    membre_id:		demo
-    acl_action_id:	add_cotisation
-    
-  demo_acl35:
-    membre_id:		demo
-    acl_action_id:	config_cotisations
-    
-   
-   
-
-
-   
-###############################################################################
-
-Compte:
-  caisse_monnaie:
-    libelle:		Caisse de monnaie
-    association_id:	the_fakers
-    reference:		CAISSE_MONNAIE
-    enregistre_par:	demo
-    mis_a_jour_par:	demo
-    actif:			1
-    
-  caisse_monnaie_2:
-    libelle:		Caisse de monnaie
-    association_id:	private
-    reference:		CAISSE_MONNAIE
-    enregistre_par:	private_user
-    mis_a_jour_par:	private_user
-    actif:			1
-   
-   
-   
-   
-   
-   
-###############################################################################
-
-ConfigCategorie:
-  affichage:
-    code:			affichage
-    libelle:		affichage
-    
-  mailing:
-    code:			mailing
-    libelle:		mailing
-
-
-
-
-
-
-
-###############################################################################
-
+  AclCredential_1:
+    Member: Member_1
+    AclAction: AclAction_1
+  AclCredential_2:
+    Member: Member_1
+    AclAction: AclAction_2
+  AclCredential_3:
+    Member: Member_1
+    AclAction: AclAction_3
+  AclCredential_4:
+    Member: Member_1
+    AclAction: AclAction_4
+  AclCredential_5:
+    Member: Member_1
+    AclAction: AclAction_5
+  AclCredential_6:
+    Member: Member_1
+    AclAction: AclAction_6
+  AclCredential_7:
+    Member: Member_1
+    AclAction: AclAction_7
+  AclCredential_8:
+    Member: Member_1
+    AclAction: AclAction_8
+  AclCredential_9:
+    Member: Member_1
+    AclAction: AclAction_9
+  AclCredential_10:
+    Member: Member_1
+    AclAction: AclAction_10
+  AclCredential_11:
+    Member: Member_1
+    AclAction: AclAction_11
+  AclCredential_12:
+    Member: Member_1
+    AclAction: AclAction_12
+  AclCredential_13:
+    Member: Member_1
+    AclAction: AclAction_13
+  AclCredential_14:
+    Member: Member_1
+    AclAction: AclAction_14
+  AclCredential_15:
+    Member: Member_1
+    AclAction: AclAction_15
+  AclCredential_16:
+    Member: Member_1
+    AclAction: AclAction_16
+  AclCredential_17:
+    Member: Member_1
+    AclAction: AclAction_17
+  AclCredential_18:
+    Member: Member_1
+    AclAction: AclAction_18
+  AclCredential_19:
+    Member: Member_1
+    AclAction: AclAction_19
+  AclCredential_20:
+    Member: Member_1
+    AclAction: AclAction_20
+  AclCredential_21:
+    Member: Member_1
+    AclAction: AclAction_21
+  AclCredential_22:
+    Member: Member_1
+    AclAction: AclAction_22
+  AclCredential_23:
+    Member: Member_1
+    AclAction: AclAction_23
+  AclCredential_24:
+    Member: Member_1
+    AclAction: AclAction_24
+  AclCredential_25:
+    Member: Member_1
+    AclAction: AclAction_25
+  AclCredential_26:
+    Member: Member_1
+    AclAction: AclAction_26
+  AclCredential_27:
+    Member: Member_1
+    AclAction: AclAction_27
+  AclCredential_28:
+    Member: Member_1
+    AclAction: AclAction_28
+  AclCredential_29:
+    Member: Member_1
+    AclAction: AclAction_29
+  AclCredential_30:
+    Member: Member_1
+    AclAction: AclAction_30
+  AclCredential_31:
+    Member: Member_1
+    AclAction: AclAction_31
+  AclCredential_32:
+    Member: Member_1
+    AclAction: AclAction_32
+  AclCredential_33:
+    Member: Member_1
+    AclAction: AclAction_33
+  AclCredential_34:
+    Member: Member_1
+    AclAction: AclAction_34
+  AclCredential_35:
+    Member: Member_1
+    AclAction: AclAction_35
+  AclCredential_36:
+    Member: Member_1
+    AclAction: AclAction_36
+  AclCredential_37:
+    Member: Member_1
+    AclAction: AclAction_37
+  AclCredential_38:
+    Member: Member_1
+    AclAction: AclAction_38
+AclModule:
+  AclModule_1:
+    label: Association
+  AclModule_2:
+    label: Membre
+  AclModule_3:
+    label: Compte
+  AclModule_4:
+    label: Activité
+  AclModule_5:
+    label: Dépense
+  AclModule_6:
+    label: Recette
+  AclModule_7:
+    label: Cotisations
+  AclModule_8:
+    label: Statuts
+  AclModule_9:
+    label: Piwam
+Activity:
+  Activity_1:
+    label: 'Fonctionnement général de l''association'
+    state: '1'
+    Association: Association_1
+    created_at: '2009-11-28 21:42:16'
+    updated_at: '2009-11-28 21:42:16'
+Association:
+  Association_1:
+    name: 'The Fakers'
+    description: 'Fake association, for test only'
+    website: 'http://www.the-fakers.com'
+    created_by: '1'
+    updated_by: null
+    created_at: '2009-11-28 21:42:15'
+    updated_at: '2009-11-28 21:43:25'
+ConfigCategory:
+  ConfigCategory_affichage:
+    label: Affichage
+    code: affichage
+  ConfigCategory_mailing:
+    label: Mailing
+    code: mailing
+  ConfigCategory_services:
+    label: Services
+    code: services
 ConfigVariable:
-  address:
-    code:			address
-    categorie_code:	mailing
-    libelle:		adresse
-    description:
-    type:			EMAIL
-    default_value:	info@piwam.org
-    
-  method:
-    code:			method
-    categorie_code:	mailing
-    libelle:		methode
-    description:	
-    type:			"{mail,smtp,gmail,sendmail}"
-    default_value:	mail
-    
-  gmail_username:
-    code:			gmail_username
-    categorie_code:	mailing
-    libelle:		gmail username
-    description:	
-    type:			EMAIL
-    default_value:	user@gmail.com
-    
-  gmail_password:
-    code:			gmail_password
-    categorie_code:	mailing
-    libelle:		gmail password
-    type:			VARCHAR
-    default_value:	password
-    
-  smtp_server:
-    code:			smtp_server
-    categorie_code:	mailing
-    libelle:		smtp server
-    description:	
-    type:			VARCHAR
-    default_value:	smtp.host.com
-    
-  smtp_username:
-    code:			smtp_username
-    categorie_code:	mailing
-    libelle:		smtp username
-    description:	
-    type:			VARCHAR
-    default_value:	admin
-    
-  smtp_password:
-    code:			smtp_password
-    categorie_code:	mailing
-    libelle:		smtp password
-    type:			VARCHAR
-    default_value:	password
-    
-  sendmail_path:
-    code:			sendmail_path
-    categorie_code:	mailing
-    libelle:		sendmail path
-    description:	
-    type:			VARCHAR
-    default_value:	/usr/bin/sendmail
-    
-  users_by_page:
-    code:			users_by_page
-    categorie_code:	affichage
-    libelle:		users_by_page
-    description:	
-    type:			INTEGER
-    default_value:	20
+  ConfigVariable_1:
+    code: address
+    ConfigCategory: ConfigCategory_mailing
+    label: 'Adresse expéditeur'
+    description: 'Les emails envoyés apparaîtront comme expédiés avec cette adresse.'
+    type: EMAIL
+    default_value: info@piwam.org
+  ConfigVariable_2:
+    code: method
+    ConfigCategory: ConfigCategory_mailing
+    label: Méthode
+    description: 'Méthode avec laquelle seront envoyés les e-mails'
+    type: '{mail,smtp,gmail,sendmail}'
+    default_value: mail
+  ConfigVariable_3:
+    code: gmail_username
+    ConfigCategory: ConfigCategory_mailing
+    label: 'Gmail: Identifiant'
+    description: 'Adresse GMail dans le cadre d''un envoi avec GMail'
+    type: EMAIL
+    default_value: ''
+  ConfigVariable_4:
+    code: gmail_password
+    ConfigCategory: ConfigCategory_mailing
+    label: 'GMail: Password'
+    description: 'Mot de passe pour envoyer les mails via GMail'
+    type: VARCHAR
+    default_value: ''
+  ConfigVariable_5:
+    code: smtp_server
+    ConfigCategory: ConfigCategory_mailing
+    label: 'SMTP: Serveur'
+    description: 'Serveur SMTP utilisé pour l''envoi de mails'
+    type: VARCHAR
+    default_value: ''
+  ConfigVariable_6:
+    code: smtp_username
+    ConfigCategory: ConfigCategory_mailing
+    label: 'SMTP: Identifiant'
+    description: 'Identifiant pour se connecter au serveur SMTP'
+    type: VARCHAR
+    default_value: ''
+  ConfigVariable_7:
+    code: smtp_password
+    ConfigCategory: ConfigCategory_mailing
+    label: 'SMTP: Mot de passe'
+    description: 'Mot de passe utilisé pour se connecter au serveur SMTP.'
+    type: VARCHAR
+    default_value: ''
+  ConfigVariable_8:
+    code: sendmail_path
+    ConfigCategory: ConfigCategory_mailing
+    label: Sendmail
+    description: 'Accès au binaire Sendmail'
+    type: VARCHAR
+    default_value: /usr/bin/sendmail
+  ConfigVariable_9:
+    code: users_by_page
+    ConfigCategory: ConfigCategory_affichage
+    label: 'Membres par page'
+    description: 'Nombre de membres à afficher par page dans le listing.'
+    type: INTEGER
+    default_value: '20'
+  ConfigVariable_10:
+    code: googlemap_key
+    ConfigCategory: ConfigCategory_services
+    label: 'Clé Google Map'
+    description: 'Clé utilisée pour accéder à Google Map. Générez la votre sur http://code.google.com/intl/fr-FR/apis/maps/signup.html.'
+    type: VARCHAR
+    default_value: ABQIAAAAL8IvKFhg9nRCwpMHeoYEKhQu6C5tfcTOznQAfibWXRksA7VQJxQAvTbET15fVW6RQnHsk3BmZqGKLw
+Data:
+  Data_1:
+    config_key: dbversion
+    value: '470'
+Member:
+  Member_1:
+    lastname: Lastname
+    firstname: Firstname
+    username: demo
+    password: 89e495e7941cf9e40e6980d14a16bf023ccd4c91
+    Status: Status_1
+    subscription_date: '2009-11-28'
+    due_exempt: true
+    street: '4th Piwam Street'
+    zipcode: '12345'
+    city: 'Symfony City'
+    country: FR
+    picture: null
+    email: demo@demo.org
+    website: 'http://www.demo.org'
+    phone_home: '0123456789'
+    phone_mobile: '9876543210'
+    state: '1'
+    Association: Association_1
+    created_at: '2009-11-28 21:43:25'
+    updated_at: '2009-11-28 21:43:25'
+  Member_2:
+    lastname: Another
+    firstname: Member
+    username: foobar
+    password: da39a3ee5e6b4b0d3255bfef95601890afd80709
+    Status: Status_4
+    subscription_date: '2009-11-28'
+    due_exempt: false
+    street: ''
+    zipcode: ''
+    city: ''
+    country: FR
+    picture: null
+    email: ''
+    website: ''
+    phone_home: ''
+    phone_mobile: ''
+    state: '1'
+    Association: Association_1
+    CreatedByMember: Member_1
+    created_at: '2009-11-28 21:49:04'
+    updated_at: '2009-11-28 21:49:04'
+Status:
+  Status_1:
+    label: Président
+    Association: Association_1
+    state: '1'
+    created_by: null
+    created_at: '2009-11-28 21:42:16'
+    updated_at: '2009-11-28 21:42:16'
+  Status_2:
+    label: Trésorier
+    Association: Association_1
+    state: '1'
+    created_by: null
+    created_at: '2009-11-28 21:42:16'
+    updated_at: '2009-11-28 21:42:16'
+  Status_3:
+    label: Secrétaire
+    Association: Association_1
+    state: '1'
+    created_by: null
+    created_at: '2009-11-28 21:42:16'
+    updated_at: '2009-11-28 21:42:16'
+  Status_4:
+    label: 'Membre actif'
+    Association: Association_1
+    state: '1'
+    created_by: null
+    created_at: '2009-11-28 21:42:16'
+    updated_at: '2009-11-28 21:42:16'
+  Status_5:
+    label: 'Membre d''honneur'
+    Association: Association_1
+    state: '1'
+    created_by: null
+    created_at: '2009-11-28 21:42:16'
+    updated_at: '2009-11-28 21:42:16'
+Due:
+  Due_1:
+    Account: Account_1
+    DueType: DueType_1
+    Member: Member_1
+    date: '2009-11-28'
+    amount: '10.00'
+    CreatedByMember: Member_1
+    created_at: '2009-11-28 21:49:40'
+    updated_at: '2009-11-28 21:49:40'
+DueType:
+  DueType_1:
+    label: 'Cotisation annuelle 2009'
+    Association: Association_1
+    period: '12'
+    amount: '10.00'
+    state: '1'
+    created_at: '2009-11-28 21:48:33'
+    updated_at: '2009-11-28 21:48:33'

@@ -37,18 +37,18 @@
     <tbody>
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
-            <th><?php echo $form['libelle']->renderLabel() ?></th>
-            <td><?php echo $form['libelle'] ?><?php echo $form['libelle']->renderError() ?>
+            <th><?php echo $form['label']->renderLabel() ?></th>
+            <td><?php echo $form['label'] ?><?php echo $form['label']->renderError() ?>
             </td>
         </tr>
         <tr>
-            <th><?php echo $form['valide']->renderLabel() ?></th>
-            <td><?php echo $form['valide'] ?> mois <?php echo $form['valide']->renderError() ?>
+            <th><?php echo $form['period']->renderLabel() ?></th>
+            <td><?php echo $form['period'] ?> mois <?php echo $form['period']->renderError() ?>
             </td>
         </tr>
         <tr>
-            <th><?php echo $form['montant']->renderLabel() ?></th>
-            <td><?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?>
+            <th><?php echo $form['amount']->renderLabel() ?></th>
+            <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?>
             </td>
         </tr>
     </tbody>

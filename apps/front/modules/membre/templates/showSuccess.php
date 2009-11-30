@@ -33,35 +33,35 @@
             </tr>
             <tr>
                 <th>Nom :</th>
-                <td><?php echo $membre->getNom() ?></td>
+                <td><?php echo $membre->getLastname() ?></td>
             </tr>
             <tr>
                 <th>Prénom :</th>
-                <td><?php echo $membre->getPrenom() ?></td>
+                <td><?php echo $membre->getFirstname() ?></td>
             </tr>
             <tr>
                 <th>Pseudo :</th>
-                <td><?php echo $membre->getPseudo() ?></td>
+                <td><?php echo $membre->getUsername() ?></td>
             </tr>
             <tr>
                 <th>Statut :</th>
-                <td><?php echo $membre->getStatut() ?></td>
+                <td><?php echo $membre->getStatus() ?></td>
             </tr>
             <tr>
                 <th>Date d'inscription :</th>
-                <td><?php echo format_date($membre->getDateInscription()) ?></td>
+                <td><?php echo format_date($membre->getSubscriptionDate()) ?></td>
             </tr>
             <tr>
                 <th>Exempté de cotisation :</th>
-                <td><?php echo boolean2icon($membre->getExempteCotisation()) ?></td>
+                <td><?php echo boolean2icon($membre->getDueExempt()) ?></td>
             </tr>
             <tr>
                 <th>Adresse :</th>
-                <td><?php echo $membre->getRue() . '<br />' . $membre->getCp() . ' ' . $membre->getVille() ?></td>
+                <td><?php echo $membre->getStreet() . '<br />' . $membre->getZipcode() . ' ' . $membre->getCity() ?></td>
             </tr>
             <tr>
                 <th>Pays :</th>
-                <td><?php echo image_tag('flags/' . strtolower($membre->getPays()), array('alt' => $membre->getPays(), 'title' => $membre->getPays())) ?></td>
+                <td><?php echo image_tag('flags/' . strtolower($membre->getCountry()), array('alt' => $membre->getCountry(), 'title' => $membre->getCountry())) ?></td>
             </tr>
             <tr>
                 <th>Email :</th>
@@ -73,25 +73,25 @@
             </tr>
             <tr>
                 <th>Téléphone fixe :</th>
-                <td><?php echo format_phonenumber($membre->getTelfixe()) ?></td>
+                <td><?php echo format_phonenumber($membre->getPhoneHome()) ?></td>
             </tr>
             <tr>
                 <th>Téléphone portable :</th>
-                <td><?php echo format_phonenumber($membre->getTelportable()) ?></td>
+                <td><?php echo format_phonenumber($membre->getPhoneMobile()) ?></td>
             </tr>
             <tr>
                 <th>Actif :</th>
-                <td><?php echo boolean2icon($membre->getActif()) ?></td>
+                <td><?php echo boolean2icon($membre->getState()) ?></td>
             </tr>
             <tr>
                 <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
                 Enregistré le :</th>
-                <td><?php echo format_datetime($membre->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($membre->getMembreRelatedByEnregistrePar()) ?></td>
+                <td><?php echo format_datetime($membre->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($membre->getCreatedByMember()) ?></td>
             </tr>
             <tr>
                 <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
                 Dernière édition :</th>
-                <td><?php echo format_datetime($membre->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($membre->getMembreRelatedByMisAJourPar()) ?></td>
+                <td><?php echo format_datetime($membre->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($membre->getUpdatedByMember()) ?></td>
             </tr>
         </tbody>
     </table>
@@ -109,27 +109,29 @@
             <?php endif; ?>
 
             <?php foreach ($cotisations as $cotisation): ?>
-                <li><?php echo $cotisation->getCotisationType() ?> versée le <?php echo $cotisation->getDate() ?></li>
+                <li><?php echo $cotisation->getDueType() ?> versée le <?php echo $cotisation->getDate() ?></li>
             <?php endforeach; ?>
         </ul>
     </div>
 </div>
 
 
-<!-- New tab -->
-<div>
-<h2><a name="t3" id="t3">Droits de l'utilisateur</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), 'membre/edit?id='.$membre->getId() . '#credentials') ?></h2>
-<div>
-<ul>
-<?php if (count($credentials) == 0): ?>
-    <li><i>Ce membre n'a aucun droit pour le moment.</i></li>
-    <?php endif; ?>
 
-    <?php foreach ($credentials as $credential): ?>
-    <li>&bull; <?php echo $credential->getAclAction()->getLibelle() ?></li>
-    <?php endforeach; ?>
-</ul>
-</div>
+<!-- New tab -->
+
+<div>
+  <h2><a name="t3" id="t3">Droits de l'utilisateur</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), 'membre/edit?id='.$membre->getId() . '#credentials') ?></h2>
+  <div>
+    <ul>
+        <?php if (count($credentials) == 0): ?>
+            <li><i>Ce membre n'a aucun droit pour le moment.</i></li>
+        <?php endif; ?>
+
+        <?php foreach ($credentials as $credential): ?>
+            <li>&bull; <?php echo $credential->getAclAction()->getLabel() ?></li>
+        <?php endforeach; ?>
+    </ul>
+  </div>
 </div>
 
 
