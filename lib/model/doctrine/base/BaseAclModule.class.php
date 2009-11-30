@@ -39,6 +39,9 @@ abstract class BaseAclModule extends sfDoctrineRecord
              'notnull' => true,
              'length' => '255',
              ));
+
+        $this->option('collate', 'utf8_unicode_ci');
+        $this->option('charset', 'utf8');
     }
 
     public function setUp()

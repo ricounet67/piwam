@@ -57,6 +57,9 @@ abstract class BaseAclAction extends sfDoctrineRecord
              'notnull' => true,
              'length' => '100',
              ));
+
+        $this->option('collate', 'utf8_unicode_ci');
+        $this->option('charset', 'utf8');
     }
 
     public function setUp()
