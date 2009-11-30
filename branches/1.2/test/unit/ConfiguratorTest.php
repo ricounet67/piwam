@@ -2,7 +2,7 @@
 include(dirname(__FILE__).'/../bootstrap/unit.php');
 
 // We first retrieve an existing association
-$association    = AssociationPeer::retrieveByName('The Fakers');
+$association    = AssociationTable::getByName('The Fakers');
 $associationId  = $association->getId();
 $t              = new lime_test(8, new lime_output_color());
 
