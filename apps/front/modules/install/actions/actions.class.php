@@ -99,9 +99,8 @@ class installActions extends sfActions
         {
           $this->_generateConfigFile($host, $username, $password, $dbname);
           $this->getContext()->getConfigCache()->clear();
-          Doctrine::loadData('./data/fixtures/test_data.yml');
-          //DbTools::executeSQLFile('../doc/piwam-install.sql');
-          //DbTools::executeSQLFile('../data/sql/schema.sql');
+          Doctrine::loadData('./data/fixtures/configuration.yml');
+          Doctrine::loadData('./data/fixtures/credentials.yml');
           $this->redirect('install/end');
         }
         else
@@ -128,31 +127,32 @@ class installActions extends sfActions
    * to match, and then replace the line by a new one.
    * We flush the new content to the file at the end
    *
-   * @todo extend to others DBMS
+   * @todo Test the execution of SQL file if chdir failed
    */
   private function _generateConfigFile($server, $username, $password, $dbname)
   {
-    /**
-     * check return of chdir
-     */
-    chdir(sfConfig::get('sf_root_dir'));
-    $task = new sfDoctrineConfigureDatabaseTask($this->dispatcher, new sfFormatter());
-    $task->run(array('dsn'      => 'mysql:dbname=' . $dbname . ';host=' . $server,
-                     'username' => $username,
-                     'password' => $password),
-              array('env' => 'prod')
-    );
-    $task = new sfDoctrineInsertSqlTask($this->dispatcher, new sfFormatter());
-    $task->run();
-
-    //    $fileManager = new FileModifier('../config/databases.yml');
-    //    $line = $fileManager->searchLineBeginningBy('dsn:');
-    //    $fileManager->setLineContent($line, "dsn:      mysql:dbname={$dbname};host={$server}", true);
-    //    $line = $fileManager->searchLineBeginningBy('username:');
-    //    $fileManager->setLineContent($line, "username: {$username}", true);
-    //    $line = $fileManager->searchLineBeginningBy('password:');
-    //    $fileManager->setLineContent($line, "password: {$password}", true);
-    //    $fileManager->flush();
+    if (chdir(sfConfig::get('sf_root_dir')))
+    {
+      $task = new sfDoctrineConfigureDatabaseTask($this->dispatcher, new sfFormatter());
+      $task->run(array('dsn'      => 'mysql:dbname=' . $dbname . ';host=' . $server,
+                       'username' => $username,
+                       'password' => $password),
+                array('env' => 'prod')
+      );
+      $insert = new sfDoctrineInsertSqlTask($this->dispatcher, new sfFormatter());
+      $insert->run();
+    }
+    else
+    {
+        $fileManager = new FileModifier('../config/databases.yml');
+        $line = $fileManager->searchLineBeginningBy('dsn:');
+        $fileManager->setLineContent($line, "dsn: mysql:dbname={$dbname};host={$server}", true);
+        $line = $fileManager->searchLineBeginningBy('username:');
+        $fileManager->setLineContent($line, "username: {$username}", true);
+        $line = $fileManager->searchLineBeginningBy('password:');
+        $fileManager->setLineContent($line, "password: {$password}", true);
+        $fileManager->flush();
+    }
   }
 
   /*
