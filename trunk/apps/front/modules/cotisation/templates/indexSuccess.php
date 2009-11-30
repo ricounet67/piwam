@@ -19,10 +19,10 @@
     <tbody>
     <?php foreach ($cotisation_list as $cotisation): ?>
         <tr>
-            <td><?php echo $cotisation->getCompte() ?></td>
-            <td><?php echo $cotisation->getCotisationType() ?></td>
-            <td><?php echo format_currency($cotisation->getMontant(), '&euro;') ?></td>
-            <td><?php echo $cotisation->getMembreRelatedByMembreId() ?></td>
+            <td><?php echo $cotisation->getAccount() ?></td>
+            <td><?php echo $cotisation->getDueType() ?></td>
+            <td><?php echo format_currency($cotisation->getAmount(), '&euro;') ?></td>
+            <td><?php echo $cotisation->getMember() ?></td>
             <td><?php echo format_date($cotisation->getDate()) ?></td>
             <td><a
                 href="<?php echo url_for('cotisation/edit?id='.$cotisation->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[modifier]')) ?></a>

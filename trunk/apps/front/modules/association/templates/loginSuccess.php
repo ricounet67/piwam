@@ -1,5 +1,6 @@
 <p class="notice">
-    Bienvenue dans la version 1.1.2 de Piwam !
+    Bienvenue dans la version 1.2-dev de Piwam !<br />
+    Il s'agit d'une version de développement, tenez vous <a href="http://piwam.googlecode.com">à jour</a> !
 </p>
 
 <?php if ($sf_user->hasFlash('error')):?>

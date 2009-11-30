@@ -22,22 +22,22 @@
     <?php echo $form->renderGlobalErrors() ?>
         <tr>
             <th>Libellé</th>
-            <td><?php echo $form['libelle'] ?> <?php echo $form['libelle']->renderError() ?>
+            <td><?php echo $form['label'] ?> <?php echo $form['label']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Montant</th>
-            <td><?php echo $form['montant'] ?> &euro; <?php echo $form['montant']->renderError() ?>
+            <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Compte affecté</th>
-            <td><?php echo $form['compte_id'] ?> <?php echo $form['compte_id']->renderError() ?>
+            <td><?php echo $form['account_id'] ?> <?php echo $form['account_id']->renderError() ?>
             </td>
         </tr>
         <tr>
             <th>Activité</th>
-            <td><?php echo $form['activite_id'] ?> <?php echo $form['activite_id']->renderError() ?>
+            <td><?php echo $form['activity_id'] ?> <?php echo $form['activity_id']->renderError() ?>
             </td>
         </tr>
         <tr>
@@ -47,7 +47,7 @@
         </tr>
         <tr>
             <th>Perçue</th>
-            <td><?php echo $form['percue'] ?></td>
+            <td><?php echo $form['received'] ?></td>
         </tr>
     </tbody>
 </table>

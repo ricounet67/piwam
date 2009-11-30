@@ -1,4 +1,38 @@
 
+  * Specifiy table encoding in schema.yml
+
+  Use iterator/countable iface from Pagers
+  http://www.symfony-project.org/tutorial/1_4/en/whats-new
+
+	Model Updates :
+		enregistre_par	=> created_by
+		mis_a_jour_par	=> updated_by
+		libelle			    => label
+		membre          => member
+		activite        => activity
+		depense         => expense
+		recette         => income
+		nom             => name
+		site_web        => website
+		compte          => account
+		cotisation      => due
+		statut          => status
+		actif           => state
+		configCategorie => configCategory
+		montant         => amount
+		(dueType).valide => period
+		payée           => paid
+		percue          => received
+		
+		member:
+		nom             => lastname
+		prenom          => firstname
+		pseudo          => username
+		rue             => street
+		cp              => zipcode
+		ville           => city
+		pays            => country
+
     * Add version tables (triggers)
     * Mailing : store sent messages
     * Make beautiful search bar

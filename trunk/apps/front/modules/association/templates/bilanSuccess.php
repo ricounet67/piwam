@@ -27,8 +27,8 @@ $total          = 0;
 
         <tr class="<?php echo ($compte->isNegative()) ? 'compteNegatif' : 'comptePositif' ?>">
             <td><?php echo link_to($compte->getReference(), 'compte/show?id=' . $compte->getId(), array('class' => 'block')) ?></td>
-            <td><?php echo format_currency($compte->getTotalDepenses()); $totalDepenses += $compte->getTotalDepenses() ?></td>
-            <td><?php echo format_currency($compte->getTotalRecettes()); $totalRecettes += $compte->getTotalRecettes() ?></td>
+            <td><?php echo format_currency($compte->getTotalExpenses()); $totalDepenses += $compte->getTotalExpenses() ?></td>
+            <td><?php echo format_currency($compte->getTotalIncomes()); $totalRecettes += $compte->getTotalIncomes() ?></td>
             <td><?php echo format_currency($compte->getTotal()); $total += $compte->getTotal() ?></td>
         </tr>
         <?php endforeach; ?>
@@ -71,9 +71,9 @@ $total          = 0;
 
         <?php foreach ($activites as $activite): ?>
         <tr class="<?php echo ($activite->getTotal() < 0) ? 'compteNegatif' : 'comptePositif' ?>">
-            <td><?php echo link_to($activite->getLibelle(), 'activite/show?id=' . $activite->getId(), array('class' => 'block')) ?></td>
-            <td><?php echo format_currency($activite->getTotalDepenses()); $totalDepenses += $activite->getTotalDepenses() ?></td>
-            <td><?php echo format_currency($activite->getTotalRecettes()); $totalRecettes += $activite->getTotalRecettes() ?></td>
+            <td><?php echo link_to($activite->getLabel(), 'activite/show?id=' . $activite->getId(), array('class' => 'block')) ?></td>
+            <td><?php echo format_currency($activite->getTotalExpenses()); $totalDepenses += $activite->getTotalExpenses() ?></td>
+            <td><?php echo format_currency($activite->getTotalIncomes()); $totalRecettes += $activite->getTotalIncomes() ?></td>
             <td><?php echo format_currency($activite->getTotal()); $total += $activite->getTotal() ?></td>
         </tr>
         <?php endforeach; ?>

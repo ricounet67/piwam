@@ -1,30 +1,30 @@
 <?php
 /**
- * Format a Membre object to display it correctly with a link
+ * Format a member object to display it correctly with a link
  * to it.
  *
- * @param 	Membre 	$membre
- * @param	boolean	$pseudo : display only the pseudo
+ * @param 	Member    $member
+ * @param	  boolean	  $pseudo : display only the pseudo
  * @return 	string
- * @since	r8
+ * @since	  r8
  */
-function format_membre($membre, $pseudo = false)
+function format_member($member, $pseudo = false)
 {
-    if ((is_null($membre)) || (! $membre->getRawValue() instanceof  Membre))
+    if (! $member->getRawValue()->exists())
     {
         $str = '<i>Système</i>';
     }
     else
     {
-        $str = '<a href="' . url_for('membre/show?id=' . $membre->getId()) . '">';
+        $str = '<a href="' . url_for('member/show?id=' . $member->getId()) . '">';
 
         if ($pseudo)
         {
-            $str .= $membre->getPseudo();
+            $str .= $member->getUsername();
         }
         else
         {
-            $str .= $membre->getPrenom() . ' ' .$membre->getNom();
+            $str .= $member->getFirstname() . ' ' .$member->getLastname();
         }
         $str .= '</a>';
     }

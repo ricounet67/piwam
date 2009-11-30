@@ -12,21 +12,21 @@
         </tr>
         <tr>
             <th>Nom :</th>
-            <td><?php echo $statut->getNom() ?></td>
+            <td><?php echo $statut->getLabel() ?></td>
         </tr>
         <tr>
             <th>Actif :</th>
-            <td><?php echo boolean2icon($statut->getActif()) ?></td>
+            <td><?php echo boolean2icon($statut->getState()) ?></td>
         </tr>
         <tr>
             <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
             Créé le :</th>
-            <td><?php echo format_datetime($statut->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($statut->getMembreRelatedByEnregistrePar()) ?></td>
+            <td><?php echo format_datetime($statut->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($statut->getCreatedByMember()) ?></td>
         </tr>
         <tr>
             <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
             Dernière mise à jour le :</th>
-            <td><?php echo format_datetime($statut->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_membre($statut->getMembreRelatedByMisAJourPar()) ?></td>
+            <td><?php echo format_datetime($statut->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($statut->getUpdatedByMember()) ?></td>
         </tr>
     </tbody>
 </table>
