@@ -1,31 +1,134 @@
-# default rules
-homepage:
-  url:   /
-  param: { module: membre, action: index }
 
+# -----------------------------------------------------------------------------
+#     MISC ACTIONS
+# -----------------------------------------------------------------------------
+
+mailing:
+  url:    /mailing
+  param:  { module: mailing, action: index }
+  
+error_credentials:
+  url:    /error/credentials
+  param:  { module: error, action: credentials }
+  
+
+# -----------------------------------------------------------------------------
+#     PIWAM ACTIONS
+# ----------------------------------------------------------------------------- 
+
+logout:
+  url:    /logout
+  param:  { module: association, action: logout }
+  
+setup:
+  url:    /install
+  param:  { module: install, action: index }
+
+update:
+  url:    /updated
+  param:  { module: update, action: index }
+
+config:
+  url:    /config
+  param:  { module: association, action: config }
+  
+
+# -----------------------------------------------------------------------------
+#     FINANCIAL RELATED ACTIONS
+# -----------------------------------------------------------------------------
+  
+balance:
+  url:   /bilan
+  param: { module: association, action: bilan }
+  
+activities_list:
+  url:    /activites
+  param:  { module: activite, action: index }
+
+accounts_list:
+  url:    /comptes
+  param:  { module: compte, action: index }
+
+expenses_list:
+  url:    /depenses
+  param:  { module: depense, action: index }
+
+incomes_list:
+  url:    /recettes
+  param:  { module: recette, action: index }
+
+  
+# -----------------------------------------------------------------------------
+#     MEMBER ACTIONS
+# -----------------------------------------------------------------------------
+  
+members_list:
+  url:    /membres
+  param:  { module: membre, action: index}
+  
+members_map:
+  url:    /carte
+  param:  { module: membre, action: map }
+  
+faces:
+  url:    /trombinoscope
+  param:  { module: membre, action: faces }
+  
+ajax_search_members:
+  url:    membre/ajaxlist
+  param:  { module: membre, action: ajaxlist }
+
+
+  
+# -----------------------------------------------------------------------------
+#     STATUS ACTIONS
+# -----------------------------------------------------------------------------
+ 
+status_list:
+  url:    /statuts
+  param:  { module: statut, action: index }
+
+  
+# -----------------------------------------------------------------------------
+#     DUE ACTIONS
+# -----------------------------------------------------------------------------
+ 
+dues_list:
+  url:    /cotisations
+  param:  { module: cotisation, action: index }
+
+
+# -----------------------------------------------------------------------------
+#     DUETYPE ACTIONS
+# -----------------------------------------------------------------------------
+ 
+duetypes_list:
+  url:    /types_cotisations
+  param:  { module: cotisationtype, action: index }
+
+
+
+# -----------------------------------------------------------------------------
+#     EXPORT ACTIONS
+# -----------------------------------------------------------------------------
+ 
+export:
+  url:    /export
+  param:  { module: export, action: index }
+
+  
+# -----------------------------------------------------------------------------
+#     DEFAULT ACTIONS
+# -----------------------------------------------------------------------------
+
+homepage:
+  url:    /
+  param:  { module: membre, action: index }
+
+  
 default_index:
   url:   /:module
   param: { action: index }
 
 default:
   url:   /:module/:action/*
-
-ajax_search_members:
-  url:   membre/ajaxlist
-  param: { module: membre, action: ajaxlist }
-  
-mailing:
-  url:   /mailing
-  param: { module: mailing, action: index }
-  
-error_credentials:
-  url:   /error/credentials
-  param: { module: error, action: credentials }
-  
-setup:
-  url:   /install
-  param: { module: install, action: index }
-  
-balance:
-  url:   /association/bilan
-  param: { module: association, action: bilan }
