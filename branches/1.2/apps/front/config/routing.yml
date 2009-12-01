@@ -10,6 +10,7 @@ mailing:
 error_credentials:
   url:    /error/credentials
   param:  { module: error, action: credentials }
+ 
   
 
 # -----------------------------------------------------------------------------
@@ -31,6 +32,18 @@ retrieve_password:
 setup:
   url:    /install
   param:  { module: install, action: index }
+  
+config_db:
+  url:    /config_database
+  param:  { module: install, action: configDatabase }
+  
+check_config:
+  url:    /config_database
+  param:  { module: install, action: checkConfig }
+
+install_success:
+  url:    /fin_installation
+  param:  { module: install, action: end }
 
 update:
   url:    /update
@@ -99,9 +112,47 @@ expenses_list:
   url:    /depenses
   param:  { module: depense, action: index }
 
+expense_show:
+  url:    /depense/details/:id
+  param:  { module: depense, action: show }
+
+expense_edit:
+  url:    /depense/editer/:id
+  param:  { module: depense, action: edit }
+
+expense_delete:
+  url:    /depense/supprimer/:id
+  param:  { module: depense, action: delete }
+
+expense_new:
+  url:    /depense/nouvelle
+  param:  { module: depense, action: new }
+
+
+
+
 incomes_list:
   url:    /recettes
   param:  { module: recette, action: index }
+
+
+income_new:
+  url:    /recette/nouvelle
+  param:  { module: recette, action: new }
+  
+income_edit:
+  url:    /recette/editer/:id
+  param:  { module: recette, action: edit }
+  
+income_delete:
+  url:    /recette/supprimer/:id
+  param:  { module: recette, action: delete }
+
+income_show:
+  url:    /recette/details/:id
+  param:  { module: recette, action: show }
+
+
 
   
   
@@ -130,9 +181,33 @@ register_first_member:
   url:    /register_first_member
   param:  { module: membre, action: newfirst }
 
-member_by_id:
+member_show:
   url:    /membre/details/:id
   param:  { module: membre, action: show }
+  
+member_edit:
+  url:    /membre/editer/:id
+  param:  { module: membre, action: edit }
+
+member_delete:
+  url:    /membre/supprimer/:id
+  param:  { module: membre, action: delete }
+
+member_pending:
+  url:    /membre/en_attente
+  param:  { module: membre, action: pending }
+
+member_acl:
+  url:    /membre/droits/:id
+  param:  { module: membre, action: acl }
+  
+member_search:
+  url:    /membre/recherche
+  param:  { module: membre, action: search }
+
+member_endregistration:
+  url:    /membre/inscription_finie
+  param:  { module: membre, action: endregistration }
 
 
 # -----------------------------------------------------------------------------
@@ -163,16 +238,22 @@ dues_list:
   param:  { module: cotisation, action: index }
 
 due_show:
-  url:    /cotisation/details
+  url:    /cotisation/details/:id
   param:  { module: cotisation, action: show }
 
 due_edit:
-  url:    /cotisation/editer
+  url:    /cotisation/editer/:id
   param:  { module: cotisation, action: edit }
   
 due_delete:
-  url:    /cotisation/supprimer
+  url:    /cotisation/supprimer/:id
   param:  { module: cotisation, action: delete }
+
+due_new:
+  url:    /cotisation/nouvelle
+  param:  { module: cotisation, action: new }
+
+
 
 # -----------------------------------------------------------------------------
 #     DUETYPE ACTIONS
@@ -182,6 +263,21 @@ duetypes_list:
   url:    /types_cotisations
   param:  { module: cotisationtype, action: index }
 
+duetype_ajax_getamount:
+  url:    /duetype
+  param:  { module: cotisationtype, action: ajaxgetamountfor }
+
+duetype_new:
+  url:    /type_cotisation/nouveau
+  param:  { module: cotisationtype, action: new }
+
+duetype_edit:
+  url:    /types_cotisation/editer/:id
+  param:  { module: cotisationtype, action: edit }
+  
+duetype_delete:
+  url:    /types_cotisation/supprimer/:id
+  param:  { module: cotisationtype, action: delete }
 
 
 # -----------------------------------------------------------------------------
