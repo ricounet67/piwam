@@ -2,9 +2,9 @@
 
 <h2>Liste des comptes</h2>
 
-<table class="tableauDonnees">
+<table class="datalist">
     <thead>
-        <tr class="enteteTableauDonnees">
+        <tr>
             <th>Libellé</th>
             <th>Référence</th>
             <th>Enregistré le</th>
@@ -18,9 +18,9 @@
             <td><?php echo $compte->getReference() ?></td>
             <td><?php echo format_date($compte->getCreatedAt()) ?></td>
             <td>
-              <a href="<?php echo url_for('compte/show?id='.$compte->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[details]')); ?></a>
-              <a href="<?php echo url_for('compte/edit?id='.$compte->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[modifier]')); ?></a>
-              <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')), 'compte/delete?id=' . $compte->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?')); ?>
+              <a href="<?php echo url_for('@account_by_id?id='.$compte->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[details]')); ?></a>
+              <a href="<?php echo url_for('@account_edit?id='.$compte->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[modifier]')); ?></a>
+              <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')), '@account_delete?id=' . $compte->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?')); ?>
             </td>
         </tr>
     <?php endforeach; ?>
