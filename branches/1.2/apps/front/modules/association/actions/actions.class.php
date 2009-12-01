@@ -74,11 +74,11 @@ class associationActions extends sfActions
 
           if ($this->getUser()->hasCredential('list_membre'))
           {
-            $this->redirect('membre/index');
+            $this->redirect('@members_list');
           }
           else
           {
-            $this->redirect('membre/show?id=' . $user->getId());
+            $this->redirect('@member_by_id?id=' . $user->getId());
           }
         }
         else
@@ -228,7 +228,7 @@ class associationActions extends sfActions
     {
       $this->_association->initialize();
       $this->getUser()->setTemporaryAssociationId($this->_association->getId());
-      $this->redirect('membre/newfirst');
+      $this->redirect('@register_first_member');
     }
     else
     {
@@ -284,7 +284,7 @@ class associationActions extends sfActions
     $association = AssociationTable::getById($id);
     $this->forward404Unless($association, "L'association {$id} n'existe pas.");
     $association->delete();
-    $this->redirect('association/index');
+    $this->redirect('@associations_list');
   }
 
   /*
