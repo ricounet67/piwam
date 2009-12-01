@@ -25,37 +25,37 @@
         <div id="menu">
             <ul>
                 <li class="mainSection">Configuration</li>
-                <li><?php echo link_to('A propos de l\'association', 'association/edit?id=' . sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user')) ?></li>
-                <li><?php echo link_to('Pr&eacute;f&eacute;rences Piwam', 'association/config') ?></li>
+                <li><?php echo link_to('A propos de l\'association', 'association/edit?id=' . sfContext::getInstance()->getUser()->getAssociationId()) ?></li>
+                <li><?php echo link_to('Pr&eacute;f&eacute;rences Piwam', '@config') ?></li>
             </ul>
             <ul>
                 <li class="mainSection">Membres</li>
-                <li><?php echo link_to('Gestion des membres', 'membre/index') ?></li>
-                <li><?php echo link_to('Situation g&eacute;ographique', 'membre/map') ?></li>
-                <li><?php echo link_to('Trombinoscope', 'membre/faces') ?></li>
-                <li><?php echo link_to('G&eacute;rer les statuts', 'statut/index') ?></li>
+                <li><?php echo link_to('Gestion des membres', '@members_list') ?></li>
+                <li><?php echo link_to('Situation g&eacute;ographique', '@members_map') ?></li>
+                <li><?php echo link_to('Trombinoscope', '@faces') ?></li>
+                <li><?php echo link_to('G&eacute;rer les statuts', '@status_list') ?></li>
             </ul>
             <ul>
                 <li class="mainSection">Cotisations</li>
-                <li><?php echo link_to('G&eacute;rer les cotisations', 'cotisation/index') ?></li>
-                <li><?php echo link_to('Types de cotisation', 'cotisationtype/index') ?></li>
+                <li><?php echo link_to('G&eacute;rer les cotisations', '@dues_list') ?></li>
+                <li><?php echo link_to('Types de cotisation', '@duetypes_list') ?></li>
             </ul>
             <ul>
                 <li class="mainSection">Comptabilit&eacute;</li>
-                <li><?php echo link_to('Gestion des activit&eacute;s', 'activite/index') ?></li>
-                <li><?php echo link_to('Gestion des comptes', 'compte/index') ?></li>
-                <li><?php echo link_to('Gestion des d&eacute;penses', 'depense/index') ?></li>
-                <li><?php echo link_to('Gestion des recettes', 'recette/index') ?></li>
-                <li><?php echo link_to('Voir les bilans', 'association/bilan') ?></li>
+                <li><?php echo link_to('Gestion des activit&eacute;s', '@activities_list') ?></li>
+                <li><?php echo link_to('Gestion des comptes', '@accounts_list') ?></li>
+                <li><?php echo link_to('Gestion des d&eacute;penses', '@expenses_list') ?></li>
+                <li><?php echo link_to('Gestion des recettes', '@incomes_list') ?></li>
+                <li><?php echo link_to('Voir les bilans', '@balance') ?></li>
             </ul>
             <ul>
                 <li class="mainSection">Fonctionnalit&eacute;s</li>
-                <li><?php echo link_to('D&eacute;connexion', 'association/logout') ?></li>
-                <li><?php echo link_to('Exporter les donn&eacute;es', 'export/index') ?></li>
+                <li><?php echo link_to('D&eacute;connexion', '@logout') ?></li>
+                <li><?php echo link_to('Exporter les donn&eacute;es', '@export') ?></li>
                 <li><?php echo link_to('Mailing', '@mailing') ?></li>
                 <li><a href="http://code.google.com/p/piwam/issues/entry" target="_blank">Rapporter un bug</a></li>
                 <li><?php echo link_to('Installation', '@setup') ?></li>
-                <li><?php echo link_to('Mise à jour', 'update/index') ?></li>
+                <li><?php echo link_to('Mise à jour', '@update') ?></li>
             </ul>
             <br />
         </div>

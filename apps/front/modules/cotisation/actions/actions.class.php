@@ -10,38 +10,35 @@
 class cotisationActions extends sfActions
 {
   /**
-   * r20 : provides to the view the number of cotisation types that
-   * 		 have been set
+   * r20 : provides to the view the number of dues types that
+   * 		   have been set
    *
    * @param 	sfWebRequest	$request
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->cotisation_list = DueTable::getForAssociation($this->getUser()->getAssociationId());
+    $this->dues = DueTable::getForAssociation($this->getUser()->getAssociationId());
     $this->typesExist = DueTypeTable::countForAssociation($this->getUser()->getAssociationId());
   }
 
   /**
-   * Show details about a particular Cotisation
+   * Show details about a particular Due
    *
    * @param   sfWebRequest $request
    */
   public function executeShow(sfWebRequest $request)
   {
-    $this->cotisation = DueTable::getById($request->getParameter('id'));
+    $this->due = DueTable::getById($request->getParameter('id'));
+    $this->forward404Unless($this->due);
 
-    if ($this->cotisation->getDueType()->getAssociationId() == $this->getUser()->getAssociationId())
-    {
-      $this->forward404Unless($this->cotisation);
-    }
-    else
+    if ($this->due->getDueType()->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
   }
 
   /**
-   * Display the form to register a new cotisation
+   * Display the form to register a new Due
    *
    * @param 	sfWebRequest	$request
    */
@@ -53,7 +50,7 @@ class cotisationActions extends sfActions
   }
 
   /**
-   * Check the creation of a new cotisation.
+   * Check the creation of a new Due.
    *
    * @param 	sfWebRequest	$request
    */
@@ -68,81 +65,85 @@ class cotisationActions extends sfActions
   }
 
   /**
-   * Edit an existing Cotisation after checking that user has required
+   * Edit an existing Due after checking that user has required
    * credentials
    *
    * @param   sfWebRequest $request
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $this->forward404Unless($cotisation = DueTable::getById($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($due = DueTable::getById($id));
 
-    if ($cotisation->getDueType()->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($due->getDueType()->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new DueForm($cotisation);
+    $this->form = new DueForm($due);
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
   /**
-   * Update a cotisation entry with new values
+   * Update a Due entry with new values
    *
    * @param 	sfWebRequest	$request
    */
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $this->forward404Unless($cotisation = DueTable::getById($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
-    $this->form = new DueForm($cotisation);
+    $id = $request->getParameter('id');
+    $this->forward404Unless($due = DueTable::getById($id));
+    $this->form = new DueForm($due);
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
   }
 
   /**
-   * Delete a cotisation
+   * Delete a Due
    *
    * @param   sfWebRequest $request
    */
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $this->forward404Unless($cotisation = DueTable::getById($request->getParameter('id')), sprintf('Object cotisation does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($due = DueTable::getById($id));
 
-    if ($cotisation->getDueType()->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($due->getDueType()->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $cotisation->delete();
-    $this->redirect('cotisation/index');
+    $due->delete();
+    $this->redirect('@dues_list');
   }
 
   /*
-   * Redirect again to the form if we are registering new Cotisation (in order
-   * to record several Cotisation in "one time" without going back and then
+   * Redirect again to the form if we are registering new Due (in order
+   * to record several Due in "one time" without going back and then
    * coming back to the form.
    *
-   * Redirect to index action if we are editing an existing Cotisation
+   * Redirect to index action if we are editing an existing Due
    */
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+
     if ($form->isValid())
     {
-      $cotisation = $form->save();
+      $due = $form->save();
       $this->getUser()->setFlash('notice', 'Cotisation enregistrée avec succès.');
       $data = $request->getParameter('due');
 
       if (isset($data['id']))
       {
-        $this->redirect('cotisation/index');
+        $this->redirect('@dues_list');
       }
       else
       {
-        $this->redirect('cotisation/new');
+        $this->redirect('@due_new');
       }
     }
   }

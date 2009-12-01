@@ -6,11 +6,11 @@
     method="post"
     <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
-<?php if (!$form->getObject()->isNew()): ?>
-    <input type="hidden" name="sf_method" value="put" />
-<?php endif; ?>
+    <?php if (!$form->getObject()->isNew()): ?>
+        <input type="hidden" name="sf_method" value="put" />
+    <?php endif; ?>
 
-<table class="formArray">
+<table class="formtable">
 
     <!-- Form footer : buttons -->
 
@@ -18,7 +18,7 @@
         <tr>
             <td colspan="2">
                 <?php echo $form->renderHiddenFields() ?>
-                <?php echo link_to('Annuler', 'membre/index', array('class'	=> 'formLinkButton')) ?>
+                <?php echo link_to('Annuler', '@members_list', array('class'	=> 'formLinkButton')) ?>
 
                 <!-- Display "next step" or "cancel" and "delete" buttons-->
 
@@ -45,19 +45,16 @@
             </td>
         </tr>
         <tr>
-            <th>Nom de l'association :</th>
-            <td><?php echo $form['name'] ?> <?php echo $form['name']->renderError() ?>
-            </td>
+            <th><?php echo $form['name']->renderLabel() ?> :</th>
+            <td><?php echo $form['name'] ?> <?php echo $form['name']->renderError() ?></td>
         </tr>
         <tr>
-            <th><?php echo $form['description']->renderLabel() ?></th>
-            <td><?php echo $form['description'] ?> <?php echo $form['description']->renderError() ?>
-            </td>
+            <th><?php echo $form['description']->renderLabel() ?> :</th>
+            <td><?php echo $form['description'] ?> <?php echo $form['description']->renderError() ?></td>
         </tr>
         <tr>
-            <th><?php echo $form['website']->renderLabel() ?></th>
-            <td><?php echo $form['website'] ?> <?php echo $form['website']->renderError() ?>
-            </td>
+            <th><?php echo $form['website']->renderLabel() ?> :</th>
+            <td><?php echo $form['website'] ?> <?php echo $form['website']->renderError() ?></td>
         </tr>
 
 
@@ -65,7 +62,7 @@
 
         <?php if ($form->getObject()->isNew()): ?>
             <tr>
-                <th>Ping</th>
+                <th><?php echo $form['ping_piwam']->renderLabel ?></th>
                 <td><?php echo $form['ping_piwam'] ?> Dire à l'auteur que mon association utilise Piwam</td>
             </tr>
         <?php endif ?>

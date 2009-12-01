@@ -35,30 +35,29 @@ class activiteActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->activite_list = ActivityTable::getEnabledForAssociation($this->getUser()->getAssociationId());
+    $this->activities = ActivityTable::getEnabledForAssociation($this->getUser()->getAssociationId());
   }
 
   /**
-   * List the detailed Recettes and Depenses in a merged array.
+   * List the detailed Incomes and Expenses in a merged array.
    *
    * @param  sfWebRequest    $request
    */
   public function executeShow(sfWebRequest $request)
   {
-    $activiteId	      = $request->getParameter('id');
-    $this->activite   = ActivityTable::getById($activiteId);
-    $depenses 	      = $this->activite->getPaidExpenses()->getData();
-    $recettes 	      = $this->activite->getReceivedIncomes()->getData();
-    $data		          = array_merge($depenses, $recettes);
-    $isSortOk	        = usort($data, 'compare_money_entries');
-    $this->data       = $data;
-    $this->creances   = IncomeTable::getAmountOfDebtsForActivity($activiteId);
-    $this->dettes     = ExpenseTable::getAmountOfDebtsForActivity($activiteId);
-    $this->totalPrevu = $this->creances - $this->dettes;
+    $id              = $request->getParameter('id');
+    $this->activity  = ActivityTable::getById($id);
 
-    if ($this->activite->getAssociationId() == $this->getUser()->getAssociationId())
+    if ($this->activity->getAssociationId() == $this->getUser()->getAssociationId())
     {
-      $this->forward404Unless($this->activite);
+      $this->forward404Unless($this->activity);
+      $expenses      = $this->activity->getPaidExpenses()->getData();
+      $incomes       = $this->activity->getReceivedIncomes()->getData();
+      $this->records = array_merge($expenses, $incomes);
+      $isSortOk      = usort($this->records, 'compare_money_entries');
+      $this->iDebts  = IncomeTable::getAmountOfDebtsForActivity($id);
+      $this->eDebts  = ExpenseTable::getAmountOfDebtsForActivity($id);
+      $this->total   = $this->creances - $this->dettes;
     }
     else
     {
@@ -100,14 +99,15 @@ class activiteActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $this->forward404Unless($activite = ActivityTable::getById($request->getParameter('id')), sprintf('L\'activite n\'existe pas (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($activity = ActivityTable::getById($id), 'Activity ' . $id . ' does not exist');
 
-    if ($activite->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($activity->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new ActivityForm($activite);
+    $this->form = new ActivityForm($activity);
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
@@ -118,9 +118,10 @@ class activiteActions extends sfActions
    */
   public function executeUpdate(sfWebRequest $request)
   {
+    $id = $request->getParameter('id');
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $this->forward404Unless($activite = ActivityTable::getById($request->getParameter('id')), sprintf('L\'activité (%s) n\'existe pas.', $request->getParameter('id')));
-    $this->form = new ActivityForm($activite);
+    $this->forward404Unless($activity = ActivityTable::getById($id), 'Activity ' . $id . ' does not exist');
+    $this->form = new ActivityForm($activity);
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
   }
@@ -133,15 +134,16 @@ class activiteActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $this->forward404Unless($activite = ActivityTable::getById($request->getParameter('id')), sprintf('Object activite does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($activity = ActivityTable::getById($id), 'Activity ' . $id . ' does not exist');
 
-    if ($activite->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($activity->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $activite->delete();
-    $this->redirect('activite/index');
+    $activity->delete();
+    $this->redirect('@activities_list');
   }
 
   /*
@@ -151,10 +153,11 @@ class activiteActions extends sfActions
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+
     if ($form->isValid())
     {
-      $activite = $form->save();
-      $this->redirect('activite/index');
+      $activity = $form->save();
+      $this->redirect('@activities_list');
     }
   }
 }

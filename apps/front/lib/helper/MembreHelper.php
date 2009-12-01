@@ -16,7 +16,7 @@ function format_member($member, $pseudo = false)
     }
     else
     {
-        $str = '<a href="' . url_for('member/show?id=' . $member->getId()) . '">';
+        $str = '<a href="' . url_for('@member_show?id=' . $member->getId()) . '">';
 
         if ($pseudo)
         {

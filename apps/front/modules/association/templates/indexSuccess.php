@@ -14,10 +14,10 @@
     <tbody>
     <?php foreach ($associationsPager->getResults() as $association): ?>
         <tr>
-            <td><?php echo $association->getNom() ?></td>
+            <td><?php echo $association->getName() ?></td>
             <td><?php echo $association->getDescription() ?></td>
             <td>
-                <?php if ($association->getSiteWeb()): ?>
+                <?php if ($association->getWebsite()): ?>
                     <?php echo link_to(short_website_url($association->getSiteWeb()),  $association->getSiteWeb()) ?>
                 <?php endif ?>
             </td>

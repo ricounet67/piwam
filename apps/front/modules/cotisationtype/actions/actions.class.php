@@ -1,5 +1,4 @@
 <?php
-
 /**
  * cotisationtype actions.
  *
@@ -11,10 +10,9 @@
 class cotisationtypeActions extends sfActions
 {
   /**
-   * Called by AJAX updater in 'cotisation/new' action.
+   * Called by AJAX updater when creation a new Due.
    *
-   * @param $request
-   * @return unknown_type
+   * @param   sfWebRequest  $request
    */
   public function executeAjaxgetamountfor(sfWebRequest $request)
   {
@@ -33,23 +31,24 @@ class cotisationtypeActions extends sfActions
   }
 
   /**
-   * List existing CotisationType
+   * List existing DueType
    *
    * @param   sfWebRequest $request
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->cotisation_type_list = DueTypeTable::getEnabledForAssociation($this->getUser()->getAssociationId());
+    $id = $this->getUser()->getAssociationId();
+    $this->due_types = DueTypeTable::getEnabledForAssociation($id);
   }
 
 
   /**
    * r20 : If `first` attribute has been set, we want
-   * 		 to create our first type. We will set a default
-   * 		 value in label field
+   * 		   to create our first type. We will set a default
+   * 		   value in label field
    *
    * @param 	sfWebRequest	$request
-   * @see		modules/cotisation/templates/indexSuccess.php
+   * @see		  modules/cotisation/templates/indexSuccess.php
    */
   public function executeNew(sfWebRequest $request)
   {
@@ -77,20 +76,21 @@ class cotisationtypeActions extends sfActions
   }
 
   /**
-   * Edit an existing CotisationType
+   * Edit an existing DueType
    *
    * @param  sfWebRequest $request
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $this->forward404Unless($cotisation_type = DueTypeTable::getById($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($due_type = DueTypeTable::getById($id));
 
-    if ($cotisation_type->getAssociationId() !== $this->getUser()->getAssociationId())
+    if ($due_type->getAssociationId() !== $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new DueTypeForm($cotisation_type);
+    $this->form = new DueTypeForm($due_type);
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
@@ -102,8 +102,9 @@ class cotisationtypeActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $this->forward404Unless($cotisation_type = DueTypeTable::getById($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
-    $this->form = new DueTypeForm($cotisation_type);
+    $id = $request->getParameter('id');
+    $this->forward404Unless($due_type = DueTypeTable::getById($id));
+    $this->form = new DueTypeForm($due_type);
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
   }
@@ -116,15 +117,16 @@ class cotisationtypeActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $this->forward404Unless($cotisation_type = DueTypeTable::getById($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($due_type = DueTypeTable::getById($id));
 
-    if ($cotisation_type->getAssociationId() == $this->getUser()->getAssociationId())
+    if ($due_type->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $cotisation_type->delete();
-    $this->redirect('cotisationtype/index');
+    $due_type->delete();
+    $this->redirect('@duetypes_list');
   }
 
   /*
@@ -137,8 +139,8 @@ class cotisationtypeActions extends sfActions
 
     if ($form->isValid())
     {
-      $cotisation_type = $form->save();
-      $this->redirect('cotisationtype/index');
+      $due_type = $form->save();
+      $this->redirect('@duetypes_list');
     }
   }
 }

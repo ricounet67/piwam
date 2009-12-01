@@ -2,9 +2,9 @@
 
 <h2>Liste des comptes</h2>
 
-<table class="tableauDonnees">
+<table class="datalist">
     <thead>
-        <tr class="enteteTableauDonnees">
+        <tr>
             <th>Libellé</th>
             <th>Référence</th>
             <th>Enregistré le</th>
@@ -12,15 +12,15 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($compte_list as $compte): ?>
+    <?php foreach ($accounts as $account): ?>
         <tr>
-            <td><?php echo $compte->getLabel() ?></td>
-            <td><?php echo $compte->getReference() ?></td>
-            <td><?php echo format_date($compte->getCreatedAt()) ?></td>
+            <td><?php echo $account->getLabel() ?></td>
+            <td><?php echo $account->getReference() ?></td>
+            <td><?php echo format_date($account->getCreatedAt()) ?></td>
             <td>
-              <a href="<?php echo url_for('compte/show?id='.$compte->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[details]')); ?></a>
-              <a href="<?php echo url_for('compte/edit?id='.$compte->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[modifier]')); ?></a>
-              <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')), 'compte/delete?id=' . $compte->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?')); ?>
+              <a href="<?php echo url_for('@account_by_id?id='.$account->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[details]')); ?></a>
+              <a href="<?php echo url_for('@account_edit?id='.$account->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[modifier]')); ?></a>
+              <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')), '@account_delete?id=' . $account->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?')); ?>
             </td>
         </tr>
     <?php endforeach; ?>
@@ -28,5 +28,5 @@
 </table>
 
 <div class="addNew">
-  <?php echo link_to(image_tag('add', array('align'=>'top', 'alt' => '[ajouter]')). ' Enregistrer un compte', 'compte/new') ?>
+  <?php echo link_to(image_tag('add', array('align'=>'top', 'alt' => '[ajouter]')). ' Enregistrer un compte', '@account_new') ?>
 </div>

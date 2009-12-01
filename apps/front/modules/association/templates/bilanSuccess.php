@@ -6,16 +6,16 @@
 // Even if it's not really MVC compliant, we compute the total
 // amount of Recette / Depense line by line directly within
 // this view
-$totalDepenses  = 0;
-$totalRecettes  = 0;
-$total          = 0;
+$totalExpenses = 0;
+$totalIncomes  = 0;
+$total         = 0;
 ?>
 
 
 <h3>Par compte</h3>
-<table class="tableauDonnees">
+<table class="datalist">
     <thead>
-        <tr class="enteteTableauDonnees">
+        <tr>
             <th width="60%">Compte</th>
             <th width="10%">Dépenses</th>
             <th width="10%">Recettes</th>
@@ -23,19 +23,20 @@ $total          = 0;
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($comptes as $compte): ?>
 
-        <tr class="<?php echo ($compte->isNegative()) ? 'compteNegatif' : 'comptePositif' ?>">
-            <td><?php echo link_to($compte->getReference(), 'compte/show?id=' . $compte->getId(), array('class' => 'block')) ?></td>
-            <td><?php echo format_currency($compte->getTotalExpenses()); $totalDepenses += $compte->getTotalExpenses() ?></td>
-            <td><?php echo format_currency($compte->getTotalIncomes()); $totalRecettes += $compte->getTotalIncomes() ?></td>
-            <td><?php echo format_currency($compte->getTotal()); $total += $compte->getTotal() ?></td>
-        </tr>
+        <?php foreach ($accounts as $account): ?>
+            <tr class="<?php echo ($account->isNegative()) ? 'negative' : 'positive' ?>">
+                <td><?php echo link_to($account->getReference(), '@account_by_id?id=' . $account->getId(), array('class' => 'block')) ?></td>
+                <td><?php echo format_currency($account->getTotalExpenses()); $totalExpenses += $account->getTotalExpenses() ?></td>
+                <td><?php echo format_currency($account->getTotalIncomes()); $totalIncomes += $account->getTotalIncomes() ?></td>
+                <td><?php echo format_currency($account->getTotal()); $total += $account->getTotal() ?></td>
+            </tr>
         <?php endforeach; ?>
-        <tr class="<?php echo ($total < 0) ? 'compteNegatif' : 'comptePositif' ?>">
+
+        <tr class="<?php echo ($total < 0) ? 'negative' : 'positive' ?>">
             <td><strong>TOTAL</strong></td>
-            <td><?php echo format_currency($totalDepenses, '&euro;') ?></td>
-            <td><?php echo format_currency($totalRecettes, '&euro;') ?></td>
+            <td><?php echo format_currency($totalExpenses, '&euro;') ?></td>
+            <td><?php echo format_currency($totalIncomes, '&euro;') ?></td>
             <td><?php echo format_currency($total, '&euro;') ?></td>
         </tr>
     </tbody>
@@ -47,14 +48,14 @@ $total          = 0;
 
 <?php
 // We re-initialize our counters
-$totalDepenses  = 0;
-$totalRecettes  = 0;
-$total          = 0;
+$totalExpenses = 0;
+$totalIncomes  = 0;
+$total         = 0;
 ?>
 
-<table class="tableauDonnees">
+<table class="datalist">
     <thead>
-        <tr class="enteteTableauDonnees">
+        <tr>
             <th width="60%">Activité</th>
             <th width="10%">Dépenses</th>
             <th width="10%">Recettes</th>
@@ -62,52 +63,58 @@ $total          = 0;
         </tr>
     </thead>
     <tbody>
-        <tr class="comptePositif">
+        <tr class="positive">
             <td><?php echo link_to('Cotisations', 'cotisation/index', array('class' => 'block')) ?></td>
             <td><?php echo format_currency(0) ?></td>
-            <td><?php echo format_currency($totalCotisations); $totalRecettes += $totalCotisations ?></td>
-            <td><?php echo format_currency($totalCotisations); $total += $totalCotisations ?></td>
+            <td><?php echo format_currency($totalDues); $totalIncomes += $totalDues ?></td>
+            <td><?php echo format_currency($totalDues); $total += $totalDues ?></td>
         </tr>
 
-        <?php foreach ($activites as $activite): ?>
-        <tr class="<?php echo ($activite->getTotal() < 0) ? 'compteNegatif' : 'comptePositif' ?>">
-            <td><?php echo link_to($activite->getLabel(), 'activite/show?id=' . $activite->getId(), array('class' => 'block')) ?></td>
-            <td><?php echo format_currency($activite->getTotalExpenses()); $totalDepenses += $activite->getTotalExpenses() ?></td>
-            <td><?php echo format_currency($activite->getTotalIncomes()); $totalRecettes += $activite->getTotalIncomes() ?></td>
-            <td><?php echo format_currency($activite->getTotal()); $total += $activite->getTotal() ?></td>
-        </tr>
+        <?php foreach ($activities as $activity): ?>
+            <tr class="<?php echo ($activity->getTotal() < 0) ? 'negative' : 'positive' ?>">
+                <td><?php echo link_to($activity->getLabel(), '@activity_by_id?id=' . $activity->getId(), array('class' => 'block')) ?></td>
+                <td><?php echo format_currency($activity->getTotalExpenses()); $totalExpenses += $activity->getTotalExpenses() ?></td>
+                <td><?php echo format_currency($activity->getTotalIncomes()); $totalIncomes += $activity->getTotalIncomes() ?></td>
+                <td><?php echo format_currency($activity->getTotal()); $total += $activity->getTotal() ?></td>
+            </tr>
         <?php endforeach; ?>
 
-        <tr class="<?php echo ($total < 0) ? 'compteNegatif' : 'comptePositif' ?>">
+        <tr class="<?php echo ($total < 0) ? 'negative' : 'positive' ?>">
             <td><strong>TOTAL</strong></td>
-            <td><?php echo format_currency($totalDepenses, '&euro;') ?></td>
-            <td><?php echo format_currency($totalRecettes, '&euro;') ?></td>
+            <td><?php echo format_currency($totalExpenses, '&euro;') ?></td>
+            <td><?php echo format_currency($totalIncomes, '&euro;') ?></td>
             <td><?php echo format_currency($total, '&euro;') ?></td>
         </tr>
     </tbody>
 </table>
 
+
+
+
 <h3>Créances et dettes</h3>
-<table class="tableauDonnees">
-    <tr class="comptePositif">
+<table class="datalist">
+    <tr class="positive">
         <td width="60%">Créances</td>
         <td width="10%">-</td>
-        <td width="10%"><?php echo format_currency($totalCreances) ?></td>
+        <td width="10%"><?php echo format_currency($totalUnreceived) ?></td>
         <td width="10%">-</td>
     </tr>
-    <tr class="<?php echo ($totalDettes == 0) ? "comptePositif" : "compteNegatif" ?>">
+    <tr class="<?php echo ($totalUnpaid == 0) ? "positive" : "negative" ?>">
         <td>Dettes</td>
-        <td><?php echo format_currency($totalDettes) ?></td>
+        <td><?php echo format_currency($totalUnpaid) ?></td>
         <td>-</td>
         <td>-</td>
     </tr>
-    <tr class="<?php echo ($totalPrevu < 0) ? "compteNegatif" : "comptePositif" ?>">
+    <tr class="<?php echo ($totalDebts < 0) ? "negative" : "positive" ?>">
         <td><strong>TOTAL</strong></td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-        <td><?php echo format_currency($totalPrevu, '&euro;') ?></td>
+        <td><?php echo format_currency($totalDebts, '&euro;') ?></td>
     </tr>
 </table>
+
+
+<!-- Informative message -->
 
 <p style="padding: 10px; background-color: #eee; width: 88%">
     Une discussion est actuellement en cours afin d'améliorer ce "bilan" (export

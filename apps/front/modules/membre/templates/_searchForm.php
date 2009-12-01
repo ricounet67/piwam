@@ -10,7 +10,7 @@
 
 
 <div id="searchBar">
-    <form action="<?php echo url_for('membre/search'); ?>" method="post">
+    <form action="<?php echo url_for('@member_search'); ?>" method="post">
         <?php echo $form->renderHiddenFields() ?>
         <?php echo $form['magic'] ?> <input type="submit" name="submit" value="rechercher" class="button" />
     </form>

@@ -1,9 +1,9 @@
 <?php if (count($pending)): ?>
     <h2>Demandes d'adhésion en attente...</h2>
 
-    <table class="tableauDonnees" summary="Members who would like to belong to the association">
+    <table class="datalist" summary="Members who would like to belong to the association">
         <thead>
-            <tr class="enteteTableauDonnees">
+            <tr>
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Pseudo</th>
@@ -13,23 +13,27 @@
             </tr>
         </thead>
         <tbody>
-        <?php foreach ($pending as $membre): ?>
+        <?php foreach ($pending as $member): ?>
             <tr>
-                <td><?php echo $membre->getLastname() ?></td>
-                <td><?php echo $membre->getFirstname() ?></td>
-                <td><?php echo $membre->getUsername() ?></td>
-                <td><?php echo $membre->getStatus() ?></td>
-                <td><?php echo $membre->getCity() ?></td>
+                <td><?php echo $member->getLastname() ?></td>
+                <td><?php echo $member->getFirstname() ?></td>
+                <td><?php echo $member->getUsername() ?></td>
+                <td><?php echo $member->getStatus() ?></td>
+                <td><?php echo $member->getCity() ?></td>
                 <td>
-                    <?php echo link_to(image_tag('state_ok.png', array('alt' => '[valider]')), 'membre/validate?id=' . $membre->getId()) ?>
-                    <?php if ($membre->getEmail()) :?>
-                        <?php echo mail_to($membre->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
+                    <?php echo link_to(image_tag('state_ok.png', array('alt' => '[valider]')), 'membre/validate?id=' . $member->getId()) ?>
+
+                    <!-- Display email icon if an email has been set -->
+
+                    <?php if ($member->getEmail()) :?>
+                        <?php echo mail_to($member->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
                     <?php else: ?>
                         <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
                     <?php endif; ?>
-                    <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'membre/edit?id=' . $membre->getId()) ?>
-                    <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'membre/show?id=' . $membre->getId()) ?>
-                    <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+
+                    <?php echo link_to(image_tag('edit.png',    array('alt' => '[modifier]')),  '@member_edit?id=' . $member->getId()) ?>
+                    <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')),   '@member_show?id=' . $member->getId()) ?>
+                    <?php echo link_to(image_tag('delete.png',  array('alt' => '[supprimer]')), '@member_delete?id=' . $member->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -45,45 +49,48 @@
 <table class="tableauDonnees" summary="Members who would like to belong to the association">
     <thead>
         <tr class="enteteTableauDonnees">
-            <th><?php echo link_to('Nom',    'membre/index?orderby=lastname') ?></th>
-            <th><?php echo link_to('Prénom', 'membre/index?orderby=firstname') ?></th>
-            <th><?php echo link_to('Pseudo', 'membre/index?orderby=username') ?></th>
-            <th><?php echo link_to('Statut', 'membre/index?orderby=status_id') ?></th>
-            <th><?php echo link_to('Ville',  'membre/index?orderby=city') ?></th>
+            <th><?php echo link_to('Nom',    '@members_list?orderby=lastname') ?></th>
+            <th><?php echo link_to('Prénom', '@members_list?orderby=firstname') ?></th>
+            <th><?php echo link_to('Pseudo', '@members_list?orderby=username') ?></th>
+            <th><?php echo link_to('Statut', '@members_list?orderby=status_id') ?></th>
+            <th><?php echo link_to('Ville',  '@members_list?orderby=city') ?></th>
             <th width="75px">Actions</th>
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($members->getResults() as $membre): ?>
 
-    <?php if ($membre->hasToPayDue()): ?>
-        <tr class="cotisationNonAjour">
-    <?php else: ?>
-        <tr>
-    <?php endif; ?>
+        <?php foreach ($members->getResults() as $member): ?>
 
-            <td><?php echo $membre->getLastname() ?></td>
-            <td><?php echo $membre->getFirstname() ?></td>
-            <td><?php echo $membre->getUsername() ?></td>
-            <td><?php echo $membre->getStatus() ?></td>
-            <td><?php echo $membre->getCity() ?></td>
+             <?php if ($member->hasToPayDue()): ?>
+                <tr class="cotisationNonAjour">
+            <?php else: ?>
+                <tr>
+            <?php endif; ?>
+
+            <td><?php echo $member->getLastname() ?></td>
+            <td><?php echo $member->getFirstname() ?></td>
+            <td><?php echo $member->getUsername() ?></td>
+            <td><?php echo $member->getStatus() ?></td>
+            <td><?php echo $member->getCity() ?></td>
             <td>
-                <?php if ($membre->getEmail()) :?>
-                    <?php echo mail_to($membre->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
+                <?php if ($member->getEmail()) :?>
+                    <?php echo mail_to($member->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
                 <?php else: ?>
                     <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
                 <?php endif; ?>
-                <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'membre/edit?id=' . $membre->getId()) ?>
-                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'membre/show?id=' . $membre->getId()) ?>
-                <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+                <?php echo link_to(image_tag('edit.png',    array('alt' => '[modifier]')),  '@member_edit?id=' . $member->getId()) ?>
+                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')),   '@member_show?id=' . $member->getId()) ?>
+                <?php echo link_to(image_tag('delete.png',  array('alt' => '[supprimer]')), '@member_delete?id=' . $member->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
             </td>
         </tr>
-        <?php endforeach; ?>
+        <?php endforeach ?>
+
     </tbody>
 </table>
 
 
-<!-- Legend -->
+<!-- Display the legend -->
+
 <table style="border: 1px solid #999; margin-top: 15px; width: 200px;">
     <tr style="font-weight: bold; background-color: #ddd; color: #555;">
         <td colspan="2">Légende&nbsp;</td>

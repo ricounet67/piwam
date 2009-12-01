@@ -1,5 +1,4 @@
 <?php
-
 /**
  * recette actions.
  *
@@ -20,7 +19,7 @@ class recetteActions extends sfActions
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers('Number');
     $csv = new FileExporter('liste-recettes.csv');
-    $recettes = IncomeTable::getPagerForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+    $incomes = IncomeTable::getPagerForAssociation($this->getUser()->getAssociationId());
 
     echo $csv->addLineCSV(array(
 			'Libellé',
@@ -30,14 +29,14 @@ class recetteActions extends sfActions
 			'Date',
     ));
 
-    foreach ($recettes as $recette)
+    foreach ($incomes as $income)
     {
       echo $csv->addLineCSV(array(
-      $recette->getLibelle(),
-      format_currency($recette->getMontant()),
-      $recette->getCompte(),
-      $recette->getActivite(),
-      $recette->getDate(),
+      $income->getLibelle(),
+      format_currency($income->getMontant()),
+      $income->getCompte(),
+      $income->getActivite(),
+      $income->getDate(),
       ));
     }
     $csv->exportContentAsFile();
@@ -52,7 +51,7 @@ class recetteActions extends sfActions
   {
     $association_id = $this->getUser()->getAssociationId();
     $page = $request->getParameter('page', 1);
-    $this->recettesPager = IncomeTable::getPagerForAssociation($association_id, $page);
+    $this->incomesPager = IncomeTable::getPagerForAssociation($association_id, $page);
   }
 
   /**
@@ -105,14 +104,15 @@ class recetteActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $this->forward404Unless($recette = IncomeTable::getById($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($income = IncomeTable::getById($id));
 
-    if ($recette->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($income->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new IncomeForm($recette);
+    $this->form = new IncomeForm($income);
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
@@ -124,8 +124,9 @@ class recetteActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $this->forward404Unless($recette = IncomeTable::getById($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
-    $this->form = new IncomeForm($recette);
+    $id = $request->getParameter('id');
+    $this->forward404Unless($income = IncomeTable::getById($id));
+    $this->form = new IncomeForm($income);
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
@@ -139,14 +140,15 @@ class recetteActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $this->forward404Unless($recette = IncomeTable::getById($request->getParameter('id')), sprintf('Object recette does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($income = IncomeTable::getById($id));
 
-    if ($recette->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($income->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $recette->delete();
+    $income->delete();
     $this->redirect('recette/index');
   }
 
@@ -162,7 +164,7 @@ class recetteActions extends sfActions
 
     if ($form->isValid())
     {
-      $recette = $form->save();
+      $income = $form->save();
       $this->redirect('recette/index');
     }
   }

@@ -81,6 +81,9 @@ abstract class BaseActivity extends sfDoctrineRecord
              'type' => 'integer',
              'length' => '4',
              ));
+
+        $this->option('collate', 'utf8_unicode_ci');
+        $this->option('charset', 'utf8');
     }
 
     public function setUp()

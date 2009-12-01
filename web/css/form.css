@@ -1,20 +1,5 @@
 @CHARSET "UTF-8";
 
-/**
- * Feuille de style entièrement dédiée aux styles
- * de formulaires
- */ /* Engloble les tableaux mettant en page les formulaires */
-.formArray {
-    
-}
-
-.formArray th {
-    background-color: #eeeeff;
-    text-align: left;
-    color: #888;
-    padding: 10px;
-}
-
 /* Styles par défauts */
 input {
     border: 1px solid #aaa;

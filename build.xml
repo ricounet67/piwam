@@ -54,7 +54,8 @@
 
 	<target name="test">
 		<exec executable="${basedir}/symfony">
-			<arg line=" test:all --xml=${basedir}/build/logs/tests.xml" />
+			<arg line=" test:all 
+			   --xml=${basedir}/build/logs/tests.xml" />
 		</exec>
 	</target>
 

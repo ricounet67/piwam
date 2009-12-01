@@ -2,40 +2,40 @@
 
 <?php include_partial('searchForm', array('form' => $searchForm)) ?>
 
-<table class="tableauDonnees">
+<table class="datalist">
     <thead>
-        <tr class="enteteTableauDonnees">
-            <th><?php echo link_to('Nom',    'membre/index?orderby=NOM') ?></th>
-            <th><?php echo link_to('Prénom', 'membre/index?orderby=PRENOM') ?></th>
-            <th><?php echo link_to('Pseudo', 'membre/index?orderby=PSEUDO') ?></th>
-            <th><?php echo link_to('Statut', 'membre/index?orderby=STATUT_ID') ?></th>
-            <th><?php echo link_to('Ville',  'membre/index?orderby=VILLE') ?></th>
+        <tr>
+            <th><?php echo link_to('Nom',    'membre/index?orderby=lastname') ?></th>
+            <th><?php echo link_to('Prénom', 'membre/index?orderby=firstname') ?></th>
+            <th><?php echo link_to('Pseudo', 'membre/index?orderby=username') ?></th>
+            <th><?php echo link_to('Statut', 'membre/index?orderby=status_id') ?></th>
+            <th><?php echo link_to('Ville',  'membre/index?orderby=city') ?></th>
             <th width="75px">Actions</th>
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($membres as $membre): ?>
+    <?php foreach ($membres as $member): ?>
 
-    <?php if ($membre->isAjourCotisation()): ?>
+    <?php if ($member->isAjourCotisation()): ?>
         <tr>
     <?php else: ?>
         <tr class="cotisationNonAjour">
     <?php endif; ?>
 
-            <td><?php echo $membre->getNom() ?></td>
-            <td><?php echo $membre->getPrenom() ?></td>
-            <td><?php echo $membre->getPseudo() ?></td>
-            <td><?php echo $membre->getStatut() ?></td>
-            <td><?php echo $membre->getVille() ?></td>
+            <td><?php echo $member->getNom() ?></td>
+            <td><?php echo $member->getPrenom() ?></td>
+            <td><?php echo $member->getPseudo() ?></td>
+            <td><?php echo $member->getStatut() ?></td>
+            <td><?php echo $member->getVille() ?></td>
             <td>
-                <?php if ($membre->getEmail()) :?>
-                    <?php echo mail_to($membre->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
+                <?php if ($member->getEmail()) :?>
+                    <?php echo mail_to($member->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
                 <?php else: ?>
                     <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
                 <?php endif; ?>
-                <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'membre/edit?id=' . $membre->getId()) ?>
-                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'membre/show?id=' . $membre->getId()) ?>
-                <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+                <?php echo link_to(image_tag('edit.png',    array('alt' => '[modifier]')), '@member_edit?id=' . $member->getId()) ?>
+                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), '@member_show?id=' . $member->getId()) ?>
+                <?php echo link_to(image_tag('delete.png',  array('alt' => '[supprimer]')), '@member_delete?id=' . $member->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
             </td>
         </tr>
         <?php endforeach; ?>
@@ -59,7 +59,6 @@
 </table>
 
 
-<div class="addNew"
-    style="width: 194px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
-        <?php echo link_to('Retour à la liste complète', 'membre/index') ?>
+<div class="addNew" style="width: 194px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
+        <?php echo link_to('Retour à la liste complète', '@members_list') ?>
 </div>

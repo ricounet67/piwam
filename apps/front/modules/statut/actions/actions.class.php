@@ -17,7 +17,8 @@ class statutActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->statut_list = StatusTable::getEnabledForAssociation($this->getUser()->getAssociationId());
+    $id = $this->getUser()->getAssociationId();
+    $this->status_list = StatusTable::getEnabledForAssociation($id);
   }
 
   /**
@@ -28,12 +29,9 @@ class statutActions extends sfActions
   public function executeShow(sfWebRequest $request)
   {
     $this->statut = StatusTable::getById($request->getParameter('id'));
+    $this->forward404Unless($this->statut);
 
-    if ($this->statut->getAssociationId() == $this->getUser()->getAssociationId())
-    {
-      $this->forward404Unless($this->statut);
-    }
-    else
+    if ($this->statut->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
@@ -71,14 +69,15 @@ class statutActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $this->forward404Unless($statut = StatusTable::getById($request->getParameter('id')), sprintf('Object statut does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($status = StatusTable::getById($id));
 
-    if ($statut->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($status->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new StatusForm($statut);
+    $this->form = new StatusForm($status);
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
@@ -90,8 +89,9 @@ class statutActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $this->forward404Unless($statut = StatusTable::getById($request->getParameter('id')), sprintf('Object statut does not exist (%s).', $request->getParameter('id')));
-    $this->form = new StatusForm($statut);
+    $id = $request->getParameter('id');
+    $this->forward404Unless($status = StatusTable::getById($id));
+    $this->form = new StatusForm($status);
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
   }
@@ -104,14 +104,15 @@ class statutActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $this->forward404Unless($statut = StatusTable::getById($request->getParameter('id')), sprintf('Le statut n\'existe pas (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($status = StatusTable::getById($id));
 
-    if ($statut->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($status->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $statut->delete();
+    $status->delete();
     $this->redirect('statut/index');
   }
 
@@ -128,9 +129,9 @@ class statutActions extends sfActions
 
     if ($form->isValid())
     {
-      $statut = $form->save();
-      $statut->setState(StatusTable::STATE_ENABLED);
-      $statut->save();
+      $status = $form->save();
+      $status->setState(StatusTable::STATE_ENABLED);
+      $status->save();
       $this->redirect('statut/index');
     }
   }

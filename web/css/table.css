@@ -1,0 +1,168 @@
+@CHARSET "UTF-8";
+
+/*
+ * CSS styles for tables
+ *
+ */
+ 
+/* listing tables : members, accounts, etc... */
+table.datalist {
+    width: 90%;
+    border: 1px solid black;
+}
+
+table.datalist tbody tr:Hover {
+    background-color: #E8FD98;
+}
+
+table.datalist tbody td {
+    font-family: verdana, sans-serif;
+    font-size: 11px;
+    color: #162027;
+    padding-left: 5px;
+}
+
+/* Header of listing tables */
+table.datalist thead tr {
+    background: black;
+    color: white;
+}
+
+/* Links in header of listing tables */
+table.datalist thead tr a {
+    color: white;
+    text-decoration: underline;
+}
+table.datalist thead tr a:Hover {
+    text-decoration: none;
+}
+
+
+
+/* left cell in details tables */
+table.details th {
+    text-align: left;
+    padding: 5px;
+    border-bottom: 1px dotted black;
+    background-color: #efefff;
+}
+
+/* right cell */
+table.details td {
+    border-bottom: 1px dotted black;
+    padding: 5px 5px 5px 10px;
+}
+
+table.details tfoot td {
+    padding-top: 10px;
+    border-bottom: 0;
+}
+
+/* left cell in add/edit forms, with label */
+table.formtable tbody th {
+    background-color: #eeeeff;
+    text-align: left;
+    color: #888;
+    padding: 10px;
+}
+
+/* right cell in add/edit forms, with input */
+table.formtable tbody td {
+    padding: 3px;
+}
+
+
+
+/* for accounts with positive balance */
+.positive {
+    background-color: #C2FCC3;
+}
+
+/* for accounts with negative balance */
+.negative {
+    background-color: #EECEBE;
+}
+
+
+
+
+
+/* - old french names - */
+
+
+/* listing tables : members, accounts, etc... */
+.tableauDonnees, table.datalist {
+    width: 90%;
+    border: 1px solid black;
+}
+
+.tableauDonnees tbody tr:Hover {
+    background-color: #E8FD98;
+}
+
+.tableauDonnees tbody td {
+    font-family: verdana, sans-serif;
+    font-size: 11px;
+    color: #162027;
+    padding-left: 5px;
+}
+
+/* Header of listing tables */
+.enteteTableauDonnees {
+    background: black;
+    color: white;
+}
+
+/* Links in header of listing tables */
+.enteteTableauDonnees a {
+    color: white;
+    text-decoration: underline;
+}
+.enteteTableauDonnees a:Hover {
+    text-decoration: none;
+}
+
+/* left cell in details tables */
+.tableauDetails th {
+    text-align: left;
+    padding: 5px;
+    border-bottom: 1px dotted black;
+    background-color: #efefff;
+}
+
+/* right cell */
+.tableauDetails td {
+    border-bottom: 1px dotted black;
+    padding: 5px 5px 5px 10px;
+}
+
+.tableauDetails tfoot td {
+    padding-top: 10px;
+    border-bottom: 0;
+}
+
+/* left cell in add/edit forms, with label */
+.tableauAjout th {
+    text-align: left;
+    padding: 3px;
+}
+
+/* right cell in add forms */
+.tableauAjout td {
+    padding: 3px;
+}
+
+/**
+ * Feuille de style entièrement dédiée aux styles
+ * de formulaires
+ */ /* Engloble les tableaux mettant en page les formulaires */
+.formArray {
+    
+}
+
+.formArray th {
+    background-color: #eeeeff;
+    text-align: left;
+    color: #888;
+    padding: 10px;
+}
