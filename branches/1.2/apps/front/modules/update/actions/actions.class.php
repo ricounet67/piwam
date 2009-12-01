@@ -66,7 +66,7 @@ class updateActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     $this->redirect('update/soon');
-    $this->currentDBVersion = PiwamDataPeer::get('dbversion');
+    $this->currentDBVersion = DataTable::getByKey('dbversion');
     $this->files = $this->_checkSQLFilesSince($this->currentDBVersion);
 
     if (ini_get('allow_url_fopen'))
@@ -99,7 +99,7 @@ class updateActions extends sfActions
    */
   public function executePerform(sfWebRequest $request)
   {
-    $this->currentDBVersion = PiwamDataPeer::get('dbversion');
+    $this->currentDBVersion = DataTable::getByKey('dbversion');
     $performResult = $this->_checkSQLFilesSince($this->currentDBVersion, true);
 
     if ($performResult === self::PERFORM_ERROR)
@@ -118,6 +118,8 @@ class updateActions extends sfActions
    *
    * We launch queries within transactions, to keep consistence of
    * the DB
+   *
+   * @todo  Change for Doctrine connection
    */
   private function _checkSQLFilesSince($version, $execute = false)
   {
