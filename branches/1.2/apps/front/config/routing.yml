@@ -25,7 +25,7 @@ setup:
   param:  { module: install, action: index }
 
 update:
-  url:    /updated
+  url:    /update
   param:  { module: update, action: index }
 
 config:
@@ -45,9 +45,17 @@ activities_list:
   url:    /activites
   param:  { module: activite, action: index }
 
+activity_by_id:
+  url:    /activite/details/:id
+  param:  { module: activite, action: show }
+
 accounts_list:
   url:    /comptes
   param:  { module: compte, action: index }
+
+account_by_id:
+  url:    /compte/details/:id
+  param:  { module: account, action: show }
 
 expenses_list:
   url:    /depenses
@@ -83,7 +91,7 @@ register_first_member:
   param:  { module: membre, action: newfirst }
 
 member_by_id:
-  url:    /membre/show/:id
+  url:    /membre/details/:id
   param:  { module: membre, action: show }
 
 

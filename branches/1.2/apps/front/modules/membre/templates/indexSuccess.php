@@ -22,14 +22,18 @@
                 <td><?php echo $membre->getCity() ?></td>
                 <td>
                     <?php echo link_to(image_tag('state_ok.png', array('alt' => '[valider]')), 'membre/validate?id=' . $membre->getId()) ?>
+
+                    <!-- Display email icon if an email has been set -->
+
                     <?php if ($membre->getEmail()) :?>
                         <?php echo mail_to($membre->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
                     <?php else: ?>
                         <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
                     <?php endif; ?>
-                    <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'membre/edit?id=' . $membre->getId()) ?>
-                    <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), '@member_by_id?id=' . $membre->getId()) ?>
-                    <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+
+                    <?php echo link_to(image_tag('edit.png',    array('alt' => '[modifier]')),  'membre/edit?id=' . $membre->getId()) ?>
+                    <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')),   '@member_by_id?id=' . $membre->getId()) ?>
+                    <?php echo link_to(image_tag('delete.png',  array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -54,28 +58,28 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($members->getResults() as $membre): ?>
+    <?php foreach ($members->getResults() as $member): ?>
 
-    <?php if ($membre->hasToPayDue()): ?>
+    <?php if ($member->hasToPayDue()): ?>
         <tr class="cotisationNonAjour">
     <?php else: ?>
         <tr>
     <?php endif; ?>
 
-            <td><?php echo $membre->getLastname() ?></td>
-            <td><?php echo $membre->getFirstname() ?></td>
-            <td><?php echo $membre->getUsername() ?></td>
-            <td><?php echo $membre->getStatus() ?></td>
-            <td><?php echo $membre->getCity() ?></td>
+            <td><?php echo $member->getLastname() ?></td>
+            <td><?php echo $member->getFirstname() ?></td>
+            <td><?php echo $member->getUsername() ?></td>
+            <td><?php echo $member->getStatus() ?></td>
+            <td><?php echo $member->getCity() ?></td>
             <td>
-                <?php if ($membre->getEmail()) :?>
-                    <?php echo mail_to($membre->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
+                <?php if ($member->getEmail()) :?>
+                    <?php echo mail_to($member->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
                 <?php else: ?>
                     <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
                 <?php endif; ?>
-                <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'membre/edit?id=' . $membre->getId()) ?>
-                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'membre/show?id=' . $membre->getId()) ?>
-                <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+                <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'membre/edit?id=' . $member->getId()) ?>
+                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'membre/show?id=' . $member->getId()) ?>
+                <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $member->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
             </td>
         </tr>
         <?php endforeach; ?>
