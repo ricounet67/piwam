@@ -40,6 +40,8 @@ config:
 balance:
   url:   /bilan
   param: { module: association, action: bilan }
+
+
   
 activities_list:
   url:    /activites
@@ -49,13 +51,30 @@ activity_by_id:
   url:    /activite/details/:id
   param:  { module: activite, action: show }
 
+activity_edit:
+  url:    /activite/editer/:id
+  param:  { module: activite, action: edit }
+
+activity_delete:
+  url:    /activite/supprimer/:id
+  param:  { module: activite, action: delete }
+
+
+
 accounts_list:
   url:    /comptes
   param:  { module: compte, action: index }
 
 account_by_id:
   url:    /compte/details/:id
-  param:  { module: account, action: show }
+  param:  { module: compte, action: show }
+
+account_edit:
+  url:    /compte/editer/:id
+  param:  { module: compte, action: edit }
+
+
+
 
 expenses_list:
   url:    /depenses
@@ -65,6 +84,8 @@ incomes_list:
   url:    /recettes
   param:  { module: recette, action: index }
 
+  
+  
   
 # -----------------------------------------------------------------------------
 #     MEMBER ACTIONS

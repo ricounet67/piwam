@@ -27,9 +27,9 @@
                 <?php echo format_date($activity->getCreatedAt()) ?>
             </td>
             <td>
-                <a href="<?php echo url_for('activite/show?id=' . $activity->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[détails]')) ?></a>
-                <a href="<?php echo url_for('activite/edit?id=' . $activity->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[modifier]')) ?></a>
-                <?php echo link_to(image_tag('delete'), 'activite/delete?id=' . $activity->getId(), array(
+                <a href="<?php echo url_for('@activity_by_id?id=' . $activity->getId()) ?>"><?php echo image_tag('details.png', array('alt' => '[détails]')) ?></a>
+                <a href="<?php echo url_for('@activity_edit?id=' . $activity->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[modifier]')) ?></a>
+                <?php echo link_to(image_tag('delete'), '@activity_delete?id=' . $activity->getId(), array(
                     'method'  => 'delete',
                     'confirm' => 'Etes vous sûr ? Les recettes et dépenses associées seront aussi supprimées'
                 )) ?>
