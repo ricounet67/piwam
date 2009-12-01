@@ -2,9 +2,9 @@
 
 <h2>Associations enregistrées</h2>
 
-<table class="tableauDonnees">
+<table class="datalist">
     <thead>
-        <tr class="enteteTableauDonnees">
+        <tr>
             <th style="width: 25%">Nom</th>
             <th style="width: 40%">Description</th>
             <th style="width: 20%">Site web</th>
@@ -32,4 +32,4 @@
         <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer une association', 'association/new') ?>
 </div>
 
-<?php include_partial('global/pager', array('pager' => $associationsPager, 'module' => 'association', 'action' => 'index', 'params' => array())) ?>
+<?php include_partial('global/pager', array('pager' => $associationsPager, 'route' => '@associations_list', 'params' => array())) ?>
