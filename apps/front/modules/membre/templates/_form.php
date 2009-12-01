@@ -65,7 +65,7 @@ use_javascript('custom-forms/si.files.js')
                 <!-- Delete button only if object already exists -->
 
                 <?php if (! $form->getObject()->isNew()): ?>
-	                	<?php echo link_to('Supprimer', 'membre/delete?id=' . $form->getObject()->getId(),
+	                	<?php echo link_to('Supprimer', '@member_delete?id=' . $form->getObject()->getId(),
 	                	                                 array(
                                                     		'class'   => 'formLinkButton',
                                                     		'method'  => 'delete',
@@ -108,8 +108,7 @@ use_javascript('custom-forms/si.files.js')
         </tr>
         <tr>
             <th>Statut</th>
-            <td><?php echo $form['status_id'] ?><?php echo $form['status_id']->renderError() ?>
-            </td>
+            <td><?php echo $form['status_id'] ?><?php echo $form['status_id']->renderError() ?></td>
         </tr>
         <tr>
             <th>Photo</th>
@@ -117,8 +116,7 @@ use_javascript('custom-forms/si.files.js')
         </tr>
         <tr>
             <th>Date d'inscription</th>
-            <td><?php echo $form['subscription_date'] ?><?php echo $form['subscription_date']->renderError() ?>
-            </td>
+            <td><?php echo $form['subscription_date'] ?><?php echo $form['subscription_date']->renderError() ?></td>
         </tr>
         <tr>
             <th>Exempté de cotisation</th>
