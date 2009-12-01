@@ -11,46 +11,45 @@
         <input type="hidden" name="sf_method" value="put" />
     <?php endif; ?>
 
-<table class="formArray" summary="Register a new Fee">
-    <tfoot>
-        <tr>
-            <td colspan="2">
-                <?php echo $form->renderHiddenFields() ?>
-                <?php echo link_to('Annuler', 'cotisationtype/index', array(
-            	'class'	=> 'formLinkButton'
-            	)) ?>
+    <table class="formArray" summary="Register a new Fee">
 
-                <!-- Display delete button if object exists -->
+        <!-- Form footer, displays buttons -->
 
-            	<?php if (!$form->getObject()->isNew()): ?>
-            	   <?php echo link_to('Supprimer', 'cotisationtype/delete?id=' . $form->getObject()->getId(), array(
-                                                                                        	'class'	  => 'formLinkButton',
-                                                                                        	'method'  => 'delete',
-                                                                                        	'confirm' => 'Êtes vous sûr ?'
-                	                  )) ?>
-            	<?php endif; ?>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <?php echo $form->renderHiddenFields() ?>
+                    <?php echo link_to('Annuler', '@duetypes_list', array('class'	=> 'formLinkButton')) ?>
 
-                <input type="submit" value="Enregistrer" class="button" />
-            </td>
-        </tr>
-    </tfoot>
-    <tbody>
-    <?php echo $form->renderGlobalErrors() ?>
-        <tr>
-            <th><?php echo $form['label']->renderLabel() ?></th>
-            <td><?php echo $form['label'] ?><?php echo $form['label']->renderError() ?>
-            </td>
-        </tr>
-        <tr>
-            <th><?php echo $form['period']->renderLabel() ?></th>
-            <td><?php echo $form['period'] ?> mois <?php echo $form['period']->renderError() ?>
-            </td>
-        </tr>
-        <tr>
-            <th><?php echo $form['amount']->renderLabel() ?></th>
-            <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?>
-            </td>
-        </tr>
-    </tbody>
-</table>
+                    <!-- Display delete button if object exists -->
+
+                	<?php if (!$form->getObject()->isNew()): ?>
+                	   <?php echo link_to('Supprimer', '@duetype_delete?id=' . $form->getObject()->getId(),
+                	              array('class' => 'formLinkButton', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
+                	<?php endif ?>
+
+                    <input type="submit" value="Enregistrer" class="button" />
+                </td>
+            </tr>
+        </tfoot>
+
+
+        <!-- Form body, displays fields -->
+
+        <tbody>
+            <?php echo $form->renderGlobalErrors() ?>
+            <tr>
+                <th><?php echo $form['label']->renderLabel() ?></th>
+                <td><?php echo $form['label'] ?><?php echo $form['label']->renderError() ?></td>
+            </tr>
+            <tr>
+                <th><?php echo $form['period']->renderLabel() ?></th>
+                <td><?php echo $form['period'] ?> mois <?php echo $form['period']->renderError() ?></td>
+            </tr>
+            <tr>
+                <th><?php echo $form['amount']->renderLabel() ?></th>
+                <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?></td>
+            </tr>
+        </tbody>
+    </table>
 </form>
