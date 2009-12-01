@@ -234,10 +234,11 @@ class membreActions extends sfActions
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('rights', array()));
+
       if ($this->form->isValid())
       {
         $values = $request->getParameter('rights', array());
-        $member = MemberTable::retrieveByPk($values['user_id']);
+        $member = MemberTable::getById($values['user_id']);
         $member->resetAcl();
 
         // Browse the list of rights... first we get the 'modules' level
@@ -263,10 +264,10 @@ class membreActions extends sfActions
     else
     {
       $this->user_id  = $request->getParameter('id');
-      $member  = MemberTable::retrieveByPk($this->user_id);
+      $member = MemberTable::getById($this->user_id);
 
       if (($member->getAssociationId() != $this->getUser()->getAssociationId()) ||
-      ($this->getUser()->hasCredential('edit_acl') == false))
+          ($this->getUser()->hasCredential('edit_acl') == false))
       {
         $this->redirect('@error_credentials');
       }
@@ -292,8 +293,9 @@ class membreActions extends sfActions
    */
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new MemberForm(null, array('associationId' => $this->getUser()->getAssociationId(),
-                                                 'context'       => $this->getContext()));
+    $aId = $this->getUser()->getAssociationId();
+    $ctxt = $this->getContext();
+    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt));
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
@@ -305,8 +307,9 @@ class membreActions extends sfActions
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new MemberForm(null, array('associationId' => $request->getParameter('member[association_id]'),
-                                             'context'       => $this->getContext()));
+    $aId = $request->getParameter('member[association_id]');
+    $ctxt = $this->getContext();
+    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt));
     $this->processForm($request, $this->form);
     $this->setTemplate('new');
   }
@@ -330,8 +333,9 @@ class membreActions extends sfActions
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new MemberForm($member, array('associationId' => $member->getAssociationId(),
-                                                'context'       => $this->getContext()));
+    $aId = $member->getAssociationId();
+    $ctxt = $this->getContext();
+    $this->form = new MemberForm($member, array('associationId' => $aId, 'context' => $ctxt));
     $this->aclForm  = new AclCredentialForm();
     $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
@@ -348,15 +352,16 @@ class membreActions extends sfActions
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
     $this->user_id = $request->getParameter('id');
-    $this->forward404Unless($user = MemberTable::getById($this->user_id), sprintf('Member does not exist (%s).', $this->user_id));
+    $this->forward404Unless($user = MemberTable::getById($this->user_id));
 
     if (false === $this->isAllowedToManageProfile($user, 'edit_membre'))
     {
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new MemberForm($user, array('associationId' => $request->getParameter('member[association_id]'),
-                                              'context'       => $this->getContext()));
+    $request->getParameter('member[association_id]');
+    $this->form = new MemberForm($user, array('associationId' => $associationId,
+                                              'context' => $this->getContext()));
     $this->aclForm  = new AclCredentialForm();
     $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
     $this->aclForm->setUserId($this->user_id);
