@@ -78,6 +78,23 @@ ajax_search_members:
   url:    membre/ajaxlist
   param:  { module: membre, action: ajaxlist }
 
+register_first_member:
+  url:    /register_first_member
+  param:  { module: membre, action: newfirst }
+
+member_by_id:
+  url:    /membre/show/:id
+  param:  { module: membre, action: show }
+
+
+# -----------------------------------------------------------------------------
+#     ASSOCIATION ACTIONS
+# -----------------------------------------------------------------------------
+ 
+associations_list:
+  url:    /associations
+  param:  { module: association, action: index }
+
 
   
 # -----------------------------------------------------------------------------

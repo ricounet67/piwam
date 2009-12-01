@@ -28,7 +28,7 @@
                         <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
                     <?php endif; ?>
                     <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'membre/edit?id=' . $membre->getId()) ?>
-                    <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'membre/show?id=' . $membre->getId()) ?>
+                    <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), '@member_by_id?id=' . $membre->getId()) ?>
                     <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'membre/delete?id=' . $membre->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
                 </td>
             </tr>
