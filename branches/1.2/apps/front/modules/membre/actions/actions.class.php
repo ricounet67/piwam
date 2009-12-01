@@ -359,7 +359,7 @@ class membreActions extends sfActions
       $this->redirect('@error_credentials');
     }
 
-    $request->getParameter('member[association_id]');
+    $associationId = $request->getParameter('member[association_id]');
     $this->form = new MemberForm($user, array('associationId' => $associationId,
                                               'context' => $this->getContext()));
     $this->aclForm  = new AclCredentialForm();
