@@ -112,4 +112,4 @@
 </div>
 
 
-<?php include_partial('global/pager', array('pager' => $members, 'module' => 'membre', 'action' => 'index', 'params' => array('orderby' => $orderByColumn))) ?>
+<?php include_partial('global/pager', array('pager' => $members, 'route' => '@members_list', 'params' => array('orderby' => $orderByColumn))) ?>

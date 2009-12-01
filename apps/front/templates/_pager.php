@@ -1,7 +1,7 @@
 <?php
 /**
  * This partial displays a page list according to the
- * sfPropelPager object given as argument
+ * sfDoctrine object given as argument
  */
 
 
@@ -27,7 +27,7 @@ if (isset($params))
             <!-- Display 'previous' link, disabled if there is no previous page -->
 
             <?php if ($pager->getPage() > 1): ?>
-                <li class="previous"><?php echo link_to('&laquo; Précédent', $module . '/' . $action . '?page=' . $pager->getPreviousPage() . $urlParams) ?></li>
+                <li class="previous"><?php echo link_to('&laquo; Précédent', $route . '?page=' . $pager->getPreviousPage() . $urlParams) ?></li>
             <?php else: ?>
                 <li class="previous-off">&laquo; Précédent</li>
             <?php endif ?>
@@ -41,7 +41,7 @@ if (isset($params))
                 <?php if ($page == $pager->getPage()): ?>
                     <li class="active"><?php echo $page ?></li>
                 <?php else: ?>
-                    <li><?php echo link_to($page, $module . '/' . $action . '?page=' . $page . $urlParams) ?></li>
+                    <li><?php echo link_to($page, $route . '?page=' . $page . $urlParams) ?></li>
                 <?php endif ?>
             <?php endforeach ?>
 
@@ -51,7 +51,7 @@ if (isset($params))
             <?php if ($pager->getPage() == $pager->getCurrentMaxLink()): ?>
                 <li class="next-off">Suivant &raquo;</li>
             <?php else: ?>
-                <li class="next"><?php echo link_to('Suivant &raquo;', $module . '/' . $action . '?page=' . $pager->getNextPage() . $urlParams) ?></li>
+                <li class="next"><?php echo link_to('Suivant &raquo;', $route . '?page=' . $pager->getNextPage() . $urlParams) ?></li>
             <?php endif ?>
         </ul>
     </div>
