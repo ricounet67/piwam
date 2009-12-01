@@ -25,3 +25,7 @@ error_credentials:
 setup:
   url:   /install
   param: { module: install, action: index }
+  
+balance:
+  url:   /association/bilan
+  param: { module: association, action: bilan }
