@@ -46,9 +46,9 @@
 
 <?php include_partial('searchForm', array('form' => $searchForm)) ?>
 
-<table class="tableauDonnees" summary="Members who would like to belong to the association">
+<table class="datalist" summary="Members who would like to belong to the association">
     <thead>
-        <tr class="enteteTableauDonnees">
+        <tr>
             <th><?php echo link_to('Nom',    '@members_list?orderby=lastname') ?></th>
             <th><?php echo link_to('Prénom', '@members_list?orderby=firstname') ?></th>
             <th><?php echo link_to('Pseudo', '@members_list?orderby=username') ?></th>
