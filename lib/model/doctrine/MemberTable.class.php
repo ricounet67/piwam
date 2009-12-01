@@ -88,8 +88,10 @@ class MemberTable extends Doctrine_Table
 
     $n = Configurator::get('users_by_page', $association_id, 20);
     $pager = new sfDoctrinePager('Member', $n);
+    $pager->setMaxPerPage(2);
     $pager->setQuery($q);
     $pager->setPage($page);
+    $pager->init();
 
     return $pager;
   }
