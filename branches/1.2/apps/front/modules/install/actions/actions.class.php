@@ -58,7 +58,7 @@ class installActions extends sfActions
     }
     else
     {
-      $this->forward('install', 'checkConfig');
+      $this->forward('@check_config');
     }
   }
 
@@ -91,8 +91,8 @@ class installActions extends sfActions
       {
         $config 	= $request->getParameter('dbconfig');
         $host 		= $config['mysql_server'];
-        $username 	= $config['mysql_username'];
-        $password 	= $config['mysql_password'];
+        $username	= $config['mysql_username'];
+        $password	= $config['mysql_password'];
         $dbname 	= $config['mysql_dbname'];
 
         if (DbTools::checkMySQLConnection($host, $username, $password, $dbname))
@@ -101,7 +101,7 @@ class installActions extends sfActions
           $this->getContext()->getConfigCache()->clear();
           Doctrine::loadData('./data/fixtures/configuration.yml');
           Doctrine::loadData('./data/fixtures/credentials.yml');
-          $this->redirect('install/end');
+          $this->redirect('@install_success');
         }
         else
         {
