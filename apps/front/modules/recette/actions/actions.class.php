@@ -20,7 +20,7 @@ class recetteActions extends sfActions
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers('Number');
     $csv = new FileExporter('liste-recettes.csv');
-    $recettes = IncomeTable::getPagerForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+    $recettes = IncomeTable::getPagerForAssociation($this->getUser()->getAssociationId());
 
     echo $csv->addLineCSV(array(
 			'Libellé',

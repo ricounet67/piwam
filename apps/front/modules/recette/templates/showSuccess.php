@@ -4,7 +4,7 @@
 <?php use_helper('Boolean')  ?>
 
 <h2>Détails d'une entrée d'argent</h2>
-<table class="tableauDetails" id="details">
+<table class="details">
     <tbody>
         <tr>
             <th>Id :</th>
@@ -52,6 +52,6 @@
 
 <hr />
 
-<a href="<?php echo url_for('recette/edit?id='.$recette->getId()) ?>">Editer</a>
+<a href="<?php echo url_for('@income_edit?id='.$recette->getId()) ?>">Editer</a>
 &nbsp;
-<a href="<?php echo url_for('recette/index') ?>">Retour</a>
+<a href="<?php echo url_for('@incomes_list') ?>">Retour</a>
