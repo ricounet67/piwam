@@ -25,6 +25,7 @@ class ExpenseTable extends Doctrine_Table
     $pager = new sfDoctrinePager('Expense', 20);
     $pager->setQuery($q);
     $pager->setPage($page);
+    $pager->init();
 
     return $pager;
   }
