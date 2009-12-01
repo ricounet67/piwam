@@ -28,5 +28,5 @@
 </table>
 
 <div class="addNew">
-  <?php echo link_to(image_tag('add', array('align'=>'top', 'alt' => '[ajouter]')). ' Enregistrer un compte', 'compte/new') ?>
+  <?php echo link_to(image_tag('add', array('align'=>'top', 'alt' => '[ajouter]')). ' Enregistrer un compte', '@account_new') ?>
 </div>

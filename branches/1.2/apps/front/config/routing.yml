@@ -16,9 +16,17 @@ error_credentials:
 #     PIWAM ACTIONS
 # ----------------------------------------------------------------------------- 
 
+login:
+  url:    /login
+  param:  { module: association, action: login }
+
 logout:
   url:    /logout
   param:  { module: association, action: logout }
+  
+retrieve_password:
+  url:    /recuperer_mot_de_passe
+  param:  { module: association, action: forgottenpassword }
   
 setup:
   url:    /install
@@ -58,6 +66,10 @@ activity_edit:
 activity_delete:
   url:    /activite/supprimer/:id
   param:  { module: activite, action: delete }
+  
+activity_new:
+  url:    /activite/creer
+  param:  { module: activite, action: new }
 
 
 
@@ -73,6 +85,13 @@ account_edit:
   url:    /compte/editer/:id
   param:  { module: compte, action: edit }
 
+account_delete:
+  url:    /compte/supprimer/:id
+  param:  { module: compte, action: delete }
+
+account_new:
+  url:    /compte/nouveau
+  param:  { module: compte, action: new }
 
 
 
@@ -143,6 +162,17 @@ dues_list:
   url:    /cotisations
   param:  { module: cotisation, action: index }
 
+due_show:
+  url:    /cotisation/details
+  param:  { module: cotisation, action: show }
+
+due_edit:
+  url:    /cotisation/editer
+  param:  { module: cotisation, action: edit }
+  
+due_delete:
+  url:    /cotisation/supprimer
+  param:  { module: cotisation, action: delete }
 
 # -----------------------------------------------------------------------------
 #     DUETYPE ACTIONS
