@@ -35,7 +35,8 @@
         </tbody>
     </table>
 
-    <div class="addNew"><?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer une cotisation', 'cotisation/new') ?>
+    <div class="addNew">
+        <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer une cotisation', '@due_new') ?>
     </div>
 
 
@@ -47,7 +48,7 @@
     <p>
         Aucun type de cotisation n'a été configuré pour le moment. <br />
         Avant d'enregistrer les cotisations de vos membres, vous devez <br />
-        d'abord <?php echo link_to('créer un nouveau type de cotisation', 'cotisationtype/new?first=1') ?>.
+        d'abord <?php echo link_to('créer un nouveau type de cotisation', '@duetype_new?first=1') ?>.
     </p>
 
 <?php endif; ?>

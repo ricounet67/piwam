@@ -118,7 +118,7 @@ class cotisationtypeActions extends sfActions
     $request->checkCSRFProtection();
     $this->forward404Unless($cotisation_type = DueTypeTable::getById($request->getParameter('id')), sprintf('Object cotisation_type does not exist (%s).', $request->getParameter('id')));
 
-    if ($cotisation_type->getAssociationId() == $this->getUser()->getAssociationId())
+    if ($cotisation_type->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }

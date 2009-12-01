@@ -16,7 +16,7 @@ class compteActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->compte_list = AccountTable::getEnabledForAssociation($this->getUser()->getAssociationId());
+    $this->accounts = AccountTable::getEnabledForAssociation($this->getUser()->getAssociationId());
   }
 
   /**
