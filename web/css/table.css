@@ -58,16 +58,16 @@ table.details tfoot td {
     border-bottom: 0;
 }
 
-
-
 /* left cell in add/edit forms, with label */
-table.formtable th {
+table.formtable tbody th {
+    background-color: #eeeeff;
     text-align: left;
-    padding: 3px;
+    color: #888;
+    padding: 10px;
 }
 
-/* right cell in add forms */
-table.formtable td {
+/* right cell in add/edit forms, with input */
+table.formtable tbody td {
     padding: 3px;
 }
 
@@ -150,4 +150,19 @@ table.formtable td {
 /* right cell in add forms */
 .tableauAjout td {
     padding: 3px;
+}
+
+/**
+ * Feuille de style entièrement dédiée aux styles
+ * de formulaires
+ */ /* Engloble les tableaux mettant en page les formulaires */
+.formArray {
+    
+}
+
+.formArray th {
+    background-color: #eeeeff;
+    text-align: left;
+    color: #888;
+    padding: 10px;
 }

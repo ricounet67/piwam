@@ -38,8 +38,29 @@ class AssociationForm extends BaseAssociationForm
 
     $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
     $this->validatorSchema['state'] = new sfValidatorBoolean();
+    $this->setLabels();
+    $this->setClasses();
+  }
 
-    // r15 : set length of fields
+  /*
+   * Set displayed field names
+   */
+  protected function setLabels()
+  {
+    $this->widgetSchema->setLabels(array(
+            'website'     => 'Site web',
+            'name'        => 'Nom l\'association',
+            'description' => 'Description',
+            'oubg'        => 'ping'
+    ));
+  }
+
+  /*
+   * Set CSS styles
+   *
+   */
+  protected function setClasses()
+  {
     $this->widgetSchema['name']->setAttribute('class', 'formInputLarge');
     $this->widgetSchema['description']->setAttribute('class', 'formInputLarge');
     $this->widgetSchema['website']->setAttribute('class', 'formInputLarge');
