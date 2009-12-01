@@ -1,4 +1,8 @@
-<table>
+<?php use_helper('Membre') ?>
+
+<h2>Détails d'une cotisation</h2>
+
+<table class="details">
     <tbody>
         <tr>
             <th>Id:</th>
@@ -14,7 +18,7 @@
         </tr>
         <tr>
             <th>Membre:</th>
-            <td><?php echo $due->getMember() ?></td>
+            <td><?php echo format_member($due->getMember()) ?></td>
         </tr>
         <tr>
             <th>Date:</th>
@@ -31,8 +35,6 @@
     </tbody>
 </table>
 
-<hr />
-
-<a href="<?php echo url_for('cotisation/edit?id='.$due->getId()) ?>">Edit</a>
-&nbsp;
-<a href="<?php echo url_for('cotisation/index') ?>">List</a>
+<a href="<?php echo url_for('@due_edit?id='.$due->getId()) ?>">Éditer</a>
+&bull;
+<a href="<?php echo url_for('@dues_list') ?>">Retour à la liste</a>
