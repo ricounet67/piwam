@@ -1,27 +1,326 @@
-# default rules
-homepage:
-  url:   /
-  param: { module: membre, action: index }
 
+# -----------------------------------------------------------------------------
+#     MISC ACTIONS
+# -----------------------------------------------------------------------------
+
+mailing:
+  url:    /mailing
+  param:  { module: mailing, action: index }
+  
+error_credentials:
+  url:    /error/credentials
+  param:  { module: error, action: credentials }
+ 
+  
+
+# -----------------------------------------------------------------------------
+#     PIWAM ACTIONS
+# ----------------------------------------------------------------------------- 
+
+login:
+  url:    /login
+  param:  { module: association, action: login }
+
+logout:
+  url:    /logout
+  param:  { module: association, action: logout }
+  
+retrieve_password:
+  url:    /recuperer_mot_de_passe
+  param:  { module: association, action: forgottenpassword }
+  
+setup:
+  url:    /install
+  param:  { module: install, action: index }
+  
+config_db:
+  url:    /config_database
+  param:  { module: install, action: configDatabase }
+  
+check_config:
+  url:    /config_database
+  param:  { module: install, action: checkConfig }
+
+install_success:
+  url:    /fin_installation
+  param:  { module: install, action: end }
+
+update:
+  url:    /update
+  param:  { module: update, action: index }
+
+config:
+  url:    /config
+  param:  { module: association, action: config }
+  
+
+# -----------------------------------------------------------------------------
+#     FINANCIAL RELATED ACTIONS
+# -----------------------------------------------------------------------------
+  
+balance:
+  url:   /bilan
+  param: { module: association, action: bilan }
+
+
+  
+activities_list:
+  url:    /activites
+  param:  { module: activite, action: index }
+
+activity_by_id:
+  url:    /activite/details/:id
+  param:  { module: activite, action: show }
+
+activity_edit:
+  url:    /activite/editer/:id
+  param:  { module: activite, action: edit }
+
+activity_delete:
+  url:    /activite/supprimer/:id
+  param:  { module: activite, action: delete }
+  
+activity_new:
+  url:    /activite/creer
+  param:  { module: activite, action: new }
+
+
+
+accounts_list:
+  url:    /comptes
+  param:  { module: compte, action: index }
+
+account_by_id:
+  url:    /compte/details/:id
+  param:  { module: compte, action: show }
+
+account_edit:
+  url:    /compte/editer/:id
+  param:  { module: compte, action: edit }
+
+account_delete:
+  url:    /compte/supprimer/:id
+  param:  { module: compte, action: delete }
+
+account_new:
+  url:    /compte/nouveau
+  param:  { module: compte, action: new }
+
+
+
+expenses_list:
+  url:    /depenses
+  param:  { module: depense, action: index }
+
+expense_show:
+  url:    /depense/details/:id
+  param:  { module: depense, action: show }
+
+expense_edit:
+  url:    /depense/editer/:id
+  param:  { module: depense, action: edit }
+
+expense_delete:
+  url:    /depense/supprimer/:id
+  param:  { module: depense, action: delete }
+
+expense_new:
+  url:    /depense/nouvelle
+  param:  { module: depense, action: new }
+
+
+
+
+incomes_list:
+  url:    /recettes
+  param:  { module: recette, action: index }
+
+
+income_new:
+  url:    /recette/nouvelle
+  param:  { module: recette, action: new }
+  
+income_edit:
+  url:    /recette/editer/:id
+  param:  { module: recette, action: edit }
+  
+income_delete:
+  url:    /recette/supprimer/:id
+  param:  { module: recette, action: delete }
+
+income_show:
+  url:    /recette/details/:id
+  param:  { module: recette, action: show }
+
+
+
+  
+  
+  
+# -----------------------------------------------------------------------------
+#     MEMBER ACTIONS
+# -----------------------------------------------------------------------------
+  
+members_list:
+  url:    /membres
+  param:  { module: membre, action: index}
+  
+members_map:
+  url:    /carte
+  param:  { module: membre, action: map }
+  
+faces:
+  url:    /trombinoscope
+  param:  { module: membre, action: faces }
+  
+ajax_search_members:
+  url:    membre/ajaxlist
+  param:  { module: membre, action: ajaxlist }
+
+register_first_member:
+  url:    /register_first_member
+  param:  { module: membre, action: newfirst }
+
+member_show:
+  url:    /membre/details/:id
+  param:  { module: membre, action: show }
+  
+member_edit:
+  url:    /membre/editer/:id
+  param:  { module: membre, action: edit }
+
+member_delete:
+  url:    /membre/supprimer/:id
+  param:  { module: membre, action: delete }
+
+member_pending:
+  url:    /membre/en_attente
+  param:  { module: membre, action: pending }
+
+member_acl:
+  url:    /membre/droits/:id
+  param:  { module: membre, action: acl }
+  
+member_search:
+  url:    /membre/recherche
+  param:  { module: membre, action: search }
+
+member_endregistration:
+  url:    /membre/inscription_finie
+  param:  { module: membre, action: endregistration }
+
+
+# -----------------------------------------------------------------------------
+#     ASSOCIATION ACTIONS
+# -----------------------------------------------------------------------------
+ 
+associations_list:
+  url:    /associations
+  param:  { module: association, action: index }
+
+
+  
+# -----------------------------------------------------------------------------
+#     STATUS ACTIONS
+# -----------------------------------------------------------------------------
+ 
+status_list:
+  url:    /statuts
+  param:  { module: statut, action: index }
+
+status_new:
+  url:    /statuts/nouveau
+  param:  { module: statut, action: new }
+  
+status_edit:
+  url:    /statuts/editer/:id
+  param:  { module: statut, action: edit }
+  
+status_delete:
+  url:    /statuts/supprimer/:id
+  param:  { module: statut, action: delete }
+  
+status_show:
+  url:    /statuts/details/:id
+  param:  { module: statut, action: show }
+
+
+  
+
+
+  
+# -----------------------------------------------------------------------------
+#     DUE ACTIONS
+# -----------------------------------------------------------------------------
+ 
+dues_list:
+  url:    /cotisations
+  param:  { module: cotisation, action: index }
+
+due_show:
+  url:    /cotisation/details/:id
+  param:  { module: cotisation, action: show }
+
+due_edit:
+  url:    /cotisation/editer/:id
+  param:  { module: cotisation, action: edit }
+  
+due_delete:
+  url:    /cotisation/supprimer/:id
+  param:  { module: cotisation, action: delete }
+
+due_new:
+  url:    /cotisation/nouvelle
+  param:  { module: cotisation, action: new }
+
+
+
+# -----------------------------------------------------------------------------
+#     DUETYPE ACTIONS
+# -----------------------------------------------------------------------------
+ 
+duetypes_list:
+  url:    /types_cotisations
+  param:  { module: cotisationtype, action: index }
+
+duetype_ajax_getamount:
+  url:    /duetype
+  param:  { module: cotisationtype, action: ajaxgetamountfor }
+
+duetype_new:
+  url:    /type_cotisation/nouveau
+  param:  { module: cotisationtype, action: new }
+
+duetype_edit:
+  url:    /types_cotisation/editer/:id
+  param:  { module: cotisationtype, action: edit }
+  
+duetype_delete:
+  url:    /types_cotisation/supprimer/:id
+  param:  { module: cotisationtype, action: delete }
+
+
+# -----------------------------------------------------------------------------
+#     EXPORT ACTIONS
+# -----------------------------------------------------------------------------
+ 
+export:
+  url:    /export
+  param:  { module: export, action: index }
+
+  
+# -----------------------------------------------------------------------------
+#     DEFAULT ACTIONS
+# -----------------------------------------------------------------------------
+
+homepage:
+  url:    /
+  param:  { module: membre, action: index }
+
+  
 default_index:
   url:   /:module
   param: { action: index }
 
 default:
   url:   /:module/:action/*
-
-ajax_search_members:
-  url:   membre/ajaxlist
-  param: { module: membre, action: ajaxlist }
-  
-mailing:
-  url:   /mailing
-  param: { module: mailing, action: index }
-  
-error_credentials:
-  url:   /error/credentials
-  param: { module: error, action: credentials }
-  
-setup:
-  url:   /install
-  param: { module: install, action: index }

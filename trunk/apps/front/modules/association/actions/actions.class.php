@@ -33,7 +33,7 @@ class associationActions extends sfActions
       {
         Configurator::set($key, $value, $this->getUser()->getAssociationId());
       }
-      $this->getUser()->setFlash('notice', 'Les préférences ont bien été prises en compte.');
+      $this->getUser()->setFlash('notice', 'Les préférences ont bien été prises en compte.', false);
     }
 
     $this->form = new ConfigForm();
@@ -45,7 +45,8 @@ class associationActions extends sfActions
    * settings are not correct and we redirect to /install automatically
    *
    * @param 	sfWebRequest $request
-   * @since	r7
+   * @since	  r7
+   * @todo    Manage cookies
    */
   public function executeLogin(sfWebRequest $request)
   {
@@ -73,11 +74,11 @@ class associationActions extends sfActions
 
           if ($this->getUser()->hasCredential('list_membre'))
           {
-            $this->redirect('membre/index');
+            $this->redirect('@members_list');
           }
           else
           {
-            $this->redirect('membre/show?id=' . $user->getId());
+            $this->redirect('@member_by_id?id=' . $user->getId());
           }
         }
         else
@@ -96,10 +97,11 @@ class associationActions extends sfActions
   }
 
   /**
-   * Logout action
+   * Logout action. Redirect to homepage once credentials and cookies
+   * have been removed.
    *
    * @param 	sfWebRequest	$request
-   * @since	r7
+   * @since	  r7
    */
   public function executeLogout(sfWebRequest $request)
   {
@@ -150,7 +152,7 @@ class associationActions extends sfActions
             }
             catch(Swift_ConnectionException $e)
             {
-              $this->getUser()->setFlash('error', 'Le mot de passe n\'a pu être envoyé par e-mail');
+              $this->getUser()->setFlash('error', 'Le mot de passe n\'a pu être envoyé par e-mail', false);
             }
 
             $this->getUser()->setFlash('notice', 'Le nouveau mot de passe a été envoyé par e-mail', false);
@@ -178,13 +180,13 @@ class associationActions extends sfActions
    */
   public function executeBilan(sfWebRequest $request)
   {
-    $associationId          = $this->getUser()->getAssociationId();
-    $this->comptes          = AccountTable::getEnabledForAssociation($associationId);
-    $this->activites        = ActivityTable::getEnabledForAssociation($associationId);
-    $this->totalCotisations = DueTable::getSumForAssociation($associationId);
-    $this->totalDettes      = ExpenseTable::getAmountOfDebtsForAssociation($associationId);
-    $this->totalCreances    = IncomeTable::getAmountOfDebtsForAssociation($associationId);
-    $this->totalPrevu       = $this->totalCreances - $this->totalDettes;
+    $associationId         = $this->getUser()->getAssociationId();
+    $this->accounts        = AccountTable::getEnabledForAssociation($associationId);
+    $this->activities      = ActivityTable::getEnabledForAssociation($associationId);
+    $this->totalDues       = DueTable::getSumForAssociation($associationId);
+    $this->totalUnpaid     = ExpenseTable::getAmountOfDebtsForAssociation($associationId);
+    $this->totalUnreceived = IncomeTable::getAmountOfDebtsForAssociation($associationId);
+    $this->totalDebts      = $this->totalUnreceived - $this->totalUnpaid;
   }
 
   /**
@@ -226,7 +228,7 @@ class associationActions extends sfActions
     {
       $this->_association->initialize();
       $this->getUser()->setTemporaryAssociationId($this->_association->getId());
-      $this->redirect('membre/newfirst');
+      $this->redirect('@register_first_member');
     }
     else
     {
@@ -241,8 +243,9 @@ class associationActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $association = AssociationTable::getById($request->getParameter('id'));
-    $this->forward404Unless($association, sprintf("L'association n'existe pas (%s).", $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $association = AssociationTable::getById($id);
+    $this->forward404Unless($association, "L'association {$id} n'existe pas.");
     $this->form = new AssociationForm($association);
   }
 
@@ -254,13 +257,14 @@ class associationActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $association = AssociationTable::getById($request->getParameter('id'));
-    $this->forward404Unless($association, sprintf('Association does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $association = AssociationTable::getById($id);
+    $this->forward404Unless($association, "L'association {$id} n'existe pas.");
     $this->form = new AssociationForm($association);
 
     if ($this->processForm($request, $this->form))
     {
-      $this->redirect('membre/index');
+      $this->redirect('@homepage');
     }
     else
     {
@@ -276,10 +280,11 @@ class associationActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $association = AssociationTable::getById($request->getParameter('id'));
-    $this->forward404Unless($association, sprintf('Association does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $association = AssociationTable::getById($id);
+    $this->forward404Unless($association, "L'association {$id} n'existe pas.");
     $association->delete();
-    $this->redirect('association/index');
+    $this->redirect('@associations_list');
   }
 
   /*

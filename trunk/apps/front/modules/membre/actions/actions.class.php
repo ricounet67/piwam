@@ -1,5 +1,4 @@
 <?php
-
 /**
  * membre actions.
  *
@@ -23,14 +22,15 @@ class membreActions extends sfActions
   {
     if (! $this->getUser()->hasCredential('list_membre'))
     {
-      $this->redirect('membre/show?id=' . $this->getUser()->getUserId());
+      $this->redirect('@member_show?id=' . $this->getUser()->getUserId());
     }
 
     $this->orderByColumn = $request->getParameter('orderby', 'lastname');
     $associationId = $this->getUser()->getAssociationId();
-    $this->members = MemberTable::getPagerOrderBy($associationId, $request->getParameter('page', 1), $this->orderByColumn);
+    $page          = $request->getParameter('page', 1);
+    $this->members = MemberTable::getPagerOrderBy($associationId, $page, $this->orderByColumn);
     $this->pending = MemberTable::getPendingMembers($associationId);
-    $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
+    $ajaxUrl       = $this->getController()->genUrl('@ajax_search_members');
     $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(), 'ajaxUrl' => $ajaxUrl));
   }
 
@@ -42,7 +42,7 @@ class membreActions extends sfActions
    */
   public function executeFaces(sfWebRequest $request)
   {
-    $this->membres = MemberTable::getEnabledForAssociation($associationId = $this->getUser()->getAssociationId());
+    $this->members = MemberTable::getEnabledForAssociation($this->getUser()->getAssociationId());
   }
 
   /**
@@ -59,16 +59,16 @@ class membreActions extends sfActions
 
     if (strlen($params['magic']) > 0)
     {
-      $this->membres = MemberTable::doSearch($params);
+      $this->members = MemberTable::doSearch($params);
 
-      if (count($this->membres) === 1)
+      if (count($this->members) === 1)
       {
-        $this->redirect('membre/show?id=' . $this->membres[0]->getId());
+        $this->redirect('@member_show?id=' . $this->members[0]->getId());
       }
     }
     else
     {
-      $this->membres = array();
+      $this->members = array();
     }
 
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
@@ -84,15 +84,15 @@ class membreActions extends sfActions
    */
   public function executeShow(sfWebRequest $request)
   {
-    $membre_id = $request->getParameter('id');
-    $profile = MemberTable::getById($membre_id);
+    $member_id = $request->getParameter('id');
+    $profile = MemberTable::getById($member_id);
+    $this->forward404Unless($profile);
 
     if ($this->isAllowedToManageProfile($profile, 'show_membre'))
     {
-      $this->cotisations = DueTable::getForUser($membre_id);
-      $this->credentials = AclCredentialTable::getForMember($membre_id);
-      $this->forward404Unless($profile);
-      $this->membre = $profile;
+      $this->cotisations = DueTable::getForUser($member_id);
+      $this->credentials = AclCredentialTable::getForMember($member_id);
+      $this->member = $profile;
     }
     else
     {
@@ -101,7 +101,7 @@ class membreActions extends sfActions
   }
 
   /**
-   * Export the list of Membre within a file
+   * Export the list of member within a file
    *
    * @param   sfWebRequest    $request
    * @since   r19
@@ -109,7 +109,7 @@ class membreActions extends sfActions
   public function executeExport(sfWebRequest $request)
   {
     $csv = new FileExporter('liste-membres.csv');
-    $membres = MemberTable::doSelectForAssociation($this->getUser()->getAssociationId());
+    $members = MemberTable::doSelectForAssociation($this->getUser()->getAssociationId());
 
     echo $csv->addLineCSV(array(
                           'Prénom',
@@ -126,21 +126,21 @@ class membreActions extends sfActions
                           'Date d\'inscription',
     ));
 
-    foreach ($membres as $membre)
+    foreach ($members as $member)
     {
       echo $csv->addLineCSV(array(
-      $membre->getPrenom(),
-      $membre->getNom(),
-      $membre->getPseudo(),
-      $membre->getEmail(),
-      $membre->getTelFixe(),
-      $membre->getTelPortable(),
-      $membre->getRue(),
-      $membre->getCp(),
-      $membre->getVille(),
-      $membre->getPays(),
-      $membre->getStatut(),
-      $membre->getDateInscription(),
+      $member->getPrenom(),
+      $member->getNom(),
+      $member->getPseudo(),
+      $member->getEmail(),
+      $member->getTelFixe(),
+      $member->getTelPortable(),
+      $member->getRue(),
+      $member->getCp(),
+      $member->getVille(),
+      $member->getPays(),
+      $member->getStatut(),
+      $member->getDateInscription(),
       ));
     }
     $csv->exportContentAsFile();
@@ -154,19 +154,21 @@ class membreActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $this->forward404Unless($membre = MemberTable::retrieveByPk($request->getParameter('id')), sprintf('Le membre n\'existe pas (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $member = MemberTable::retrieveByPk($id);
+    $this->forward404Unless($member);
 
-    if ($membre->getAssociationId() != $this->getUser()->getAssociationId())
+    if ($member->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
 
-    $membre->delete();
-    $this->redirect('membre/index');
+    $member->delete();
+    $this->redirect('@members_list');
   }
 
   /**
-   * Called method to display list of Membre within an autocompleted
+   * Called method to display list of member within an autocompleted
    * form field.
    *
    * @param   sfWebRequest    $request
@@ -176,11 +178,12 @@ class membreActions extends sfActions
   public function executeAjaxlist(sfWebRequest $request)
   {
     $this->getResponse()->setContentType('application/json');
-    $membres = MemberTable::search($request->getParameter('q'),
-    $request->getParameter('limit'),
-    $request->getParameter('association_id'));
+    $query   = $request->getParameter('q');
+    $limit   = $request->getParameter('limit');
+    $id      = $request->getParameter('association_id');
+    $members = MemberTable::search($query, $limit, $id);
 
-    return $this->renderText(json_encode($membres));
+    return $this->renderText(json_encode($members));
   }
 
 
@@ -201,13 +204,13 @@ class membreActions extends sfActions
     $map->zoomLevel = 12;
     $map->setWidth(600);
     $map->setHeight(400);
-    $membres = MemberTable::getEnabledForAssociation($associationId);
+    $members = MemberTable::getEnabledForAssociation($associationId);
 
-    foreach ($membres as $membre)
+    foreach ($members as $member)
     {
-      if (strlen($membre->getCity()) > 0)
+      if (strlen($member->getCity()) > 0)
       {
-        $map->addAddress($membre->getCompleteAddress(), $membre->getInfoForGmap());
+        $map->addAddress($member->getCompleteAddress(), $member->getInfoForGmap());
       }
     }
 
@@ -216,9 +219,9 @@ class membreActions extends sfActions
   }
 
   /**
-   * Allows the user to manager ACL for each Membre. Once the form is submit,
+   * Allows the user to manager ACL for each member. Once the form is submit,
    * the existing credentials are deleted and we created new ones.
-   * The AclCredentialForm is also put on membre/edit view. If we reach the
+   * The AclCredentialForm is also put on member/edit view. If we reach the
    * form through this action, this is because we are registering a NEW user
    *
    * @param   sfWebRequest    $request
@@ -231,11 +234,12 @@ class membreActions extends sfActions
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('rights', array()));
+
       if ($this->form->isValid())
       {
         $values = $request->getParameter('rights', array());
-        $membre = MemberTable::retrieveByPk($values['user_id']);
-        $membre->resetAcl();
+        $member = MemberTable::getById($values['user_id']);
+        $member->resetAcl();
 
         // Browse the list of rights... first we get the 'modules' level
 
@@ -249,20 +253,21 @@ class membreActions extends sfActions
 
             foreach ($acls as $code => $state)
             {
-              $membre->addCredential($code);
+              $member->addCredential($code);
             }
           }
         }
-        $this->redirect('membre/index');
+
+        $this->redirect('@members_list');
       }
     }
     else
     {
       $this->user_id  = $request->getParameter('id');
-      $membre  = MemberTable::retrieveByPk($this->user_id);
+      $member = MemberTable::getById($this->user_id);
 
-      if (($membre->getAssociationId() != $this->getUser()->getAssociationId()) ||
-      ($this->getUser()->hasCredential('edit_acl') == false))
+      if (($member->getAssociationId() != $this->getUser()->getAssociationId()) ||
+          ($this->getUser()->hasCredential('edit_acl') == false))
       {
         $this->redirect('@error_credentials');
       }
@@ -282,27 +287,29 @@ class membreActions extends sfActions
    * ---------------------------------------------------------------------- */
 
   /**
-   * Registration of a new Membre
+   * Registration of a new member
    *
    * @param   sfWebRequest    $request
    */
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new MemberForm(null, array('associationId' => $this->getUser()->getAssociationId(),
-                                                 'context'       => $this->getContext()));
+    $aId = $this->getUser()->getAssociationId();
+    $ctxt = $this->getContext();
+    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt));
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
   /**
-   * Perform the creation of the Membre object in database
+   * Perform the creation of the member object in database
    *
    * @param   sfWebRequest    $request
    */
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new MemberForm(null, array('associationId' => $request->getParameter('member[association_id]'),
-                                             'context'       => $this->getContext()));
+    $aId = $request->getParameter('member[association_id]');
+    $ctxt = $this->getContext();
+    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt));
     $this->processForm($request, $this->form);
     $this->setTemplate('new');
   }
@@ -319,15 +326,16 @@ class membreActions extends sfActions
   {
     $associationId = $this->getUser()->getAssociationId();
     $this->user_id = $request->getParameter('id');
-    $this->forward404Unless($membre = MemberTable::getById($this->user_id));
+    $this->forward404Unless($member = MemberTable::getById($this->user_id));
 
-    if (false === $this->isAllowedToManageProfile($membre, 'edit_membre'))
+    if (false === $this->isAllowedToManageProfile($member, 'edit_membre'))
     {
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new MemberForm($membre, array('associationId' => $membre->getAssociationId(),
-                                                'context'       => $this->getContext()));
+    $aId = $member->getAssociationId();
+    $ctxt = $this->getContext();
+    $this->form = new MemberForm($member, array('associationId' => $aId, 'context' => $ctxt));
     $this->aclForm  = new AclCredentialForm();
     $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
@@ -336,7 +344,7 @@ class membreActions extends sfActions
   }
 
   /**
-   * Perform the update of the Membre
+   * Perform the update of the member
    *
    * @param   sfWebRequest    $request
    */
@@ -344,15 +352,16 @@ class membreActions extends sfActions
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
     $this->user_id = $request->getParameter('id');
-    $this->forward404Unless($user = MemberTable::getById($this->user_id), sprintf('Member does not exist (%s).', $this->user_id));
+    $this->forward404Unless($user = MemberTable::getById($this->user_id));
 
     if (false === $this->isAllowedToManageProfile($user, 'edit_membre'))
     {
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new MemberForm($user, array('associationId' => $request->getParameter('member[association_id]'),
-                                              'context'       => $this->getContext()));
+    $request->getParameter('member[association_id]');
+    $this->form = new MemberForm($user, array('associationId' => $associationId,
+                                              'context' => $this->getContext()));
     $this->aclForm  = new AclCredentialForm();
     $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
     $this->aclForm->setUserId($this->user_id);
@@ -383,7 +392,8 @@ class membreActions extends sfActions
     if (sfConfig::get('app_multi_association'))
     {
       $associationId = $request->getParameter('id', null);
-      $this->forward404Unless($association = AssociationPeer::retrieveByPK($associationId), sprintf("L'association %s n'existe pas.", $associationId));
+      $association = AssociationTable::getById($associationId);
+      $this->forward404Unless($association);
     }
     else
     {
@@ -392,9 +402,9 @@ class membreActions extends sfActions
     }
 
     $this->form = new MemberForm(null, array('associationId' => $associationId,
-                                                 'context'   => $this->getContext()));
+                                              'context'=> $this->getContext()));
     $this->form->setDefault('association_id', $associationId);
-    $this->form->setDefault('actif', MemberTable::STATE_PENDING);
+    $this->form->setDefault('state', MemberTable::STATE_PENDING);
   }
 
   /**
@@ -406,8 +416,9 @@ class membreActions extends sfActions
   public function executeCreatepending(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new MemberForm(null, array('associationId' => $request->getParameter("member[association_id]"),
-                                             'context'       => $this->getContext()));
+    $association_id = $request->getParameter("member[association_id]");
+    $this->form = new MemberForm(null, array('associationId' => $association_id,
+                                             'context' => $this->getContext()));
     $request->setAttribute('pending', true);
     $this->processForm($request, $this->form);
     $this->setTemplate('requestsubscription');
@@ -432,24 +443,24 @@ class membreActions extends sfActions
    */
   public function executeValidate(sfWebRequest $request)
   {
-    $membre_id = $request->getParameter('id');
-    $membre = MemberTable::getById($membre_id);
+    $member_id = $request->getParameter('id');
+    $member = MemberTable::getById($member_id);
 
-    if ($membre->getAssociationId() == $this->getUser()->getAssociationId())
+    if ($member->getAssociationId() == $this->getUser()->getAssociationId())
     {
-      $membre->setState(MemberTable::STATE_ENABLED);
-      $membre->setUpdatedBy($this->getUser()->getUserId());
-      $membre->save();
+      $member->setState(MemberTable::STATE_ENABLED);
+      $member->setUpdatedBy($this->getUser()->getUserId());
+      $member->save();
 
-      if ($membre->getEmail() && $membre->getPseudo())
+      if ($member->getEmail() && $member->getPseudo())
       {
         $mailer  = MailerFactory::get($this->getUser()->getAssociationId(), $this->getUser());
-        $message = new Swift_Message('Activation du compte', "Bonjour {$membre}, votre compte a bien &eacute;t&eacute; activ&eacute;. Vous pouvez d&egrave;s maintenant vous identifier en tant que '{$membre->getPseudo()}'", 'text/html');
-        $from    = Configurator::get('address', $membre->getAssociationId(), 'info-association@piwam.org');
+        $message = new Swift_Message('Activation du compte', "Bonjour {$member}, votre compte a bien &eacute;t&eacute; activ&eacute;. Vous pouvez d&egrave;s maintenant vous identifier en tant que '{$member->getPseudo()}'", 'text/html');
+        $from    = Configurator::get('address', $member->getAssociationId(), 'info-association@piwam.org');
 
         try
         {
-          $mailer->send($message, $membre->getEmail(), $from);
+          $mailer->send($message, $member->getEmail(), $from);
         }
         catch(Swift_ConnectionException $e)
         {
@@ -457,7 +468,7 @@ class membreActions extends sfActions
         }
       }
 
-      $this->redirect('membre/index');
+      $this->redirect('@members_list');
     }
     else
     {
@@ -475,7 +486,7 @@ class membreActions extends sfActions
    * ---------------------------------------------------------------------- */
 
   /**
-   * Register a new Membre - and the first one ! - for an
+   * Register a new member - and the first one ! - for an
    * Association. This is a special method which use the temporary
    * AssociationID instead of using an already-registered AssociationID
    *
@@ -522,23 +533,23 @@ class membreActions extends sfActions
    * keyword 'instanceof' because getTemporaryUserInfo() returns
    * unserialized object - which can be null.
    *
-   * @param 	sfWebRequest	$request
-   * @see 	getTemporaryUserInfo()
-   * @since	r16
+   * @param 	 sfWebRequest	           $request
+   * @see 	   getTemporaryUserInfo()
+   * @since	   r16
    */
   public function executeEndregistration(sfWebRequest $request)
   {
-    $membre = $this->getUser()->getTemporaryUserInfo();
+    $member = $this->getUser()->getTemporaryUserInfo();
 
-    if ($membre instanceof Membre)
+    if ($member instanceof Member)
     {
-      // here you can access to $membre properties
+      // here you can access to $member properties
       // and methods
     }
   }
 
   /**
-   * If this is a the first Membre that we registered, we redirect
+   * If this is a the first member that we registered, we redirect
    * to the `end` action to display success message about registration.
    *
    * r62 :    We give all the credentials to the user if this is the
@@ -554,20 +565,20 @@ class membreActions extends sfActions
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid())
     {
-      $membre = $form->save();
+      $member = $form->save();
 
-      if ($membre->getPicture())
+      if ($member->getPicture())
       {
-        $img = new sfImage(MemberTable::PICTURE_DIR . '/' . $membre->getPicture(), 'image/jpg');
+        $img = new sfImage(MemberTable::PICTURE_DIR . '/' . $member->getPicture(), 'image/jpg');
         $img->thumbnail(sfConfig::get('app_picture_width', 116), sfConfig::get('app_picture_height', 116), 'top');
-        $img->saveAs(MemberTable::PICTURE_DIR . '/' . $membre->getPicture());
+        $img->saveAs(MemberTable::PICTURE_DIR . '/' . $member->getPicture());
       }
       if ($request->getAttribute('first') == true)
       {
-        $association = AssociationTable::getById($membre->getAssociationId());
-        $association->setCreatedBy($membre->getId());
+        $association = AssociationTable::getById($member->getAssociationId());
+        $association->setCreatedBy($member->getId());
         $association->save();
-        $this->getUser()->setTemporarUserInfo($membre);
+        $this->getUser()->setTemporarUserInfo($member);
         $credentials = AclActionTable::getAll();
 
         // we don't need to clear existing credentials before,
@@ -575,7 +586,7 @@ class membreActions extends sfActions
 
         foreach ($credentials as $credential)
         {
-          $membre->addCredential($credential->getCode());
+          $member->addCredential($credential->getCode());
         }
 
         // We check if we can warn the author that this association
@@ -583,12 +594,12 @@ class membreActions extends sfActions
 
         if ($this->getUser()->getAttribute('ping_piwam', false, 'temp'))
         {
-          $swiftMailer   = new Swift(new Swift_Connection_NativeMail());
-          $subject       = '[Piwam] '    . $association->getNom() . ' utilise Piwam';
-          $content       = 'Site web : ' . $association->getSiteWeb() . '<br />';
-          $content      .= 'Email :    ' . $membre->getEmail() . '<br />';
-          $content      .= 'Pseudo :   ' . $membre->getPseudo();
-          $from          = 'info-association@piwam.org';
+          $swiftMailer  = new Swift(new Swift_Connection_NativeMail());
+          $subject      = '[Piwam] '    . $association->getNom() . ' utilise Piwam';
+          $content      = 'Site web : ' . $association->getSiteWeb() . '<br />';
+          $content     .= 'Email :    ' . $member->getEmail() . '<br />';
+          $content     .= 'Pseudo :   ' . $member->getPseudo();
+          $from         = 'info-association@piwam.org';
           $swiftMessage = new Swift_Message($subject, $content, 'text/html');
 
           try
@@ -602,23 +613,23 @@ class membreActions extends sfActions
         }
 
         $this->getUser()->removeTemporaryData();
-        $this->redirect('membre/endregistration');
+        $this->redirect('@member_endregistration');
       }
       elseif ($request->getAttribute('pending') == true)
       {
-        $this->redirect('membre/pending');
+        $this->redirect('@member_pending');
       }
       else
       {
-        $data = $request->getParameter('membre');
+        $data = $request->getParameter('member');
 
-        if ((isset($data['created_by'])) && ($membre->getPseudo() && $membre->getPassword()))
+        if ((isset($data['created_by'])) && ($member->getPseudo() && $member->getPassword()))
         {
-          $this->redirect('membre/acl?id=' . $membre->getId());
+          $this->redirect('@member_acl?id=' . $member->getId());
         }
         else
         {
-          $this->redirect('membre/index');
+          $this->redirect('@members_list');
         }
       }
     }
@@ -627,7 +638,7 @@ class membreActions extends sfActions
   /**
    * Checks if we are allowed to edit/show profile of $user
    *
-   * @param   Membre  $user
+   * @param   Member    $user
    * @return  boolean
    */
   protected function isAllowedToManageProfile(Member $user, $globalCredential = null)

@@ -167,68 +167,6 @@ div#searchBar {
     -moz-border-radius: 8px;   
 }
 
-/* listing tables : members, accounts, etc... */
-.tableauDonnees {
-    width: 90%;
-    border: 1px solid black;
-}
-
-.tableauDonnees tbody tr:Hover {
-    background-color: #E8FD98;
-}
-
-.tableauDonnees tbody td {
-    font-family: verdana, sans-serif;
-    font-size: 11px;
-    color: #162027;
-    padding-left: 5px;
-}
-
-/* Header of listing tables */
-.enteteTableauDonnees {
-    background: black;
-    color: white;
-}
-
-/* Links in header of listing tables */
-.enteteTableauDonnees a {
-    color: white;
-    text-decoration: underline;
-}
-.enteteTableauDonnees a:Hover {
-    text-decoration: none;
-}
-
-/* left cell in details tables */
-.tableauDetails th {
-    text-align: left;
-    padding: 5px;
-    border-bottom: 1px dotted black;
-    background-color: #efefff;
-}
-
-/* right cell */
-.tableauDetails td {
-    border-bottom: 1px dotted black;
-    padding: 5px 5px 5px 10px;
-}
-
-.tableauDetails tfoot td {
-    padding-top: 10px;
-    border-bottom: 0;
-}
-
-/* left cell in add/edit forms, with label */
-.tableauAjout th {
-    text-align: left;
-    padding: 3px;
-}
-
-/* right cell in add forms */
-.tableauAjout td {
-    padding: 3px;
-}
-
 /* list of error message */
 .error_list {
     list-style: none;
@@ -244,16 +182,6 @@ div#searchBar {
     padding: 0px;
     margin: 0px;
     color: red;
-}
-
-/* for accounts with positive balance */
-.comptePositif {
-    background-color: #C2FCC3;
-}
-
-/* for accounts with negative balance */
-.compteNegatif {
-    background-color: #EECEBE;
 }
 
 /* members who have to pay their fee */

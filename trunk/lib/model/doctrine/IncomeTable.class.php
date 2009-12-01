@@ -52,6 +52,7 @@ class IncomeTable extends Doctrine_Table
     $pager = new sfDoctrinePager('Income', 20);
     $pager->setQuery($q);
     $pager->setPage($page);
+    $pager->init();
 
     return $pager;
   }

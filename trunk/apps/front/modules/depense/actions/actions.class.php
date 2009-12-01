@@ -1,5 +1,4 @@
 <?php
-
 /**
  * depense actions.
  *
@@ -33,11 +32,11 @@ class depenseActions extends sfActions
     foreach ($depenses as $depense)
     {
       echo $csv->addLineCSV(array(
-      $depense->getLibelle(),
-      format_currency($depense->getMontant()),
-      $depense->getCompte(),
-      $depense->getActivite(),
-      $depense->getDate(),
+                $depense->getLibelle(),
+                format_currency($depense->getMontant()),
+                $depense->getCompte(),
+                $depense->getActivite(),
+                $depense->getDate(),
       ));
     }
     $csv->exportContentAsFile();
@@ -50,7 +49,10 @@ class depenseActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->depensesPager = ExpenseTable::getPagerForAssociation($this->getUser()->getAssociationId(), $request->getParameter('page', 1));
+    $id   = $this->getUser()->getAssociationId();
+    $page = $request->getParameter('page', 1);
+
+    $this->expensesPager = ExpenseTable::getPagerForAssociation($id, $page);
   }
 
   /**
@@ -60,7 +62,7 @@ class depenseActions extends sfActions
    */
   public function executeShow(sfWebRequest $request)
   {
-    $this->depense = ExpenseTable::retrieveByPk($request->getParameter('id'));
+    $this->depense = ExpenseTable::getById($request->getParameter('id'));
 
     if ($this->depense->getAssociationId() == $this->getUser()->getAssociationId())
     {
@@ -105,7 +107,8 @@ class depenseActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $this->forward404Unless($depense = ExpenseTable::getById($request->getParameter('id')), sprintf('Object depense does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($depense = ExpenseTable::getById($id));
 
     if ($depense->getAssociationId() != $this->getUser()->getAssociationId())
     {
@@ -124,7 +127,8 @@ class depenseActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $this->forward404Unless($depense = ExpenseTable::getById($request->getParameter('id')), sprintf('Object depense does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($depense = ExpenseTable::getById($id));
     $this->form = new ExpenseForm($depense);
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     $this->processForm($request, $this->form);
@@ -139,13 +143,14 @@ class depenseActions extends sfActions
   public function executeDelete(sfWebRequest $request)
   {
     $request->checkCSRFProtection();
-    $this->forward404Unless($depense = ExpenseTable::getById($request->getParameter('id')), sprintf('Object depense does not exist (%s).', $request->getParameter('id')));
+    $id = $request->getParameter('id');
+    $this->forward404Unless($depense = ExpenseTable::getById($id));
     $depense->delete();
-    $this->redirect('depense/index');
+    $this->redirect('@expenses_list');
 
     if ($depense->getAssociationId() != $this->getUser()->getAssociationId())
     {
-      $this->forward('error', 'credentials');
+      $this->redirect('@error_credentials');
     }
   }
 
@@ -162,7 +167,7 @@ class depenseActions extends sfActions
     if ($form->isValid())
     {
       $depense = $form->save();
-      $this->redirect('depense/index');
+      $this->redirect('@expenses_list');
     }
   }
 }

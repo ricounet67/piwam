@@ -90,6 +90,7 @@ class MemberTable extends Doctrine_Table
     $pager = new sfDoctrinePager('Member', $n);
     $pager->setQuery($q);
     $pager->setPage($page);
+    $pager->init();
 
     return $pager;
   }

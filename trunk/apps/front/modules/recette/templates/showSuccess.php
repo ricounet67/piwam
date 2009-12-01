@@ -4,32 +4,32 @@
 <?php use_helper('Boolean')  ?>
 
 <h2>Détails d'une entrée d'argent</h2>
-<table class="tableauDetails" id="details">
+<table class="details">
     <tbody>
         <tr>
             <th>Id :</th>
-            <td><?php echo $recette->getId() ?></td>
+            <td><?php echo $income->getId() ?></td>
         </tr>
         <tr>
             <th>Libellé :</th>
-            <td><?php echo $recette->getLabel() ?></td>
+            <td><?php echo $income->getLabel() ?></td>
         </tr>
         <tr>
             <th>Montant :</th>
-            <td><?php echo format_currency($recette->getAmount(), '&euro;') ?></td>
+            <td><?php echo format_currency($income->getAmount(), '&euro;') ?></td>
         </tr>
         <tr>
             <th>Compte affecté :</th>
-            <td><?php echo $recette->getAccount() ?></td>
+            <td><?php echo $income->getAccount() ?></td>
         </tr>
         <tr>
             <th>Activité :</th>
-            <td><?php echo $recette->getActivity() ?></td>
+            <td><?php echo $income->getActivity() ?></td>
         </tr>
-        <?php if ($recette->getReceived() == 1): ?>
+        <?php if ($income->getReceived() == 1): ?>
         <tr>
             <th>Effective le :</th>
-            <td><?php echo format_date($recette->getDate()) ?></td>
+            <td><?php echo format_date($income->getDate()) ?></td>
         </tr>
         <?php else: ?>
         <tr>
@@ -40,18 +40,18 @@
         <tr>
             <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Créée le
             :</th>
-            <td><?php echo format_datetime($recette->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($recette->getCreatedByMember()) ?></td>
+            <td><?php echo format_datetime($income->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($income->getCreatedByMember()) ?></td>
         </tr>
         <tr>
             <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Mise à
             jour le :</th>
-            <td><?php echo format_datetime($recette->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($recette->getUpdatedByMember()) ?></td>
+            <td><?php echo format_datetime($income->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($income->getUpdatedByMember()) ?></td>
         </tr>
     </tbody>
 </table>
 
 <hr />
 
-<a href="<?php echo url_for('recette/edit?id='.$recette->getId()) ?>">Editer</a>
+<a href="<?php echo url_for('@income_edit?id='.$income->getId()) ?>">Editer</a>
 &nbsp;
-<a href="<?php echo url_for('recette/index') ?>">Retour</a>
+<a href="<?php echo url_for('@incomes_list') ?>">Retour</a>

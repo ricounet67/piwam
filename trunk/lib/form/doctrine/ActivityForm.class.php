@@ -26,8 +26,6 @@ class ActivityForm extends BaseActivityForm
     if ($this->getObject()->isNew())
     {
       $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
-      $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-      $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
     }
     else
@@ -36,9 +34,13 @@ class ActivityForm extends BaseActivityForm
       $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     }
 
+    $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
+    $this->validatorSchema['association_id'] = new sfValidatorInteger();
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     $this->setDefault('state', 1);
     $this->validatorSchema['state'] = new sfValidatorBoolean();
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
+
+    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Activity', 'column' => array('label', 'association_id')), array('invalid' => 'Cette activité existe déjà')));
   }
 }
