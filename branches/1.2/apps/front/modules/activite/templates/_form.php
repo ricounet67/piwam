@@ -10,7 +10,7 @@
     <?php endif; ?>
 
 
-    <table class="formArray">
+    <table class="formtable">
 
         <!-- Footer : buttons -->
 

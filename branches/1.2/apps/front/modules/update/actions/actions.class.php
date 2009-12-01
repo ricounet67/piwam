@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Manage the update of Piwam versions
  *
