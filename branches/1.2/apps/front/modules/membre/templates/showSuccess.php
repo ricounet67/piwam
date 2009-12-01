@@ -6,6 +6,8 @@
 <?php use_javascript('domtab/domtab.js') ?>
 <?php use_stylesheet('domtab.css') ?>
 
+<!-- Defines existing tabs -->
+
 <div class="domtab">
 <ul class="domtabs">
     <li><a href="#t1">Profil</a></li>
@@ -13,92 +15,102 @@
     <li><a href="#t3">Droits</a></li>
 </ul>
 
-<!-- New  tab : user profile-->
-<div>
-    <h2><a name="t1" id="t1">Informations détaillées</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), 'membre/edit?id='.$membre->getId() . '#profil') ?></h2>
 
-    <table class="tableauDetails" id="details">
+
+<!-- First tab : user profile-->
+
+<div>
+    <h2><a name="t1" id="t1">Informations détaillées</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), '@member_edit?id='.$member->getId() . '#profil') ?></h2>
+
+    <table class="details">
 
         <tfoot>
             <tr>
                 <td colspan="2">
-                    <?php echo link_to('Éditer', 'membre/edit?id=' . $membre->getId() . '#profil', array('class'  => 'formLinkButton')) ?>
+                    <?php echo link_to('Éditer', '@member_edit?id=' . $member->getId() . '#profil', array('class'  => 'formLinkButton')) ?>
                 </td>
             </tr>
         </tfoot>
         <tbody>
             <tr>
                 <th>Photo :</th>
-                <td><?php echo image_tag($membre->getPictureURI()) ?></td>
+                <td><?php echo image_tag($member->getPictureURI()) ?></td>
             </tr>
             <tr>
                 <th>Nom :</th>
-                <td><?php echo $membre->getLastname() ?></td>
+                <td><?php echo $member->getLastname() ?></td>
             </tr>
             <tr>
                 <th>Prénom :</th>
-                <td><?php echo $membre->getFirstname() ?></td>
+                <td><?php echo $member->getFirstname() ?></td>
             </tr>
             <tr>
                 <th>Pseudo :</th>
-                <td><?php echo $membre->getUsername() ?></td>
+                <td><?php echo $member->getUsername() ?></td>
             </tr>
             <tr>
                 <th>Statut :</th>
-                <td><?php echo $membre->getStatus() ?></td>
+                <td><?php echo $member->getStatus() ?></td>
             </tr>
             <tr>
                 <th>Date d'inscription :</th>
-                <td><?php echo format_date($membre->getSubscriptionDate()) ?></td>
+                <td><?php echo format_date($member->getSubscriptionDate()) ?></td>
             </tr>
             <tr>
                 <th>Exempté de cotisation :</th>
-                <td><?php echo boolean2icon($membre->getDueExempt()) ?></td>
+                <td><?php echo boolean2icon($member->getDueExempt()) ?></td>
             </tr>
             <tr>
                 <th>Adresse :</th>
-                <td><?php echo $membre->getStreet() . '<br />' . $membre->getZipcode() . ' ' . $membre->getCity() ?></td>
+                <td><?php echo $member->getStreet() . '<br />' . $member->getZipcode() . ' ' . $member->getCity() ?></td>
             </tr>
             <tr>
                 <th>Pays :</th>
-                <td><?php echo image_tag('flags/' . strtolower($membre->getCountry()), array('alt' => $membre->getCountry(), 'title' => $membre->getCountry())) ?></td>
+                <td><?php echo image_tag('flags/' . strtolower($member->getCountry()), array('alt' => $member->getCountry(), 'title' => $member->getCountry())) ?></td>
             </tr>
             <tr>
                 <th>Email :</th>
-                <td><?php echo mail_to($membre->getEmail()) ?></td>
+                <td><?php echo mail_to($member->getEmail()) ?></td>
             </tr>
             <tr>
                 <th>Site Internet :</th>
-                <td><?php echo '<a href="' . $membre->getWebsite() . '">' . $membre->getWebsite() . '</a>' ?></td>
+                <td><?php echo '<a href="' . $member->getWebsite() . '">' . $member->getWebsite() . '</a>' ?></td>
             </tr>
             <tr>
                 <th>Téléphone fixe :</th>
-                <td><?php echo format_phonenumber($membre->getPhoneHome()) ?></td>
+                <td><?php echo format_phonenumber($member->getPhoneHome()) ?></td>
             </tr>
             <tr>
                 <th>Téléphone portable :</th>
-                <td><?php echo format_phonenumber($membre->getPhoneMobile()) ?></td>
+                <td><?php echo format_phonenumber($member->getPhoneMobile()) ?></td>
             </tr>
             <tr>
                 <th>Actif :</th>
-                <td><?php echo boolean2icon($membre->getState()) ?></td>
+                <td><?php echo boolean2icon($member->getState()) ?></td>
             </tr>
             <tr>
-                <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
-                Enregistré le :</th>
-                <td><?php echo format_datetime($membre->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($membre->getCreatedByMember()) ?></td>
+                <th>
+                    <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+                    Enregistré le :
+                </th>
+                <td><?php echo format_datetime($member->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($member->getCreatedByMember()) ?></td>
             </tr>
             <tr>
-                <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
-                Dernière édition :</th>
-                <td><?php echo format_datetime($membre->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($membre->getUpdatedByMember()) ?></td>
+                <th>
+                    <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+                    Dernière édition :
+                </th>
+                <td>
+                    <?php echo format_datetime($member->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($member->getUpdatedByMember()) ?>
+                </td>
             </tr>
         </tbody>
     </table>
 </div>
 
 
-<!-- New tab : fees -->
+
+<!-- Second tab : Dues -->
 
 <div>
     <h2><a name="t2" id="t2">Liste des cotisations</a></h2>
@@ -117,10 +129,10 @@
 
 
 
-<!-- New tab -->
+<!-- Third tab : Credentials -->
 
 <div>
-  <h2><a name="t3" id="t3">Droits de l'utilisateur</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), 'membre/edit?id='.$membre->getId() . '#credentials') ?></h2>
+  <h2><a name="t3" id="t3">Droits de l'utilisateur</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), '@member_edit?id='.$member->getId() . '#credentials') ?></h2>
   <div>
     <ul>
         <?php if (count($credentials) == 0): ?>
