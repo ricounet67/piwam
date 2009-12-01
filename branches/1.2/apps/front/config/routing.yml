@@ -162,7 +162,7 @@ income_show:
 # -----------------------------------------------------------------------------
   
 members_list:
-  url:    /membres
+  url:    /membres/*
   param:  { module: membre, action: index}
 
 members_map:
