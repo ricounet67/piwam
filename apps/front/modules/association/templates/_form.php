@@ -18,7 +18,7 @@
         <tr>
             <td colspan="2">
                 <?php echo $form->renderHiddenFields() ?>
-                <?php echo link_to('Annuler', 'membre/index', array('class'	=> 'formLinkButton')) ?>
+                <?php echo link_to('Annuler', '@members_list', array('class'	=> 'formLinkButton')) ?>
 
                 <!-- Display "next step" or "cancel" and "delete" buttons-->
 

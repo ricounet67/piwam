@@ -26,7 +26,7 @@ $total         = 0;
 
         <?php foreach ($accounts as $account): ?>
             <tr class="<?php echo ($account->isNegative()) ? 'negative' : 'positive' ?>">
-                <td><?php echo link_to($account->getReference(), 'compte/show?id=' . $account->getId(), array('class' => 'block')) ?></td>
+                <td><?php echo link_to($account->getReference(), '@account_by_id?id=' . $account->getId(), array('class' => 'block')) ?></td>
                 <td><?php echo format_currency($account->getTotalExpenses()); $totalExpenses += $account->getTotalExpenses() ?></td>
                 <td><?php echo format_currency($account->getTotalIncomes()); $totalIncomes += $account->getTotalIncomes() ?></td>
                 <td><?php echo format_currency($account->getTotal()); $total += $account->getTotal() ?></td>
@@ -72,7 +72,7 @@ $total         = 0;
 
         <?php foreach ($activities as $activity): ?>
             <tr class="<?php echo ($activity->getTotal() < 0) ? 'negative' : 'positive' ?>">
-                <td><?php echo link_to($activity->getLabel(), 'activite/show?id=' . $activity->getId(), array('class' => 'block')) ?></td>
+                <td><?php echo link_to($activity->getLabel(), '@activity_by_id?id=' . $activity->getId(), array('class' => 'block')) ?></td>
                 <td><?php echo format_currency($activity->getTotalExpenses()); $totalExpenses += $activity->getTotalExpenses() ?></td>
                 <td><?php echo format_currency($activity->getTotalIncomes()); $totalIncomes += $activity->getTotalIncomes() ?></td>
                 <td><?php echo format_currency($activity->getTotal()); $total += $activity->getTotal() ?></td>

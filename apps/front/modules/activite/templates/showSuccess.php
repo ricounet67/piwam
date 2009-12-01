@@ -102,7 +102,7 @@ $totalExpenses  = 0;
 
     <!-- Final row, displaying total amount -->
 
-    <tr class="<?php echo ($totalIncomes - $totalExpenses < 0) ? 'compteNegatif' : 'comptePositif'; ?>">
+    <tr class="<?php echo ($totalIncomes - $totalExpenses < 0) ? 'negative' : 'positive'; ?>">
         <td><strong>Total</strong></td>
         <td><?php echo format_currency($totalExpenses); ?></td>
         <td><?php echo format_currency($totalIncomes); ?></td>
@@ -125,13 +125,13 @@ $totalExpenses  = 0;
         <td width="10%"><?php echo format_currency($iDebts) ?></td>
         <td width="10%">-</td>
     </tr>
-    <tr class="<?php echo ($eDebts == 0) ? "comptePositif" : "compteNegatif" ?>">
+    <tr class="<?php echo ($eDebts == 0) ? "positive" : "negative" ?>">
         <td>Dettes</td>
         <td><?php echo format_currency($eDebts) ?></td>
         <td>-</td>
         <td>-</td>
     </tr>
-    <tr class="<?php echo ($total < 0) ? "compteNegatif" : "comptePositif" ?>">
+    <tr class="<?php echo ($total < 0) ? "negative" : "positive" ?>">
         <td><strong>TOTAL</strong></td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
