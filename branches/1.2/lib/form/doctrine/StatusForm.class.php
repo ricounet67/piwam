@@ -27,10 +27,7 @@ class StatusForm extends BaseStatusForm
     if ($this->getObject()->isNew())
     {
       $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
-      $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
       $this->setDefault('created_by', $userId);
-      $this->setDefault('association_id', $associationId);
-      $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
     }
     else
@@ -39,10 +36,14 @@ class StatusForm extends BaseStatusForm
       $this->validatorSchema['updated_by'] = new sfValidatorPass();
     }
 
+    $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
+    $this->validatorSchema['association_id'] = new sfValidatorInteger();
+    $this->setDefault('association_id', $associationId);
+
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     $this->setDefault('state', 1);
     $this->validatorSchema['state'] = new sfValidatorBoolean();
 
-    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Status', 'column' => array('label', 'association_id')), array('invalid' => 'Ce status existe déjà')));
+    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Status', 'column' => array('label', 'association_id')), array('invalid' => 'Ce statut existe déjà')));
   }
 }
