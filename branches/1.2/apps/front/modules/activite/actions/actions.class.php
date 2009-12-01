@@ -143,7 +143,7 @@ class activiteActions extends sfActions
     }
 
     $activity->delete();
-    $this->redirect('activite/index');
+    $this->redirect('@activities_list');
   }
 
   /*
@@ -157,7 +157,7 @@ class activiteActions extends sfActions
     if ($form->isValid())
     {
       $activity = $form->save();
-      $this->redirect('activite/index');
+      $this->redirect('@activities_list');
     }
   }
 }
