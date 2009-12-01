@@ -19,12 +19,12 @@
             <tr>
                 <td colspan="2">
                     <?php echo $form->renderHiddenFields() ?>
-                    <?php echo link_to('Annuler', 'compte/index', array('class'	=> 'formLinkButton')) ?>
+                    <?php echo link_to('Annuler', '@accounts_list', array('class'	=> 'formLinkButton')) ?>
 
                     <!-- Display delete button only if object already exists -->
 
                     <?php if (!$form->getObject()->isNew()): ?>
-                        <?php echo link_to('Supprimer', 'compte/delete?id=' . $form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?', 'class' => 'formLinkButton')) ?>
+                        <?php echo link_to('Supprimer', '@account_delete?id=' . $form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?', 'class' => 'formLinkButton')) ?>
                 	<?php endif; ?>
 
                     <input type="submit" value="Sauvegarder" class="button" />
