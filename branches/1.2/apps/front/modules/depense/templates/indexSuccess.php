@@ -37,7 +37,7 @@
 </table>
 
 
-<?php include_partial('global/pager', array('pager' => $expensesPager, 'module' => 'depense', 'action' => 'index', 'params' => array())) ?>
+<?php include_partial('global/pager', array('pager' => $expensesPager, 'route' => '@expenses_list', 'params' => array())) ?>
 
 
 <div class="addNew">
