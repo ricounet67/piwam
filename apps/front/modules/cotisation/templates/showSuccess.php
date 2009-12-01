@@ -13,8 +13,12 @@
             <td><?php echo $due->getAccount() ?></td>
         </tr>
         <tr>
-            <th>Cotisation type:</th>
-            <td><?php echo $due->getDueTypeId() ?></td>
+            <th>Cotisation type :</th>
+            <td><?php echo $due->getDueType() ?></td>
+        </tr>
+        <tr>
+            <th>Montant :</th>
+            <td><?php echo $due->getAmount() ?></td>
         </tr>
         <tr>
             <th>Membre:</th>
