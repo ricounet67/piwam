@@ -41,5 +41,5 @@
 
 
 <div class="addNew">
-    <?php echo link_to(image_tag('add', array('align' => 'top', 'alt' => '[Ajouter]')). ' Nouvelle activité', 'activite/new') ?>
+    <?php echo link_to(image_tag('add', array('align' => 'top', 'alt' => '[Ajouter]')). ' Nouvelle activité', '@activity_new') ?>
 </div>

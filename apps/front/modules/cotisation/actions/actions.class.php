@@ -17,7 +17,7 @@ class cotisationActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->cotisation_list = DueTable::getForAssociation($this->getUser()->getAssociationId());
+    $this->dues = DueTable::getForAssociation($this->getUser()->getAssociationId());
     $this->typesExist = DueTypeTable::countForAssociation($this->getUser()->getAssociationId());
   }
 
