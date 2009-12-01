@@ -4,7 +4,7 @@
 
 <h2>Détails du Statut</h2>
 
-<table class="tableauDetails">
+<table class="details">
     <tbody>
         <tr>
             <th>Id :</th>
@@ -19,13 +19,17 @@
             <td><?php echo boolean2icon($statut->getState()) ?></td>
         </tr>
         <tr>
-            <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
-            Créé le :</th>
+            <th>
+                <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+                Créé le :
+            </th>
             <td><?php echo format_datetime($statut->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($statut->getCreatedByMember()) ?></td>
         </tr>
         <tr>
-            <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
-            Dernière mise à jour le :</th>
+            <th>
+                <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+                Dernière mise à jour le :
+            </th>
             <td><?php echo format_datetime($statut->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($statut->getUpdatedByMember()) ?></td>
         </tr>
     </tbody>
@@ -33,6 +37,6 @@
 
 <hr />
 
-<a href="<?php echo url_for('statut/edit?id='.$statut->getId()) ?>">Éditer</a>
+<a href="<?php echo url_for('@status_edit?id='.$statut->getId()) ?>">Éditer</a>
 &nbsp;&bull;&nbsp;
-<a href="<?php echo url_for('statut/index') ?>">Retour à la liste</a>
+<a href="<?php echo url_for('@status_list') ?>">Retour à la liste</a>

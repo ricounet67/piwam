@@ -4,27 +4,28 @@
 <div class="error"><?php echo $sf_user->getFlash('notice') ?></div>
 <?php endif; ?>
 
-<table class="tableauDonnees">
+<table class="datalist">
     <thead>
-        <tr class="enteteTableauDonnees">
+        <tr>
             <th>Libellé</th>
             <th width="70px">Membres</th>
             <th width="80px">Actions</th>
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($statut_list as $statut): ?>
+    <?php foreach ($status_list as $status): ?>
         <tr>
-            <td><?php echo $statut->getLabel() ?></td>
-            <td><?php echo $statut->countEnabledMembers() ?></td>
-            <td><?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), 'statut/show?id=' . $statut->getId()) ?>
-            <?php echo link_to(image_tag('edit.png', array('alt' => '[modifier]')), 'statut/edit?id=' . $statut->getId()) ?>
-            <?php echo link_to(image_tag('delete.png', array('alt' => '[supprimer]')), 'statut/delete?id=' . $statut->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+            <td><?php echo $status->getLabel() ?></td>
+            <td><?php echo $status->countEnabledMembers() ?></td>
+            <td>
+                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), '@status_show?id=' . $status->getId()) ?>
+                <?php echo link_to(image_tag('edit.png',    array('alt' => '[modifier]')), '@status_edit?id=' . $status->getId()) ?>
+                <?php echo link_to(image_tag('delete.png',  array('alt' => '[supprimer]')), '@status_delete?id=' . $status->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
             </td>
         </tr>
         <?php endforeach; ?>
     </tbody>
 </table>
 
-<div class="addNew"><?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'Time')). ' Nouveau statut', 'statut/new') ?>
+<div class="addNew"><?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'Time')). ' Nouveau statut', '@status_new') ?>
 </div>
