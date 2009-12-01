@@ -109,7 +109,7 @@ account_new:
 
 
 expenses_list:
-  url:    /depenses
+  url:    /depenses/*
   param:  { module: depense, action: index }
 
 expense_show:
@@ -132,7 +132,7 @@ expense_new:
 
 
 incomes_list:
-  url:    /recettes
+  url:    /recettes/*
   param:  { module: recette, action: index }
 
 
