@@ -67,6 +67,19 @@ class Member extends BaseMember
   }
 
   /**
+   * Remove all existing credentials that have been set to the
+   * Member previously
+   */
+  public function resetAcl()
+  {
+    $q = Doctrine_Query::create()
+          ->delete('AclCredential c')
+          ->where('c.member_id = ?', $this->getId());
+
+    return $q->execute();
+  }
+
+  /**
    * Add a new credential to the member
    *
    * @param   string  $code   : Code of the AclAction
