@@ -11,7 +11,7 @@
 
 
 <h2>Identification</h2>
-<form action="<?php echo url_for('association/login') ?>" method="post">
+<form action="<?php echo url_for('@login') ?>" method="post">
 <table class="formArray">
     <tr>
         <td colspan="2"><?php echo $form->renderGlobalErrors() ?></td>
@@ -38,7 +38,10 @@
 </table>
 </form>
 
-<!-- If multi mode -->
+
+
+<!-- If user is allowed to register a new association, we display the link -->
+
 <?php if ($displayRegisterLink): ?>
 
     <h2>Nouveau compte</h2>
