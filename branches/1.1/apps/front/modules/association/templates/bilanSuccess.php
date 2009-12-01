@@ -112,6 +112,6 @@ $total          = 0;
 <p style="padding: 10px; background-color: #eee; width: 88%">
     Une discussion est actuellement en cours afin d'améliorer ce "bilan" (export
     PDF, formalisme comptable..)<br />
-    N'hésitez pas <a href="http://code.google.com/p/piwam/wiki/ReflexionCompta">
+    N'hésitez pas à <a href="http://code.google.com/p/piwam/wiki/ReflexionCompta">
     donner votre avis</a>.
 </p>
