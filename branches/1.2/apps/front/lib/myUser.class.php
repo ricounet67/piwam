@@ -26,10 +26,10 @@ class myUser extends sfBasicSecurityUser
   {
     $this->setAuthenticated(true);
     $this->setCulture('fr_FR');
-    $this->setAttribute('association_id',   $user->getAssociationId(),          'user');
+    $this->setAttribute('association_id', $user->getAssociationId(), 'user');
     $this->setAttribute('association_name', $user->getAssociation()->getName(), 'user');
-    $this->setAttribute('user_id',          $user->getId(),                     'user');
-    $this->setAttribute('user_name',        $user->getUsername(),	              'user');
+    $this->setAttribute('user_id', $user->getId(), 'user');
+    $this->setAttribute('user_name', $user->getUsername(), 'user');
     $this->removeTemporaryData();
     $this->setCredentials();
   }
@@ -152,5 +152,14 @@ class myUser extends sfBasicSecurityUser
     {
       $this->addCredential($credential->getAclAction()->getCode());
     }
+  }
+
+  /*
+   * Reset credentials of the current user.
+   */
+  protected function resetCredentials()
+  {
+    $this->clearCredentials();
+    $this->setCredentials();
   }
 }
