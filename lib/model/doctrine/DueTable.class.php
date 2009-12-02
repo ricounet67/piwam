@@ -123,7 +123,7 @@ class DueTable extends Doctrine_Table
           ->where('t.association_id = ?', $id)
           ->orderBy('d.date DESC');
 
-    $pager = new sfDoctrinePager('Due', 2);
+    $pager = new sfDoctrinePager('Due', 50);
     $pager->setQuery($q);
     $pager->setPage($page);
     $pager->init();
