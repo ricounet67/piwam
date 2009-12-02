@@ -12,7 +12,7 @@
 
 <h2>Identification</h2>
 <form action="<?php echo url_for('@login') ?>" method="post">
-<table class="formArray">
+<table class="formtable">
     <tr>
         <td colspan="2"><?php echo $form->renderGlobalErrors() ?></td>
     </tr>

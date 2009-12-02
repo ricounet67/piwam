@@ -1,5 +1,5 @@
 <form action="<?php echo url_for('@config_db') ?>" method="post">
-    <table class="formArray">
+    <table class="formtable">
         <tfoot>
             <tr>
                 <td>&nbsp;</td>
