@@ -199,8 +199,9 @@ class MemberTable extends Doctrine_Table
   }
 
   /**
-   * Display Membre matching our query (actually this may
-   * only be AJAX query for autompleted fields)
+   * Display Membre matching our query. $query is going to be set as a
+   * magic criteria that the engine will try to match after comparison
+   * on several fields.
    *
    * @param   string      $query
    * @param   integer     $limit
