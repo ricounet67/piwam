@@ -145,10 +145,10 @@ class associationActions extends sfActions
             $from_label = $this->getUser()->getAssociationName('Piwam');
 
             $message    = Swift_Message::newInstance('Votre mot de passe')
-                            ->setBody($content)
-                            ->setContentType('text/html')
-                            ->setFrom(array($from_email => $from_label))
-                            ->setTo(array($user->getEmail() => $user->getFirstname()));
+            ->setBody($content)
+            ->setContentType('text/html')
+            ->setFrom(array($from_email => $from_label))
+            ->setTo(array($user->getEmail() => $user->getFirstname()));
             try
             {
               $mailer->send($message);
@@ -322,31 +322,29 @@ class associationActions extends sfActions
    */
   private function _canRegisterAnotherAssociation()
   {
-    if (sfConfig::get('app_multi_association'))
+    try
     {
-      return true;
-    }
-    else
-    {
-      try
+      if (AssociationTable::doCount() === 0)
       {
-        if (AssociationTable::doCount() === 0)
+        return true;
+      }
+      else
+      {
+        if (sfConfig::get('app_multi_association'))
         {
           return true;
         }
-        else
-        {
-          return false;
-        }
+
+        return false;
       }
-      catch (Doctrine_Exception $e)
-      {
-        $this->redirect('@setup');
-      }
-      catch (Doctrine_Connection_Exception $e)
-      {
-        $this->redirect('@setup');
-      }
+    }
+    catch (Doctrine_Exception $e)
+    {
+      $this->redirect('@setup');
+    }
+    catch (Doctrine_Connection_Exception $e)
+    {
+      $this->redirect('@setup');
     }
   }
 }
