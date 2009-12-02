@@ -108,7 +108,7 @@
 
 <div class="addNew"
     style="width: 194px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
-        <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer un membre', 'membre/new') ?>
+        <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer un membre', '@member_new') ?>
 </div>
 
 
