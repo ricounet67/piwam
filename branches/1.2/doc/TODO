@@ -1,9 +1,6 @@
 
 
-  * Use route in Pager partial
-
-  Use iterator/countable iface from Pagers
-  http://www.symfony-project.org/tutorial/1_4/en/whats-new
+  * Set Piwam's version in YML file
 
 	Model Updates :
 		enregistre_par	=> created_by
