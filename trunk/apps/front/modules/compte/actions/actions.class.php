@@ -56,8 +56,9 @@ class compteActions extends sfActions
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $association_id = $request->getParameter('account[association_id]');
-    $this->form = new AccountForm(null, array('associationId' => $association_id));
+    $account_array = $request->getParameter('account');
+    $associationId = $account_array['association_id'];
+    $this->form = new AccountForm(null, array('associationId' => $associationId));
     $this->processForm($request, $this->form);
     $this->setTemplate('new');
   }

@@ -107,4 +107,27 @@ class DueTable extends Doctrine_Table
 
     return $q->count();
   }
+
+  /**
+   * Get sfDoctrinePager to paginate list of Dues
+   *
+   * @param   integer         $id
+   * @param   integer         $page
+   * @return  sfDoctrinePager
+   */
+  public static function getPagerEnabledForAssociation($id, $page = 1)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Due d')
+          ->leftJoin('d.DueType t')
+          ->where('t.association_id = ?', $id)
+          ->orderBy('d.date DESC');
+
+    $pager = new sfDoctrinePager('Due', 50);
+    $pager->setQuery($q);
+    $pager->setPage($page);
+    $pager->init();
+
+    return $pager;
+  }
 }

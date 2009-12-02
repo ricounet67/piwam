@@ -53,13 +53,13 @@ class membreActions extends sfActions
    */
   public function executeSearch(sfWebRequest $request)
   {
-    $params = $request->getParameter('search');
-    $magicField  = $request->getParameter('autocomplete_search[magic]');
-    $params['magic'] = $magicField;
+    $params = $request->getParameter('autocomplete_search');
+    $query = $params['magic'];
+    $aId = $this->getUser()->getAssociationId();
 
-    if (strlen($params['magic']) > 0)
+    if (strlen($query) > 0)
     {
-      $this->members = MemberTable::doSearch($params);
+      $this->members = MemberTable::search($query, 50, $aId);
 
       if (count($this->members) === 1)
       {
@@ -72,8 +72,7 @@ class membreActions extends sfActions
     }
 
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(),
-                                                       'ajaxUrl'       => $ajaxUrl));
+    $this->searchForm = new SearchUserForm(null, array('associationId' => $aId, 'ajaxUrl' => $ajaxUrl));
   }
 
   /**
@@ -182,8 +181,16 @@ class membreActions extends sfActions
     $limit   = $request->getParameter('limit');
     $id      = $request->getParameter('association_id');
     $members = MemberTable::search($query, $limit, $id);
+    $result  = array();
 
-    return $this->renderText(json_encode($members));
+    foreach ($members as $member)
+    {
+      $key = $member->getId();
+      $value = $member->getFirstname() . ' ' . $member->getLastname();
+      $result[$key] = $value;
+    }
+
+    return $this->renderText(json_encode($result));
   }
 
 
@@ -307,7 +314,8 @@ class membreActions extends sfActions
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $aId = $request->getParameter('member[association_id]');
+    $member = $request->getParameter('member');
+    $aId = $member['association_id'];
     $ctxt = $this->getContext();
     $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt));
     $this->processForm($request, $this->form);
@@ -359,7 +367,8 @@ class membreActions extends sfActions
       $this->redirect('@error_credentials');
     }
 
-    $request->getParameter('member[association_id]');
+    $member = $request->getParameter('member');
+    $associationId = $member['association_id'];
     $this->form = new MemberForm($user, array('associationId' => $associationId,
                                               'context' => $this->getContext()));
     $this->aclForm  = new AclCredentialForm();
@@ -416,8 +425,9 @@ class membreActions extends sfActions
   public function executeCreatepending(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $association_id = $request->getParameter("member[association_id]");
-    $this->form = new MemberForm(null, array('associationId' => $association_id,
+    $member = $request->getParameter("member");
+    $associationOd = $member['association_id'];
+    $this->form = new MemberForm(null, array('associationId' => $associationId,
                                              'context' => $this->getContext()));
     $request->setAttribute('pending', true);
     $this->processForm($request, $this->form);
@@ -520,7 +530,8 @@ class membreActions extends sfActions
   public function executeFirstcreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new MemberForm(null, array('associationId' => $this->getUser()->getTemporaryAssociationId(),
+    $associationId = $this->getUser()->getTemporaryAssociationId();
+    $this->form = new MemberForm(null, array('associationId' => $associationId,
                                              'context'       => $this->getContext(),
                                              'first'         => true));
     $request->setAttribute('first', true);
@@ -567,17 +578,37 @@ class membreActions extends sfActions
     {
       $member = $form->save();
 
+      /*
+       * If user has chosen a picture, we resize and try to upload it. The
+       * uploaded picture is overwritten by the new thumbnail
+       */
       if ($member->getPicture())
       {
-        $img = new sfImage(MemberTable::PICTURE_DIR . '/' . $member->getPicture(), 'image/jpg');
-        $img->thumbnail(sfConfig::get('app_picture_width', 116), sfConfig::get('app_picture_height', 116), 'top');
-        $img->saveAs(MemberTable::PICTURE_DIR . '/' . $member->getPicture());
+        try
+        {
+          $width = sfConfig::get('app_picture_width', 116);
+          $height = sfConfig::get('app_picture_height', 116);
+          $filepath = MemberTable::PICTURE_DIR . '/' . $member->getPicture();
+          $img = new sfImage($filepath);
+          $img->thumbnail($width, $height, 'top');
+          $img->saveAs($filepath);
+        }
+        catch (Exception $e)
+        {
+          // do nothing
+        }
       }
+
+      /*
+       * If we are processing the values given by the first member, who has
+       * normally just registered a new association
+       */
       if ($request->getAttribute('first') == true)
       {
         $association = AssociationTable::getById($member->getAssociationId());
         $association->setCreatedBy($member->getId());
         $association->save();
+
         $this->getUser()->setTemporarUserInfo($member);
         $credentials = AclActionTable::getAll();
 
@@ -594,22 +625,7 @@ class membreActions extends sfActions
 
         if ($this->getUser()->getAttribute('ping_piwam', false, 'temp'))
         {
-          $swiftMailer  = new Swift(new Swift_Connection_NativeMail());
-          $subject      = '[Piwam] '    . $association->getNom() . ' utilise Piwam';
-          $content      = 'Site web : ' . $association->getSiteWeb() . '<br />';
-          $content     .= 'Email :    ' . $member->getEmail() . '<br />';
-          $content     .= 'Pseudo :   ' . $member->getPseudo();
-          $from         = 'info-association@piwam.org';
-          $swiftMessage = new Swift_Message($subject, $content, 'text/html');
-
-          try
-          {
-            $swiftMailer->send($swiftMessage, 'adrien@frenchcomp.net', $from);
-          }
-          catch(Swift_ConnectionException $e)
-          {
-            //
-          }
+          $this->notifyAuthor($association, $member);
         }
 
         $this->getUser()->removeTemporaryData();
@@ -623,7 +639,7 @@ class membreActions extends sfActions
       {
         $data = $request->getParameter('member');
 
-        if ((isset($data['created_by'])) && ($member->getPseudo() && $member->getPassword()))
+        if ((isset($data['created_by'])) && ($member->getUsername() && $member->getPassword()))
         {
           $this->redirect('@member_acl?id=' . $member->getId());
         }
@@ -638,7 +654,8 @@ class membreActions extends sfActions
   /**
    * Checks if we are allowed to edit/show profile of $user
    *
-   * @param   Member    $user
+   * @param   Member    $user               Profile that user try to access
+   * @param   string    $globalCredential   Optional required credential
    * @return  boolean
    */
   protected function isAllowedToManageProfile(Member $user, $globalCredential = null)
@@ -649,7 +666,7 @@ class membreActions extends sfActions
     }
     else
     {
-      if (! is_null($globalCredential))
+      if (null != $globalCredential)
       {
         if ($this->getUser()->hasCredential($globalCredential) == true)
         {
@@ -664,5 +681,39 @@ class membreActions extends sfActions
     }
 
     return false;
+  }
+
+  /**
+   * Send a notification to the author that Member uses Piwam to manage
+   * an association
+   *
+   * @param   Association   $association
+   * @param   Member        $member
+   * @since   1.2
+   */
+  protected function notifyAuthor(Association $association, Member $member)
+  {
+    $methodObject = new Swift_MailTransport();
+    $swift    = Swift_Mailer::newInstance($methodObject);
+    $subject  = '[Piwam] '    . $association->getName() . ' utilise Piwam';
+    $content  = 'Site web : ' . $association->getWebsite() . '<br />';
+    $content .= 'Email :    ' . $member->getEmail() . '<br />';
+    $content .= 'Pseudo :   ' . $member->getUsername();
+    $concent .= 'Version :      1.2-dev';
+    $from     = 'info-association@piwam.org';
+    $message  = Swift_Message::newInstance($subject)
+                 ->setBody($content)
+                 ->setContentType('text/html')
+                 ->setFrom(array($from => 'Piwam'))
+                 ->setTo(array('adrien@frenchcomp.net' => 'Developer'));
+
+    try
+    {
+      $swift->send($message);
+    }
+    catch(Swift_ConnectionException $e)
+    {
+      //
+    }
   }
 }

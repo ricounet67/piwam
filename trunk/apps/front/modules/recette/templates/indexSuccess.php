@@ -37,7 +37,7 @@
     </tbody>
 </table>
 
-<?php include_partial('global/pager', array('pager' => $incomesPager, 'module' => 'recette', 'action' => 'index', 'params' => array())) ?>
+<?php include_partial('global/pager', array('pager' => $incomesPager, 'route' => '@incomes_list', 'params' => array())) ?>
 
 <div class="addNew">
     <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Nouvelle recette', '@income_new') ?>

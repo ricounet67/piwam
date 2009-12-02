@@ -35,7 +35,8 @@ class activiteActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->activities = ActivityTable::getEnabledForAssociation($this->getUser()->getAssociationId());
+    $associationId = $this->getUser()->getAssociationId();
+    $this->activities = ActivityTable::getEnabledForAssociation($associationId);
   }
 
   /**
@@ -100,7 +101,7 @@ class activiteActions extends sfActions
   public function executeEdit(sfWebRequest $request)
   {
     $id = $request->getParameter('id');
-    $this->forward404Unless($activity = ActivityTable::getById($id), 'Activity ' . $id . ' does not exist');
+    $this->forward404Unless($activity = ActivityTable::getById($id));
 
     if ($activity->getAssociationId() != $this->getUser()->getAssociationId())
     {
@@ -120,7 +121,7 @@ class activiteActions extends sfActions
   {
     $id = $request->getParameter('id');
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $this->forward404Unless($activity = ActivityTable::getById($id), 'Activity ' . $id . ' does not exist');
+    $this->forward404Unless($activity = ActivityTable::getById($id));
     $this->form = new ActivityForm($activity);
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
@@ -135,7 +136,7 @@ class activiteActions extends sfActions
   {
     $request->checkCSRFProtection();
     $id = $request->getParameter('id');
-    $this->forward404Unless($activity = ActivityTable::getById($id), 'Activity ' . $id . ' does not exist');
+    $this->forward404Unless($activity = ActivityTable::getById($id));
 
     if ($activity->getAssociationId() != $this->getUser()->getAssociationId())
     {

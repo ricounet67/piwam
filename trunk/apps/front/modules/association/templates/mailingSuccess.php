@@ -24,7 +24,7 @@
 <?php else: ?>
 
     <form action="<?php echo url_for('@mailing') ?>" method="post">
-        <table class="formArray">
+        <table class="formtable">
             <tr>
                 <td colspan="2">
                     <?php if ($form->hasErrors()) : ?>

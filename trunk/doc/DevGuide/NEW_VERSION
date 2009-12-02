@@ -3,12 +3,13 @@
 --------------------
 When sharing a new version, think about...
 
-
 # SVN
 -----
 
-    1) Merge branch to trunk if you're sure your work is OK:
-       > svn merge -r 342:HEAD branches/1.2 trunk 
+    1) Merge current branch with trunk once you're sure your work is working
+    
+       > svn merge -r x:HEAD branches/1.2 trunk
+
 
 # SQL
 -----

@@ -114,7 +114,7 @@ class MemberForm extends BaseMemberForm
 
     unset ($this->widgetSchema['country']);
     $countries = array('FR', 'BE', 'ES', 'DE', 'NL', 'CH', 'LU');
-    $this->widgetSchema['country'] = new sfWidgetFormI18nSelectCountry(array('culture' => 'fr', 'countries' => $countries));
+    $this->widgetSchema['country'] = new sfWidgetFormI18nChoiceCountry(array('culture' => 'fr', 'countries' => $countries));
     $this->setDefault('country', 'FR');
 
     unset ($this->widgetSchema['subscription_date']);

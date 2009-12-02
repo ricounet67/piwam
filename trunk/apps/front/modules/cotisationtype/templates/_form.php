@@ -11,7 +11,7 @@
         <input type="hidden" name="sf_method" value="put" />
     <?php endif; ?>
 
-    <table class="formArray" summary="Register a new Fee">
+    <table class="formtable" summary="Register a new Fee">
 
         <!-- Form footer, displays buttons -->
 

@@ -109,7 +109,7 @@ account_new:
 
 
 expenses_list:
-  url:    /depenses
+  url:    /depenses/*
   param:  { module: depense, action: index }
 
 expense_show:
@@ -132,7 +132,7 @@ expense_new:
 
 
 incomes_list:
-  url:    /recettes
+  url:    /recettes/*
   param:  { module: recette, action: index }
 
 
@@ -162,9 +162,9 @@ income_show:
 # -----------------------------------------------------------------------------
   
 members_list:
-  url:    /membres
+  url:    /membres/*
   param:  { module: membre, action: index}
-  
+
 members_map:
   url:    /carte
   param:  { module: membre, action: map }
@@ -209,6 +209,26 @@ member_endregistration:
   url:    /membre/inscription_finie
   param:  { module: membre, action: endregistration }
 
+member_new:
+  url:    /membre/nouveau
+  param:  { module: membre, action: new }
+
+member_create:
+  url:    /membre/creation
+  param:  { module: membre, action: create }
+
+member_update:
+  url:    /membre/update/:id
+  param:  { module: membre, action: update }
+  
+member_ask_subscription:
+  url:    /membre/demande_adhesion
+  param:  { module: membre, action: createpending }
+  
+member_first:
+  url:    /membre/premier_membre
+  param:  { module: membre, action: firstcreate }
+  
 
 # -----------------------------------------------------------------------------
 #     ASSOCIATION ACTIONS
@@ -217,6 +237,26 @@ member_endregistration:
 associations_list:
   url:    /associations
   param:  { module: association, action: index }
+
+association_edit:
+  url:    /association/editer/:id
+  param:  { module: association, action: edit }
+
+association_new:
+  url:    /association/nouvelle
+  param:  { module: association, action: new }
+
+association_create:
+  url:    /association/creation
+  param:  { module: association, action: create }
+    
+association_update:
+  url:    /association/update/:id
+  param:  { module: association, action: update }
+
+association_delete:
+  url:    /association/delete/:id
+  param:  { module: association, action: delete }
 
 
   
@@ -254,7 +294,7 @@ status_show:
 # -----------------------------------------------------------------------------
  
 dues_list:
-  url:    /cotisations
+  url:    /cotisations/*
   param:  { module: cotisation, action: index }
 
 due_show:

@@ -66,6 +66,39 @@ class MemberTable extends Doctrine_Table
   }
 
   /**
+   * Build a Doctrine_Query object according to criteria given by
+   * parameter $params.
+   * Supported params :
+   *    - association_id
+   *    - magic (search on several fields)
+   *    - state
+   *
+   * @param   array           $params
+   * @return  Doctrine_Query
+   */
+  public static function getQuerySearch($params)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Member m');
+
+    if (isset ($params['association_id']))
+    {
+      $q->andWhere('m.association_id = ?', $params['association_id']);
+    }
+    if (isset ($params['state']))
+    {
+      $q->andWhere('m.state = ?', $params['state']);
+    }
+    if (isset ($params['magic']))
+    {
+      $query = '%' . $params['magic'] . '%';
+      $q->andWhere("concat(concat(m.firstname, ' '), m.lastname) LIKE ?", $query);
+    }
+
+    return $q;
+  }
+
+  /**
    * Get the list of active members who belong to the
    * association $id
    *
@@ -166,22 +199,25 @@ class MemberTable extends Doctrine_Table
   }
 
   /**
-   * Display Membre matching our query (actually this may
-   * only be AJAX query for autompleted fields)
+   * Display Membre matching our query. $query is going to be set as a
+   * magic criteria that the engine will try to match after comparison
+   * on several fields.
    *
-   * @param   string      $q : query
+   * @param   string      $query
    * @param   integer     $limit
    * @param   integer     $associationId
-   * @return  array of Membre
+   * @return  array of Member
    */
-  static public function search($q, $limit, $associationId)
+  static public function search($query, $limit, $associationId)
   {
-    $q = Doctrine_Query::create()
-          ->select('m.firstname')
-          ->from('Member m')
-          ;
+    $params = array('association_id' => $associationId,
+                    'state' => self::STATE_ENABLED,
+                    'magic'=> $query);
 
-    return $q->fetchArray();
+    $q = self::getQuerySearch($params);
+    $q->limit($limit);
+
+    return $q->execute();
   }
 
   /**
