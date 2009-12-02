@@ -54,7 +54,8 @@ class membreActions extends sfActions
   public function executeSearch(sfWebRequest $request)
   {
     $params = $request->getParameter('search');
-    $magicField  = $request->getParameter('autocomplete_search[magic]');
+    $autocomplete = $request->getParameter('autocomplete_searc');
+    $magicField  = $autocomplete['magic'];
     $params['magic'] = $magicField;
 
     if (strlen($params['magic']) > 0)
@@ -72,8 +73,8 @@ class membreActions extends sfActions
     }
 
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(),
-                                                       'ajaxUrl'       => $ajaxUrl));
+    $aId = $this->getUser()->getAssociationId();
+    $this->searchForm = new SearchUserForm(null, array('associationId' => $aId, 'ajaxUrl' => $ajaxUrl));
   }
 
   /**
@@ -307,7 +308,8 @@ class membreActions extends sfActions
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $aId = $request->getParameter('member[association_id]');
+    $member = $request->getParameter('member');
+    $aId = $member['association_id'];
     $ctxt = $this->getContext();
     $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt));
     $this->processForm($request, $this->form);
@@ -359,7 +361,8 @@ class membreActions extends sfActions
       $this->redirect('@error_credentials');
     }
 
-    $associationId = $request->getParameter('member[association_id]');
+    $member = $request->getParameter('member');
+    $associationId = $member['association_id'];
     $this->form = new MemberForm($user, array('associationId' => $associationId,
                                               'context' => $this->getContext()));
     $this->aclForm  = new AclCredentialForm();
@@ -416,8 +419,9 @@ class membreActions extends sfActions
   public function executeCreatepending(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $association_id = $request->getParameter("member[association_id]");
-    $this->form = new MemberForm(null, array('associationId' => $association_id,
+    $member = $request->getParameter("member");
+    $associationOd = $member['association_id'];
+    $this->form = new MemberForm(null, array('associationId' => $associationId,
                                              'context' => $this->getContext()));
     $request->setAttribute('pending', true);
     $this->processForm($request, $this->form);
