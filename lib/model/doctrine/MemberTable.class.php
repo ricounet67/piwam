@@ -169,19 +169,30 @@ class MemberTable extends Doctrine_Table
    * Display Membre matching our query (actually this may
    * only be AJAX query for autompleted fields)
    *
-   * @param   string      $q : query
+   * @param   string      $query
    * @param   integer     $limit
    * @param   integer     $associationId
-   * @return  array of Membre
+   * @return  array       Associative array id => first/lastname
    */
-  static public function search($q, $limit, $associationId)
+  static public function search($query, $limit, $associationId)
   {
+    $query = '%' . $query . '%';
     $q = Doctrine_Query::create()
-          ->select('m.firstname')
+          ->select('m.firstname, m.lastname')
           ->from('Member m')
-          ;
+          ->where("concat(concat(m.firstname, ' '), m.lastname) LIKE ?", $query)
+          ->andWhere('m.association_id = ?', $associationId)
+          ->limit($limit);
 
-    return $q->fetchArray();
+    $members = $q->fetchArray();
+    $result  = array();
+
+    foreach ($members as $member)
+    {
+      $result[$member['id']] = $member['firstname'] . ' ' . $member['lastname'];
+    }
+
+    return $result;
   }
 
   /**
