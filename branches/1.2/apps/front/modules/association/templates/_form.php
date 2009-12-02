@@ -1,7 +1,7 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
 
-<form action="<?php echo url_for('@association_' . ($form->getObject()->isNew() ? 'new' : 'update?id=' . $form->getObject()->getId())) ?>"
+<form action="<?php echo url_for('@association_' . ($form->getObject()->isNew() ? 'create' : 'update?id=' . $form->getObject()->getId())) ?>"
       method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
     <?php if (!$form->getObject()->isNew()): ?>
