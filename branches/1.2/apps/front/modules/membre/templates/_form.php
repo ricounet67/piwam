@@ -45,7 +45,7 @@ use_javascript('custom-forms/si.files.js')
         <input type="hidden" name="sf_method" value="put" />
     <?php endif; ?>
 
-<table class="formArray">
+<table class="formtable">
 
     <!-- Form footer which display buttons -->
 
