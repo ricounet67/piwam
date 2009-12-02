@@ -26,7 +26,7 @@
 <?php else: ?>
 
     <form action="<?php echo url_for('mailing/index') ?>" method="post">
-    <table class="formArray" title="mailing">
+    <table class="formtable" title="mailing">
 
         <!-- if message or subject is empty -->
 

@@ -1,10 +1,8 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
 
-<form
-    action="<?php echo url_for('association/' . ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '?id=' . $form->getObject()->getId() : '')) ?>"
-    method="post"
-    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<form action="<?php echo url_for('@association_' . ($form->getObject()->isNew() ? 'create' : 'update?id=' . $form->getObject()->getId())) ?>"
+      method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
@@ -25,9 +23,9 @@
                 <?php if ($form->getObject()->isNew()): ?>
                     <input type="submit" value="Étape suivante >" class="button" />
                 <?php else: ?>
-                    <?php echo link_to('Supprimer', 'association/delete?id=' . $form->getObject()->getId(), array('class' => 'formLinkButton', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
+                    <?php echo link_to('Supprimer', '@association_delete?id=' . $form->getObject()->getId(), array('class' => 'formLinkButton', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
                     <input type="submit" value="Sauvegarder" class="button" name="Sauvegarder" />
-                <?php endif; ?>
+                <?php endif ?>
 
             </td>
         </tr>
@@ -62,7 +60,7 @@
 
         <?php if ($form->getObject()->isNew()): ?>
             <tr>
-                <th><?php echo $form['ping_piwam']->renderLabel ?></th>
+                <th><?php echo $form['ping_piwam']->renderLabel() ?> :</th>
                 <td><?php echo $form['ping_piwam'] ?> Dire à l'auteur que mon association utilise Piwam</td>
             </tr>
         <?php endif ?>

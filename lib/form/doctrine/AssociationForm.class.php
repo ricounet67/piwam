@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Association form.
  *
@@ -20,7 +19,7 @@ class AssociationForm extends BaseAssociationForm
     if (! $this->getObject()->isNew())
     {
       $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
-      $this->setDefault('updated_by', sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user'));
+      $this->setDefault('updated_by', sfContext::getInstance()->getUser()->getUserId());
       $this->validatorSchema['updated_by'] = new sfValidatorInteger(array('required' => false));
     }
     else
@@ -31,13 +30,13 @@ class AssociationForm extends BaseAssociationForm
     }
 
     $this->widgetSchema['description'] = new sfWidgetFormTextarea();
-    $this->validatorSchema['description'] = new sfValidatorString(array('required' => false));
-
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
-    $this->setDefault('state', AssociationTable::STATE_ENABLED);
 
+    $this->validatorSchema['description'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
     $this->validatorSchema['state'] = new sfValidatorBoolean();
+
+    $this->setDefault('state', AssociationTable::STATE_ENABLED);
     $this->setLabels();
     $this->setClasses();
   }
@@ -51,7 +50,7 @@ class AssociationForm extends BaseAssociationForm
             'website'     => 'Site web',
             'name'        => 'Nom l\'association',
             'description' => 'Description',
-            'oubg'        => 'ping'
+            'ping_piwam'  => 'Notification'
     ));
   }
 

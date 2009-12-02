@@ -1,6 +1,6 @@
 <h2>Mise à jour de Piwam</h2>
 
-<table class="formArray">
+<table class="formtable">
     <tr>
         <th>Version actuelle de la base de données :</th>
         <td><pre><?php echo $currentDBVersion; ?></pre></td>

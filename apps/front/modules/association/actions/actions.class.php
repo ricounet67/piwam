@@ -1,5 +1,4 @@
 <?php
-
 /**
  * association actions.
  *
@@ -27,9 +26,9 @@ class associationActions extends sfActions
   {
     if ($request->isMethod('post'))
     {
-      $ph = $request->getParameterHolder();
-      $data = $ph->getAll();
-      foreach ($data['config'] as $key => $value)
+      $data = $request->getParameter('config');
+
+      foreach ($data as $key => $value)
       {
         Configurator::set($key, $value, $this->getUser()->getAssociationId());
       }
@@ -56,9 +55,11 @@ class associationActions extends sfActions
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('login'));
+      $login = $request->getParameter('login');
+
       if ($this->form->isValid())
       {
-        $user = MemberTable::getByUsernameAndPassword($request->getParameter('login[username]'), $request->getParameter('login[password]'));
+        $user = MemberTable::getByUsernameAndPassword($login['username'], $login['password']);
 
         if ($user instanceof Member)
         {
@@ -83,7 +84,7 @@ class associationActions extends sfActions
         }
         else
         {
-          if (null != MemberTable::getByUsername($request->getParameter('login[username]')))
+          if (null != MemberTable::getByUsername($login['username']))
           {
             $this->getUser()->setFlash('error', "Le mot de passe est invalide", false);
           }
@@ -123,9 +124,11 @@ class associationActions extends sfActions
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('password'));
+      $password = $request->getParameter('password');
+
       if ($this->form->isValid())
       {
-        $user = MemberTable::getByUsername($request->getParameter('password[username]'));
+        $user = MemberTable::getByUsername($password['username']);
 
         if ($user)
         {
@@ -142,10 +145,10 @@ class associationActions extends sfActions
             $from_label = $this->getUser()->getAssociationName('Piwam');
 
             $message    = Swift_Message::newInstance('Votre mot de passe')
-                            ->setBody($content)
-                            ->setContentType('text/html')
-                            ->setFrom(array($from_email => $from_label))
-                            ->setTo(array($user->getEmail() => $user->getFirstname()));
+            ->setBody($content)
+            ->setContentType('text/html')
+            ->setFrom(array($from_email => $from_label))
+            ->setTo(array($user->getEmail() => $user->getFirstname()));
             try
             {
               $mailer->send($message);
@@ -250,7 +253,8 @@ class associationActions extends sfActions
   }
 
   /**
-   * Perform update of fields
+   * Perform update of fields. Name of the association is also updated for the
+   * session of the current user
    *
    * @param   sfWebRequest    $request
    */
@@ -264,6 +268,7 @@ class associationActions extends sfActions
 
     if ($this->processForm($request, $this->form))
     {
+      $this->getUser()->setAttribute('association_name', $association->getName(), 'user');
       $this->redirect('@homepage');
     }
     else
@@ -297,8 +302,9 @@ class associationActions extends sfActions
     if ($form->isValid())
     {
       $this->_association = $form->save();
+      $params = $request->getParameter('association');
 
-      if ($request->getParameter('association[ping_piwam]', false))
+      if (isset($params['ping_piwam']) && $params['ping_piwam'] == 1)
       {
         $this->getUser()->setAttribute('ping_piwam', '1', 'temp');
       }
@@ -316,31 +322,29 @@ class associationActions extends sfActions
    */
   private function _canRegisterAnotherAssociation()
   {
-    if (sfConfig::get('app_multi_association'))
+    try
     {
-      return true;
-    }
-    else
-    {
-      try
+      if (AssociationTable::doCount() === 0)
       {
-        if (AssociationTable::doCount() === 0)
+        return true;
+      }
+      else
+      {
+        if (sfConfig::get('app_multi_association'))
         {
           return true;
         }
-        else
-        {
-          return false;
-        }
+
+        return false;
       }
-      catch (Doctrine_Exception $e)
-      {
-        $this->redirect('@setup');
-      }
-      catch (Doctrine_Connection_Exception $e)
-      {
-        $this->redirect('@setup');
-      }
+    }
+    catch (Doctrine_Exception $e)
+    {
+      $this->redirect('@setup');
+    }
+    catch (Doctrine_Connection_Exception $e)
+    {
+      $this->redirect('@setup');
     }
   }
 }

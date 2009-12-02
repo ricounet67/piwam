@@ -23,29 +23,28 @@ use_javascript('custom-forms/si.files.js')
     SI.Files.stylizeAll();
 </script>
 
-
 <form action="<?php
     	if (isset($first))
     	{
-    		echo url_for('membre/firstcreate');
+    		echo url_for('@member_first');
     	}
     	elseif (isset($pending))
     	{
-            echo url_for('membre/createpending');
+            echo url_for('@member_ask_subscription');
     	}
     	else
     	{
-    		echo url_for('membre/' . ($form->getObject()->isNew() ? 'create' : 'update') . (!$form->getObject()->isNew() ? '?id=' . $form->getObject()->getId() : ''));
+    		echo url_for('@member_' . ($form->getObject()->isNew() ? 'create' : 'update?id=' . $form->getObject()->getId()));
     	}
     	?>"
-    method="post"
-    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+
+    method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
     <?php endif; ?>
 
-<table class="formArray">
+<table class="formtable">
 
     <!-- Form footer which display buttons -->
 
