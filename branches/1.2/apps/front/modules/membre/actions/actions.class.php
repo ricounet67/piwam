@@ -625,28 +625,7 @@ class membreActions extends sfActions
 
         if ($this->getUser()->getAttribute('ping_piwam', false, 'temp'))
         {
-          $methodObject = new Swift_MailTransport();
-          $swift        = Swift_Mailer::newInstance($methodObject);
-          $subject      = '[Piwam] '    . $association->getName() . ' utilise Piwam';
-          $content      = 'Site web : ' . $association->getWebsite() . '<br />';
-          $content     .= 'Email :    ' . $member->getEmail() . '<br />';
-          $content     .= 'Pseudo :   ' . $member->getUsername();
-          $concent     .= 'Version :      1.2-dev';
-          $from         = 'info-association@piwam.org';
-          $message      = Swift_Message::newInstance($subject)
-                            ->setBody($content)
-                            ->setContentType('text/html')
-                            ->setFrom(array($from => 'Piwam'))
-                            ->setTo(array('adrien@frenchcomp.net' => 'Developer'));
-
-          try
-          {
-            $swift->send($message);
-          }
-          catch(Swift_ConnectionException $e)
-          {
-            //
-          }
+          $this->notifyAuthor($association, $member);
         }
 
         $this->getUser()->removeTemporaryData();
@@ -675,7 +654,8 @@ class membreActions extends sfActions
   /**
    * Checks if we are allowed to edit/show profile of $user
    *
-   * @param   Member    $user
+   * @param   Member    $user               Profile that user try to access
+   * @param   string    $globalCredential   Optional required credential
    * @return  boolean
    */
   protected function isAllowedToManageProfile(Member $user, $globalCredential = null)
@@ -686,7 +666,7 @@ class membreActions extends sfActions
     }
     else
     {
-      if (! is_null($globalCredential))
+      if (null != $globalCredential)
       {
         if ($this->getUser()->hasCredential($globalCredential) == true)
         {
@@ -701,5 +681,39 @@ class membreActions extends sfActions
     }
 
     return false;
+  }
+
+  /**
+   * Send a notification to the author that Member uses Piwam to manage
+   * an association
+   *
+   * @param   Association   $association
+   * @param   Member        $member
+   * @since   1.2
+   */
+  protected function notifyAuthor(Association $association, Member $member)
+  {
+    $methodObject = new Swift_MailTransport();
+    $swift        = Swift_Mailer::newInstance($methodObject);
+    $subject      = '[Piwam] '    . $association->getName() . ' utilise Piwam';
+    $content      = 'Site web : ' . $association->getWebsite() . '<br />';
+    $content     .= 'Email :    ' . $member->getEmail() . '<br />';
+    $content     .= 'Pseudo :   ' . $member->getUsername();
+    $concent     .= 'Version :      1.2-dev';
+    $from         = 'info-association@piwam.org';
+    $message      = Swift_Message::newInstance($subject)
+                      ->setBody($content)
+                      ->setContentType('text/html')
+                      ->setFrom(array($from => 'Piwam'))
+                      ->setTo(array('adrien@frenchcomp.net' => 'Developer'));
+
+    try
+    {
+      $swift->send($message);
+    }
+    catch(Swift_ConnectionException $e)
+    {
+      //
+    }
   }
 }
