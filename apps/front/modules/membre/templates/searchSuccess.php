@@ -14,27 +14,27 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($membres as $member): ?>
+    <?php foreach ($members as $member): ?>
 
-    <?php if ($member->isAjourCotisation()): ?>
+    <?php if ($member->hasToPayDue()): ?>
         <tr>
     <?php else: ?>
         <tr class="cotisationNonAjour">
     <?php endif; ?>
 
-            <td><?php echo $member->getNom() ?></td>
-            <td><?php echo $member->getPrenom() ?></td>
-            <td><?php echo $member->getPseudo() ?></td>
-            <td><?php echo $member->getStatut() ?></td>
-            <td><?php echo $member->getVille() ?></td>
+            <td><?php echo $member->getLastname() ?></td>
+            <td><?php echo $member->getFirstname() ?></td>
+            <td><?php echo $member->getUsername() ?></td>
+            <td><?php echo $member->getStatus() ?></td>
+            <td><?php echo $member->getCity() ?></td>
             <td>
                 <?php if ($member->getEmail()) :?>
                     <?php echo mail_to($member->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
                 <?php else: ?>
                     <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
                 <?php endif; ?>
-                <?php echo link_to(image_tag('edit.png',    array('alt' => '[modifier]')), '@member_edit?id=' . $member->getId()) ?>
-                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')), '@member_show?id=' . $member->getId()) ?>
+                <?php echo link_to(image_tag('edit.png',    array('alt' => '[modifier]')),  '@member_edit?id=' . $member->getId()) ?>
+                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')),   '@member_show?id=' . $member->getId()) ?>
                 <?php echo link_to(image_tag('delete.png',  array('alt' => '[supprimer]')), '@member_delete?id=' . $member->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
             </td>
         </tr>
