@@ -14,36 +14,15 @@
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($members as $member): ?>
-
-    <?php if ($member->hasToPayDue()): ?>
-        <tr>
-    <?php else: ?>
-        <tr class="cotisationNonAjour">
-    <?php endif; ?>
-
-            <td><?php echo $member->getLastname() ?></td>
-            <td><?php echo $member->getFirstname() ?></td>
-            <td><?php echo $member->getUsername() ?></td>
-            <td><?php echo $member->getStatus() ?></td>
-            <td><?php echo $member->getCity() ?></td>
-            <td>
-                <?php if ($member->getEmail()) :?>
-                    <?php echo mail_to($member->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
-                <?php else: ?>
-                    <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
-                <?php endif; ?>
-                <?php echo link_to(image_tag('edit.png',    array('alt' => '[modifier]')),  '@member_edit?id=' . $member->getId()) ?>
-                <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')),   '@member_show?id=' . $member->getId()) ?>
-                <?php echo link_to(image_tag('delete.png',  array('alt' => '[supprimer]')), '@member_delete?id=' . $member->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
+        <?php foreach ($members as $member): ?>
+            <?php include_partial('memberRow', array('member' => $member)) ?>
+        <?php endforeach ?>
     </tbody>
 </table>
 
 
 <!-- Legend -->
+
 <table style="border: 1px solid #999; margin-top: 15px; width: 200px;">
     <tr style="font-weight: bold; background-color: #ddd; color: #555;">
         <td colspan="2">Légende&nbsp;</td>
