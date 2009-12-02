@@ -27,9 +27,9 @@ class associationActions extends sfActions
   {
     if ($request->isMethod('post'))
     {
-      $ph = $request->getParameterHolder();
-      $data = $ph->getAll();
-      foreach ($data['config'] as $key => $value)
+      $data = $request->getParameter('config');
+
+      foreach ($data as $key => $value)
       {
         Configurator::set($key, $value, $this->getUser()->getAssociationId());
       }
