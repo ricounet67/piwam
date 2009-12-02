@@ -530,7 +530,8 @@ class membreActions extends sfActions
   public function executeFirstcreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new MemberForm(null, array('associationId' => $this->getUser()->getTemporaryAssociationId(),
+    $associationId = $this->getUser()->getTemporaryAssociationId();
+    $this->form = new MemberForm(null, array('associationId' => $associationId,
                                              'context'       => $this->getContext(),
                                              'first'         => true));
     $request->setAttribute('first', true);
@@ -588,14 +589,13 @@ class membreActions extends sfActions
           $width = sfConfig::get('app_picture_width', 116);
           $height = sfConfig::get('app_picture_height', 116);
           $filepath = MemberTable::PICTURE_DIR . '/' . $member->getPicture();
-          $img = new sfImage($filepath, 'image/jpg');
+          $img = new sfImage($filepath);
           $img->thumbnail($width, $height, 'top');
           $img->saveAs($filepath);
         }
         catch (Exception $e)
         {
           // do nothing
-          // FIXME
         }
       }
 
@@ -694,18 +694,18 @@ class membreActions extends sfActions
   protected function notifyAuthor(Association $association, Member $member)
   {
     $methodObject = new Swift_MailTransport();
-    $swift        = Swift_Mailer::newInstance($methodObject);
-    $subject      = '[Piwam] '    . $association->getName() . ' utilise Piwam';
-    $content      = 'Site web : ' . $association->getWebsite() . '<br />';
-    $content     .= 'Email :    ' . $member->getEmail() . '<br />';
-    $content     .= 'Pseudo :   ' . $member->getUsername();
-    $concent     .= 'Version :      1.2-dev';
-    $from         = 'info-association@piwam.org';
-    $message      = Swift_Message::newInstance($subject)
-                      ->setBody($content)
-                      ->setContentType('text/html')
-                      ->setFrom(array($from => 'Piwam'))
-                      ->setTo(array('adrien@frenchcomp.net' => 'Developer'));
+    $swift    = Swift_Mailer::newInstance($methodObject);
+    $subject  = '[Piwam] '    . $association->getName() . ' utilise Piwam';
+    $content  = 'Site web : ' . $association->getWebsite() . '<br />';
+    $content .= 'Email :    ' . $member->getEmail() . '<br />';
+    $content .= 'Pseudo :   ' . $member->getUsername();
+    $concent .= 'Version :      1.2-dev';
+    $from     = 'info-association@piwam.org';
+    $message  = Swift_Message::newInstance($subject)
+                 ->setBody($content)
+                 ->setContentType('text/html')
+                 ->setFrom(array($from => 'Piwam'))
+                 ->setTo(array('adrien@frenchcomp.net' => 'Developer'));
 
     try
     {

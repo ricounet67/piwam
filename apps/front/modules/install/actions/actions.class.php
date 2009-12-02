@@ -1,5 +1,4 @@
 <?php
-
 /**
  * install actions.
  *
@@ -58,7 +57,7 @@ class installActions extends sfActions
     }
     else
     {
-      $this->forward('@check_config');
+      $this->redirect('@check_config');
     }
   }
 
@@ -137,7 +136,7 @@ class installActions extends sfActions
       $task->run(array('dsn'      => 'mysql:dbname=' . $dbname . ';host=' . $server,
                        'username' => $username,
                        'password' => $password),
-                array('env' => 'prod')
+                array('env' => 'all')
       );
       $insert = new sfDoctrineInsertSqlTask($this->dispatcher, new sfFormatter());
       $insert->run();
