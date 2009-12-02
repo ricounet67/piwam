@@ -254,6 +254,10 @@ association_update:
   url:    /association/update/:id
   param:  { module: association, action: update }
 
+association_delete:
+  url:    /association/delete/:id
+  param:  { module: association, action: delete }
+
 
   
 # -----------------------------------------------------------------------------
