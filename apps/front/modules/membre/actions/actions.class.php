@@ -53,14 +53,13 @@ class membreActions extends sfActions
    */
   public function executeSearch(sfWebRequest $request)
   {
-    $params = $request->getParameter('search');
-    $autocomplete = $request->getParameter('autocomplete_searc');
-    $magicField  = $autocomplete['magic'];
-    $params['magic'] = $magicField;
+    $params = $request->getParameter('autocomplete_search');
+    $query = $params['magic'];
+    $aId = $this->getUser()->getAssociationId();
 
-    if (strlen($params['magic']) > 0)
+    if (strlen($query) > 0)
     {
-      $this->members = MemberTable::doSearch($params);
+      $this->members = MemberTable::search($query, 50, $aId);
 
       if (count($this->members) === 1)
       {
@@ -73,7 +72,6 @@ class membreActions extends sfActions
     }
 
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
-    $aId = $this->getUser()->getAssociationId();
     $this->searchForm = new SearchUserForm(null, array('associationId' => $aId, 'ajaxUrl' => $ajaxUrl));
   }
 
@@ -183,8 +181,16 @@ class membreActions extends sfActions
     $limit   = $request->getParameter('limit');
     $id      = $request->getParameter('association_id');
     $members = MemberTable::search($query, $limit, $id);
+    $result  = array();
 
-    return $this->renderText(json_encode($members));
+    foreach ($members as $member)
+    {
+      $key = $member->getId();
+      $value = $member->getFirstname() . ' ' . $member->getLastname();
+      $result[$key] = $value;
+    }
+
+    return $this->renderText(json_encode($result));
   }
 
 
@@ -571,17 +577,38 @@ class membreActions extends sfActions
     {
       $member = $form->save();
 
+      /*
+       * If user has chosen a picture, we resize and try to upload it. The
+       * uploaded picture is overwritten by the new thumbnail
+       */
       if ($member->getPicture())
       {
-        $img = new sfImage(MemberTable::PICTURE_DIR . '/' . $member->getPicture(), 'image/jpg');
-        $img->thumbnail(sfConfig::get('app_picture_width', 116), sfConfig::get('app_picture_height', 116), 'top');
-        $img->saveAs(MemberTable::PICTURE_DIR . '/' . $member->getPicture());
+        try
+        {
+          $width = sfConfig::get('app_picture_width', 116);
+          $height = sfConfig::get('app_picture_height', 116);
+          $filepath = MemberTable::PICTURE_DIR . '/' . $member->getPicture();
+          $img = new sfImage($filepath, 'image/jpg');
+          $img->thumbnail($width, $height, 'top');
+          $img->saveAs($filepath);
+        }
+        catch (Exception $e)
+        {
+          // do nothing
+          // FIXME
+        }
       }
+
+      /*
+       * If we are processing the values given by the first member, who has
+       * normally just registered a new association
+       */
       if ($request->getAttribute('first') == true)
       {
         $association = AssociationTable::getById($member->getAssociationId());
         $association->setCreatedBy($member->getId());
         $association->save();
+
         $this->getUser()->setTemporarUserInfo($member);
         $credentials = AclActionTable::getAll();
 
@@ -598,17 +625,23 @@ class membreActions extends sfActions
 
         if ($this->getUser()->getAttribute('ping_piwam', false, 'temp'))
         {
-          $swiftMailer  = new Swift(new Swift_Connection_NativeMail());
-          $subject      = '[Piwam] '    . $association->getNom() . ' utilise Piwam';
-          $content      = 'Site web : ' . $association->getSiteWeb() . '<br />';
+          $methodObject = new Swift_MailTransport();
+          $swift        = Swift_Mailer::newInstance($methodObject);
+          $subject      = '[Piwam] '    . $association->getName() . ' utilise Piwam';
+          $content      = 'Site web : ' . $association->getWebsite() . '<br />';
           $content     .= 'Email :    ' . $member->getEmail() . '<br />';
-          $content     .= 'Pseudo :   ' . $member->getPseudo();
+          $content     .= 'Pseudo :   ' . $member->getUsername();
+          $concent     .= 'Version :      1.2-dev';
           $from         = 'info-association@piwam.org';
-          $swiftMessage = new Swift_Message($subject, $content, 'text/html');
+          $message      = Swift_Message::newInstance($subject)
+                            ->setBody($content)
+                            ->setContentType('text/html')
+                            ->setFrom(array($from => 'Piwam'))
+                            ->setTo(array('adrien@frenchcomp.net' => 'Developer'));
 
           try
           {
-            $swiftMailer->send($swiftMessage, 'adrien@frenchcomp.net', $from);
+            $swift->send($message);
           }
           catch(Swift_ConnectionException $e)
           {
@@ -627,7 +660,7 @@ class membreActions extends sfActions
       {
         $data = $request->getParameter('member');
 
-        if ((isset($data['created_by'])) && ($member->getPseudo() && $member->getPassword()))
+        if ((isset($data['created_by'])) && ($member->getUsername() && $member->getPassword()))
         {
           $this->redirect('@member_acl?id=' . $member->getId());
         }
