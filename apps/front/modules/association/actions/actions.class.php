@@ -1,5 +1,4 @@
 <?php
-
 /**
  * association actions.
  *
@@ -56,9 +55,11 @@ class associationActions extends sfActions
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('login'));
+      $login = $request->getParameter('login');
+
       if ($this->form->isValid())
       {
-        $user = MemberTable::getByUsernameAndPassword($request->getParameter('login[username]'), $request->getParameter('login[password]'));
+        $user = MemberTable::getByUsernameAndPassword($login['username'], $login['password']);
 
         if ($user instanceof Member)
         {
@@ -83,7 +84,7 @@ class associationActions extends sfActions
         }
         else
         {
-          if (null != MemberTable::getByUsername($request->getParameter('login[username]')))
+          if (null != MemberTable::getByUsername($login['username']))
           {
             $this->getUser()->setFlash('error', "Le mot de passe est invalide", false);
           }
@@ -123,9 +124,11 @@ class associationActions extends sfActions
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('password'));
+      $password = $request->getParameter('password');
+
       if ($this->form->isValid())
       {
-        $user = MemberTable::getByUsername($request->getParameter('password[username]'));
+        $user = MemberTable::getByUsername($password['username']);
 
         if ($user)
         {
@@ -297,8 +300,9 @@ class associationActions extends sfActions
     if ($form->isValid())
     {
       $this->_association = $form->save();
+      $params = $request->getParameter('association');
 
-      if ($request->getParameter('association[ping_piwam]', false))
+      if ($params['ping_piwam'] == 1)
       {
         $this->getUser()->setAttribute('ping_piwam', '1', 'temp');
       }
