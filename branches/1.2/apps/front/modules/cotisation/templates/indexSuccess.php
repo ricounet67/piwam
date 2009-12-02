@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($dues as $due): ?>
+            <?php foreach ($duesPager->getResults() as $due): ?>
                 <tr>
                     <td><?php echo $due->getAccount() ?></td>
                     <td><?php echo $due->getDueType() ?></td>
@@ -40,6 +40,8 @@
         <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer une cotisation', '@due_new') ?>
     </div>
 
+    <?php include_partial('global/pager', array('pager' => $duesPager, 'route' => '@dues_list', 'params' => array())) ?>
+
 
 
 <!-- No due type has been configured yet, we need to set one -->
@@ -52,4 +54,4 @@
         d'abord <?php echo link_to('créer un nouveau type de cotisation', '@duetype_new?first=1') ?>.
     </p>
 
-<?php endif; ?>
+<?php endif ?>

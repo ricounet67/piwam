@@ -10,6 +10,8 @@
 class cotisationActions extends sfActions
 {
   /**
+   * Displays the list of recorded Dues
+   *
    * r20 : provides to the view the number of dues types that
    * 		   have been set
    *
@@ -17,8 +19,10 @@ class cotisationActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->dues = DueTable::getForAssociation($this->getUser()->getAssociationId());
-    $this->typesExist = DueTypeTable::countForAssociation($this->getUser()->getAssociationId());
+    $id = $this->getUser()->getAssociationId();
+    $page = $request->getParameter('page', 1);
+    $this->duesPager = DueTable::getPagerEnabledForAssociation($id, $page);
+    $this->typesExist = DueTypeTable::countForAssociation($id);
   }
 
   /**
