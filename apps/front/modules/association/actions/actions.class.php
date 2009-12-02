@@ -253,7 +253,8 @@ class associationActions extends sfActions
   }
 
   /**
-   * Perform update of fields
+   * Perform update of fields. Name of the association is also updated for the
+   * session of the current user
    *
    * @param   sfWebRequest    $request
    */
@@ -267,6 +268,7 @@ class associationActions extends sfActions
 
     if ($this->processForm($request, $this->form))
     {
+      $this->getUser()->setAttribute('association_name', $association->getName(), 'user');
       $this->redirect('@homepage');
     }
     else
@@ -302,7 +304,7 @@ class associationActions extends sfActions
       $this->_association = $form->save();
       $params = $request->getParameter('association');
 
-      if ($params['ping_piwam'] == 1)
+      if (isset($params['ping_piwam']) && $params['ping_piwam'] == 1)
       {
         $this->getUser()->setAttribute('ping_piwam', '1', 'temp');
       }
