@@ -23,9 +23,9 @@
                 <?php if ($form->getObject()->isNew()): ?>
                     <input type="submit" value="Étape suivante >" class="button" />
                 <?php else: ?>
-                    <?php echo link_to('Supprimer', 'association/delete?id=' . $form->getObject()->getId(), array('class' => 'formLinkButton', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
+                    <?php echo link_to('Supprimer', '@association_delete?id=' . $form->getObject()->getId(), array('class' => 'formLinkButton', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
                     <input type="submit" value="Sauvegarder" class="button" name="Sauvegarder" />
-                <?php endif; ?>
+                <?php endif ?>
 
             </td>
         </tr>
