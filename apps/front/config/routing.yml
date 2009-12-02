@@ -213,9 +213,21 @@ member_new:
   url:    /membre/nouveau
   param:  { module: membre, action: new }
 
+member_create:
+  url:    /membre/creation
+  param:  { module: membre, action: create }
+
 member_update:
   url:    /membre/update/:id
   param:  { module: membre, action: update }
+  
+member_ask_subscription:
+  url:    /membre/demande_adhesion
+  param:  { module: membre, action: createpending }
+  
+member_first:
+  url:    /membre/premier_membre
+  param:  { module: membre, action: firstcreate }
   
 
 # -----------------------------------------------------------------------------
@@ -233,7 +245,11 @@ association_edit:
 association_new:
   url:    /association/nouvelle
   param:  { module: association, action: new }
-  
+
+association_create:
+  url:    /association/creation
+  param:  { module: association, action: create }
+    
 association_update:
   url:    /association/update/:id
   param:  { module: association, action: update }
