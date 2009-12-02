@@ -209,6 +209,14 @@ member_endregistration:
   url:    /membre/inscription_finie
   param:  { module: membre, action: endregistration }
 
+member_new:
+  url:    /membre/nouveau
+  param:  { module: membre, action: new }
+
+member_update:
+  url:    /membre/update/:id
+  param:  { module: membre, action: update }
+  
 
 # -----------------------------------------------------------------------------
 #     ASSOCIATION ACTIONS
@@ -221,6 +229,15 @@ associations_list:
 association_edit:
   url:    /association/editer/:id
   param:  { module: association, action: edit }
+
+association_new:
+  url:    /association/nouvelle
+  param:  { module: association, action: new }
+  
+association_update:
+  url:    /association/update/:id
+  param:  { module: association, action: update }
+
 
   
 # -----------------------------------------------------------------------------
