@@ -51,7 +51,7 @@ class AssociationForm extends BaseAssociationForm
             'website'     => 'Site web',
             'name'        => 'Nom l\'association',
             'description' => 'Description',
-            'oubg'        => 'ping'
+            'ping_piwam'  => 'Notification'
     ));
   }
 

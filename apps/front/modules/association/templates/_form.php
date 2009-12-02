@@ -62,7 +62,7 @@
 
         <?php if ($form->getObject()->isNew()): ?>
             <tr>
-                <th><?php echo $form['ping_piwam']->renderLabel ?></th>
+                <th><?php echo $form['ping_piwam']->renderLabel() ?> :</th>
                 <td><?php echo $form['ping_piwam'] ?> Dire à l'auteur que mon association utilise Piwam</td>
             </tr>
         <?php endif ?>
