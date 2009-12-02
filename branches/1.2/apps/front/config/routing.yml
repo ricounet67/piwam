@@ -294,7 +294,7 @@ status_show:
 # -----------------------------------------------------------------------------
  
 dues_list:
-  url:    /cotisations
+  url:    /cotisations/*
   param:  { module: cotisation, action: index }
 
 due_show:
