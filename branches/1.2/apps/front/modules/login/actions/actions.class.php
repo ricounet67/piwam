@@ -19,6 +19,11 @@ class loginActions extends sfActions
    */
   public function executeLogin(sfWebRequest $request)
   {
+    if (MemberTable::doCount() == 0)
+    {
+      $this->redirect('@association_new');
+    }
+
     $this->form = new LoginForm();
     $this->displayRegisterLink = $this->_canRegisterAnotherAssociation();
 
@@ -29,7 +34,9 @@ class loginActions extends sfActions
 
       if ($this->form->isValid())
       {
-        $user = MemberTable::getByUsernameAndPassword($login['username'], $login['password']);
+        $username = $login['username'];
+        $password = $login['password'];
+        $user = MemberTable::getByUsernameAndPassword($username, $password);
 
         if ($user instanceof Member)
         {
@@ -54,7 +61,7 @@ class loginActions extends sfActions
         }
         else
         {
-          if (null != MemberTable::getByUsername($login['username']))
+          if (null != MemberTable::getByUsername($username))
           {
             $this->getUser()->setFlash('error', "Le mot de passe est invalide", false);
           }
@@ -69,7 +76,7 @@ class loginActions extends sfActions
     $this->setLayout(false);
   }
 
- /**
+  /**
    * Logout action. Redirect to homepage once credentials and cookies
    * have been removed.
    *
@@ -116,18 +123,19 @@ class loginActions extends sfActions
             $from_email = Configurator::get('address', $user->getAssociationId(), 'info-association@piwam.org');
             $from_label = $this->getUser()->getAssociationName('Piwam');
 
-            $message    = Swift_Message::newInstance('Votre mot de passe')
-            ->setBody($content)
-            ->setContentType('text/html')
-            ->setFrom(array($from_email => $from_label))
-            ->setTo(array($user->getEmail() => $user->getFirstname()));
+            $message = Swift_Message::newInstance('Votre mot de passe');
+            $message->setBody($content);
+            $message->setContentType('text/html');
+            $message->setFrom(array($from_email => $from_label));
+            $message->setTo(array($user->getEmail() => $user->getFirstname()));
+
             try
             {
               $mailer->send($message);
             }
             catch(Swift_ConnectionException $e)
             {
-              $this->getUser()->setFlash('error', 'Le mot de passe n\'a pu être envoyé par e-mail', false);
+              $this->getUser()->setFlash('error', 'Le mot de passe n\'a pas pu être envoyé par e-mail', false);
             }
 
             $this->getUser()->setFlash('notice', 'Le nouveau mot de passe a été envoyé par e-mail', false);
