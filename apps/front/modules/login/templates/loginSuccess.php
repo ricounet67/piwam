@@ -15,6 +15,18 @@
     <div id="login">
         <h1>Piwam</h1>
 
+        <p class="notice">
+            Bienvenue dans la version 1.2-dev de Piwam !<br />
+            Il s'agit d'une version de développement, tenez vous <a href="http://piwam.googlecode.com">à jour</a> !
+        </p>
+
+        <?php if ($sf_user->hasFlash('error')):?>
+            <p class="error">
+                <?php echo image_tag('error', array('alt' => '[erreur]', 'align' => 'top')) . ' ' . $sf_user->getFlash('error') ?>
+            </p>
+        <?php endif ?>
+
+
         <form action="<?php echo url_for('@login') ?>" method="post">
         <table class="formtable">
             <tr>
