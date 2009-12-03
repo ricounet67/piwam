@@ -79,7 +79,7 @@ class associationActions extends sfActions
           }
           else
           {
-            $this->redirect('@member_by_id?id=' . $user->getId());
+            $this->redirect('@member_show?id=' . $user->getId());
           }
         }
         else
