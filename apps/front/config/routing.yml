@@ -18,16 +18,16 @@ error_credentials:
 # ----------------------------------------------------------------------------- 
 
 login:
-  url:    /login
-  param:  { module: association, action: login }
+  url:    /identification
+  param:  { module: login, action: login }
 
 logout:
   url:    /logout
-  param:  { module: association, action: logout }
+  param:  { module: login, action: logout }
   
 retrieve_password:
   url:    /recuperer_mot_de_passe
-  param:  { module: association, action: forgottenpassword }
+  param:  { module: login, action: forgottenpassword }
   
 setup:
   url:    /install
