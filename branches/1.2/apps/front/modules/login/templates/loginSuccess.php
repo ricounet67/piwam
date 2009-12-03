@@ -54,7 +54,7 @@
                 <td>
                     <div class="input">
                         <?php echo $form['password'] ?>
-                        <?php echo link_to('Mot de passe oublié ?', 'association/forgottenpassword') ?>
+                        <?php echo link_to('Mot de passe oublié ?', '@retrieve_password') ?>
                     </div>
                 </td>
             </tr>
