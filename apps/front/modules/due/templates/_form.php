@@ -3,7 +3,7 @@
 
 
 <form
-    action="<?php echo url_for('cotisation/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>"
+    action="<?php echo url_for('@due_'.($form->getObject()->isNew() ? 'create' : 'update?id='.$form->getObject()->getId())) ?>"
     method="post"
     <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
@@ -34,27 +34,27 @@
         <tbody>
         <?php echo $form->renderGlobalErrors() ?>
             <tr>
-                <th>Compte bénéficiaire :</th>
+                <th><?php echo $form['account_id']->renderLabel() ?> :</th>
                 <td><?php echo $form['account_id'] ?> <?php echo $form['account_id']->renderError() ?>
                 </td>
             </tr>
             <tr>
-                <th>Type de cotisation</th>
+                <th><?php echo $form['due_type_id']->renderLabel() ?> :</th>
                 <td><?php echo $form['due_type_id'] ?> <?php echo $form['due_type_id']->renderError() ?>
                 </td>
             </tr>
             <tr>
-                <th>Montant</th>
+                <th><?php echo $form['amount']->renderLabel() ?> :</th>
                 <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?>
                 </td>
             </tr>
             <tr>
-                <th>Membre :</th>
+                <th><?php echo $form['member_id']->renderLabel() ?> :</th>
                 <td><?php echo $form['member_id'] ?> <?php echo $form['member_id']->renderError() ?>
                 </td>
             </tr>
             <tr>
-                <th>Date de versement :</th>
+                <th><?php echo $form['date']->renderLabel() ?> :</th>
                 <td><?php echo $form['date'] ?> <?php echo $form['date']->renderError() ?>
                 </td>
             </tr>
