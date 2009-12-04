@@ -106,6 +106,15 @@ account_new:
   url:    /compte/nouveau
   param:  { module: account, action: new }
 
+account_create:
+  url:    /compte/creation
+  param:  { module: account, action: create }
+
+account_update:
+  url:    /compte/mettre_a_jour/:id
+  param:  { module: account, action: update }
+
+
 
 
 expenses_list:
