@@ -27,13 +27,13 @@
         <!-- Display email icon if an email has been set -->
 
         <?php if ($member->getEmail()) :?>
-            <?php echo mail_to($member->getEmail(), image_tag('mail.png', array('alt' => '[e-mail]'))) ?>
+            <?php echo mail_to($member->getEmail(), image_tag('icons/email.png', array('alt' => '[e-mail]'))) ?>
         <?php else: ?>
-            <?php echo image_tag('no_mail', array('alt' => '[pas d\'adresse]')) ?>
+            <?php echo image_tag('icons/no_email.png', array('alt' => '[pas d\'adresse]')) ?>
         <?php endif; ?>
 
-        <?php echo link_to(image_tag('edit.png',    array('alt' => '[modifier]')),  '@member_edit?id=' . $member->getId()) ?>
-        <?php echo link_to(image_tag('details.png', array('alt' => '[détails]')),   '@member_show?id=' . $member->getId()) ?>
-        <?php echo link_to(image_tag('delete.png',  array('alt' => '[supprimer]')), '@member_delete?id=' . $member->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
+        <?php echo link_to(image_tag('icons/edit.png',    array('alt' => '[modifier]')),  '@member_edit?id=' . $member->getId()) ?>
+        <?php echo link_to(image_tag('icons/profile.png', array('alt' => '[détails]')),   '@member_show?id=' . $member->getId()) ?>
+        <?php echo link_to(image_tag('icons/delete.png',  array('alt' => '[supprimer]')), '@member_delete?id=' . $member->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
     </td>
 </tr>
