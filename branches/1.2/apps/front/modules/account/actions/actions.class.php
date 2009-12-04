@@ -45,7 +45,6 @@ class accountActions extends sfActions
     $association_id = $this->getUser()->getAssociationId();
     $this->form = new AccountForm(null, array('associationId' => $association_id));
     $this->form->setDefault('created_by', $this->getUser()->getUserId());
-    $this->form->setDefault('association_id', $association_id);
   }
 
   /**
@@ -96,7 +95,7 @@ class accountActions extends sfActions
     $this->forward404Unless($account, "Account {$id} does not exist.");
     $this->form = new AccountForm($account, array('associationId' => $account->getAssociationId()));
     $this->processForm($request, $this->form);
-    $this->redirect('@accounts_list');
+    $this->setTemplate('edit');
   }
 
   /**
