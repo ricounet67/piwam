@@ -354,13 +354,22 @@ duetype_new:
   url:    /type_cotisation/nouveau/*
   param:  { module: duetype, action: new }
 
+duetype_create:
+  url:    /type_cotisation/creation
+  param:  { module: duetype, action: create }
+
 duetype_edit:
   url:    /types_cotisation/editer/:id
   param:  { module: duetype, action: edit }
+
+duetype_update:
+  url:    /types_cotisation/mettre_a_jour/:id
+  param:  { module: duetype, action: update }
   
 duetype_delete:
   url:    /types_cotisation/supprimer/:id
   param:  { module: duetype, action: delete }
+
 
 
 # -----------------------------------------------------------------------------
