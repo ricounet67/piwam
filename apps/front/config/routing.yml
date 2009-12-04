@@ -223,6 +223,10 @@ member_update:
   
 member_ask_subscription:
   url:    /membre/demande_adhesion
+  param:  { module: membre, action: requestsubscription }
+
+member_create_pending:
+  url:    /membre/creation_adhesion
   param:  { module: membre, action: createpending }
   
 member_first:
