@@ -26,8 +26,6 @@ class AccountForm extends BaseAccountForm
     if ($this->getObject()->isNew())
     {
       $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
-      $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-      $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
       $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
       $this->setDefault('state', StatusTable::STATE_ENABLED);
@@ -41,6 +39,9 @@ class AccountForm extends BaseAccountForm
 
     $this->setClasses();
     $this->setLabels();
+    $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
+    $this->validatorSchema['association_id'] = new sfValidatorInteger();
+    $this->setDefault('association_id', $associationId);
 
     /*
      * Post validators, checking uniqueness
