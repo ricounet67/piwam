@@ -54,25 +54,26 @@
 
 <!-- Display the legend -->
 
-<table style="border: 1px solid #999; margin-top: 15px; width: 200px;">
+<table style="border: 1px solid #999; margin-top: 15px; margin-bottom: 10px; width: 500px;">
     <tr style="font-weight: bold; background-color: #ddd; color: #555;">
-        <td colspan="2">Légende&nbsp;</td>
+        <td colspan="5">Légende&nbsp;</td>
     </tr>
     <tr>
         <td class="cotisationNonAjour" width="20px">&nbsp;</td>
         <td>Cotisation non à jour</td>
+        <td><?php echo image_tag('icons/email', array('align' => 'absmiddle')) ?> Envoyer un e-mail</td>
+        <td><?php echo image_tag('icons/profile', array('align' => 'absmiddle')) ?> Détails</td>
+        <td><?php echo image_tag('icons/delete', array('align' => 'absmiddle')) ?> Supprimer</td>
     </tr>
     <tr>
         <td style="border: 1px solid #bbb;" width="20px">&nbsp;</td>
         <td>Cotisation à jour</td>
+        <td><?php echo image_tag('icons/no_email', array('align' => 'absmiddle')) ?> Pas d'e-mail</td>
+        <td><?php echo image_tag('icons/edit', array('align' => 'absmiddle')) ?> Éditer</td>
+        <td>&nbsp;</td>
     </tr>
 </table>
 
-
-<div class="addNew"
-    style="width: 194px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
-        <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer un membre', '@member_new') ?>
-</div>
-
+<?php echo link_to('Enregistrer un membre', '@member_new', array('class' => 'add grey button')) ?>
 
 <?php include_partial('global/pager', array('pager' => $members, 'route' => '@members_list', 'params' => array('orderby' => $orderByColumn))) ?>
