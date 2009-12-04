@@ -234,7 +234,7 @@ member_first:
   param:  { module: member, action: firstcreate }
  
 member_validate:
-  url:    /membre/validation
+  url:    /membre/validation/:id
   param:  { module: member, action: validate } 
 
 # -----------------------------------------------------------------------------
