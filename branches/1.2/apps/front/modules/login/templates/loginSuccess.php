@@ -13,12 +13,7 @@
     <script type="text/javascript">var J = jQuery.noConflict();</script>
 
     <div id="login">
-        <h1>Piwam</h1>
-
-        <p class="notice">
-            Bienvenue dans la version 1.2-dev de Piwam !<br />
-            Il s'agit d'une version de développement, tenez vous <a href="http://piwam.googlecode.com">à jour</a> !
-        </p>
+        <h1>Piwam 1.2-dev</h1>
 
         <?php if ($sf_user->hasFlash('error')):?>
             <p class="error">
@@ -28,59 +23,46 @@
 
 
         <form action="<?php echo url_for('@login') ?>" method="post">
-        <table class="formtable">
-            <tr>
-                <td colspan="2">
-                    <h2>Authentification</h2>
-                    <?php echo $form->renderGlobalErrors() ?>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Nom d'utilisateur<br />
-                    <?php echo $form['username']->renderError() ?>
-                </th>
-                <td>
-                    <div class="input">
-                        <?php echo $form['username'] ?>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    Mot de passe<br />
-                    <?php echo $form['password']->renderError() ?>
-                </th>
-                <td>
-                    <div class="input">
-                        <?php echo $form['password'] ?>
-                        <?php echo link_to('Mot de passe oublié ?', '@retrieve_password') ?>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2"><h2>Ou utilisez OpenID</h2></td>
-            </tr>
-            <tr>
-                <th>
-                    Open ID<br />
-                    <?php echo $form['openid']->renderError() ?>
-                </th>
-                <td>
-                    <div class="input">
-                        <?php echo $form['openid'] ?>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>
-                    <input type="submit" value="S'identifier" class="button" name="S'identifier" />
-                </td>
-            </tr>
-        </table>
-        </form>
+            <div>
+                <?php echo $form->renderGlobalErrors() ?>
 
+                <?php echo $form['username']->renderLabel() ?>
+                <?php echo $form['username']->renderError() ?>
+                <div class="input">
+                    <?php echo $form['username'] ?>
+                </div>
+
+                <?php echo $form['password']->renderLabel() ?>
+                <?php echo $form['password']->renderError() ?>
+                <div class="input">
+                    <?php echo $form['password'] ?>
+                    <?php echo link_to('Mot de passe oublié ?', '@retrieve_password') ?>
+                </div>
+            </div>
+
+
+            <div>
+                <h2>Ou utilisez OpenID</h2>
+
+                <?php echo $form['openid']->renderLabel() ?>
+                <?php echo $form['openid']->renderError() ?>
+                <div class="input">
+                    <?php echo $form['openid'] ?>
+                </div>
+            </div>
+
+
+            <br />
+            <input type="submit" value="S'identifier" class="button" name="S'identifier" />
+
+        </form>
     </div>
+
+
+    <?php if ($displayRegisterLink): ?>
+        <div id="topLeftCorner">
+            <?php echo link_to(image_tag('new_association.jpg', array('alt' => 'Nouvelle association')), '@association_new') ?>
+        </div>
+    <?php endif ?>
 </body>
 </html>
