@@ -113,3 +113,131 @@ input {
     -moz-opacity: 0;
     filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 }
+
+
+/* -----------------------------------------------------------------------------
+ *
+ * Styles for login form
+ *
+ *----------------------------------------------------------------------------*/
+ 
+div#login
+{
+    margin: 5% auto 50px auto;
+    width: 375px;
+    background-color: #ECF3F3;
+    padding: 2px 10px 10px 10px;
+    border: 6px solid #B6E9E3;
+    -moz-border-radius: 10px;
+    text-align: center;
+}
+
+div#login label
+{
+    text-align: left;
+    color: #8398A0;   
+    margin-left: 5px;
+}
+
+div#login h1
+{
+    margin: 10px 0 0 0;
+    text-align: left;
+}
+
+div#login h2
+{
+    font-family: Helvetica;
+    font-weight: lighter;
+    letter-spacing: 2px;
+    margin: 10px 10px 10px 0px;
+}
+
+div#login div
+{
+    margin-top: 20px;
+    text-align: left;
+}
+
+div#login #login_username, div#login #login_openid
+{
+    padding: 8px;
+    width: 350px;
+    font-size: 15px;
+    color: #658388;
+}
+
+div#login #login_password
+{
+    color: #658388;
+    font-size: 15px;
+    padding: 8px;
+    width: 200px;
+}
+
+div#login th
+{
+    background-color: #ECF3F3;
+    color: #507070;
+    width: 160px;
+}
+
+div#login .input
+{
+    padding: 3px;
+    background-color: #BBE6EC;
+    margin: 0px 0px 10px 0px;
+    -moz-border-radius: 3px;
+}
+
+div#login .input:Hover
+{
+    background-color: #9AD3DB;
+}
+
+div#login a, div#login a:Hover
+{
+    color: #496175;
+    border-bottom: 1px dotted #496175;
+    text-decoration: none;
+}
+
+div#login .error_list li
+{
+    font-weight: lighter;
+}
+
+div#login .button
+{
+    font-size: 14px;
+    font-family: Helvetica;
+    background: #222 url(overlay-button.png) repeat-x;
+    display: inline-block;
+    padding: 5px 10px 6px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: lighter;
+    line-height: 1;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(0,0,0,0.25);
+    position: relative;
+    cursor: pointer;
+    background-color: #475F63;
+}
+
+div#login .button:Hover
+{
+    background-color: #324949;
+}
+
+
+div#topLeftCorner
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+}

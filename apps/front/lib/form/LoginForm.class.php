@@ -7,19 +7,32 @@
  */
 class LoginForm extends BaseForm
 {
-    public function configure()
-    {
-        $this->setWidgets(array(
-	      'username' => new sfWidgetFormInputText(), 
-	      'password' => new sfWidgetFormInputPassword() 
-        ));
+  /**
+   * Configure form's widgets
+   *
+   * 1.2 : New OpenID field
+   */
+  public function configure()
+  {
+    $this->setWidgets(array(
+      'username' => new sfWidgetFormInputText(),
+      'password' => new sfWidgetFormInputPassword(),
+      'openid'   => new sfWidgetFormInputText(),
+    ));
 
-        $this->widgetSchema->setNameFormat('login[%s]');
+    $this->setValidators(array(
+      'username' => new sfValidatorString(array('required' => true)),
+      'password' => new sfValidatorString(array('required' => true)),
+      'openid'   => new sfValidatorEmail(array('required' => false)),
+    ));
 
-        $this->setValidators(array(
-	      'username' => new sfValidatorString(array('required' => true)), 
-	      'password' => new sfValidatorString(array('required' => true)),
-        ));
-    }
+    $this->widgetSchema->setLabels(array(
+      'username'  => "Nom d'utilisateur",
+      'password'  => 'Mot de pase',
+      'openid'    => 'Open ID'
+    ));
+
+    $this->widgetSchema->setNameFormat('login[%s]');
+  }
 }
 ?>

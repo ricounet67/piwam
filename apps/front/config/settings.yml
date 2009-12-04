@@ -13,8 +13,8 @@ all:
 
   .actions:
     # Set location of the login action
-    login_module:			association
-    login_action:			login  
+    login_module:	          login
+    login_action:			      login  
     
     # Set location of 404 error page
     error_404_module:       error

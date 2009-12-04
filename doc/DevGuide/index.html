@@ -23,12 +23,77 @@
 </p>
 
 
+
+<h2>Utilisation du SVN</h2>
+
+<h3>Branches et trunk</h3>
+<p>
+    Tout développement se fait associé à une branche. Le <i>merge</i> entre la
+    dernière révision de la branche de développement actuelle et le <i>trunk</i>
+    est effectué par un administrateur du projet de manière quotidienne.
+</p>
+
+<h3>Messages de commit</h3>
+<p>
+    Il est <strong>obligatoire</strong> d'inscrire un message lors du 
+    <i>commit</i>, en <strong>anglais</strong>. Le message doit être explicit
+    et décrire la modification apportée. Une balise vient préciser le(s) 
+    versions affectées.
+</p>
+<p>Exemple de message pour la version 1.2</p>
+<pre>
+    [1.2] Fixed issue #42 in DueTable : compute() never returns null
+</pre>
+
+<p>Message pour les versions 1.1 et 1.2 :</p>
+<pre>
+    [1.1, 1.2] Removed dead code in associationActions class
+</pre>
+
+
+
+
+
+
+<h2>Arborescence</h2>
+<h3>Nouvelles fonctionnalités : Plugins !</h3>
+<p>
+    Le développement de nouvelles fonctionnalités se fait en suivant le système
+    de <strong>plugins</strong> propre à symfony, toutes les ressources (code,
+    images, documentation...) doivent donc se situer dans le répertoire
+    /plugins/votrePlugin.
+</p>
+<p>
+    Si quelque chose semble impossible à réaliser en se contentant du répertoire
+    plugins, n'hésitez pas à contacter les développeurs de Piwam.
+</p>
+
+<h3>Corrections du coeur</h3>
+<p>
+    Les corrections et modifications du code dans le coeur de Piwam s'appliquent
+    "évidemment"... au coeur.
+</p>
+
+
+
+
+
+
+
 <h2>Normes de codage</h2>
+
+<h3>Encodage</h3>
+<p>
+    <strong>Tous</strong> les fichiers utilisent l'encodage 
+    <strong>UTF-8</strong>. Les sauts de ligne utilisent la convention UNIX (\n)
+</p>
 
 <h3>Indentation</h3>
 <p>
     L'indentation s'effectue par des espaces (et non des tabulations). La taille
-    des tabulations est de <strong>4</strong> espaces.
+    des tabulations est de <strong>2</strong> espaces dans le code PHP.
+    La taille des tabulations dans les fichiers HTML est de <strong>4</strong>
+    espaces pour maximiser la lisibilité des templates.
 </p>
 
 
@@ -96,9 +161,42 @@
     }
 </pre>
 
+
+
 <h2>Gestion de l'utilisateur courant</h2>
+<h3>La classe myUser</h3>
+<p>
+    La classe myUser (/apps/front/lib/myUser.class.php) représente la session
+    de l'utilisateur actuelle. Elle permet de récupérer un certain nombre
+    d'informations (id, nom d'utilisateur, association...). Référez-vous à
+    la documentation pour la liste des méthodes disponibles.
+</p>
+
+<p>
+    Au sein d'une action, vous pouvez y accéder de la sorte :
+</p>
+<pre>
+    /**
+     * Never forget to comment your code
+     */
+    public function executeFoo()
+    {
+      $this->getUser()-> ... ;
+    }
+</pre>
+
+
 
 <h2>Gestion des préférences</h2>
+
+
+
+
+<h2>Cas concréts</h2>
+<h3>Rajouter un champ aux utilisateurs</h3>
+<h3>Gestion de documents</h3>
+
+
 </div>
-    </body>
+</body>
 </html>
