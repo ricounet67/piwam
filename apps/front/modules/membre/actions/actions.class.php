@@ -7,7 +7,7 @@
  * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
-class membreActions extends sfActions
+class memberActions extends sfActions
 {
   /**
    * Lists members who belongs to the current association. By default we sort
