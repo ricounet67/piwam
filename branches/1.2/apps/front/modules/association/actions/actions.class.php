@@ -74,11 +74,6 @@ class associationActions extends sfActions
    */
   public function executeNew(sfWebRequest $request)
   {
-    if (! $this->_canRegisterAnotherAssociation())
-    {
-      $this->redirect('@error_credentials');
-    }
-
     $this->getUser()->removeTemporaryData();
     $this->form = new AssociationForm();
   }
