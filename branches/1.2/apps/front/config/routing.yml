@@ -76,6 +76,10 @@ activity_edit:
   url:    /activite/editer/:id
   param:  { module: activity, action: edit }
 
+activity_update:
+  url:    /activite/mettre_a_jour/:id
+  param:  { module: activity, action: update }
+
 activity_delete:
   url:    /activite/supprimer/:id
   param:  { module: activity, action: delete }
@@ -83,6 +87,11 @@ activity_delete:
 activity_new:
   url:    /activite/creer
   param:  { module: activity, action: new }
+
+activity_create:
+  url:    /activite/cration
+  param:  { module: activity, action: create }
+
 
 
 
@@ -129,6 +138,10 @@ expense_edit:
   url:    /depense/editer/:id
   param:  { module: expense, action: edit }
 
+expense_update:
+  url:    /depense/mettre_a_jour/:id
+  param:  { module: expense, action: update }
+
 expense_delete:
   url:    /depense/supprimer/:id
   param:  { module: expense, action: delete }
@@ -136,6 +149,10 @@ expense_delete:
 expense_new:
   url:    /depense/nouvelle
   param:  { module: expense, action: new }
+
+expense_create:
+  url:    /depense/creation
+  param:  { module: expense, action: create }
 
 
 
@@ -148,11 +165,19 @@ incomes_list:
 income_new:
   url:    /recette/nouvelle
   param:  { module: income, action: new }
-  
+
+income_create:
+  url:    /recette/creation
+  param:  { module: income, action: create }
+    
 income_edit:
   url:    /recette/editer/:id
   param:  { module: income, action: edit }
-  
+
+income_update:
+  url:    /recette/metter_a_jour/:id
+  param:  { module: income, action: update }
+    
 income_delete:
   url:    /recette/supprimer/:id
   param:  { module: income, action: delete }
