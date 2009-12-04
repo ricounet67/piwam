@@ -4,6 +4,7 @@
     <?php include_http_metas() ?>
     <?php include_metas() ?>
     <?php include_title() ?>
+    <?php include_stylesheets() ?>
     <link rel="shortcut icon" href="<?php echo $sf_request->getRelativeUrlRoot() ?>/favicon.ico" />
 </head>
 <body>
@@ -21,11 +22,33 @@
             <div id="left">
                 <h1>Piwam 1.2-dev</h1>
 
-                <?php if ($displayRegisterLink): ?>
+                <!-- If there is only one registered association, then
+                     we display some information about this association -->
+
+                <?php if ($numberOfAssociations == 1): ?>
                     <div>
-                        Enregistrer une <?php echo link_to('nouvelle association', '@association_new') ?>
+                        Rejoignez les <?php echo $association->getNumberOfEnabledMembers() ?>
+                        membres de <i><?php echo $association->getName() ?></i>
+
+                        <!-- Display a small icon with link to the association
+                             website if exists -->
+
+                        <?php if ($association->getWebsite() != null): ?>
+                            <?php echo link_to(image_tag('external', array('align' => 'absmiddle')),
+                            $association->getWebsite()) ?>
+                        <?php endif ?>
+
+                        ,<br /><br />
+                        <?php echo link_to("déposez une demande d'adhésion", '@member_ask_subscription')?>
                     </div>
                 <?php endif ?>
+
+                <?php if ($displayRegisterLink): ?>
+                    <div>
+                        Ou enregistrez une <?php echo link_to('nouvelle association', '@association_new') ?>
+                    </div>
+                <?php endif ?>
+
             </div>
 
 
