@@ -163,76 +163,79 @@ income_show:
   
 members_list:
   url:    /membres/*
-  param:  { module: membre, action: index}
+  param:  { module: member, action: index}
 
 members_map:
   url:    /carte
-  param:  { module: membre, action: map }
+  param:  { module: member, action: map }
   
 faces:
   url:    /trombinoscope
-  param:  { module: membre, action: faces }
+  param:  { module: member, action: faces }
   
 ajax_search_members:
   url:    membre/ajaxlist
-  param:  { module: membre, action: ajaxlist }
+  param:  { module: member, action: ajaxlist }
 
 register_first_member:
   url:    /register_first_member
-  param:  { module: membre, action: newfirst }
+  param:  { module: member, action: newfirst }
 
 member_show:
   url:    /membre/details/:id
-  param:  { module: membre, action: show }
+  param:  { module: member, action: show }
   
 member_edit:
   url:    /membre/editer/:id
-  param:  { module: membre, action: edit }
+  param:  { module: member, action: edit }
 
 member_delete:
   url:    /membre/supprimer/:id
-  param:  { module: membre, action: delete }
+  param:  { module: member, action: delete }
 
 member_pending:
   url:    /membre/en_attente
-  param:  { module: membre, action: pending }
+  param:  { module: member, action: pending }
 
 member_acl:
   url:    /membre/droits/:id
-  param:  { module: membre, action: acl }
+  param:  { module: member, action: acl }
   
 member_search:
   url:    /membre/recherche
-  param:  { module: membre, action: search }
+  param:  { module: member, action: search }
 
 member_endregistration:
   url:    /membre/inscription_finie
-  param:  { module: membre, action: endregistration }
+  param:  { module: member, action: endregistration }
 
 member_new:
   url:    /membre/nouveau
-  param:  { module: membre, action: new }
+  param:  { module: member, action: new }
 
 member_create:
   url:    /membre/creation
-  param:  { module: membre, action: create }
+  param:  { module: member, action: create }
 
 member_update:
   url:    /membre/update/:id
-  param:  { module: membre, action: update }
+  param:  { module: member, action: update }
   
 member_ask_subscription:
   url:    /membre/demande_adhesion
-  param:  { module: membre, action: requestsubscription }
+  param:  { module: member, action: requestsubscription }
 
 member_create_pending:
   url:    /membre/creation_adhesion
-  param:  { module: membre, action: createpending }
+  param:  { module: member, action: createpending }
   
 member_first:
   url:    /membre/premier_membre
-  param:  { module: membre, action: firstcreate }
-  
+  param:  { module: member, action: firstcreate }
+ 
+member_validate:
+  url:    /membre/validation
+  param:  { module: member, action: validate } 
 
 # -----------------------------------------------------------------------------
 #     ASSOCIATION ACTIONS
