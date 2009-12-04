@@ -52,6 +52,11 @@ table.datalist thead tr a:Hover {
     text-decoration: none;
 }
 
+/* column 'actions' with icons */
+table.datalist thead th.actions {
+    width: 60px;
+}
+
 table.datalist tbody tr:Hover {
     background-color: #E8FD98;
 }
