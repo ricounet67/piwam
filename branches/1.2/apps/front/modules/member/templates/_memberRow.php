@@ -32,8 +32,8 @@
             <?php echo image_tag('icons/no_email.png', array('alt' => '[pas d\'adresse]')) ?>
         <?php endif; ?>
 
-        <?php echo link_to(image_tag('icons/edit.png',    array('alt' => '[modifier]')),  '@member_edit?id=' . $member->getId()) ?>
         <?php echo link_to(image_tag('icons/profile.png', array('alt' => '[détails]')),   '@member_show?id=' . $member->getId()) ?>
+        <?php echo link_to(image_tag('icons/edit.png',    array('alt' => '[modifier]')),  '@member_edit?id=' . $member->getId()) ?>
         <?php echo link_to(image_tag('icons/delete.png',  array('alt' => '[supprimer]')), '@member_delete?id=' . $member->getId(), array('method' => 'delete', 'confirm' => 'Etes vous sur ?')) ?>
     </td>
 </tr>
