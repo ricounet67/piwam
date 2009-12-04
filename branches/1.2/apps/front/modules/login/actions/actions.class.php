@@ -19,11 +19,19 @@ class loginActions extends sfActions
    */
   public function executeLogin(sfWebRequest $request)
   {
+    $this->numberOfAssociations = AssociationTable::doCount();
+
     if (MemberTable::doCount() == 0)
     {
       $this->redirect('@association_new');
     }
 
+    if ($this->numberOfAssociations === 1)
+    {
+      $this->association = AssociationTable::getUnique();
+    }
+
+    $this->getResponse()->addStylesheet('login.css', sfWebResponse::LAST);
     $this->form = new LoginForm();
     $this->displayRegisterLink = $this->_canRegisterAnotherAssociation();
 
