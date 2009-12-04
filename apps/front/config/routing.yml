@@ -329,6 +329,13 @@ due_new:
   url:    /cotisation/nouvelle
   param:  { module: due, action: new }
 
+due_create:
+  url:    /cotisation/creation
+  param:  { module: due, action: create }
+  
+due_update:
+  url:    /cotisation/mettre_a_jour/:id
+  param:  { module: due, action: update }
 
 
 # -----------------------------------------------------------------------------
