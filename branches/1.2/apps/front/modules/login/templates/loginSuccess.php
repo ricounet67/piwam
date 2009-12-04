@@ -93,7 +93,7 @@
                     </div>
 
                     <div id="foot">
-                        <input type="submit" value="S'identifier" class="button" name="S'identifier" />
+                        <input type="submit" value="S'identifier" class="grey button" name="S'identifier" />
                     </div>
                </form>
             </div> <!-- right div -->
