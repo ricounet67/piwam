@@ -21,7 +21,7 @@
         <!-- Display validation icon only if the subscription is still pending -->
 
         <?php if ($member->getState() == MemberTable::STATE_PENDING): ?>
-            <?php echo link_to(image_tag('state_ok.png', array('alt' => '[valider]')), 'membre/validate?id=' . $member->getId()) ?>
+            <?php echo link_to(image_tag('state_ok.png', array('alt' => '[valider]')), '@member_validate?id=' . $member->getId()) ?>
         <?php endif ?>
 
         <!-- Display email icon if an email has been set -->
