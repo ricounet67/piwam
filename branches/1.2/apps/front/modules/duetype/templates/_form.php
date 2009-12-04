@@ -3,7 +3,7 @@
 <?php use_helper('Tooltip') ?>
 
 <form
-    action="<?php echo url_for('cotisationtype/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>"
+    action="<?php echo url_for('@duetype_'.($form->getObject()->isNew() ? 'create' : 'update?id='.$form->getObject()->getId())) ?>"
     method="post"
     <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
