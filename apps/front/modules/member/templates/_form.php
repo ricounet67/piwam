@@ -56,7 +56,7 @@ use_javascript('custom-forms/si.files.js')
                 <!-- Cancel button only if this is not the first member -->
 
                 <?php if (! isset($first)): ?>
-                        <?php echo link_to('Annuler', '@members_list', array('class' => 'formLinkButton')) ?>
+                        <?php echo link_to('Annuler', '@members_list', array('class' => 'blue button')) ?>
                 <?php endif ?>
 
 
@@ -74,7 +74,7 @@ use_javascript('custom-forms/si.files.js')
         		    <?php if ((isset($first)) && ($first)): ?>
                     <input type="submit" value="Étape suivante >" class="button" />
                 <?php else: ?>
-                    <input type="submit" value="Sauvegarder" class="button" />
+                    <input type="submit" value="Sauvegarder" class="blue button" />
                 <?php endif ?>
 
             </td>
