@@ -2,10 +2,9 @@
 <?php include_javascripts_for_form($form) ?>
 <?php use_helper('Tooltip') ?>
 
-<form
-    action="<?php echo url_for('compte/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>"
-    method="post"
-    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<form action="<?php echo url_for('@account_'.($form->getObject()->isNew() ? 'create' : 'update?id='.$form->getObject()->getId())) ?>"
+      method="post"
+      <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
