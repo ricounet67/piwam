@@ -72,6 +72,7 @@ class ExpenseForm extends BaseExpenseForm
   protected function setLabels()
   {
     $this->widgetSchema->setLabels(array(
+      'label'         => 'Libellé',
       'account_id'    => 'Compte affecté',
       'amount'        => 'Amount',
       'activity_id'   => 'Activité liée',
