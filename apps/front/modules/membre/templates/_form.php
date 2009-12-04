@@ -1,5 +1,5 @@
-<?php include_stylesheets_for_form($form) ?>
 <?php
+include_stylesheets_for_form($form);
 include_javascripts_for_form($form);
 use_helper('JavascriptBase');
 use_javascript('custom-forms/si.files.js')
@@ -56,31 +56,26 @@ use_javascript('custom-forms/si.files.js')
                 <!-- Cancel button only if this is not the first member -->
 
                 <?php if (! isset($first)): ?>
-                        <?php echo link_to('Annuler', 'membre/index', array('class'	=> 'formLinkButton')) ?>
-                <?php endif; ?>
+                        <?php echo link_to('Annuler', '@members_list', array('class' => 'formLinkButton')) ?>
+                <?php endif ?>
 
 
 
                 <!-- Delete button only if object already exists -->
 
                 <?php if (! $form->getObject()->isNew()): ?>
-	                	<?php echo link_to('Supprimer', '@member_delete?id=' . $form->getObject()->getId(),
-	                	                                 array(
-                                                    		'class'   => 'formLinkButton',
-                                                    		'method'  => 'delete',
-                                                    		'confirm' => 'Etes vous sûr ?'
-                                                		)) ?>
-        		<?php endif; ?>
+	                	<?php echo link_to('Supprimer', '@member_delete?id=' . $form->getObject()->getId(), array('class' => 'formLinkButton', 'method' => 'delete', 'confirm' => 'Etes vous sûr ?')) ?>
+        		    <?php endif ?>
 
 
 
                 <!-- Submit button value according to the state -->
 
-        		<?php if ((isset($first)) && ($first)): ?>
+        		    <?php if ((isset($first)) && ($first)): ?>
                     <input type="submit" value="Étape suivante >" class="button" />
                 <?php else: ?>
                     <input type="submit" value="Sauvegarder" class="button" />
-                <?php endif; ?>
+                <?php endif ?>
 
             </td>
         </tr>
@@ -98,27 +93,27 @@ use_javascript('custom-forms/si.files.js')
             <td><?php echo $form['firstname'] ?><?php echo $form['firstname']->renderError() ?></td>
         </tr>
         <tr>
-            <th>Pseudo <?php echo ($form->isFirstRegistration()) ? '*' : ''; ?></th>
+            <th><?php echo $form['username']->renderLabel() ?> <?php echo ($form->isFirstRegistration()) ? '*' : ''; ?></th>
             <td><?php echo $form['username'] ?><?php echo $form['username']->renderError() ?></td>
         </tr>
         <tr>
-            <th>Mot de passe <?php echo ($form->isFirstRegistration()) ? '*' : ''; ?></th>
+            <th><?php echo $form['password']->renderLabel() ?> <?php echo ($form->isFirstRegistration()) ? '*' : ''; ?></th>
             <td><?php echo $form['password'] ?><?php echo $form['password']->renderError() ?></td>
         </tr>
         <tr>
-            <th>Statut</th>
+            <th><?php echo $form['status_id']->renderLabel() ?></th>
             <td><?php echo $form['status_id'] ?><?php echo $form['status_id']->renderError() ?></td>
         </tr>
         <tr>
-            <th>Photo</th>
+            <th><?php echo $form['picture']->renderLabel() ?></th>
             <td><label class="custom"><?php echo $form['picture'] ?><?php echo $form['picture']->renderError() ?></label></td>
         </tr>
         <tr>
-            <th>Date d'inscription</th>
+            <th><?php echo $form['subscription_date']->renderLabel() ?></th>
             <td><?php echo $form['subscription_date'] ?><?php echo $form['subscription_date']->renderError() ?></td>
         </tr>
         <tr>
-            <th>Exempté de cotisation</th>
+            <th><?php echo $form['due_exempt']->renderLabel() ?></th>
             <td><?php echo $form['due_exempt'] ?><?php echo $form['due_exempt']->renderError() ?></td>
         </tr>
         <tr>
@@ -126,7 +121,7 @@ use_javascript('custom-forms/si.files.js')
             <td><?php echo $form['street'] ?><?php echo $form['street']->renderError() ?></td>
         </tr>
         <tr>
-            <th>Code postal</th>
+            <th><?php echo $form['zipcode']->renderLabel() ?></th>
             <td><?php echo $form['zipcode'] ?><?php echo $form['zipcode']->renderError() ?></td>
         </tr>
         <tr>
@@ -142,15 +137,15 @@ use_javascript('custom-forms/si.files.js')
             <td><?php echo $form['email'] ?><?php echo $form['email']->renderError() ?></td>
         </tr>
         <tr>
-            <th>Site internet/blog</th>
+            <th><?php echo $form['website']->renderLabel() ?></th>
             <td><?php echo $form['website'] ?><?php echo $form['website']->renderError() ?></td>
         </tr>
         <tr>
-            <th>Téléphone fixe</th>
+            <th><?php echo $form['phone_home']->renderLabel() ?></th>
             <td><?php echo $form['phone_home'] ?><?php echo $form['phone_home']->renderError() ?></td>
         </tr>
         <tr>
-            <th>Téléphone portable</th>
+            <th><?php echo $form['phone_mobile']->renderLabel() ?></th>
             <td><?php echo $form['phone_mobile'] ?><?php echo $form['phone_mobile']->renderError() ?></td>
         </tr>
     </tbody>
