@@ -29,7 +29,14 @@ class Member extends BaseMember
    */
   public function setPassword($v)
   {
-    return $this->_set('password', sha1($v));
+    if ($v !== '')
+    {
+      return $this->_set('password', sha1($v));
+    }
+    else
+    {
+      return $this;
+    }
   }
 
   /**
