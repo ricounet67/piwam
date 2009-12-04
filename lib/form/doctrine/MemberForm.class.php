@@ -139,6 +139,7 @@ class MemberForm extends BaseMemberForm
     $this->setDefault('subscription_date', date('d-m-Y'));
     $this->setDefault('state', 1);
     $this->_setCssClasses();
+    $this->_setLabels();
   }
 
   /*
@@ -165,6 +166,31 @@ class MemberForm extends BaseMemberForm
   }
 
   /*
+   * Set widget labels
+   */
+  private function _setLabels()
+  {
+    $this->widgetSchema->setLabels(array(
+      'firstname'         => 'Prénom',
+      'lastname'          => 'Nom',
+      'username'          => "Nom d'utilisateur",
+      'password'          => 'Mot de passe',
+      'status_id'         => 'Statut',
+      'due_exempt'        => "Exempté de cotisation",
+      'subscription_date' => "Date d'adhésion",
+      'picture'           => 'Photo',
+      'street'            => 'Rue',
+      'zipcode'           => 'Code postal',
+      'city'              => 'Ville',
+      'country'           => 'Pays',
+      'email'             => 'Adresse e-mail',
+      'website'           => 'Site internet/blog',
+      'phone_home'        => 'Téléphone fixe',
+      'phone_mobile'      => 'Téléphone mobile',
+    ));
+  }
+
+  /*
    * Set an appropriate CSS class to each form element
    */
   private function _setCssClasses()
@@ -175,6 +201,7 @@ class MemberForm extends BaseMemberForm
     $this->widgetSchema['password']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['street']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['zipcode']->setAttribute('class', 'formInputNormal');
+    $this->widgetSchema['city']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['country']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['website']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['email']->setAttribute('class', 'formInputNormal');
