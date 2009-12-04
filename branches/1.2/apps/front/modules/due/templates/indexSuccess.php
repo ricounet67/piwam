@@ -15,23 +15,12 @@
                 <th>Montant</th>
                 <th>Membre</th>
                 <th>Versée le</th>
-                <th>Actions</th>
+                <th class="actions">Actions</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($duesPager->getResults() as $due): ?>
-                <tr>
-                    <td><?php echo $due->getAccount() ?></td>
-                    <td><?php echo $due->getDueType() ?></td>
-                    <td><?php echo format_currency($due->getAmount(), '&euro;') ?></td>
-                    <td><?php echo $due->getMember() ?></td>
-                    <td><?php echo format_date($due->getDate()) ?></td>
-                    <td>
-                        <?php echo link_to(image_tag('details', array('alt' => '[détails]')), '@due_show?id=' . $due->getId()) ?>
-                        <a href="<?php echo url_for('@due_edit?id='.$due->getId()) ?>"><?php echo image_tag('edit.png', array('alt' => '[modifier]')) ?></a>
-                        <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')), '@due_delete?id=' . $due->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?')) ?>
-                    </td>
-                </tr>
+                <?php include_partial('dueRow', array('due' => $due)) ?>
             <?php endforeach; ?>
         </tbody>
     </table>
