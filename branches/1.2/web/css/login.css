@@ -7,6 +7,11 @@
  *
  *----------------------------------------------------------------------------*/
  
+body
+{
+    background-color: #005674;
+}
+ 
 div#login
 {
     margin: 5% auto 50px auto;
@@ -15,6 +20,9 @@ div#login
     padding: 0;
     border: 6px solid #B6E9E3;
     -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 div#login #container
@@ -28,7 +36,7 @@ div#login #left
 {
     float: left;
     width: 370px;
-    margin-top: 0;
+    margin-top: 10px;
 }
 
 div#login #right
@@ -36,20 +44,24 @@ div#login #right
     margin-left: 10px;
     float: left;
     width: 370px;
-    margin-top: 0;
+    margin-top: 10px;
+    background-color: #fff;
 }
 
 div#login label
 {
     text-align: left;
     color: #8398A0;   
-    margin-left: 5px;
+    margin-left: 19px;
 }
 
 div#login h1
 {
-    margin: 10px 0 0 0;
+    margin: 0px 0 0 0;
     text-align: left;
+    padding: 6px 3px 3px 10px;
+    font-weight: lighter;
+    font-size: 19px;
 }
 
 div#login h2
@@ -57,7 +69,7 @@ div#login h2
     font-family: Helvetica;
     font-weight: lighter;
     letter-spacing: 2px;
-    margin: 10px 10px 10px 0px;
+    margin: 10px 10px 10px 10px;
 }
 
 div#login div
@@ -68,8 +80,8 @@ div#login div
 
 div#login #login_username, div#login #login_openid
 {
-    padding: 8px;
-    width: 350px;
+    padding: 5px;
+    width: 96%;
     font-size: 15px;
     color: #658388;
 }
@@ -78,15 +90,8 @@ div#login #login_password
 {
     color: #658388;
     font-size: 15px;
-    padding: 8px;
-    width: 200px;
-}
-
-div#login th
-{
-    background-color: #ECF3F3;
-    color: #507070;
-    width: 160px;
+    padding: 5px;
+    width: 170px;
 }
 
 div#login .input
@@ -95,6 +100,9 @@ div#login .input
     background-color: #BBE6EC;
     margin: 0px 0px 10px 0px;
     -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    width: 320px;
+    margin: auto;
 }
 
 div#login .input:Hover
@@ -139,6 +147,11 @@ div#login .button
 div#login .button:Hover
 {
     background-color: #324949;
+}
+
+div#login #foot
+{
+    text-align: center;
 }
 
 .clear {
