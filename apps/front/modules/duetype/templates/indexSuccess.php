@@ -11,22 +11,12 @@
             <th>Montant</th>
             <th>Créé le</th>
             <th>Dernière édition</th>
-            <th>Actions</th>
+            <th class="actions">Actions</th>
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($due_types as $due_type): ?>
-        <tr>
-            <td><?php echo $due_type->getLabel() ?></td>
-            <td><?php echo $due_type->getPeriod() ?></td>
-            <td><?php echo format_currency($due_type->getAmount(), '&euro;') ?></td>
-            <td><?php echo format_date($due_type->getCreatedAt()) ?></td>
-            <td><?php echo format_date($due_type->getUpdatedAt()) ?></td>
-            <td>
-                <?php echo link_to(image_tag('edit',   array('alt' => '[modifier]')), '@duetype_edit?id=' . $due_type->getId())?>
-                <?php echo link_to(image_tag('delete', array('alt' => '[supprimer]')), '@duetype_delete?id=' . $due_type->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?')) ?>
-            </td>
-        </tr>
+        <?php foreach ($due_types as $due_type): ?>
+            <?php include_partial('dueTypeRow', array('due_type' => $due_type))?>
         <?php endforeach; ?>
     </tbody>
 </table>
