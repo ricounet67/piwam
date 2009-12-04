@@ -25,6 +25,13 @@ class LoginForm extends BaseForm
       'password' => new sfValidatorString(array('required' => true)),
       'openid'   => new sfValidatorEmail(array('required' => false)),
     ));
+
+    $this->widgetSchema->setLabels(array(
+      'username'  => "Nom d'utilisateur",
+      'password'  => 'Mot de pase',
+      'openid'    => 'Open ID'
+    ));
+
     $this->widgetSchema->setNameFormat('login[%s]');
   }
 }
