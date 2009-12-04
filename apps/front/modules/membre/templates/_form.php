@@ -30,7 +30,7 @@ use_javascript('custom-forms/si.files.js')
     	}
     	elseif (isset($pending))
     	{
-            echo url_for('@member_ask_subscription');
+            echo url_for('@member_create_pending');
     	}
     	else
     	{
