@@ -1,13 +1,13 @@
 <?php
 /**
- * cotisationtype actions.
+ * Due type actions.
  *
  * @package    piwam
- * @subpackage cotisationtype
+ * @subpackage duetype
  * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
-class cotisationtypeActions extends sfActions
+class duetypeActions extends sfActions
 {
   /**
    * Called by AJAX updater when creation a new Due.
