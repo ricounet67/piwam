@@ -362,7 +362,7 @@ export:
 
 homepage:
   url:    /
-  param:  { module: membre, action: index }
+  param:  { module: member, action: index }
 
   
 default_index:
