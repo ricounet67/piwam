@@ -3,11 +3,11 @@
  * statut actions.
  *
  * @package    piwam
- * @subpackage statut
+ * @subpackage status
  * @author     Adrien Mogenet
  * @version    SVN: $Id: actions.class.php 12474 2008-10-31 10:41:27Z fabien $
  */
-class statutActions extends sfActions
+class statusActions extends sfActions
 {
   /**
    * Default action. Display the list of statut available for the current
