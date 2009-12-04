@@ -2,7 +2,7 @@
 <?php include_javascripts_for_form($form) ?>
 
 <form
-    action="<?php echo url_for('depense/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>"
+    action="<?php echo url_for('@expense_'.($form->getObject()->isNew() ? 'create' : 'update?id='.$form->getObject()->getId())) ?>"
     method="post"
     <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
@@ -35,7 +35,7 @@
         <tbody>
         <?php echo $form->renderGlobalErrors() ?>
             <tr>
-                <th>Libellé</th>
+                <th><?php echo $form['label']->renderLabel() ?> :</th>
                 <td><?php echo $form['label'] ?> <?php echo $form['label']->renderError() ?>
                 </td>
             </tr>
@@ -45,22 +45,22 @@
                 </td>
             </tr>
             <tr>
-                <th>Compte affecté</th>
+                <th><?php echo $form['account_id']->renderLabel() ?> :</th>
                 <td><?php echo $form['account_id'] ?> <?php echo $form['account_id']->renderError() ?>
                 </td>
             </tr>
             <tr>
-                <th>Activité liée</th>
+                <th><?php echo $form['activity_id']->renderLabel() ?> :</th>
                 <td><?php echo $form['activity_id'] ?> <?php echo $form['activity_id']->renderError() ?>
                 </td>
             </tr>
             <tr>
-                <th><?php echo $form['date']->renderLabel() ?></th>
+                <th><?php echo $form['date']->renderLabel() ?> :</th>
                 <td><?php echo $form['date'] ?> <?php echo $form['date']->renderError() ?>
                 </td>
             </tr>
             <tr>
-                <th>Payée</th>
+                <th><?php echo $form['paid']->renderLabel() ?></th>
                 <td><?php echo $form['paid'] ?></td>
             </tr>
         </tbody>
