@@ -76,7 +76,7 @@ class DueForm extends BaseDueForm
   {
     $this->widgetSchema->setLabels(array(
       'account_id'    => 'Compte bénéficiaire',
-      'duetype_id'    => 'Type de cotisation',
+      'due_type_id'   => 'Type de cotisation',
       'amount'        => 'Montant',
       'member_id'     => 'Membre',
       'date'          => 'Date de versement',
