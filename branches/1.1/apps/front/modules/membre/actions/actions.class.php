@@ -183,6 +183,11 @@ class membreActions extends sfActions
                                                  $request->getParameter('limit'),
                                                  $request->getParameter('association_id'));
 
+       if (count($membres) === 0)
+       {
+         $membres = null;
+       }
+
         return $this->renderText(json_encode($membres));
     }
 
