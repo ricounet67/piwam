@@ -307,23 +307,23 @@ association_delete:
  
 status_list:
   url:    /statuts
-  param:  { module: statut, action: index }
+  param:  { module: status, action: index }
 
 status_new:
-  url:    /statuts/nouveau
-  param:  { module: statut, action: new }
+  url:    /statut/nouveau
+  param:  { module: status, action: new }
   
 status_edit:
-  url:    /statuts/editer/:id
-  param:  { module: statut, action: edit }
+  url:    /statut/editer/:id
+  param:  { module: status, action: edit }
   
 status_delete:
-  url:    /statuts/supprimer/:id
-  param:  { module: statut, action: delete }
+  url:    /statut/supprimer/:id
+  param:  { module: status, action: delete }
   
 status_show:
-  url:    /statuts/details/:id
-  param:  { module: statut, action: show }
+  url:    /statut/details/:id
+  param:  { module: status, action: show }
 
 
   
