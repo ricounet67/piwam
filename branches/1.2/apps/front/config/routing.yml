@@ -275,6 +275,8 @@ member_validate:
   url:    /membre/validation/:id
   param:  { module: member, action: validate } 
 
+
+
 # -----------------------------------------------------------------------------
 #     ASSOCIATION ACTIONS
 # -----------------------------------------------------------------------------
