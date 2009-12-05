@@ -5,11 +5,6 @@
  * action, by adding it to the sfWebResponse object at the last position,
  * so he will override all existing styles
  */
- 
-body {
-    background-color: #005674;
-    background-image: url(diag.gif);
-}
 
 div#login a, div#login a:Hover {
     color: #496175;
@@ -22,10 +17,6 @@ div#login div {
     text-align: left;
 }
 
-.clear {
-    clear: both;
-    visibility: hidden;
-}
 
 
 /* -------------------- layout -------------------- */
