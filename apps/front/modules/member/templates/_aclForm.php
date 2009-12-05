@@ -29,14 +29,14 @@
                 <td colspan="2">&nbsp;</td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" value="Sauvegarder" class="button" /></td>
+                <td colspan="2"><input type="submit" value="Sauvegarder" class="blue button" /></td>
             </tr>
         </tfoot>
 
         <?php foreach ($form['rights'] as $key => $oneForm): ?>
             <tr>
                 <td>
-                <h3><?php echo $form->getModuleName($key) ?></h3>
+                    <h3><?php echo $form->getModuleName($key) ?></h3>
                 </td>
                 <td>
                     <a onClick="checkAll(<?php echo $key ?>)"><?php echo image_tag('arrow_down', array('align' => 'absmiddle', 'alt' => '>')) ?> tout cocher</a>
