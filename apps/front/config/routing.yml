@@ -32,7 +32,7 @@ retrieve_password:
 admin:
   url:    /administration
   param:  { module: admin, action: index }
-  
+   
 setup:
   url:    /install
   param:  { module: install, action: index }
