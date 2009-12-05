@@ -37,9 +37,9 @@ a.button {
 }
 
 .add.button {
-    padding-left: 20px;
+    padding: 5px 15px 5px 25px;
+    font-size: 13px;
     background: transparent url(add.png) no-repeat scroll 3px center;
-    padding-top: 13px;
 }
 
 /* --------------------------- differents colors ---------------------------- */
