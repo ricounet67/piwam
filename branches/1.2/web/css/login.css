@@ -8,6 +8,7 @@
  
 body {
     background-color: #005674;
+    background-image: url(diag.gif);
 }
 
 div#login a, div#login a:Hover {
