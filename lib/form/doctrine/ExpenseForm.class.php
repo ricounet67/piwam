@@ -38,16 +38,9 @@ class ExpenseForm extends BaseExpenseForm
     $this->validatorSchema['state'] = new sfValidatorBoolean();
     $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0), array('min' => 'ne peut être négatif'));
 
-    // select only Membre, CotisationType and account which
-    // belong to the association id
-
     $id = sfContext::getInstance()->getUser()->getAssociationId();
     $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
     $this->widgetSchema['activity_id']->setOption('query', ActivityTable::getQueryEnabledForAssociation($id));
-
-    // r19 : customize the appearance
-    $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
-    $this->widgetSchema['amount']->setAttribute('class', 'formInputShort');
 
     sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
     $this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
@@ -58,7 +51,33 @@ class ExpenseForm extends BaseExpenseForm
     ));
 
     $this->setDefault('date', date('y-m-d'));
+    $this->setClasses();
+    $this->setLabels();
+  }
+
+  /**
+   * Set CSS styles for each field
+   */
+  protected function setClasses()
+  {
+    $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
+    $this->widgetSchema['amount']->setAttribute('class', 'formInputShort');
     $this->widgetSchema['account_id']->setAttribute('class', 'formInputLarge');
     $this->widgetSchema['activity_id']->setAttribute('class', 'formInputLarge');
+  }
+
+  /**
+   * Set labels for each field
+   */
+  protected function setLabels()
+  {
+    $this->widgetSchema->setLabels(array(
+      'label'         => 'Libellé',
+      'account_id'    => 'Compte affecté',
+      'amount'        => 'Amount',
+      'activity_id'   => 'Activité liée',
+      'date'          => 'Date',
+      'paid'          => 'Payée',
+    ));
   }
 }

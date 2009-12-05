@@ -50,23 +50,47 @@ class DueForm extends BaseDueForm
     $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
     $this->widgetSchema['due_type_id']->setOption('add_empty', true);
 
-    $this->widgetSchema['account_id']->setAttribute('class', 'formInputLarge');
-    $this->widgetSchema['due_type_id']->setAttribute('class', 'formInputLarge');
-    $this->widgetSchema['member_id']->setAttribute('class', 'formInputLarge');
-    $this->widgetSchema['amount']->setAttribute('class', 'formInputShort');
-
     $this->validatorSchema['state'] = new sfValidatorBoolean();
-    $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0), array('min' => 'ne peut être négatif'));
+    $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0),
+                                                            array('min' => 'ne peut être négatif'));
 
     sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
     $this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
-      'image'   => image_path('calendar.gif'),
+        'image'   => image_path('calendar.gif'),
         'config'  => '{}',
-      'culture' => 'fr_FR',
-      'format'  => '%day%.%month%.%year%',
+        'culture' => 'fr_FR',
+        'format'  => '%day%.%month%.%year%',
     ));
 
     $this->setDefault('date', date('y-m-d'));
     $this->validatorSchema['date'] = new sfValidatorDate();
+
+    $this->setLabels();
+    $this->setClasses();
+  }
+
+  /**
+   * Set field labels
+   */
+  protected function setLabels()
+  {
+    $this->widgetSchema->setLabels(array(
+      'account_id'    => 'Compte bénéficiaire',
+      'due_type_id'   => 'Type de cotisation',
+      'amount'        => 'Montant',
+      'member_id'     => 'Membre',
+      'date'          => 'Date de versement',
+    ));
+  }
+
+  /**
+   * Set CSS classes for each field
+   */
+  protected function setClasses()
+  {
+    $this->widgetSchema['account_id']->setAttribute('class', 'formInputLarge');
+    $this->widgetSchema['due_type_id']->setAttribute('class', 'formInputLarge');
+    $this->widgetSchema['member_id']->setAttribute('class', 'formInputLarge');
+    $this->widgetSchema['amount']->setAttribute('class', 'formInputShort');
   }
 }

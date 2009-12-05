@@ -7,21 +7,6 @@ input {
     background-color: #fff;
 }
 
-/* Custom "button" appearance to a submit button */
-.button, .button:Hover, .button:Visited {
-    border-left: 1px solid #A1BCD4;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
-    border-top: 1px solid #A1BCD4;
-    background-color: #4E67A7;
-    color: white;
-    font-weight: normal;
-    padding: 3px 6px 3px 6px;
-    text-shadow:0 1px 0 #000;
-    text-decoration: none;
-}
-
-
 /* Properties applied to form input elements who got this class */
 .formInputLarge {
     border: 1px solid #aaa;
@@ -53,44 +38,6 @@ input {
     background-color: #fff;
     width: 80px;
 }
-
-/* Give a "button" appearance to links "cancel/delete" */
-.formLinkButton {
-    border-left: 1px solid #A1BCD4;
-    border-bottom: 1px solid #666;
-    border-right: 1px solid #666;
-    border-top: 1px solid #A1BCD4;
-    background-color: #cedeff;
-    color: #666;
-    font-weight: normal;
-    padding: 3px 6px 4px 6px;
-    font-size: 11px;
-}
-
-.formLinkButton:Hover {
-    text-decoration: none;
-}
-
-.formLinkButton:Visited {
-    color: #666;
-}
-
-/* liens/boutons "ajouter un nouveau..." */
-.addNew {
-    margin-top: 10px;
-}
-
-.addNew a {
-    color: #777;
-    font-weight: bold;
-    background-color: #eaeaea;
-    padding: 3px 5px 3px 3px;
-}
-
-.addNew a:Hover {
-    text-decoration: none;
-}
-
 
 /* custom input file */
 .SI-FILES-STYLIZED label.custom
