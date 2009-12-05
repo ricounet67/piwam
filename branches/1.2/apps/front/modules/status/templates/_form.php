@@ -2,13 +2,13 @@
 <?php include_javascripts_for_form($form) ?>
 
 <form
-  action="<?php echo url_for('statut/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>"
+  action="<?php echo url_for('@status_'.($form->getObject()->isNew() ? 'create' : 'update?id='.$form->getObject()->getId())) ?>"
   method="post"
   <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
   <?php if (!$form->getObject()->isNew()): ?>
     <input type="hidden" name="sf_method" value="put" />
-  <?php endif; ?>
+  <?php endif ?>
 
   <table class="formtable">
 
@@ -18,13 +18,13 @@
           <tr>
               <td colspan="2">
                 <?php echo $form->renderHiddenFields() ?>
-                <?php echo link_to('Annuler', 'statut/index', array('class'	=> 'formLinkButton')) ?>
+                <?php echo link_to('Annuler', 'statut/index', array('class'	=> 'blue button')) ?>
 
                 <?php if (!$form->getObject()->isNew()): ?>
-                  <?php echo link_to('Supprimer', 'statut/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?', 'class' => 'formLinkButton')) ?>
+                    <?php echo link_to('Supprimer', 'statut/delete?id='.$form->getObject()->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?', 'class' => 'blue button')) ?>
               	<?php endif ?>
 
-                <input class="button" type="submit" value="Enregistrer" />
+                <input class="blue button" type="submit" value="Enregistrer" />
               </td>
           </tr>
       </tfoot>
@@ -35,10 +35,8 @@
       <tbody>
       <?php echo $form->renderGlobalErrors() ?>
           <tr>
-              <th>Libellé du statut :</th>
-              <td>
-                <?php echo $form['label'] ?> <?php echo $form['label']->renderError() ?>
-              </td>
+              <th><?php echo $form['label']->renderLabel() ?> :</th>
+              <td><?php echo $form['label'] ?> <?php echo $form['label']->renderError() ?></td>
           </tr>
       </tbody>
   </table>
