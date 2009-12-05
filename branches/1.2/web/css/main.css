@@ -106,6 +106,37 @@ body {
     margin-left: 250px;
 }
 
+#user_box {
+    background-color: #C3F1F7;
+    width: 170px;
+    margin-left: 10px;
+    padding: 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+#user_box p {
+    margin-top: 2px;
+    font-size: 14px;
+}
+#user_box .username {
+    font-family: courier;
+    color: #444;   
+}
+#user_box a, #user_box a:visited {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    color: #666;
+    font-weight: lighter;
+    display: block;
+    background-color: #A7CEDF;
+    padding: 2px 2px 4px 5px;
+    margin: 0 0 5px 0;
+}
+#user_box a:Hover {
+    background-color: #7BBAEC;
+    color: white;
+}
+
 .clear {
     clear: both;
     visibility: hidden;
