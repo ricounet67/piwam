@@ -67,6 +67,7 @@
             <?php echo $sf_content ?>
         </div>
 
+        <hr class="clear" />
     </div>
 </body>
 </html>
