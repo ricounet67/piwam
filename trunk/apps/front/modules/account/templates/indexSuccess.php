@@ -20,6 +20,6 @@
     </tbody>
 </table>
 
-<div class="addNew">
-  <?php echo link_to(image_tag('add', array('align'=>'top', 'alt' => '[ajouter]')). ' Enregistrer un compte', '@account_new') ?>
-</div>
+<br />
+<?php echo link_to('Enregistrer un compte', '@account_new', array('class' => 'grey add button')) ?>
+

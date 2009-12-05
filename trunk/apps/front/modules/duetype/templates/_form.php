@@ -9,7 +9,7 @@
 
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
-    <?php endif; ?>
+    <?php endif ?>
 
     <table class="formtable" summary="Register a new Fee">
 
@@ -19,16 +19,16 @@
             <tr>
                 <td colspan="2">
                     <?php echo $form->renderHiddenFields() ?>
-                    <?php echo link_to('Annuler', '@duetypes_list', array('class'	=> 'formLinkButton')) ?>
+                    <?php echo link_to('Annuler', '@duetypes_list', array('class'	=> 'blue button')) ?>
 
                     <!-- Display delete button if object exists -->
 
                 	<?php if (!$form->getObject()->isNew()): ?>
                 	   <?php echo link_to('Supprimer', '@duetype_delete?id=' . $form->getObject()->getId(),
-                	              array('class' => 'formLinkButton', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
+                	              array('class' => 'blue button', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
                 	<?php endif ?>
 
-                    <input type="submit" value="Enregistrer" class="button" />
+                    <input type="submit" value="Enregistrer" class="blue button" />
                 </td>
             </tr>
         </tfoot>

@@ -9,7 +9,7 @@
 
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
-    <?php endif; ?>
+    <?php endif ?>
 
 
 
@@ -18,14 +18,13 @@
             <tr>
                 <td colspan="2">
                     <?php echo $form->renderHiddenFields() ?>
-                    <?php echo link_to('Liste',   '@dues_list', array('class' => 'formLinkButton')) ?>
-                    <?php echo link_to('Annuler', '@dues_list', array('class'	=> 'formLinkButton')) ?>
+                    <?php echo link_to('Liste',   '@dues_list', array('class' => 'blue button')) ?>
 
                     <?php if (!$form->getObject()->isNew()): ?>
-                        <?php echo link_to('Supprimer', '@due_delete?id=' . $form->getObject()->getId(), array('method'  => 'delete', 'confirm' => 'Ètes vous sûr ?', 'class'   => 'formLinkButton')) ?>
+                        <?php echo link_to('Supprimer', '@due_delete?id=' . $form->getObject()->getId(), array('method'  => 'delete', 'confirm' => 'Ètes vous sûr ?', 'class'   => 'blue button')) ?>
                     <?php endif ?>
 
-                    <input type="submit" value="Sauvegarder" class="button" />
+                    <input type="submit" value="Sauvegarder" class="blue button" />
                 </td>
             </tr>
         </tfoot>

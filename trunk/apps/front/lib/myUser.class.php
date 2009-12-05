@@ -75,13 +75,24 @@ class myUser extends sfBasicSecurityUser
   /**
    * Get the current user ID of the user
    *
-   * @param	integer	$default (optional)
+   * @param	  integer	  $default (optional)
    * @return	integer
-   * @since	r140
+   * @since	  r140
    */
   public function getUserId($default = null)
   {
     return $this->getAttribute('user_id', $default, 'user');
+  }
+
+  /**
+   * Get the current username of the user
+   *
+   * @return  string
+   * @since   1.2
+   */
+  public function getUsername()
+  {
+    return $this->getAttribute('user_name', null, 'user');
   }
 
   /**

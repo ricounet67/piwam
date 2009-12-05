@@ -113,7 +113,7 @@ class statusActions extends sfActions
     }
 
     $status->delete();
-    $this->redirect('statut/index');
+    $this->redirect('@status_list');
   }
 
   /**
@@ -132,7 +132,7 @@ class statusActions extends sfActions
       $status = $form->save();
       $status->setState(StatusTable::STATE_ENABLED);
       $status->save();
-      $this->redirect('statut/index');
+      $this->redirect('@status_list');
     }
   }
 }

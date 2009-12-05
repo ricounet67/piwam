@@ -48,10 +48,10 @@ Doctrine_Manager::getInstance()->bindComponent('Due', 'doctrine');
  * @method Due     setCreatedByMember() Sets the current record's "CreatedByMember" value
  * @method Due     setUpdatedByMember() Sets the current record's "UpdatedByMember" value
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: Builder.php 6716 2009-11-12 19:26:28Z jwage $
+ * @package    piwam
+ * @subpackage model
+ * @author     Adrien Mogenet
+ * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
  */
 abstract class BaseDue extends sfDoctrineRecord
 {

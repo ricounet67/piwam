@@ -149,7 +149,7 @@ class incomeActions extends sfActions
     }
 
     $income->delete();
-    $this->redirect('recette/index');
+    $this->redirect('@incomes_list');
   }
 
   /**
@@ -165,7 +165,7 @@ class incomeActions extends sfActions
     if ($form->isValid())
     {
       $income = $form->save();
-      $this->redirect('recette/index');
+      $this->redirect('@incomes_list');
     }
   }
 }

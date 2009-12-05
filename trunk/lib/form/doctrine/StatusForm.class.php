@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Status form.
  *
@@ -11,7 +10,7 @@
 class StatusForm extends BaseStatusForm
 {
   /**
-   * Customizes the Statut form. There is a lot of fields to unset in order
+   * Customizes the Status form. There is a lot of fields to unset in order
    * to re-create them from scratch with custom behaviour, especially the
    * hidden references (association, granted user id...)
    */
@@ -37,12 +36,16 @@ class StatusForm extends BaseStatusForm
     }
 
     $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-    $this->validatorSchema['association_id'] = new sfValidatorInteger();
-    $this->setDefault('association_id', $associationId);
-
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
-    $this->setDefault('state', 1);
+
+    $this->validatorSchema['association_id'] = new sfValidatorInteger();
     $this->validatorSchema['state'] = new sfValidatorBoolean();
+
+    $this->setDefault('association_id', $associationId);
+    $this->setDefault('state', 1);
+
+    $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
+    $this->widgetSchema->setLabels(array('label' => 'Libellé du statut'));
 
     $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Status', 'column' => array('label', 'association_id')), array('invalid' => 'Ce statut existe déjà')));
   }

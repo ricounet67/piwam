@@ -29,6 +29,10 @@ retrieve_password:
   url:    /recuperer_mot_de_passe
   param:  { module: login, action: forgottenpassword }
   
+admin:
+  url:    /administration
+  param:  { module: admin, action: index }
+   
 setup:
   url:    /install
   param:  { module: install, action: index }
@@ -68,7 +72,7 @@ activities_list:
   url:    /activites
   param:  { module: activity, action: index }
 
-activity_by_id:
+activity_show:
   url:    /activite/details/:id
   param:  { module: activity, action: show }
 
@@ -271,6 +275,8 @@ member_validate:
   url:    /membre/validation/:id
   param:  { module: member, action: validate } 
 
+
+
 # -----------------------------------------------------------------------------
 #     ASSOCIATION ACTIONS
 # -----------------------------------------------------------------------------
@@ -307,23 +313,31 @@ association_delete:
  
 status_list:
   url:    /statuts
-  param:  { module: statut, action: index }
+  param:  { module: status, action: index }
 
 status_new:
-  url:    /statuts/nouveau
-  param:  { module: statut, action: new }
-  
+  url:    /statut/nouveau
+  param:  { module: status, action: new }
+
+status_create:
+  url:    /statut/creation
+  param:  { module: status, action: create }
+    
 status_edit:
-  url:    /statuts/editer/:id
-  param:  { module: statut, action: edit }
-  
+  url:    /statut/editer/:id
+  param:  { module: status, action: edit }
+
+status_update:
+  url:    /statut/mettre_a_jour/:id
+  param:  { module: status, action: update }
+    
 status_delete:
-  url:    /statuts/supprimer/:id
-  param:  { module: statut, action: delete }
+  url:    /statut/supprimer/:id
+  param:  { module: status, action: delete }
   
 status_show:
-  url:    /statuts/details/:id
-  param:  { module: statut, action: show }
+  url:    /statut/details/:id
+  param:  { module: status, action: show }
 
 
   

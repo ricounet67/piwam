@@ -20,14 +20,14 @@
 <!-- First tab : user profile-->
 
 <div>
-    <h2><a name="t1" id="t1">Informations détaillées</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), '@member_edit?id='.$member->getId() . '#profil') ?></h2>
+    <h2><a name="t1" id="t1">Informations détaillées</a></h2>
 
     <table class="details">
 
         <tfoot>
             <tr>
                 <td colspan="2">
-                    <?php echo link_to('Éditer', '@member_edit?id=' . $member->getId() . '#profil', array('class'  => 'formLinkButton')) ?>
+                    <?php echo link_to('Éditer', '@member_edit?id=' . $member->getId() . '#profil', array('class'  => 'grey button')) ?>
                 </td>
             </tr>
         </tfoot>
@@ -118,11 +118,11 @@
         <ul>
             <?php if (count($cotisations) == 0): ?>
                 <li><i>Aucune cotisation versée par ce membre.</i></li>
-            <?php endif; ?>
+            <?php endif ?>
 
             <?php foreach ($cotisations as $cotisation): ?>
                 <li><?php echo $cotisation->getDueType() ?> versée le <?php echo $cotisation->getDate() ?></li>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </ul>
     </div>
 </div>
@@ -132,17 +132,19 @@
 <!-- Third tab : Credentials -->
 
 <div>
-  <h2><a name="t3" id="t3">Droits de l'utilisateur</a> &nbsp; <?php echo link_to(image_tag('edit', array('alt' => '[modifier]')), '@member_edit?id='.$member->getId() . '#credentials') ?></h2>
+  <h2><a name="t3" id="t3">Droits de l'utilisateur</a></h2>
   <div>
     <ul>
         <?php if (count($credentials) == 0): ?>
             <li><i>Ce membre n'a aucun droit pour le moment.</i></li>
-        <?php endif; ?>
+        <?php endif ?>
 
         <?php foreach ($credentials as $credential): ?>
             <li>&bull; <?php echo $credential->getAclAction()->getLabel() ?></li>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </ul>
+    <br />
+    <?php echo link_to('Éditer', '@member_edit?id=' . $member->getId() . '#credentials', array('class' => 'grey button')) ?>
   </div>
 </div>
 

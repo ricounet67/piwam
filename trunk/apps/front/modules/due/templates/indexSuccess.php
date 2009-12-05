@@ -21,13 +21,13 @@
         <tbody>
             <?php foreach ($duesPager->getResults() as $due): ?>
                 <?php include_partial('dueRow', array('due' => $due)) ?>
-            <?php endforeach; ?>
+            <?php endforeach ?>
         </tbody>
     </table>
 
-    <div class="addNew">
-        <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer une cotisation', '@due_new') ?>
-    </div>
+    <br />
+    <?php echo link_to('Enregistrer une cotisation', '@due_new', array('class' => 'add grey button')) ?>
+
 
     <?php include_partial('global/pager', array('pager' => $duesPager, 'route' => '@dues_list', 'params' => array())) ?>
 

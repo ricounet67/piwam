@@ -1,6 +1,26 @@
 @CHARSET "UTF-8";
 
-/* Styles par défauts */
+
+/* ------------------------- forms and subforms ------------------------- */
+
+/* used for embed forms */
+.subform {
+    
+}
+
+.subform table th {
+    text-align: left;
+    font-weight: normal;
+    background-color: #eeeeff;
+    padding: 10px;
+    color: #666;
+}
+
+
+
+/* --------------------------- general inputs --------------------------- */
+
+/* Default style apply to each input field */
 input {
     border: 1px solid #aaa;
     padding: 4px;
@@ -23,7 +43,7 @@ input {
     width: 200px;
 }
 
-/* Elements de taille normale */
+/* Very large size */
 .formInputXtraLarge {
     border: 1px solid #aaa;
     padding: 4px;
@@ -31,7 +51,7 @@ input {
     width: 98%;
 }
 
-/* Elements de courte taille */
+/* Short elements */
 .formInputShort {
     border: 1px solid #aaa;
     padding: 4px;
@@ -39,7 +59,9 @@ input {
     width: 80px;
 }
 
-/* custom input file */
+
+/* -------------------------- custom input file -------------------------- */
+
 .SI-FILES-STYLIZED label.custom
 {
     width: 100px;
