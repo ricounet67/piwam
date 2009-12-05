@@ -50,7 +50,8 @@ class DueTable extends Doctrine_Table
     $q = Doctrine_Query::create()
           ->from('Due d')
           ->leftJoin('d.DueType t')
-          ->where('t.association_id = ?', $id);
+          ->where('t.association_id = ?', $id)
+          ->orderBy('d.date DESC');
 
     return $q->execute();
   }

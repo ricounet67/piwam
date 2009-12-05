@@ -1,14 +1,60 @@
 @CHARSET "UTF-8";
-
 /*
  * CSS styles for tables
  *
  */
  
-/* listing tables : members, accounts, etc... */
+ 
+/* ---------------------- special rows styles -------------------------- */
+
+/* for accounts with positive balance */
+.positive {
+    background-color: #C2FCC3;
+}
+
+/* for accounts with negative balance */
+.negative {
+    background-color: #EECEBE;
+}
+
+
+ 
+/* ------------------------- listing tables ---------------------------- */
+
 table.datalist {
-    width: 90%;
-    border: 1px solid black;
+    width: 100%;
+    border: 1px solid #8EA19B;
+    border-spacing: 1px;
+    background-color: #fff;
+    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Header of listing tables */
+table.datalist thead th
+{
+    padding: 5px;
+    font-weight: lighter;
+}
+
+table.datalist thead tr {
+    color: #E8FAFA;
+    background: url(thead_bg.jpg) repeat-x;
+}
+
+/* Links in header of listing tables */
+table.datalist thead tr a {
+    color: white;
+    text-decoration: none;
+    padding: 0 13px 0 0;
+    background: transparent url(orderby.png) no-repeat scroll right center;
+}
+table.datalist thead tr a:Hover {
+    text-decoration: none;
+}
+
+/* column 'actions' with icons */
+table.datalist thead th.actions {
+    width: 60px;
 }
 
 table.datalist tbody tr:Hover {
@@ -22,22 +68,8 @@ table.datalist tbody td {
     padding-left: 5px;
 }
 
-/* Header of listing tables */
-table.datalist thead tr {
-    background: black;
-    color: white;
-}
 
-/* Links in header of listing tables */
-table.datalist thead tr a {
-    color: white;
-    text-decoration: underline;
-}
-table.datalist thead tr a:Hover {
-    text-decoration: none;
-}
-
-
+/* ------------------------- details tables ---------------------------- */
 
 /* left cell in details tables */
 table.details th {
@@ -58,6 +90,10 @@ table.details tfoot td {
     border-bottom: 0;
 }
 
+
+
+/* ------------------------- form tables ---------------------------- */
+
 /* left cell in add/edit forms, with label */
 table.formtable tbody th {
     background-color: #eeeeff;
@@ -70,17 +106,3 @@ table.formtable tbody th {
 table.formtable tbody td {
     padding: 3px;
 }
-
-
-
-/* for accounts with positive balance */
-.positive {
-    background-color: #C2FCC3;
-}
-
-/* for accounts with negative balance */
-.negative {
-    background-color: #EECEBE;
-}
-
-

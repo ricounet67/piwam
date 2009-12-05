@@ -72,6 +72,22 @@ class Association extends BaseAssociation
     $compteMonnaie->setReference("CAISSE_MONNAIE");
     $compteMonnaie->setState(AccountTable::STATE_ENABLED);
     $compteMonnaie->save();
+  }
 
+  /**
+   * Get the number of members who subscribed to the association
+   *
+   * @return integer
+   */
+  public function getNumberOfEnabledMembers()
+  {
+    $q = Doctrine_Query::create()
+          ->select('m.id')
+          ->from('Member m')
+          ->where('m.association_id = ?', $this->getId())
+          ->andWHere('m.state = ?', MemberTable::STATE_ENABLED);
+    $n = $q->count();
+
+    return ($n == null) ? 0 : $n;
   }
 }

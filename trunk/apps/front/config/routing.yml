@@ -66,91 +66,125 @@ balance:
   
 activities_list:
   url:    /activites
-  param:  { module: activite, action: index }
+  param:  { module: activity, action: index }
 
 activity_by_id:
   url:    /activite/details/:id
-  param:  { module: activite, action: show }
+  param:  { module: activity, action: show }
 
 activity_edit:
   url:    /activite/editer/:id
-  param:  { module: activite, action: edit }
+  param:  { module: activity, action: edit }
+
+activity_update:
+  url:    /activite/mettre_a_jour/:id
+  param:  { module: activity, action: update }
 
 activity_delete:
   url:    /activite/supprimer/:id
-  param:  { module: activite, action: delete }
+  param:  { module: activity, action: delete }
   
 activity_new:
   url:    /activite/creer
-  param:  { module: activite, action: new }
+  param:  { module: activity, action: new }
+
+activity_create:
+  url:    /activite/cration
+  param:  { module: activity, action: create }
+
 
 
 
 accounts_list:
   url:    /comptes
-  param:  { module: compte, action: index }
+  param:  { module: account, action: index }
 
 account_by_id:
   url:    /compte/details/:id
-  param:  { module: compte, action: show }
+  param:  { module: account, action: show }
 
 account_edit:
   url:    /compte/editer/:id
-  param:  { module: compte, action: edit }
+  param:  { module: account, action: edit }
 
 account_delete:
   url:    /compte/supprimer/:id
-  param:  { module: compte, action: delete }
+  param:  { module: account, action: delete }
 
 account_new:
   url:    /compte/nouveau
-  param:  { module: compte, action: new }
+  param:  { module: account, action: new }
+
+account_create:
+  url:    /compte/creation
+  param:  { module: account, action: create }
+
+account_update:
+  url:    /compte/mettre_a_jour/:id
+  param:  { module: account, action: update }
+
 
 
 
 expenses_list:
   url:    /depenses/*
-  param:  { module: depense, action: index }
+  param:  { module: expense, action: index }
 
 expense_show:
   url:    /depense/details/:id
-  param:  { module: depense, action: show }
+  param:  { module: expense, action: show }
 
 expense_edit:
   url:    /depense/editer/:id
-  param:  { module: depense, action: edit }
+  param:  { module: expense, action: edit }
+
+expense_update:
+  url:    /depense/mettre_a_jour/:id
+  param:  { module: expense, action: update }
 
 expense_delete:
   url:    /depense/supprimer/:id
-  param:  { module: depense, action: delete }
+  param:  { module: expense, action: delete }
 
 expense_new:
   url:    /depense/nouvelle
-  param:  { module: depense, action: new }
+  param:  { module: expense, action: new }
+
+expense_create:
+  url:    /depense/creation
+  param:  { module: expense, action: create }
 
 
 
 
 incomes_list:
   url:    /recettes/*
-  param:  { module: recette, action: index }
+  param:  { module: income, action: index }
 
 
 income_new:
   url:    /recette/nouvelle
-  param:  { module: recette, action: new }
-  
+  param:  { module: income, action: new }
+
+income_create:
+  url:    /recette/creation
+  param:  { module: income, action: create }
+    
 income_edit:
   url:    /recette/editer/:id
-  param:  { module: recette, action: edit }
-  
+  param:  { module: income, action: edit }
+
+income_update:
+  url:    /recette/metter_a_jour/:id
+  param:  { module: income, action: update }
+    
 income_delete:
   url:    /recette/supprimer/:id
-  param:  { module: recette, action: delete }
+  param:  { module: income, action: delete }
 
 income_show:
   url:    /recette/details/:id
-  param:  { module: recette, action: show }
+  param:  { module: income, action: show }
 
 
 
@@ -163,72 +197,79 @@ income_show:
   
 members_list:
   url:    /membres/*
-  param:  { module: membre, action: index}
+  param:  { module: member, action: index}
 
 members_map:
   url:    /carte
-  param:  { module: membre, action: map }
+  param:  { module: member, action: map }
   
 faces:
   url:    /trombinoscope
-  param:  { module: membre, action: faces }
+  param:  { module: member, action: faces }
   
 ajax_search_members:
   url:    membre/ajaxlist
-  param:  { module: membre, action: ajaxlist }
+  param:  { module: member, action: ajaxlist }
 
 register_first_member:
   url:    /register_first_member
-  param:  { module: membre, action: newfirst }
+  param:  { module: member, action: newfirst }
 
 member_show:
   url:    /membre/details/:id
-  param:  { module: membre, action: show }
+  param:  { module: member, action: show }
   
 member_edit:
   url:    /membre/editer/:id
-  param:  { module: membre, action: edit }
+  param:  { module: member, action: edit }
 
 member_delete:
   url:    /membre/supprimer/:id
-  param:  { module: membre, action: delete }
+  param:  { module: member, action: delete }
 
 member_pending:
   url:    /membre/en_attente
-  param:  { module: membre, action: pending }
+  param:  { module: member, action: pending }
 
 member_acl:
   url:    /membre/droits/:id
-  param:  { module: membre, action: acl }
+  param:  { module: member, action: acl }
   
 member_search:
   url:    /membre/recherche
-  param:  { module: membre, action: search }
+  param:  { module: member, action: search }
 
 member_endregistration:
   url:    /membre/inscription_finie
-  param:  { module: membre, action: endregistration }
+  param:  { module: member, action: endregistration }
 
 member_new:
   url:    /membre/nouveau
-  param:  { module: membre, action: new }
+  param:  { module: member, action: new }
 
 member_create:
   url:    /membre/creation
-  param:  { module: membre, action: create }
+  param:  { module: member, action: create }
 
 member_update:
   url:    /membre/update/:id
-  param:  { module: membre, action: update }
+  param:  { module: member, action: update }
   
 member_ask_subscription:
   url:    /membre/demande_adhesion
-  param:  { module: membre, action: createpending }
+  param:  { module: member, action: requestsubscription }
+
+member_create_pending:
+  url:    /membre/creation_adhesion
+  param:  { module: member, action: createpending }
   
 member_first:
   url:    /membre/premier_membre
-  param:  { module: membre, action: firstcreate }
-  
+  param:  { module: member, action: firstcreate }
+ 
+member_validate:
+  url:    /membre/validation/:id
+  param:  { module: member, action: validate } 
 
 # -----------------------------------------------------------------------------
 #     ASSOCIATION ACTIONS
@@ -295,24 +336,31 @@ status_show:
  
 dues_list:
   url:    /cotisations/*
-  param:  { module: cotisation, action: index }
+  param:  { module: due, action: index }
 
 due_show:
   url:    /cotisation/details/:id
-  param:  { module: cotisation, action: show }
+  param:  { module: due, action: show }
 
 due_edit:
   url:    /cotisation/editer/:id
-  param:  { module: cotisation, action: edit }
+  param:  { module: due, action: edit }
   
 due_delete:
   url:    /cotisation/supprimer/:id
-  param:  { module: cotisation, action: delete }
+  param:  { module: due, action: delete }
 
 due_new:
   url:    /cotisation/nouvelle
-  param:  { module: cotisation, action: new }
+  param:  { module: due, action: new }
 
+due_create:
+  url:    /cotisation/creation
+  param:  { module: due, action: create }
+  
+due_update:
+  url:    /cotisation/mettre_a_jour/:id
+  param:  { module: due, action: update }
 
 
 # -----------------------------------------------------------------------------
@@ -321,23 +369,32 @@ due_new:
  
 duetypes_list:
   url:    /types_cotisations
-  param:  { module: cotisationtype, action: index }
+  param:  { module: duetype, action: index }
 
 duetype_ajax_getamount:
   url:    /duetype
-  param:  { module: cotisationtype, action: ajaxgetamountfor }
+  param:  { module: duetype, action: ajaxgetamountfor }
 
 duetype_new:
-  url:    /type_cotisation/nouveau
-  param:  { module: cotisationtype, action: new }
+  url:    /type_cotisation/nouveau/*
+  param:  { module: duetype, action: new }
+
+duetype_create:
+  url:    /type_cotisation/creation
+  param:  { module: duetype, action: create }
 
 duetype_edit:
   url:    /types_cotisation/editer/:id
-  param:  { module: cotisationtype, action: edit }
+  param:  { module: duetype, action: edit }
+
+duetype_update:
+  url:    /types_cotisation/mettre_a_jour/:id
+  param:  { module: duetype, action: update }
   
 duetype_delete:
   url:    /types_cotisation/supprimer/:id
-  param:  { module: cotisationtype, action: delete }
+  param:  { module: duetype, action: delete }
+
 
 
 # -----------------------------------------------------------------------------
@@ -355,7 +412,7 @@ export:
 
 homepage:
   url:    /
-  param:  { module: membre, action: index }
+  param:  { module: member, action: index }
 
   
 default_index:

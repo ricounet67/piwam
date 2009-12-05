@@ -21,7 +21,7 @@
                     <?php echo link_to(short_website_url($association->getSiteWeb()),  $association->getSiteWeb()) ?>
                 <?php endif ?>
             </td>
-            <td><?php echo $association->getMembreRelatedByEnregistrePar() ?></td>
+            <td><?php echo $association->getCreatedByMember() ?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>
@@ -29,7 +29,7 @@
 
 <div class="addNew"
     style="width: 214px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
-        <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer une association', 'association/new') ?>
+        <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Enregistrer une association', '@association_new') ?>
 </div>
 
 <?php include_partial('global/pager', array('pager' => $associationsPager, 'route' => '@associations_list', 'params' => array())) ?>
