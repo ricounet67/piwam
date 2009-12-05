@@ -6,7 +6,7 @@
 
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
-    <?php endif; ?>
+    <?php endif ?>
 
 <table class="formtable">
 
@@ -16,15 +16,15 @@
         <tr>
             <td colspan="2">
                 <?php echo $form->renderHiddenFields() ?>
-                <?php echo link_to('Annuler', '@members_list', array('class'	=> 'formLinkButton')) ?>
+                <?php echo link_to('Annuler', '@members_list', array('class'	=> 'blue button')) ?>
 
                 <!-- Display "next step" or "cancel" and "delete" buttons-->
 
                 <?php if ($form->getObject()->isNew()): ?>
-                    <input type="submit" value="Étape suivante >" class="button" />
+                    <input type="submit" value="Étape suivante >" class="blue button" />
                 <?php else: ?>
-                    <?php echo link_to('Supprimer', '@association_delete?id=' . $form->getObject()->getId(), array('class' => 'formLinkButton', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
-                    <input type="submit" value="Sauvegarder" class="button" name="Sauvegarder" />
+                    <?php echo link_to('Supprimer', '@association_delete?id=' . $form->getObject()->getId(), array('class' => 'blue button', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
+                    <input type="submit" value="Sauvegarder" class="blue button" name="Sauvegarder" />
                 <?php endif ?>
 
             </td>
