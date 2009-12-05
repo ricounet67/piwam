@@ -17,11 +17,10 @@
     <tbody>
         <?php foreach ($due_types as $due_type): ?>
             <?php include_partial('dueTypeRow', array('due_type' => $due_type))?>
-        <?php endforeach; ?>
+        <?php endforeach ?>
     </tbody>
 </table>
 
+<br />
+<?php echo link_to('Nouveau type', '@duetype_new', array('class' => 'add grey button')) ?>
 
-<div class="addNew">
-    <?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'[ajouter]')). ' Nouveau type', '@duetype_new') ?>
-</div>
