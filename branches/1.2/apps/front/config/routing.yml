@@ -68,7 +68,7 @@ activities_list:
   url:    /activites
   param:  { module: activity, action: index }
 
-activity_by_id:
+activity_show:
   url:    /activite/details/:id
   param:  { module: activity, action: show }
 
