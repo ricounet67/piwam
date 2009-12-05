@@ -312,11 +312,19 @@ status_list:
 status_new:
   url:    /statut/nouveau
   param:  { module: status, action: new }
-  
+
+status_create:
+  url:    /statut/creation
+  param:  { module: status, action: create }
+    
 status_edit:
   url:    /statut/editer/:id
   param:  { module: status, action: edit }
-  
+
+status_update:
+  url:    /statut/mettre_a_jour/:id
+  param:  { module: status, action: update }
+    
 status_delete:
   url:    /statut/supprimer/:id
   param:  { module: status, action: delete }
