@@ -4,14 +4,10 @@
     <?php include_http_metas() ?>
     <?php include_metas() ?>
     <?php include_title() ?>
+    <?php include_javascripts() ?>
     <link rel="shortcut icon" href="<?php echo $sf_request->getRelativeUrlRoot() ?>/favicon.ico" />
 </head>
 <body>
-
-    <!-- Set Jquery's noConflict mode -->
-
-    <script type="text/javascript">var J = jQuery.noConflict();</script>
-
 
     <div id="container">
 
@@ -19,14 +15,23 @@
 
         <h1><?php echo sfContext::getInstance()->getUser()->getAssociationName('Piwam') ?></h1>
 
-
-        <!-- Menu bar -->
-
         <div id="menu">
+
+            <?php if ($sf_user->getUserId()): ?>
+            <div id="user_box">
+                <p>
+                    Bonjour <span class="username"><?php echo $sf_user->getUsername() ?></span>
+                </p>
+                <?php echo link_to(image_tag('icons/user_edit') . ' Modifier mon profil', '@member_edit?id=1') ?>
+                <?php echo link_to(image_tag('logout') . ' D&eacute;connexion', '@logout') ?>
+            </div>
+            <?php endif ?>
+
             <ul>
                 <li class="mainSection">Configuration</li>
                 <li><?php echo link_to('A propos de l\'association', '@association_edit?id=' . sfContext::getInstance()->getUser()->getAssociationId()) ?></li>
                 <li><?php echo link_to('Pr&eacute;f&eacute;rences Piwam', '@config') ?></li>
+                <li><?php echo link_to('Administration', '@admin') ?></li>
             </ul>
             <ul>
                 <li class="mainSection">Membres</li>
@@ -50,12 +55,9 @@
             </ul>
             <ul>
                 <li class="mainSection">Fonctionnalit&eacute;s</li>
-                <li><?php echo link_to('D&eacute;connexion', '@logout') ?></li>
                 <li><?php echo link_to('Exporter les donn&eacute;es', '@export') ?></li>
                 <li><?php echo link_to('Mailing', '@mailing') ?></li>
                 <li><a href="http://code.google.com/p/piwam/issues/entry" target="_blank">Rapporter un bug</a></li>
-                <li><?php echo link_to('Installation', '@setup') ?></li>
-                <li><?php echo link_to('Mise à jour', '@update') ?></li>
             </ul>
             <br />
         </div>
@@ -66,7 +68,33 @@
         <div id="content">
             <?php echo $sf_content ?>
         </div>
-
+        <hr class="clear" />
     </div>
+
+
+    <!-- Apply JS behaviour to 'delete' frames
+         see: jQuery-tools website -->
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+        	var triggers = $("a.modalInput").overlay({
+
+        	  // some expose tweaks suitable for modal dialogs
+        	  expose: {
+        	    color: '#333',
+        	    loadSpeed: 50,
+        	    opacity: 0.8
+        	  },
+
+        	  closeOnClick: false
+        	});
+
+        	var buttons = $("#deleteFrame a").click(function(e) {
+        	  // get user input
+        	  var selected = buttons.index(this) === 0;
+        	});
+      	});
+    </script>
+
 </body>
 </html>

@@ -1,17 +1,20 @@
-<h2>Mailing</h2>
+<?php use_javascript('tiny_mce/tiny_mce.js') ?>
+
+<h2>Envoi en masse</h2>
 
 <!-- Display success or error message -->
 
 <?php if ($sf_user->hasFlash('notice')): ?>
     <p class="notice"><?php echo $sf_user->getFlash('notice') ?></p>
-<?php endif; ?>
+<?php endif ?>
 
 <?php if ($sf_user->hasFlash('error')): ?>
     <p class="error">
         <?php echo image_tag('error', array('align' => 'top', 'alt' => 'Erreur')) ?> <strong>ERREUR</strong>:
         <?php echo $sf_user->getFlash('error') ?>
     </p>
-<?php endif; ?>
+<?php endif ?>
+
 
 <!-- Display sent mail if form has been submit -->
 
@@ -55,9 +58,9 @@
         </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><input type="submit" class="button" value="Envoyer" /></td>
+            <td><input type="submit" class="grey button" value="Envoyer" /></td>
         </tr>
     </table>
     </form>
 
-<?php endif; ?>
+<?php endif ?>

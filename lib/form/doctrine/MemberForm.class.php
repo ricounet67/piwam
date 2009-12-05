@@ -30,7 +30,7 @@ class MemberForm extends BaseMemberForm
    * hidden references (association, granted user id...)
    *
    * r33 : At the beginning of the process we determine if we are registering
-   *     the first Membre of a new association or not
+   *       the first Membre of a new association or not
    */
   public function configure()
   {

@@ -42,10 +42,10 @@ Doctrine_Manager::getInstance()->bindComponent('Activity', 'doctrine');
  * @method Activity            setExpenses()        Sets the current record's "Expenses" collection
  * @method Activity            setIncomes()         Sets the current record's "Incomes" collection
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: Builder.php 6716 2009-11-12 19:26:28Z jwage $
+ * @package    piwam
+ * @subpackage model
+ * @author     Adrien Mogenet
+ * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
  */
 abstract class BaseActivity extends sfDoctrineRecord
 {

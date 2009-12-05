@@ -20,7 +20,7 @@ class DataTable extends Doctrine_Table
     $q = Doctrine_Query::create()
           ->select('d.value')
           ->from('Data d')
-          ->where('d.config_key = ?', $d);
+          ->where('d.config_key = ?', $key);
 
     $row = $q->fetchOne();
 

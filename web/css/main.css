@@ -44,6 +44,9 @@ h1 {
     background-color: #1472B4;
     color: white;
     padding: 10px;
+    margin-top: 10px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
 }
 
 /* section title */
@@ -80,13 +83,21 @@ body {
     padding: 10px;
     font-family: Helvertica, Verdana, Arial, sans-serif;
     font-size: 12px;
-    background-color: #fff;
+    background-color: #005674;
+    background-image: url(diag.gif);
+    background-attachment: fixed;
 }
 
 /* global block embedding the others */
 #container {
     margin: auto;
     width: 90%;
+    background-color: white;
+    padding: 2px 10px 10px 10px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 /* content block */
@@ -95,63 +106,42 @@ body {
     margin-left: 250px;
 }
 
-/* ----------------------------------- MENU -------------------------------- */
-
-/* menu block */
-#menu {
-    position: relative;
-    float: left;
-    width: 200px;
-}
-
-/* section in the menu */
-.mainSection {
-    background-color: #41B200;
-    color: white;
-    font-weight: bold;
-    text-transform: capitalize;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 10px;
-    border-bottom: 1px solid #555;
-}
-
-/* menu list */
-#menu ul {
-    padding-left: 10px;
-}
-
-/* menu items */
-#menu li {
-    display: block;
-    padding: 2px;
-}
-
-/* links in menu */
-#menu a {
-    text-decoration: none;
-    color: #999;
-}
-
-#menu a:Hover {
-    color: #000;
-}
-
-
-/* ------------------------------ END OF MENU -------------------------------*/
-
-/* used for embed forms */
-.subform {
-    
-}
-
-.subform table th {
-    text-align: left;
-    font-weight: normal;
-    background-color: #eeeeff;
+#user_box {
+    background-color: #C3F1F7;
+    width: 170px;
+    margin-left: 10px;
     padding: 10px;
-    color: #666;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
+#user_box p {
+    margin-top: 2px;
+    font-size: 14px;
+}
+#user_box .username {
+    font-family: courier;
+    color: #444;   
+}
+#user_box a, #user_box a:visited {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    color: #666;
+    font-weight: lighter;
+    display: block;
+    background-color: #A7CEDF;
+    padding: 2px 2px 4px 5px;
+    margin: 0 0 5px 0;
+}
+#user_box a:Hover {
+    background-color: #7BBAEC;
+    color: white;
+}
+
+.clear {
+    clear: both;
+    visibility: hidden;
+}
+
 
 /*****************************************************************************
 **

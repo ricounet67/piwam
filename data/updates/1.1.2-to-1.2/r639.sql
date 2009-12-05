@@ -61,25 +61,6 @@ ALTER TABLE `piwam_status`  ENGINE = InnoDB DEFAULT CHARACTER SET utf8 COLLATE u
 
 
 
-ALTER TABLE `piwam_status`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_income`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_expense`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_activity`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_account`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_due`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_due_type`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_config_category`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_member`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_acl_action`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_acl_credential`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_acl_module`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_association`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_data`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_config_value`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-ALTER TABLE `piwam_config_variable`  DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
-
-
 ALTER TABLE `piwam_due` CHANGE `compte_id` `account_id` INT( 11 ) NOT NULL;
 ALTER TABLE `piwam_due` CHANGE `membre_id` `member_id` INT( 11 ) NOT NULL;
 ALTER TABLE `piwam_due` CHANGE `cotisation_type_id` `due_type_id` INT( 11 ) NOT NULL;
@@ -188,6 +169,39 @@ UPDATE `piwam_due` SET `updated_by` = NULL WHERE `piwam_due`.`updated_by` =0 ;
 UPDATE `piwam_member` SET `updated_by` = NULL WHERE `piwam_member`.`updated_by` =0 ;
 UPDATE `piwam_member` SET `created_by` = NULL WHERE `piwam_member`.`created_by` =0 ;
 
+
+
+
+--
+-- Add indexes and PK
+--
+
+ALTER TABLE piwam_account ADD INDEX association_id_idx (association_id), ADD INDEX created_by_idx (created_by), ADD INDEX updated_by_idx (updated_by), ADD PRIMARY KEY(id);
+ALTER TABLE piwam_acl_action  ADD INDEX acl_module_id_idx (acl_module_id), ADD PRIMARY KEY(id);
+ALTER TABLE piwam_acl_credential   ADD INDEX acl_action_id_idx (acl_action_id), ADD INDEX member_id_idx (member_id), ADD PRIMARY KEY(id);
+ALTER TABLE piwam_acl_module ADD PRIMARY KEY(id);
+ALTER TABLE piwam_activity ADD INDEX association_id_idx (association_id), ADD INDEX created_by_idx (created_by), ADD INDEX updated_by_idx (updated_by), ADD PRIMARY KEY(id); 
+ALTER TABLE piwam_association ADD PRIMARY KEY(id);
+ALTER TABLE piwam_config_category ADD PRIMARY KEY(code);
+ALTER TABLE piwam_config_value ADD PRIMARY KEY(config_variable_id, association_id); 
+ALTER TABLE piwam_config_variable ADD INDEX category_code_idx (category_code), ADD PRIMARY KEY(id);
+ALTER TABLE piwam_data ADD PRIMARY KEY(id);
+ALTER TABLE piwam_due ADD INDEX account_id_idx (account_id), ADD INDEX due_type_id_idx (due_type_id), ADD INDEX member_id_idx (member_id), ADD INDEX created_by_idx (created_by), ADD INDEX updated_by_idx (updated_by), ADD PRIMARY KEY(id); 
+ALTER TABLE piwam_due_type ADD INDEX association_id_idx (association_id), ADD INDEX created_by_idx (created_by), ADD INDEX updated_by_idx (updated_by), ADD PRIMARY KEY(id);
+ALTER TABLE piwam_expense ADD INDEX association_id_idx (association_id), ADD INDEX account_id_idx (account_id), ADD INDEX activity_id_idx (activity_id), ADD INDEX created_by_idx (created_by), ADD INDEX updated_by_idx (updated_by), ADD PRIMARY KEY(id);
+ALTER TABLE piwam_income ADD INDEX association_id_idx (association_id), ADD INDEX account_id_idx (account_id), ADD INDEX activity_id_idx (activity_id), ADD INDEX created_by_idx (created_by), ADD INDEX updated_by_idx (updated_by), ADD PRIMARY KEY(id);
+ALTER TABLE piwam_member ADD INDEX association_id_idx (association_id), ADD INDEX status_id_idx (status_id), ADD INDEX created_by_idx (created_by), ADD INDEX updated_by_idx (updated_by), ADD PRIMARY KEY(id);
+
+
+ALTER TABLE piwam_status 
+ADD INDEX association_id_idx (association_id), 
+ADD INDEX created_by_idx (created_by),
+ADD INDEX updated_by_idx (updated_by), 
+ADD PRIMARY KEY(id);
+
+UPDATE piwam_member SET status_id=1 WHERE status_id=0;
+
+ALTER TABLE `piwam_config_category` CHANGE `code` `code` VARCHAR( 25 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;
 
 ALTER TABLE piwam_account ADD CONSTRAINT piwam_account_updated_by_piwam_member_id FOREIGN KEY (updated_by) REFERENCES piwam_member(id) ON DELETE SET NULL;
 ALTER TABLE piwam_account ADD CONSTRAINT piwam_account_created_by_piwam_member_id FOREIGN KEY (created_by) REFERENCES piwam_member(id) ON DELETE SET NULL;

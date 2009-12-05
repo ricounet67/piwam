@@ -64,7 +64,7 @@ use_javascript('custom-forms/si.files.js')
                 <!-- Delete button only if object already exists -->
 
                 <?php if (! $form->getObject()->isNew()): ?>
-	                	<?php echo link_to('Supprimer', '@member_delete?id=' . $form->getObject()->getId(), array('class' => 'formLinkButton', 'method' => 'delete', 'confirm' => 'Etes vous sûr ?')) ?>
+	                	<?php echo link_to('Supprimer', '@member_delete?id=' . $form->getObject()->getId(), array('class' => 'blue button', 'method' => 'delete', 'confirm' => 'Etes vous sûr ?')) ?>
         		    <?php endif ?>
 
 

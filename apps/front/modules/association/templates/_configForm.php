@@ -5,7 +5,7 @@
     <tfoot>
         <tr>
             <td>&nbsp;</td>
-            <td><input type="submit" class="button" value="Sauvegarder" />
+            <td><input type="submit" class="blue button" value="Sauvegarder" />
 
         </tr>
     </tfoot>

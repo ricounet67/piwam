@@ -45,10 +45,10 @@ Doctrine_Manager::getInstance()->bindComponent('DueType', 'doctrine');
  * @method DueType             setUpdatedByMember() Sets the current record's "UpdatedByMember" value
  * @method DueType             setDue()             Sets the current record's "Due" collection
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: Builder.php 6716 2009-11-12 19:26:28Z jwage $
+ * @package    piwam
+ * @subpackage model
+ * @author     Adrien Mogenet
+ * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
  */
 abstract class BaseDueType extends sfDoctrineRecord
 {
