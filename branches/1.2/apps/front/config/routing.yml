@@ -29,6 +29,10 @@ retrieve_password:
   url:    /recuperer_mot_de_passe
   param:  { module: login, action: forgottenpassword }
   
+admin:
+  url:    /administration
+  param:  { module: admin, action: index }
+  
 setup:
   url:    /install
   param:  { module: install, action: index }
