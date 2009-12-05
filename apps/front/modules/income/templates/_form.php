@@ -2,7 +2,7 @@
 <?php include_javascripts_for_form($form) ?>
 
 <form
-    action="<?php echo url_for('recette/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>"
+    action="<?php echo url_for('@income_'.($form->getObject()->isNew() ? 'create' : 'update?id='.$form->getObject()->getId())) ?>"
     method="post"
     <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
@@ -15,13 +15,13 @@
             <tr>
                 <td colspan="2">
                     <?php echo $form->renderHiddenFields() ?>
-                    <?php echo link_to('Annuler', '@incomes_list', array('class'	=> 'formLinkButton')) ?>
+                    <?php echo link_to('Annuler', '@incomes_list', array('class'	=> 'blue button')) ?>
 
                     <?php if (!$form->getObject()->isNew()): ?>
-                        <?php echo link_to('Supprimer', '@income_delete?id=' . $form->getObject()->getId(), array('class'	=> 'formLinkButton', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
-                   	<?php endif; ?>
+                        <?php echo link_to('Supprimer', '@income_delete?id=' . $form->getObject()->getId(), array('class'	=> 'blue button', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
+                   	<?php endif ?>
 
-                      <input type="submit" value="Sauvegarder" class="button" /></td>
+                      <input type="submit" value="Sauvegarder" class="blue button" /></td>
             </tr>
         </tfoot>
         <tbody>

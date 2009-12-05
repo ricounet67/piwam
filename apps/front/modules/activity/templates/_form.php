@@ -1,13 +1,13 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
 
-<form action="<?php echo url_for('activite/'.($form->getObject()->isNew() ? 'create' : 'update').(!$form->getObject()->isNew() ? '?id='.$form->getObject()->getId() : '')) ?>"
+<form action="<?php echo url_for('@activity_'.($form->getObject()->isNew() ? 'create' : 'update?id='.$form->getObject()->getId())) ?>"
     method="post"
     <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
-    <?php endif; ?>
+    <?php endif ?>
 
 
     <table class="formtable">
@@ -18,13 +18,13 @@
             <tr>
                 <td colspan="2">
                     <?php echo $form->renderHiddenFields() ?>
-                    <?php echo link_to('Annuler', 'activite/index', array('class'	=> 'formLinkButton')) ?>
+                    <?php echo link_to('Annuler', '@activities_list', array('class'	=> 'blue button')) ?>
 
                     <?php if (! $form->getObject()->isNew()): ?>
-                        <?php echo link_to('Supprimer', '@activity_delete?id=' . $form->getObject()->getId(), array('class' => 'formLinkButton', 'method' 	=> 'delete', 'confirm' => 'Etes vous sûr ?')) ?>
+                        <?php echo link_to('Supprimer', '@activity_delete?id=' . $form->getObject()->getId(), array('class' => 'blue button', 'method' => 'delete', 'confirm' => 'Etes vous sûr ?')) ?>
                     <?php endif ?>
 
-                  <input type="submit" value="Sauvegarder" class="button" />
+                  <input type="submit" value="Sauvegarder" class="blue button" />
                 </td>
             </tr>
         </tfoot>
