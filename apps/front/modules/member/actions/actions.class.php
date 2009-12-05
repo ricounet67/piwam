@@ -190,6 +190,11 @@ class memberActions extends sfActions
       $result[$key] = $value;
     }
 
+    if (count($result) === 0)
+    {
+      $result = null;
+    }
+
     return $this->renderText(json_encode($result));
   }
 
