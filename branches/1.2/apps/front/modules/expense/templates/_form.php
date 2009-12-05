@@ -18,13 +18,13 @@
             <tr>
                 <td colspan="2">
                     <?php echo $form->renderHiddenFields() ?>
-                    <?php echo link_to('Annuler', '@expenses_list', array('class'	=> 'formLinkButton')) ?>
+                    <?php echo link_to('Annuler', '@expenses_list', array('class'	=> 'blue button')) ?>
 
                     <?php if (!$form->getObject()->isNew()): ?>
-                        <?php echo link_to('Supprimer', '@expense_delete?id=' . $form->getObject()->getId(), array('class' => 'formLinkButton', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
+                        <?php echo link_to('Supprimer', '@expense_delete?id=' . $form->getObject()->getId(), array('class' => 'blue button', 'method' => 'delete', 'confirm' => 'Êtes vous sûr ?')) ?>
                     <?php endif ?>
 
-                    <input type="submit" value="Sauvegarder" class="button" />
+                    <input type="submit" value="Sauvegarder" class="blue button" />
                 </td>
             </tr>
         </tfoot>

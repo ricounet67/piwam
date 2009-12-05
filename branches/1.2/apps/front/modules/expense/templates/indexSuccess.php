@@ -20,10 +20,8 @@
     </tbody>
 </table>
 
-
 <?php include_partial('global/pager', array('pager' => $expensesPager, 'route' => '@expenses_list', 'params' => array())) ?>
 
+<br />
+<?php echo link_to('Nouvelle dépense', '@expense_new', array('class' => 'grey add button')) ?>
 
-<div class="addNew">
-    <?php echo link_to(image_tag('add', array('align' => 'top', 'alt' => '[ajouter]')). ' Nouvelle dépense', '@expense_new') ?>
-</div>
