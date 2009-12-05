@@ -154,7 +154,7 @@ class memberActions extends sfActions
   {
     $request->checkCSRFProtection();
     $id = $request->getParameter('id');
-    $member = MemberTable::retrieveByPk($id);
+    $member = MemberTable::getById($id);
     $this->forward404Unless($member);
 
     if ($member->getAssociationId() != $this->getUser()->getAssociationId())
