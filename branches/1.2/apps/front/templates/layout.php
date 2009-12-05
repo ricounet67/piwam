@@ -9,11 +9,6 @@
 </head>
 <body>
 
-    <!-- Set Jquery's noConflict mode -->
-
-    <script type="text/javascript">var J = jQuery.noConflict();</script>
-
-
     <div id="container">
 
         <!-- Header of the application -->
@@ -73,8 +68,33 @@
         <div id="content">
             <?php echo $sf_content ?>
         </div>
-
         <hr class="clear" />
     </div>
+
+
+    <!-- Apply JS behaviour to 'delete' frames
+         see: jQuery-tools website -->
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+        	var triggers = $("a.modalInput").overlay({
+
+        	  // some expose tweaks suitable for modal dialogs
+        	  expose: {
+        	    color: '#333',
+        	    loadSpeed: 50,
+        	    opacity: 0.8
+        	  },
+
+        	  closeOnClick: false
+        	});
+
+        	var buttons = $("#deleteFrame a").click(function(e) {
+        	  // get user input
+        	  var selected = buttons.index(this) === 0;
+        	});
+      	});
+    </script>
+
 </body>
 </html>
