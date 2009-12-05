@@ -20,7 +20,7 @@
                     <ul>
                         <?php foreach ($files as $file): ?>
                             <li><pre><?php echo $file ?></pre></li>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     </ul>
                 <?php endif ?>
             </td>
@@ -29,7 +29,7 @@
         <?php if (count($files) !== 0): ?>
             <tr>
                 <th>&nbsp;</th>
-                <td><?php echo link_to('Exécuter', 'update/perform', array('class' => 'button')) ?>
+                <td><?php echo link_to('Exécuter', 'update/perform', array('class' => 'grey button')) ?>
                 </td>
             </tr>
         <?php endif ?>
