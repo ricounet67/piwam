@@ -27,10 +27,10 @@ Doctrine_Manager::getInstance()->bindComponent('AclAction', 'doctrine');
  * @method AclAction           setAclModule()     Sets the current record's "AclModule" value
  * @method AclAction           setAclCredential() Sets the current record's "AclCredential" collection
  * 
- * @package    ##PACKAGE##
- * @subpackage ##SUBPACKAGE##
- * @author     ##NAME## <##EMAIL##>
- * @version    SVN: $Id: Builder.php 6716 2009-11-12 19:26:28Z jwage $
+ * @package    piwam
+ * @subpackage model
+ * @author     Adrien Mogenet
+ * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
  */
 abstract class BaseAclAction extends sfDoctrineRecord
 {
