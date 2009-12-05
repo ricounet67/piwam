@@ -6,7 +6,7 @@
         <?php echo format_date($activity->getCreatedAt()) ?>
     </td>
     <td>
-        <?php echo link_to(image_tag('icons/show', array('alt' => '[détails]')), '@activity_by_id?id=' . $activity->getId()) ?>
+        <?php echo link_to(image_tag('icons/show', array('alt' => '[détails]')), '@activity_show?id=' . $activity->getId()) ?>
         <?php echo link_to(image_tag('icons/edit', array('alt' => '[modifier]')),   '@activity_edit?id=' . $activity->getId()) ?>
         <?php echo link_to(image_tag('icons/delete'), '@activity_delete?id=' . $activity->getId(), array(
             'method'  => 'delete',
