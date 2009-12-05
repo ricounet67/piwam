@@ -21,5 +21,5 @@
     </tbody>
 </table>
 
-<div class="addNew"><?php echo link_to(image_tag('add', array('align'=>'top', 'alt'=>'Time')). ' Nouveau statut', '@status_new') ?>
-</div>
+<br />
+<?php echo link_to('Nouveau statut', '@status_new', array('class' => 'grey add button')) ?>
