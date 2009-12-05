@@ -47,16 +47,6 @@ class updateActions extends sfActions
   const CHECK_VERSION_ERROR = 2;
 
   /**
-   * Display temporary message to say that update is not available for
-   * Piwam 1.2 yet
-   *
-   */
-  public function executeSoon()
-  {
-    return sfView::SUCCESS;
-  }
-
-  /**
    * Executes index action
    *
    * @param   sfRequest $request A request object
@@ -64,7 +54,6 @@ class updateActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->redirect('update/soon');
     $this->currentDBVersion = DataTable::getByKey('dbversion');
     $this->files = $this->_checkSQLFilesSince($this->currentDBVersion);
 
