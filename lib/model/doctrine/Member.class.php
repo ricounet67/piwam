@@ -106,7 +106,28 @@ class Member extends BaseMember
    */
   public function hasToPayDue()
   {
-    return false;
+    if ($this->getDueExempt() == true)
+    {
+      return false;
+    }
+    else
+    {
+      $lastDue = DueTable::getLastForMember($this->getId());
+
+      if (null == $lastDue)
+      {
+        return true;
+      }
+      else
+      {
+        $dateCalculator = new DateTools($lastDue->getDate(), 'Y-m-d');
+        $expireDate     = $dateCalculator->add('mo', $lastDue->getDueType()->getPeriod());
+        $today          = strtotime(date('Y-m-d'));
+        $expiration     = strtotime($expireDate);
+
+        return ($today >= $expiration);
+      }
+    }
   }
 
   /**
