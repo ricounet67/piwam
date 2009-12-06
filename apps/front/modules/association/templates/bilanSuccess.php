@@ -26,7 +26,7 @@ $total         = 0;
 
         <?php foreach ($accounts as $account): ?>
             <tr class="<?php echo ($account->isNegative()) ? 'negative' : 'positive' ?>">
-                <td><?php echo link_to($account->getReference(), '@account_by_id?id=' . $account->getId(), array('class' => 'block')) ?></td>
+                <td><?php echo link_to($account->getReference(), '@account_show?id=' . $account->getId(), array('class' => 'block')) ?></td>
                 <td><?php echo format_currency($account->getTotalExpenses()); $totalExpenses += $account->getTotalExpenses() ?></td>
                 <td><?php echo format_currency($account->getTotalIncomes()); $totalIncomes += $account->getTotalIncomes() ?></td>
                 <td><?php echo format_currency($account->getTotal()); $total += $account->getTotal() ?></td>
@@ -64,7 +64,7 @@ $total         = 0;
     </thead>
     <tbody>
         <tr class="positive">
-            <td><?php echo link_to('Cotisations', 'cotisation/index', array('class' => 'block')) ?></td>
+            <td><?php echo link_to('Cotisations', '@dues_list', array('class' => 'block')) ?></td>
             <td><?php echo format_currency(0) ?></td>
             <td><?php echo format_currency($totalDues); $totalIncomes += $totalDues ?></td>
             <td><?php echo format_currency($totalDues); $total += $totalDues ?></td>
@@ -72,7 +72,7 @@ $total         = 0;
 
         <?php foreach ($activities as $activity): ?>
             <tr class="<?php echo ($activity->getTotal() < 0) ? 'negative' : 'positive' ?>">
-                <td><?php echo link_to($activity->getLabel(), '@activity_by_id?id=' . $activity->getId(), array('class' => 'block')) ?></td>
+                <td><?php echo link_to($activity->getLabel(), '@activity_show?id=' . $activity->getId(), array('class' => 'block')) ?></td>
                 <td><?php echo format_currency($activity->getTotalExpenses()); $totalExpenses += $activity->getTotalExpenses() ?></td>
                 <td><?php echo format_currency($activity->getTotalIncomes()); $totalIncomes += $activity->getTotalIncomes() ?></td>
                 <td><?php echo format_currency($activity->getTotal()); $total += $activity->getTotal() ?></td>
@@ -119,6 +119,6 @@ $total         = 0;
 <p style="padding: 10px; background-color: #eee; width: 88%">
     Une discussion est actuellement en cours afin d'améliorer ce "bilan" (export
     PDF, formalisme comptable..)<br />
-    N'hésitez pas <a href="http://code.google.com/p/piwam/wiki/ReflexionCompta">
+    N'hésitez pas à <a href="http://code.google.com/p/piwam/wiki/ReflexionCompta">
     donner votre avis</a>.
 </p>
