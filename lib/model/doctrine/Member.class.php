@@ -110,6 +110,46 @@ class Member extends BaseMember
   }
 
   /**
+   * Overrides getter for City field.
+   *
+   * @return  string  well-formated city
+   */
+  public function getCity()
+  {
+    return mb_convert_case($this->_get('city'), MB_CASE_UPPER, "UTF8");
+  }
+
+  /**
+   * Overrides getter for Lastname field
+   *
+   * @return  string  well-formated lastname
+   */
+  public function getLastname()
+  {
+    return mb_convert_case($this->_get('lastname'), MB_CASE_TITLE, "UTF8");
+  }
+
+  /**
+   * Overrides getter for Firstname field
+   *
+   * @return  string  well-formated lastname
+   */
+  public function getFirstname()
+  {
+    return mb_convert_case($this->_get('firstname'), MB_CASE_TITLE, "UTF8");
+  }
+
+  /**
+   * Overrides getter for Street field
+   *
+   * @return  string  well-formated lastname
+   */
+  public function getStreet()
+  {
+    return mb_convert_case($this->_get('street'), MB_CASE_TITLE, "UTF8");
+  }
+
+  /**
    * Get the whole adress of the member
    *
    * @return string
