@@ -11,7 +11,7 @@
  */
 ?>
 <div class="user_picture">
-	<?php echo link_to(image_tag($membre->getPictureURI(), array('alt' => $member)), '@member_show?id=' . $membre->getId()); ?>
+	<?php echo link_to(image_tag($member->getPictureURI(), array('alt' => $member)), '@member_show?id=' . $member->getId()); ?>
 
 	<div class="name">
 	    <?php echo $member ?>

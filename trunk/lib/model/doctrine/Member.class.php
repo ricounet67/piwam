@@ -106,7 +106,68 @@ class Member extends BaseMember
    */
   public function hasToPayDue()
   {
-    return false;
+    if ($this->getDueExempt() == true)
+    {
+      return false;
+    }
+    else
+    {
+      $lastDue = DueTable::getLastForMember($this->getId());
+
+      if (null == $lastDue)
+      {
+        return true;
+      }
+      else
+      {
+        $dateCalculator = new DateTools($lastDue->getDate(), 'Y-m-d');
+        $expireDate     = $dateCalculator->add('mo', $lastDue->getDueType()->getPeriod());
+        $today          = strtotime(date('Y-m-d'));
+        $expiration     = strtotime($expireDate);
+
+        return ($today >= $expiration);
+      }
+    }
+  }
+
+  /**
+   * Overrides getter for City field.
+   *
+   * @return  string  well-formated city
+   */
+  public function getCity()
+  {
+    return mb_convert_case($this->_get('city'), MB_CASE_UPPER, "UTF8");
+  }
+
+  /**
+   * Overrides getter for Lastname field
+   *
+   * @return  string  well-formated lastname
+   */
+  public function getLastname()
+  {
+    return mb_convert_case($this->_get('lastname'), MB_CASE_TITLE, "UTF8");
+  }
+
+  /**
+   * Overrides getter for Firstname field
+   *
+   * @return  string  well-formated lastname
+   */
+  public function getFirstname()
+  {
+    return mb_convert_case($this->_get('firstname'), MB_CASE_TITLE, "UTF8");
+  }
+
+  /**
+   * Overrides getter for Street field
+   *
+   * @return  string  well-formated lastname
+   */
+  public function getStreet()
+  {
+    return mb_convert_case($this->_get('street'), MB_CASE_TITLE, "UTF8");
   }
 
   /**

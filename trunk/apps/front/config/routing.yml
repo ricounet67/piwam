@@ -103,7 +103,7 @@ accounts_list:
   url:    /comptes
   param:  { module: account, action: index }
 
-account_by_id:
+account_show:
   url:    /compte/details/:id
   param:  { module: account, action: show }
 

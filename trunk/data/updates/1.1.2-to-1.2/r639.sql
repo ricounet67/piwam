@@ -60,6 +60,22 @@ ALTER TABLE `piwam_member`  ENGINE = InnoDB DEFAULT CHARACTER SET utf8 COLLATE u
 ALTER TABLE `piwam_status`  ENGINE = InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
+ALTER TABLE `piwam_account` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_association` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_acl_action` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_acl_credential` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_acl_module` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_activity` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_config_variable` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_data` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_due` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_due_type` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_expense` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_income` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_member` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `piwam_status` CHANGE `id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT;
+
+
 
 ALTER TABLE `piwam_due` CHANGE `compte_id` `account_id` INT( 11 ) NOT NULL;
 ALTER TABLE `piwam_due` CHANGE `membre_id` `member_id` INT( 11 ) NOT NULL;
