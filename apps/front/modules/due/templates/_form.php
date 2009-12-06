@@ -1,7 +1,6 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
 
-
 <form
     action="<?php echo url_for('@due_'.($form->getObject()->isNew() ? 'create' : 'update?id='.$form->getObject()->getId())) ?>"
     method="post"
@@ -10,8 +9,6 @@
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
     <?php endif ?>
-
-
 
     <table class="formtable">
         <tfoot>
@@ -75,15 +72,15 @@
 -->
 
 <script type="text/javascript">
-<!--
-new Form.Element.EventObserver('due_due_type_id',
-   function( element, value ) {
-      new Ajax.Updater( 'hiddenAmountValue',  '<?php echo url_for("@duetype_ajax_getamount") ?>?id=' + value, { onComplete: function () { updateAmont(value) }, parameters: id=value });
-   }
-);
 
-function updateAmont(v) {
-      document.getElementById('due_amount').value = document.getElementById('hiddenAmountValue').innerHTML;
-    }
-//-->
+$('#due_due_type_id').change(
+        function(e) {
+            var selected = $('#due_due_type_id option:selected');
+            var amount = $.getJSON("<?php echo url_for('@duetype_ajax_getamount?id=') ?>" + selected.val(),
+            		  function(v) {
+    	             	  $('#due_amount').val(v);
+               	  }
+            )
+        }
+);
 </script>
