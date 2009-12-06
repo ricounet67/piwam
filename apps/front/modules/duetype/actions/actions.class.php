@@ -20,14 +20,14 @@ class duetypeActions extends sfActions
 
     if (! $id)
     {
-      return $this->renderText('Pas de montant') ;
+      return $this->renderText(json_encode('Pas de montant'));
     }
     else
     {
-      return $this->renderText(DueTypeTable::getAmountForType($id)) ;
+      return $this->renderText(json_encode(DueTypeTable::getAmountForType($id)));
     }
 
-    return sfView::NONE;
+    return $this->renderText(json_encode(null));
   }
 
   /**
