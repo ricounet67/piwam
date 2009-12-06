@@ -131,4 +131,21 @@ class DueTable extends Doctrine_Table
 
     return $pager;
   }
+
+  /**
+   * Get the last due paid by the member $id
+   *
+   * @param   integer       $id
+   * @return  Due           The last paid due
+   */
+  public static function getLastForMember($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Due d')
+          ->where('d.member_id = ?', $id)
+          ->orderBy('d.date DESC')
+          ->limit(1);
+
+    return $q->fetchOne();
+  }
 }
