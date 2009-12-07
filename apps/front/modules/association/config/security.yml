@@ -29,5 +29,5 @@ bilan:
   credentials:  bilan
   
 config:
-  credentials:	edit_association
+  credentials:	edit_piwam_preferences
  
