@@ -21,6 +21,7 @@ class exportActions extends sfActions
     {
         // does nothing, just display
         // static template
+        $this->setTemplate('soon');
 
         return sfView::SUCCESS;
     }
