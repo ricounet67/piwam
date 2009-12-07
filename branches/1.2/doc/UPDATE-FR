@@ -68,6 +68,18 @@
             apparaît mais la mise à jour n'est pas totalement finie. Cliquez à
             nouveau sur mise  à jour pour vérifier que tout s'est correctement
             déroulé. 
+            
+            
+        TEMPORAIRE : MIGRER VERS PIWAM 1.2
+        ----------------------------------
+        
+        Envie de tester Piwam 1.2 dès maintenant ? La mise  à jour par le menu
+        ne fonctionnera pas, il y a trop de choses nouvelles !
+        Le  seul moyen pour le moment  est  d'exécuter  le  fichier SQL qui se
+        trouve dans /data/updates/1.1.2-to-1.2/r639.sql.
+        
+        Il est  indispensable  de  sauvegarder  vos  données  avant d'effectuer
+        cette opération !
                
         
     -------------------------------------------------------------------------
