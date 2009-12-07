@@ -5,7 +5,7 @@ body {
     background-color: #efefef;
 }
 
-p,li,dt,dd {
+p,li,dt,dd,td {
     font-size: 12px;
     color: #454545;
     text-align: justify;
@@ -66,4 +66,13 @@ div#content {
     margin: auto;
     background-color: white;
     padding: 40px;
+}
+
+table {
+    border: 1px dotted #ddd;
+    margin: 10px 10px 10px 50px;
+}
+
+table td {
+    border: 1px dotted #ddd;
 }
