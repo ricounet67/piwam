@@ -98,11 +98,11 @@ class sfGuardTestFunctional extends sfTestFunctional
    */
   public function addForeignAccount()
   {
-    $foreignAccount = new Compte();
+    $foreignAccount = new Account();
     $foreignAccount->setAssociationId($this->foreignAssociation);
-    $foreignAccount->setLibelle('Foreign account');
+    $foreignAccount->setLabel('Foreign account');
     $foreignAccount->setReference('FA');
-    $foreignAccount->setActif(1);
+    $foreignAccount->setState(1);
     $foreignAccount->save();
 
     return $foreignAccount->getId();
