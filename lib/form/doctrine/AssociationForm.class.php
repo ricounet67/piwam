@@ -48,7 +48,7 @@ class AssociationForm extends BaseAssociationForm
   {
     $this->widgetSchema->setLabels(array(
             'website'     => 'Site web',
-            'name'        => 'Nom l\'association',
+            'name'        => 'Nom de l\'association',
             'description' => 'Description',
             'ping_piwam'  => 'Notification'
     ));
