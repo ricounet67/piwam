@@ -305,7 +305,7 @@ Association:
     name: 'The Fakers'
     description: 'Fake association, for test only'
     website: 'http://www.the-fakers.com'
-    created_by: '1'
+    created_by: null
     updated_by: null
     created_at: '2009-11-28 21:42:15'
     updated_at: '2009-11-28 21:43:25'
