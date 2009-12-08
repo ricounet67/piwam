@@ -399,7 +399,7 @@ Member:
     lastname: Lastname
     firstname: Firstname
     username: demo
-    password: 89e495e7941cf9e40e6980d14a16bf023ccd4c91
+    password: demo
     Status: Status_1
     subscription_date: '2009-11-28'
     due_exempt: true
@@ -420,7 +420,7 @@ Member:
     lastname: Another
     firstname: Member
     username: foobar
-    password: da39a3ee5e6b4b0d3255bfef95601890afd80709
+    password: foobar
     Status: Status_4
     subscription_date: '2009-11-28'
     due_exempt: false
