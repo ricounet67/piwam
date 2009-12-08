@@ -36,7 +36,6 @@ class AssociationForm extends BaseAssociationForm
     $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
     $this->validatorSchema['state'] = new sfValidatorBoolean();
 
-    $this->setDefault('state', AssociationTable::STATE_ENABLED);
     $this->setLabels();
     $this->setClasses();
   }
