@@ -13,46 +13,49 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @property string $website
  * @property integer $created_by
  * @property integer $updated_by
+ * @property Member $CreatedByMember
+ * @property Member $UpdatedByMember
  * @property Doctrine_Collection $Activity
  * @property Doctrine_Collection $Accounts
  * @property Doctrine_Collection $ConfigValue
- * @property DueType $DueTypes
  * @property Doctrine_Collection $Expenses
  * @property Doctrine_Collection $Incomes
  * @property Doctrine_Collection $Status
  * @property Doctrine_Collection $Members
  * @property Doctrine_Collection $DueType
  * 
- * @method integer             getId()          Returns the current record's "id" value
- * @method string              getName()        Returns the current record's "name" value
- * @method string              getDescription() Returns the current record's "description" value
- * @method string              getWebsite()     Returns the current record's "website" value
- * @method integer             getCreatedBy()   Returns the current record's "created_by" value
- * @method integer             getUpdatedBy()   Returns the current record's "updated_by" value
- * @method Doctrine_Collection getActivity()    Returns the current record's "Activity" collection
- * @method Doctrine_Collection getAccounts()    Returns the current record's "Accounts" collection
- * @method Doctrine_Collection getConfigValue() Returns the current record's "ConfigValue" collection
- * @method DueType             getDueTypes()    Returns the current record's "DueTypes" value
- * @method Doctrine_Collection getExpenses()    Returns the current record's "Expenses" collection
- * @method Doctrine_Collection getIncomes()     Returns the current record's "Incomes" collection
- * @method Doctrine_Collection getStatus()      Returns the current record's "Status" collection
- * @method Doctrine_Collection getMembers()     Returns the current record's "Members" collection
- * @method Doctrine_Collection getDueType()     Returns the current record's "DueType" collection
- * @method Association         setId()          Sets the current record's "id" value
- * @method Association         setName()        Sets the current record's "name" value
- * @method Association         setDescription() Sets the current record's "description" value
- * @method Association         setWebsite()     Sets the current record's "website" value
- * @method Association         setCreatedBy()   Sets the current record's "created_by" value
- * @method Association         setUpdatedBy()   Sets the current record's "updated_by" value
- * @method Association         setActivity()    Sets the current record's "Activity" collection
- * @method Association         setAccounts()    Sets the current record's "Accounts" collection
- * @method Association         setConfigValue() Sets the current record's "ConfigValue" collection
- * @method Association         setDueTypes()    Sets the current record's "DueTypes" value
- * @method Association         setExpenses()    Sets the current record's "Expenses" collection
- * @method Association         setIncomes()     Sets the current record's "Incomes" collection
- * @method Association         setStatus()      Sets the current record's "Status" collection
- * @method Association         setMembers()     Sets the current record's "Members" collection
- * @method Association         setDueType()     Sets the current record's "DueType" collection
+ * @method integer             getId()              Returns the current record's "id" value
+ * @method string              getName()            Returns the current record's "name" value
+ * @method string              getDescription()     Returns the current record's "description" value
+ * @method string              getWebsite()         Returns the current record's "website" value
+ * @method integer             getCreatedBy()       Returns the current record's "created_by" value
+ * @method integer             getUpdatedBy()       Returns the current record's "updated_by" value
+ * @method Member              getCreatedByMember() Returns the current record's "CreatedByMember" value
+ * @method Member              getUpdatedByMember() Returns the current record's "UpdatedByMember" value
+ * @method Doctrine_Collection getActivity()        Returns the current record's "Activity" collection
+ * @method Doctrine_Collection getAccounts()        Returns the current record's "Accounts" collection
+ * @method Doctrine_Collection getConfigValue()     Returns the current record's "ConfigValue" collection
+ * @method Doctrine_Collection getExpenses()        Returns the current record's "Expenses" collection
+ * @method Doctrine_Collection getIncomes()         Returns the current record's "Incomes" collection
+ * @method Doctrine_Collection getStatus()          Returns the current record's "Status" collection
+ * @method Doctrine_Collection getMembers()         Returns the current record's "Members" collection
+ * @method Doctrine_Collection getDueType()         Returns the current record's "DueType" collection
+ * @method Association         setId()              Sets the current record's "id" value
+ * @method Association         setName()            Sets the current record's "name" value
+ * @method Association         setDescription()     Sets the current record's "description" value
+ * @method Association         setWebsite()         Sets the current record's "website" value
+ * @method Association         setCreatedBy()       Sets the current record's "created_by" value
+ * @method Association         setUpdatedBy()       Sets the current record's "updated_by" value
+ * @method Association         setCreatedByMember() Sets the current record's "CreatedByMember" value
+ * @method Association         setUpdatedByMember() Sets the current record's "UpdatedByMember" value
+ * @method Association         setActivity()        Sets the current record's "Activity" collection
+ * @method Association         setAccounts()        Sets the current record's "Accounts" collection
+ * @method Association         setConfigValue()     Sets the current record's "ConfigValue" collection
+ * @method Association         setExpenses()        Sets the current record's "Expenses" collection
+ * @method Association         setIncomes()         Sets the current record's "Incomes" collection
+ * @method Association         setStatus()          Sets the current record's "Status" collection
+ * @method Association         setMembers()         Sets the current record's "Members" collection
+ * @method Association         setDueType()         Sets the current record's "DueType" collection
  * 
  * @package    piwam
  * @subpackage model
@@ -99,6 +102,16 @@ abstract class BaseAssociation extends sfDoctrineRecord
     public function setUp()
     {
         parent::setUp();
+        $this->hasOne('Member as CreatedByMember', array(
+             'local' => 'created_by',
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
+
+        $this->hasOne('Member as UpdatedByMember', array(
+             'local' => 'updated_by',
+             'foreign' => 'id',
+             'onDelete' => 'SET NULL'));
+
         $this->hasMany('Activity', array(
              'local' => 'id',
              'foreign' => 'association_id'));
@@ -110,10 +123,6 @@ abstract class BaseAssociation extends sfDoctrineRecord
         $this->hasMany('ConfigValue', array(
              'local' => 'id',
              'foreign' => 'association_id'));
-
-        $this->hasOne('DueType as DueTypes', array(
-             'local' => 'id',
-             'foreign' => 'association_id type: many'));
 
         $this->hasMany('Expense as Expenses', array(
              'local' => 'id',
