@@ -101,7 +101,7 @@ class MembrePeer extends BaseMembrePeer
      */
     public static function doSearch($params)
     {
-        $c = self::buildCriteria($params);
+        $c = self::buildCriteria($params, true);
 
         return self::doSelect($c);
     }
