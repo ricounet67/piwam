@@ -10,6 +10,21 @@
 class ExpenseTable extends Doctrine_Table
 {
   /**
+   * Retrieve list of expenses for association $id
+   *
+   * @param   integer         $id
+   * @return  array of Expense
+   */
+  public static function getForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Expense e')
+          ->where('e.association_id = ?', $id);
+
+    return $q->execute();
+  }
+
+  /**
    * Retrieve enabled expenses for association $id
    *
    * @param   integer           $id

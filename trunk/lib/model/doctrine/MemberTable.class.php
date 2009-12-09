@@ -36,10 +36,11 @@ class MemberTable extends Doctrine_Table
   const STATE_PENDING   = 2;
 
   /**
-   * Retrieve list of Member who belong to association $id
+   * Retrieve list of Member who belong to association $id.
+   * Used in export feature
    *
-   * @param   integer $id
-   * @return  Member
+   * @param   integer   $id
+   * @return  array of Members
    */
   public static function getEnabledForAssociation($id)
   {
