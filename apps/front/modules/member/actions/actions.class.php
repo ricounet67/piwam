@@ -108,7 +108,7 @@ class memberActions extends sfActions
   public function executeExport(sfWebRequest $request)
   {
     $csv = new FileExporter('liste-membres.csv');
-    $members = MemberTable::doSelectForAssociation($this->getUser()->getAssociationId());
+    $members = MemberTable::getEnabledForAssociation($this->getUser()->getAssociationId());
 
     echo $csv->addLineCSV(array(
                           'Prénom',
@@ -128,18 +128,18 @@ class memberActions extends sfActions
     foreach ($members as $member)
     {
       echo $csv->addLineCSV(array(
-      $member->getPrenom(),
-      $member->getNom(),
-      $member->getPseudo(),
+      $member->getFirstname(),
+      $member->getLastname(),
+      $member->getUsername(),
       $member->getEmail(),
-      $member->getTelFixe(),
-      $member->getTelPortable(),
-      $member->getRue(),
-      $member->getCp(),
-      $member->getVille(),
-      $member->getPays(),
-      $member->getStatut(),
-      $member->getDateInscription(),
+      $member->getPhoneHome(),
+      $member->getPhoneMobile(),
+      $member->getStreet(),
+      $member->getZipcode(),
+      $member->getCity(),
+      $member->getCountry(),
+      $member->getStatus(),
+      $member->getSubscriptionDate(),
       ));
     }
     $csv->exportContentAsFile();
@@ -512,7 +512,7 @@ class memberActions extends sfActions
   {
     $associationId = $this->getUser()->getAttribute('association_id', null, 'temp');
 
-    if (is_null($associationId))
+    if (null == $associationId)
     {
       throw new sfException('Erreur lors de la première étape d\'enregistrement');
     }
@@ -579,6 +579,7 @@ class memberActions extends sfActions
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    
     if ($form->isValid())
     {
       $member = $form->save();
