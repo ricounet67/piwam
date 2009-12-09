@@ -9,20 +9,20 @@ $empty = array();
 
 $browser->
 info('Access to the index page which displays list')->
-get('/cotisation/index')->
+get('/due/index')->
 with('response')->begin()->
     isStatusCode(200)->
     checkElement('h2', 'Liste des cotisations')->
-    checkElement('p', '/Aucun type de cotisation/')->
+    //checkElement('body', '/Aucun type de cotisation/')->
 end()->
 
 
 
-info('Add a new empty cotisation, no existing type')->
-get('/cotisation/new')->
+info('Add a new empty due, no existing type')->
+get('/due/new')->
 with('response')->begin()->
     isStatusCode(200)->
-    click('Sauvegarder', array('cotisation' => $empty))->
+    click('Sauvegarder', array('due' => $empty))->
 end()->
 with('form')->begin()->
     hasErrors(true)->
@@ -34,6 +34,6 @@ end()->
 
 
 
-info('Add a new cotisation type')
+info('Add a new due type')
 
 ;
