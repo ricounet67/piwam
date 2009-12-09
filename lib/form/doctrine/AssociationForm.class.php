@@ -30,11 +30,8 @@ class AssociationForm extends BaseAssociationForm
     }
 
     $this->widgetSchema['description'] = new sfWidgetFormTextarea();
-    $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
-
     $this->validatorSchema['description'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
-    $this->validatorSchema['state'] = new sfValidatorBoolean();
 
     $this->setLabels();
     $this->setClasses();

@@ -19,30 +19,30 @@ $browser->
 info("New association with empty data")->
 get('/association/new')->
 with('response')->begin()->
-    click("Étape suivante >", array('association' => $association_empty))->
+  click("Étape suivante >", array('association' => $association_empty))->
 end()->
 with('form')->begin()->
-    hasErrors(true)->
+  hasErrors(true)->
 end()->
 
 
 
 info("New association with correct data")->
 with('response')->begin()->
-    click("Étape suivante >", array('association' => $association_ok))->
+  click("Étape suivante >", array('association' => $association_ok))->
 end()->
 with('response')->
 followRedirect()->
 with('request')->begin()->
-    isParameter('module', 'member')->
-    isParameter('action', 'newfirst')->
+  isParameter('module', 'member')->
+  isParameter('action', 'newfirst')->
 end()->
 
 
 
 info("Register the first member with empty data")->
 with('response')->begin()->
-    click("Étape suivante >", array('member' => $membre_empty))->
+  click("Étape suivante >", array('member' => $membre_empty))->
 end()->
 with('form')->begin()->
 hasErrors(true)->
@@ -69,7 +69,7 @@ signin(array('username' => sfGuardTestFunctional::LOGIN_OK, 'password' => sfGuar
 info("Try to edit without giving ID as argument : 404 error page")->
 get('/association/edit')->
 with('response')->begin()->
-    isStatusCode(404)->
+  isStatusCode(404)->
 end()->
 
 
@@ -78,14 +78,14 @@ info("Access to the edit page")->
 get('/association/index')->
 click("A propos de l'association")->
 with('response')->begin()->
-    isStatusCode(200)->
-    checkElement('body', '/Nom de l\'association/')->
-    info("Submit with empty form")->
-    click('Sauvegarder', array('association' => $association_empty))->
+  isStatusCode(200)->
+  checkElement('body', '/Nom de l\'association/')->
+  info("Submit with empty form")->
+  click('Sauvegarder', array('association' => $association_empty))->
 end()->
 with('request')->begin()->
-    isParameter('module', 'association')->
-    isParameter('action', 'update')->
+  isParameter('module', 'association')->
+  isParameter('action', 'update')->
 end()->
 with('form')->begin()->
     hasErrors(true)->
@@ -95,22 +95,26 @@ end()->
 
 info("Form filled with wrong website")->
 with('response')->begin()->
-    isStatusCode(200)->
-    click('Sauvegarder', array('association' => $association_with_bad_url))->
+  isStatusCode(200)->
+  click('Sauvegarder', array('association' => $association_with_bad_url))->
 end()->
 with('form')->begin()->
-    hasErrors(true)->
+  hasErrors(true)->
+end()->
+with('request')->begin()->
+  isParameter('module', 'association')->
+  isParameter('action', 'update')->
 end()->
 
 
 
 info("Form with correct data")->
 with('response')->begin()->
-    isStatusCode(200)->
-    click('Sauvegarder', array('association' => $association_update_ok))->
+  isStatusCode(200)->
+  click('Sauvegarder', array('association' => $association_update_ok))->
 end()->
 with('form')->begin()->
-    hasErrors(false)->
+  hasErrors(false)->
 end()->
 with('response')->debug()->
 isRedirected()->

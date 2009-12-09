@@ -166,8 +166,8 @@ class installActions extends sfActions
     $this->_addMessage(is_writable('../web/uploads/trombinoscope/'), 'isTrombinoscopeFolderWritable', true);
     $this->_addMessage(is_writable('../config/databases.yml'),  'isDatabasesFileWritable');
     $this->_addMessage(extension_loaded('openssl'), 'isPhpOpenSSLLoaded', true);
-    $this->_addMessage(extension_loaded('gd'), 'isPhpGdLoaded');
-    $this->_addMessage($this->_checkMemoryLimit('128M'), 'isMemoryLimitHighEnough', true);
+    $this->_addMessage(extension_loaded('gd'), 'isPhpGdLoaded', true);
+    $this->_addMessage($this->_checkMemoryLimit('32M'), 'isMemoryLimitHighEnough', true);
 
     if (function_exists('apache_get_modules'))
     {

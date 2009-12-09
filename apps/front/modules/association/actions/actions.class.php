@@ -110,6 +110,7 @@ class associationActions extends sfActions
     $association = AssociationTable::getById($id);
     $this->forward404Unless($association, "L'association {$id} n'existe pas.");
     $this->form = new AssociationForm($association);
+    $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
   /**
@@ -126,7 +127,7 @@ class associationActions extends sfActions
     $this->forward404Unless($association, "L'association {$id} n'existe pas.");
     $this->form = new AssociationForm($association);
 
-    if ($this->processForm($request, $this->form))
+    if ($this->processForm($request, $this->form, true))
     {
       $this->getUser()->setAttribute('association_name', $association->getName(), 'user');
       $this->redirect('@homepage');
@@ -155,7 +156,7 @@ class associationActions extends sfActions
   /*
    * Process data sent from the form
    */
-  protected function processForm(sfWebRequest $request, sfForm $form)
+  protected function processForm(sfWebRequest $request, AssociationForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
 

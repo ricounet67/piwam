@@ -10,6 +10,22 @@
 class IncomeTable extends Doctrine_Table
 {
   /**
+   * Retrieve list of income for association $id. Used in export
+   * feature.
+   * 
+   * @param   integer     $id 
+   * @return  array of Income
+   */
+  public static function getForAssociation($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Income i')
+          ->where('i.association_id = ?', $id);
+
+    return $q->execute();
+  }
+
+  /**
    * Get the amount of unpaid expenses by association $id
    *
    * @param   integer     $id

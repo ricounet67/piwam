@@ -22,7 +22,7 @@
                 <p>
                     Bonjour <span class="username"><?php echo $sf_user->getUsername() ?></span>
                 </p>
-                <?php echo link_to(image_tag('icons/user_edit') . ' Modifier mon profil', '@member_edit?id=1') ?>
+                <?php echo link_to(image_tag('icons/user_edit') . ' Modifier mon profil', '@member_edit?id=' . $sf_user->getUserId()) ?>
                 <?php echo link_to(image_tag('logout') . ' D&eacute;connexion', '@logout') ?>
             </div>
             <?php endif ?>

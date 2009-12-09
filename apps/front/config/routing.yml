@@ -419,6 +419,19 @@ export:
   url:    /export
   param:  { module: export, action: index }
 
+export_members:
+  url:    /export/membres
+  param:  { module: member, action: export }
+
+export_expenses:
+  url:    /export/depenses
+  param:  { module: expense, action: export }
+
+export_incomes:
+  url:    /export/recettes
+  param:  { module: income, action: export }
+
+
   
 # -----------------------------------------------------------------------------
 #     DEFAULT ACTIONS
