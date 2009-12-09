@@ -19,7 +19,7 @@ class expenseActions extends sfActions
   {
     sfContext::getInstance()->getConfiguration()->loadHelpers('Number');
     $csv = new FileExporter('liste-depenses.csv');
-    $depenses = DepensePeer::doSelectForAssociation($this->getUser()->getAssociationId());
+    $expenses = ExpenseTable::getForAssociation($this->getUser()->getAssociationId());
 
     echo $csv->addLineCSV(array(
 			'Libellé',
@@ -29,14 +29,14 @@ class expenseActions extends sfActions
 			'Date',
     ));
 
-    foreach ($depenses as $depense)
+    foreach ($expenses as $expense)
     {
       echo $csv->addLineCSV(array(
-                $depense->getLibelle(),
-                format_currency($depense->getMontant()),
-                $depense->getCompte(),
-                $depense->getActivite(),
-                $depense->getDate(),
+                $expense->getLabel(),
+                format_currency($expense->getAmount()),
+                $expense->getAccount(),
+                $expense->getActivity(),
+                $expense->getDate(),
       ));
     }
     $csv->exportContentAsFile();
