@@ -110,6 +110,7 @@ class associationActions extends sfActions
     $association = AssociationTable::getById($id);
     $this->forward404Unless($association, "L'association {$id} n'existe pas.");
     $this->form = new AssociationForm($association);
+    $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
   /**
