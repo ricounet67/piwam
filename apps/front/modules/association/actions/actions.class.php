@@ -64,7 +64,7 @@ class associationActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->associationsPager = AssociationTable::doSelectActiveAssociations($request->getParameter('page', 1));
+    $this->associationsPager = AssociationTable::doSelectAssociations($request->getParameter('page', 1));
   }
 
   /**

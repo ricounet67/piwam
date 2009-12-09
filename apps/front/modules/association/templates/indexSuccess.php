@@ -18,7 +18,7 @@
             <td><?php echo $association->getDescription() ?></td>
             <td>
                 <?php if ($association->getWebsite()): ?>
-                    <?php echo link_to(short_website_url($association->getSiteWeb()),  $association->getSiteWeb()) ?>
+                    <?php echo link_to(short_website_url($association->getWebsite()),  $association->getWebsite()) ?>
                 <?php endif ?>
             </td>
             <td><?php echo $association->getCreatedByMember() ?></td>

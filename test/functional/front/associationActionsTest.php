@@ -3,11 +3,13 @@
 include(dirname(__FILE__).'/../../bootstrap/functional.php');
 
 // Array of data we will put on the forms
-$association_ok             = array('nom' => 'Test', 'description' => 'Description association', 'site_web' => 'http://www.association.com');
-$association_with_bad_url   = array('nom' => 'Test', 'description' => 'Description association', 'site_web' => 'mywebsite');
-$association_empty          = array('nom' => '', 'description' => '', 'site_web' => '');
-$membre_ok					= array('nom' => 'Foobar', 'prenom' => 'Roger', 'pseudo' => 'foobar_123', 'password' => 'passwrd29');
-$membre_empty				= array('nom' => '', 'prenom' => '', 'pseudo' => '', 'password' => '');
+$association_ok             = array('name' => 'Test', 'description' => 'Description association', 'website' => 'http://www.association.com', 'ping_piwam' => false);
+$association_update_ok      = array('name' => 'New',  'description' => 'Description association', 'website' => 'http://www.association.com');
+$association_with_bad_url   = array('name' => 'Test', 'description' => 'Description association', 'website' => 'mywebsite');
+$association_empty          = array('name' => '',     'description' => '', 'site_web' => '');
+
+$membre_ok                  = array('lastname' => 'Foobar', 'firstname' => 'Roger', 'username' => 'foobar_123', 'password' => 'passwrd29');
+$membre_empty               = array('lastname' => '', 'firstname' => '', 'username' => '', 'password' => '');
 
 $browser = new sfGuardTestFunctional(new sfBrowser('docbook'), false);
 
@@ -29,9 +31,10 @@ info("New association with correct data")->
 with('response')->begin()->
     click("Étape suivante >", array('association' => $association_ok))->
 end()->
+with('response')->
 followRedirect()->
 with('request')->begin()->
-    isParameter('module', 'membre')->
+    isParameter('module', 'member')->
     isParameter('action', 'newfirst')->
 end()->
 
@@ -39,7 +42,7 @@ end()->
 
 info("Register the first member with empty data")->
 with('response')->begin()->
-    click("Étape suivante >", array('membre' => $membre_empty))->
+    click("Étape suivante >", array('member' => $membre_empty))->
 end()->
 with('form')->begin()->
 hasErrors(true)->
@@ -47,33 +50,33 @@ end()->
 
 
 
-//	info("Enregistrement du premier membre avec donnes valides")->
-//	with('response')->begin()->
-//		click("Étape suivante >", array('membre' => $membre_ok))->
-//	end()->
-//	followRedirect()->
-//	with('request')->begin()->
-//		isParameter('module', 'membre')->
-//		isParameter('action', 'endregistration')->
-//	end()->
+info("Enregistrement du premier membre avec donnes valides")->
+with('response')->begin()->
+  click("Étape suivante >", array('member' => $membre_ok))->
+end()->
+isRedirected()->
+followRedirect()->
+with('request')->begin()->
+  isParameter('module', 'member')->
+  isParameter('action', 'endregistration')->
+end()->
 
 
 
 signin(array('username' => sfGuardTestFunctional::LOGIN_OK, 'password' => sfGuardTestFunctional::PASSWORD_OK))->
 
 
-info("Try to edit without giving ID as argument : custom error page")->
+info("Try to edit without giving ID as argument : 404 error page")->
 get('/association/edit')->
 with('response')->begin()->
     isStatusCode(404)->
-    checkElement('body', '/Page introuvable/')->
 end()->
 
 
 
 info("Access to the edit page")->
+get('/association/index')->
 click("A propos de l'association")->
-//checkResponseElement('form input', true, array('count' => 7))->
 with('response')->begin()->
     isStatusCode(200)->
     checkElement('body', '/Nom de l\'association/')->
@@ -104,14 +107,16 @@ end()->
 info("Form with correct data")->
 with('response')->begin()->
     isStatusCode(200)->
-    click('Sauvegarder', array('association' => $association_ok))->
+    click('Sauvegarder', array('association' => $association_update_ok))->
 end()->
 with('form')->begin()->
     hasErrors(false)->
 end()->
-
-
-
-info("Access to the index page")->
-get('/association/index');
-;
+with('response')->debug()->
+isRedirected()->
+followRedirect()->
+with('request')->begin()->
+  isParameter('module', 'member')->
+  isParameter('action', 'index')->
+end()->
+with('response')->debug();

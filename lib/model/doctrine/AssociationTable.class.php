@@ -10,20 +10,6 @@
 class AssociationTable extends Doctrine_Table
 {
   /**
-   * Value of state field when disabled
-   *
-   * @var integer
-   */
-  const STATE_DISABLED    = 0;
-
-  /**
-   * Value of state field when enabled
-   *
-   * @var integer
-   */
-  const STATE_ENABLED     = 1;
-
-  /**
    * Retrieve an Association row by id
    *
    * @param   integer     $id
@@ -81,5 +67,25 @@ class AssociationTable extends Doctrine_Table
           ->limit('1');
 
     return $q->fetchOne();
+  }
+
+  /**
+   * Retrieve pager with list of enabled associations
+   *
+   * @param   integer         $page
+   * @return  Doctrine_Pager
+   */
+  public static function doSelectAssociations($page)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Association a')
+          ->orderBy('a.created_at DESC');
+    
+    $pager = new sfDoctrinePager('Member', $n);
+    $pager->setQuery($q);
+    $pager->setPage($page);
+    $pager->init();
+
+    return $pager;
   }
 }

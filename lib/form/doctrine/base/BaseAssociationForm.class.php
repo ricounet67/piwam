@@ -19,8 +19,8 @@ abstract class BaseAssociationForm extends BaseFormDoctrine
       'name'        => new sfWidgetFormInputText(),
       'description' => new sfWidgetFormInputText(),
       'website'     => new sfWidgetFormInputText(),
-      'created_by'  => new sfWidgetFormInputText(),
-      'updated_by'  => new sfWidgetFormInputText(),
+      'created_by'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('CreatedByMember'), 'add_empty' => true)),
+      'updated_by'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('UpdatedByMember'), 'add_empty' => true)),
       'created_at'  => new sfWidgetFormDateTime(),
       'updated_at'  => new sfWidgetFormDateTime(),
     ));
@@ -30,8 +30,8 @@ abstract class BaseAssociationForm extends BaseFormDoctrine
       'name'        => new sfValidatorString(array('max_length' => 120)),
       'description' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'website'     => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'created_by'  => new sfValidatorInteger(array('required' => false)),
-      'updated_by'  => new sfValidatorInteger(array('required' => false)),
+      'created_by'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('CreatedByMember'), 'required' => false)),
+      'updated_by'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('UpdatedByMember'), 'required' => false)),
       'created_at'  => new sfValidatorDateTime(),
       'updated_at'  => new sfValidatorDateTime(),
     ));

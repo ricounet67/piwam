@@ -70,16 +70,15 @@ Association:
     created_by:     { type: integer(4) }
     updated_by:     { type: integer(4) }
   relations:
-    CreatedByMember:{ class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
-    UpdatedByMember:{ class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
-    Activity:       { local: id, foreign: association_id, type: many }
-    Accounts:       { class: Account, local: id, foreign: association_id, type: many }
-    ConfigValue:    { local: id, foreign: association_id, type: many }
-    DueTypes:       { class: DueType, local: id, foreign: association_id  type: many }
-    Expenses:       { class: Expense, local: id, foreign: association_id, type: many }
-    Incomes:        { class: Income, local: id, foreign: association_id, type: many }
-    Status:         { local: id, foreign: association_id, type: many, onDelete: CASCADE }
-    Members:        { class: Member, local: id, foreign: association_id, type: many }
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
+    Activity:        { local: id, foreign: association_id, type: many }
+    Accounts:        { class: Account, local: id, foreign: association_id, type: many }
+    ConfigValue:     { local: id, foreign: association_id, type: many }
+    Expenses:        { class: Expense, local: id, foreign: association_id, type: many }
+    Incomes:         { class: Income, local: id, foreign: association_id, type: many }
+    Status:          { local: id, foreign: association_id, type: many, onDelete: CASCADE }
+    Members:         { class: Member, local: id, foreign: association_id, type: many }
 
 
     

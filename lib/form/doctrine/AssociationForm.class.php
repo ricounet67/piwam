@@ -36,7 +36,6 @@ class AssociationForm extends BaseAssociationForm
     $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
     $this->validatorSchema['state'] = new sfValidatorBoolean();
 
-    $this->setDefault('state', AssociationTable::STATE_ENABLED);
     $this->setLabels();
     $this->setClasses();
   }
@@ -48,7 +47,7 @@ class AssociationForm extends BaseAssociationForm
   {
     $this->widgetSchema->setLabels(array(
             'website'     => 'Site web',
-            'name'        => 'Nom l\'association',
+            'name'        => 'Nom de l\'association',
             'description' => 'Description',
             'ping_piwam'  => 'Notification'
     ));
