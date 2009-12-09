@@ -13,7 +13,7 @@ class incomeActions extends sfActions
    * Export the list of Depense within a file
    *
    * @param 	sfWebRequest	$request
-   * @since	r39
+   * @since   r39
    */
   public function executeExport(sfWebRequest $request)
   {
@@ -32,10 +32,10 @@ class incomeActions extends sfActions
     foreach ($incomes as $income)
     {
       echo $csv->addLineCSV(array(
-      $income->getLibelle(),
-      format_currency($income->getMontant()),
-      $income->getCompte(),
-      $income->getActivite(),
+      $income->getLabel(),
+      format_currency($income->getAmount()),
+      $income->getAccount(),
+      $income->getActivity(),
       $income->getDate(),
       ));
     }
