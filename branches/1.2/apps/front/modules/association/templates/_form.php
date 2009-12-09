@@ -35,13 +35,13 @@
     <!-- Form widgets -->
 
     <tbody>
+        <?php if ($form->hasGlobalErrors()): ?>
         <tr>
             <td colspan="2">
-                <?php if ($form->hasGlobalErrors()): ?>
-                    <div class="error"><?php $form->renderGlobalErrors() ?></div>
-                <?php endif ?>
+                <div class="error"><?php $form->renderGlobalErrors() ?></div>
             </td>
         </tr>
+        <?php endif ?>
         <tr>
             <th><?php echo $form['name']->renderLabel() ?> :</th>
             <td><?php echo $form['name'] ?> <?php echo $form['name']->renderError() ?></td>
