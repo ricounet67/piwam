@@ -5,6 +5,9 @@
 
 Au fil des versions, Piwam évolue...
 
+    * *version 1.2* (_en développement_)
+          * Des droits sont requis pour modifier le statut ou l'exemption de cotisation d'un membre
+
     * *version 1.1.2* (25 novembre 2009)
           * trombinoscope
           * mode multi-associations paramétrable
