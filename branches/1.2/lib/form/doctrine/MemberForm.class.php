@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Member form.
  *
@@ -140,6 +139,7 @@ class MemberForm extends BaseMemberForm
     $this->setDefault('state', 1);
     $this->_setCssClasses();
     $this->_setLabels();
+    $this->_disableProtectedFields($context->getUser());
   }
 
   /*
@@ -210,5 +210,22 @@ class MemberForm extends BaseMemberForm
     $this->widgetSchema['status_id']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['country']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['picture']->setAttribute('class', 'file');
+  }
+
+  /*
+   * Disable some fields that can't be changed if user has not
+   * required credentials
+   */
+  private function _disableProtectedFields(myUser $user)
+  {
+    if (! $user->hasCredential('add_cotisation'))
+    {
+      $this->widgetSchema['due_exempt']->setAttribute('disabled', 'disabled');
+    }
+
+    if (! $user->hasCredential('add_statut'))
+    {
+      $this->widgetSchema['status_id']->setAttribute('disabled', 'disabled');
+    }
   }
 }
