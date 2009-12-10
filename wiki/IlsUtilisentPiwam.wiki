@@ -3,12 +3,13 @@
 
 = Ils utilisent Piwam ! =
 
-  * [http://www.tekover.net Tekover]
-  * [http://www.cycom.org Cycom]
   * Vélizy Natation Synchronisée
-  * [http://www.groupesitisimo.com Groupe Sitisimo]
   * [http://www.aipst.org AI CNAM-PST]
   * [http://blog.libre.cc CLICC]
+  * [http://www.cycom.org Cycom]
+  * [http://www.groupesitisimo.com Groupe Sitisimo]
+  * [http://www.clubmbcp.com Mini Bolid' Club Pertuisien]
+  * [http://www.tekover.net Tekover]
 
 
 
