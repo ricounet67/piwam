@@ -15,7 +15,7 @@
 
   <target name="doc" description="Generate documentation">
     <exec executable="doxygen">
-      <arg line=" doc/DOXYFILE" />
+      <arg line=" doc/Doxyfile" />
     </exec>
   </target>
 
@@ -43,12 +43,13 @@
 	</target>
 
 	<target name="lint" description="Check PHP syntax">
-		<phplint>
-			<fileset dir=".">
-				<include name="**/*.php" />
-				<exclude name="./lib/vendor/**/*.php" />
-			</fileset>
-		</phplint>
+		<apply executable="php" failonerror="true">
+      <arg value="-l" />
+        <fileset dir=".">
+          <include name="**/*.php" />
+          <exclude name="lib/vendor/**/*.php" />
+        </fileset>
+		</apply>
 	</target>
 
 	<target name="phpcs">
