@@ -37,7 +37,7 @@ dev:
     cache:                  false
     no_script_name:         false
     etag:                   false
-    enabled_modules:        [default, fcLogAnalyzer]
+    enabled_modules:        [default, fcLogAnalyzer, pwSandbox]
 
 test:
   .settings:
