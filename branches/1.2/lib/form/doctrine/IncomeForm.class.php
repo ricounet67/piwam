@@ -18,7 +18,7 @@ class IncomeForm extends BaseIncomeForm
   {
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
-    unset($this['state'], $this['association_id']);
+    unset($this['association_id']);
 
     if ($this->getObject()->isNew())
     {
@@ -35,7 +35,6 @@ class IncomeForm extends BaseIncomeForm
     $this->setDefault('state', 1);
 
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
-    $this->validatorSchema['state'] = new sfValidatorBoolean();
     $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0), array('min' => 'ne peut être négatif'));
 
     // select only Membre, CotisationType and account which
@@ -60,5 +59,20 @@ class IncomeForm extends BaseIncomeForm
     $this->setDefault('date', date('y-m-d'));
     $this->widgetSchema['account_id']->setAttribute('class', 'formInputLarge');
     $this->widgetSchema['activity_id']->setAttribute('class', 'formInputLarge');
+    $this->setLabels();
+  }
+
+  /**
+   * Set labels for each field
+   */
+  protected function setLabels()
+  {
+    $this->widgetSchema->setLabels(array(
+      'label'       => 'Libellé',
+      'activity_id' => 'Activité liée',
+      'account_id'  => 'Compte affecté',
+      'amount'      => 'Montant',
+      'received'    => 'Perçue',
+    ));
   }
 }
