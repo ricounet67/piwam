@@ -34,22 +34,22 @@ class DebtForm extends PluginDebtForm
      *
      * Here we are merging forms :
      */
-    $this->mergeForm(new IncomeForm());
+    //$this->mergeForm(new IncomeForm());
 
     /*
      * The merged IncomeForm provides a checkbox which is
      * called 'received'.
      * Here, we want to uncheck it by default :
      */
-    $this->setDefault('received', false);
+    //$this->setDefault('received', false);
 
     /*
      * But if we wanted to embed the IncomeForm instead of merging
      * two forms, we would write :
-     * 
-     *    $this->embedForm('income', new IncomeForm());
-     *    $this->getEmbeddedForm('income')->setDefault('received', false);
-     *
+     */
+     $this->embedForm('expense_id', new ExpenseForm());
+     $this->getEmbeddedForm('expense_id')->setDefault('paid', false);
+     /*
      * The last line uncheck the 'received' checkbox
      */
 
