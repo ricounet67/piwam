@@ -25,7 +25,7 @@ class DebtForm extends PluginDebtForm
      * If useFields() is not called, all fields will be used
      * by default, as described in you schema.yml
      */
-    $this->useFields(array('member_id'));
+    $this->useFields(array('member_id', 'income_id'));
 
     /*
      * Now, we want to include the existing Income form. There are
@@ -47,8 +47,11 @@ class DebtForm extends PluginDebtForm
      * But if we wanted to embed the IncomeForm instead of merging
      * two forms, we would write :
      */
-     $this->embedForm('expense_id', new ExpenseForm());
-     $this->getEmbeddedForm('expense_id')->setDefault('paid', false);
+     $income = new Expense();
+     $income = $this->getObject()->getIncome();
+     
+     $this->embedForm('income_id', new IncomeForm($income));
+     $this->getEmbeddedForm('income_id')->setDefault('received', false);
      /*
      * The last line uncheck the 'received' checkbox
      */
@@ -64,6 +67,7 @@ class DebtForm extends PluginDebtForm
     $this->widgetSchema->setLabels(array(
       // 'field'  => 'Displayed name',
       'member_id' => 'Membre concerné',
+      'income_id'=> 'Recette liée',
     ));
   }
 }
