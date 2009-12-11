@@ -1,5 +1,7 @@
 <h2>Ajouter une dette</h2>
 
+
+<form action="<?php echo url_for('pwSandbox/create') ?>" method="post">
 <table class="formtable">
 
   <!-- In the table footer, we basically add submit/cancel buttons-->
@@ -23,3 +25,4 @@
     <?php echo $form ?>
   </tbody>
 </table>
+</form>
