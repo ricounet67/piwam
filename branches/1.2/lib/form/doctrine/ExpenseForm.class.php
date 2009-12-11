@@ -21,6 +21,11 @@ class ExpenseForm extends BaseExpenseForm
       throw new InvalidArgumentException('You must provide a myUser object');
     }
 
+    if (! $associationId = $this->getOption('associationId'))
+    {
+      $associationId = $user->getAssociationId();
+    }
+
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
     unset($this['association_id']);
@@ -30,7 +35,7 @@ class ExpenseForm extends BaseExpenseForm
       $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
       $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
       $this->setDefault('created_by', $user->getUserId());
-      $this->setDefault('association_id', $user->getAssociationId());
+      $this->setDefault('association_id', $associationId);
       $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
     }
@@ -41,9 +46,8 @@ class ExpenseForm extends BaseExpenseForm
     $this->validatorSchema['state'] = new sfValidatorBoolean();
     $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0), array('min' => 'ne peut être négatif'));
 
-    $id = $user->getAssociationId();
-    $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
-    $this->widgetSchema['activity_id']->setOption('query', ActivityTable::getQueryEnabledForAssociation($id));
+    $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($associationId));
+    $this->widgetSchema['activity_id']->setOption('query', ActivityTable::getQueryEnabledForAssociation($associationId));
 
     sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
     $this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
