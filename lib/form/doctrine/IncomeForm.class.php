@@ -31,6 +31,7 @@ class IncomeForm extends BaseIncomeForm
     }
 
     $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
+    $this->setDefault('updated_by', sfContext::getInstance()->getUser()->getUserId());
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0), array('min' => 'ne peut être négatif'));
 
