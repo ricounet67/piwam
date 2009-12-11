@@ -27,7 +27,7 @@ class DebtForm extends PluginDebtForm
      */
     if (! $user = $this->getOption('user'))
     {
-      throw new InvalidArgumentException('You must provide a user');
+      throw new InvalidArgumentException('You must provide a myUser object');
     }
 
     /*
