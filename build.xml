@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Piwam" default="build" basedir=".">
 
-
-  <target name="checkdirs" description="Check if build dir is present">
-    <available file="build"     type="dir" property="build.present"/>
-  </target>
-
-  <target name="init" unless="${classes.present}" description="Create build folder and subfolder">
+  <target name="init" description="Create build folder and subfolders if required">
     <mkdir dir="build"/>
     <mkdir dir="build/doc"/>
+    <mkdir dir="build/logs"/>
   </target>
  
 	<target name="clearcache">
@@ -17,7 +13,13 @@
 		</exec>
 	</target>
 
-	<target name="checkout">
+  <target name="doc" description="Generate documentation">
+    <exec executable="doxygen">
+      <arg line=" doc/DOXYFILE" />
+    </exec>
+  </target>
+
+	<target name="up" description="Update to the last revision">
 		<exec executable="svn" dir="${basedir}">
 			<arg line="up" />
 		</exec>
@@ -69,12 +71,6 @@
 		</exec>
 	</target>
 
-  <target name="doc">
-    <exec executable="doxygen">
-      <arg line=" doc/DOXYFILE" />
-    </exec>
-  </target>
 
-
-	<target name="build" depends="clearcache,checkout,phpcs,phpcpd,pdepend,test" />
+	<target name="build" depends="init,clearcache,up,phpcs,phpcpd,pdepend,test" />
 </project>
