@@ -21,6 +21,12 @@ class IncomeForm extends BaseIncomeForm
       throw new InvalidArgumentException('You must provide a myUser object');
     }
 
+    if (! $associationId = $this->getOption('associationId'))
+    {
+      $associationId = $user->getAssociationId();
+    }
+
+
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
     unset($this['association_id']);
@@ -30,7 +36,7 @@ class IncomeForm extends BaseIncomeForm
       $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
       $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
       $this->setDefault('created_by', $user->getUserId());
-      $this->setDefault('association_id', $user->getAssociationId());
+      $this->setDefault('association_id', $associationId);
       $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
     }
@@ -43,9 +49,8 @@ class IncomeForm extends BaseIncomeForm
     // select only Membre, CotisationType and account which
     // belong to the association id
 
-    $id = $user->getAssociationId();
-    $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
-    $this->widgetSchema['activity_id']->setOption('query', ActivityTable::getQueryEnabledForAssociation($id));
+    $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($associationId));
+    $this->widgetSchema['activity_id']->setOption('query', ActivityTable::getQueryEnabledForAssociation($associationId));
 
     // r19 : customize the appearance
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
