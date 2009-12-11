@@ -14,6 +14,7 @@ class pwSandboxActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
+    $this->form = new DebtForm();
   }
 }
 ?>
