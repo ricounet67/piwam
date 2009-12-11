@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Piwam" default="build" basedir=".">
 
+
+  <target name="checkdirs" description="Check if build dir is present">
+    <available file="build"     type="dir" property="build.present"/>
+  </target>
+
+  <target name="init" unless="${classes.present}" description="Create build folder and subfolder">
+    <mkdir dir="build"/>
+    <mkdir dir="build/doc"/>
+  </target>
+ 
+	<target name="clearcache">
+		<exec executable="${basedir}/symfony">
+			<arg line=" cc" />
+		</exec>
+	</target>
+
 	<target name="checkout">
 		<exec executable="svn" dir="${basedir}">
 			<arg line="up" />
@@ -46,18 +62,18 @@
 		</exec>
 	</target>
 
-	<target name="clearcache">
-		<exec executable="${basedir}/symfony">
-			<arg line=" cc" />
-		</exec>
-	</target>
-
 	<target name="test">
 		<exec executable="${basedir}/symfony">
 			<arg line=" test:all 
 			   --xml=${basedir}/build/logs/tests.xml" />
 		</exec>
 	</target>
+
+  <target name="doc">
+    <exec executable="doxygen">
+      <arg line=" doc/DOXYFILE" />
+    </exec>
+  </target>
 
 
 	<target name="build" depends="clearcache,checkout,phpcs,phpcpd,pdepend,test" />
