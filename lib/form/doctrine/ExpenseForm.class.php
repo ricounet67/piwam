@@ -16,6 +16,11 @@ class ExpenseForm extends BaseExpenseForm
    */
   public function configure()
   {
+    if (! $user = $this->getOption('user'))
+    {
+      throw new InvalidArgumentException('You must provide a myUser object');
+    }
+
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
     unset($this['association_id']);
@@ -24,19 +29,19 @@ class ExpenseForm extends BaseExpenseForm
     {
       $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
       $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-      $this->setDefault('created_by', sfContext::getInstance()->getUser()->getUserId());
-      $this->setDefault('association_id', sfContext::getInstance()->getUser()->getAssociationId());
+      $this->setDefault('created_by', $user->getUserId());
+      $this->setDefault('association_id', $user->getAssociationId());
       $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
     }
 
     $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
-    $this->setDefault('updated_by', sfContext::getInstance()->getUser()->getUserId());
+    $this->setDefault('updated_by', $user->getUserId());
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     $this->validatorSchema['state'] = new sfValidatorBoolean();
     $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0), array('min' => 'ne peut être négatif'));
 
-    $id = sfContext::getInstance()->getUser()->getAssociationId();
+    $id = $user->getAssociationId();
     $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
     $this->widgetSchema['activity_id']->setOption('query', ActivityTable::getQueryEnabledForAssociation($id));
 
