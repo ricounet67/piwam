@@ -29,14 +29,14 @@ class IncomeForm extends BaseIncomeForm
     {
       $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
       $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-      $this->setDefault('created_by', $user()->getUserId());
-      $this->setDefault('association_id', $user()->getAssociationId());
+      $this->setDefault('created_by', $user->getUserId());
+      $this->setDefault('association_id', $user->getAssociationId());
       $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
     }
 
     $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
-    $this->setDefault('updated_by', $user()->getUserId());
+    $this->setDefault('updated_by', $user->getUserId());
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0), array('min' => 'ne peut être négatif'));
 
