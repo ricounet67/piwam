@@ -43,7 +43,7 @@ class IncomeForm extends BaseIncomeForm
     // select only Membre, CotisationType and account which
     // belong to the association id
 
-    $id = sfContext::getInstance()->getUser()->getAssociationId();
+    $id = $user->getAssociationId();
     $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
     $this->widgetSchema['activity_id']->setOption('query', ActivityTable::getQueryEnabledForAssociation($id));
 
