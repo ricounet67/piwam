@@ -18,7 +18,7 @@ class ExpenseForm extends BaseExpenseForm
   {
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
-    unset($this['state'], $this['association_id']);
+    unset($this['association_id']);
 
     if ($this->getObject()->isNew())
     {
@@ -31,9 +31,6 @@ class ExpenseForm extends BaseExpenseForm
     }
 
     $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
-    $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
-    $this->setDefault('state', 1);
-
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     $this->validatorSchema['state'] = new sfValidatorBoolean();
     $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0), array('min' => 'ne peut être négatif'));
