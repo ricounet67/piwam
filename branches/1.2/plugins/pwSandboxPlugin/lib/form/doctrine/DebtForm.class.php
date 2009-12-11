@@ -19,13 +19,15 @@ class DebtForm extends PluginDebtForm
   public function configure()
   {
     /*
-     * You will see that we will need the association ID of the current
-     * user. As you saw in actions.class.php, we gave the ID as parameter
-     * to this form ; so, let's save it in $id variable !
+     * You will see that we will need some information about the current user,
+     * for instance its association's ID.
+     *
+     * As you saw in actions.class.php, we gave the current user as parameter
+     * to this form ; so, let's save it in $user variable !
      */
-    if (! $id = $this->getOption('associationId'))
+    if (! $user = $this->getOption('user'))
     {
-      throw new InvalidArgumentException('You must provide an ID');
+      throw new InvalidArgumentException('You must provide a user');
     }
 
     /*
@@ -51,9 +53,13 @@ class DebtForm extends PluginDebtForm
     /*
      * And then, we create our Income form, and embed it within this
      * Debt form. The $income object previously created is given to the
-     * form to bind the values
+     * form to bind the values.
+     *
+     * And in Piwam. IncomeForm class also requires the current myUser
+     * object (as we just did for this current form). So we re-give it
+     * to the income form !
      */
-    $this->embedForm('income_id', new IncomeForm($income));
+    $this->embedForm('income_id', new IncomeForm($income, array('user' => $user)));
 
     /*
      * Last step, we want to uncheck the checkbox `received` that is
@@ -73,16 +79,26 @@ class DebtForm extends PluginDebtForm
      */
 
     /*
+     * At the next line we will need the association ID of the current user.
+     * The name '$aId' is often used in Piwam because it's really shorter than
+     * writing "associationId".
+     *
+     * So, do you remember that $user is a myUser object ? We can retrieve
+     * the association ID by this way :
+     */
+    $aId = $user->getAssociationId();
+
+    /*
      * Hop ! Don't move on, it's not over ! Currently, the list of members
      * displays ALL the members. But if Piwam is managing several associations
      * at the same time, we want to display members who belong only to the
-     * current user's association. The $id variable is finally useful !
+     * current user's association. The $aId variable is finally useful !
      *
      * We will customize the default `member_id` field by giving a
      * Doctrine_Query object. We use a method already implemented in the
      * Piwam's core :
      */
-    $this->widgetSchema['member_id']->setOption('query', MemberTable::getQueryEnabledForAssociation($id));
+    $this->widgetSchema['member_id']->setOption('query', MemberTable::getQueryEnabledForAssociation($aId));
 
     /*
      * Finally, this is preferable to set labels of each field (at least
