@@ -52,7 +52,28 @@ class pwSandboxActions extends sfActions
    */
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new DebtForm();
+    /*
+     * As in the `index` action, we retrieve the current user's
+     * association ID
+     */
+    $associationId = $this->getUser()->getAssociationId();
+
+    /*
+     * And we give this id to the DebtForm we designed. The symfony
+     * forms that manage Doctrine objects take 2 parameters :
+     *
+     *  - the current object to edit (here, this is a new object, so we give
+     *    null object)
+     * 
+     *  - additional parameters that can be used into the form (here, we give
+     *    the current association ID)
+     *
+     * See also :
+     * ----------
+     * http://www.symfony-project.org/api/1_4/sfForm#method___construct
+     * 
+     */
+    $this->form = new DebtForm(null, array('associationId' => $associationId));
   }
 
   /**
@@ -107,8 +128,8 @@ class pwSandboxActions extends sfActions
     {
       /*
        * If everithing is ok, we can save the new object. Here, Doctrine
-       * and symfony act "automagically" to save the new Expense (bind with
-       * values in the embedded Expense form) and the new Debt.
+       * and symfony act "automagically" to save the new Income (bind with
+       * values in the embedded Income form) and the new Debt.
        *
        * The $debt variable is a Debt object, you can perform some custom
        * operations if you need.
