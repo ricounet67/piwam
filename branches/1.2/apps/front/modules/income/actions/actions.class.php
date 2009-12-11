@@ -80,8 +80,7 @@ class incomeActions extends sfActions
    */
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new IncomeForm();
-    $this->form->setDefault('updated_by', $this->getUser()->getUserId());
+    $this->form = new IncomeForm(null, array('user' => $this->getUser()));
   }
 
   /**
@@ -92,7 +91,7 @@ class incomeActions extends sfActions
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new IncomeForm();
+    $this->form = new IncomeForm(null, array('user' => $this->getUser()));
     $this->processForm($request, $this->form);
     $this->setTemplate('new');
   }
@@ -112,7 +111,7 @@ class incomeActions extends sfActions
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new IncomeForm($income);
+    $this->form = new IncomeForm($income, array('user' => $this->getUser()));
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
@@ -126,7 +125,7 @@ class incomeActions extends sfActions
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
     $id = $request->getParameter('id');
     $this->forward404Unless($income = IncomeTable::getById($id));
-    $this->form = new IncomeForm($income);
+    $this->form = new IncomeForm($income, array('user' => $this->getUser()));
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
