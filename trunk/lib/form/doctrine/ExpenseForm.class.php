@@ -13,34 +13,47 @@ class ExpenseForm extends BaseExpenseForm
    * Customizes the Recette form. There is a lot of fields to unset in order
    * to re-create them from scratch with custom behaviour, especially the
    * hidden references (association, granted user id...)
+   *
+   * Required option :
+   *    - myUser $user
+   *
+   * Optional option :
+   *    - integer $associationId
    */
   public function configure()
   {
+    if (! $user = $this->getOption('user'))
+    {
+      throw new InvalidArgumentException('You must provide a myUser object');
+    }
+
+    if (! $associationId = $this->getOption('associationId'))
+    {
+      $associationId = $user->getAssociationId();
+    }
+
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
-    unset($this['state'], $this['association_id']);
+    unset($this['association_id']);
 
     if ($this->getObject()->isNew())
     {
       $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
       $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-      $this->setDefault('created_by', sfContext::getInstance()->getUser()->getUserId());
-      $this->setDefault('association_id', sfContext::getInstance()->getUser()->getAssociationId());
+      $this->setDefault('created_by', $user->getUserId());
+      $this->setDefault('association_id', $associationId);
       $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
     }
 
     $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
-    $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
-    $this->setDefault('state', 1);
-
+    $this->setDefault('updated_by', $user->getUserId());
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     $this->validatorSchema['state'] = new sfValidatorBoolean();
     $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0), array('min' => 'ne peut être négatif'));
 
-    $id = sfContext::getInstance()->getUser()->getAssociationId();
-    $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
-    $this->widgetSchema['activity_id']->setOption('query', ActivityTable::getQueryEnabledForAssociation($id));
+    $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($associationId));
+    $this->widgetSchema['activity_id']->setOption('query', ActivityTable::getQueryEnabledForAssociation($associationId));
 
     sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
     $this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
@@ -74,7 +87,7 @@ class ExpenseForm extends BaseExpenseForm
     $this->widgetSchema->setLabels(array(
       'label'         => 'Libellé',
       'account_id'    => 'Compte affecté',
-      'amount'        => 'Amount',
+      'amount'        => 'Montant',
       'activity_id'   => 'Activité liée',
       'date'          => 'Date',
       'paid'          => 'Payée',
