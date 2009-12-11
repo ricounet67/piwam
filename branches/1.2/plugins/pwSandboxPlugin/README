@@ -1,4 +1,18 @@
-pwSandboxPlugin
-===================
 
-This is a sandbox plugin to discover and test Piwam plugins behaviour
+pwSandboxPlugin
+=====================
+
+This is a sandbox plugin to discover and test Piwam plugins behaviour.
+
+I tried to comment this plugin as well as possible, I hope you'll enjoy
+reading these comments !
+
+
+Behaviour of this plugin
+------------------------
+
+This plugin adds a new feature : we can add a new debt that a member as to pay.
+It uses 2 entities provided by the Piwam's core :
+
+  * Member : member who has to pay the amount
+  * Income : amount of money that the Member will pay to the association
