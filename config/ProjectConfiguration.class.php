@@ -12,7 +12,7 @@ class ProjectConfiguration extends sfProjectConfiguration
          * Configuration
          * -------------
          * If you want to set your own /cache and /logs folders,
-         * un comment the 2 following lines and set values with your owns
+         * uncomment the 2 following lines and set values with your owns
          */
         //$this->setCacheDir('/tmp/symfony_cache');
         //$this->setLogDir('/tmp/symfony_logs');
@@ -20,7 +20,9 @@ class ProjectConfiguration extends sfProjectConfiguration
         // End of editable area. Do NOT edit following lines
         $this->enablePlugins(array( 'sfDoctrinePlugin',
                                     'sfImageTransformPlugin',
-                                    'sfFormExtraPlugin'
+                                    'sfFormExtraPlugin',
+                                    'fcLogAnalyzerPlugin',
+                                    'pwSandboxPlugin'
                                    ));
     }
 }
