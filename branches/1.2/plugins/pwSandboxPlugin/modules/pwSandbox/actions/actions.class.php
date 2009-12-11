@@ -1,6 +1,6 @@
 <?php
 /**
- * New actions provided by the pwSandboxPlugin
+ * New actions that our pwSandboxPlugin will offer.
  *
  * @package     pwSandboxPlugin
  * @subpackage  actions
@@ -53,6 +53,74 @@ class pwSandboxActions extends sfActions
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new DebtForm();
+  }
+
+  /**
+   * The action `create` will be called once the DebtForm will be
+   * submitted.
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeCreate(sfWebRequest $request)
+  {
+    /*
+     * `forward404unless` is a symfony method to redirect to the 404
+     * error page if the statement === false. Here, we check that
+     * we reach this action through a POST request
+     */
+    $this->forward404Unless($request->isMethod('post'));
+
+    /*
+     * We need to re-instanciate the form, because we will bind the
+     * submitted values
+     */
+    $this->form = new DebtForm();
+
+    /*
+     * Then process step is done by our processForm method
+     */
+    $this->processForm($request, $this->form);
+
+    /*
+     * This line is reached only if processForm has failed (ie: an error
+     * has occured). We want to use the same template as in the action `new`.
+     */
+    $this->setTemplate('new');
+  }
+
+  /**
+   * Process the different operations with data get from the form.
+   * Redirects to main screen if everything is OK.
+   *
+   * @param   sfWebRequest  $request
+   * @param   DebtForm      $form
+   */
+  protected function processForm(sfWebRequest $request, DebtForm $form)
+  {
+    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+
+    /*
+     * isValid() is a method that check that the form is valid or not
+     * according to the validators we set in the $form
+     */
+    if ($form->isValid())
+    {
+      /*
+       * If everithing is ok, we can save the new object. Here, Doctrine
+       * and symfony act "automagically" to save the new Expense (bind with
+       * values in the embedded Expense form) and the new Debt.
+       *
+       * The $debt variable is a Debt object, you can perform some custom
+       * operations if you need.
+       */
+      $debt = $form->save();
+
+      /*
+       * And because everything went fine, we redirect the user
+       * to the list of Debts.
+       */
+      $this->redirect('pwSandbox/index');
+    }
   }
 }
 ?>
