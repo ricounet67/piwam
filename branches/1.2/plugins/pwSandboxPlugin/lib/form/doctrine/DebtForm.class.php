@@ -31,32 +31,38 @@ class DebtForm extends PluginDebtForm
      * Now, we want to include the existing Income form. There are
      * two different ways : we can merge the forms together or embed
      * an existing form into this DebtForm.
+     * Here we are going to embed the Income form.
      *
-     * Here we are merging forms :
+     * First, create and Income object to bind it with
      */
-    //$this->mergeForm(new IncomeForm());
+    $income = new Income();
+    $income = $this->getObject()->getIncome();
 
     /*
-     * The merged IncomeForm provides a checkbox which is
-     * called 'received'.
-     * Here, we want to uncheck it by default :
+     * And then, we create our Income form, and embed it within this
+     * Debt form. The $income object previously created is given to the
+     * form to bind the values
      */
-    //$this->setDefault('received', false);
+    $this->embedForm('income_id', new IncomeForm($income));
 
     /*
-     * But if we wanted to embed the IncomeForm instead of merging
+     * Last step, we want to uncheck the checkbox `received` that is
+     * defined in the Income form.
+     */
+    $this->getEmbeddedForm('income_id')->setDefault('received', false);
+
+
+    /*
+     * But if we wanted to merge the IncomeForm instead of embeding
      * two forms, we would write :
-     */
-     $income = new Expense();
-     $income = $this->getObject()->getIncome();
-     
-     $this->embedForm('income_id', new IncomeForm($income));
-     $this->getEmbeddedForm('income_id')->setDefault('received', false);
-     /*
+     *
+     *    $this->mergeForm(new IncomeForm());
+     *    $this->setDefault('received', false);
+     *
      * The last line uncheck the 'received' checkbox
      */
 
-
+    
     /*
      * Finally, this is preferable to set labels of each field (at least
      * to display it in French ;-)
@@ -65,9 +71,9 @@ class DebtForm extends PluginDebtForm
      * of IncomeForm have been directly set in IncomeForm class.
      */
     $this->widgetSchema->setLabels(array(
-      // 'field'  => 'Displayed name',
-      'member_id' => 'Membre concerné',
-      'income_id'=> 'Recette liée',
+      // 'field'    => 'Displayed name',
+      'member_id'   => 'Membre concerné',
+      'income_id'   => 'Recette liée',
     ));
   }
 }
