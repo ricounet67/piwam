@@ -7,20 +7,20 @@
  * 
  * @property integer $id
  * @property integer $member_id
- * @property integer $expense_id
+ * @property integer $income_id
  * @property Member $Member
- * @property Expense $Expense
+ * @property Income $Income
  * 
- * @method integer getId()         Returns the current record's "id" value
- * @method integer getMemberId()   Returns the current record's "member_id" value
- * @method integer getExpenseId()  Returns the current record's "expense_id" value
- * @method Member  getMember()     Returns the current record's "Member" value
- * @method Expense getExpense()    Returns the current record's "Expense" value
- * @method Debt    setId()         Sets the current record's "id" value
- * @method Debt    setMemberId()   Sets the current record's "member_id" value
- * @method Debt    setExpenseId()  Sets the current record's "expense_id" value
- * @method Debt    setMember()     Sets the current record's "Member" value
- * @method Debt    setExpense()    Sets the current record's "Expense" value
+ * @method integer getId()        Returns the current record's "id" value
+ * @method integer getMemberId()  Returns the current record's "member_id" value
+ * @method integer getIncomeId()  Returns the current record's "income_id" value
+ * @method Member  getMember()    Returns the current record's "Member" value
+ * @method Income  getIncome()    Returns the current record's "Income" value
+ * @method Debt    setId()        Sets the current record's "id" value
+ * @method Debt    setMemberId()  Sets the current record's "member_id" value
+ * @method Debt    setIncomeId()  Sets the current record's "income_id" value
+ * @method Debt    setMember()    Sets the current record's "Member" value
+ * @method Debt    setIncome()    Sets the current record's "Income" value
  * 
  * @package    piwam
  * @subpackage model
@@ -43,7 +43,7 @@ abstract class BaseDebt extends sfDoctrineRecord
              'notnull' => true,
              'length' => '4',
              ));
-        $this->hasColumn('expense_id', 'integer', 4, array(
+        $this->hasColumn('income_id', 'integer', 4, array(
              'type' => 'integer',
              'notnull' => true,
              'length' => '4',
@@ -61,8 +61,8 @@ abstract class BaseDebt extends sfDoctrineRecord
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
 
-        $this->hasOne('Expense', array(
-             'local' => 'expense_id',
+        $this->hasOne('Income', array(
+             'local' => 'income_id',
              'foreign' => 'id',
              'onDelete' => 'CASCADE'));
 
