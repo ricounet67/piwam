@@ -81,9 +81,7 @@ class expenseActions extends sfActions
    */
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new ExpenseForm();
-    $this->form->setDefault('updated_by', $this->getUser()->getUserId());
-
+    $this->form = new ExpenseForm(null, array('user' => $this->getUser()));
   }
 
   /**
@@ -94,7 +92,7 @@ class expenseActions extends sfActions
   public function executeCreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new ExpenseForm();
+    $this->form = new ExpenseForm(null, array('user' => $this->getUser()));
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     $this->processForm($request, $this->form);
     $this->setTemplate('new');
@@ -115,7 +113,7 @@ class expenseActions extends sfActions
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new ExpenseForm($depense);
+    $this->form = new ExpenseForm($depense, array('user' => $this->getUser()));
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
@@ -129,7 +127,7 @@ class expenseActions extends sfActions
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
     $id = $request->getParameter('id');
     $this->forward404Unless($depense = ExpenseTable::getById($id));
-    $this->form = new ExpenseForm($depense);
+    $this->form = new ExpenseForm($depense, array('user' => $this->getUser()));
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
