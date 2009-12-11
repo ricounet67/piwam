@@ -93,9 +93,10 @@ class pwSandboxActions extends sfActions
 
     /*
      * We need to re-instanciate the form, because we will bind the
-     * submitted values
+     * submitted values. Now you know the meaning of these 2 lines !
      */
-    $this->form = new DebtForm();
+    $associationId = $this->getUser()->getAssociationId();
+    $this->form = new DebtForm(null, array('associationId' => $associationId));
 
     /*
      * Then process step is done by our processForm method
