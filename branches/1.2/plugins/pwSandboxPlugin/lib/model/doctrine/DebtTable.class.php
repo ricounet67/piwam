@@ -46,10 +46,10 @@ class DebtTable extends PluginDebtTable
   public static function getAllForAssociation($id)
   {
     $q = Doctrine_Query::create()
-          ->select('e.amount AS amount, d.created_at')
+          ->select('i.amount AS amount, d.created_at')
           ->from('Debt d')
           ->leftJoin('d.Member m')
-          ->leftJoin('d.Expense e')
+          ->leftJoin('d.Income i')
           ->where('m.association_id = ?', $id)
           ->orderBy('m.firstname ASC');
 
