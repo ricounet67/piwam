@@ -1,12 +1,14 @@
 <?php
 /**
- * Debt form. We will discover how to use an existing form,
- * and how to extend it.
+ * Debt form. We will discover how to use an existing form, and how to
+ * extend it.
+ *
+ * This about commenting your code and your files ;-)
  *
  * @package    pwSandboxPlugin
  * @subpackage form
  * @author     Adrien Mogenet
- * @version    SVN: $Id: sfDoctrinePluginFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
+ * @version    1.2
  */
 class DebtForm extends PluginDebtForm
 {
