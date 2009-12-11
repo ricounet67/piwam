@@ -66,14 +66,14 @@ class pwSandboxActions extends sfActions
      *    null object)
      * 
      *  - additional parameters that can be used into the form (here, we give
-     *    the current association ID)
+     *    the current myUser)
      *
      * See also :
      * ----------
      * http://www.symfony-project.org/api/1_4/sfForm#method___construct
      * 
      */
-    $this->form = new DebtForm(null, array('associationId' => $associationId));
+    $this->form = new DebtForm(null, array('user' => $this->getUser()));
   }
 
   /**
@@ -93,10 +93,9 @@ class pwSandboxActions extends sfActions
 
     /*
      * We need to re-instanciate the form, because we will bind the
-     * submitted values. Now you know the meaning of these 2 lines !
+     * submitted values. Now you know the meaning this line !
      */
-    $associationId = $this->getUser()->getAssociationId();
-    $this->form = new DebtForm(null, array('associationId' => $associationId));
+    $this->form = new DebtForm(null, array('user' => $this->getUser()));
 
     /*
      * Then process step is done by our processForm method
