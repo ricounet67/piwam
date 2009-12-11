@@ -17,7 +17,7 @@ abstract class BaseDebtForm extends BaseFormDoctrine
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'member_id'  => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Member'), 'add_empty' => false)),
-      'expense_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Expense'), 'add_empty' => false)),
+      'income_id' => new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Income'), 'add_empty' => false)),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
     ));
@@ -25,7 +25,7 @@ abstract class BaseDebtForm extends BaseFormDoctrine
     $this->setValidators(array(
       'id'         => new sfValidatorDoctrineChoice(array('model' => $this->getModelName(), 'column' => 'id', 'required' => false)),
       'member_id'  => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Member'))),
-      'expense_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Expense'))),
+      'income_id' => new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('Income'))),
       'created_at' => new sfValidatorDateTime(),
       'updated_at' => new sfValidatorDateTime(),
     ));
