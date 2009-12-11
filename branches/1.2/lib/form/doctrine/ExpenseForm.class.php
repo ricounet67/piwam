@@ -13,6 +13,12 @@ class ExpenseForm extends BaseExpenseForm
    * Customizes the Recette form. There is a lot of fields to unset in order
    * to re-create them from scratch with custom behaviour, especially the
    * hidden references (association, granted user id...)
+   *
+   * Required option :
+   *    - myUser $user
+   *
+   * Optional option :
+   *    - integer $associationId
    */
   public function configure()
   {
