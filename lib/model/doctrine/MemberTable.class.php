@@ -278,7 +278,7 @@ class MemberTable extends Doctrine_Table
    * @param   array           $params
    * @return  sfDoctrinePager Paginated list of Member objects
    */
-  static public function search($params)
+  static public function search($params, $page = 1)
   {
     $q = self::getQuerySearch($params);
 
@@ -286,7 +286,7 @@ class MemberTable extends Doctrine_Table
     {
       if ($params['by_page'] == 'default')
       {
-        $n = Configurator::get('users_by_page', $association_id, 20);
+        $n = Configurator::get('users_by_page', $params['association_id'], 20);
       }
       elseif ($params['by_page'] == 'all')
       {
