@@ -59,18 +59,13 @@ class memberActions extends sfActions
   {
     $autoCompleteParam = $request->getParameter('autocomplete_search');
     $filterParams = $request->getParameter('search');
-    $filtersParams['magic'] = $autoCompleteParam['magic'];
+    $filterParams['magic'] = $autoCompleteParam['magic'];
     $aId = $this->getUser()->getAssociationId();
-
-
-    $this->members = MemberTable::search($query, 50, $aId);
+    $this->members = MemberTable::search($filterParams);
 
     if (count($this->members) === 1)
     {
       $this->redirect('@member_show?id=' . $this->members[0]->getId());
-    }
-
-    $this->members = array();
     }
 
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
