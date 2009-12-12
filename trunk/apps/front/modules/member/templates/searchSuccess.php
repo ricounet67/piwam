@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($members as $member): ?>
+        <?php foreach ($members->getResults() as $member): ?>
             <?php include_partial('memberRow', array('member' => $member)) ?>
         <?php endforeach ?>
     </tbody>
@@ -41,3 +41,5 @@
 <div class="addNew" style="width: 194px; background-color: #EAEAEA; border: 3px solid #EAEAEA;">
         <?php echo link_to('Retour à la liste complète', '@members_list') ?>
 </div>
+
+<?php include_partial('global/pager', array('pager' => $members, 'route' => '@member_search', 'params' => array())) ?>

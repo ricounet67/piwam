@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Piwam" default="build" basedir=".">
 
-	<target name="checkout">
+  <target name="init" description="Create build folder and subfolders if required">
+    <mkdir dir="build"/>
+    <mkdir dir="build/doc"/>
+    <mkdir dir="build/logs"/>
+  </target>
+ 
+	<target name="clearcache">
+		<exec executable="${basedir}/symfony">
+			<arg line=" cc" />
+		</exec>
+	</target>
+
+  <target name="doc" description="Generate documentation">
+    <exec executable="doxygen">
+      <arg line=" doc/Doxyfile" />
+    </exec>
+  </target>
+
+	<target name="up" description="Update to the last revision">
 		<exec executable="svn" dir="${basedir}">
 			<arg line="up" />
 		</exec>
@@ -25,12 +43,13 @@
 	</target>
 
 	<target name="lint" description="Check PHP syntax">
-		<phplint>
-			<fileset dir=".">
-				<include name="**/*.php" />
-				<exclude name="./lib/vendor/**/*.php" />
-			</fileset>
-		</phplint>
+		<apply executable="php" failonerror="true">
+      <arg value="-l" />
+        <fileset dir=".">
+          <include name="**/*.php" />
+          <exclude name="lib/vendor/**/*.php" />
+        </fileset>
+		</apply>
 	</target>
 
 	<target name="phpcs">
@@ -46,12 +65,6 @@
 		</exec>
 	</target>
 
-	<target name="clearcache">
-		<exec executable="${basedir}/symfony">
-			<arg line=" cc" />
-		</exec>
-	</target>
-
 	<target name="test">
 		<exec executable="${basedir}/symfony">
 			<arg line=" test:all 
@@ -60,5 +73,5 @@
 	</target>
 
 
-	<target name="build" depends="clearcache,checkout,phpcs,phpcpd,pdepend,test" />
+	<target name="build" depends="init,clearcache,up,phpcs,phpcpd,pdepend,test" />
 </project>

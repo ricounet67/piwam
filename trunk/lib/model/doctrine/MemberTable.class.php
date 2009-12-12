@@ -70,9 +70,11 @@ class MemberTable extends Doctrine_Table
    * Build a Doctrine_Query object according to criteria given by
    * parameter $params.
    * Supported params :
+   * 
    *    - association_id
-   *    - magic (search on several fields)
+   *    - magic
    *    - state
+   *    - due_state
    *
    * @param   array           $params
    * @return  Doctrine_Query
@@ -82,18 +84,65 @@ class MemberTable extends Doctrine_Table
     $q = Doctrine_Query::create()
           ->from('Member m');
 
+    /*
+     * Select only members who belong to a specific association
+     */
     if (isset ($params['association_id']))
     {
       $q->andWhere('m.association_id = ?', $params['association_id']);
     }
+
+    /*
+     * Restrict the research to the enabled/fisabled members
+     */
     if (isset ($params['state']))
     {
       $q->andWhere('m.state = ?', $params['state']);
     }
-    if (isset ($params['magic']))
+
+    /*
+     * Widget 'magic' is used to perform a search on several fields :
+     * firstname, lastname... and we can add more
+     */
+    if (isset ($params['magic']) && $params['magic'] != "")
     {
       $query = '%' . $params['magic'] . '%';
       $q->andWhere("concat(concat(m.firstname, ' '), m.lastname) LIKE ?", $query);
+    }
+
+    /*
+     * Widget 'due_state' can have different values :
+     *
+     *  - ok    : Select members who don't have to paye their due
+     *  - ko    : Select members who have to pay their due
+     *  - month : Select members whom due will expire in a month
+     */
+    if (isset ($params['due_state']))
+    {
+      $today = date('Y-m-d');
+
+      if ($params['due_state'] == 'ok')
+      {
+        $q->leftJoin('m.Due d');
+        $q->leftJoin('d.DueType t');
+        $q->andWhere('m.due_exempt = ?', true);
+        $q->orWhere("ADDDATE(d.date, INTERVAL t.period MONTH) >= ?", $today);
+      }
+      if ($params['due_state'] == 'ko')
+      {
+        $q->leftJoin('m.Due d');
+        $q->leftJoin('d.DueType t');
+        $q->andWhere('m.due_exempt = ?', false);
+        $q->andWhere("(d.date IS NULL OR ADDDATE(d.date, INTERVAL t.period MONTH) < ?)", $today);
+      }
+      if ($params['due_state'] == 'month')
+      {
+        $q->leftJoin('m.Due d');
+        $q->leftJoin('d.DueType t');
+        $q->andWhere('m.due_exempt = ?', false);
+        $q->andWhere("ADDDATE(d.date, INTERVAL t.period - 1 MONTH) < ?", $today);
+        $q->andWhere("ADDDATE(d.date, INTERVAL t.period MONTH) >= ?", $today);
+      }
     }
 
     return $q;
@@ -209,7 +258,7 @@ class MemberTable extends Doctrine_Table
    * @param   integer     $associationId
    * @return  array of Member
    */
-  static public function search($query, $limit, $associationId)
+  static public function magicSearch($query, $limit, $associationId)
   {
     $params = array('association_id' => $associationId,
                     'state' => self::STATE_ENABLED,
@@ -219,6 +268,42 @@ class MemberTable extends Doctrine_Table
     $q->limit($limit);
 
     return $q->execute();
+  }
+
+  /**
+   * Display Membre matching our query. $query is going to be set as a
+   * magic criteria that the engine will try to match after comparison
+   * on several fields.
+   *
+   * @param   array           $params
+   * @return  sfDoctrinePager Paginated list of Member objects
+   */
+  static public function search($params, $page = 1)
+  {
+    $q = self::getQuerySearch($params);
+
+    if (isset($params['by_page']))
+    {
+      if ($params['by_page'] == 'default')
+      {
+        $n = Configurator::get('users_by_page', $params['association_id'], 20);
+      }
+      elseif ($params['by_page'] == 'all')
+      {
+        $n = 1000; // we set a maximum anyway
+      }
+      else
+      {
+        $n = $params['by_page'];
+      }
+    }
+
+    $pager = new sfDoctrinePager('Member', $n);
+    $pager->setQuery($q);
+    $pager->setPage($page);
+    $pager->init();
+
+    return $pager;
   }
 
   /**
