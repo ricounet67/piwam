@@ -66,8 +66,7 @@ class memberActions extends sfActions
     $filterParams = unserialize($data);
     $filterParams['association_id'] = $aId;
     $filterParams['order_by'] = $this->orderByColumn;
-    $this->members = MemberTable::search($filterParams, $page);
-    $this->page = $page;
+    $membersPager = MemberTable::search($filterParams, $page);
 
     /*
      * If the search form has been just submitted and if
@@ -76,10 +75,15 @@ class memberActions extends sfActions
      */
     if ((count($this->members) === 1) && $request->isMethod('post'))
     {
-      $members = $this->members->getResults();
+      $members = $membersPager->getResults();
       $this->redirect('@member_show?id=' . $members[0]->getId());
     }
-    
+
+    /*
+     * And we finally give all the useful elements to the view
+     */
+    $this->member = $membersPager;
+    $this->page = $page;
     $this->pending = MemberTable::getPendingMembers($aId);
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
     $this->searchForm = new SearchUserForm($filterParams, array(
