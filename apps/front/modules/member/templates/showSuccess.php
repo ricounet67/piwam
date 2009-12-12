@@ -56,10 +56,28 @@
                 <th>Date d'inscription :</th>
                 <td><?php echo format_date($member->getSubscriptionDate()) ?></td>
             </tr>
-            <tr>
-                <th>Exempté de cotisation :</th>
-                <td><?php echo boolean2icon($member->getDueExempt()) ?></td>
-            </tr>
+
+            <!-- Display due state -->
+            
+            <?php if ($member->getDueExempt()): ?>
+              <tr>
+                  <th>Exempté de cotisation :</th>
+                  <td><?php echo boolean2icon($member->getDueExempt()) ?></td>
+              </tr>
+            <?php else: ?>
+              <tr>
+                <th>Prochaine cotisation :</th>
+
+                <!-- Custom message if due has expired -->
+                
+                <?php if ($member->getDaysBeforeNextDue() < 0): ?>
+                  <td>Expirée depuis <b><?php echo - $member->getDaysBeforeNextDue() ?></b> jours</td>
+                <?php else: ?>
+                  <td>Dans <b><?php echo $member->getDaysBeforeNextDue() ?></b> jours</td>
+                <?php endif ?>
+              </tr>
+            <?php endif ?>
+
             <tr>
                 <th>Adresse :</th>
                 <td><?php echo $member->getStreet() . '<br />' . $member->getZipcode() . ' ' . $member->getCity() ?></td>
