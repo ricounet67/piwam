@@ -34,7 +34,8 @@ class memberActions extends sfActions
     /*
      * If user has submit some criteria to filter the list,
      * we generate the $filterParams array and store
-     * it in session
+     * it in session. This array is generated according to
+     * the values given by the SearchUserForm's widgets
      */
     if ($request->isMethod('post'))
     {
@@ -44,23 +45,32 @@ class memberActions extends sfActions
       $this->getUser()->setAttribute('memberSearch', serialize($filterParams));
     }
 
+    /*
+     * We get the $filterParams array, but we force the value
+     * of association_id because it could be empty if no filter
+     * has been submitted
+     */
     $data = $this->getUser()->getAttribute('memberSearch', array());
     $filterParams = unserialize($data);
-
+    $filterParams['association_id'] = $aId;
     $this->members = MemberTable::search($filterParams, $page);
-    $members = $this->members->getResults();
 
+    /*
+     * If the search form has been just submitted and if
+     * there is only one matching result, we directly
+     * redirect to the unique matched member
+     */
     if ((count($this->members) === 1) && $request->isMethod('post'))
     {
+      $members = $this->members->getResults();
       $this->redirect('@member_show?id=' . $members[0]->getId());
     }
-
-    //$this->members = MemberTable::getPagerOrderBy($aId, $page, $this->orderByColumn);
+    
     $this->pending = MemberTable::getPendingMembers($aId);
-
-
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array('associationId' => $aId, 'ajaxUrl' => $ajaxUrl));
+    $this->searchForm = new SearchUserForm(null, array(
+      'associationId' => $aId,
+      'ajaxUrl'       => $ajaxUrl));
   }
 
   /**
