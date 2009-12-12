@@ -46,6 +46,18 @@ class memberActions extends sfActions
     }
 
     /*
+     * If there is no 'page' parameter, but we did not send research,
+     * it means that we arereaching the action for the first time, from
+     * a link into the menu for instance. So we clear the existing objects
+     * previously stored.
+     * 
+     */
+    elseif (false === $request->getParameter('page', false))
+    {
+      $this->getUser()->setAttribute('memberSearch', serialize(array()));
+    }
+
+    /*
      * We get the $filterParams array, but we force the value
      * of association_id because it could be empty if no filter
      * has been submitted
@@ -55,6 +67,7 @@ class memberActions extends sfActions
     $filterParams['association_id'] = $aId;
     $filterParams['order_by'] = $this->orderByColumn;
     $this->members = MemberTable::search($filterParams, $page);
+    $this->page = $page;
 
     /*
      * If the search form has been just submitted and if
@@ -69,7 +82,7 @@ class memberActions extends sfActions
     
     $this->pending = MemberTable::getPendingMembers($aId);
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array(
+    $this->searchForm = new SearchUserForm($filterParams, array(
       'associationId' => $aId,
       'ajaxUrl'       => $ajaxUrl));
   }
