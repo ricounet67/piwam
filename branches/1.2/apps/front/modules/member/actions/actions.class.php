@@ -103,7 +103,7 @@ class memberActions extends sfActions
   }
 
   /**
-   * Export the list of member within a file
+   * Export the list of members within a CSV file
    *
    * @param   sfWebRequest    $request
    * @since   r19
@@ -111,40 +111,42 @@ class memberActions extends sfActions
   public function executeExport(sfWebRequest $request)
   {
     $csv = new FileExporter('liste-membres.csv');
-    $members = MemberTable::getEnabledForAssociation($this->getUser()->getAssociationId());
+    $associationId = $this->getUser()->getAssociationId();
+    $members = MemberTable::getEnabledForAssociation($associationId);
 
     echo $csv->addLineCSV(array(
-                          'Prénom',
-                          'Nom',
-                          'Pseudo',
-                          'Email',
-                          'Tel (fixe)',
-                          'Tel (mobile)',
-                          'Rue',
-                          'CP',
-                          'Ville',
-                          'Pays',
-                          'Statut',
-                          'Date d\'inscription',
+      'Prénom',
+      'Nom',
+      'Pseudo',
+      'Email',
+      'Tel (fixe)',
+      'Tel (mobile)',
+      'Rue',
+      'CP',
+      'Ville',
+      'Pays',
+      'Statut',
+      'Date d\'inscription',
     ));
 
     foreach ($members as $member)
     {
       echo $csv->addLineCSV(array(
-      $member->getFirstname(),
-      $member->getLastname(),
-      $member->getUsername(),
-      $member->getEmail(),
-      $member->getPhoneHome(),
-      $member->getPhoneMobile(),
-      $member->getStreet(),
-      $member->getZipcode(),
-      $member->getCity(),
-      $member->getCountry(),
-      $member->getStatus(),
-      $member->getSubscriptionDate(),
+        $member->getFirstname(),
+        $member->getLastname(),
+        $member->getUsername(),
+        $member->getEmail(),
+        $member->getPhoneHome(),
+        $member->getPhoneMobile(),
+        $member->getStreet(),
+        $member->getZipcode(),
+        $member->getCity(),
+        $member->getCountry(),
+        $member->getStatus(),
+        $member->getSubscriptionDate(),
       ));
     }
+    
     $csv->exportContentAsFile();
   }
 
