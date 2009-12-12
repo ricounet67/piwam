@@ -30,12 +30,7 @@
 <h2>Liste des membres</h2>
 
 <div id="searchBar">
-  <table>
-    <tr>
-      <td><?php include_partial('filterForm', array('form' => $filterForm)) ?></td>
-      <td><?php include_partial('searchForm', array('form' => $searchForm)) ?></td>
-    </tr>
-  </table>
+  <td><?php include_partial('searchForm', array('form' => $searchForm)) ?></td>
 </div>
 
 <table class="datalist" summary="Members who would like to belong to the association">
