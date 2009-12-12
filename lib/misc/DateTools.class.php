@@ -536,7 +536,20 @@ class DateTools
     }
 
 
-
+    /**
+     * Get the number of days between $start and $end
+     *
+     * @param   date    $start
+     * @param   date    $end
+     * @return  integer
+     * @since   1.2
+     * @author  Adrien Mogenet
+     */
+    public static function getDaysBetween($start, $end)
+    {
+      date_default_timezone_set('Europe/Paris');
+      return round((strtotime($end) - strtotime($start)) / (3600 * 24));
+    }
 
 
 }

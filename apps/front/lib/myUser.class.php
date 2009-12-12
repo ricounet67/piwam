@@ -11,13 +11,13 @@ class myUser extends sfBasicSecurityUser
   /**
    * Defines the name of cookie that will be created
    *
-   * @var string
+   * @var   string
    */
   const COOKIE_NAME = 'Piwam';
 
   /**
    * Performs all the required actions when user just
-   * logged in
+   * logged in.
    *
    * @param	Membre	$user
    * @since	r6
@@ -36,7 +36,7 @@ class myUser extends sfBasicSecurityUser
 
   /**
    * Performs all required actions when user would like to log out
-   * or when we force him to log out
+   * or when we force him to log out.
    *
    * @since	r6
    */
@@ -51,9 +51,9 @@ class myUser extends sfBasicSecurityUser
   /**
    * Get the current association ID of the user
    *
-   * @param	integer	$default (optional)
-   * @return	integer
-   * @since	r140
+   * @param   integer	$default (optional)
+   * @return  integer
+   * @since   r140
    */
   public function getAssociationId($default = null)
   {
@@ -98,10 +98,11 @@ class myUser extends sfBasicSecurityUser
   /**
    * Store temporary an Association ID in session. It's just usefull
    * when we want to register a new association, to store easily
-   * the ID between the different steps of registration
+   * the ID between the different steps of registration.
+   * Don't use this method for authenticated users.
    *
-   * @param 	integer	$id
-   * @since	r16
+   * @param   integer	$id
+   * @since   r16
    */
   public function setTemporaryAssociationId($id)
   {
@@ -110,7 +111,8 @@ class myUser extends sfBasicSecurityUser
 
   /**
    * Retrieve the temporary Association ID in session, previously set
-   * by setTemporaryAssociationId
+   * by setTemporaryAssociationId.
+   * Don't use this method for authenticated users.
    *
    * @return  integer
    * @since   r159
@@ -121,7 +123,8 @@ class myUser extends sfBasicSecurityUser
   }
 
   /**
-   * Store temporary values about user
+   * Store temporary values about user. Don't use this method for
+   * authenticated users.
    *
    * @param 	Membre	$value
    * @since	r16
@@ -132,7 +135,8 @@ class myUser extends sfBasicSecurityUser
   }
 
   /**
-   * Retrieve temporary Membre value
+   * Retrieve temporary Membre value. Don't use this method for
+   * authenticated users.
    *
    * @return 	Membre
    * @since	r16
@@ -152,8 +156,8 @@ class myUser extends sfBasicSecurityUser
     $this->getAttributeHolder()->removeNamespace('temp');
   }
 
-  /*
-   * Retrieve the credentials granted to the user
+  /**
+   * Retrieve the credentials granted to the current user.
    */
   protected function setCredentials()
   {
@@ -165,8 +169,12 @@ class myUser extends sfBasicSecurityUser
     }
   }
 
-  /*
-   * Reset credentials of the current user.
+  /**
+   * Reset credentials of the current user. Just remove the credentials
+   * for the current session and then give him back according to the
+   * credentials stored in the database.
+   *
+   * Don't change anything in database, just affect the user's session
    */
   protected function resetCredentials()
   {

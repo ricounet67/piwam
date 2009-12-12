@@ -11,12 +11,14 @@ class memberActions extends sfActions
 {
   /**
    * Lists members who belongs to the current association. By default we sort
-   * the list by pseudo, and if another column is specified we use it.
-   *
-   * r14 : pagination system
+   * the list by lastname, and if another column is specified we use it.
+   * 
+   * At the beginning we check if the user has to be redirected to his profile
+   * page, since credentials are not checked by config.yml to allow this
+   * behaviour
    *
    * @param 	sfWebRequest	$request
-   * @since	r1
+   * @since   r1
    */
   public function executeIndex(sfWebRequest $request)
   {
@@ -26,49 +28,57 @@ class memberActions extends sfActions
     }
 
     $this->orderByColumn = $request->getParameter('orderby', 'lastname');
-    $associationId = $this->getUser()->getAssociationId();
-    $page          = $request->getParameter('page', 1);
-    $this->members = MemberTable::getPagerOrderBy($associationId, $page, $this->orderByColumn);
-    $this->pending = MemberTable::getPendingMembers($associationId);
-    $ajaxUrl       = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(), 'ajaxUrl' => $ajaxUrl));
+    $aId              = $this->getUser()->getAssociationId();
+    $page             = $request->getParameter('page', 1);
+    $this->members    = MemberTable::getPagerOrderBy($aId, $page, $this->orderByColumn);
+    $this->pending    = MemberTable::getPendingMembers($aId);
+    $ajaxUrl          = $this->getController()->genUrl('@ajax_search_members');
+    $this->searchForm = new SearchUserForm(null, array('associationId' => $aId, 'ajaxUrl' => $ajaxUrl));
   }
 
   /**
-   * Display images
+   * Display images of members who belong to the current association
    *
    * @param   sfWebRequest $request
    * @since   r139
    */
   public function executeFaces(sfWebRequest $request)
   {
-    $this->members = MemberTable::getEnabledForAssociation($this->getUser()->getAssociationId());
+    $associationId = $this->getUser()->getAssociationId();
+    $this->members = MemberTable::getEnabledForAssociation($associationId);
   }
 
   /**
-   * Perform a research and return results
+   * Perform a research and return results, according to the criteria
+   * given by the SearchUserForm instance.
    *
    * @param   sfWebRequest    $request
    * @since   r211
    */
   public function executeSearch(sfWebRequest $request)
   {
-    $params = $request->getParameter('autocomplete_search');
-    $query = $params['magic'];
+    $page = $request->getParameter('page', 1);
     $aId = $this->getUser()->getAssociationId();
 
-    if (strlen($query) > 0)
+    if ($page === 1)
     {
-      $this->members = MemberTable::search($query, 50, $aId);
-
-      if (count($this->members) === 1)
-      {
-        $this->redirect('@member_show?id=' . $this->members[0]->getId());
-      }
+      $autoCompleteParam = $request->getParameter('autocomplete_search');
+      $filterParams = $request->getParameter('search');
+      $filterParams['magic'] = $autoCompleteParam['magic'];
+      $this->getUser()->setAttribute('memberSearch', serialize($filterParams));
     }
     else
     {
-      $this->members = array();
+      $data = $this->getUser()->getAttribute('memberSearch', array());
+      $filterParams = unserialize($data);
+    }
+
+    $this->members = MemberTable::search($filterParams, $page);
+    $members = $this->members->getResults();
+
+    if (count($this->members) === 1)
+    {
+      $this->redirect('@member_show?id=' . $members[0]->getId());
     }
 
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
@@ -100,7 +110,7 @@ class memberActions extends sfActions
   }
 
   /**
-   * Export the list of member within a file
+   * Export the list of members within a CSV file
    *
    * @param   sfWebRequest    $request
    * @since   r19
@@ -108,40 +118,42 @@ class memberActions extends sfActions
   public function executeExport(sfWebRequest $request)
   {
     $csv = new FileExporter('liste-membres.csv');
-    $members = MemberTable::getEnabledForAssociation($this->getUser()->getAssociationId());
+    $associationId = $this->getUser()->getAssociationId();
+    $members = MemberTable::getEnabledForAssociation($associationId);
 
     echo $csv->addLineCSV(array(
-                          'Prénom',
-                          'Nom',
-                          'Pseudo',
-                          'Email',
-                          'Tel (fixe)',
-                          'Tel (mobile)',
-                          'Rue',
-                          'CP',
-                          'Ville',
-                          'Pays',
-                          'Statut',
-                          'Date d\'inscription',
+      'Prénom',
+      'Nom',
+      'Pseudo',
+      'Email',
+      'Tel (fixe)',
+      'Tel (mobile)',
+      'Rue',
+      'CP',
+      'Ville',
+      'Pays',
+      'Statut',
+      'Date d\'inscription',
     ));
 
     foreach ($members as $member)
     {
       echo $csv->addLineCSV(array(
-      $member->getFirstname(),
-      $member->getLastname(),
-      $member->getUsername(),
-      $member->getEmail(),
-      $member->getPhoneHome(),
-      $member->getPhoneMobile(),
-      $member->getStreet(),
-      $member->getZipcode(),
-      $member->getCity(),
-      $member->getCountry(),
-      $member->getStatus(),
-      $member->getSubscriptionDate(),
+        $member->getFirstname(),
+        $member->getLastname(),
+        $member->getUsername(),
+        $member->getEmail(),
+        $member->getPhoneHome(),
+        $member->getPhoneMobile(),
+        $member->getStreet(),
+        $member->getZipcode(),
+        $member->getCity(),
+        $member->getCountry(),
+        $member->getStatus(),
+        $member->getSubscriptionDate(),
       ));
     }
+    
     $csv->exportContentAsFile();
   }
 
@@ -180,7 +192,7 @@ class memberActions extends sfActions
     $query   = $request->getParameter('q');
     $limit   = $request->getParameter('limit');
     $id      = $request->getParameter('association_id');
-    $members = MemberTable::search($query, $limit, $id);
+    $members = MemberTable::magicSearch($query, $limit, $id);
     $result  = array();
 
     foreach ($members as $member)

@@ -29,7 +29,7 @@
 
 <h2>Liste des membres</h2>
 
-<?php include_partial('searchForm', array('form' => $searchForm)) ?>
+<td><?php include_partial('searchForm', array('form' => $searchForm)) ?></td>
 
 <table class="datalist" summary="Members who would like to belong to the association">
     <thead>
