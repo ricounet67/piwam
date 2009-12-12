@@ -26,13 +26,12 @@ class memberActions extends sfActions
     }
 
     $this->orderByColumn = $request->getParameter('orderby', 'lastname');
-    $associationId = $this->getUser()->getAssociationId();
-    $page          = $request->getParameter('page', 1);
-    $this->members = MemberTable::getPagerOrderBy($associationId, $page, $this->orderByColumn);
-    $this->pending = MemberTable::getPendingMembers($associationId);
-    $ajaxUrl       = $this->getController()->genUrl('@ajax_search_members');
+    $associationId    = $this->getUser()->getAssociationId();
+    $page             = $request->getParameter('page', 1);
+    $this->members    = MemberTable::getPagerOrderBy($associationId, $page, $this->orderByColumn);
+    $this->pending    = MemberTable::getPendingMembers($associationId);
+    $ajaxUrl          = $this->getController()->genUrl('@ajax_search_members');
     $this->searchForm = new SearchUserForm(null, array('associationId' => $associationId, 'ajaxUrl' => $ajaxUrl));
-    $this->filterForm = new FilterUserForm();
   }
 
   /**
