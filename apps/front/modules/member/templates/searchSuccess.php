@@ -5,11 +5,11 @@
 <table class="datalist">
     <thead>
         <tr>
-            <th><?php echo link_to('Nom',    'membre/index?orderby=lastname') ?></th>
-            <th><?php echo link_to('Prénom', 'membre/index?orderby=firstname') ?></th>
-            <th><?php echo link_to('Pseudo', 'membre/index?orderby=username') ?></th>
-            <th><?php echo link_to('Statut', 'membre/index?orderby=status_id') ?></th>
-            <th><?php echo link_to('Ville',  'membre/index?orderby=city') ?></th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Pseudo</th>
+            <th>Statut</th>
+            <th>Ville</th>
             <th width="75px">Actions</th>
         </tr>
     </thead>
