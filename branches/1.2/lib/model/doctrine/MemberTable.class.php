@@ -104,7 +104,7 @@ class MemberTable extends Doctrine_Table
      * Widget 'magic' is used to perform a search on several fields :
      * firstname, lastname... and we can add more
      */
-    if (isset ($params['magic']))
+    if (isset ($params['magic']) && $params['magic'] != "")
     {
       $query = '%' . $params['magic'] . '%';
       $q->andWhere("concat(concat(m.firstname, ' '), m.lastname) LIKE ?", $query);
@@ -121,11 +121,16 @@ class MemberTable extends Doctrine_Table
     {
       if ($params['due_state'] == 'ok')
       {
-        $q->andWhere('m.due_exempt = ?', true);
+        $q->innerJoin('m.Dues');
+        //$q->andWhere('m.due_exempt = ?', true);
       }
       if ($params['due_state'] == 'ko')
       {
+        $today = date('Y-m-d');
+        $q->leftJoin('m.Due d');
+        $q->leftJoin('d.DueType t');
         $q->andWhere('m.due_exempt = ?', false);
+        $q->andWhere("(d.date IS NULL OR ADDDATE(d.date, INTERVAL t.period MONTH) < ?)", $today);
       }
       if ($params['due_state'] == 'month')
       {
