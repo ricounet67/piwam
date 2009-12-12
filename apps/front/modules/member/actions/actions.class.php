@@ -11,12 +11,14 @@ class memberActions extends sfActions
 {
   /**
    * Lists members who belongs to the current association. By default we sort
-   * the list by pseudo, and if another column is specified we use it.
-   *
-   * r14 : pagination system
+   * the list by lastname, and if another column is specified we use it.
+   * 
+   * At the beginning we check if the user has to be redirected to his profile
+   * page, since credentials are not checked by config.yml to allow this
+   * behaviour
    *
    * @param 	sfWebRequest	$request
-   * @since	r1
+   * @since   r1
    */
   public function executeIndex(sfWebRequest $request)
   {
@@ -26,23 +28,24 @@ class memberActions extends sfActions
     }
 
     $this->orderByColumn = $request->getParameter('orderby', 'lastname');
-    $associationId    = $this->getUser()->getAssociationId();
+    $aId              = $this->getUser()->getAssociationId();
     $page             = $request->getParameter('page', 1);
-    $this->members    = MemberTable::getPagerOrderBy($associationId, $page, $this->orderByColumn);
-    $this->pending    = MemberTable::getPendingMembers($associationId);
+    $this->members    = MemberTable::getPagerOrderBy($aId, $page, $this->orderByColumn);
+    $this->pending    = MemberTable::getPendingMembers($aId);
     $ajaxUrl          = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array('associationId' => $associationId, 'ajaxUrl' => $ajaxUrl));
+    $this->searchForm = new SearchUserForm(null, array('associationId' => $aId, 'ajaxUrl' => $ajaxUrl));
   }
 
   /**
-   * Display images
+   * Display images of members who belong to the current association
    *
    * @param   sfWebRequest $request
    * @since   r139
    */
   public function executeFaces(sfWebRequest $request)
   {
-    $this->members = MemberTable::getEnabledForAssociation($this->getUser()->getAssociationId());
+    $associationId = $this->getUser()->getAssociationId();
+    $this->members = MemberTable::getEnabledForAssociation($associationId);
   }
 
   /**
