@@ -119,9 +119,10 @@ class MemberTable extends Doctrine_Table
      */
     if (isset ($params['due_state']))
     {
+      $today = date('Y-m-d');
+
       if ($params['due_state'] == 'ok')
       {
-        $today = date('Y-m-d');
         $q->leftJoin('m.Due d');
         $q->leftJoin('d.DueType t');
         $q->andWhere('m.due_exempt = ?', true);
@@ -129,7 +130,6 @@ class MemberTable extends Doctrine_Table
       }
       if ($params['due_state'] == 'ko')
       {
-        $today = date('Y-m-d');
         $q->leftJoin('m.Due d');
         $q->leftJoin('d.DueType t');
         $q->andWhere('m.due_exempt = ?', false);
@@ -137,7 +137,6 @@ class MemberTable extends Doctrine_Table
       }
       if ($params['due_state'] == 'month')
       {
-        $today = date('Y-m-d');
         $q->leftJoin('m.Due d');
         $q->leftJoin('d.DueType t');
         $q->andWhere('m.due_exempt = ?', false);
@@ -277,7 +276,7 @@ class MemberTable extends Doctrine_Table
    * on several fields.
    *
    * @param   array           $params
-   * @return  array of Member
+   * @return  sfDoctrinePager Paginated list of Member objects
    */
   static public function search($params)
   {
@@ -285,10 +284,26 @@ class MemberTable extends Doctrine_Table
 
     if (isset($params['by_page']))
     {
-      $q->limit($params['by_page']);
+      if ($params['by_page'] == 'default')
+      {
+        $n = Configurator::get('users_by_page', $association_id, 20);
+      }
+      elseif ($params['by_page'] == 'all')
+      {
+        $n = 1000; // we set a maximum anyway
+      }
+      else
+      {
+        $n = $params['by_page'];
+      }
     }
 
-    return $q->execute();
+    $pager = new sfDoctrinePager('Member', $n);
+    $pager->setQuery($q);
+    $pager->setPage($page);
+    $pager->init();
+
+    return $pager;
   }
 
   /**
