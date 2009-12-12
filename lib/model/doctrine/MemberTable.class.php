@@ -75,6 +75,7 @@ class MemberTable extends Doctrine_Table
    *    - magic
    *    - state
    *    - due_state
+   *    - order_by
    *
    * @param   array           $params
    * @return  Doctrine_Query
@@ -145,37 +146,24 @@ class MemberTable extends Doctrine_Table
       }
     }
 
-    return $q;
-  }
-
-  /**
-   * Get the list of active members who belong to the
-   * association $id
-   *
-   * @param   integer           $association_id
-   * @param   integer           $page
-   * @param   string            $column
-   * @return  sfDoctrinePager
-   */
-  public static function getPagerOrderBy($association_id, $page = 1, $column = 'lastname')
-  {
-    $sortable_columns = array('lastname', 'firstname', 'username', 'city', 'status_id');
-
-    if (! in_array($column, $sortable_columns))
+    /*
+     * If a sorting column has been specified, we order the
+     * result
+     */
+    if (isset ($params['order_by']))
     {
-      $column = 'lastname';
+      $column = $params['order_by'];
+      $sortable_columns = array('lastname', 'firstname', 'username', 'city', 'status_id');
+
+      if (! in_array($column, $sortable_columns))
+      {
+        $column = 'lastname';
+      }
+
+      $q->orderBy('m.' . $column . ' ASC');
     }
 
-    $q = self::getQueryEnabledForAssociation($association_id)
-                ->orderBy('m.' . $column . ' ASC');
-
-    $n = Configurator::get('users_by_page', $association_id, 20);
-    $pager = new sfDoctrinePager('Member', $n);
-    $pager->setQuery($q);
-    $pager->setPage($page);
-    $pager->init();
-
-    return $pager;
+    return $q;
   }
 
   /**
