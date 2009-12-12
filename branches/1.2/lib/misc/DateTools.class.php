@@ -547,6 +547,7 @@ class DateTools
      */
     public function get_days_between($start, $end)
     {
+      date_default_timezone_set('Europe/Paris');
       return round((strtotime($end) - strtotime($start)) / (3600 * 24));
     }
 
