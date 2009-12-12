@@ -16,10 +16,10 @@ class SearchUserForm extends BaseForm
    * @var array
    */
   static public $dueOptions = array(
-    'all'         => '',
-    'ok'          => 'À jour',
-    'ko'          => 'Pas à jour',
-    'month'       => 'Expire ce mois ci'
+    'all'     => '-',
+    'ok'      => 'À jour',
+    'ko'      => 'Pas à jour',
+    'month'   => 'Expire ce mois ci'
   );
 
   /**
@@ -28,9 +28,9 @@ class SearchUserForm extends BaseForm
    * @var array
    */
   static public $membersByPage = array(
-    'default'     => 'Par défaut',
-    '20'          => '20 membres par page',
-    'all'         => 'Tout afficher',
+    'default' => '-',
+    '20'      => '20',
+    'all'     => 'Tout',
   );
 
   /**
@@ -54,7 +54,6 @@ class SearchUserForm extends BaseForm
                                      }')),
     ));
 
-
     $this->setValidators(array(
       'due_state'     => new sfValidatorChoice(array('choices' => self::$dueOptions)),
       'by_page'       => new sfValidatorChoice(array('choices' => self::$membersByPage)),
@@ -63,12 +62,23 @@ class SearchUserForm extends BaseForm
     ));
     
     $this->widgetSchema->setLabels(array(
+      'magic'         => 'Prénom / Nom',
       'due_state'     => 'Cotisation',
       'by_page'       => 'Membres par page',
     ));
 
     $this->setDefault('associationId', $this->getOption('associationId'));
     $this->widgetSchema->setNameFormat('search[%s]');
+    $this->_setClasses();
+  }
+
+  /*
+   * Set CSS styles to apply to each field
+   */
+  private function _setClasses()
+  {
+    $this->widgetSchema['due_state']->setAttribute('class', 'formInputShort');
+    $this->widgetSchema['by_page']->setAttribute('class', 'formInputShort');
   }
 }
 ?>
