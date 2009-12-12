@@ -121,8 +121,11 @@ class MemberTable extends Doctrine_Table
     {
       if ($params['due_state'] == 'ok')
       {
-        $q->innerJoin('m.Dues');
-        //$q->andWhere('m.due_exempt = ?', true);
+        $today = date('Y-m-d');
+        $q->leftJoin('m.Due d');
+        $q->leftJoin('d.DueType t');
+        $q->andWhere('m.due_exempt = ?', true);
+        $q->orWhere("ADDDATE(d.date, INTERVAL t.period MONTH) >= ?", $today);
       }
       if ($params['due_state'] == 'ko')
       {
