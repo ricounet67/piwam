@@ -31,7 +31,8 @@ class memberActions extends sfActions
     $this->members = MemberTable::getPagerOrderBy($associationId, $page, $this->orderByColumn);
     $this->pending = MemberTable::getPendingMembers($associationId);
     $ajaxUrl       = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array('associationId' => $this->getUser()->getAssociationId(), 'ajaxUrl' => $ajaxUrl));
+    $this->searchForm = new SearchUserForm(null, array('associationId' => $associationId, 'ajaxUrl' => $ajaxUrl));
+    $this->filterForm = new FilterUserForm();
   }
 
   /**
