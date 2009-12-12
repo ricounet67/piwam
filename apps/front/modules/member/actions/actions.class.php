@@ -57,11 +57,23 @@ class memberActions extends sfActions
    */
   public function executeSearch(sfWebRequest $request)
   {
-    $autoCompleteParam = $request->getParameter('autocomplete_search');
-    $filterParams = $request->getParameter('search');
-    $filterParams['magic'] = $autoCompleteParam['magic'];
+    $page = $request->getParameter('page', 1);
     $aId = $this->getUser()->getAssociationId();
-    $this->members = MemberTable::search($filterParams);
+
+    if ($page === 1)
+    {
+      $autoCompleteParam = $request->getParameter('autocomplete_search');
+      $filterParams = $request->getParameter('search');
+      $filterParams['magic'] = $autoCompleteParam['magic'];
+      $this->getUser()->setAttribute('memberSearch', serialize($filterParams));
+    }
+    else
+    {
+      $data = $this->getUser()->getAttribute('memberSearch', array());
+      $filterParams = unserialize($data);
+    }
+
+    $this->members = MemberTable::search($filterParams, $page);
     $members = $this->members->getResults();
 
     if (count($this->members) === 1)
