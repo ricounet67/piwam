@@ -209,6 +209,28 @@ class MemberTable extends Doctrine_Table
    * @param   integer     $associationId
    * @return  array of Member
    */
+  static public function magicSearch($query, $limit, $associationId)
+  {
+    $params = array('association_id' => $associationId,
+                    'state' => self::STATE_ENABLED,
+                    'magic'=> $query);
+
+    $q = self::getQuerySearch($params);
+    $q->limit($limit);
+
+    return $q->execute();
+  }
+
+  /**
+   * Display Membre matching our query. $query is going to be set as a
+   * magic criteria that the engine will try to match after comparison
+   * on several fields.
+   *
+   * @param   string      $query
+   * @param   integer     $limit
+   * @param   integer     $associationId
+   * @return  array of Member
+   */
   static public function search($query, $limit, $associationId)
   {
     $params = array('association_id' => $associationId,
