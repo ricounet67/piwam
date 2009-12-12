@@ -19,7 +19,7 @@ class SearchUserForm extends BaseForm
     'all'     => '-',
     'ok'      => 'À jour',
     'ko'      => 'Pas à jour',
-    'month'   => 'Expire ce mois ci'
+    'month'   => 'Expire dans 1 mois'
   );
 
   /**
