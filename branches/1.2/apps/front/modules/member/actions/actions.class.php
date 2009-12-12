@@ -49,29 +49,28 @@ class memberActions extends sfActions
   }
 
   /**
-   * Perform a research and return results
+   * Perform a research and return results, according to the criteria
+   * given by the SearchUserForm instance.
    *
    * @param   sfWebRequest    $request
    * @since   r211
    */
   public function executeSearch(sfWebRequest $request)
   {
-    $params = $request->getParameter('autocomplete_search');
-    $query = $params['magic'];
+    $autoCompleteParam = $request->getParameter('autocomplete_search');
+    $filterParams = $request->getParameter('search');
+    $filtersParams['magic'] = $autoCompleteParam['magic'];
     $aId = $this->getUser()->getAssociationId();
 
-    if (strlen($query) > 0)
-    {
-      $this->members = MemberTable::search($query, 50, $aId);
 
-      if (count($this->members) === 1)
-      {
-        $this->redirect('@member_show?id=' . $this->members[0]->getId());
-      }
-    }
-    else
+    $this->members = MemberTable::search($query, 50, $aId);
+
+    if (count($this->members) === 1)
     {
-      $this->members = array();
+      $this->redirect('@member_show?id=' . $this->members[0]->getId());
+    }
+
+    $this->members = array();
     }
 
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
@@ -185,7 +184,7 @@ class memberActions extends sfActions
     $query   = $request->getParameter('q');
     $limit   = $request->getParameter('limit');
     $id      = $request->getParameter('association_id');
-    $members = MemberTable::search($query, $limit, $id);
+    $members = MemberTable::magicSearch($query, $limit, $id);
     $result  = array();
 
     foreach ($members as $member)
