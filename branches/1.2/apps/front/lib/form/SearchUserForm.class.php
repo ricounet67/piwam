@@ -45,7 +45,8 @@ class SearchUserForm extends BaseForm
     $this->setWidgets(array(
       'due_state'     => new sfWidgetFormChoice(array('choices' => self::$dueOptions)),
       'by_page'       => new sfWidgetFormChoice(array('choices' => self::$membersByPage)),
-      'associationId' => new sfWidgetFormInputHidden(),
+      'association_id'=> new sfWidgetFormInputHidden(),
+      'state'         => new sfWidgetFormInputHidden(),
       'magic'         => new sfWidgetFormJQueryAutocompleter(array(
                         'url'    => $this->getOption('ajaxUrl'),
                         'config' => '{ extraParams: { association_id: function() { return jQuery("#search_associationId").val(); } },
@@ -58,7 +59,8 @@ class SearchUserForm extends BaseForm
       'due_state'     => new sfValidatorChoice(array('choices' => self::$dueOptions)),
       'by_page'       => new sfValidatorChoice(array('choices' => self::$membersByPage)),
       'magic'         => new sfValidatorString(array('required' => true)),
-      'associationId' => new sfValidatorInteger(array('required' => true)),
+      'association_id'=> new sfValidatorInteger(array('required' => true)),
+      'state'         => new sfValidatorInteger(array('required' => true)),
     ));
     
     $this->widgetSchema->setLabels(array(
@@ -67,7 +69,8 @@ class SearchUserForm extends BaseForm
       'by_page'       => 'Membres par page',
     ));
 
-    $this->setDefault('associationId', $this->getOption('associationId'));
+    $this->setDefault('association_id', $this->getOption('associationId'));
+    $this->setDefault('state', MemberTable::STATE_ENABLED);
     $this->widgetSchema->setNameFormat('search[%s]');
     $this->_setClasses();
   }
