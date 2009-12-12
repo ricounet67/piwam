@@ -73,6 +73,7 @@ class MemberTable extends Doctrine_Table
    *    - association_id
    *    - magic (search on several fields)
    *    - state
+   *    - due_state
    *
    * @param   array           $params
    * @return  Doctrine_Query
@@ -94,6 +95,10 @@ class MemberTable extends Doctrine_Table
     {
       $query = '%' . $params['magic'] . '%';
       $q->andWhere("concat(concat(m.firstname, ' '), m.lastname) LIKE ?", $query);
+    }
+    if (isset ($params['due_state']))
+    {
+      //
     }
 
     return $q;
@@ -226,19 +231,17 @@ class MemberTable extends Doctrine_Table
    * magic criteria that the engine will try to match after comparison
    * on several fields.
    *
-   * @param   string      $query
-   * @param   integer     $limit
-   * @param   integer     $associationId
+   * @param   array           $params
    * @return  array of Member
    */
-  static public function search($query, $limit, $associationId)
+  static public function search($params)
   {
-    $params = array('association_id' => $associationId,
-                    'state' => self::STATE_ENABLED,
-                    'magic'=> $query);
-
     $q = self::getQuerySearch($params);
-    $q->limit($limit);
+
+    if (isset($params['by_page']))
+    {
+      $q->limit($params['by_page']);
+    }
 
     return $q->execute();
   }
