@@ -82,7 +82,7 @@ class memberActions extends sfActions
     /*
      * And we finally give all the useful elements to the view
      */
-    $this->member = $membersPager;
+    $this->members = $membersPager;
     $this->page = $page;
     $this->pending = MemberTable::getPendingMembers($aId);
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
