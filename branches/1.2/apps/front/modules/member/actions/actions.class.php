@@ -27,12 +27,39 @@ class memberActions extends sfActions
       $this->redirect('@member_show?id=' . $this->getUser()->getUserId());
     }
 
+    $aId = $this->getUser()->getAssociationId();
+    $page = $request->getParameter('page', 1);
     $this->orderByColumn = $request->getParameter('orderby', 'lastname');
-    $aId              = $this->getUser()->getAssociationId();
-    $page             = $request->getParameter('page', 1);
-    $this->members    = MemberTable::getPagerOrderBy($aId, $page, $this->orderByColumn);
-    $this->pending    = MemberTable::getPendingMembers($aId);
-    $ajaxUrl          = $this->getController()->genUrl('@ajax_search_members');
+
+    /*
+     * If user has submit some criteria to filter the list,
+     * we generate the $filterParams array and store
+     * it in session
+     */
+    if ($request->isMethod('post'))
+    {
+      $autoCompleteParam = $request->getParameter('autocomplete_search');
+      $filterParams = $request->getParameter('search');
+      $filterParams['magic'] = $autoCompleteParam['magic'];
+      $this->getUser()->setAttribute('memberSearch', serialize($filterParams));
+    }
+
+    $data = $this->getUser()->getAttribute('memberSearch', array());
+    $filterParams = unserialize($data);
+
+    $this->members = MemberTable::search($filterParams, $page);
+    $members = $this->members->getResults();
+
+    if ((count($this->members) === 1) && $request->isMethod('post'))
+    {
+      $this->redirect('@member_show?id=' . $members[0]->getId());
+    }
+
+    //$this->members = MemberTable::getPagerOrderBy($aId, $page, $this->orderByColumn);
+    $this->pending = MemberTable::getPendingMembers($aId);
+
+
+    $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
     $this->searchForm = new SearchUserForm(null, array('associationId' => $aId, 'ajaxUrl' => $ajaxUrl));
   }
 
@@ -46,43 +73,6 @@ class memberActions extends sfActions
   {
     $associationId = $this->getUser()->getAssociationId();
     $this->members = MemberTable::getEnabledForAssociation($associationId);
-  }
-
-  /**
-   * Perform a research and return results, according to the criteria
-   * given by the SearchUserForm instance.
-   *
-   * @param   sfWebRequest    $request
-   * @since   r211
-   */
-  public function executeSearch(sfWebRequest $request)
-  {
-    $page = $request->getParameter('page', 1);
-    $aId = $this->getUser()->getAssociationId();
-
-    if ($page === 1)
-    {
-      $autoCompleteParam = $request->getParameter('autocomplete_search');
-      $filterParams = $request->getParameter('search');
-      $filterParams['magic'] = $autoCompleteParam['magic'];
-      $this->getUser()->setAttribute('memberSearch', serialize($filterParams));
-    }
-    else
-    {
-      $data = $this->getUser()->getAttribute('memberSearch', array());
-      $filterParams = unserialize($data);
-    }
-
-    $this->members = MemberTable::search($filterParams, $page);
-    $members = $this->members->getResults();
-
-    if (count($this->members) === 1)
-    {
-      $this->redirect('@member_show?id=' . $members[0]->getId());
-    }
-
-    $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array('associationId' => $aId, 'ajaxUrl' => $ajaxUrl));
   }
 
   /**
