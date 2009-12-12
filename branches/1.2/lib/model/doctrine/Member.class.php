@@ -100,33 +100,56 @@ class Member extends BaseMember
   }
 
   /**
+   * Check if the member has to pay a due or not
    *
-   * @todo    implements
    * @return  boolean
    */
   public function hasToPayDue()
   {
-    if ($this->getDueExempt() == true)
+    $days = $this->getDaysBeforeNextDue();
+
+    if (null === $days)
     {
       return false;
     }
     else
     {
+      return $days <= 0;
+    }
+  }
+
+  /**
+   * Get the number of days that the member get to pay his due.
+   * If result a negative, it means that user should have paid
+   * the Due X days ago.
+   *
+   * If the member does not have to pay due (exempted) null is
+   * returned
+   *
+   * @return  Mixed   Null if non available, relative integer otherwise
+   */
+  public function getDaysBeforeNextDue()
+  {
+    if ($this->getDueExempt() == true)
+    {
+      return null;
+    }
+    else
+    {
       $lastDue = DueTable::getLastForMember($this->getId());
+      $today = date('Y-m-d');
 
       if (null == $lastDue)
       {
-        return true;
+        $nextDue = $this->getSubscriptionDate();
       }
       else
       {
         $dateCalculator = new DateTools($lastDue->getDate(), 'Y-m-d');
-        $expireDate     = $dateCalculator->add('mo', $lastDue->getDueType()->getPeriod());
-        $today          = strtotime(date('Y-m-d'));
-        $expiration     = strtotime($expireDate);
-
-        return ($today >= $expiration);
+        $nextDue = $dateCalculator->add('mo', $lastDue->getDueType()->getPeriod());
       }
+
+      return DateTools::getDaysBetween($today, $nextDue);
     }
   }
 
