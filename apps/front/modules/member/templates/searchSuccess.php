@@ -42,4 +42,4 @@
         <?php echo link_to('Retour à la liste complète', '@members_list') ?>
 </div>
 
-<?php include_partial('global/pager', array('pager' => $members, 'route' => '@members_list', 'params' => array())) ?>
+<?php include_partial('global/pager', array('pager' => $members, 'route' => '@member_search', 'params' => array())) ?>
