@@ -272,18 +272,15 @@ class MemberTable extends Doctrine_Table
   static public function search($params, $page = 1)
   {
     $q = self::getQuerySearch($params);
+    $n = Configurator::get('users_by_page', $params['association_id'], 20);
 
     if (isset($params['by_page']))
     {
-      if ($params['by_page'] == 'default')
-      {
-        $n = Configurator::get('users_by_page', $params['association_id'], 20);
-      }
-      elseif ($params['by_page'] == 'all')
+      if ($params['by_page'] == 'all')
       {
         $n = 1000; // we set a maximum anyway
       }
-      else
+      elseif (is_integer($params['by_page']))
       {
         $n = $params['by_page'];
       }
