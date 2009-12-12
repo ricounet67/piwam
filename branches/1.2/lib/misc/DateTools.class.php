@@ -536,7 +536,19 @@ class DateTools
     }
 
 
-
+    /**
+     * Get the number of days between $start and $end
+     *
+     * @param   date    $start
+     * @param   date    $end
+     * @return  integer
+     * @since   1.2
+     * @author  Adrien Mogenet
+     */
+    public function get_days_between($start, $end)
+    {
+      return round((strtotime($end) - strtotime($start)) / (3600 * 24));
+    }
 
 
 }
