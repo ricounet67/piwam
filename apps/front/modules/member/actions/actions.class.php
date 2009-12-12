@@ -53,6 +53,7 @@ class memberActions extends sfActions
     $data = $this->getUser()->getAttribute('memberSearch', array());
     $filterParams = unserialize($data);
     $filterParams['association_id'] = $aId;
+    $filterParams['order_by'] = $this->orderByColumn;
     $this->members = MemberTable::search($filterParams, $page);
 
     /*
