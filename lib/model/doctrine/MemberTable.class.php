@@ -70,8 +70,9 @@ class MemberTable extends Doctrine_Table
    * Build a Doctrine_Query object according to criteria given by
    * parameter $params.
    * Supported params :
+   * 
    *    - association_id
-   *    - magic (search on several fields)
+   *    - magic
    *    - state
    *    - due_state
    *
@@ -83,22 +84,53 @@ class MemberTable extends Doctrine_Table
     $q = Doctrine_Query::create()
           ->from('Member m');
 
+    /*
+     * Select only members who belong to a specific association
+     */
     if (isset ($params['association_id']))
     {
       $q->andWhere('m.association_id = ?', $params['association_id']);
     }
+
+    /*
+     * Restrict the research to the enabled/fisabled members
+     */
     if (isset ($params['state']))
     {
       $q->andWhere('m.state = ?', $params['state']);
     }
+
+    /*
+     * Widget 'magic' is used to perform a search on several fields :
+     * firstname, lastname... and we can add more
+     */
     if (isset ($params['magic']))
     {
       $query = '%' . $params['magic'] . '%';
       $q->andWhere("concat(concat(m.firstname, ' '), m.lastname) LIKE ?", $query);
     }
+
+    /*
+     * Widget 'due_state' can have different values :
+     *
+     *  - ok    : Select members who don't have to paye their due
+     *  - ko    : Select members who have to pay their due
+     *  - month : Select members whom due will expire in a month
+     */
     if (isset ($params['due_state']))
     {
-      //
+      if ($params['due_state'] == 'ok')
+      {
+        $q->andWhere('m.due_exempt = ?', true);
+      }
+      if ($params['due_state'] == 'ko')
+      {
+        $q->andWhere('m.due_exempt = ?', false);
+      }
+      if ($params['due_state'] == 'month')
+      {
+        //
+      }
     }
 
     return $q;
