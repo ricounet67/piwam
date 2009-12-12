@@ -184,7 +184,10 @@ class MemberTable extends Doctrine_Table
   }
 
   /**
-   * Try to select users matching $username and $password.
+   * Try to select the (unique) user matching $username and
+   * $password. $password is not crypted, he will be crypted
+   * into the method. This method won't search disabled
+   * members.
    *
    * @param   string    $username
    * @param   string    $password
