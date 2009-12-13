@@ -218,14 +218,23 @@ class MemberForm extends BaseMemberForm
    */
   private function _disableProtectedFields(myUser $user)
   {
-    if (! $user->hasCredential('add_cotisation'))
+    $associationId = $user->getAssociationId();
+
+    if (! $user->hasCredential('add_due'))
     {
-      $this->widgetSchema['due_exempt']->setAttribute('disabled', 'disabled');
+      $this->widgetSchema['due_exempt'] = new sfWidgetFormInputHidden();
+      $this->widgetSchema['fake_due_exempt'] = new sfWidgetFormInputCheckbox();
+      $this->widgetSchema['fake_due_exempt']->setAttribute('disabled', 'disabled');
+      $this->setDefault('fake_due_exempt', $this->getValue('due_exempt'));
     }
 
-    if (! $user->hasCredential('add_statut'))
+    if (! $user->hasCredential('add_status'))
     {
-      $this->widgetSchema['status_id']->setAttribute('disabled', 'disabled');
+      $this->widgetSchema['status_id'] = new sfWidgetFormInputHidden();
+      $this->widgetSchema['fake_status_id'] = new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Status'), 'add_empty' => false));
+      $this->widgetSchema['fake_status_id']->setOption('query', StatusTable::getQueryEnabledForAssociation($associationId));
+      $this->widgetSchema['fake_status_id']->setAttribute('disabled', 'disabled');
+      $this->setDefault('fake_status_id', $this->getValue('status_id'));
     }
   }
 }

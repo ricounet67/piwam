@@ -30,6 +30,10 @@
 </p>
 <table>
   <tr>
+    <td><strong>FRANÇAIS</strong></td>
+    <td><strong>ANGLAIS</strong></td>
+  </tr>
+  <tr>
     <td>Cotisation</td>
     <td>Due</td>
   </tr>
@@ -218,7 +222,8 @@
 <h2>Gestion de l'utilisateur courant</h2>
 <h3>La classe myUser</h3>
 <p>
-    La classe myUser (/apps/front/lib/myUser.class.php) représente la session
+    La classe <span class="code">myUser</span> (<span class="code">
+    /apps/front/lib/myUser.class.php</span>) représente la session
     de l'utilisateur actuelle. Elle permet de récupérer un certain nombre
     d'informations (id, nom d'utilisateur, association...). Référez-vous à
     la documentation pour la liste des méthodes disponibles.
@@ -242,6 +247,26 @@
 <h2>Gestion des préférences</h2>
 
 
+<h2>Upload de fichiers</h2>
+<h3>Répertoires</h3>
+<p>
+  Le répertoire <span class="code">/web/uploads</span> à la racine du projet est
+  prévu à cet effet. Il est néanmoins fortement déconseillé d'uploader vos
+  fichiers directement dans ce répertoire. Préférez la création d'un
+  sous-répertoire suffixé par plugin. Par exemple :
+</p>
+<pre>
+    /web/uploads/FacturesPlugin
+</pre>
+<p>
+  Ceci afin d'éviter d'éventuels conflits entre différents composants, et bien
+  évidemment pour faciliter le classement et la sauvegarde.
+</p>
+<p>
+  Si vous souhaitez distribuer votre plugin, pensez à vérifier que ce répertoire
+  est accessible en écriture, ou pensez à le mentionner dans votre
+  documentattion.
+</p>
 
 
 <h2>Cas concréts</h2>

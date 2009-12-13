@@ -1,14 +1,14 @@
 index:
-  credentials: list_compte
+  credentials: list_account
   
 create:
-  credentials: add_compte
+  credentials: add_account
   
 new:
-  credentials: add_compte
+  credentials: add_account
 
 edit:
-  credentials: edit_compte
+  credentials: edit_account
   
 delete:
-  credentials: del_compte
+  credentials: del_account

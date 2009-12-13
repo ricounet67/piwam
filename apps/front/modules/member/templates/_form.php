@@ -102,7 +102,16 @@ use_javascript('custom-forms/si.files.js')
         </tr>
         <tr>
             <th><?php echo $form['status_id']->renderLabel() ?></th>
-            <td><?php echo $form['status_id'] ?><?php echo $form['status_id']->renderError() ?></td>
+
+            <!-- This field can be disabled, that why we may have
+                 to display a fake (disabled) widget (real widget
+                 will be hidden) -->
+            
+            <?php if (isset($form['fake_status_id'])): ?>
+              <td><?php echo $form['fake_status_id'] ?></td>
+            <?php else: ?>
+              <td><?php echo $form['status_id'] ?><?php echo $form['status_id']->renderError() ?></td>
+            <?php endif ?>
         </tr>
         <tr>
             <th><?php echo $form['picture']->renderLabel() ?></th>
@@ -114,7 +123,16 @@ use_javascript('custom-forms/si.files.js')
         </tr>
         <tr>
             <th><?php echo $form['due_exempt']->renderLabel() ?></th>
-            <td><?php echo $form['due_exempt'] ?><?php echo $form['due_exempt']->renderError() ?></td>
+
+            <!-- This field can be disabled, that why we may have
+                 to display a fake (disabled) widget (real widget
+                 will be hidden) -->
+            
+            <?php if (isset($form['fake_due_exempt'])): ?>
+              <td><?php echo $form['fake_due_exempt'] ?></td>
+            <?php else: ?>
+              <td><?php echo $form['due_exempt'] ?><?php echo $form['due_exempt']->renderError() ?></td>
+            <?php endif ?>
         </tr>
         <tr>
             <th><?php echo $form['street']->renderLabel() ?></th>

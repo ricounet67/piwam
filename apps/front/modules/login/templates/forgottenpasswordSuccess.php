@@ -26,7 +26,7 @@
         <tr>
             <td>&nbsp;</td>
             <td>
-                <input type="submit" value="Valider" class="button" name="Valider" />
+                <input type="submit" value="Valider" class="grey button" name="Valider" />
             </td>
         </tr>
     </table>

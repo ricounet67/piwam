@@ -1,14 +1,14 @@
 index:
-  credentials: list_statut
+  credentials: list_status
   
 create:
-  credentials: add_statut
+  credentials: add_status
 
 new:
-  credentials: add_statut
+  credentials: add_status
     
 edit:
-  credentials: edit_statut
+  credentials: edit_status
   
 delete:
-  credentials: del_statut
+  credentials: del_status

@@ -75,6 +75,7 @@ class MemberTable extends Doctrine_Table
    *    - magic
    *    - state
    *    - due_state
+   *    - order_by
    *
    * @param   array           $params
    * @return  Doctrine_Query
@@ -145,37 +146,24 @@ class MemberTable extends Doctrine_Table
       }
     }
 
-    return $q;
-  }
-
-  /**
-   * Get the list of active members who belong to the
-   * association $id
-   *
-   * @param   integer           $association_id
-   * @param   integer           $page
-   * @param   string            $column
-   * @return  sfDoctrinePager
-   */
-  public static function getPagerOrderBy($association_id, $page = 1, $column = 'lastname')
-  {
-    $sortable_columns = array('lastname', 'firstname', 'username', 'city', 'status_id');
-
-    if (! in_array($column, $sortable_columns))
+    /*
+     * If a sorting column has been specified, we order the
+     * result
+     */
+    if (isset ($params['order_by']))
     {
-      $column = 'lastname';
+      $column = $params['order_by'];
+      $sortable_columns = array('lastname', 'firstname', 'username', 'city', 'status_id');
+
+      if (! in_array($column, $sortable_columns))
+      {
+        $column = 'lastname';
+      }
+
+      $q->orderBy('m.' . $column . ' ASC');
     }
 
-    $q = self::getQueryEnabledForAssociation($association_id)
-                ->orderBy('m.' . $column . ' ASC');
-
-    $n = Configurator::get('users_by_page', $association_id, 20);
-    $pager = new sfDoctrinePager('Member', $n);
-    $pager->setQuery($q);
-    $pager->setPage($page);
-    $pager->init();
-
-    return $pager;
+    return $q;
   }
 
   /**
@@ -196,7 +184,10 @@ class MemberTable extends Doctrine_Table
   }
 
   /**
-   * Try to select users matching $username and $password.
+   * Try to select the (unique) user matching $username and
+   * $password. $password is not crypted, he will be crypted
+   * into the method. This method won't search disabled
+   * members.
    *
    * @param   string    $username
    * @param   string    $password
@@ -281,18 +272,15 @@ class MemberTable extends Doctrine_Table
   static public function search($params, $page = 1)
   {
     $q = self::getQuerySearch($params);
+    $n = Configurator::get('users_by_page', $params['association_id'], 20);
 
     if (isset($params['by_page']))
     {
-      if ($params['by_page'] == 'default')
-      {
-        $n = Configurator::get('users_by_page', $params['association_id'], 20);
-      }
-      elseif ($params['by_page'] == 'all')
+      if ($params['by_page'] == 'all')
       {
         $n = 1000; // we set a maximum anyway
       }
-      else
+      elseif (is_integer($params['by_page']))
       {
         $n = $params['by_page'];
       }

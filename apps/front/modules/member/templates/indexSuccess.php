@@ -34,11 +34,11 @@
 <table class="datalist" summary="Members who would like to belong to the association">
     <thead>
         <tr>
-            <th><?php echo link_to('Nom',    '@members_list?orderby=lastname') ?></th>
-            <th><?php echo link_to('Prénom', '@members_list?orderby=firstname') ?></th>
-            <th><?php echo link_to('Pseudo', '@members_list?orderby=username') ?></th>
-            <th><?php echo link_to('Statut', '@members_list?orderby=status_id') ?></th>
-            <th><?php echo link_to('Ville',  '@members_list?orderby=city') ?></th>
+            <th><?php echo link_to('Nom',    '@members_list?orderby=lastname&page=' . $page) ?></th>
+            <th><?php echo link_to('Prénom', '@members_list?orderby=firstname&page=' . $page) ?></th>
+            <th><?php echo link_to('Pseudo', '@members_list?orderby=username&page=' . $page) ?></th>
+            <th><?php echo link_to('Statut', '@members_list?orderby=status_id&page=' . $page) ?></th>
+            <th><?php echo link_to('Ville',  '@members_list?orderby=city&page=' . $page) ?></th>
             <th width="75px">Actions</th>
         </tr>
     </thead>
