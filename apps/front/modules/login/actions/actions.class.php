@@ -128,7 +128,7 @@ class loginActions extends sfActions
             $mailer     = MailerFactory::get($user->getAssociationId(), $this->getUser());
             $content    = 'Bonjour, votre nouveau mot de passe pour acc&eacute;der au gestionnaire d\'association est ' . $newPassword;
             $from_email = Configurator::get('address', $user->getAssociationId(), 'info-association@piwam.org');
-            $from_label = $this->getUser()->getAssociationName('Piwam');
+            $from_label = $user->getAssociation()->getName();
 
             $message = Swift_Message::newInstance('Votre mot de passe');
             $message->setBody($content);
