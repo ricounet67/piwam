@@ -31,7 +31,6 @@ class loginActions extends sfActions
       $this->association = AssociationTable::getUnique();
     }
 
-    $this->getResponse()->addStylesheet('login.css', sfWebResponse::LAST);
     $this->form = new LoginForm();
     $this->displayRegisterLink = $this->_canRegisterAnotherAssociation();
 
@@ -58,7 +57,7 @@ class loginActions extends sfActions
             $this->getUser()->setFlash('error', 'Les cookies doivent être activés');
           }
 
-          if ($this->getUser()->hasCredential('list_membre'))
+          if ($this->getUser()->hasCredential('list_member'))
           {
             $this->redirect('@members_list');
           }
@@ -121,32 +120,10 @@ class loginActions extends sfActions
         {
           if ($user->getEmail())
           {
-            $email = $user->getEmail();
             $newPassword = StringTools::generatePassword(8);
             $user->setPassword($newPassword);
             $user->save();
-
-            $mailer     = MailerFactory::get($user->getAssociationId(), $this->getUser());
-            $content    = 'Bonjour, votre nouveau mot de passe pour acc&eacute;der au gestionnaire d\'association est ' . $newPassword;
-            $from_email = Configurator::get('address', $user->getAssociationId(), 'info-association@piwam.org');
-            $from_label = $this->getUser()->getAssociationName('Piwam');
-
-            $message = Swift_Message::newInstance('Votre mot de passe');
-            $message->setBody($content);
-            $message->setContentType('text/html');
-            $message->setFrom(array($from_email => $from_label));
-            $message->setTo(array($user->getEmail() => $user->getFirstname()));
-
-            try
-            {
-              $mailer->send($message);
-            }
-            catch(Swift_ConnectionException $e)
-            {
-              $this->getUser()->setFlash('error', 'Le mot de passe n\'a pas pu être envoyé par e-mail', false);
-            }
-
-            $this->getUser()->setFlash('notice', 'Le nouveau mot de passe a été envoyé par e-mail', false);
+            $this->_sendNewPassword($user, $newPassword);
           }
           else
           {
@@ -158,6 +135,39 @@ class loginActions extends sfActions
           $this->getUser()->setFlash('error', 'Le nom d\'utilisateur n\'existe pas', false);
         }
       }
+    }
+  }
+
+  /*
+   * Send a new password to $member. $newPassword is the uncrypted
+   * new password assigned to the $member
+   */
+  private function _sendNewPassword(Member $member, $newPassword)
+  {
+    $content   = "Bonjour {$member->getFirstname()},<br />
+                  votre nouveau mot de passe pour acc&eacute;der au
+                  gestionnaire d'association est : {$newPassword}<br />
+                  Pour rappel, votre identifiant est {$member->getUsername()}";
+                  
+    $email     = $member->getEmail();
+    $mailer    = MailerFactory::get($member->getAssociationId(), $this->getUser());
+    $fromEmail = Configurator::get('address', $member->getAssociationId(), 'no-reply@piwam.org');
+    $fromLabel = $member->getAssociation()->getName();
+
+    $message = Swift_Message::newInstance('Votre mot de passe');
+    $message->setBody($content);
+    $message->setContentType('text/html');
+    $message->setFrom(array($fromEmail => $fromLabel));
+    $message->setTo(array($member->getEmail() => $member->getFirstname()));
+
+    try
+    {
+      $mailer->send($message);
+      $this->getUser()->setFlash('notice', 'Le nouveau mot de passe a été envoyé par e-mail', false);
+    }
+    catch (Swift_ConnectionException $e)
+    {
+      $this->getUser()->setFlash('error', 'Le mot de passe n\'a pas pu être envoyé par e-mail', false);
     }
   }
 

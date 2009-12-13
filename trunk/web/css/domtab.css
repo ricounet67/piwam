@@ -1,3 +1,8 @@
+/*
+ * These styles allow to display fake tabs to split page
+ * in different part
+ */
+
 ul.domtabs {
     display: block;
     list-style: none;

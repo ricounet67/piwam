@@ -240,7 +240,7 @@ member_acl:
   param:  { module: member, action: acl }
   
 member_search:
-  url:    /membre/recherche
+  url:    /membre/recherche/*
   param:  { module: member, action: search }
 
 member_endregistration:

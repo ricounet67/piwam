@@ -22,18 +22,38 @@ class memberActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    if (! $this->getUser()->hasCredential('list_membre'))
+    if (! $this->getUser()->hasCredential('list_member'))
     {
       $this->redirect('@member_show?id=' . $this->getUser()->getUserId());
     }
 
-    $this->orderByColumn = $request->getParameter('orderby', 'lastname');
-    $aId              = $this->getUser()->getAssociationId();
-    $page             = $request->getParameter('page', 1);
-    $this->members    = MemberTable::getPagerOrderBy($aId, $page, $this->orderByColumn);
-    $this->pending    = MemberTable::getPendingMembers($aId);
-    $ajaxUrl          = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array('associationId' => $aId, 'ajaxUrl' => $ajaxUrl));
+    $page = $request->getParameter('page', 1);
+    $filterParams = $this->getFilterParams($request);
+    $membersPager = MemberTable::search($filterParams, $page);
+
+    /*
+     * If the search form has been just submitted and if
+     * there is only one matching result, we directly
+     * redirect to the unique matched member
+     */
+    if ((count($membersPager) === 1) && $request->isMethod('post'))
+    {
+      $members = $membersPager->getResults();
+      $this->redirect('@member_show?id=' . $members[0]->getId());
+    }
+
+    /*
+     * And we finally give all the useful elements to the view
+     */
+    $aId = $this->getUser()->getAssociationId();
+    $this->members = $membersPager;
+    $this->page = $page;
+    $this->orderByColumn = $filterParams['order_by'];
+    $this->pending = MemberTable::getPendingMembers($aId);
+    $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
+    $this->searchForm = new SearchUserForm($filterParams, array(
+      'associationId' => $aId,
+      'ajaxUrl'       => $ajaxUrl));
   }
 
   /**
@@ -49,43 +69,6 @@ class memberActions extends sfActions
   }
 
   /**
-   * Perform a research and return results, according to the criteria
-   * given by the SearchUserForm instance.
-   *
-   * @param   sfWebRequest    $request
-   * @since   r211
-   */
-  public function executeSearch(sfWebRequest $request)
-  {
-    $page = $request->getParameter('page', 1);
-    $aId = $this->getUser()->getAssociationId();
-
-    if ($page === 1)
-    {
-      $autoCompleteParam = $request->getParameter('autocomplete_search');
-      $filterParams = $request->getParameter('search');
-      $filterParams['magic'] = $autoCompleteParam['magic'];
-      $this->getUser()->setAttribute('memberSearch', serialize($filterParams));
-    }
-    else
-    {
-      $data = $this->getUser()->getAttribute('memberSearch', array());
-      $filterParams = unserialize($data);
-    }
-
-    $this->members = MemberTable::search($filterParams, $page);
-    $members = $this->members->getResults();
-
-    if (count($this->members) === 1)
-    {
-      $this->redirect('@member_show?id=' . $members[0]->getId());
-    }
-
-    $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm(null, array('associationId' => $aId, 'ajaxUrl' => $ajaxUrl));
-  }
-
-  /**
    * Provide all information about the member to the view. We check if we have
    * the right to see profile of someone else
    *
@@ -97,7 +80,7 @@ class memberActions extends sfActions
     $profile = MemberTable::getById($member_id);
     $this->forward404Unless($profile);
 
-    if ($this->isAllowedToManageProfile($profile, 'show_membre'))
+    if ($this->isAllowedToManageProfile($profile, 'show_member'))
     {
       $this->cotisations = DueTable::getForUser($member_id);
       $this->credentials = AclCredentialTable::getForMember($member_id);
@@ -353,7 +336,7 @@ class memberActions extends sfActions
     $this->user_id = $request->getParameter('id');
     $this->forward404Unless($member = MemberTable::getById($this->user_id));
 
-    if (false === $this->isAllowedToManageProfile($member, 'edit_membre'))
+    if (false === $this->isAllowedToManageProfile($member, 'edit_member'))
     {
       $this->redirect('@error_credentials');
     }
@@ -379,7 +362,7 @@ class memberActions extends sfActions
     $this->user_id = $request->getParameter('id');
     $this->forward404Unless($user = MemberTable::getById($this->user_id));
 
-    if (false === $this->isAllowedToManageProfile($user, 'edit_membre'))
+    if (false === $this->isAllowedToManageProfile($user, 'edit_member'))
     {
       $this->redirect('@error_credentials');
     }
@@ -670,13 +653,65 @@ class memberActions extends sfActions
   }
 
   /**
+   * Build the $filterParams array according to the parameters stored
+   * in the current session and/or in the $request object. This filters
+   * array will be used to get the list of members according to custom
+   * criteria.
+   *
+   * @return  array
+   */
+  protected function getFilterParams(sfWebRequest $request)
+  {
+    /*
+     * If user has submit some criteria to filter the list,
+     * we generate the $filterParams array and store
+     * it in session. This array is generated according to
+     * the values given by the SearchUserForm's widgets
+     */
+    if ($request->isMethod('post'))
+    {
+      $autoCompleteParam = $request->getParameter('autocomplete_search');
+      $filterParams = $request->getParameter('search');
+      $filterParams['magic'] = $autoCompleteParam['magic'];
+      $this->getUser()->setAttribute('memberSearch', serialize($filterParams));
+    }
+
+    /*
+     * Reset the filters array if required
+     * -----------------------------------
+     * 
+     * If there is no 'page' parameter, but we did not send research,
+     * it means that we arereaching the action for the first time, from
+     * a link into the menu for instance. So we clear the existing objects
+     * previously stored.
+     *
+     */
+    elseif (false === $request->getParameter('page', false))
+    {
+      $this->getUser()->setAttribute('memberSearch', serialize(array()));
+    }
+
+    /*
+     * We get the $filterParams array, but we force the value
+     * of association_id because it could be empty if no filter
+     * has been submitted
+     */
+    $data = $this->getUser()->getAttribute('memberSearch', array());
+    $filterParams = unserialize($data);
+    $filterParams['association_id'] = $this->getUser()->getAssociationId();
+    $filterParams['order_by'] = $request->getParameter('orderby', 'lastname');
+
+    return $filterParams;
+  }
+
+  /**
    * Checks if we are allowed to edit/show profile of $user
    *
-   * @param   Member    $user               Profile that user try to access
-   * @param   string    $globalCredential   Optional required credential
+   * @param   Member    $user         Profile that user try to access
+   * @param   string    $credential   Optional required credential
    * @return  boolean
    */
-  protected function isAllowedToManageProfile(Member $user, $globalCredential = null)
+  protected function isAllowedToManageProfile(Member $user, $credential = null)
   {
     if (($user->getAssociationId() != $this->getUser()->getAssociationId()))
     {
@@ -684,9 +719,9 @@ class memberActions extends sfActions
     }
     else
     {
-      if (null != $globalCredential)
+      if (null != $credential)
       {
-        if ($this->getUser()->hasCredential($globalCredential) == true)
+        if ($this->getUser()->hasCredential($credential) == true)
         {
           return true;
         }

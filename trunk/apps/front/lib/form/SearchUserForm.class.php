@@ -1,7 +1,9 @@
 <?php
 /**
  * Represents the search form to search members and filter the list
- * according to some criteria
+ * according to some criteria.
+ * There is no 'association_id' widget in this form, since this
+ * filter will be overriden by action which includes this form.
  *
  * @package     piwam
  * @subpackage  form
@@ -45,7 +47,6 @@ class SearchUserForm extends BaseForm
     $this->setWidgets(array(
       'due_state'     => new sfWidgetFormChoice(array('choices' => self::$dueOptions)),
       'by_page'       => new sfWidgetFormChoice(array('choices' => self::$membersByPage)),
-      'association_id'=> new sfWidgetFormInputHidden(),
       'state'         => new sfWidgetFormInputHidden(),
       'magic'         => new sfWidgetFormJQueryAutocompleter(array(
                         'url'    => $this->getOption('ajaxUrl'),
@@ -59,7 +60,6 @@ class SearchUserForm extends BaseForm
       'due_state'     => new sfValidatorChoice(array('choices' => self::$dueOptions)),
       'by_page'       => new sfValidatorChoice(array('choices' => self::$membersByPage)),
       'magic'         => new sfValidatorString(array('required' => true)),
-      'association_id'=> new sfValidatorInteger(array('required' => true)),
       'state'         => new sfValidatorInteger(array('required' => true)),
     ));
     
@@ -69,7 +69,6 @@ class SearchUserForm extends BaseForm
       'by_page'       => 'Membres par page',
     ));
 
-    $this->setDefault('association_id', $this->getOption('associationId'));
     $this->setDefault('state', MemberTable::STATE_ENABLED);
     $this->widgetSchema->setNameFormat('search[%s]');
     $this->_setClasses();

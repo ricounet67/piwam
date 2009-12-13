@@ -76,3 +76,7 @@ table {
 table td {
     border: 1px dotted #ddd;
 }
+
+span.code {
+    font-family: monospace;
+}

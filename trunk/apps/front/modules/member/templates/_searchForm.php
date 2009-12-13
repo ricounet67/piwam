@@ -8,7 +8,7 @@
 <?php use_stylesheet('/sfFormExtraPlugin/css/jquery.autocompleter.css') ?>
 
 <div id="searchBar">
-  <form action="<?php echo url_for('@member_search'); ?>" method="post">
+  <form action="<?php echo url_for('@members_list') ?>" method="post">
     <?php echo $form->renderHiddenFields() ?>
 
     <?php echo $form['due_state']->renderLabel() ?> :

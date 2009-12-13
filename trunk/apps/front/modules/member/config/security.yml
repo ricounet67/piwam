@@ -1,5 +1,5 @@
 
-# If we want to register the first Membre of
+# If we want to register the first member of
 # an association, we authorize the access but
 # anyway we check if the session variable
 # `association_id` which is stored temporary
@@ -16,19 +16,19 @@ endregistration:
   
 index:
   # Credentials are checked in action class since revision r154
-  #credentials:  list_membre
+  #credentials:  list_member
   
 search:
-  ccredentials: list_membre
+  ccredentials: list_member
 
 create:
-  credentials:  add_membre
+  credentials:  add_member
 
 new:
-  credentials:  add_membre
+  credentials:  add_member
 
 delete:
-  credentials:  del_membre
+  credentials:  del_member
 
 requestsubscription:
   is_secure:    false
@@ -40,18 +40,18 @@ pending:
   is_secure:    false
   
 validate :
-  credentials:  edit_membre
+  credentials:  edit_member
   
 edit:
 
   # To strictly forbid users to edit their own profile, and just allow
   # users who have the credential, just uncomment the following line
-  #credentials:  edit_membre
+  #credentials:  edit_member
   
   
 show:
 
   # To strictly forbid users to show their own profile, and just allow
   # users who have the credential, just uncomment the following line
-  #credentials:  show_membre
+  #credentials:  show_member
   
