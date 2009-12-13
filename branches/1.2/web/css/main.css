@@ -1,6 +1,10 @@
-/*
+
+/*****************************************************************************
+ *
  * Classical styles for links and images
- */
+ *
+ ****************************************************************************/
+
 a img,:link img,:visited img {
     border: none;
 }
@@ -49,7 +53,7 @@ h1 {
     -webkit-border-radius: 3px;
 }
 
-/* section title */
+/* Page title */
 h2 {
     color: #329126;
 }
@@ -65,15 +69,12 @@ h3 {
     font-weight: bold;
 }
 
-/* block title */
-h4 {
-    
-}
 
 /*****************************************************************************
  *
  * PAGE BLOCKS
  * -----------
+ *
  * Represents the global layout of different blocks
  *
  ****************************************************************************/
@@ -106,6 +107,7 @@ body {
     margin-left: 250px;
 }
 
+/* login box on top of the menu */
 #user_box {
     background-color: #C3F1F7;
     width: 170px;
@@ -137,6 +139,7 @@ body {
     color: white;
 }
 
+/* Common trick to display the content div correctly */
 .clear {
     clear: both;
     visibility: hidden;
@@ -149,15 +152,15 @@ body {
 **
 *****************************************************************************/
 
-/* Search bars on top of pages */
+/* The horizontal Search bar on top of lists */
 div#searchBar {
     background-color: #eee;
     padding: 10px;
     margin-bottom: 10px;
-    -moz-border-radius: 8px;   
+    -moz-border-radius: 8px;
 }
 
-/* list of error message */
+/* list of error messages */
 .error_list {
     list-style: none;
     display: inline;
@@ -174,8 +177,8 @@ div#searchBar {
     color: red;
 }
 
-/* members who have to pay their fee */
-.cotisationNonAjour {
+/* members who have to pay their due */
+.hasToPayDue {
     background-color: #E6E0D1;
 }
 
@@ -212,11 +215,13 @@ p.notice {
     border: 1px dotted #ccc;
 }
 
+
 /*****************************************************************************
 **
 ** TESTS RESULTS (WHEN CHECKING CONFIGURATION...)
 **
 *****************************************************************************/
+
 .test_error,.test_warning,.test_success,.test_help {
     padding: 10px;
     width: 80%;
@@ -244,7 +249,7 @@ p.notice {
 
 /*****************************************************************************
 **
-** USER PICTURES
+** USER PICTURES IN PICTURE DIRECTORY
 **
 *****************************************************************************/
 
