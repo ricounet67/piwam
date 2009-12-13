@@ -220,7 +220,7 @@ class MemberForm extends BaseMemberForm
   {
     $associationId = $user->getAssociationId();
 
-    if (! $user->hasCredential('add_cotisation'))
+    if (! $user->hasCredential('add_due'))
     {
       $this->widgetSchema['due_exempt'] = new sfWidgetFormInputHidden();
       $this->widgetSchema['fake_due_exempt'] = new sfWidgetFormInputCheckbox();
@@ -228,7 +228,7 @@ class MemberForm extends BaseMemberForm
       $this->setDefault('fake_due_exempt', $this->getValue('due_exempt'));
     }
 
-    if (! $user->hasCredential('add_statut'))
+    if (! $user->hasCredential('add_status'))
     {
       $this->widgetSchema['status_id'] = new sfWidgetFormInputHidden();
       $this->widgetSchema['fake_status_id'] = new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Status'), 'add_empty' => false));
