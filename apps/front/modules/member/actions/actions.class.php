@@ -27,45 +27,8 @@ class memberActions extends sfActions
       $this->redirect('@member_show?id=' . $this->getUser()->getUserId());
     }
 
-    $aId = $this->getUser()->getAssociationId();
     $page = $request->getParameter('page', 1);
-    $this->orderByColumn = $request->getParameter('orderby', 'lastname');
-
-    /*
-     * If user has submit some criteria to filter the list,
-     * we generate the $filterParams array and store
-     * it in session. This array is generated according to
-     * the values given by the SearchUserForm's widgets
-     */
-    if ($request->isMethod('post'))
-    {
-      $autoCompleteParam = $request->getParameter('autocomplete_search');
-      $filterParams = $request->getParameter('search');
-      $filterParams['magic'] = $autoCompleteParam['magic'];
-      $this->getUser()->setAttribute('memberSearch', serialize($filterParams));
-    }
-
-    /*
-     * If there is no 'page' parameter, but we did not send research,
-     * it means that we arereaching the action for the first time, from
-     * a link into the menu for instance. So we clear the existing objects
-     * previously stored.
-     * 
-     */
-    elseif (false === $request->getParameter('page', false))
-    {
-      $this->getUser()->setAttribute('memberSearch', serialize(array()));
-    }
-
-    /*
-     * We get the $filterParams array, but we force the value
-     * of association_id because it could be empty if no filter
-     * has been submitted
-     */
-    $data = $this->getUser()->getAttribute('memberSearch', array());
-    $filterParams = unserialize($data);
-    $filterParams['association_id'] = $aId;
-    $filterParams['order_by'] = $this->orderByColumn;
+    $filterParams = $this->getFilterParams($request);
     $membersPager = MemberTable::search($filterParams, $page);
 
     /*
@@ -82,8 +45,10 @@ class memberActions extends sfActions
     /*
      * And we finally give all the useful elements to the view
      */
+    $aId = $this->getUser()->getAssociationId();
     $this->members = $membersPager;
     $this->page = $page;
+    $this->orderByColumn = $filterParams['order_by'];
     $this->pending = MemberTable::getPendingMembers($aId);
     $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
     $this->searchForm = new SearchUserForm($filterParams, array(
@@ -685,6 +650,58 @@ class memberActions extends sfActions
         }
       }
     }
+  }
+
+  /**
+   * Build the $filterParams array according to the parameters stored
+   * in the current session and/or in the $request object. This filters
+   * array will be used to get the list of members according to custom
+   * criteria.
+   *
+   * @return  array
+   */
+  protected function getFilterParams(sfWebRequest $request)
+  {
+    /*
+     * If user has submit some criteria to filter the list,
+     * we generate the $filterParams array and store
+     * it in session. This array is generated according to
+     * the values given by the SearchUserForm's widgets
+     */
+    if ($request->isMethod('post'))
+    {
+      $autoCompleteParam = $request->getParameter('autocomplete_search');
+      $filterParams = $request->getParameter('search');
+      $filterParams['magic'] = $autoCompleteParam['magic'];
+      $this->getUser()->setAttribute('memberSearch', serialize($filterParams));
+    }
+
+    /*
+     * Reset the filters array if required
+     * -----------------------------------
+     * 
+     * If there is no 'page' parameter, but we did not send research,
+     * it means that we arereaching the action for the first time, from
+     * a link into the menu for instance. So we clear the existing objects
+     * previously stored.
+     *
+     */
+    elseif (false === $request->getParameter('page', false))
+    {
+      $this->getUser()->setAttribute('memberSearch', serialize(array()));
+    }
+
+    /*
+     * We get the $filterParams array, but we force the value
+     * of association_id because it could be empty if no filter
+     * has been submitted
+     */
+    $data = $this->getUser()->getAttribute('memberSearch', array());
+    $filterParams = unserialize($data);
+    $filterParams['association_id'] = $this->getUser()->getAssociationId();
+    $filterParams['order_by'] = $request->getParameter('orderby', 'lastname');
+
+    return $filterParams;
   }
 
   /**
