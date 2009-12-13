@@ -13,13 +13,13 @@
     <mkdir dir="build/logs"/>
   </target>
  
-	<target name="clearcache">
+	<target name="clearcache" description="Clear symfony cache">
 		<exec executable="${basedir}/symfony">
 			<arg line=" cc" />
 		</exec>
 	</target>
 
-  <target name="doc" description="Generate documentation">
+  <target name="doc" description="Generate documentation with Doxygen">
     <exec executable="doxygen">
       <arg line=" doc/Doxyfile" />
     </exec>
@@ -71,7 +71,7 @@
 		</exec>
 	</target>
 
-	<target name="test">
+	<target name="test" description="Launch all the test suites">
 		<exec executable="${basedir}/symfony">
 			<arg line=" test:all 
 			   --xml=${basedir}/build/logs/tests.xml" />
