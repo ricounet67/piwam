@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Piwam" default="build" basedir=".">
 
+  <property name="SRC_CSS_DIR" value="web/css" description="CSS source folder" />
+  <property name="DST_CSS_DIR" value="web/css" description="Output folder for CSS files" />
+  <property name="YUI" value="build/yuicompressor-2.4.2.jar" description="YUICompressor" />
+  <property name="OUTPUT_CSS_FILE" value="${DST_CSS_DIR}/style.css" />
+  <property name="OUTPUT_CSS_MIN"  value="${DST_CSS_DIR}/style.min.css" />
+
   <target name="init" description="Create build folder and subfolders if required">
     <mkdir dir="build"/>
     <mkdir dir="build/doc"/>
@@ -72,6 +78,43 @@
 		</exec>
 	</target>
 
+  <target name="css" description="Concatenate CSS source files">
+    <echo message="Building ${OUTPUT_CSS_FILE}" />
+    <concat destfile="${OUTPUT_CSS_FILE}">
+      <fileset dir="${SRC_CSS_DIR}" includes="buttons.css" />
+      <fileset dir="${SRC_CSS_DIR}" includes="domtab.css" />
+      <fileset dir="${SRC_CSS_DIR}" includes="form.css" />
+      <fileset dir="${SRC_CSS_DIR}" includes="login.css" />
+      <fileset dir="${SRC_CSS_DIR}" includes="main.css" />
+      <fileset dir="${SRC_CSS_DIR}" includes="menu.css" />
+      <fileset dir="${SRC_CSS_DIR}" includes="overlay.css" />
+      <fileset dir="${SRC_CSS_DIR}" includes="pagination.css" />
+      <fileset dir="${SRC_CSS_DIR}" includes="table.css" />
+    </concat>
+    <echo message="${OUTPUT_CSS_FILE} built." />
+  </target>
+
+  <target name="css.min" depends="css" description="Minimize CSS files">
+    <echo message="Building ${OUTPUT_CSS_MIN}" />
+    <apply executable="java" parallel="false" verbose="true" dest="${DST_CSS_DIR}">
+      <fileset dir="${DST_CSS_DIR}">
+        <include name="style.css" />
+      </fileset>
+      <arg line="-jar" />
+      <arg path="${YUI}" />
+      <arg value="--charset" />
+      <arg value="ANSI" />
+      <arg value="-o" />
+      <targetfile />
+      <mapper type="glob" from="style.css" to="style.min.css" />
+    </apply>
+    <echo message="${OUTPUT_CSS_MIN} built." />
+  </target>
+  
+  <target name="clean" description="Delete generated CSS files">
+      <delete file="${DST_CSS_DIR}/style.css" />
+      <delete file="${DST_CSS_DIR}/style.min.css" />
+  </target>
 
 	<target name="build" depends="init,clearcache,up,phpcs,phpcpd,pdepend,test" />
 </project>
