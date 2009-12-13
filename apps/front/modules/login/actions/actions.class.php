@@ -146,19 +146,19 @@ class loginActions extends sfActions
   {
     $content   = "Bonjour {$member->getFirstname()},<br />
                   votre nouveau mot de passe pour acc&eacute;der au
-                  gestionnaire d\'association est : {$newPassword}<br />
+                  gestionnaire d'association est : {$newPassword}<br />
                   Pour rappel, votre identifiant est {$member->getUsername()}";
                   
-    $email     = $user->getEmail();
-    $mailer    = MailerFactory::get($user->getAssociationId(), $this->getUser());
-    $fromEmail = Configurator::get('address', $user->getAssociationId(), 'no-reply@piwam.org');
-    $fromLabel = $user->getAssociation()->getName();
+    $email     = $member->getEmail();
+    $mailer    = MailerFactory::get($member->getAssociationId(), $this->getUser());
+    $fromEmail = Configurator::get('address', $member->getAssociationId(), 'no-reply@piwam.org');
+    $fromLabel = $member->getAssociation()->getName();
 
     $message = Swift_Message::newInstance('Votre mot de passe');
     $message->setBody($content);
     $message->setContentType('text/html');
     $message->setFrom(array($fromEmail => $fromLabel));
-    $message->setTo(array($user->getEmail() => $user->getFirstname()));
+    $message->setTo(array($member->getEmail() => $member->getFirstname()));
 
     try
     {
