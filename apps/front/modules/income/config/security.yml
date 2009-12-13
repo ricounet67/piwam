@@ -1,14 +1,14 @@
 index:
-  credentials: list_recette
+  credentials: list_income
   
 create:
-  credentials: add_recette
+  credentials: add_income
 
 new:
-  credentials: add_recette
+  credentials: add_income
   
 edit:
-  credentials: edit_recette
+  credentials: edit_income
   
 delete:
-  credentials: del_recette
+  credentials: del_income
