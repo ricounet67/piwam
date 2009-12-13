@@ -1,14 +1,14 @@
 index:
-  credentials: list_depense
+  credentials: list_expense
   
 create:
-  credentials: add_depense
+  credentials: add_expense
 
 new:
-  credentials: add_depense
+  credentials: add_expense
   
 edit:
-  credentials: edit_depense
+  credentials: edit_expense
   
 delete:
-  credentials: del_depense
+  credentials: del_expense

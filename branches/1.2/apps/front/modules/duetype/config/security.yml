@@ -1,16 +1,16 @@
-
 # For this part, we must have a special "common" credential
+
 index:
-  credentials: config_cotisations
+  credentials: config_dues
   
 create:
-  credentials: config_cotisations
+  credentials: config_dues
 
 new:
-  credentials: config_cotisations
+  credentials: config_dues
   
 edit:
-  credentials: config_cotisations
+  credentials: config_dues
   
 delete:
-  credentials: config_cotisations
+  credentials: config_dues
