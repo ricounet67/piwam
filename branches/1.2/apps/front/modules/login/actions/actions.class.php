@@ -31,7 +31,6 @@ class loginActions extends sfActions
       $this->association = AssociationTable::getUnique();
     }
 
-    $this->getResponse()->addStylesheet('login.css', sfWebResponse::LAST);
     $this->form = new LoginForm();
     $this->displayRegisterLink = $this->_canRegisterAnotherAssociation();
 
