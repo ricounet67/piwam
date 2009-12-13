@@ -81,15 +81,7 @@
   <target name="css" description="Concatenate CSS source files">
     <echo message="Building ${OUTPUT_CSS_FILE}" />
     <concat destfile="${OUTPUT_CSS_FILE}">
-      <fileset dir="${SRC_CSS_DIR}" includes="buttons.css" />
-      <fileset dir="${SRC_CSS_DIR}" includes="domtab.css" />
-      <fileset dir="${SRC_CSS_DIR}" includes="form.css" />
-      <fileset dir="${SRC_CSS_DIR}" includes="login.css" />
-      <fileset dir="${SRC_CSS_DIR}" includes="main.css" />
-      <fileset dir="${SRC_CSS_DIR}" includes="menu.css" />
-      <fileset dir="${SRC_CSS_DIR}" includes="overlay.css" />
-      <fileset dir="${SRC_CSS_DIR}" includes="pagination.css" />
-      <fileset dir="${SRC_CSS_DIR}" includes="table.css" />
+      <fileset dir="${SRC_CSS_DIR}" includes="*.css" />
     </concat>
     <echo message="${OUTPUT_CSS_FILE} built." />
   </target>
