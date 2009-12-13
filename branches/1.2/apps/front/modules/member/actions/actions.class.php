@@ -22,7 +22,7 @@ class memberActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    if (! $this->getUser()->hasCredential('list_membre'))
+    if (! $this->getUser()->hasCredential('list_member'))
     {
       $this->redirect('@member_show?id=' . $this->getUser()->getUserId());
     }
@@ -115,7 +115,7 @@ class memberActions extends sfActions
     $profile = MemberTable::getById($member_id);
     $this->forward404Unless($profile);
 
-    if ($this->isAllowedToManageProfile($profile, 'show_membre'))
+    if ($this->isAllowedToManageProfile($profile, 'show_member'))
     {
       $this->cotisations = DueTable::getForUser($member_id);
       $this->credentials = AclCredentialTable::getForMember($member_id);
@@ -371,7 +371,7 @@ class memberActions extends sfActions
     $this->user_id = $request->getParameter('id');
     $this->forward404Unless($member = MemberTable::getById($this->user_id));
 
-    if (false === $this->isAllowedToManageProfile($member, 'edit_membre'))
+    if (false === $this->isAllowedToManageProfile($member, 'edit_member'))
     {
       $this->redirect('@error_credentials');
     }
@@ -397,7 +397,7 @@ class memberActions extends sfActions
     $this->user_id = $request->getParameter('id');
     $this->forward404Unless($user = MemberTable::getById($this->user_id));
 
-    if (false === $this->isAllowedToManageProfile($user, 'edit_membre'))
+    if (false === $this->isAllowedToManageProfile($user, 'edit_member'))
     {
       $this->redirect('@error_credentials');
     }
