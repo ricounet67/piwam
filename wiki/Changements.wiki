@@ -12,6 +12,7 @@ Au fil des versions, Piwam évolue...
       * À jour de cotisation
       * Non à jour de leur cotisation
       * Dont la cotisation expire d'ici un mois
+    * Lors de la récupération d'un mot de passe perdu, l'identifiant est également rappelé par email
 
   * *version 1.1.2* (25 novembre 2009)
     * trombinoscope
