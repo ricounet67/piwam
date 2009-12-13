@@ -73,7 +73,7 @@ class memberActions extends sfActions
      * there is only one matching result, we directly
      * redirect to the unique matched member
      */
-    if ((count($this->members) === 1) && $request->isMethod('post'))
+    if ((count($membersPager) === 1) && $request->isMethod('post'))
     {
       $members = $membersPager->getResults();
       $this->redirect('@member_show?id=' . $members[0]->getId());
