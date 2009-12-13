@@ -690,11 +690,11 @@ class memberActions extends sfActions
   /**
    * Checks if we are allowed to edit/show profile of $user
    *
-   * @param   Member    $user               Profile that user try to access
-   * @param   string    $globalCredential   Optional required credential
+   * @param   Member    $user         Profile that user try to access
+   * @param   string    $credential   Optional required credential
    * @return  boolean
    */
-  protected function isAllowedToManageProfile(Member $user, $globalCredential = null)
+  protected function isAllowedToManageProfile(Member $user, $credential = null)
   {
     if (($user->getAssociationId() != $this->getUser()->getAssociationId()))
     {
@@ -702,9 +702,9 @@ class memberActions extends sfActions
     }
     else
     {
-      if (null != $globalCredential)
+      if (null != $credential)
       {
-        if ($this->getUser()->hasCredential($globalCredential) == true)
+        if ($this->getUser()->hasCredential($credential) == true)
         {
           return true;
         }
