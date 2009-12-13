@@ -58,7 +58,7 @@ class loginActions extends sfActions
             $this->getUser()->setFlash('error', 'Les cookies doivent être activés');
           }
 
-          if ($this->getUser()->hasCredential('list_membre'))
+          if ($this->getUser()->hasCredential('list_member'))
           {
             $this->redirect('@members_list');
           }
