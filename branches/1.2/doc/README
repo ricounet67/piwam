@@ -1,15 +1,15 @@
 
 	=========================================================================
-	|																		|
-	|		########  ########    ###    ########  ##     ## ######## 		|
-	|		##     ## ##         ## ##   ##     ## ###   ### ##       		|
-	|		##     ## ##        ##   ##  ##     ## #### #### ##       		|
-	|		########  ######   ##     ## ##     ## ## ### ## ######   		|
-	|		##   ##   ##       ######### ##     ## ##     ## ##       		|
-	|		##    ##  ##       ##     ## ##     ## ##     ## ##       		|
-	|		##     ## ######## ##     ## ########  ##     ## ######## 		|
-	|																		|
-	|																		|
+	|                                                                       |
+	|     ########  ########    ###    ########  ##     ## ########         |
+	|     ##     ## ##         ## ##   ##     ## ###   ### ##               |
+	|     ##     ## ##        ##   ##  ##     ## #### #### ##               |
+	|     ########  ######   ##     ## ##     ## ## ### ## ######           |
+	|     ##   ##   ##       ######### ##     ## ##     ## ##               |
+	|     ##    ##  ##       ##     ## ##     ## ##     ## ##               |
+	|     ##     ## ######## ##     ## ########  ##     ## ########         |
+	|                                                                       |
+	|                                                                       |
 	=========================================================================
 
 
@@ -18,25 +18,25 @@
 	This program is provided under MIT licence.  You  can find this  complete
 	licence in /doc/LICENCE file
 
-    
-    FRENCH VERSION
-    --------------
-    If you speak  - or understand -  French langage  you can read  the online
-    French version : http://code.google.com/p/piwam/wiki/InstallerPiwam
+
+  FRENCH VERSION
+  --------------
+  If you speak  - or understand -  French langage  you can read  the online
+  French version : http://code.google.com/p/piwam/wiki/InstallerPiwam
 
 
 	1) Required Configuration
 	-------------------------
 	
 		PHP >= 5.2.4
-            mb_string module
-            php_openssl
-			php_smtp
-			memory_limit: 128M
-			gd or imagemagick (optional : for resizing pictures)
+      mb_string module
+      php_openssl
+      php_smtp
+			memory_limit: 32M
+			GD or Imagemagick (optional : for resizing pictures)
 		MySQL
 		Apache
-            mod_rewrite
+    mod_rewrite
 
 
 	2) How To Set Up Piwam
@@ -61,18 +61,17 @@
 			    	AllowOverride All
 			    	Allow from All
 			    	
-                    # Forcer la configuration PHP pour Piwam
-                    # Retirez ce bloc s'il provoque une erreur 500
-                    # sur votre serveur
-                    <IfModule mod_php5.c>
-                            php_value magic_quotes_gpc                0
-                            php_value register_globals                0
-                            php_value session.auto_start              0
-                            php_value mbstring.http_input             pass
-                            php_value mbstring.http_output            pass
-                            php_value mbstring.encoding_translation   0
-                            php_value memory_limit      128M
-                    </IfModule>
+              # Forcer la configuration PHP pour Piwam
+              # Retirez ce bloc s'il provoque une erreur 500
+              # sur votre serveur
+              <IfModule mod_php5.c>
+                      php_value magic_quotes_gpc                0
+                      php_value register_globals                0
+                      php_value session.auto_start              0
+                      php_value mbstring.http_input             pass
+                      php_value mbstring.http_output            pass
+                      php_value mbstring.encoding_translation   0
+              </IfModule>
 
 			  	</Directory>
 			</VirtualHost>
@@ -85,16 +84,16 @@
 			
 		B- Configure files and directories
 			
-            Let say piwam has been installed in /var/www/piwam directory.  We
-            have to make some files and folders writable :
-            
-            -----------------------------------------------------------------
-            > cd /var/www/piwam
-            > chmod 777 cache log config/databases.yml web/uploads/*
-            -----------------------------------------------------------------
+      Let say piwam has been installed in /var/www/piwam directory.  We
+      have to make some files and folders writable :
 
-            If you forget this step, you will get an error message.
-            
+      -----------------------------------------------------------------
+      > cd /var/www/piwam
+      > chmod 777 cache log config/databases.yml web/uploads/*
+      -----------------------------------------------------------------
+
+      If you forget this step, you will get an error message.
+
 
 		C- How To Access To Piwam
 		
