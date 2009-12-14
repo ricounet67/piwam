@@ -108,9 +108,6 @@
 
 
 
-
-
-
 <h2>Arborescence</h2>
 <h3>Nouvelles fonctionnalités : Plugins !</h3>
 <p>
@@ -132,6 +129,56 @@
 
 
 
+
+<h2>Concepts généraux</h2>
+<h3>Un outil multi-associations</h3>
+<p>
+  Piwam peut gérer plusieurs associations en même temps. C'est pour cette
+  raison que la plupart des opérations prennent en considération l'ID de
+  l'association du membre authentifié.
+</p>
+<p>
+  Par exemple, lors de l'affiche de la liste des status, on ne souhaite
+  naturellement proposer que les statuts définis pour l'association actuelle.
+  L'ID de l'association du membre authentifié se récupère par le biais de
+  la classe <span class="code">myUser</span>. Au sein d'une action, il donc
+  procéder comme cela :
+</p>
+<pre>
+    /**
+     * Retrieve association ID
+     */
+    public function executeMyAction()
+    {
+      $associationId = $this->getUser()->getAssociationId();
+    }
+</pre>
+<p>
+  Dans un formulaire, si vous souhaitez afficher une <b>liste de sélection</b>
+  (<span class="code">&lt;select&gt;</span>) contenant des données issues
+  d'une base de données, mais seulement pour une association donnée :
+</p>
+<pre>
+    // MyForm.class.php
+
+    public function configure()
+    {
+      $id = 42;
+
+      // List of members...
+      $this->widgetSchema['member_id'] = new sfWidgetFormDoctrineChoice(array(
+                              'model'     => $this->getRelatedModelName('Member'),
+                              'add_empty' => false));
+
+      // But just for our association !
+      $this->widgetSchema['member_id']->setOption('query',
+                              MemberTable::getQueryEnabledForAssociation($id));
+    }
+</pre>
+<p>
+  La méthode <span class="code">getQueryEnabledForAssociation</span> a été
+  implémentée auparavant.
+</p>
 
 
 
