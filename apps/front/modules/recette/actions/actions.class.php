@@ -20,15 +20,15 @@ class recetteActions extends sfActions
     {
         sfContext::getInstance()->getConfiguration()->loadHelpers('Number');
         $csv = new FileExporter('liste-recettes.csv');
-        $recettes = RecettePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'));
+        $recettes = RecettePeer::doSelectForAssociation($this->getUser()->getAssociationId());
 
         echo $csv->addLineCSV(array(
-			'Libellé',
-			'Montant (euros)',
-			'Compte',
-			'Activité',
-			'Date',
-        ));
+              'Libellé',
+              'Montant (euros)',
+              'Compte',
+              'Activité',
+              'Date',
+                ));
 
         foreach ($recettes as $recette)
         {
@@ -50,8 +50,8 @@ class recetteActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->recettesPager = RecettePeer::doSelectForAssociation($this->getUser()->getAttribute('association_id', null, 'user'),
-        $request->getParameter('page', 1));
+        $page = $request->getParameter('page', 1);
+        $this->recettesPager = RecettePeer::doSelectPagerForAssociation($this->getUser()->getAssociationId(), $page);
     }
 
     /**
