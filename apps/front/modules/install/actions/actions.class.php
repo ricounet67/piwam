@@ -136,7 +136,7 @@ class installActions extends sfActions
       $task->run(array('dsn'      => 'mysql:dbname=' . $dbname . ';host=' . $server,
                        'username' => $username,
                        'password' => $password),
-                array('env' => 'all')
+                array('env' => 'prod')
       );
       $insert = new sfDoctrineInsertSqlTask($this->dispatcher, new sfFormatter());
       $insert->run();
