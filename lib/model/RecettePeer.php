@@ -10,7 +10,7 @@ class RecettePeer extends BaseRecettePeer
      * @return 	sfPropelPager
      * @since	r23
      */
-    public static function doSelectForAssociation($associationId, $page = 1)
+    public static function doSelectPagerForAssociation($associationId, $page = 1)
     {
         $c = new Criteria();
         $c->add(self::ASSOCIATION_ID, $associationId);
@@ -21,6 +21,22 @@ class RecettePeer extends BaseRecettePeer
         $pager->init();
 
         return $pager;
+    }
+
+    /**
+     * Select only data which belong to the association
+     * in argument
+     *
+     * @param 	integer	$id
+     * @return 	sfPropelPager
+     * @since	r23
+     */
+    public static function doSelectForAssociation($associationId, $page = 1)
+    {
+        $c = new Criteria();
+        $c->add(self::ASSOCIATION_ID, $associationId);
+
+        return self::doSelect($c);
     }
 
     /**
