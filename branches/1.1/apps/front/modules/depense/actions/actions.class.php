@@ -23,12 +23,12 @@ class depenseActions extends sfActions
         $depenses = DepensePeer::doSelectForAssociation($this->getUser()->getAssociationId());
 
         echo $csv->addLineCSV(array(
-			'Libellé',
-			'Montant (euros)',
-			'Compte',
-			'Activité',
-			'Date',
-        ));
+              'Libellé',
+              'Montant (euros)',
+              'Compte',
+              'Activité',
+              'Date',
+                ));
 
         foreach ($depenses as $depense)
         {
@@ -50,7 +50,7 @@ class depenseActions extends sfActions
      */
     public function executeIndex(sfWebRequest $request)
     {
-        $this->depensesPager = DepensePeer::doSelectForAssociation($this->getUser()->getAssociationId(),
+        $this->depensesPager = DepensePeer::doSelectPagerForAssociation($this->getUser()->getAssociationId(),
         $request->getParameter('page', 1));
     }
 
