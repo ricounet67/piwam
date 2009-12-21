@@ -151,6 +151,7 @@ class installActions extends sfActions
         $line = $fileManager->searchLineBeginningBy('password:');
         $fileManager->setLineContent($line, "password: {$password}", true);
         $fileManager->flush();
+        DbTools::executeSQLFile('../doc/piwam-install.sql');
     }
   }
 
