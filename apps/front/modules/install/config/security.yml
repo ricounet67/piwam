@@ -5,7 +5,7 @@ checkConfig:
   is_secure:	false
   
 configDatabase:
-  is_secure:    false
+  is_secure:  false
   
 end:
   is_secure:	false
