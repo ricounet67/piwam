@@ -235,6 +235,7 @@ class MemberForm extends BaseMemberForm
       $this->widgetSchema['fake_status_id']->setOption('query', StatusTable::getQueryEnabledForAssociation($associationId));
       $this->widgetSchema['fake_status_id']->setAttribute('disabled', 'disabled');
       $this->setDefault('fake_status_id', $this->getValue('status_id'));
+      $this->widgetSchema['fake_status_id']->setAttribute('class', 'formInputNormal');
     }
   }
 }
