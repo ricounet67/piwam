@@ -439,7 +439,6 @@ class memberActions extends sfActions
   /**
    * Once subscription request form has been completed, we display a
    * message to the user
-   *e
    */
   public function executePending()
   {
