@@ -414,6 +414,7 @@ class memberActions extends sfActions
                                               'context'=> $this->getContext()));
     $this->form->setDefault('association_id', $associationId);
     $this->form->setDefault('state', MemberTable::STATE_PENDING);
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -432,6 +433,7 @@ class memberActions extends sfActions
     $request->setAttribute('pending', true);
     $this->processForm($request, $this->form);
     $this->setTemplate('requestsubscription');
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -519,6 +521,7 @@ class memberActions extends sfActions
     }
 
     $this->form->setDefault('association_id', $associationId);
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -537,6 +540,7 @@ class memberActions extends sfActions
     $request->setAttribute('first', true);
     $this->processForm($request, $this->form);
     $this->setTemplate('newfirst');
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -557,6 +561,8 @@ class memberActions extends sfActions
       // here you can access to $member properties
       // and methods
     }
+    
+    $this->setLayout('no_menu');
   }
 
   /**
