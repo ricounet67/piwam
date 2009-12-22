@@ -236,6 +236,16 @@ class MemberForm extends BaseMemberForm
       $this->widgetSchema['fake_status_id']->setAttribute('disabled', 'disabled');
       $this->setDefault('fake_status_id', $this->getValue('status_id'));
       $this->widgetSchema['fake_status_id']->setAttribute('class', 'formInputNormal');
+
+      /*
+       * we need to provide a default value if user has not rights but is
+       * registering a new Member. It can happen in at least 2 situations :
+       *
+       *    - first member is registering himself
+       *    - a member is creating a pending subscription
+       */
+
+      $this->setDefault('status_id', StatusTable::getDefaultValue($associationId));
     }
   }
 }
