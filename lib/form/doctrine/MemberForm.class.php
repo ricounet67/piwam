@@ -36,9 +36,9 @@ class MemberForm extends BaseMemberForm
     $context = $this->getOption('context');
     $this->_firstRegistration = $this->getOption('first', false);
 
-    if ($this->getOption('associationId'))
+    if (! $associationId = $this->getOption('associationId'))
     {
-      $associationId = $this->getOption('associationId');
+      throw new InvalidArgumentException('You must provide the association ID');
     }
 
     unset($this['created_at'], $this['updated_at']);
@@ -218,7 +218,7 @@ class MemberForm extends BaseMemberForm
    */
   private function _disableProtectedFields(myUser $user)
   {
-    $associationId = $user->getAssociationId();
+    $associationId = $this->getOption('associationId');
 
     if (! $user->hasCredential('add_due'))
     {
