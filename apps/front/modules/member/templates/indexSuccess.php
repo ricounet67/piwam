@@ -59,7 +59,7 @@
         <td colspan="5">Légende&nbsp;</td>
     </tr>
     <tr>
-        <td class="cotisationNonAjour" width="20px">&nbsp;</td>
+        <td class="hasToPayDue" width="20px">&nbsp;</td>
         <td>Cotisation non à jour</td>
         <td><?php echo image_tag('icons/email', array('align' => 'absmiddle')) ?> Envoyer un e-mail</td>
         <td><?php echo image_tag('icons/profile', array('align' => 'absmiddle')) ?> Détails</td>
