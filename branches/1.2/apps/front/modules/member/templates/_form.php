@@ -42,7 +42,7 @@ use_javascript('custom-forms/si.files.js')
 
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
-    <?php endif; ?>
+    <?php endif ?>
 
 <table class="formtable">
 
@@ -72,7 +72,7 @@ use_javascript('custom-forms/si.files.js')
                 <!-- Submit button value according to the state -->
 
         		    <?php if ((isset($first)) && ($first)): ?>
-                    <input type="submit" value="Étape suivante >" class="button" />
+                    <input type="submit" value="Étape suivante >" class="blue button" />
                 <?php else: ?>
                     <input type="submit" value="Sauvegarder" class="blue button" />
                 <?php endif ?>
