@@ -76,6 +76,7 @@ class associationActions extends sfActions
   {
     $this->getUser()->removeTemporaryData();
     $this->form = new AssociationForm();
+    $this->setLayout(false);
   }
 
   /**
@@ -97,6 +98,7 @@ class associationActions extends sfActions
     {
       $this->setTemplate('new');
     }
+    $this->setLayout(false);
   }
 
   /**
