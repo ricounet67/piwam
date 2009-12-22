@@ -411,7 +411,7 @@ class memberActions extends sfActions
     }
 
     $this->form = new MemberForm(null, array('associationId' => $associationId,
-                                              'context'=> $this->getContext()));
+                                             'context'=> $this->getContext()));
     $this->form->setDefault('association_id', $associationId);
     $this->form->setDefault('state', MemberTable::STATE_PENDING);
     $this->setLayout('no_menu');
@@ -427,7 +427,7 @@ class memberActions extends sfActions
   {
     $this->forward404Unless($request->isMethod('post'));
     $member = $request->getParameter("member");
-    $associationOd = $member['association_id'];
+    $associationId = $member['association_id'];
     $this->form = new MemberForm(null, array('associationId' => $associationId,
                                              'context' => $this->getContext()));
     $request->setAttribute('pending', true);
@@ -444,6 +444,7 @@ class memberActions extends sfActions
   public function executePending()
   {
     // do nothing, just display template
+    $this->setLayout('no_menu');
   }
 
   /**
