@@ -59,6 +59,7 @@ class installActions extends sfActions
     {
       $this->redirect('@check_config');
     }
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -71,6 +72,7 @@ class installActions extends sfActions
     $this->_checkConfiguration();
     $this->messages = $this->_messages;
     $this->displayButton = $this->_canContinue;
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -105,6 +107,7 @@ class installActions extends sfActions
         }
       }
     }
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -116,6 +119,7 @@ class installActions extends sfActions
   public function executeEnd(sfWebRequest $request)
   {
     // just display static template
+    $this->setLayout('no_menu');
   }
 
   /*
