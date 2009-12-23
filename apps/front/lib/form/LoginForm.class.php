@@ -28,7 +28,7 @@ class LoginForm extends BaseForm
 
     $this->widgetSchema->setLabels(array(
       'username'  => "Nom d'utilisateur",
-      'password'  => 'Mot de pase',
+      'password'  => 'Mot de passe',
       'openid'    => 'Open ID'
     ));
 

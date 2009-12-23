@@ -59,6 +59,7 @@ class installActions extends sfActions
     {
       $this->redirect('@check_config');
     }
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -71,6 +72,7 @@ class installActions extends sfActions
     $this->_checkConfiguration();
     $this->messages = $this->_messages;
     $this->displayButton = $this->_canContinue;
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -97,9 +99,6 @@ class installActions extends sfActions
         if (DbTools::checkMySQLConnection($host, $username, $password, $dbname))
         {
           $this->_generateConfigFile($host, $username, $password, $dbname);
-          $this->getContext()->getConfigCache()->clear();
-          Doctrine::loadData('./data/fixtures/configuration.yml');
-          Doctrine::loadData('./data/fixtures/credentials.yml');
           $this->redirect('@install_success');
         }
         else
@@ -108,6 +107,7 @@ class installActions extends sfActions
         }
       }
     }
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -119,6 +119,7 @@ class installActions extends sfActions
   public function executeEnd(sfWebRequest $request)
   {
     // just display static template
+    $this->setLayout('no_menu');
   }
 
   /*
@@ -126,7 +127,7 @@ class installActions extends sfActions
    * to match, and then replace the line by a new one.
    * We flush the new content to the file at the end
    *
-   * @todo Test the execution of SQL file if chdir failed
+   * @todo Refactore it !
    */
   private function _generateConfigFile($server, $username, $password, $dbname)
   {
@@ -136,10 +137,13 @@ class installActions extends sfActions
       $task->run(array('dsn'      => 'mysql:dbname=' . $dbname . ';host=' . $server,
                        'username' => $username,
                        'password' => $password),
-                array('env' => 'all')
+                array('env' => 'prod')
       );
       $insert = new sfDoctrineInsertSqlTask($this->dispatcher, new sfFormatter());
       $insert->run();
+      $this->getContext()->getConfigCache()->clear();
+      Doctrine::loadData('./data/fixtures/configuration.yml');
+      Doctrine::loadData('./data/fixtures/credentials.yml');
     }
     else
     {
@@ -151,6 +155,10 @@ class installActions extends sfActions
         $line = $fileManager->searchLineBeginningBy('password:');
         $fileManager->setLineContent($line, "password: {$password}", true);
         $fileManager->flush();
+        DbTools::executeSQLFile('../doc/piwam-install.sql');
+        $this->getContext()->getConfigCache()->clear();
+        Doctrine::loadData('../data/fixtures/configuration.yml');
+        Doctrine::loadData('../data/fixtures/credentials.yml');
     }
   }
 

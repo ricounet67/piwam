@@ -82,4 +82,23 @@ class StatusTable extends Doctrine_Table
 
     return $q->count();
   }
+
+  /**
+   * Get the default ID to set in MemberForm
+   *
+   * @param   integer   $associationId
+   * @return  integer
+   */
+  public static function getDefaultValue($associationId)
+  {
+    $q = Doctrine_Query::create()
+          ->select('s.id')
+          ->from('Status s')
+          ->where('s.state = ?', self::STATE_ENABLED)
+          ->addOrderBy('s.label ASC')
+          ->limit(1);
+    $row = $q->fetchOne();
+
+    return $row->getId();
+  }
 }

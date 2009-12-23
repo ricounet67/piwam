@@ -41,6 +41,12 @@
 
                         ,<br /><br />
                         <?php echo link_to("déposez une demande d'adhésion", '@member_ask_subscription')?>
+
+                        <?php if ($association->getDescription()): ?>
+                            <br /><br />
+                            <strong>En quelques mots :</strong><br />
+                            <?php echo $association->getDescription() ?>
+                        <?php endif ?>
                     </div>
                 <?php endif ?>
 

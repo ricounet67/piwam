@@ -12,5 +12,5 @@
 <!-- If no error occured, we display the button -->
 
 <?php if ($displayButton): ?>
-    <br /><?php echo link_to('Suivant', '@config_db', array('class' => 'formLinkButton')) ?>
+    <br /><?php echo link_to('Suivant', '@config_db', array('class' => 'grey button')) ?>
 <?php endif; ?>
