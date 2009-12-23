@@ -2,9 +2,4 @@ autoload:
   phoogle_lib:
     name:      phoogle_lib
     path:      %SF_LIB_DIR%/vendor/phoogle
-    recursive: on
-  phpopenid_lib:
-    name:      phpopenid_lib
-    path:      %SF_LIB_DIR%/vendor/php-openid
-    recursive: on
-    
+    recursive: on    
