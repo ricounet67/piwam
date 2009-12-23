@@ -706,6 +706,7 @@ class memberActions extends sfActions
     $filterParams = unserialize($data);
     $filterParams['association_id'] = $this->getUser()->getAssociationId();
     $filterParams['order_by'] = $request->getParameter('orderby', 'lastname');
+    $filterParams['state'] = MemberTable::STATE_ENABLED;
 
     return $filterParams;
   }
