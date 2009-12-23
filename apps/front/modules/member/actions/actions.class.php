@@ -157,7 +157,7 @@ class memberActions extends sfActions
       $this->redirect('@error_credentials');
     }
 
-    $member->delete();
+    $member->disable()->save();
     $this->redirect('@members_list');
   }
 
