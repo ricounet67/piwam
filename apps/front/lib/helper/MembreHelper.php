@@ -16,7 +16,10 @@ function format_member($member, $pseudo = false)
     }
     else
     {
-        $str = '<a href="' . url_for('@member_show?id=' . $member->getId()) . '">';
+        if ($member->getState() == MemberTable::STATE_ENABLED)
+        {
+          $str = '<a href="' . url_for('@member_show?id=' . $member->getId()) . '">';
+        }
 
         if ($pseudo)
         {
@@ -26,7 +29,15 @@ function format_member($member, $pseudo = false)
         {
             $str .= $member->getFirstname() . ' ' .$member->getLastname();
         }
-        $str .= '</a>';
+
+        if ($member->getState() == MemberTable::STATE_ENABLED)
+        {
+          $str .= '</a>';
+        }
+        else
+        {
+          $str .= ' (<i>supprimé</i>)';
+        }
     }
 
     return $str;
