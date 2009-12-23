@@ -202,4 +202,16 @@ class Member extends BaseMember
   {
     return StringTools::to7bit($this->getStreet()) . ', ' . $this->getZipcode() . ' ' . StringTools::to7bit($this->getCity());
   }
+
+  /**
+   * Delete the Member object logically (it's not physically removed)
+   *
+   * @return  Member
+   */
+  public function disable()
+  {
+    $this->setState(MemberTable::STATE_DISABLED);
+
+    return $this;
+  }
 }
