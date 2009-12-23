@@ -204,12 +204,15 @@ class Member extends BaseMember
   }
 
   /**
-   * Delete the Member object logically (it's not physically removed)
+   * Delete the Member object logically (it's not physically removed).
+   * Erase username and passwords
    *
    * @return  Member
    */
   public function disable()
   {
+    $this->setUsername(null);
+    $this->setPassword(null);
     $this->setState(MemberTable::STATE_DISABLED);
 
     return $this;
