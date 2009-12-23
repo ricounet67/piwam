@@ -1,4 +1,4 @@
-<?php use_helper('Membre') ?>
+<?php use_helper('Member') ?>
 
 <h2>Détails d'une cotisation</h2>
 
