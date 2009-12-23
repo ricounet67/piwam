@@ -42,7 +42,7 @@ config_db:
   param:  { module: install, action: configDatabase }
   
 check_config:
-  url:    /config_database
+  url:    /verification_configuration
   param:  { module: install, action: checkConfig }
 
 install_success:

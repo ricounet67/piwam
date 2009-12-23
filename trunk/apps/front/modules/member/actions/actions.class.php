@@ -157,7 +157,7 @@ class memberActions extends sfActions
       $this->redirect('@error_credentials');
     }
 
-    $member->delete();
+    $member->disable()->save();
     $this->redirect('@members_list');
   }
 
@@ -411,9 +411,10 @@ class memberActions extends sfActions
     }
 
     $this->form = new MemberForm(null, array('associationId' => $associationId,
-                                              'context'=> $this->getContext()));
+                                             'context'=> $this->getContext()));
     $this->form->setDefault('association_id', $associationId);
     $this->form->setDefault('state', MemberTable::STATE_PENDING);
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -426,22 +427,23 @@ class memberActions extends sfActions
   {
     $this->forward404Unless($request->isMethod('post'));
     $member = $request->getParameter("member");
-    $associationOd = $member['association_id'];
+    $associationId = $member['association_id'];
     $this->form = new MemberForm(null, array('associationId' => $associationId,
                                              'context' => $this->getContext()));
     $request->setAttribute('pending', true);
     $this->processForm($request, $this->form);
     $this->setTemplate('requestsubscription');
+    $this->setLayout('no_menu');
   }
 
   /**
    * Once subscription request form has been completed, we display a
    * message to the user
-   *e
    */
   public function executePending()
   {
     // do nothing, just display template
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -519,6 +521,7 @@ class memberActions extends sfActions
     }
 
     $this->form->setDefault('association_id', $associationId);
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -537,6 +540,7 @@ class memberActions extends sfActions
     $request->setAttribute('first', true);
     $this->processForm($request, $this->form);
     $this->setTemplate('newfirst');
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -557,6 +561,8 @@ class memberActions extends sfActions
       // here you can access to $member properties
       // and methods
     }
+    
+    $this->setLayout('no_menu');
   }
 
   /**
@@ -700,6 +706,7 @@ class memberActions extends sfActions
     $filterParams = unserialize($data);
     $filterParams['association_id'] = $this->getUser()->getAssociationId();
     $filterParams['order_by'] = $request->getParameter('orderby', 'lastname');
+    $filterParams['state'] = MemberTable::STATE_ENABLED;
 
     return $filterParams;
   }

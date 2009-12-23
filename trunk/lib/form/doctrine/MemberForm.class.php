@@ -36,9 +36,9 @@ class MemberForm extends BaseMemberForm
     $context = $this->getOption('context');
     $this->_firstRegistration = $this->getOption('first', false);
 
-    if ($this->getOption('associationId'))
+    if (! $associationId = $this->getOption('associationId'))
     {
-      $associationId = $this->getOption('associationId');
+      throw new InvalidArgumentException('You must provide the association ID');
     }
 
     unset($this['created_at'], $this['updated_at']);
@@ -218,7 +218,7 @@ class MemberForm extends BaseMemberForm
    */
   private function _disableProtectedFields(myUser $user)
   {
-    $associationId = $user->getAssociationId();
+    $associationId = $this->getOption('associationId');
 
     if (! $user->hasCredential('add_due'))
     {
@@ -235,6 +235,17 @@ class MemberForm extends BaseMemberForm
       $this->widgetSchema['fake_status_id']->setOption('query', StatusTable::getQueryEnabledForAssociation($associationId));
       $this->widgetSchema['fake_status_id']->setAttribute('disabled', 'disabled');
       $this->setDefault('fake_status_id', $this->getValue('status_id'));
+      $this->widgetSchema['fake_status_id']->setAttribute('class', 'formInputNormal');
+
+      /*
+       * we need to provide a default value if user has not rights but is
+       * registering a new Member. It can happen in at least 2 situations :
+       *
+       *    - first member is registering himself
+       *    - a member is creating a pending subscription
+       */
+
+      $this->setDefault('status_id', StatusTable::getDefaultValue($associationId));
     }
   }
 }

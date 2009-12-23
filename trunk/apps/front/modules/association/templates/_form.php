@@ -14,7 +14,8 @@
 
     <tfoot>
         <tr>
-            <td colspan="2">
+            <td>&nbsp;</td>
+            <td>
                 <?php echo $form->renderHiddenFields() ?>
                 <?php echo link_to('Annuler', '@members_list', array('class'	=> 'blue button')) ?>
 
