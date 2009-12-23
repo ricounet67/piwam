@@ -1,4 +1,4 @@
-<?php use_helper('Membre') ?>
+<?php use_helper('Member') ?>
 <?php use_helper('Date') ?>
 
 <h2>Détails du compte <?php echo $account->getReference() ?></h2>

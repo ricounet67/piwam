@@ -1,5 +1,5 @@
 <?php use_helper('Date') ?>
-<?php use_helper('Membre') ?>
+<?php use_helper('Member') ?>
 <?php use_helper('Number') ?>
 
 <!-- This template is divided into 3 parts :

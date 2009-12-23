@@ -1,6 +1,6 @@
 <?php use_helper('Boolean') ?>
 <?php use_helper('Date') ?>
-<?php use_helper('Membre') ?>
+<?php use_helper('Member') ?>
 
 <h2>Détails du Statut</h2>
 
