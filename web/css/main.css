@@ -245,6 +245,10 @@ p.notice {
 
 }
 
+/* For the list we don't want to display item bullet '*/
+ul.no-style {
+  list-style: none;
+}
 
 
 /*****************************************************************************

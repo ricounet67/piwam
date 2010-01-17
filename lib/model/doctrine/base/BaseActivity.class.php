@@ -45,7 +45,7 @@ Doctrine_Manager::getInstance()->bindComponent('Activity', 'doctrine');
  * @package    piwam
  * @subpackage model
  * @author     Adrien Mogenet
- * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
+ * @version    SVN: $Id: Builder.php 7021 2010-01-12 20:39:49Z lsmith $
  */
 abstract class BaseActivity extends sfDoctrineRecord
 {

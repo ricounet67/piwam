@@ -51,7 +51,7 @@ class installActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    if ($this->_isInstalled())
+    if (PiwamOperations::isInstalled())
     {
       return sfView::ERROR;
     }
@@ -237,33 +237,6 @@ class installActions extends sfActions
     );
 
     $this->_messages[] = $newEntry;
-  }
-
-  /*
-   * Checks if Piwam is alreay installed. It's currently based on SQL
-   * configuration, and check if piwam tables are present or not
-   */
-  private function _isInstalled()
-  {
-    try
-    {
-      Doctrine_Manager::connection();
-      AssociationTable::doCount();
-      ConfigVariableTable::doCount();
-      MemberTable::doCount();
-      StatusTable::doCount();
-      AccountTable::doCount();
-      DueTable::doCount();
-      DueTypeTable::doCount();
-      IncomeTable::doCount();
-      ExpenseTable::doCount();
-
-      return true;
-    }
-    catch (Doctrine_Connection_Exception $e)
-    {
-      return false;
-    }
   }
 
   /*

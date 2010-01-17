@@ -36,4 +36,18 @@ class AclActionTable extends Doctrine_Table
 
     return $q->fetchOne();
   }
+
+  /**
+   * Count existing Actions
+   *
+   * @return  integer
+   */
+  public static function doCount()
+  {
+    $q = Doctrine_Query::create()
+          ->select('a.id')
+          ->from('AclAction a');
+
+    return $q->count();
+  }
 }
