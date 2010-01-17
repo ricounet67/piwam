@@ -245,8 +245,35 @@ Member:
     Status:          { local: status_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }      
-      
-      
+
+
+MemberExtraRow:
+  connection: doctrine
+  tableName: piwam_member_extra_row
+  columns:
+    id:             { type: integer(4), primary: true, autoincrement: true }
+    association_id: { type: integer(4), notnull: true }
+    label:          { type: string(255), notnull: true }
+    description:    { type: string() }
+    type:           { type: string(255), notnull: true }
+    default_value:  { type: string(255),  notnull: true }
+  relations:
+    Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
+
+
+MemberExtraValue:
+  connection: doctrine
+  tableName: piwam_member_extra_value
+  actAs: { Timestampable: ~ }
+  columns:
+    row_id:         { type: integer(4), primary: true }
+    member_id:      { type: integer(4), primary: true }
+    value:          { type: string(255), notnull: true }
+  relations:
+    Row:            { class: MemberExtraRow, local: row_id, foreign: id, type: one, onDelete: CASCADE }
+    Member:         { local: member_id, foreign: id, type: one, onDelete: CASCADE }
+
+    
 Income:
   connection: doctrine
   tableName: piwam_income

@@ -32,6 +32,7 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @property Status $Status
  * @property Member $CreatedByMember
  * @property Member $UpdatedByMember
+ * @property Doctrine_Collection $Debt
  * @property Doctrine_Collection $AclCredential
  * @property Doctrine_Collection $Activity
  * @property Doctrine_Collection $Account
@@ -39,6 +40,7 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @property Doctrine_Collection $DueType
  * @property Doctrine_Collection $Expense
  * @property Doctrine_Collection $Member
+ * @property Doctrine_Collection $MemberExtraValue
  * @property Doctrine_Collection $Income
  * 
  * @method integer             getId()                Returns the current record's "id" value
@@ -66,6 +68,7 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @method Status              getStatus()            Returns the current record's "Status" value
  * @method Member              getCreatedByMember()   Returns the current record's "CreatedByMember" value
  * @method Member              getUpdatedByMember()   Returns the current record's "UpdatedByMember" value
+ * @method Doctrine_Collection getDebt()              Returns the current record's "Debt" collection
  * @method Doctrine_Collection getAclCredential()     Returns the current record's "AclCredential" collection
  * @method Doctrine_Collection getActivity()          Returns the current record's "Activity" collection
  * @method Doctrine_Collection getAccount()           Returns the current record's "Account" collection
@@ -73,6 +76,7 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @method Doctrine_Collection getDueType()           Returns the current record's "DueType" collection
  * @method Doctrine_Collection getExpense()           Returns the current record's "Expense" collection
  * @method Doctrine_Collection getMember()            Returns the current record's "Member" collection
+ * @method Doctrine_Collection getMemberExtraValue()  Returns the current record's "MemberExtraValue" collection
  * @method Doctrine_Collection getIncome()            Returns the current record's "Income" collection
  * @method Member              setId()                Sets the current record's "id" value
  * @method Member              setLastname()          Sets the current record's "lastname" value
@@ -99,6 +103,7 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @method Member              setStatus()            Sets the current record's "Status" value
  * @method Member              setCreatedByMember()   Sets the current record's "CreatedByMember" value
  * @method Member              setUpdatedByMember()   Sets the current record's "UpdatedByMember" value
+ * @method Member              setDebt()              Sets the current record's "Debt" collection
  * @method Member              setAclCredential()     Sets the current record's "AclCredential" collection
  * @method Member              setActivity()          Sets the current record's "Activity" collection
  * @method Member              setAccount()           Sets the current record's "Account" collection
@@ -106,12 +111,13 @@ Doctrine_Manager::getInstance()->bindComponent('Member', 'doctrine');
  * @method Member              setDueType()           Sets the current record's "DueType" collection
  * @method Member              setExpense()           Sets the current record's "Expense" collection
  * @method Member              setMember()            Sets the current record's "Member" collection
+ * @method Member              setMemberExtraValue()  Sets the current record's "MemberExtraValue" collection
  * @method Member              setIncome()            Sets the current record's "Income" collection
  * 
  * @package    piwam
  * @subpackage model
  * @author     Adrien Mogenet
- * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
+ * @version    SVN: $Id: Builder.php 7021 2010-01-12 20:39:49Z lsmith $
  */
 abstract class BaseMember extends sfDoctrineRecord
 {
@@ -239,6 +245,10 @@ abstract class BaseMember extends sfDoctrineRecord
              'foreign' => 'id',
              'onDelete' => 'SET NULL'));
 
+        $this->hasMany('Debt', array(
+             'local' => 'id',
+             'foreign' => 'member_id'));
+
         $this->hasMany('AclCredential', array(
              'local' => 'id',
              'foreign' => 'member_id'));
@@ -266,6 +276,10 @@ abstract class BaseMember extends sfDoctrineRecord
         $this->hasMany('Member', array(
              'local' => 'id',
              'foreign' => 'created_by'));
+
+        $this->hasMany('MemberExtraValue', array(
+             'local' => 'id',
+             'foreign' => 'member_id'));
 
         $this->hasMany('Income', array(
              'local' => 'id',

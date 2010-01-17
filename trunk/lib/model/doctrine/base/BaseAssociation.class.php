@@ -23,6 +23,7 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @property Doctrine_Collection $Status
  * @property Doctrine_Collection $Members
  * @property Doctrine_Collection $DueType
+ * @property Doctrine_Collection $MemberExtraRow
  * 
  * @method integer             getId()              Returns the current record's "id" value
  * @method string              getName()            Returns the current record's "name" value
@@ -40,6 +41,7 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @method Doctrine_Collection getStatus()          Returns the current record's "Status" collection
  * @method Doctrine_Collection getMembers()         Returns the current record's "Members" collection
  * @method Doctrine_Collection getDueType()         Returns the current record's "DueType" collection
+ * @method Doctrine_Collection getMemberExtraRow()  Returns the current record's "MemberExtraRow" collection
  * @method Association         setId()              Sets the current record's "id" value
  * @method Association         setName()            Sets the current record's "name" value
  * @method Association         setDescription()     Sets the current record's "description" value
@@ -56,11 +58,12 @@ Doctrine_Manager::getInstance()->bindComponent('Association', 'doctrine');
  * @method Association         setStatus()          Sets the current record's "Status" collection
  * @method Association         setMembers()         Sets the current record's "Members" collection
  * @method Association         setDueType()         Sets the current record's "DueType" collection
+ * @method Association         setMemberExtraRow()  Sets the current record's "MemberExtraRow" collection
  * 
  * @package    piwam
  * @subpackage model
  * @author     Adrien Mogenet
- * @version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
+ * @version    SVN: $Id: Builder.php 7021 2010-01-12 20:39:49Z lsmith $
  */
 abstract class BaseAssociation extends sfDoctrineRecord
 {
@@ -142,6 +145,10 @@ abstract class BaseAssociation extends sfDoctrineRecord
              'foreign' => 'association_id'));
 
         $this->hasMany('DueType', array(
+             'local' => 'id',
+             'foreign' => 'association_id'));
+
+        $this->hasMany('MemberExtraRow', array(
              'local' => 'id',
              'foreign' => 'association_id'));
 

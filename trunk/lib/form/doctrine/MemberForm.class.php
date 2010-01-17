@@ -138,8 +138,8 @@ class MemberForm extends BaseMemberForm
     $this->setDefault('subscription_date', date('d-m-Y'));
     $this->setDefault('state', 1);
     $this->_setCssClasses();
-    $this->_setLabels();
     $this->_disableProtectedFields($context->getUser());
+    $this->_setLabels();
   }
 
   /*
