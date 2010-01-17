@@ -40,8 +40,16 @@ class PiwamOperations
       DueTypeTable::doCount();
       IncomeTable::doCount();
       ExpenseTable::doCount();
-      assert(AclActionTable::doCount() > 10);
-      assert(ConfigVariableTable::doCount() > 10);
+      
+      if (AclActionTable::doCount() < 38)
+      {
+        return false;
+      }
+
+      if (ConfigVariableTable::doCount() < 10)
+      {
+        return false;
+      }
 
       return true;
     }
