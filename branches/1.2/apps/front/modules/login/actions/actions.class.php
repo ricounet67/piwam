@@ -19,7 +19,10 @@ class loginActions extends sfActions
    */
   public function executeLogin(sfWebRequest $request)
   {
+    // this method also checks that Piwam has been correctly installed
+    $this->displayRegisterLink = $this->_canRegisterAnotherAssociation();
     $this->numberOfAssociations = AssociationTable::doCount();
+    $this->form = new LoginForm();
 
     if (MemberTable::doCount() == 0)
     {
@@ -30,9 +33,6 @@ class loginActions extends sfActions
     {
       $this->association = AssociationTable::getUnique();
     }
-
-    $this->form = new LoginForm();
-    $this->displayRegisterLink = $this->_canRegisterAnotherAssociation();
 
     if ($request->isMethod('post'))
     {
