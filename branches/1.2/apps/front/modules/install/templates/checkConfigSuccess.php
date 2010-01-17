@@ -1,6 +1,6 @@
 <h2>Vérification de la configuration</h2>
 
-<ul>
+<ul class="no-style">
     <?php foreach ($messages as $message): ?>
         <li class="<?php echo $message['cssClass'] ?>">
             <?php include_partial($message['partial'], array('error' => $message['error'])) ?>
