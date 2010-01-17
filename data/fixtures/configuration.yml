@@ -82,4 +82,4 @@ ConfigVariable:
 Data:
   Data_1:
     config_key: dbversion
-    value: '470'
+    value: '1034'
