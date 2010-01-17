@@ -19,7 +19,11 @@ class loginActions extends sfActions
    */
   public function executeLogin(sfWebRequest $request)
   {
-    // this method also checks that Piwam has been correctly installed
+    if (! PiwamOperations::isInstalled())
+    {
+      $this->redirect('@setup');
+    }
+
     $this->displayRegisterLink = $this->_canRegisterAnotherAssociation();
     $this->numberOfAssociations = AssociationTable::doCount();
     $this->form = new LoginForm();
