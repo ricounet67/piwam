@@ -2,21 +2,29 @@
 #labels Featured
 
 = Ils utilisent Piwam ! =
-
+  
+  * [http://descenda.homeip.net Association des Descendants de Capitaines Corsaires]
   * [http://asso.squash-talence.net Association Squash Talence]
   * [http://www.aipst.org AI CNAM-PST]
   * [http://blog.libre.cc CLICC]
   * [http://www.cycom.org Cycom]
+  * [http://www.aucajou.com Des Souris et Des Hommes]
+  * [http://ec.versailles.free.fr Escalade Club de Versailles]
   * [http://www.groupesitisimo.com Groupe Sitisimo]
+  * Fédération Pévèloise
+  * FSE Collège Rocroi-Maubert
   * [http://www.ecole-montessori.net Les Coccinelles]
   * [http://www.flammkuch.info/ Les Flamm'Kuch]
   * [http://www.clubmbcp.com Mini Bolid' Club Pertuisien]
+  * [http://www.muzenza-france.fr Muzenza France]
   * [http://www.nutrition-chats-chiens.net/ Nutrition Chats Chiens]
   * [http://www.oisux.org Oisux] : promotion des logiciels libres dans l'Oise
+  * [http://www.oxmoze.com Oxmoze]
+  * Réveil sauvagnonais
   * [http://www.tekover.net Tekover]
-  * [http://nanterre.thanhlong.org/ Truong Son Nanterre]
+  * [http://nanterre.thanhlong.org Truong Son Nanterre]
   * TrussProd
-  * [http://www.velizynatsynchro.fr/ Vélizy Natation Synchronisée]
+  * [http://www.velizynatsynchro.fr Vélizy Natation Synchronisée]
 
 
 
