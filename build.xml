@@ -60,15 +60,16 @@
 
 	<target name="phpcs" description="Track code violations">
 		<exec executable="phpcs" output="${basedir}/build/logs/checkstyle.xml" dir="${basedir}">
-			<arg line="--report=checkstyle
-			     --ignore=${basedir}/lib/vendor
-			     --ignore=${basedir}/test 
-			     --ignore=${basedir}/cache
-			     --ignore=${basedir}/log 
-			     --ignore=${basedir}/doc
-           --ignore=${basedir}/web
-			     --standard=Symfony
-				${basedir}" />
+			<arg line=" --report=checkstyle
+            --ignore=${basedir}/lib/vendor
+            --ignore=${basedir}/test
+            --ignore=${basedir}/cache
+            --ignore=${basedir}/log
+            --ignore=${basedir}/data
+            --ignore=${basedir}/doc
+            --ignore=${basedir}/web
+            --standard=Symfony
+          ${basedir}/apps" />
 		</exec>
 	</target>
 
