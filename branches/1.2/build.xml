@@ -69,7 +69,7 @@
             --ignore=${basedir}/doc
             --ignore=${basedir}/web
             --standard=Symfony
-          ${basedir}/apps" />
+          ${basedir}/apps ${basedir}/lib" />
 		</exec>
 	</target>
 
