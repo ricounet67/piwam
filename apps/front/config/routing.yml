@@ -192,6 +192,15 @@ income_show:
 
 
 
+
+
+# -----------------------------------------------------------------------------
+#     CONFIG MEMBER ACTIONS
+# -----------------------------------------------------------------------------
+
+config_members:
+  url:    /configurer-membres
+  param:  { module: config_member, action: index }
   
   
   

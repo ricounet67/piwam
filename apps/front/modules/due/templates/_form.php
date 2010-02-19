@@ -1,5 +1,6 @@
 <?php include_stylesheets_for_form($form) ?>
 <?php include_javascripts_for_form($form) ?>
+<?php use_helper('Member') ?>
 
 <form
     action="<?php echo url_for('@due_'.($form->getObject()->isNew() ? 'create' : 'update?id='.$form->getObject()->getId())) ?>"
@@ -31,28 +32,37 @@
         <?php echo $form->renderGlobalErrors() ?>
             <tr>
                 <th><?php echo $form['account_id']->renderLabel() ?> :</th>
-                <td><?php echo $form['account_id'] ?> <?php echo $form['account_id']->renderError() ?>
-                </td>
+                <td><?php echo $form['account_id'] ?> <?php echo $form['account_id']->renderError() ?></td>
             </tr>
             <tr>
                 <th><?php echo $form['due_type_id']->renderLabel() ?> :</th>
-                <td><?php echo $form['due_type_id'] ?> <?php echo $form['due_type_id']->renderError() ?>
-                </td>
+                <td><?php echo $form['due_type_id'] ?> <?php echo $form['due_type_id']->renderError() ?></td>
             </tr>
             <tr>
                 <th><?php echo $form['amount']->renderLabel() ?> :</th>
-                <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?>
-                </td>
+                <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?></td>
             </tr>
             <tr>
                 <th><?php echo $form['member_id']->renderLabel() ?> :</th>
-                <td><?php echo $form['member_id'] ?> <?php echo $form['member_id']->renderError() ?>
-                </td>
+
+                <!-- Display select list if member has NOT been deleted,
+                     otherwise we display a hidden field and name of
+                     deleted member
+                -->
+
+                <?php if ($form->isActiveMember()): ?>
+                    <td><?php echo $form['member_id'] ?> <?php echo $form['member_id']->renderError() ?></td>
+                <?php else: ?>
+                    <td>
+                      <?php echo $form['member_id'] ?>
+                      <?php echo format_member($form->getObject()->getMember()) ?>
+                    </td>
+                <?php endif ?>
+                    
             </tr>
             <tr>
                 <th><?php echo $form['date']->renderLabel() ?> :</th>
-                <td><?php echo $form['date'] ?> <?php echo $form['date']->renderError() ?>
-                </td>
+                <td><?php echo $form['date'] ?> <?php echo $form['date']->renderError() ?></td>
             </tr>
         </tbody>
     </table>

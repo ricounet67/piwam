@@ -1,6 +1,6 @@
 <?php
 /**
- * DIsplay a singular / plural noun according to the amount
+ * Display a singular / plural noun according to the amount
  * you give as argument ($howMany)
  *
  * @param	integer	$howMany : number of `$word`

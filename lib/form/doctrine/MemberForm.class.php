@@ -123,6 +123,7 @@ class MemberForm extends BaseMemberForm
       'config'  => '{}',
       'culture' => 'fr_FR',
       'format'  => '%day%.%month%.%year%',
+      'years'   => range(date('Y'), '1950'),
     ));
 
     $this->widgetSchema['picture'] = new sfWidgetFormInputFile();
