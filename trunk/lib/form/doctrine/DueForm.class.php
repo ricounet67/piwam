@@ -40,12 +40,21 @@ class DueForm extends BaseDueForm
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     $this->setDefault('state', 1);
 
-    // select only Membre, CotisationType and account which
-    // belong to the association id
+    // select only Members, DueType and Account which
+    // belong to the current association
 
     $id = sfContext::getInstance()->getUser()->getAssociationId();
 
-    $this->widgetSchema['member_id']->setOption('query', MemberTable::getQueryEnabledForAssociation($id));
+    if ($this->isActiveMember())
+    {
+      $this->widgetSchema['member_id']->setOption('query', MemberTable::getQueryEnabledForAssociation($id));
+    }
+    else
+    {
+      unset($this['member_id']);
+      $this->widgetSchema['member_id'] = new sfWidgetFormInputHidden();
+    }
+
     $this->widgetSchema['due_type_id']->setOption('query', DueTypeTable::getQueryEnabledForAssociation($id));
     $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
     $this->widgetSchema['due_type_id']->setOption('add_empty', true);
@@ -67,6 +76,27 @@ class DueForm extends BaseDueForm
 
     $this->setLabels();
     $this->setClasses();
+  }
+
+  /**
+   * Check if the member related to the Due is still active or not. Returns
+   * false if form is displayed to create a new Due entry
+   *
+   * @return  boolean
+   */
+  public function isActiveMember()
+  {
+    if (! $this->getObject()->isNew())
+    {
+      $state = $this->getObject()->getMember()->getState();
+
+      if ($state == MemberTable::STATE_ENABLED)
+      {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**
