@@ -10,7 +10,37 @@
  */
 class MemberExtraRowForm extends BaseMemberExtraRowForm
 {
+  /**
+   * Define possible types of customizable rows
+   *
+   * @var array
+   */
+  var $types = array(
+    'string'    => 'Chaine de caractères',
+    'number'    => 'Nombre entier',
+    'float'     => 'Nombre décimal',
+    'choices'   => 'Liste de choix',
+    'boolean'   => 'Case à cocher',
+  );
+
+  /**
+   * Customize form widgets
+   */
   public function configure()
   {
+    $a = $this->types;
+    $this->widgetSchema['type'] = new sfWidgetFormChoice(array('choices' => $a));
+    $this->setLabels();
+  }
+
+  /*
+   * Set widget labels
+   */
+  private function setLabels()
+  {
+    $this->widgetSchema->setLabels(array(
+      'label'           => 'Nom du champ',
+      'default_value'   => 'Valeur par défaut'
+    ));
   }
 }
