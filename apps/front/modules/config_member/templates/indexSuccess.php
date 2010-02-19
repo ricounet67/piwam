@@ -2,13 +2,27 @@
 
 <h3>Listes des champs supplémentaires :</h3>
 
-<table>
-<?php foreach($extraRows as $row): ?>
-  <tr>
-    <td><?php echo $row->getLabel() ?></td>
-    <td><?php echo $row->getType() ?></td>
-  </tr>
-<?php endforeach ?>
+<table class="datalist">
+  <thead>
+    <tr>
+      <th>Nom du champ</th>
+      <th>Type</th>
+      <th>Valeur par défaut</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <?php foreach($extraRows as $row): ?>
+      <tr>
+        <td><?php echo $row->getLabel() ?></td>
+        <td><?php echo $row->getType() ?></td>
+        <td><?php echo $row->getDefaultValue() ?></td>
+        <td><?php echo $row->getDescription() ?></td>
+      </tr>
+    <?php endforeach ?>
+      
+  </tbody>
 </table>
 
 <h3>Ajouter un champ :</h3>
