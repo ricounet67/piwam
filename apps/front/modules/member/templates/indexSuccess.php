@@ -77,3 +77,6 @@
 <?php echo link_to('Enregistrer un membre', '@member_new', array('class' => 'add grey button')) ?>
 
 <?php include_partial('global/pager', array('pager' => $members, 'route' => '@members_list', 'params' => array('orderby' => $orderByColumn))) ?>
+
+<br />
+<?php echo link_to('Configurer', '@config_members') ?>
