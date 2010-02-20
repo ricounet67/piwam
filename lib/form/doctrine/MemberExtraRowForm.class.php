@@ -54,7 +54,8 @@ class MemberExtraRowForm extends BaseMemberExtraRowForm
   {
     $this->widgetSchema->setLabels(array(
       'label'           => 'Nom du champ',
-      'default_value'   => 'Valeur par défaut'
+      'default_value'   => 'Valeur par défaut',
+      'required'        => 'Obligatoire'
     ));
   }
 
