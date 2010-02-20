@@ -98,6 +98,10 @@
     <th><?php echo $form['description']->renderLabel() ?></th>
     <td><?php echo $form['description'] . $form['description']->renderError() ?></td>
   </tr>
+  <tr>
+    <th><?php echo $form['required']->renderLabel() ?></th>
+    <td><?php echo $form['required'] ?></td>
+  </tr>
   <tr><td colspan="2"><input type="submit" class="button grey" /></td></tr>
 </table>
 </form>
