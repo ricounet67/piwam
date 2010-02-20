@@ -1,5 +1,4 @@
 <?php
-
 /**
  * MemberExtraRow
  * 
@@ -12,4 +11,15 @@
  */
 class MemberExtraRow extends BaseMemberExtraRow
 {
+  /**
+   * Parse the 'type' field in Database and return the real
+   * type. (ie: `string 123 => string`)
+   */
+  public function getType()
+  {
+    $original = $this->__get('type');
+    $split = explode(' ', $original);
+
+    return $split[0];
+  }
 }
