@@ -24,7 +24,9 @@ class MemberExtraRowForm extends BaseMemberExtraRowForm
   );
 
   /**
-   * Customize form widgets
+   * Customize form widgets. Defines an additionnal widget `parameters` which
+   * won't be stored in database directly but defines parameters for the type
+   * (ie: size of a string, list of choices...)
    */
   public function configure()
   {
@@ -33,7 +35,10 @@ class MemberExtraRowForm extends BaseMemberExtraRowForm
     $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
     $this->validatorSchema['association_id'] = new sfValidatorInteger();
     $this->widgetSchema['type'] = new sfWidgetFormChoice(array('choices' => $a));
+    $this->widgetSchema['parameters'] = new sfWidgetFormInput();
+    $this->validatorSchema['parameters'] = new sfValidatorString();
     $this->setLabels();
+    $this->setStyles();
   }
 
   /*
@@ -45,5 +50,16 @@ class MemberExtraRowForm extends BaseMemberExtraRowForm
       'label'           => 'Nom du champ',
       'default_value'   => 'Valeur par défaut'
     ));
+  }
+
+  /*
+   * Set CSS styles to form widgets
+   */
+  private function setStyles()
+  {
+    $this->widgetSchema['label']->setAttribute('class', 'formInputNormal');
+    $this->widgetSchema['type']->setAttribute('class', 'formInputNormal');
+    $this->widgetSchema['default_value']->setAttribute('class', 'formInputNormal');
+    $this->widgetSchema['parameters']->setAttribute('class', 'formInputNormal');
   }
 }
