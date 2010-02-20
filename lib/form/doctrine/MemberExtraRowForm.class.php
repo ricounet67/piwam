@@ -11,15 +11,18 @@
 class MemberExtraRowForm extends BaseMemberExtraRowForm
 {
   /**
-   * Define possible types of customizable rows
+   * Define possible types of customizable rows. Labels and help for the
+   * 'Parameters' field are customized in the _form template
    *
    * @var array
    */
   var $types = array(
+    ''          => 'Choisissez...',
     'string'    => 'Chaine de caractères',
     'number'    => 'Nombre entier',
-    'float'     => 'Nombre décimal',
+    'date'      => 'Date',
     'choices'   => 'Liste de choix',
+    'text'      => 'Zone de texte',
     'boolean'   => 'Case à cocher',
   );
 
@@ -31,10 +34,13 @@ class MemberExtraRowForm extends BaseMemberExtraRowForm
   public function configure()
   {
     unset($this['state'], $this['association_id']);
-    $a = $this->types;
+    $types = $this->types;
     $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
     $this->validatorSchema['association_id'] = new sfValidatorInteger();
-    $this->widgetSchema['type'] = new sfWidgetFormChoice(array('choices' => $a));
+    $this->widgetSchema['type'] = new sfWidgetFormChoice(
+      array('choices' => $types),
+      array('onchange' => 'ShowParameters(this.value)')
+    );
     $this->widgetSchema['parameters'] = new sfWidgetFormInput();
     $this->validatorSchema['parameters'] = new sfValidatorString();
     $this->setLabels();
