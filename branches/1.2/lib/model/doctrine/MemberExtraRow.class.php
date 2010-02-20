@@ -62,11 +62,14 @@ class MemberExtraRow extends BaseMemberExtraRow
   /**
    * Automatically slugify the label
    *
-   * @param   string  $value
-   * @return  string  The slugified label
+   * @param   string          $value
+   * @return  MemberExtraRow  $this
    */
   public function setLabel($value)
   {
     $this->_set('label', $value);
+    $this->setSlug(StringTools::slugify($value));
+
+    return $this;
   }
 }
