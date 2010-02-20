@@ -19,6 +19,7 @@ class config_memberActions extends sfActions
   {
     $associationId = $this->getUser()->getAssociationId();
     $this->form = new MemberExtraRowForm();
+    $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
 
     if ($request->isMethod('post'))
     {

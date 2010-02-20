@@ -28,7 +28,10 @@ class MemberExtraRowForm extends BaseMemberExtraRowForm
    */
   public function configure()
   {
+    unset($this['state'], $this['association_id']);
     $a = $this->types;
+    $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
+    $this->validatorSchema['association_id'] = new sfValidatorInteger();
     $this->widgetSchema['type'] = new sfWidgetFormChoice(array('choices' => $a));
     $this->setLabels();
   }
