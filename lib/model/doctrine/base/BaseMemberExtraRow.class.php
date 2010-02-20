@@ -13,6 +13,7 @@ Doctrine_Manager::getInstance()->bindComponent('MemberExtraRow', 'doctrine');
  * @property string $description
  * @property string $type
  * @property string $default_value
+ * @property string $slug
  * @property boolean $required
  * @property Association $Association
  * @property Doctrine_Collection $MemberExtraValue
@@ -23,6 +24,7 @@ Doctrine_Manager::getInstance()->bindComponent('MemberExtraRow', 'doctrine');
  * @method string              getDescription()      Returns the current record's "description" value
  * @method string              getType()             Returns the current record's "type" value
  * @method string              getDefaultValue()     Returns the current record's "default_value" value
+ * @method string              getSlug()             Returns the current record's "slug" value
  * @method boolean             getRequired()         Returns the current record's "required" value
  * @method Association         getAssociation()      Returns the current record's "Association" value
  * @method Doctrine_Collection getMemberExtraValue() Returns the current record's "MemberExtraValue" collection
@@ -32,6 +34,7 @@ Doctrine_Manager::getInstance()->bindComponent('MemberExtraRow', 'doctrine');
  * @method MemberExtraRow      setDescription()      Sets the current record's "description" value
  * @method MemberExtraRow      setType()             Sets the current record's "type" value
  * @method MemberExtraRow      setDefaultValue()     Sets the current record's "default_value" value
+ * @method MemberExtraRow      setSlug()             Sets the current record's "slug" value
  * @method MemberExtraRow      setRequired()         Sets the current record's "required" value
  * @method MemberExtraRow      setAssociation()      Sets the current record's "Association" value
  * @method MemberExtraRow      setMemberExtraValue() Sets the current record's "MemberExtraValue" collection
@@ -72,6 +75,11 @@ abstract class BaseMemberExtraRow extends sfDoctrineRecord
              'length' => '255',
              ));
         $this->hasColumn('default_value', 'string', 255, array(
+             'type' => 'string',
+             'notnull' => true,
+             'length' => '255',
+             ));
+        $this->hasColumn('slug', 'string', 255, array(
              'type' => 'string',
              'notnull' => true,
              'length' => '255',
