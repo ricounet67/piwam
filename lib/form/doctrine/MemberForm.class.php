@@ -141,6 +141,8 @@ class MemberForm extends BaseMemberForm
     $this->_setCssClasses();
     $this->_disableProtectedFields($context->getUser());
     $this->_setLabels();
+
+    $this->embedForm('extra_rows', new MemberExtraRowsForm());
   }
 
   /*
