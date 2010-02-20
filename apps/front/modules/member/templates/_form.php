@@ -166,6 +166,15 @@ use_javascript('custom-forms/si.files.js')
             <th><?php echo $form['phone_mobile']->renderLabel() ?></th>
             <td><?php echo $form['phone_mobile'] ?><?php echo $form['phone_mobile']->renderError() ?></td>
         </tr>
+
+        <tr>
+          <th>Champs supplémentaires</th>
+          <td>
+            <table>
+              <?php echo $form['extra_rows'] ?>
+            </table>
+          </td>
+        </tr>
     </tbody>
 </table>
 </form>
