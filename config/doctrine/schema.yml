@@ -257,6 +257,8 @@ MemberExtraRow:
     description:    { type: string() }
     type:           { type: string(255), notnull: true }
     default_value:  { type: string(255),  notnull: true }
+    slug:           { type: string(255),  notnull: true }
+    required:       { type: boolean, default: false }
   relations:
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
 
