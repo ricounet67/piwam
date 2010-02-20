@@ -15,8 +15,11 @@
  * @author      adrien
  * @since       1.2
  */
-class MemberExtraRowsFormclass extends sfForm
+class MemberExtraRowsForm extends sfForm
 {
+  /**
+   * Dynamically configure the existing extra rows
+   */
   public function configure()
   {
     $id = 1;
@@ -24,10 +27,38 @@ class MemberExtraRowsFormclass extends sfForm
 
     foreach ($rows as $row)
     {
-      if ($row->getType() == 'string')
+      switch ($row->getType())
       {
-        $this->widgetSchema[$row->getLabel()] = new sfWidgetFormInput();
-        $this->widgetSchema[$row->getLabel()]->setLabel($row->getLabel());
+        case 'string':
+          $this->widgetSchema[$row->getLabel()] = new sfWidgetFormInput();
+          $this->widgetSchema[$row->getLabel()]->setLabel($row->getLabel());
+          $this->widgetSchema[$row->getLabel()]->setAttribute('class', 'formInputNormal');
+          $this->validatorSchema[$row->getLabel()] = new sfValidatorString();
+          break;
+
+        case 'date':
+          $this->widgetSchema[$row->getLabel()] = new sfWidgetFormJQueryDate(array(
+            'image'   => image_path('calendar.gif'),
+            'config'  => '{}',
+            'culture' => 'fr_FR',
+            'format'  => '%day%.%month%.%year%',
+            'years'   => range(date('Y'), '1950'),
+          ));
+          $this->widgetSchema[$row->getLabel()]->setLabel($row->getLabel());
+          $this->validatorSchema[$row->getLabel()] = new sfValidatorDate();
+          break;
+
+        case 'text':
+          $this->widgetSchema[$row->getLabel()] = new sfWidgetFormTextarea();
+          $this->validatorSchema[$row->getLabel()] = new sfValidatorString();
+          break;
+
+        case 'choices':
+          $choices = $row->getParametersAsChoices();
+          $this->widgetSchema[$row->getLabel()] = new sfWidgetFormChoice(array('choices' => $choices));
+          $this->widgetSchema[$row->getLabel()]->setAttribute('class', 'formInputNormal');
+          $this->validatorSchema[$row->getLabel()] = new sfValidatorChoice(array('choices' => $choices));
+          break;
       }
     }
   }
