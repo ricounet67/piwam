@@ -1,3 +1,7 @@
+<?php
+use_helper('boolean');
+?>
+
 <h2>Configurer</h2>
 
 <h3>Listes des champs supplémentaires :</h3>
@@ -9,6 +13,7 @@
       <th>Type</th>
       <th>Valeur par défaut</th>
       <th>Description</th>
+      <th width="80px">Obligatoire</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +24,7 @@
         <td><?php echo $row->getType() ?></td>
         <td><?php echo $row->getDefaultValue() ?></td>
         <td><?php echo $row->getDescription() ?></td>
+        <td><?php echo boolean2icon($row->getRequired()) ?></td>
       </tr>
     <?php endforeach ?>
       
