@@ -58,4 +58,15 @@ class MemberExtraRow extends BaseMemberExtraRow
 
     return $this;
   }
+
+  /**
+   * Pretty printable strings which describes the parameters
+   *
+   * @return  string
+   * @todo    implements
+   */
+  public function getPrintableParameters()
+  {
+    return $this->_get('parameters');
+  }
 }
