@@ -20,7 +20,6 @@ class config_memberActions extends sfActions
     $associationId = $this->getUser()->getAssociationId();
     $this->form = new MemberExtraRowForm();
     $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
-    $this->form->setDefault('parameter', '');
 
     if ($request->isMethod('post'))
     {
@@ -42,13 +41,7 @@ class config_memberActions extends sfActions
 
     if ($form->isValid())
     {
-      $data = $request->getParameter('member_extra_row');
-      $data['type'] .= ' ' . $data['parameter'];
-
       $row = $form->save();
-      $row->setType($data['type']);
-      $row->save();
-
       $this->getUser()->setFlash('notice', 'Champ ajouté avec succès.');
     }
   }
