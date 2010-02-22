@@ -64,14 +64,15 @@ class StringTools
    * character, space, etc.
    *
    * @param   string  $value
+   * @param   string  $replacement
    * @return  string
    * @since   1.2
    */
-  public static function slugify($value)
+  public static function slugify($value, $replacement = '_')
   {
     $slug = strtolower(trim($value));
-    $slug = preg_replace('/[^a-z0-9-]/', '-', $slug);
-    $slug = preg_replace('/-+/', "-", $slug);
+    $slug = preg_replace('/[^a-z0-9-]/', $replacement, $slug);
+    $slug = preg_replace('/-+/', $replacement, $slug);
 
     return $slug;
   }
