@@ -47,7 +47,8 @@ class MemberExtraRowForm extends BaseMemberExtraRowForm
       array('choices'  => $types),
       array('onchange' => 'ShowParameters(this.value)')
     );
-    $this->validatorSchema['parameters'] = new sfValidatorString();
+    $this->validatorSchema['parameters'] = new sfValidatorString(array('required' => false));
+    $this->validatorSchema['default_value'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema['type'] = new sfValidatorChoice(array('choices' => array_keys($types)));
     $this->setLabels();
     $this->setStyles();
