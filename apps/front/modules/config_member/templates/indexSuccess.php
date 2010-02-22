@@ -11,7 +11,8 @@ use_helper('boolean');
     <tr>
       <th>Nom du champ</th>
       <th>Type</th>
-      <th>Valeur par défaut</th>
+      <th>Paramètres</th>
+      <th>Défaut</th>
       <th>Description</th>
       <th width="80px">Obligatoire</th>
     </tr>
@@ -22,6 +23,7 @@ use_helper('boolean');
       <tr>
         <td><?php echo $row->getLabel() ?></td>
         <td><?php echo $row->getType() ?></td>
+        <td><?php echo $row->getPrintableParameters() ?></td>
         <td><?php echo $row->getDefaultValue() ?></td>
         <td><?php echo $row->getDescription() ?></td>
         <td><?php echo boolean2icon($row->getRequired()) ?></td>
@@ -76,7 +78,7 @@ use_helper('boolean');
 
 <h3>Ajouter un champ :</h3>
 <form action="<?php echo url_for('@config_members') ?>" method="post">
-<?php echo $form->renderHiddenFields() ?>
+<?php echo $form->renderHiddenFields() . $form->renderGlobalErrors() ?>
 <table class="formtable">
   <tr>
     <th><?php echo $form['label']->renderLabel() ?></th>
