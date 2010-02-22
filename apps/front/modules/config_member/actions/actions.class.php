@@ -43,6 +43,7 @@ class config_memberActions extends sfActions
     {
       $row = $form->save();
       $this->getUser()->setFlash('notice', 'Champ ajouté avec succès.');
+      $this->redirect('@config_members');
     }
   }
 }
