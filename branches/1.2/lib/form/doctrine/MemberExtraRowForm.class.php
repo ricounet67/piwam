@@ -1,5 +1,4 @@
 <?php
-
 /**
  * MemberExtraRow form.
  *
@@ -33,16 +32,23 @@ class MemberExtraRowForm extends BaseMemberExtraRowForm
    */
   public function configure()
   {
-    unset($this['state'], $this['association_id']);
+    $this->useFields(array(
+      'label',
+      'description',
+      'required',
+      'default_value',
+      'parameters'),
+      true);
+    
     $types = $this->types;
     $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
     $this->validatorSchema['association_id'] = new sfValidatorInteger();
     $this->widgetSchema['type'] = new sfWidgetFormChoice(
-      array('choices' => $types),
+      array('choices'  => $types),
       array('onchange' => 'ShowParameters(this.value)')
     );
-    $this->widgetSchema['parameters'] = new sfWidgetFormInput();
     $this->validatorSchema['parameters'] = new sfValidatorString();
+    $this->validatorSchema['type'] = new sfValidatorChoice(array('choices' => array_keys($types)));
     $this->setLabels();
     $this->setStyles();
   }
