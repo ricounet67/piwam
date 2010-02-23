@@ -3,6 +3,7 @@
 
 = Ils utilisent Piwam ! =
   
+  * [http://ad71.free.fr Alliance Dojo 71]
   * [http://descenda.homeip.net Association des Descendants de Capitaines Corsaires]
   * [http://asso.squash-talence.net Association Squash Talence]
   * [http://www.aipst.org AI CNAM-PST]
@@ -23,6 +24,7 @@
   * Réveil sauvagnonais
   * [http://robiencolere90.hebergratuit.com Robiens de la Colère Belfortains]
   * [http://www.tekover.net Tekover]
+  * [http://www.tripnkite.com Trip'n Kite Gravelines]
   * [http://nanterre.thanhlong.org Truong Son Nanterre]
   * TrussProd
   * [http://www.velizynatsynchro.fr Vélizy Natation Synchronisée]
