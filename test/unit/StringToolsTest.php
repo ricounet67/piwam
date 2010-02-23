@@ -10,4 +10,7 @@ $t->is(StringTools::to7bit('||πñàéêÔÊÂÇòèø'),       'pnaeeOEACoeo', 
 $t->isnt(StringTools::generatePassword(),           StringTools::generatePassword(), 'Both passwords are different');
 $t->is(strlen(StringTools::generatePassword(5)),    5,                  'Can specify a length');
 $t->is(strlen(StringTools::generatePassword()),     8,                  'Default length is 8');
-?>
+$t->is(StringTools::slugify('classic'),             'classic',          'No slug modification');
+$t->is(StringTools::slugify('it\'s_classic'),       'it_s_classic',     'Basic slug');
+$t->is(StringTools::slugify('_-//\\!? '),           '_________',        'Only slug');
+  ?>
