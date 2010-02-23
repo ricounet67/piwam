@@ -9,30 +9,32 @@
  */
 class config_memberActions extends sfActions
 {
- /**
-  * Main screen to customize extra rows. Process form if it has been
-  * submit.
-  *
-  * @param sfRequest $request A request object
-  */
+  /**
+   * Main screen to customize extra rows. Process form if it has been
+   * submit.
+   *
+   * @param sfRequest $request A request object
+   */
   public function executeIndex(sfWebRequest $request)
   {
     $associationId = $this->getUser()->getAssociationId();
     $this->form = new MemberExtraRowForm();
+    $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
 
     if ($request->isMethod('post'))
     {
       $this->_processForm($request, $this->form);
     }
-    
+
     $this->extraRows = MemberExtraRowTable::getForAssociation($associationId);
   }
 
   /*
-   * Process form values
+   * Process form values. Concatenate selected type of the new field and
+   * the related parameters if required
    *
    * @param MemberExtraRowForm $form
-   */
+  */
   private function _processForm(sfWebRequest $request, MemberExtraRowForm $form)
   {
     $form->bind($request->getParameter($form->getName()));
@@ -41,6 +43,7 @@ class config_memberActions extends sfActions
     {
       $row = $form->save();
       $this->getUser()->setFlash('notice', 'Champ ajouté avec succès.');
+      $this->redirect('@config_members');
     }
   }
 }
