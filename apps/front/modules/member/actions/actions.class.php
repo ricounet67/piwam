@@ -580,10 +580,26 @@ class memberActions extends sfActions
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-    
+
     if ($form->isValid())
     {
       $member = $form->save();
+
+      // manage extra row values
+      $data = $request->getParameter('member');
+      $extraRows = $data['extra_rows'];
+      
+      foreach ($extraRows as $rowId => $value)
+      {
+        if (is_string(($value)))
+        {
+        $extraValue = new MemberExtraValue();
+        $extraValue->setValue($value);
+        $extraValue->setRowId($rowId);
+        $extraValue->setMemberId($member->getId());
+        $extraValue->save();
+        }
+      }
 
       /*
        * If user has chosen a picture, we resize and try to upload it. The
