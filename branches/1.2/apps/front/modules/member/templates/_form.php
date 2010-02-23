@@ -170,9 +170,7 @@ use_javascript('custom-forms/si.files.js')
         <tr>
           <th>Champs supplémentaires</th>
           <td>
-            <table>
-              <?php echo $form['extra_rows'] ?>
-            </table>
+            <?php echo $form['extra_rows'] ?>
           </td>
         </tr>
     </tbody>
