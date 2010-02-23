@@ -21,6 +21,9 @@ abstract class BaseMemberExtraRowForm extends BaseFormDoctrine
       'description'    => new sfWidgetFormTextarea(),
       'type'           => new sfWidgetFormInputText(),
       'default_value'  => new sfWidgetFormInputText(),
+      'slug'           => new sfWidgetFormInputText(),
+      'parameters'     => new sfWidgetFormInputText(),
+      'required'       => new sfWidgetFormInputCheckbox(),
     ));
 
     $this->setValidators(array(
@@ -30,6 +33,9 @@ abstract class BaseMemberExtraRowForm extends BaseFormDoctrine
       'description'    => new sfValidatorString(array('required' => false)),
       'type'           => new sfValidatorString(array('max_length' => 255)),
       'default_value'  => new sfValidatorString(array('max_length' => 255)),
+      'slug'           => new sfValidatorString(array('max_length' => 255)),
+      'parameters'     => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'required'       => new sfValidatorBoolean(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('member_extra_row[%s]');

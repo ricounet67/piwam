@@ -1,5 +1,4 @@
 <?php
-
 /**
  * MemberExtraRow
  * 
@@ -12,4 +11,62 @@
  */
 class MemberExtraRow extends BaseMemberExtraRow
 {
+  /**
+   * Return list of parameters as a list of choices. Allows to
+   * check errors if any
+   *
+   * @return  arrau
+   */
+  public function getParametersAsChoices()
+  {
+    $original = $this->getParameters();
+    $list = substr($original, 8);
+
+    return explode(',', $list);
+  }
+
+  /**
+   * Return the parameter as an integer. Allows to
+   * check errors if any
+   */
+  public function getParameterAsInt()
+  {
+    $original = $this->getParameters();
+    $split = explode(' ', $original);
+
+    if ((count($split) === 2) && (ctype_digit($split[1])))
+    {
+      return $split[1];
+    }
+    else
+    {
+      throw new sfException('Error when parsing type of extra
+        row "' . $this->getLabel() . '"');
+    }
+  }
+
+  /**
+   * Automatically slugify the label
+   *
+   * @param   string          $value
+   * @return  MemberExtraRow  $this
+   */
+  public function setLabel($value)
+  {
+    $this->_set('label', $value);
+    $this->setSlug(StringTools::slugify($value));
+
+    return $this;
+  }
+
+  /**
+   * Pretty printable strings which describes the parameters
+   *
+   * @return  string
+   * @todo    implements
+   */
+  public function getPrintableParameters()
+  {
+    return $this->_get('parameters');
+  }
 }
