@@ -27,13 +27,15 @@ class MemberExtraRowsForm extends sfForm
 
     foreach ($rows as $row)
     {
+      $isRequired = $row->getRequired();
+
       switch ($row->getType())
       {
         case 'string':
           $this->widgetSchema[$row->getLabel()] = new sfWidgetFormInput();
           $this->widgetSchema[$row->getLabel()]->setLabel($row->getLabel());
           $this->widgetSchema[$row->getLabel()]->setAttribute('class', 'formInputNormal');
-          $this->validatorSchema[$row->getLabel()] = new sfValidatorString();
+          $this->validatorSchema[$row->getLabel()] = new sfValidatorString(array('required' => $isRequired));
           break;
 
         case 'date':
@@ -42,15 +44,15 @@ class MemberExtraRowsForm extends sfForm
             'config'  => '{}',
             'culture' => 'fr_FR',
             'format'  => '%day%.%month%.%year%',
-            'years'   => range(date('Y'), '1950'),
+            'years'   => range(date('Y'), '1900'),
           ));
           $this->widgetSchema[$row->getLabel()]->setLabel($row->getLabel());
-          $this->validatorSchema[$row->getLabel()] = new sfValidatorDate();
+          $this->validatorSchema[$row->getLabel()] = new sfValidatorDate(array('required' => $isRequired));
           break;
 
         case 'text':
           $this->widgetSchema[$row->getLabel()] = new sfWidgetFormTextarea();
-          $this->validatorSchema[$row->getLabel()] = new sfValidatorString();
+          $this->validatorSchema[$row->getLabel()] = new sfValidatorString(array('required' => $isRequired));
           break;
 
         case 'choices':
