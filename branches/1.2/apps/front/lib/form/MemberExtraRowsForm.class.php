@@ -32,36 +32,36 @@ class MemberExtraRowsForm extends sfForm
       switch ($row->getType())
       {
         case 'string':
-          $this->widgetSchema[$row->getSlug()] = new sfWidgetFormInput();
-          $this->widgetSchema[$row->getSlug()]->setAttribute('class', 'formInputNormal');
-          $this->validatorSchema[$row->getSlug()] = new sfValidatorString(array('required' => $isRequired));
+          $this->widgetSchema[$row->getId()] = new sfWidgetFormInput();
+          $this->widgetSchema[$row->getId()]->setAttribute('class', 'formInputNormal');
+          $this->validatorSchema[$row->getId()] = new sfValidatorString(array('required' => $isRequired));
           break;
 
         case 'date':
-          $this->widgetSchema[$row->getSlug()] = new sfWidgetFormJQueryDate(array(
+          $this->widgetSchema[$row->getId()] = new sfWidgetFormJQueryDate(array(
             'image'   => image_path('calendar.gif'),
             'config'  => '{}',
             'culture' => 'fr_FR',
             'format'  => '%day%.%month%.%year%',
             'years'   => range(date('Y'), '1900'),
           ));
-          $this->validatorSchema[$row->getSlug()] = new sfValidatorDate(array('required' => $isRequired));
+          $this->validatorSchema[$row->getId()] = new sfValidatorDate(array('required' => $isRequired));
           break;
 
         case 'text':
-          $this->widgetSchema[$row->getSlug()] = new sfWidgetFormTextarea();
-          $this->validatorSchema[$row->getSlug()] = new sfValidatorString(array('required' => $isRequired));
+          $this->widgetSchema[$row->getId()] = new sfWidgetFormTextarea();
+          $this->validatorSchema[$row->getId()] = new sfValidatorString(array('required' => $isRequired));
           break;
 
         case 'choices':
           $choices = $row->getParametersAsChoices();
-          $this->widgetSchema[$row->getSlug()] = new sfWidgetFormChoice(array('choices' => $choices));
-          $this->widgetSchema[$row->getSlug()]->setAttribute('class', 'formInputNormal');
-          $this->validatorSchema[$row->getSlug()] = new sfValidatorChoice(array('choices' => $choices));
+          $this->widgetSchema[$row->getId()] = new sfWidgetFormChoice(array('choices' => $choices));
+          $this->widgetSchema[$row->getId()]->setAttribute('class', 'formInputNormal');
+          $this->validatorSchema[$row->getId()] = new sfValidatorChoice(array('choices' => $choices));
           break;
       }
 
-      $this->widgetSchema[$row->getSlug()]->setLabel($row->getLabel());
+      $this->widgetSchema[$row->getId()]->setLabel($row->getLabel());
     }
   }
 }
