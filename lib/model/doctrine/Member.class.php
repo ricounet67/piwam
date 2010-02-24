@@ -217,4 +217,16 @@ class Member extends BaseMember
 
     return $this;
   }
+
+  /**
+   * Get the number of Dues paid by the Member
+   *
+   * @return  integer
+   */
+  public function getNumberOfDues()
+  {
+    $dues = $this->getDue();
+
+    return count($dues);
+  }
 }
