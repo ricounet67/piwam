@@ -123,7 +123,7 @@ class MemberForm extends BaseMemberForm
       'config'  => '{}',
       'culture' => 'fr_FR',
       'format'  => '%day%.%month%.%year%',
-      'years'   => range(date('Y'), '1950'),
+      'years'   => DateTools::rangeOfYears(date('Y'), 1900),
     ));
 
     $this->widgetSchema['picture'] = new sfWidgetFormInputFile();
@@ -142,7 +142,18 @@ class MemberForm extends BaseMemberForm
     $this->_disableProtectedFields($context->getUser());
     $this->_setLabels();
 
-    $this->embedForm('extra_rows', new MemberExtraRowsForm());
+
+    if (false == $this->isNew())
+    {
+      $memberId  = $this->getObject()->getId();
+      $extraForm = new MemberExtraRowsForm(null, array('member_id' => $memberId));
+    }
+    else
+    {
+      $extraForm = new MemberExtraRowsForm();
+    }
+
+    $this->embedForm('extra_rows', $extraForm);
   }
 
   /*

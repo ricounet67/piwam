@@ -62,6 +62,21 @@ class MemberExtraRowsForm extends sfForm
       }
 
       $this->widgetSchema[$row->getId()]->setLabel($row->getLabel());
+
+      /*
+       * Set the default value if we are editing fields of a member and
+       * a value already exists
+       */
+
+      if ($memberId = $this->getOption('member_id', false))
+      {
+        $value = MemberExtraValueTable::getValueForMember($row->getId(), $memberId);
+
+        if (null != $value)
+        {
+          $this->setDefault($row->getId(), $value->getValue());
+        }
+      }
     }
   }
 }
