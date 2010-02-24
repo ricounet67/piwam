@@ -114,6 +114,18 @@
                 <th>Actif :</th>
                 <td><?php echo boolean2icon($member->getState()) ?></td>
             </tr>
+
+            <!-- Display extra rows -->
+
+            <?php foreach ($member->getMemberExtraValue() as $extraValue): ?>
+              <tr>
+                <th><?php echo $extraValue->getRow()->getLabel() ?> :</th>
+                <td><?php echo $extraValue->getValue() ?></td>
+              </tr>
+            <?php endforeach ?>
+
+            <!-- End of extra rows -->
+
             <tr>
                 <th>
                     <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
