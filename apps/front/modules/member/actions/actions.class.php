@@ -585,19 +585,34 @@ class memberActions extends sfActions
     {
       $member = $form->save();
 
-      // manage extra row values
+      /*
+       * Manage extra row values. We are not using sfFormDoctrine,
+       * so we are managing these fields manually.
+       *
+       * For each row, we check if it already exists or not into
+       * the DB. Then we are updating or creating it
+       */
       $data = $request->getParameter('member');
       $extraRows = $data['extra_rows'];
-      
+
       foreach ($extraRows as $rowId => $value)
       {
         if (is_string(($value)))
         {
-        $extraValue = new MemberExtraValue();
-        $extraValue->setValue($value);
-        $extraValue->setRowId($rowId);
-        $extraValue->setMemberId($member->getId());
-        $extraValue->save();
+          if ($data['id'])
+          {
+            $extraValue = MemberExtraValueTable::getValueForMember($rowId, $member->getId());
+          }
+
+          if (null == $extraValue)
+          {
+            $extraValue = new MemberExtraValue();
+            $extraValue->setRowId($rowId);
+            $extraValue->setMemberId($member->getId());
+          }
+          
+          $extraValue->setValue($value);
+          $extraValue->save();
         }
       }
 
