@@ -68,12 +68,20 @@
               <tr>
                 <th>Prochaine cotisation :</th>
 
-                <!-- Custom message if due has expired -->
-                
-                <?php if ($member->getDaysBeforeNextDue() < 0): ?>
-                  <td>Expirée depuis <b><?php echo - $member->getDaysBeforeNextDue() ?></b> jours</td>
+                <!-- Has never paid a Due -->
+
+                <?php if ($member->getNumberOfDues() == 0): ?>
+                  <td>N'a jamais cotisé</td>
                 <?php else: ?>
-                  <td>Dans <b><?php echo $member->getDaysBeforeNextDue() ?></b> jours</td>
+
+                  <!-- Custom message if due has expired -->
+
+                  <?php if ($member->getDaysBeforeNextDue() < 0): ?>
+                    <td>Expirée depuis <b><?php echo - $member->getDaysBeforeNextDue() ?></b> jours</td>
+                  <?php else: ?>
+                    <td>Dans <b><?php echo $member->getDaysBeforeNextDue() ?></b> jours</td>
+                  <?php endif ?>
+                    
                 <?php endif ?>
               </tr>
             <?php endif ?>
