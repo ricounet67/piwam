@@ -551,6 +551,35 @@ class DateTools
       return round((strtotime($end) - strtotime($start)) / (3600 * 24));
     }
 
+    /**
+     * Generate an array of years
+     *
+     * @param   integer $from
+     * @param   integer $to
+     * @return  array
+     */
+    public static function rangeOfYears($from, $to)
+    {
+      $years = array();
+
+      if ($from > $to)
+      {
+        for ($i = $from; $i >= $to; $i--)
+        {
+          $years[$i] = $i;
+        }
+      }
+      else
+      {
+        for ($i = $from; $i <= $to; $i++)
+        {
+          $years[$i] = $i;
+        }
+      }
+
+      return $years;
+    }
+
 
 }
 

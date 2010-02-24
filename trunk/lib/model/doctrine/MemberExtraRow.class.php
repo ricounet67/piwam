@@ -19,10 +19,16 @@ class MemberExtraRow extends BaseMemberExtraRow
    */
   public function getParametersAsChoices()
   {
-    $original = $this->getParameters();
-    $list = substr($original, 8);
+    $list = $this->getParameters();
+    $list = explode(',', $list);
+    $result = array();
 
-    return explode(',', $list);
+    foreach ($list as $choice)
+    {
+      $result[$choice] = $choice;
+    }
+
+    return $result;
   }
 
   /**

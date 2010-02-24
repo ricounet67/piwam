@@ -12,5 +12,6 @@ $t->is(strlen(StringTools::generatePassword(5)),    5,                  'Can spe
 $t->is(strlen(StringTools::generatePassword()),     8,                  'Default length is 8');
 $t->is(StringTools::slugify('classic'),             'classic',          'No slug modification');
 $t->is(StringTools::slugify('it\'s_classic'),       'it_s_classic',     'Basic slug');
-$t->is(StringTools::slugify('_-//\\!? '),           '_________',        'Only slug');
-  ?>
+$t->is(StringTools::slugify('_-//\\!? '),           '_______',          'Only slug');
+$t->is(StringTools::slugify('_-//\\!? ', '/'),      '///////',          'Only slug, with custom replacement');
+?>
