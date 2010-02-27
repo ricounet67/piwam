@@ -104,7 +104,7 @@
 
   <target name="phpcb" description="Generate Code Browser">
     <exec executable="phpcb" dir="${basedir}">
-    <arg line="--log build/logs/checkstyle.xml
+    <arg line="--log build/logs/
       --source ${basedir}
       --output build/phpcb/" />
     </exec>
