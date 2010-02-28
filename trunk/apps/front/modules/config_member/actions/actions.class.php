@@ -29,6 +29,23 @@ class config_memberActions extends sfActions
     $this->extraRows = MemberExtraRowTable::getForAssociation($associationId);
   }
 
+  /**
+   * Edit an existing row definition
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeEdit(sfWebRequest $request)
+  {
+    $associationId = $this->getUser()->getAssociationId();
+    $this->form = new MemberExtraRowForm();
+    $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
+
+    if ($request->isMethod('post'))
+    {
+      $this->_processForm($request, $this->form);
+    }
+  }
+
   /*
    * Process form values. Concatenate selected type of the new field and
    * the related parameters if required

@@ -597,23 +597,17 @@ class memberActions extends sfActions
 
       foreach ($extraRows as $rowId => $value)
       {
-        if (is_string(($value)))
-        {
-          if ($data['id'])
-          {
-            $extraValue = MemberExtraValueTable::getValueForMember($rowId, $member->getId());
-          }
+        $extraValue = MemberExtraValueTable::getValueForMember($rowId, $member->getId());
 
-          if (null == $extraValue)
-          {
-            $extraValue = new MemberExtraValue();
-            $extraValue->setRowId($rowId);
-            $extraValue->setMemberId($member->getId());
-          }
-          
-          $extraValue->setValue($value);
-          $extraValue->save();
+        if (null == $extraValue)
+        {
+          $extraValue = new MemberExtraValue();
+          $extraValue->setRowId($rowId);
+          $extraValue->setMemberId($member->getId());
         }
+
+        $extraValue->setValue($value);
+        $extraValue->save();
       }
 
       /*
