@@ -11,6 +11,7 @@
     <mkdir dir="build"/>
     <mkdir dir="build/doc"/>
     <mkdir dir="build/logs"/>
+    <mkdir dir="build/phpcb"/>
   </target>
 
   <target name="clearcache" description="Clear symfony cache">
@@ -99,6 +100,14 @@
       <mapper type="glob" from="style.css" to="style.min.css" />
     </apply>
     <echo message="${OUTPUT_CSS_MIN} built." />
+  </target>
+
+  <target name="phpcb" description="Generate Code Browser">
+    <exec executable="phpcb" dir="${basedir}">
+    <arg line="--log build/logs/
+      --source ${basedir}
+      --output build/phpcb/" />
+    </exec>
   </target>
 
   <target name="clean" description="Delete generated CSS files">

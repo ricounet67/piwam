@@ -120,7 +120,7 @@
             <?php foreach ($member->getMemberExtraValue() as $extraValue): ?>
               <tr>
                 <th><?php echo $extraValue->getRow()->getLabel() ?> :</th>
-                <td><?php echo $extraValue->getValue() ?></td>
+                <td><?php echo $extraValue->getFormattedValue() ?></td>
               </tr>
             <?php endforeach ?>
 

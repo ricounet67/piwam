@@ -1,4 +1,5 @@
 
+  * Route for config_member/edit
   * Ensure that we can delete all the table without constraint issue
       => to allow re-installation
 
