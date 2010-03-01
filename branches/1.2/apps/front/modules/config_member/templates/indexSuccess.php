@@ -1,5 +1,5 @@
 <?php
-use_helper('boolean');
+use_helper('Boolean');
 ?>
 
 <h2>Configurer</h2>
