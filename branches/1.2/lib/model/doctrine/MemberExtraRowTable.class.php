@@ -12,6 +12,21 @@
 class MemberExtraRowTable extends Doctrine_Table
 {
   /**
+   * Retrieve object MemberExtraRow by specifying an Id
+   *
+   * @param   integer         $id
+   * @return  MemberExtraRow
+   */
+  public function getById($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('MemberExtraRow r')
+          ->where('id = ?', $id);
+
+    return $q->fetchOne();
+  }
+
+  /**
    * Retrieve rows for association $id
    *
    * @param   integer         $id
