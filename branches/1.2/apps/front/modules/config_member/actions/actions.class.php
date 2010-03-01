@@ -36,9 +36,10 @@ class config_memberActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $associationId = $this->getUser()->getAssociationId();
-    $this->form = new MemberExtraRowForm();
-    $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
+    $extraRow = MemberExtraRowTable::getById($request->getParameter('id'));
+    $this->forward404Unless($extraRow);
+
+    $this->form = new MemberExtraRowForm($extraRow);
 
     if ($request->isMethod('post'))
     {
