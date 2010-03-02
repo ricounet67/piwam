@@ -75,4 +75,17 @@ class MemberExtraRow extends BaseMemberExtraRow
   {
     return $this->_get('parameters');
   }
+
+  /**
+   * Get a frenchy displayable type
+   *
+   * @return  string
+   * @todo    Use i18n mecanism ?
+   */
+  public function getCompleteType()
+  {
+    $types = MemberExtraRowTable::$types;
+    
+    return $types[$this->getType()];
+  }
 }
