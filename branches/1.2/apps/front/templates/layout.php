@@ -31,6 +31,7 @@
                 <li class="mainSection">Configuration</li>
                 <li><?php echo link_to('A propos de l\'association', '@association_edit?id=' . sfContext::getInstance()->getUser()->getAssociationId()) ?></li>
                 <li><?php echo link_to('Pr&eacute;f&eacute;rences Piwam', '@config') ?></li>
+                <li><?php echo link_to('Infos membres', '@config_members') ?></li>
                 <li><?php echo link_to('Administration', '@admin') ?></li>
             </ul>
             <ul>
