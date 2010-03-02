@@ -32,9 +32,17 @@ class MemberExtraRowsForm extends sfForm
       switch ($row->getType())
       {
         case 'string':
+          $maxLength = (is_numeric($row->getParameters())) ? $row->getParameters() : 255;
+          $options = array(
+            'required'    => $isRequired,
+            'max_length'  => $maxLength,
+          );
+          $messages = array(
+            'max_length' => $maxLength . ' caractères max.'
+          );
           $this->widgetSchema[$row->getId()] = new sfWidgetFormInput();
           $this->widgetSchema[$row->getId()]->setAttribute('class', 'formInputNormal');
-          $this->validatorSchema[$row->getId()] = new sfValidatorString(array('required' => $isRequired));
+          $this->validatorSchema[$row->getId()] = new sfValidatorString($options, $messages);
           break;
 
         case 'date':
