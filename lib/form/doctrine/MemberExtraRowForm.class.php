@@ -25,7 +25,6 @@ class MemberExtraRowForm extends BaseMemberExtraRowForm
       'parameters'),
       true);
     
-    $types = $this->types;
     $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
     $this->validatorSchema['association_id'] = new sfValidatorInteger();
     $this->widgetSchema['type'] = new sfWidgetFormChoice(
