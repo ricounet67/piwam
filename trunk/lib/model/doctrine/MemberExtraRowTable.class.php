@@ -12,6 +12,22 @@
 class MemberExtraRowTable extends Doctrine_Table
 {
   /**
+   * Define possible types of customizable rows. Labels and help for the
+   * 'Parameters' field are customized in the _form template
+   *
+   * @var array
+   */
+  public static $types = array(
+    ''          => 'Choisissez...',
+    'string'    => 'Chaine de caractères',
+    'number'    => 'Nombre entier',
+    'date'      => 'Date',
+    'choices'   => 'Liste de choix',
+    'text'      => 'Zone de texte',
+    'boolean'   => 'Case à cocher',
+  );
+
+  /**
    * Retrieve object MemberExtraRow by specifying an Id
    *
    * @param   integer         $id

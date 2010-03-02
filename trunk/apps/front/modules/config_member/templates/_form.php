@@ -41,8 +41,7 @@
   }
 </script>
 
-<h3>Ajouter un champ :</h3>
-<form action="<?php echo ($form->isNew()) ? url_for('@config_members') : url_for('config_member/edit?id=' . $form->getObject()->getId()) ?>" method="post">
+<form action="<?php echo ($form->isNew()) ? url_for('@config_members') : url_for('@edit_extra_row?id=' . $form->getObject()->getId()) ?>" method="post">
 <?php echo $form->renderHiddenFields() . $form->renderGlobalErrors() ?>
 <table class="formtable">
   <tr>
