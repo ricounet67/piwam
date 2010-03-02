@@ -23,7 +23,7 @@ use_helper('Boolean');
     <?php foreach($extraRows as $row): ?>
       <tr>
         <td><?php echo $row->getLabel() ?></td>
-        <td><?php echo $row->getType() ?></td>
+        <td><?php echo $row->getCompleteType() ?></td>
         <td><?php echo $row->getPrintableParameters() ?></td>
         <td><?php echo $row->getDefaultValue() ?></td>
         <td><?php echo $row->getDescription() ?></td>
