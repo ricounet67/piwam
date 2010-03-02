@@ -35,4 +35,5 @@ use_helper('Boolean');
   </tbody>
 </table>
 
+<h3>Ajouter un champ :</h3>
 <?php include_partial('config_member/form', array('form' => $form)) ?>
