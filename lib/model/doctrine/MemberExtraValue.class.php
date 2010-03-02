@@ -36,17 +36,29 @@ class MemberExtraValue extends BaseMemberExtraValue
   }
 
   /**
-   * Get a ready-to-display string of 'value' field
+   * Get a ready-to-display string of 'value' field. If it's an array,
+   * this is (currently) obviously a date, so we merge the values
+   * into a -formatted- string
+   *
+   * @return  string
    */
   public function getFormattedValue()
   {
-    $value = $this->getValue();
+    $params = $this->getValue();
 
-    if (is_array($value))
+    if (is_array($params))
     {
-      return implode('/', $value);
+      foreach ($params as $key => $value)
+      {
+        if (strlen($params[$key]) < 2)
+        {
+          $params[$key] = '0' . $params[$key];
+        }
+      }
+
+      return implode('/', $params);
     }
 
-    return $value;
+    return $params;
   }
 }
