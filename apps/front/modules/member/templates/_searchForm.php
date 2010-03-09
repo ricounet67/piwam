@@ -4,6 +4,7 @@
  */
 ?>
 
+<?php use_javascript('/js/effects/searchBar.js') ?>
 <?php use_javascript('/sfFormExtraPlugin/js/jquery.autocompleter.js') ?>
 <?php use_stylesheet('/sfFormExtraPlugin/css/jquery.autocompleter.css') ?>
 
@@ -22,4 +23,8 @@
 
     <input type="submit" name="submit" value="rechercher" class="small blue button" />
   </form>
+</div>
+
+<div id="searchBar_toggle">
+  <a href="#" id="toggle-searchbar">Rechercher</a>
 </div>
