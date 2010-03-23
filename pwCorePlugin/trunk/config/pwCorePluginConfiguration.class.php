@@ -27,6 +27,12 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
     {
       sfConfig::set('sf_app_template_dir', sfConfig::get('sf_plugins_dir').'/pwCorePlugin/templates');
     }
+    
+    sfConfig::set('secure_module', 'error');
+    sfConfig::set('secure_action', 'credentials');    
+    
+    sfConfig::set('sf_login_module', 'login');
+    sfConfig::set('sf_login_action', 'login');
 
     return true;
   }
