@@ -143,8 +143,8 @@ class BaseinstallActions extends sfActions
       $insert = new sfDoctrineInsertSqlTask($this->dispatcher, new sfFormatter());
       $insert->run();
       $this->getContext()->getConfigCache()->clear();
-      Doctrine::loadData('./data/fixtures/configuration.yml');
-      Doctrine::loadData('./data/fixtures/credentials.yml');
+      Doctrine::loadData(sfConfig::get('sf_plugins_dir').'/pwCorePlugin/data/fixtures/configuration.yml');
+      Doctrine::loadData(sfConfig::get('sf_plugins_dir').'/pwCorePlugin/data/fixtures/credentials.yml');
     }
     else
     {
