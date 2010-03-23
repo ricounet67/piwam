@@ -22,7 +22,12 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
   {
     $this->enableModules();
     $this->enableHelpers();
-    
+   
+    if (sfConfig::get('app_default_layout', true))
+    {
+      sfConfig::set('sf_app_template_dir', sfConfig::get('sf_plugins_dir').'/pwCorePlugin/templates');
+    }
+
     return true;
   }
   

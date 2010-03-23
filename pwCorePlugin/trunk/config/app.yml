@@ -10,10 +10,14 @@ prod:
     # Size of user's pictures thumbnails
     picture_width:		116
     picture_height:		116
-    
 
 test:
  .general:
     multi_association:  true
     picture_width:		116
     picture_height:		116
+    
+all:
+  .general:
+    # Set if to `false` if you wan't to use your own layout
+    default_layout: true    
