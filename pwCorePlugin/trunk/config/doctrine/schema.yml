@@ -4,7 +4,6 @@ options:
   
 
 AclAction:
-  connection: doctrine
   tableName: piwam_acl_action
   columns:
     id:             { type: integer(4), primary: true, autoincrement: true }
@@ -17,7 +16,6 @@ AclAction:
 
 
 AclCredential:
-  connection: doctrine
   tableName: piwam_acl_credential
   columns:
     id:             { type: integer(4), primary: true, autoincrement: true } 
@@ -30,7 +28,6 @@ AclCredential:
 
 
 AclModule:
-  connection: doctrine
   tableName: piwam_acl_module
   columns:
     id:             { type: integer(4), primary: true, autoincrement: true }
@@ -39,7 +36,6 @@ AclModule:
 
 
 Activity:
-  connection: doctrine
   tableName: piwam_activity
   actAs: { Timestampable: ~ }
   columns:
@@ -59,7 +55,6 @@ Activity:
 
     
 Association:
-  connection: doctrine
   tableName: piwam_association
   actAs: { Timestampable: ~ }
   columns:
@@ -83,7 +78,6 @@ Association:
 
     
 Account:
-  connection: doctrine
   tableName: piwam_account
   actAs: { Timestampable: ~ }
   columns:
@@ -104,7 +98,6 @@ Account:
       
       
 ConfigCategory:
-  connection: doctrine
   tableName: piwam_config_category
   columns:
     code:           { type: string(25), primary: true, autoincrement: false }
@@ -114,7 +107,6 @@ ConfigCategory:
     
     
 ConfigValue:
-  connection: doctrine
   tableName: piwam_config_value
   columns:
     config_variable_id: { type: integer(4), primary: true }
@@ -126,7 +118,6 @@ ConfigValue:
     
     
 ConfigVariable:
-  connection: doctrine
   tableName: piwam_config_variable
   columns:
     id:              { type: integer(4), primary: true, autoincrement: true }
@@ -142,7 +133,6 @@ ConfigVariable:
     
     
 Due:
-  connection: doctrine
   tableName: piwam_due
   actAs: { Timestampable: ~ }
   columns:
@@ -163,7 +153,6 @@ Due:
     
     
 DueType:
-  connection: doctrine
   tableName: piwam_due_type
   actAs: { Timestampable: ~ }
   columns:
@@ -182,7 +171,6 @@ DueType:
     
     
 Data:
-  connection: doctrine
   tableName: piwam_data
   columns:
     id:             { type: integer(4), primary: true, autoincrement: true }
@@ -192,7 +180,6 @@ Data:
     
     
 Expense:
-  connection: doctrine
   tableName: piwam_expense
   actAs: { Timestampable: ~ }
   columns:
@@ -215,7 +202,6 @@ Expense:
     
     
 Member:
-  connection: doctrine
   tableName: piwam_member
   actAs: { Timestampable: ~ }
   columns:
@@ -248,7 +234,6 @@ Member:
 
 
 MemberExtraRow:
-  connection: doctrine
   tableName: piwam_member_extra_row
   columns:
     id:             { type: integer(4), primary: true, autoincrement: true }
@@ -265,7 +250,6 @@ MemberExtraRow:
 
 
 MemberExtraValue:
-  connection: doctrine
   tableName: piwam_member_extra_value
   actAs: { Timestampable: ~ }
   columns:
@@ -278,7 +262,6 @@ MemberExtraValue:
 
     
 Income:
-  connection: doctrine
   tableName: piwam_income
   actAs: { Timestampable: ~ }
   columns:
@@ -302,7 +285,6 @@ Income:
     
     
 Status:
-  connection: doctrine
   tableName: piwam_status
   actAs: { Timestampable: ~ }
   columns:
