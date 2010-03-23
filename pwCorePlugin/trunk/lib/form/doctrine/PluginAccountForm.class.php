@@ -15,8 +15,10 @@ abstract class PluginAccountForm extends BaseAccountForm
    * to re-create them from scratch with custom behaviour, especially the
    * hidden references (association, granted user id...)
    */
-  public function configure()
+  public function setup()
   {
+    parent::setup();
+    
     $associationId = $this->getOption('associationId');
 
     unset($this['created_at'], $this['updated_at']);

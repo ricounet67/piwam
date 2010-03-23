@@ -9,8 +9,10 @@
  */
 abstract class PluginAssociationForm extends BaseAssociationForm
 {
-  public function configure()
+  public function setup()
   {
+    parent::setup();    
+    
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
     unset($this['state'], $this['association_id']);

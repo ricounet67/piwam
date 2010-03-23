@@ -10,7 +10,4 @@
  */
 abstract class PluginAclActionForm extends BaseAclActionForm
 {
-  public function configure()
-  {
-  }
 }

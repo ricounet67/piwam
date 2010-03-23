@@ -14,8 +14,10 @@ abstract class PluginMemberExtraRowForm extends BaseMemberExtraRowForm
    * won't be stored in database directly but defines parameters for the type
    * (ie: size of a string, list of choices...)
    */
-  public function configure()
+  public function setup()
   {
+    parent::setup();    
+    
     $types = MemberExtraRowTable::$types;
     $this->useFields(array(
       'label',

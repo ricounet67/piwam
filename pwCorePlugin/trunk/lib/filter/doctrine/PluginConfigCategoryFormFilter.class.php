@@ -10,7 +10,4 @@
  */
 abstract class PluginConfigCategoryFormFilter extends BaseConfigCategoryFormFilter
 {
-  public function configure()
-  {
-  }
 }

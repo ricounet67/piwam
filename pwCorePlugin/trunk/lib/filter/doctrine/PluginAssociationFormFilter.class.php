@@ -10,7 +10,4 @@
  */
 abstract class PluginAssociationFormFilter extends BaseAssociationFormFilter
 {
-  public function configure()
-  {
-  }
 }

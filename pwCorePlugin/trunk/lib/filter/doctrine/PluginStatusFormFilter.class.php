@@ -10,7 +10,4 @@
  */
 abstract class PluginStatusFormFilter extends BaseStatusFormFilter
 {
-  public function configure()
-  {
-  }
 }

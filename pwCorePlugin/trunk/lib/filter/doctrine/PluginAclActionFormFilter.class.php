@@ -10,7 +10,4 @@
  */
 abstract class PluginAclActionFormFilter extends BaseAclActionFormFilter
 {
-  public function configure()
-  {
-  }
 }

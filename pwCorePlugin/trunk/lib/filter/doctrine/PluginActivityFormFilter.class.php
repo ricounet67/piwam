@@ -10,7 +10,4 @@
  */
 abstract class PluginActivityFormFilter extends BaseActivityFormFilter
 {
-  public function configure()
-  {
-  }
 }

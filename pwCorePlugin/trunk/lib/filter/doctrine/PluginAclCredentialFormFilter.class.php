@@ -10,7 +10,4 @@
  */
 abstract class PluginAclCredentialFormFilter extends BaseAclCredentialFormFilter
 {
-  public function configure()
-  {
-  }
 }

@@ -10,7 +10,4 @@
  */
 abstract class PluginMemberFormFilter extends BaseMemberFormFilter
 {
-  public function configure()
-  {
-  }
 }

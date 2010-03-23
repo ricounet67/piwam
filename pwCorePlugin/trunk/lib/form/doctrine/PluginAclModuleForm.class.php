@@ -10,7 +10,4 @@
  */
 abstract class PluginAclModuleForm extends BaseAclModuleForm
 {
-  public function configure()
-  {
-  }
 }

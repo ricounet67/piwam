@@ -10,7 +10,4 @@
  */
 abstract class PluginDataForm extends BaseDataForm
 {
-  public function configure()
-  {
-  }
 }

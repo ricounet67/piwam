@@ -10,7 +10,4 @@
  */
 abstract class PluginConfigCategoryForm extends BaseConfigCategoryForm
 {
-  public function configure()
-  {
-  }
 }

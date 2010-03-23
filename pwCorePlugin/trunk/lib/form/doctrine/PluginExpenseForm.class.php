@@ -20,8 +20,10 @@ abstract class PluginExpenseForm extends BaseExpenseForm
    * Optional option :
    *    - integer $associationId
    */
-  public function configure()
+  public function setup()
   {
+    parent::setup();    
+    
     if (! $user = $this->getOption('user'))
     {
       throw new InvalidArgumentException('You must provide a myUser object');

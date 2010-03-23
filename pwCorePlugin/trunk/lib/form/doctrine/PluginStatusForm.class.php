@@ -14,8 +14,10 @@ abstract class PluginStatusForm extends BaseStatusForm
    * to re-create them from scratch with custom behaviour, especially the
    * hidden references (association, granted user id...)
    */
-  public function configure()
+  public function setup()
   {
+    parent::setup();    
+    
     $associationId  = sfContext::getInstance()->getUser()->getAttribute('association_id', null, 'user');
     $userId = sfContext::getInstance()->getUser()->getAttribute('user_id', null, 'user');
 

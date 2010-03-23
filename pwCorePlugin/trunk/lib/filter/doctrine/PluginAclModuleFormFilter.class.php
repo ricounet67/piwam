@@ -10,7 +10,4 @@
  */
 abstract class PluginAclModuleFormFilter extends BaseAclModuleFormFilter
 {
-  public function configure()
-  {
-  }
 }

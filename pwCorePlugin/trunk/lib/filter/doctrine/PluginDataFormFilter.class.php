@@ -10,7 +10,4 @@
  */
 abstract class PluginDataFormFilter extends BaseDataFormFilter
 {
-  public function configure()
-  {
-  }
 }

@@ -31,8 +31,10 @@ abstract class PluginMemberForm extends BaseMemberForm
    * r33 : At the beginning of the process we determine if we are registering
    *       the first Membre of a new association or not
    */
-  public function configure()
+  public function setup()
   {
+    parent::setup();    
+    
     $context = $this->getOption('context');
     $this->_firstRegistration = $this->getOption('first', false);
 

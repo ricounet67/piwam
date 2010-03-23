@@ -10,7 +10,4 @@
  */
 abstract class PluginMemberExtraValueForm extends BaseMemberExtraValueForm
 {
-  public function configure()
-  {
-  }
 }

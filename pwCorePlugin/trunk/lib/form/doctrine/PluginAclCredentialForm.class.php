@@ -41,8 +41,10 @@ abstract class PluginAclCredentialForm extends BaseAclCredentialForm
    * Build the form after retrieving the list of modules and actions
    * The array _modules is also filled
    */
-  public function configure()
+  public function setup()
   {
+    parent::setup();    
+    
     $this->widgetSchema['rights']       = new sfWidgetFormSchema();
     $this->validatorSchema              = new sfValidatorSchema();
     $this->validatorSchema['user_id']   = new sfValidatorInteger();

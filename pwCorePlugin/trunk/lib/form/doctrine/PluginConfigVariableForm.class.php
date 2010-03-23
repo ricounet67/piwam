@@ -10,7 +10,4 @@
  */
 abstract class PluginConfigVariableForm extends BaseConfigVariableForm
 {
-  public function configure()
-  {
-  }
 }

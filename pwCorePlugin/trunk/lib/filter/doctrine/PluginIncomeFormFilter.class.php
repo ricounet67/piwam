@@ -10,7 +10,4 @@
  */
 abstract class PluginIncomeFormFilter extends BaseIncomeFormFilter
 {
-  public function configure()
-  {
-  }
 }

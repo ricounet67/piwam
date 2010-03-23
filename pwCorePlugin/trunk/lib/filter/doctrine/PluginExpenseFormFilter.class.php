@@ -10,7 +10,4 @@
  */
 abstract class PluginExpenseFormFilter extends BaseExpenseFormFilter
 {
-  public function configure()
-  {
-  }
 }

@@ -10,7 +10,4 @@
  */
 abstract class PluginDueTypeFormFilter extends BaseDueTypeFormFilter
 {
-  public function configure()
-  {
-  }
 }
