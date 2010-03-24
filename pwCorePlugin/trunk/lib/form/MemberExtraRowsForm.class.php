@@ -47,11 +47,13 @@ class MemberExtraRowsForm extends sfForm
 
         case 'date':
           $this->widgetSchema[$row->getId()] = new sfWidgetFormJQueryDate(array(
-            'image'   => image_path('calendar.gif'),
-            'config'  => '{}',
-            'culture' => 'fr_FR',
-            'format'  => '%day%.%month%.%year%',
-            'years'   => range(date('Y'), '1900'),
+            'image'       => image_path('calendar.gif'),
+            'config'      => '{}',
+            'culture'     => 'fr_FR',
+            'date_widget' => new sfWidgetFormDate(array(
+              'format' => '%day%.%month%.%year%',
+              'years'  => range(date('Y'), '1900')
+            ))
           ));
           $this->validatorSchema[$row->getId()] = new sfValidatorDate(array('required' => $isRequired));
           break;

@@ -67,10 +67,12 @@ abstract class PluginDueForm extends BaseDueForm
 
     sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
     $this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
-        'image'   => image_path('calendar.gif'),
-        'config'  => '{}',
-        'culture' => 'fr_FR',
-        'format'  => '%day%.%month%.%year%',
+      'image'       => image_path('calendar.gif'),
+      'config'      => '{}',      
+      'culture'     => 'fr_FR',
+      'date_widget' => new sfWidgetFormDate(array(
+        'format' => '%day%.%month%.%year%'
+      ))
     ));
 
     $this->setDefault('date', date('y-m-d'));

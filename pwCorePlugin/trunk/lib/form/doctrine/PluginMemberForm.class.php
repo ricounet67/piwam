@@ -34,7 +34,7 @@ abstract class PluginMemberForm extends BaseMemberForm
   public function setup()
   {
     parent::setup();    
-    
+
     $context = $this->getOption('context');
     $this->_firstRegistration = $this->getOption('first', false);
 
@@ -121,11 +121,13 @@ abstract class PluginMemberForm extends BaseMemberForm
     unset ($this->widgetSchema['subscription_date']);
     $context->getConfiguration()->loadHelpers("Asset");
     $this->widgetSchema['subscription_date'] = new sfWidgetFormJQueryDate(array(
-      'image'   => image_path('calendar.gif'),
-      'config'  => '{}',
-      'culture' => 'fr_FR',
-      'format'  => '%day%.%month%.%year%',
-      'years'   => DateTools::rangeOfYears(date('Y'), 1900),
+      'image'       => image_path('/pwCorePlugin/images/calendar.gif'),
+      'config'      => '{}',
+      'culture'     => 'fr_FR',
+      'date_widget' => new sfWidgetFormDate(array(
+        'format' => '%day%.%month%.%year%',
+        'years'  => DateTools::rangeOfYears(date('Y'), 1900)
+      )),
     ));
 
     $this->widgetSchema['picture'] = new sfWidgetFormInputFile();
