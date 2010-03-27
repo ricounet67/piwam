@@ -1,22 +1,37 @@
 <?php
-
+/**
+ * Configure the Piwam pwCorePlugin, declaring available modules and helpers.
+ *
+ * @author  Nicolas Charlot
+ * @since   1.2
+ */
 class pwCorePluginConfiguration extends sfPluginConfiguration
 {
   
   protected static
+    /**
+     * Modules to be enabled
+     *
+     * @var array
+     */
     $modules = array(
       'account', 'activity', 'admin', 'association', 'config_member', 'due',
       'duetype', 'error', 'expense', 'export', 'income', 'install', 'login',
       'mailing', 'member', 'status', 'update'
     ),
+
+    /**
+     * Helpers to be enabled
+     *
+     * @var array
+     */
     $helpers = array('Boolean', 'Member', 'Phone', 'Plural', 'Tooltip', 'Website');  
   
   /**
    * Initializes the plugin.
    * 
-   * @see sfPluginConfiguration
-   * 
-   * @return boolean|null
+   * @see     sfPluginConfiguration
+   * @return  boolean|null
    */
   public function initialize()
   {
