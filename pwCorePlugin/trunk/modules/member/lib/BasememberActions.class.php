@@ -594,21 +594,25 @@ class BasememberActions extends sfActions
        * the DB. Then we are updating or creating it
        */
       $data = $request->getParameter('member');
-      $extraRows = $data['extra_rows'];
 
-      foreach ($extraRows as $rowId => $value)
+      if (isset ($data['extra_rows']))
       {
-        $extraValue = MemberExtraValueTable::getValueForMember($rowId, $member->getId());
+        $extraRows = $data['extra_rows'];
 
-        if (null == $extraValue)
+        foreach ($extraRows as $rowId => $value)
         {
-          $extraValue = new MemberExtraValue();
-          $extraValue->setRowId($rowId);
-          $extraValue->setMemberId($member->getId());
-        }
+          $extraValue = MemberExtraValueTable::getValueForMember($rowId, $member->getId());
 
-        $extraValue->setValue($value);
-        $extraValue->save();
+          if (null == $extraValue)
+          {
+            $extraValue = new MemberExtraValue();
+            $extraValue->setRowId($rowId);
+            $extraValue->setMemberId($member->getId());
+          }
+
+          $extraValue->setValue($value);
+          $extraValue->save();
+        }
       }
 
       /*
