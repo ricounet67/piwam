@@ -2,7 +2,7 @@
     <table class="formtable">
         <tfoot>
             <tr>
-                <td>&nbsp;</td>
+                <td><?php echo $form['_csrf_token']->render() ?></td>
                 <td><input type="submit" class="grey button" value="Valider" /></td>
             </tr>
         </tfoot>
