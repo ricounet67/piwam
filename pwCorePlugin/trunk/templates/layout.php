@@ -17,6 +17,7 @@
     <?php include_metas() ?>
     <?php include_title() ?>
     <?php include_javascripts() ?>
+    <?php include_stylesheets() ?>
     <link rel="shortcut icon" href="<?php echo $sf_request->getRelativeUrlRoot() ?>/pwCorePlugin/images/favicon.ico" />
 </head>
 <body>
