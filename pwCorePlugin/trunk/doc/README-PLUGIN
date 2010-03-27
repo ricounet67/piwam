@@ -1,0 +1,50 @@
+
+	=========================================================================
+	|                                                                       |
+	|     ########  ########    ###    ########  ##     ## ########         |
+	|     ##     ## ##         ## ##   ##     ## ###   ### ##               |
+	|     ##     ## ##        ##   ##  ##     ## #### #### ##               |
+	|     ########  ######   ##     ## ##     ## ## ### ## ######           |
+	|     ##   ##   ##       ######### ##     ## ##     ## ##               |
+	|     ##    ##  ##       ##     ## ##     ## ##     ## ##               |
+	|     ##     ## ######## ##     ## ########  ##     ## ########         |
+	|                                                                       |
+	|                                                                       |
+	=========================================================================
+
+	LICENCE
+	-------
+	This program is provided under MIT licence.  You  can find this  complete
+	licence in /doc/LICENCE file
+
+
+  FRENCH VERSION
+  --------------
+  If you speak  - or understand -  only French langage, there is no French
+  version yet available.
+
+
+  PURPOSE
+  -------
+  This document explains how to set up pwCorePlugin within a whole symfony
+  application, and thus it's mostly dedicated to developers.
+
+
+  1) Folders
+  ----------
+
+  Link the root plugin folder to /path/to/sf_project/plugins/pwCorePlugin
+
+
+  2) Declare the plugin
+  ---------------------
+
+  Jump to your ProjectConfiguration.class.php and add 'pwCorePlugin' to the
+  list of enabled plugins into enablePlugins().
+
+
+  3) Build form and model classes
+  -------------------------------
+
+  > php symfony doctrine:build-forms
+  > php symfony doctrine:build-models
