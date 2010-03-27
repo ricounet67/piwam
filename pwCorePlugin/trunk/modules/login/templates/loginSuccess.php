@@ -100,6 +100,7 @@
                     </div>
 
                     <div id="foot">
+                        <?php echo $form->renderHiddenFields() ?>
                         <input type="submit" value="S'identifier" class="grey button" name="S'identifier" />
                     </div>
                </form>
