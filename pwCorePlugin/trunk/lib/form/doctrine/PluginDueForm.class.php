@@ -99,6 +99,10 @@ abstract class PluginDueForm extends BaseDueForm
         return true;
       }
     }
+    else
+    {
+      return true;
+    }
 
     return false;
   }
