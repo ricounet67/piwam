@@ -204,6 +204,14 @@ class Member extends BaseMember
   }
 
   /**
+   * Returns information to display on Google Map
+   */
+  public function getInfoForGmap()
+  {
+    return '<b>' . $this->__toString() . '</b><br />' . $this->getCompleteAddress();
+  }
+
+  /**
    * Delete the Member object logically (it's not physically removed).
    * Erase username and passwords
    *
