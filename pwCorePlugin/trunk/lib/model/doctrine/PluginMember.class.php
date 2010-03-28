@@ -204,6 +204,16 @@ abstract class PluginMember extends BaseMember
   }
 
   /**
+   * Returns information to display on Google Map
+   *
+   * @return  string
+   */
+  public function getInfoForGmap()
+  {
+    return '<b>' . $this->__toString() . '</b><br />' . $this->getCompleteAddress();
+  }
+
+  /**
    * Delete the Member object logically (it's not physically removed).
    * Erase username and passwords
    *
