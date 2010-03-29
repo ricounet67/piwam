@@ -1,5 +1,4 @@
 <?php use_helper('jQuery') ?>
-<?php jq_add_plugins_by_name(array('ui')) ?>
 <?php use_javascript('/pwCorePlugin/js/boxover/boxover.js') ?>
 <?php use_javascript('/pwCorePlugin/js/jquery-tools/jquery.tools.min.js') ?>
 <?php use_javascript('/pwCorePlugin/js/effects/deleteButton.js') ?>
