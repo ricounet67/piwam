@@ -32,7 +32,8 @@
 
   REQUIREMENTS
   ------------
-  sfFormExtraPlugin
+  Plugins: sfFormExtraPlugin, sfJqueryReloadedPlugin
+  We suppose these plugins have been properly installed.
 
 
   1) Folders
