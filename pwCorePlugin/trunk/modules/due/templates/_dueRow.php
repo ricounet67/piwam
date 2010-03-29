@@ -11,8 +11,8 @@
     <td><?php echo $due->getMember() ?></td>
     <td><?php echo format_date($due->getDate()) ?></td>
     <td>
-        <?php echo link_to(image_tag('icons/show', array('alt' => '[détails]')),      '@due_show?id=' . $due->getId()) ?>
-        <?php echo link_to(image_tag('icons/edit', array('alt' => '[modifier]')),     '@due_edit?id=' . $due->getId()) ?>
-        <?php echo link_to(image_tag('icons/delete', array('alt' => '[supprimer]')),  '@due_delete?id=' . $due->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?')) ?>
+        <?php echo link_to(image_tag('/pwCorePlugin/images/icons/show', array('alt' => '[détails]')),      '@due_show?id=' . $due->getId()) ?>
+        <?php echo link_to(image_tag('/pwCorePlugin/images/icons/edit', array('alt' => '[modifier]')),     '@due_edit?id=' . $due->getId()) ?>
+        <?php echo link_to(image_tag('/pwCorePlugin/images/icons/delete', array('alt' => '[supprimer]')),  '@due_delete?id=' . $due->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?')) ?>
     </td>
 </tr>

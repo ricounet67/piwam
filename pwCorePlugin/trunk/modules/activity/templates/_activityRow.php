@@ -6,9 +6,9 @@
         <?php echo format_date($activity->getCreatedAt()) ?>
     </td>
     <td>
-        <?php echo link_to(image_tag('icons/show', array('alt' => '[détails]')), '@activity_show?id=' . $activity->getId()) ?>
-        <?php echo link_to(image_tag('icons/edit', array('alt' => '[modifier]')),   '@activity_edit?id=' . $activity->getId()) ?>
-        <?php echo link_to(image_tag('icons/delete'), '@activity_delete?id=' . $activity->getId(), array(
+        <?php echo link_to(image_tag('/pwCorePlugin/images/icons/show', array('alt' => '[détails]')), '@activity_show?id=' . $activity->getId()) ?>
+        <?php echo link_to(image_tag('/pwCorePlugin/images/icons/edit', array('alt' => '[modifier]')),   '@activity_edit?id=' . $activity->getId()) ?>
+        <?php echo link_to(image_tag('/pwCorePlugin/images/icons/delete'), '@activity_delete?id=' . $activity->getId(), array(
             'method'  => 'delete',
             'confirm' => 'Etes vous sûr ? Les recettes et dépenses associées seront aussi supprimées'
         )) ?>

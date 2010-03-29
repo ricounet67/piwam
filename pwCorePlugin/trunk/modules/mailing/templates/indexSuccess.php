@@ -10,7 +10,7 @@
 
 <?php if ($sf_user->hasFlash('error')): ?>
     <p class="error">
-        <?php echo image_tag('error', array('align' => 'top', 'alt' => 'Erreur')) ?> <strong>ERREUR</strong>:
+        <?php echo image_tag('/pwCorePlugin/images/error', array('align' => 'top', 'alt' => 'Erreur')) ?> <strong>ERREUR</strong>:
         <?php echo $sf_user->getFlash('error') ?>
     </p>
 <?php endif ?>
@@ -37,7 +37,7 @@
             <tr>
                 <td colspan="2">
                     <div class="error">
-                        <?php echo image_tag('error', array('alt' => '[Erreur]', 'align' => 'top')) ?>
+                        <?php echo image_tag('/pwCorePlugin/images/error', array('alt' => '[Erreur]', 'align' => 'top')) ?>
                         ERREUR : Vous devez entrer un sujet et un message
                     </div>
                 </td>

@@ -92,7 +92,7 @@
             </tr>
             <tr>
                 <th>Pays :</th>
-                <td><?php echo image_tag('flags/' . strtolower($member->getCountry()), array('alt' => $member->getCountry(), 'title' => $member->getCountry())) ?></td>
+                <td><?php echo image_tag('/pwCorePlugin/images/flags/' . strtolower($member->getCountry()), array('alt' => $member->getCountry(), 'title' => $member->getCountry())) ?></td>
             </tr>
             <tr>
                 <th>Email :</th>
@@ -128,14 +128,14 @@
 
             <tr>
                 <th>
-                    <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+                    <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
                     Enregistré le :
                 </th>
                 <td><?php echo format_datetime($member->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($member->getCreatedByMember()) ?></td>
             </tr>
             <tr>
                 <th>
-                    <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+                    <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
                     Dernière édition :
                 </th>
                 <td>

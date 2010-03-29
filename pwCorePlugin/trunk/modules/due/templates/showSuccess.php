@@ -31,14 +31,14 @@
         </tr>
         <tr>
             <th>
-              <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+              <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
               Enregistrée le :
             </th>
             <td><?php echo format_datetime($due->getCreatedAt(), 'dd/MM/yyyy HH:mm') ?> par <?php echo format_member($due->getCreatedByMember()) ?></td>
         </tr>
         <tr>
             <th>
-              <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+              <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
               Dernière édition :
             </th>
 

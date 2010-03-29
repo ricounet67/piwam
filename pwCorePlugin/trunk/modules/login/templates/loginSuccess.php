@@ -35,7 +35,7 @@
                              website if exists -->
 
                         <?php if ($association->getWebsite() != null): ?>
-                            <?php echo link_to(image_tag('external', array('align' => 'absmiddle')),
+                            <?php echo link_to(image_tag('/pwCorePlugin/images/external', array('align' => 'absmiddle')),
                             $association->getWebsite()) ?>
                         <?php endif ?>
 
@@ -67,7 +67,7 @@
 
                 <?php if ($sf_user->hasFlash('error')):?>
                     <p class="error">
-                        <?php echo image_tag('error', array('alt' => '[erreur]', 'align' => 'top')) . ' ' . $sf_user->getFlash('error') ?>
+                        <?php echo image_tag('/pwCorePlugin/images/error', array('alt' => '[erreur]', 'align' => 'top')) . ' ' . $sf_user->getFlash('error') ?>
                     </p>
                 <?php endif ?>
 

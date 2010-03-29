@@ -61,15 +61,15 @@
     <tr>
         <td class="hasToPayDue" width="20px">&nbsp;</td>
         <td>Cotisation non à jour</td>
-        <td><?php echo image_tag('icons/email', array('align' => 'absmiddle')) ?> Envoyer un e-mail</td>
-        <td><?php echo image_tag('icons/profile', array('align' => 'absmiddle')) ?> Détails</td>
-        <td><?php echo image_tag('icons/delete', array('align' => 'absmiddle')) ?> Supprimer</td>
+        <td><?php echo image_tag('/pwCorePlugin/images/icons/email', array('align' => 'absmiddle')) ?> Envoyer un e-mail</td>
+        <td><?php echo image_tag('/pwCorePlugin/images/icons/profile', array('align' => 'absmiddle')) ?> Détails</td>
+        <td><?php echo image_tag('/pwCorePlugin/images/icons/delete', array('align' => 'absmiddle')) ?> Supprimer</td>
     </tr>
     <tr>
         <td style="border: 1px solid #bbb;" width="20px">&nbsp;</td>
         <td>Cotisation à jour</td>
-        <td><?php echo image_tag('icons/no_email', array('align' => 'absmiddle')) ?> Pas d'e-mail</td>
-        <td><?php echo image_tag('icons/edit', array('align' => 'absmiddle')) ?> Éditer</td>
+        <td><?php echo image_tag('/pwCorePlugin/images/icons/no_email', array('align' => 'absmiddle')) ?> Pas d'e-mail</td>
+        <td><?php echo image_tag('/pwCorePlugin/images/icons/edit', array('align' => 'absmiddle')) ?> Éditer</td>
         <td>&nbsp;</td>
     </tr>
 </table>

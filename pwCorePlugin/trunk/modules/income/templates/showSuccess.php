@@ -38,12 +38,12 @@
         </tr>
         <?php endif; ?>
         <tr>
-            <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Créée le
+            <th><?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Créée le
             :</th>
             <td><?php echo format_datetime($income->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($income->getCreatedByMember()) ?></td>
         </tr>
         <tr>
-            <th><?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Mise à
+            <th><?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?> Mise à
             jour le :</th>
             <td><?php echo format_datetime($income->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($income->getUpdatedByMember()) ?></td>
         </tr>

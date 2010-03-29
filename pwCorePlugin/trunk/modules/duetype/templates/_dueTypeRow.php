@@ -10,7 +10,7 @@
     <td><?php echo format_date($due_type->getCreatedAt()) ?></td>
     <td><?php echo format_date($due_type->getUpdatedAt()) ?></td>
     <td>
-        <?php echo link_to(image_tag('icons/edit',   array('alt' => '[modifier]')),  '@duetype_edit?id=' . $due_type->getId())?>
-        <?php echo link_to(image_tag('icons/delete', array('alt' => '[supprimer]')), '@duetype_delete?id=' . $due_type->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?')) ?>
+        <?php echo link_to(image_tag('/pwCorePlugin/images/icons/edit',   array('alt' => '[modifier]')),  '@duetype_edit?id=' . $due_type->getId())?>
+        <?php echo link_to(image_tag('/pwCorePlugin/images/icons/delete', array('alt' => '[supprimer]')), '@duetype_delete?id=' . $due_type->getId(), array('method' => 'delete', 'confirm' => 'Ètes vous sûr ?')) ?>
     </td>
 </tr>

@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <th>
-                <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+                <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
                 Enregistré le :
             </th>
             <td>
@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <th>
-                <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+                <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
                 Mise à jour le :
             </th>
             <td>

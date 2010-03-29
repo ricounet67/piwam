@@ -2,7 +2,7 @@
 
 <?php if ($sf_user->hasFlash('error')): ?>
 	  <p class="error">
-	      <?php echo image_tag('error', array('alt' => 'erreur', 'align' => 'top')) ?> <?php echo $sf_user->getFlash('error') ?>
+	      <?php echo image_tag('/pwCorePlugin/images/error', array('alt' => 'erreur', 'align' => 'top')) ?> <?php echo $sf_user->getFlash('error') ?>
     </p>
 <?php endif; ?>
 

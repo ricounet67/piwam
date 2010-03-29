@@ -39,7 +39,7 @@
                     <h3><?php echo $form->getModuleName($key) ?></h3>
                 </td>
                 <td>
-                    <a onClick="checkAll(<?php echo $key ?>)"><?php echo image_tag('arrow_down', array('align' => 'absmiddle', 'alt' => '>')) ?> tout cocher</a>
+                    <a onClick="checkAll(<?php echo $key ?>)"><?php echo image_tag('/pwCorePlugin/images/arrow_down', array('align' => 'absmiddle', 'alt' => '>')) ?> tout cocher</a>
                 </td>
             </tr>
 

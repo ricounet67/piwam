@@ -20,14 +20,14 @@
         </tr>
         <tr>
             <th>
-                <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+                <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
                 Créé le :
             </th>
             <td><?php echo format_datetime($statut->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($statut->getCreatedByMember()) ?></td>
         </tr>
         <tr>
             <th>
-                <?php echo image_tag('time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+                <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
                 Dernière mise à jour le :
             </th>
             <td><?php echo format_datetime($statut->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($statut->getUpdatedByMember()) ?></td>
