@@ -1,5 +1,5 @@
-<?php use_javascript('domtab/domtab.js') ?>
-<?php use_stylesheet('domtab.css') ?>
+<?php use_javascript('/pwCorePlugin/js/domtab/domtab.js') ?>
+<?php use_stylesheet('/pwCorePlugin/js/domtab.css') ?>
 
 <div class="domtab">
 

@@ -3,8 +3,8 @@
 <?php use_helper('Phone')  ?>
 <?php use_helper('Boolean') ?>
 <?php use_helper('JavascriptBase') ?>
-<?php use_javascript('domtab/domtab.js') ?>
-<?php use_stylesheet('domtab.css') ?>
+<?php use_javascript('/pwCorePlugin/js/domtab/domtab.js') ?>
+<?php use_stylesheet('/pwCorePlugin/css/domtab.css') ?>
 
 <!-- Defines existing tabs -->
 

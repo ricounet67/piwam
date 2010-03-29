@@ -2,7 +2,7 @@
 include_stylesheets_for_form($form);
 include_javascripts_for_form($form);
 use_helper('JavascriptBase');
-use_javascript('custom-forms/si.files.js')
+use_javascript('/pwCorePlugin/js/custom-forms/si.files.js')
 
 /**
  * Possible input values:
