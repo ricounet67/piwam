@@ -1,11 +1,10 @@
 /*
- * Apply JS behaviour to 'delete' frames
- * see: jQuery-tools website
+ * Apply JS behaviour to 'delete' frames, thanks to jquery-tools
+ *
+ * @see http://flowplayer.org/tools/demos/overlay/modal-dialog.html
  */
-
 $(document).ready(function() {
   var triggers = $('a.modalInput').overlay({
-
     // some expose tweaks suitable for modal dialogs
     expose: {
       color: '#333',
