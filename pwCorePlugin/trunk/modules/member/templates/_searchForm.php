@@ -4,9 +4,10 @@
  */
 ?>
 
-<?php use_javascript('/js/effects/searchBar.js') ?>
-<?php use_javascript('/sfFormExtraPlugin/js/jquery.autocompleter.js') ?>
-<?php use_stylesheet('/sfFormExtraPlugin/css/jquery.autocompleter.css') ?>
+<?php use_helper('jQuery') ?>
+<?php use_stylesheet('/pwCorePlugin/css/jquery.autocompleter.css') ?>
+<?php jq_add_plugins_by_name(array('autocomplete', 'ui')) ?>
+<?php use_javascript('/pwCorePlugin/js/effects/searchBar.js') ?>
 
 <div id="searchBar">
   <form action="<?php echo url_for('@members_list') ?>" method="post">
