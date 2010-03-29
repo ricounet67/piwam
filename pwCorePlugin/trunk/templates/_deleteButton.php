@@ -9,7 +9,7 @@
 */
 ?>
 
-<a href="#" class="modalInput" rel="#deleteFrame_<?php echo $id ?>"><?php echo image_tag('icons/delete', array('alt' => '[supprimer]')) ?></a>
+<a href="#" class="modalInput" rel="#deleteFrame_<?php echo $id ?>"><?php echo image_tag('/pwCorePlugin/images/icons/delete', array('alt' => '[supprimer]')) ?></a>
 
 <div class="modal" id="deleteFrame_<?php echo $id ?>">
 
