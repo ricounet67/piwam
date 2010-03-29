@@ -54,4 +54,7 @@
 	* Export should be put in each module
 	* Association > mailing > find a way to store error messages
 	* Add a compte > delete it > try to recreate one > error "existing record"
+  * Improve Member::getInfoForGMap()
+  * Replace jquery-tools modal windows by native jquery ones :
+    http://www.queness.com/resources/html/modal/jquery-modal-window.html
 	x Membre : registration > set 'email' as mandatory for the first user
