@@ -56,7 +56,7 @@ use_javascript('/pwCorePlugin/js/custom-forms/si.files.js')
         <!-- Cancel button only if this is not the first member -->
 
         <?php if (! isset($first)): ?>
-          <?php echo link_to('Annuler', '@members_list', array('class' => 'blue button')) ?>
+          <?php echo link_to('Annuler', (isset($pending)) ? '@login' : '@members_list', array('class' => 'blue button')) ?>
         <?php endif ?>
 
 
