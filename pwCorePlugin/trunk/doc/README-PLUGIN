@@ -67,3 +67,19 @@
 
   This class extends the sfBasicSecurityUser class, but now it should
   extend pwUser.
+
+
+  6) Set the homepage
+  -------------------
+
+  The homepage of your application needs to be set. Open the file
+  /apps/your_app/config/routing.yml and update the 'homepage' route to
+  login module and login action. Your line should look like the following :
+
+    + - - - - - - - - - - - - - - - - - - - - - - - - +
+    |                                                 |
+    | homepage:                                       |
+    |   url:   /                                      |
+    |   param: { module: login, action: login }       |
+    |                                                 |
+    + - - - - - - - - - - - - - - - - - - - - - - - - +
