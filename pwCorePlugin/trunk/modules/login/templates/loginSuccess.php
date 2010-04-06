@@ -14,105 +14,78 @@
 </head>
 <body>
 
-    <!-- Set Jquery's noConflict mode -->
+  <!-- Set Jquery's noConflict mode -->
 
-    <script type="text/javascript">var J = jQuery.noConflict();</script>
-
-    <div id="login">
-        <div id="container">
+  <script type="text/javascript">var J = jQuery.noConflict();</script>
 
 
-            <!-- The left panel -->
+  <!-- Main centered panel, with several parts-->
 
-            <div id="left">
-                <h1>Piwam 1.2-dev</h1>
+  <div id="container">
 
-                <!-- If there is only one registered association, then
-                     we display some information about this association -->
-
-                <?php if ($numberOfAssociations == 1): ?>
-                    <div>
-                        Rejoignez les <?php echo $association->getNumberOfEnabledMembers() ?>
-                        membres de <i><?php echo $association->getName() ?></i>
-
-                        <!-- Display a small icon with link to the association
-                             website if exists -->
-
-                        <?php if ($association->getWebsite() != null): ?>
-                            <?php echo link_to(image_tag('/pwCorePlugin/images/external', array('align' => 'absmiddle')),
-                            $association->getWebsite()) ?>
-                        <?php endif ?>
-
-                        ,<br /><br />
-                        <?php echo link_to("déposez une demande d'adhésion", '@member_ask_subscription')?>
-
-                        <?php if ($association->getDescription()): ?>
-                            <br /><br />
-                            <strong>En quelques mots :</strong><br />
-                            <?php echo $association->getDescription() ?>
-                        <?php endif ?>
-                    </div>
-                <?php endif ?>
-
-                <?php if ($displayRegisterLink): ?>
-                    <div>
-                        Ou enregistrez une <?php echo link_to('nouvelle association', '@association_new') ?>
-                    </div>
-                <?php endif ?>
-
-            </div>
+    <!--
+         Display a link to register a new association, but only if
+         user is allowed to register a new one
+    -->
+    
+    <?php if ($displayRegisterLink): ?>
+      <h1>Nouvelle association ?</h1>
+      <div>
+        Ou enregistrez une <?php echo link_to('nouvelle association', '@association_new') ?>
+      </div>
+      <br /><br />
+    <?php endif ?>
 
 
+    <!-- The authentication form -->
 
-            <!-- Right panel, with login form -->
+    <h1>Authentification</h1>
 
-            <div id="right">
-                <h1>Authentification</h1>
+    <?php if ($sf_user->hasFlash('error')):?>
+      <p class="error">
+        <?php echo image_tag('/pwCorePlugin/images/error', array('alt' => '[erreur]', 'align' => 'top')) . ' ' . $sf_user->getFlash('error') ?>
+      </p>
+    <?php endif ?>
 
-                <?php if ($sf_user->hasFlash('error')):?>
-                    <p class="error">
-                        <?php echo image_tag('/pwCorePlugin/images/error', array('alt' => '[erreur]', 'align' => 'top')) . ' ' . $sf_user->getFlash('error') ?>
-                    </p>
-                <?php endif ?>
+    <form action="<?php echo url_for('@login') ?>" method="post">
+      <div>
+        <?php echo $form->renderGlobalErrors() ?>
 
-                <form action="<?php echo url_for('@login') ?>" method="post">
-                    <div>
-                        <?php echo $form->renderGlobalErrors() ?>
+        <?php echo $form['username']->renderLabel() ?>
+        <?php echo $form['username']->renderError() ?>
+        <div class="input">
+          <?php echo $form['username'] ?>
+        </div>
 
-                        <?php echo $form['username']->renderLabel() ?>
-                        <?php echo $form['username']->renderError() ?>
-                        <div class="input">
-                            <?php echo $form['username'] ?>
-                        </div>
+        <?php echo $form['password']->renderLabel() ?>
+        <?php echo $form['password']->renderError() ?>
+        <div class="input">
+          <?php echo $form['password'] ?>
+          <?php echo link_to('Mot de passe oublié ?', '@retrieve_password') ?>
+        </div>
+      </div>
 
-                        <?php echo $form['password']->renderLabel() ?>
-                        <?php echo $form['password']->renderError() ?>
-                        <div class="input">
-                            <?php echo $form['password'] ?>
-                            <?php echo link_to('Mot de passe oublié ?', '@retrieve_password') ?>
-                        </div>
-                    </div>
+      <div>
+        <h2>Ou utilisez OpenID</h2>
 
-                    <div>
-                        <h2>Ou utilisez OpenID</h2>
+        <?php echo $form['openid']->renderLabel() ?>
+        <?php echo $form['openid']->renderError() ?>
+        <div class="input">
+            <?php echo $form['openid'] ?>
+        </div>
+      </div>
 
-                        <?php echo $form['openid']->renderLabel() ?>
-                        <?php echo $form['openid']->renderError() ?>
-                        <div class="input">
-                            <?php echo $form['openid'] ?>
-                        </div>
-                    </div>
+      
+      <!-- Buttons on bottom -->
 
-                    <div id="foot">
-                        <?php echo $form->renderHiddenFields() ?>
-                        <input type="submit" value="S'identifier" class="grey button" name="S'identifier" />
-                    </div>
-               </form>
-            </div> <!-- right div -->
+      <div id="foot">
+        <?php echo $form->renderHiddenFields() ?>
+        <input type="submit" value="S'identifier" class="grey button" name="S'identifier" />
+        <?php echo link_to("Pas encore inscrit ?", '@member_ask_subscription', array('class' => 'grey button'))?>
+      </div>
+    </form>
 
-        </div> <!-- container div -->
-        <hr class="clear" />
+  </div> <!-- container div -->
 
-    </div> <!-- login div -->
 </body>
 </html>
