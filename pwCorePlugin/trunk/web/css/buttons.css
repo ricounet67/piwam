@@ -25,7 +25,7 @@
   cursor: pointer;
 }
 
-a.button {
+a.button, a.button:visited {
   color: #fff;
   text-decoration: none;
   padding: 9px;
