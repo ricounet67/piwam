@@ -15,15 +15,15 @@
  */
 function boolean2icon($state)
 {
-    sfContext::getInstance()->getConfiguration()->loadHelpers('Asset');
+  sfContext::getInstance()->getConfiguration()->loadHelpers('Asset');
 
-    if ($state)
-    {
-      return image_tag('state_ok.png', array('alt' => 'Ok'));
-    }
-    else
-    {
-      return image_tag('state_ko.png', array('alt' => 'Ko'));
-    }
+  if ($state)
+  {
+    return image_tag('/pwCorePlugin/images/state_ok.png', array('alt' => 'Ok'));
+  }
+  else
+  {
+    return image_tag('/pwCorePlugin/images/state_ko.png', array('alt' => 'Ko'));
+  }
 }
 ?>
