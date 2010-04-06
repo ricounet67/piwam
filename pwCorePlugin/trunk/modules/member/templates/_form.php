@@ -167,12 +167,17 @@ use_javascript('/pwCorePlugin/js/custom-forms/si.files.js')
             <td><?php echo $form['phone_mobile'] ?><?php echo $form['phone_mobile']->renderError() ?></td>
         </tr>
 
+        
+        <!-- Display extra rows only if any -->
+        
+        <?php if (count($form['extra_rows']) > 0): ?>
         <tr>
           <th>Champs supplémentaires</th>
           <td>
             <?php echo $form['extra_rows'] ?>
           </td>
         </tr>
+        <?php endif ?>
     </tbody>
 </table>
 </form>
