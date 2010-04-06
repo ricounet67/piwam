@@ -49,6 +49,9 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
     sfConfig::set('sf_login_module', 'login');
     sfConfig::set('sf_login_action', 'login');
 
+		sfValidatorBase::setDefaultMessage('required', 'Requis');
+		sfValidatorBase::setDefaultMessage('invalid', 'Invalide');
+    
     return true;
   }
   
