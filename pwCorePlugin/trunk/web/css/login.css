@@ -6,13 +6,13 @@
  * so he will override all existing styles
  */
 
-div#login a, div#login a:Hover {
+div#container .input a, div#login .input a:Hover {
   color: #496175;
   border-bottom: 1px dotted #496175;
   text-decoration: none;
 }
 
-div#login div {
+div#container div {
   margin-top: 20px;
   text-align: left;
 }
@@ -21,39 +21,15 @@ div#login div {
 
 /* -------------------- layout -------------------- */
 
-div#login {
-  margin: 5% auto 50px auto;
-  width: 770px;
-  background-color: #ECF3F3;
-  padding: 0;
+div#container {
   border: 6px solid #B6E9E3;
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-div#login #container {
-  margin: auto;
-  padding: 0;
-  width: 98%;
-}
-
-div#login #left {
-  float: left;
-  width: 370px;
-  margin-top: 10px;
-}
-
-div#login #right {
-  margin-left: 10px;
-  float: left;
-  width: 370px;
-  margin-top: 10px;
+  margin: 5% auto 50px auto;
+  width: 500px;
   background-color: #fff;
+  padding: 5px;
 }
 
-div#login #foot {
+div#container #foot {
   text-align: center;
   padding-bottom: 10px;
 }
@@ -62,7 +38,7 @@ div#login #foot {
 
 /* -------------------- titles -------------------- */
 
-div#login h1 {
+div#container h1 {
   margin: 0px 0 0 0;
   text-align: left;
   padding: 6px 3px 3px 10px;
@@ -70,7 +46,7 @@ div#login h1 {
   font-size: 19px;
 }
 
-div#login h2 {
+div#container h2 {
   font-family: Helvetica;
   font-weight: lighter;
   letter-spacing: 2px;
@@ -82,27 +58,27 @@ div#login h2 {
 
 /* -------------------- form elements -------------------- */
 
-div#login label {
+div#container label {
   text-align: left;
   color: #8398A0;
   margin-left: 19px;
 }
 
-div#login #login_username,div#login #login_openid {
+div#container #login_username, div#container #login_openid {
   padding: 5px;
-  width: 96%;
+  width: 97%;
   font-size: 15px;
   color: #658388;
 }
 
-div#login #login_password {
+div#container #login_password {
   color: #658388;
   font-size: 15px;
   padding: 5px;
   width: 170px;
 }
 
-div#login .input {
+div#container .input {
   padding: 3px;
   background-color: #BBE6EC;
   margin: 0px 0px 10px 0px;
@@ -112,7 +88,7 @@ div#login .input {
   margin: auto;
 }
 
-div#login .input:Hover {
+div#container .input:Hover {
   background-color: #9AD3DB;
 }
 
@@ -120,7 +96,7 @@ div#login .input:Hover {
 
 /* -------------------- error elements -------------------- */
 
-div#login .error_list li {
+div#container .error_list li {
   font-weight: lighter;
 }
 
