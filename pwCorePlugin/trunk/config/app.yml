@@ -20,4 +20,96 @@ test:
 all:
   .general:
     # Set if to `false` if you wan't to use your own layout
-    default_layout: true    
+    default_layout: true
+    
+    #menus section, can be extend or overloaded by the app.yml of application
+  
+    menus:
+      configurations:
+        label: Configuration
+        #order: 1
+        items:
+          about:
+            name: A propos de l'association
+            uri: @association_edit
+            credentials: edit_association
+          config:
+            name: Préférences Piwam
+            uri: @config
+            credentials: edit_piwam_preferences
+          members_infos:
+            name: Infos membres
+            uri: @config_members
+            credentials: config_member
+          admin:
+            name: Administration
+            uri: @admin
+            #credentials: ~
+      members:
+        label: Membres
+        items:
+          manage_members:
+            name: Gestion des membres
+            uri: @members_list
+            #credentials: ~
+          geographic_position:
+            name: Situation géographique
+            #credentials: ~
+            uri: @members_map
+          faces:
+            name: Tombinoscope
+            uri: @faces
+            #credentials: ~
+          manage_status:
+            name: Gérer les status
+            uri: @status_list
+            #credentials: ~
+      subscriptions:
+        label: Cotisations
+        items:
+          manage_subscription:
+            name: Gérer les cotisations
+            uri: @dues_list
+            credentials: list_due
+          cotisation_type:
+            name: Types de cotisation
+            uri: @duetypes_list
+            credentials: config_dues
+      accounting:
+        label: Comptabilité
+        items:
+          manage_activities:
+            name: Gestion des activités
+            uri: @activities_list
+            credentials: list_activity
+          manage_accounts:
+            name: Gestion des comptes
+            uri: @accounts_list
+            credentials: list_account
+          manage_spending:
+            name: Gestion des dépenses
+            uri: @expenses_list
+            credentials: list_expense
+          manage_incomes:
+            name: Gestion des recettes
+            uri: @incomes_list
+            credentials: list_income
+          see_reviews:
+            name: Bilan
+            uri: @balance
+            credentials: balance
+      features:
+        label: Fonctionnalités
+        items:
+          data_export:
+            name: Exporter les données
+            uri: @export
+            #credentials: ~
+          mailing:
+            name: Mailing
+            uri: @mailing
+            credentials: mailing
+          bug_report:
+            name: Rapporter un bug
+            uri: http://code.google.com/p/piwam/issues/entry
+            #credentials: ~

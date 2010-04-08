@@ -109,7 +109,7 @@ class BaseassociationActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $id = $request->getParameter('id');
+    $id = $this->getUser()->getAssociationId();
     $association = AssociationTable::getById($id);
     $this->forward404Unless($association, "L'association {$id} n'existe pas.");
     $this->form = new AssociationForm($association);

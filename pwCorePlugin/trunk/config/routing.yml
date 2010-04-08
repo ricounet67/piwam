@@ -297,7 +297,7 @@ associations_list:
   param:  { module: association, action: index }
 
 association_edit:
-  url:    /association/editer/:id
+  url:    /association/editer
   param:  { module: association, action: edit }
 
 association_new:
