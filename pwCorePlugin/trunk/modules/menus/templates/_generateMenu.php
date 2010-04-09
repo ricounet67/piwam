@@ -1,4 +1,4 @@
-<?php foreach($menus as $element):?>
+<?php foreach($menus as $cle => $element):?>
   <ul>
   <li class="mainSection"><?php echo $element['label'];?></li>
   <?php foreach($element['items'] as $item):?>

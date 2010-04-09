@@ -148,7 +148,7 @@ class BasememberActions extends sfActions
    */
   public function executeDelete(sfWebRequest $request)
   {
-    $request->checkCSRFProtection();
+    //$request->checkCSRFProtection();
     $id = $request->getParameter('id');
     $member = MemberTable::getById($id);
     $this->forward404Unless($member);

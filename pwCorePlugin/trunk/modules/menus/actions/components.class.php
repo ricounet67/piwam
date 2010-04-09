@@ -45,20 +45,26 @@ class menusComponents extends sfComponents
   		 */
   		if(!empty($menu_order[$i]))
   		{
+  			echo 'rentre-'.$i.'/';
   			$this->menus[] = $menu_order[$i];
   			unset($menu_order[$i]);
   		}
   		else
   		{
-  		  $this->menus[] = array_shift($menu) ;
+  			if(count($menu))
+  			{
+  			   $this->menus[] = array_shift($menu) ;
+  			}
+  			else
+  			{
+  				break;
+  			}
   		}
   	}
   	foreach($menu_order as $else)
   	{
   		$this->menus[] = $else ;
   	}
-  	
-  	
   	
   }
 }
