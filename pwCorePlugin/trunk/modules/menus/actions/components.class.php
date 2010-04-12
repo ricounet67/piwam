@@ -21,7 +21,7 @@ class menusComponents extends sfComponents
     {
       foreach($section['items'] as $item_name => $item)
       {
-        if (isset($item['credentials']) && !is_null($item['credentials']) && !$this->getUser()->hasCredential($item['credentials']))
+        if (isset($item['credentials']) && (null !== $item['credentials']) && !$this->getUser()->hasCredential($item['credentials']))
         {
           unset($menu[$section_name]['items'][$item_name]);
         }
@@ -32,7 +32,7 @@ class menusComponents extends sfComponents
       }
       else
       {
-        if (isset($section['order']) && !is_null($section['order']) && is_int($section['order']))
+        if (isset($section['order']) && (null !== $section['order']) && is_int($section['order']))
         {
           $menu_order[$section['order']] = $section;
           unset($menu[$section_name]);
@@ -52,7 +52,6 @@ class menusComponents extends sfComponents
        */
       if (! empty($menu_order[$i]))
       {
-        echo 'rentre-' . $i . '/';
         $this->menus[] = $menu_order[$i];
         unset($menu_order[$i]);
       }
