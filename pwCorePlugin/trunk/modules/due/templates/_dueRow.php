@@ -7,7 +7,7 @@
 <tr id="due_<?php echo $due->getId() ?>">
     <td><?php echo $due->getAccount() ?></td>
     <td><?php echo $due->getDueType() ?></td>
-    <td><?php echo format_currency($due->getAmount(), '&euro;') ?></td>
+    <td class="numbers"><?php echo format_currency($due->getAmount(), '&euro;') ?></td>
     <td><?php echo $due->getMember() ?></td>
     <td><?php echo format_date($due->getDate()) ?></td>
     <td>

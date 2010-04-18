@@ -6,7 +6,7 @@
 <tr id="duetype_<?php echo $due_type->getId() ?>">
     <td><?php echo $due_type->getLabel() ?></td>
     <td><?php echo $due_type->getPeriod() ?></td>
-    <td><?php echo format_currency($due_type->getAmount(), '&euro;') ?></td>
+    <td class="numbers"><?php echo format_currency($due_type->getAmount(), '&euro;') ?></td>
     <td><?php echo format_date($due_type->getCreatedAt()) ?></td>
     <td><?php echo format_date($due_type->getUpdatedAt()) ?></td>
     <td>

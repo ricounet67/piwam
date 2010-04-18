@@ -6,7 +6,7 @@
 
 <tr id="expense_<?php echo $expense->getId() ?>">
     <td><?php echo $expense->getLabel() ?></td>
-    <td><?php echo format_currency($expense->getAmount()) ?></td>
+    <td class="numbers"><?php echo format_currency($expense->getAmount()) ?></td>
     <td><?php echo $expense->getAccount() ?></td>
     <td>
         <?php if ($expense->getPaid() == 1): ?>

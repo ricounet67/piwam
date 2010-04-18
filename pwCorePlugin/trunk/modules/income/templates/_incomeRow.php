@@ -1,6 +1,6 @@
 <tr id="income_<?php echo $income->getId() ?>">
     <td><?php echo $income->getLabel() ?></td>
-    <td><?php echo format_currency($income->getAmount()) ?></td>
+    <td class="numbers"><?php echo format_currency($income->getAmount()) ?></td>
     <td><?php echo $income->getAccount() ?></td>
     <td>
         <?php
