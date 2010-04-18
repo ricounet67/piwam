@@ -565,9 +565,4 @@ class DateTools
 
 
 }
-
-
-
-
-
 ?>
