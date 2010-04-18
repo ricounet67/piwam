@@ -27,17 +27,17 @@ $total         = 0;
         <?php foreach ($accounts as $account): ?>
             <tr class="<?php echo ($account->isNegative()) ? 'negative' : 'positive' ?>">
                 <td><?php echo link_to($account->getReference(), '@account_show?id=' . $account->getId(), array('class' => 'block')) ?></td>
-                <td><?php echo format_currency($account->getTotalExpenses()); $totalExpenses += $account->getTotalExpenses() ?></td>
-                <td><?php echo format_currency($account->getTotalIncomes()); $totalIncomes += $account->getTotalIncomes() ?></td>
-                <td><?php echo format_currency($account->getTotal()); $total += $account->getTotal() ?></td>
+                <td class="numbers"><?php echo format_currency($account->getTotalExpenses()); $totalExpenses += $account->getTotalExpenses() ?></td>
+                <td class="numbers"><?php echo format_currency($account->getTotalIncomes()); $totalIncomes += $account->getTotalIncomes() ?></td>
+                <td class="numbers"><?php echo format_currency($account->getTotal()); $total += $account->getTotal() ?></td>
             </tr>
         <?php endforeach; ?>
 
         <tr class="<?php echo ($total < 0) ? 'negative' : 'positive' ?>">
             <td><strong>TOTAL</strong></td>
-            <td><?php echo format_currency($totalExpenses, '&euro;') ?></td>
-            <td><?php echo format_currency($totalIncomes, '&euro;') ?></td>
-            <td><?php echo format_currency($total, '&euro;') ?></td>
+            <td class="numbers"><?php echo format_currency($totalExpenses, '&euro;') ?></td>
+            <td class="numbers"><?php echo format_currency($totalIncomes, '&euro;') ?></td>
+            <td class="numbers total"><?php echo format_currency($total, '&euro;') ?></td>
         </tr>
     </tbody>
 </table>
@@ -65,25 +65,25 @@ $total         = 0;
     <tbody>
         <tr class="positive">
             <td><?php echo link_to('Cotisations', '@dues_list', array('class' => 'block')) ?></td>
-            <td><?php echo format_currency(0) ?></td>
-            <td><?php echo format_currency($totalDues); $totalIncomes += $totalDues ?></td>
-            <td><?php echo format_currency($totalDues); $total += $totalDues ?></td>
+            <td class="numbers"><?php echo format_currency(0) ?></td>
+            <td class="numbers"><?php echo format_currency($totalDues); $totalIncomes += $totalDues ?></td>
+            <td class="numbers"><?php echo format_currency($totalDues); $total += $totalDues ?></td>
         </tr>
 
         <?php foreach ($activities as $activity): ?>
             <tr class="<?php echo ($activity->getTotal() < 0) ? 'negative' : 'positive' ?>">
                 <td><?php echo link_to($activity->getLabel(), '@activity_show?id=' . $activity->getId(), array('class' => 'block')) ?></td>
-                <td><?php echo format_currency($activity->getTotalExpenses()); $totalExpenses += $activity->getTotalExpenses() ?></td>
-                <td><?php echo format_currency($activity->getTotalIncomes()); $totalIncomes += $activity->getTotalIncomes() ?></td>
-                <td><?php echo format_currency($activity->getTotal()); $total += $activity->getTotal() ?></td>
+                <td class="numbers"><?php echo format_currency($activity->getTotalExpenses()); $totalExpenses += $activity->getTotalExpenses() ?></td>
+                <td class="numbers"><?php echo format_currency($activity->getTotalIncomes()); $totalIncomes += $activity->getTotalIncomes() ?></td>
+                <td class="numbers"><?php echo format_currency($activity->getTotal()); $total += $activity->getTotal() ?></td>
             </tr>
         <?php endforeach; ?>
 
         <tr class="<?php echo ($total < 0) ? 'negative' : 'positive' ?>">
             <td><strong>TOTAL</strong></td>
-            <td><?php echo format_currency($totalExpenses, '&euro;') ?></td>
-            <td><?php echo format_currency($totalIncomes, '&euro;') ?></td>
-            <td><?php echo format_currency($total, '&euro;') ?></td>
+            <td class="numbers"><?php echo format_currency($totalExpenses, '&euro;') ?></td>
+            <td class="numbers"><?php echo format_currency($totalIncomes, '&euro;') ?></td>
+            <td class="numbers total"><?php echo format_currency($total, '&euro;') ?></td>
         </tr>
     </tbody>
 </table>
@@ -96,12 +96,12 @@ $total         = 0;
     <tr class="positive">
         <td width="60%">Créances</td>
         <td width="10%">-</td>
-        <td width="10%"><?php echo format_currency($totalUnreceived) ?></td>
+        <td width="10%" class="numbers"><?php echo format_currency($totalUnreceived) ?></td>
         <td width="10%">-</td>
     </tr>
     <tr class="<?php echo ($totalUnpaid == 0) ? "positive" : "negative" ?>">
         <td>Dettes</td>
-        <td><?php echo format_currency($totalUnpaid) ?></td>
+        <td class="numbers"><?php echo format_currency($totalUnpaid) ?></td>
         <td>-</td>
         <td>-</td>
     </tr>
@@ -109,7 +109,7 @@ $total         = 0;
         <td><strong>TOTAL</strong></td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
-        <td><?php echo format_currency($totalDebts, '&euro;') ?></td>
+        <td class="numbers total"><?php echo format_currency($totalDebts, '&euro;') ?></td>
     </tr>
 </table>
 
