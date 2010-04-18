@@ -83,7 +83,7 @@ class BasememberActions extends sfActions
 
     if ($this->isAllowedToManageProfile($profile, 'show_member'))
     {
-      $this->cotisations = DueTable::getForUser($member_id);
+      $this->dues = DueTable::getForUser($member_id);
       $this->credentials = AclCredentialTable::getForMember($member_id);
       $this->member = $profile;
     }

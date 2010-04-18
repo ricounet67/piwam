@@ -154,12 +154,16 @@
   <h2><a name="t2" id="t2">Liste des cotisations</a></h2>
   <div id="listOfCotisation" class="info">
     <ul>
-      <?php if (count($cotisations) == 0): ?>
+      <?php if (count($dues) == 0): ?>
         <li><i>Aucune cotisation versée par ce membre.</i></li>
       <?php endif ?>
 
-      <?php foreach ($cotisations as $cotisation): ?>
-        <li><?php echo $cotisation->getDueType() ?> versée le <?php echo $cotisation->getDate() ?></li>
+      <?php foreach ($dues as $due): ?>
+        <li>
+          [<?php echo link_to('voir', '@due_show?id=' . $due->getId()) ?>]
+          <?php echo $due->getDueType() ?> versée le
+          <?php echo format_datetime($due->getDate(), 'dd/MM/yyyy') ?>
+        </li>
       <?php endforeach ?>
     </ul>
   </div>
