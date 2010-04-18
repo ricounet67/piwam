@@ -127,20 +127,20 @@
       <!-- End of extra rows -->
 
       <tr>
-          <th>
-            <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
-            Enregistré le :
-          </th>
-          <td><?php echo format_datetime($member->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($member->getCreatedByMember()) ?></td>
+        <th>
+          <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+          Enregistré le :
+        </th>
+        <td><?php echo format_datetime($member->getCreatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($member->getCreatedByMember()) ?></td>
       </tr>
       <tr>
-          <th>
-            <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
-            Dernière édition :
-          </th>
-          <td>
-            <?php echo format_datetime($member->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($member->getUpdatedByMember()) ?>
-          </td>
+        <th>
+          <?php echo image_tag('/pwCorePlugin/images/time.png', array('align' => 'absmiddle', 'alt' => 'Time'))?>
+          Dernière édition :
+        </th>
+        <td>
+          <?php echo format_datetime($member->getUpdatedAt(), 'dd/MM/yyyy HH:mm') . ' par ' . format_member($member->getUpdatedByMember()) ?>
+        </td>
       </tr>
     </tbody>
   </table>
