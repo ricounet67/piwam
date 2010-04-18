@@ -376,7 +376,7 @@ due_delete:
   param:  { module: due, action: delete }
 
 due_new:
-  url:    /cotisation/nouvelle
+  url:    /cotisation/ajouter
   param:  { module: due, action: new }
 
 due_create:
