@@ -52,7 +52,7 @@ class MemberExtraRowsForm extends sfForm
             'culture'     => 'fr_FR',
             'date_widget' => new sfWidgetFormDate(array(
               'format' => '%day%.%month%.%year%',
-              'years'  => range(date('Y'), '1900')
+              'years'  => DateTools::rangeOfYears(date('Y'), 1900)
             ))
           ));
           $this->validatorSchema[$row->getId()] = new sfValidatorDate(array('required' => $isRequired));
