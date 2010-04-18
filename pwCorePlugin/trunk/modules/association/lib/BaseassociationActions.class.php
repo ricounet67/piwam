@@ -47,7 +47,7 @@ class BaseassociationActions extends sfActions
    * @param 	sfWebRequest	$request
    * @since	r9
    */
-  public function executeBilan(sfWebRequest $request)
+  public function executeBalance(sfWebRequest $request)
   {
     $associationId         = $this->getUser()->getAssociationId();
     $this->accounts        = AccountTable::getEnabledForAssociation($associationId);
