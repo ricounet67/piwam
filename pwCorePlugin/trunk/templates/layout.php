@@ -1,4 +1,5 @@
 <?php use_helper('jQuery') ?>
+<?php jq_add_plugins_by_name(array('ui')) ?>
 <?php use_javascript('/pwCorePlugin/js/boxover/boxover.js') ?>
 <?php use_javascript('/pwCorePlugin/js/jquery-tools/jquery.tools.min.js') ?>
 <?php use_javascript('/pwCorePlugin/js/effects/deleteButton.js') ?>
@@ -9,6 +10,7 @@
 <?php use_stylesheet('/pwCorePlugin/css/overlay.css') ?>
 <?php use_stylesheet('/pwCorePlugin/css/pagination.css') ?>
 <?php use_stylesheet('/pwCorePlugin/css/table.css') ?>
+<?php use_stylesheet('/sfJqueryReloadedPlugin/css/ui-lightness/jquery-ui-1.7.2.custom.css') ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -35,11 +37,11 @@
     <div id="menu">
       <?php if ($sf_user->getUserId()): ?>
       <div id="user_box">
-          <p>
-              Bonjour <span class="username"><?php echo $sf_user->getUsername() ?></span>
-          </p>
-          <?php echo link_to(image_tag('/pwCorePlugin/images/icons/user_edit') . ' Modifier mon profil', '@member_edit?id=' . $sf_user->getUserId()) ?>
-          <?php echo link_to(image_tag('/pwCorePlugin/images/logout') . ' D&eacute;connexion', '@logout') ?>
+        <p>
+          Bonjour <span class="username"><?php echo $sf_user->getUsername() ?></span>
+        </p>
+        <?php echo link_to(image_tag('/pwCorePlugin/images/icons/user_edit') . ' Modifier mon profil', '@member_edit?id=' . $sf_user->getUserId()) ?>
+        <?php echo link_to(image_tag('/pwCorePlugin/images/logout') . ' D&eacute;connexion', '@logout') ?>
       </div>
       <?php endif ?>
       <?php include_component('menus', 'generateMenu');?>
@@ -49,7 +51,7 @@
     <!-- Main part of the content  -->
 
     <div id="content">
-        <?php echo $sf_content ?>
+      <?php echo $sf_content ?>
     </div>
     <hr class="clear" />
 
