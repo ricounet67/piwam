@@ -20,6 +20,7 @@
 /* To display numbers (amounts...) in cells */
 td.numbers {
   text-align: right;
+  padding-right: 10px;
 }
 
 /* Display total amounts */
