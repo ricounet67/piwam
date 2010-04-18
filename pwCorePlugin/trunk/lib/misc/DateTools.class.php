@@ -552,7 +552,9 @@ class DateTools
     }
 
     /**
-     * Generate an array of years
+     * Generate an array of years. We don't use the range() function
+     * because we need the key to be equal to the value, in order
+     * to get a correct behaviour (pre-filled field, etc.)
      *
      * @param   integer $from
      * @param   integer $to
@@ -560,7 +562,24 @@ class DateTools
      */
     public static function rangeOfYears($from, $to)
     {
-      return range($from, $to);
+      $years = array();
+
+      if ($from > $to)
+      {
+        for ($i = $from; $i >= $to; $i--)
+        {
+          $years[$i] = $i;
+        }
+      }
+      else
+      {
+        for ($i = $from; $i <= $to; $i++)
+        {
+          $years[$i] = $i;
+        }
+      }
+
+      return $years;
     }
 
 
