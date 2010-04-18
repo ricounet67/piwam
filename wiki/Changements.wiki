@@ -22,6 +22,7 @@ Au fil des versions, Piwam évolue...
       * Dates
     * Le menu est généré en fonction des droits de l'utilisateur
     * Documentation README-PLUGIN pour déployer le plugin pwCorePlugin dans une auutre application symfony
+    * Alignement des nombres à droite dans les différents tableaux
 
 
   * *version 1.1.2 - XMas edition* (20 décembre 2009)
