@@ -560,24 +560,7 @@ class DateTools
      */
     public static function rangeOfYears($from, $to)
     {
-      $years = array();
-
-      if ($from > $to)
-      {
-        for ($i = $from; $i >= $to; $i--)
-        {
-          $years[$i] = $i;
-        }
-      }
-      else
-      {
-        for ($i = $from; $i <= $to; $i++)
-        {
-          $years[$i] = $i;
-        }
-      }
-
-      return $years;
+      return range($from, $to);
     }
 
 
