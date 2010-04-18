@@ -8,15 +8,15 @@
 .button {
   font-size: 14px;
   font-family: Helvetica;
-  background: #222 url(overlay-button.png) repeat-x;
+  background: #222 url('overlay-button.png') repeat-x;
   display: inline-block;
-  padding: 5px 10px 6px;
+  padding: 2px 10px 2px 10px;
   color: #fff;
   text-decoration: none;
   font-weight: lighter;
   line-height: 1;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
@@ -25,11 +25,10 @@
   cursor: pointer;
 }
 
-a.button, a.button:visited {
+a.button, a.button:visited, a.button:hover {
   color: #fff;
   text-decoration: none;
-  padding: 9px;
-  line-height: 10px;
+  padding: 4px 10px 4px 10px;
 }
 
 .small.button {
@@ -41,7 +40,7 @@ a.button, a.button:visited {
 .add.button {
   padding: 5px 15px 5px 25px;
   font-size: 13px;
-  background: transparent url(add.png) no-repeat scroll 3px center;
+  background: transparent url('add.png') no-repeat scroll 3px center;
 }
 
 /* --------------------------- differents colors ---------------------------- */
