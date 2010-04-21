@@ -95,7 +95,8 @@ Account:
     Due:            { local: id, foreign: account_id, type: many }
     Expense:        { local: id, foreign: account_id, type: many }
     Income:         { local: id, foreign: account_id, type: many }
-      
+
+
       
 ConfigCategory:
   tableName: piwam_config_category
@@ -104,7 +105,8 @@ ConfigCategory:
     label:          { type: string(255), notnull: true }
   relations:
     ConfigVariable: { local: code, foreign: category_code, type: many }
-    
+
+
     
 ConfigValue:
   tableName: piwam_config_value
@@ -115,7 +117,8 @@ ConfigValue:
   relations:
     ConfigVariable:  { local: config_variable_id, foreign: id, type: one, onDelete: CASCADE }
     Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
-    
+
+
     
 ConfigVariable:
   tableName: piwam_config_variable
@@ -131,7 +134,8 @@ ConfigVariable:
     ConfigCategory:  { local: category_code, foreign: code, type: one, onDelete: CASCADE }
     ConfigValue:     { local: id, foreign: config_variable_id, type: many }
     
-    
+
+
 Due:
   tableName: piwam_due
   actAs: { Timestampable: ~ }
@@ -150,7 +154,8 @@ Due:
     Member:          { local: member_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
-    
+
+
     
 DueType:
   tableName: piwam_due_type
@@ -162,13 +167,16 @@ DueType:
     period:          { type: integer(4), notnull: true }
     amount:          { type: 'decimal(10, 2)', notnull: true }
     state:           { type: integer(1), default: '1' }
+    start_period:    { type: date, notnull: true }
+    end_period:      { type: date, notnull: true }
     created_by:      { type: integer(4) }
     updated_by:      { type: integer(4) }
   relations:
     Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
-    
+
+
     
 Data:
   tableName: piwam_data
@@ -199,7 +207,8 @@ Expense:
     Activity:       { local: activity_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
-    
+
+
     
 Member:
   tableName: piwam_member
@@ -233,6 +242,7 @@ Member:
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }      
 
 
+
 MemberExtraRow:
   tableName: piwam_member_extra_row
   columns:
@@ -249,6 +259,7 @@ MemberExtraRow:
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
 
 
+
 MemberExtraValue:
   tableName: piwam_member_extra_value
   actAs: { Timestampable: ~ }
@@ -260,7 +271,8 @@ MemberExtraValue:
     Row:            { class: MemberExtraRow, local: row_id, foreign: id, type: one, onDelete: CASCADE }
     Member:         { local: member_id, foreign: id, type: one, onDelete: CASCADE }
 
-    
+
+
 Income:
   tableName: piwam_income
   actAs: { Timestampable: ~ }
