@@ -23,6 +23,7 @@ Au fil des versions, Piwam évolue...
     * Le menu est généré en fonction des droits de l'utilisateur
     * Documentation README-PLUGIN pour déployer le plugin pwCorePlugin dans une auutre application symfony
     * Alignement des nombres à droite dans les différents tableaux
+    * Possibilité de définir des périodes de cotisation
 
 
   * *version 1.1.2 - XMas edition* (20 décembre 2009)
