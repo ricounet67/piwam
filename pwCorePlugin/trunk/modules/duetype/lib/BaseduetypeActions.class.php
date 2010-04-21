@@ -53,7 +53,8 @@ class BaseduetypeActions extends sfActions
    */
   public function executeNew(sfWebRequest $request)
   {
-    $this->form = new DueTypeForm();
+    $ctxt = $this->getContext();
+    $this->form = new DueTypeForm(null, array('context' => $ctxt));
     $this->form->setDefault('created_by', $this->getUser()->getUserId());
     $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
 
@@ -70,8 +71,9 @@ class BaseduetypeActions extends sfActions
    */
   public function executeCreate(sfWebRequest $request)
   {
+    $ctxt = $this->getContext();
     $this->forward404Unless($request->isMethod('post'));
-    $this->form = new DueTypeForm();
+    $this->form = new DueTypeForm(null, array('context' => $ctxt));
     $this->processForm($request, $this->form);
     $this->setTemplate('new');
   }
@@ -83,6 +85,7 @@ class BaseduetypeActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
+    $ctxt = $this->getContext();
     $id = $request->getParameter('id');
     $this->forward404Unless($due_type = DueTypeTable::getById($id));
 
@@ -91,7 +94,7 @@ class BaseduetypeActions extends sfActions
       $this->redirect('@error_credentials');
     }
 
-    $this->form = new DueTypeForm($due_type);
+    $this->form = new DueTypeForm($due_type, array('context' => $ctxt));
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
@@ -102,10 +105,11 @@ class BaseduetypeActions extends sfActions
    */
   public function executeUpdate(sfWebRequest $request)
   {
+    $ctxt = $this->getContext();
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
     $id = $request->getParameter('id');
     $this->forward404Unless($due_type = DueTypeTable::getById($id));
-    $this->form = new DueTypeForm($due_type);
+    $this->form = new DueTypeForm($due_type, array('context' => $ctxt));
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
   }
