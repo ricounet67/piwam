@@ -13,10 +13,12 @@ abstract class PluginDueTypeForm extends BaseDueTypeForm
   public function setup()
   {
     parent::setup();    
-    
+
+    $context = $this->getOption('context');
     unset($this['created_at'], $this['updated_at']);
-    unset($this['created_by'],  $this['updated_by']);
-    unset($this['state'],       $this['association_id']);
+    unset($this['created_by'], $this['updated_by']);
+    unset($this['state'], $this['association_id']);
+    unset($this['start_period'],$this['end_period']);
 
     if ($this->getObject()->isNew())
     {
@@ -44,6 +46,27 @@ abstract class PluginDueTypeForm extends BaseDueTypeForm
     $this->validatorSchema['amount'] = new sfValidatorNumber(array('min' => 0), array('min' => 'ne peut être négatif'));
     $this->validatorSchema['period'] = new sfValidatorInteger(array('min' => 0), array('min' => 'ne peut être négatif'));
 
+
+    $context->getConfiguration()->loadHelpers("Asset");
+    $this->widgetSchema['start_period'] = new sfWidgetFormJQueryDate(array(
+    'image'       => image_path('/pwCorePlugin/images/calendar.gif'),
+    'config'      => '{}',
+    'culture'     => 'fr_FR',
+    'date_widget' => new sfWidgetFormDate(array(
+      'format' => '%day%.%month%.%year%',
+      'years'  => DateTools::rangeOfYears(date('Y'), 1900)
+      )),
+    ));
+    $this->widgetSchema['end_period'] = new sfWidgetFormJQueryDate(array(
+    'image'       => image_path('/pwCorePlugin/images/calendar.gif'),
+    'config'      => '{}',
+    'culture'     => 'fr_FR',
+    'date_widget' => new sfWidgetFormDate(array(
+      'format' => '%day%.%month%.%year%',
+      'years'  => DateTools::rangeOfYears(date('Y'), 1900)
+      )),
+    ));
+
     $this->setLabels();
   }
 
@@ -53,9 +76,11 @@ abstract class PluginDueTypeForm extends BaseDueTypeForm
   protected function setLabels()
   {
     $this->widgetSchema->setLabels(array(
-            'amount'  => 'Montant',
-            'period'  => 'Valide',
-            'label'   => 'Libellé',
+            'amount'        => 'Montant',
+            'period'        => 'Valide',
+            'label'         => 'Libellé',
+            'start_period'  => 'Début de la période',
+            'end_period'    => 'Fin de la période',
     ));
   }
 }
