@@ -20,7 +20,7 @@ test:
 all:
   .general:
     # Set if to `false` if you wan't to use your own layout
-    default_layout: false
+    default_layout: true
     
     #menus section, can be extend or overloaded by the app.yml of application
   
