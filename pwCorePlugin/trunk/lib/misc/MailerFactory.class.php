@@ -16,7 +16,7 @@ class MailerFactory
      * @param   sfUser                  $sfUser
      * @return  Swift_Mailer
      */
-    public static function get($associationId, $sfUser)
+    public static function get($associationId, $sfUser = null)
     {
         switch (Configurator::get('method', $associationId, 'mail'))
         {
@@ -25,7 +25,7 @@ class MailerFactory
                 $methodObject->setUsername(Configurator::get('gmail_username', $associationId));
                 $methodObject->setPassword(Configurator::get('gmail_password', $associationId));
 
-                if (!extension_loaded('openssl'))
+                if (!extension_loaded('openssl') && $sfUser)
                 {
                     $sfUser->setFlash('error', 'Le module "openssl" n\'est pas activé. Veuillez l\'activer ou changer la méthode d\'envoi d\' e-mails');
                 }
