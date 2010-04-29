@@ -33,7 +33,7 @@ abstract class PluginMemberExtraRowTable extends Doctrine_Table
    * @param   integer         $id
    * @return  MemberExtraRow
    */
-  public function getById($id)
+  public static function getById($id)
   {
     $q = Doctrine_Query::create()
           ->from('MemberExtraRow r')
