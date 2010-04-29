@@ -21,9 +21,16 @@ class menusComponents extends sfComponents
     {
       foreach($section['items'] as $item_name => $item)
       {
-        if (isset($item['credentials']) && (null !== $item['credentials']) && !$this->getUser()->hasCredential($item['credentials']))
+      	if (null === $item)
         {
           unset($menu[$section_name]['items'][$item_name]);
+        }
+        else
+        {
+          if (isset($item['credentials']) && (null !== $item['credentials']) && !$this->getUser()->hasCredential($item['credentials']))
+          {
+            unset($menu[$section_name]['items'][$item_name]);
+          }
         }
       }
       if (empty($menu[$section_name]['items']))
