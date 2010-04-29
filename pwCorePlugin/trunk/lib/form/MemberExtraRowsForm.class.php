@@ -69,6 +69,11 @@ class MemberExtraRowsForm extends sfForm
           $this->widgetSchema[$row->getId()]->setAttribute('class', 'formInputNormal');
           $this->validatorSchema[$row->getId()] = new sfValidatorChoice(array('choices' => $choices));
           break;
+          
+        case 'boolean':
+          $this->widgetSchema[$row->getId()] = new sfWidgetFormInputCheckbox();
+          $this->validatorSchema[$row->getId()] = new sfValidatorBoolean(array('required' => $isRequired));
+          break;
       }
 
       $this->widgetSchema[$row->getId()]->setLabel($row->getLabel());
