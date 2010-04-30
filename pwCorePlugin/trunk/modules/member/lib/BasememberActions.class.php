@@ -467,15 +467,28 @@ class BasememberActions extends sfActions
 
       if ($member->getEmail() && $member->getUsername())
       {
-        $mailer  = MailerFactory::get($this->getUser()->getAssociationId(), $this->getUser());
-        $message = new Swift_Message('Activation du compte', "Bonjour {$member}, votre compte a bien &eacute;t&eacute; activ&eacute;. Vous pouvez d&egrave;s maintenant vous identifier en tant que '{$member->getUsername()}'", 'text/html');
-        $from    = Configurator::get('address', $member->getAssociationId(), 'info-association@piwam.org');
-
+      	$associationId = $this->getUser()->getAssociationId();
         try
         {
-          $mailer->send($message, $member->getEmail(), $from);
+          $mailer     = MailerFactory::get($associationId, $this->getUser());
+          $from_email = Configurator::get('address', $associationId, 'info-association@piwam.org');
+          $from_label = $this->getUser()->getAssociationName('Piwam');
+          
+          try
+          {
+            $message    = Swift_Message::newInstance('Activation du compte')
+                              ->setBody("Bonjour {$member}, votre compte a bien &eacute;t&eacute; activ&eacute;. Vous pouvez d&egrave;s maintenant vous identifier en tant que '{$member->getUsername()}'")
+                              ->setContentType('text/html')
+                              ->setFrom(array($from_email => $from_label))
+                              ->setTo($member->getEmail());
+            $mailer->send($message);
+          }
+          catch(Swift_ConnectionException $e)
+          {
+            //do nothing
+          }
         }
-        catch(Swift_ConnectionException $e)
+        catch (Exception $e)
         {
           // do nothing
         }
@@ -597,9 +610,10 @@ class BasememberActions extends sfActions
 
       if (isset ($data['extra_rows']))
       {
-        $extraRows = $data['extra_rows'];
+        $extraValues = $data['extra_rows'];
+        $extraRows = MemberExtraRowTable::getForAssociation($member->getAssociationId())->toKeyValueArray('id','type');
 
-        foreach ($extraRows as $rowId => $value)
+        foreach ($extraRows as $rowId => $rowType)
         {
           $extraValue = MemberExtraValueTable::getValueForMember($rowId, $member->getId());
 
@@ -610,7 +624,15 @@ class BasememberActions extends sfActions
             $extraValue->setMemberId($member->getId());
           }
 
-          $extraValue->setValue($value);
+          if (isset($extraValues[$rowId]))
+          {
+          	$extraValue->value = $extraValues[$rowId];
+          }
+          else
+          {
+          	$extraValue->value = null;
+          }
+          
           $extraValue->save();
         }
       }
