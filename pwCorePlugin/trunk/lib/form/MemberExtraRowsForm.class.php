@@ -72,7 +72,7 @@ class MemberExtraRowsForm extends sfForm
           
         case 'boolean':
           $this->widgetSchema[$row->getId()] = new sfWidgetFormInputCheckbox();
-          $this->validatorSchema[$row->getId()] = new sfValidatorBoolean(array('required' => $isRequired));
+          $this->validatorSchema[$row->getId()] = new sfValidatorBoolean();
           break;
       }
 
