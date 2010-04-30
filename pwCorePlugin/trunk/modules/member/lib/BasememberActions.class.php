@@ -465,10 +465,10 @@ class BasememberActions extends sfActions
       $member->setUpdatedBy($this->getUser()->getUserId());
       $member->save();
 
-      if ($member->getEmail() && $member->getPseudo())
+      if ($member->getEmail() && $member->getUsername())
       {
         $mailer  = MailerFactory::get($this->getUser()->getAssociationId(), $this->getUser());
-        $message = new Swift_Message('Activation du compte', "Bonjour {$member}, votre compte a bien &eacute;t&eacute; activ&eacute;. Vous pouvez d&egrave;s maintenant vous identifier en tant que '{$member->getPseudo()}'", 'text/html');
+        $message = new Swift_Message('Activation du compte', "Bonjour {$member}, votre compte a bien &eacute;t&eacute; activ&eacute;. Vous pouvez d&egrave;s maintenant vous identifier en tant que '{$member->getUsername()}'", 'text/html');
         $from    = Configurator::get('address', $member->getAssociationId(), 'info-association@piwam.org');
 
         try
