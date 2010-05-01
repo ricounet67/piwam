@@ -101,4 +101,22 @@ abstract class PluginStatusTable extends Doctrine_Table
 
     return $row->getId();
   }
+
+  /**
+   * Add a new Status
+   *
+   * @param   string    $name
+   * @param   integer   $associationId
+   * @return  Status    The resulting object
+   */
+  public static function create($name, $associationId)
+  {
+    $status = new Status();
+    $status->setState(self::STATE_ENABLED);
+    $status->setAssociationId($associationId);
+    $status->setLabel($name);
+    $status->save();
+
+    return $status;
+  }
 }
