@@ -103,7 +103,9 @@ class BaseassociationActions extends sfActions
   }
 
   /**
-   * Display form to edit Association's information
+   * Display form to edit Association's information. ID of association
+   * to edit is not retrieved from the URI but from the current user's
+   * association.
    *
    * @param   sfWebRequest    $request
    */
