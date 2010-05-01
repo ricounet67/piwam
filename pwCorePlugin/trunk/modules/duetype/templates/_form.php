@@ -12,6 +12,10 @@
       <input type="hidden" name="sf_method" value="put" />
   <?php endif ?>
 
+  <div class="global_errors">
+    <?php echo $form->renderGlobalErrors() ?>
+  </div>
+
   <table class="formtable" summary="Register a new Fee">
 
     <!-- Form footer, displays buttons -->
@@ -38,7 +42,6 @@
     <!-- Form body, displays fields -->
 
     <tbody>
-      <?php echo $form->renderGlobalErrors() ?>
       <tr>
         <th><?php echo $form['label']->renderLabel() ?></th>
         <td><?php echo $form['label'] ?><?php echo $form['label']->renderError() ?></td>

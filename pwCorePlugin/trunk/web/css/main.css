@@ -186,12 +186,24 @@ div#searchBar_toggle a
   list-style: none;
   display: inline;
   margin: 0;
-  padding: 2px 5px 2px 15px;
+  padding: 2px 5px;
   color: #FFEEEB;
   background-color: #FF403D;
-  background-image: url(error_bg_arrow.png);
   background-repeat:no-repeat;
   -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Div embedding global errors, on top of the form */
+div.global_errors {
+  background-color: #FFBAAD;
+  margin: 4px 0px 15px 0px;
+  padding-left: 10px;
+}
+
+/* For errors that are put in td, generally after the field */
+td .error_list li {
+  padding: 2px 5px 2px 15px;
+  background-image: url(error_bg_arrow.png);
   -moz-border-radius: 0 3px 3px 0;
 }
 
