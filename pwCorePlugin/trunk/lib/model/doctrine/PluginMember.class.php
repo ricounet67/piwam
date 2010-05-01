@@ -137,19 +137,18 @@ abstract class PluginMember extends BaseMember
     else
     {
       $lastDue = DueTable::getLastForMember($this->getId());
-      $today = date('Y-m-d');
 
       if (null == $lastDue)
       {
-        $nextDue = $this->getSubscriptionDate();
+        $today = date('Y-m-d');
+        $since = $this->getSubscriptionDate();
+        
+        return DateTools::getDaysBetween($today, $since);
       }
       else
       {
-        $dateCalculator = new DateTools($lastDue->getDate(), 'Y-m-d');
-        $nextDue = $dateCalculator->add('mo', $lastDue->getDueType()->getPeriod());
+        return $lastDue->getDaysBeforeExpiration();
       }
-
-      return DateTools::getDaysBetween($today, $nextDue);
     }
   }
 
