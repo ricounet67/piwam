@@ -80,7 +80,7 @@ abstract class PluginAssociationTable extends Doctrine_Table
           ->from('Association a')
           ->orderBy('a.created_at DESC');
     
-    $pager = new sfDoctrinePager('Member', $n);
+    $pager = new sfDoctrinePager('Member', 20);
     $pager->setQuery($q);
     $pager->setPage($page);
     $pager->init();

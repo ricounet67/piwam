@@ -1,5 +1,3 @@
-<?php use_helper('website') ?>
-
 <h2>Associations enregistrées</h2>
 
 <table class="datalist">
