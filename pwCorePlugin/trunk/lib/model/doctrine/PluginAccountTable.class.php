@@ -82,4 +82,24 @@ abstract class PluginAccountTable extends Doctrine_Table
 
     return $q->count();
   }
+
+  /**
+   * Insert a new account
+   *
+   * @param   string    $label
+   * @param   string    $reference
+   * @param   integer   $associationId
+   * @return  Account   The resulting Account object
+   */
+  public static create($label, $reference, $associationId)
+  {
+    $account = new Account();
+    $account->setAssociationId($associationId);
+    $account->setLabel($label);
+    $account->setReference($reference);
+    $account->setState(AccountTable::STATE_ENABLED);
+    $account->save();
+
+    return $account;
+  }
 }
