@@ -14,14 +14,14 @@ abstract class PluginDueTypeTable extends Doctrine_Table
    *
    * @var integer
    */
-  const STATE_DISABLED    = 0;
+  const STATE_DISABLED = 0;
 
   /**
    * Value of state field when enabled
    *
    * @var integer
    */
-  const STATE_ENABLED     = 1;
+  const STATE_ENABLED  = 1;
 
   /**
    * Retrieve an unique DueType by its id
@@ -56,12 +56,15 @@ abstract class PluginDueTypeTable extends Doctrine_Table
   }
 
   /**
-   * Retrieve active types for association $id
+   * Retrieve active types for association $id. If a $date is supplied,
+   * only available types are retrieved, according to their period
+   * settings
    *
    * @param   integer           $id
+   * @param   string            $date
    * @return  array of DueType
    */
-  public static function getEnabledForAssociation($id)
+  public static function getEnabledForAssociation($id, $date = null)
   {
     $q = self::getQueryEnabledForAssociation($id);
 
@@ -69,17 +72,28 @@ abstract class PluginDueTypeTable extends Doctrine_Table
   }
 
   /**
-   * Get Query object to retrieve list of DueType
+   * Get Query object to retrieve list of DueType. If a $date is supplied,
+   * only available types are retrieved, according to their period
+   * settings
    *
-   * @param   integer $id
+   * @param   integer           $id
+   * @param   string            $date
    * @return  Doctrine_Query
    */
-  public static function getQueryEnabledForAssociation($id)
+  public static function getQueryEnabledForAssociation($id, $date = null)
   {
     $q = Doctrine_Query::create()
           ->from('DueType t')
           ->where('t.state = ?', self::STATE_ENABLED)
           ->andWhere('t.association_id = ?', $id);
+
+    if (null !== $date)
+    {
+      $q->andWhere('(t.start_period <= ? OR t.start_period IS NULL)', $date)
+        ->andWhere('(t.end_period >= ? OR t.start_period IS NULL)', $date);
+    }
+
+    $q->orderBy('t.start_period DESC');
 
     return $q;
   }
