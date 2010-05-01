@@ -149,6 +149,8 @@ class BaseloginActions extends sfActions
         }
       }
     }
+    
+    $this->setLayout('no_menu');
   }
 
   /*
