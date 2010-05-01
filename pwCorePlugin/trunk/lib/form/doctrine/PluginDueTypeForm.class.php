@@ -63,9 +63,46 @@ abstract class PluginDueTypeForm extends BaseDueTypeForm
     ));
 
     $this->validatorSchema['amount'] = new sfValidatorNumber(array('min' => 0), array('min' => 'ne peut être négatif'));
-    $this->validatorSchema['period'] = new sfValidatorInteger(array('min' => 0, 'required' => false), array('min' => 'ne peut être négatif'));
+    $this->validatorSchema['period'] = new sfValidatorInteger(array('min' => 0, 'required' => false), array('min' => 'ne peut être négatif', 'invalid' => 'Invalide'));
     $this->validatorSchema['start_period'] = new sfValidatorDate(array('required' => false));
     $this->validatorSchema['end_period'] = new sfValidatorDate(array('required' => false));
+
+    /*
+     * Set required validation rules :
+     *
+     *  - the end period MUST BE set after the start period
+     *  - the end period CAN BE null
+     *  - a period of validity (in months) CAN BE set, OR a period,
+     *    but NOT both
+     */
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorXor(array(
+        // end > start AND period is empty
+        new sfValidatorAnd(array(
+          new sfValidatorSchemaCompare('end_period', sfValidatorSchemaCompare::GREATER_THAN, 'start_period',
+                array('throw_global_error' => false),
+                array('invalid' => 'Doit être supérieure au début')),
+          new sfValidatorSchemaCompare('period', sfValidatorSchemaCompare::EQUAL, '',
+                array('throw_global_error' => false),
+                array('invalid' => 'ou laissez vide')),
+
+        )),
+        // period is not empty, but end and start are
+        new sfValidatorAnd(array(
+          new sfValidatorSchemaCompare('start_period', sfValidatorSchemaCompare::EQUAL, '',
+                array('throw_global_error' => false),
+                array('invalid' => 'Laissez vide')),
+          new sfValidatorSchemaCompare('end_period', sfValidatorSchemaCompare::EQUAL, '',
+                array('throw_global_error' => false),
+                array('invalid' => 'Laissez vide')),
+          new sfValidatorSchemaCompare('period', sfValidatorSchemaCompare::NOT_EQUAL, '',
+                array('throw_global_error' => false),
+                array('invalid' => 'Remplissez')),
+        )),
+      ),
+      array(),  // options of XOR validator
+      array('invalid' => 'Indiquez une période valide <b>OU</b> une durée de validité'))
+    );
     $this->setLabels();
   }
 
