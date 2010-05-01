@@ -42,11 +42,6 @@ abstract class PluginDueTypeForm extends BaseDueTypeForm
     $this->widgetSchema['period']->setAttribute('class', 'formInputShort');
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
 
-    // We do not allow negative values
-    $this->validatorSchema['amount'] = new sfValidatorNumber(array('min' => 0), array('min' => 'ne peut être négatif'));
-    $this->validatorSchema['period'] = new sfValidatorInteger(array('min' => 0), array('min' => 'ne peut être négatif'));
-
-
     $context->getConfiguration()->loadHelpers("Asset");
     $this->widgetSchema['start_period'] = new sfWidgetFormJQueryDate(array(
     'image'       => image_path('/pwCorePlugin/images/calendar.gif'),
@@ -67,6 +62,10 @@ abstract class PluginDueTypeForm extends BaseDueTypeForm
       )),
     ));
 
+    $this->validatorSchema['amount'] = new sfValidatorNumber(array('min' => 0), array('min' => 'ne peut être négatif'));
+    $this->validatorSchema['period'] = new sfValidatorInteger(array('min' => 0, 'required' => false), array('min' => 'ne peut être négatif'));
+    $this->validatorSchema['start_period'] = new sfValidatorDate(array('required' => false));
+    $this->validatorSchema['end_period'] = new sfValidatorDate(array('required' => false));
     $this->setLabels();
   }
 
@@ -76,11 +75,11 @@ abstract class PluginDueTypeForm extends BaseDueTypeForm
   protected function setLabels()
   {
     $this->widgetSchema->setLabels(array(
-            'amount'        => 'Montant',
-            'period'        => 'Valide',
-            'label'         => 'Libellé',
-            'start_period'  => 'Début de la période',
-            'end_period'    => 'Fin de la période',
+      'amount'        => 'Montant',
+      'period'        => 'Valide',
+      'label'         => 'Libellé',
+      'start_period'  => 'Début de la période',
+      'end_period'    => 'Fin de la période',
     ));
   }
 }
