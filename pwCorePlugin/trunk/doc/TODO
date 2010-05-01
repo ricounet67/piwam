@@ -60,3 +60,5 @@
 	* Membre : registration > set 'email' as mandatory for the first user]
   * jQuery : include jquery-UI css with a sfJqueryReloaded plugin function
     (currently by absolute path in layout.php)
+  * Find a trick to display arrow on 'error_list' in main.css, escaping
+    background and shadow
