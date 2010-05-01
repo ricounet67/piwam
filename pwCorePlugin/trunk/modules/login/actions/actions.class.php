@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__).'/../lib/BaseloginActions.class.php');
+require_once(dirname(__FILE__).'/../lib/BaseLoginActions.class.php');
 
 /**
  * Login actions.
