@@ -11,6 +11,8 @@
 class BaseloginActions extends sfActions
 {
   /**
+   * Should be set as default HOMEPAGE in your routing.yml
+   * 
    * Login action. This is the default action if we are not authenticated.
    * If we can't perform the Propel operations, we consider the database
    * settings are not correct and we redirect to /install automatically
