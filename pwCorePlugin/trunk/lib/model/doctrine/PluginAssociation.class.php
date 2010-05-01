@@ -29,49 +29,15 @@ abstract class PluginAssociation extends BaseAssociation
    */
   public function initialize()
   {
-
-    $statutPresident = new Status();
-    $statutPresident->setState(StatusTable::STATE_ENABLED);
-    $statutPresident->setAssociationId($this->getId());
-    $statutPresident->setLabel('Président');
-    $statutPresident->save();
-
-    $statutTresorier = new Status();
-    $statutTresorier->setState(StatusTable::STATE_ENABLED);
-    $statutTresorier->setAssociationId($this->getId());
-    $statutTresorier->setLabel('Trésorier');
-    $statutTresorier->save();
-
-    $statutSecretaire = new Status();
-    $statutSecretaire->setState(StatusTable::STATE_ENABLED);
-    $statutSecretaire->setAssociationId($this->getId());
-    $statutSecretaire->setLabel('Secrétaire');
-    $statutSecretaire->save();
-
-    $statutMembreActif = new Status();
-    $statutMembreActif->setState(StatusTable::STATE_ENABLED);
-    $statutMembreActif->setAssociationId($this->getId());
-    $statutMembreActif->setLabel('Membre actif');
-    $statutMembreActif->save();
-
-    $statutMembreDhonneur = new Status();
-    $statutMembreDhonneur->setState(StatusTable::STATE_ENABLED);
-    $statutMembreDhonneur->setAssociationId($this->getId());
-    $statutMembreDhonneur->setLabel('Membre d\'honneur');
-    $statutMembreDhonneur->save();
-
-    $activiteGeneral = new Activity();
-    $activiteGeneral->setState(ActivityTable::STATE_ENABLED);
-    $activiteGeneral->setLabel("Fonctionnement général de l'association");
-    $activiteGeneral->setAssociationId($this->getId());
-    $activiteGeneral->save();
-
-    $compteMonnaie = new Account();
-    $compteMonnaie->setAssociationId($this->getId());
-    $compteMonnaie->setLabel("Caisse de monnaie");
-    $compteMonnaie->setReference("CAISSE_MONNAIE");
-    $compteMonnaie->setState(AccountTable::STATE_ENABLED);
-    $compteMonnaie->save();
+    $id = $this->getId();
+    
+    StatusTable::create('Président', $id);
+    StatusTable::create('Trésorier', $id);
+    StatusTable::create('Secrétaire', $id);
+    StatusTable::create('Membre actif', $id);
+    StatusTable::create('Membre d\'honneur', $id);
+    Activity::create('Fonctionnement général de l\'association', $id);
+    AccountTable::create('Caisse de monnaie', 'CAISSE_MONNAIE', $id);
   }
 
   /**
