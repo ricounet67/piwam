@@ -41,6 +41,7 @@ Activity:
   columns:
     id:     		     { type: integer(4), primary: true, autoincrement: true }
     label:           { type: string(255), notnull: true }
+    description:     { type: string(255) }
     state:      	   { type: integer(1), default: '1' }
     association_id:  { type: integer(4), notnull: true }
     created_by:      { type: integer(4) }

@@ -1,0 +1,1 @@
+ALTER TABLE `piwam_activity` ADD `description` TEXT NOT NULL AFTER `label` 
