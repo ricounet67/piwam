@@ -65,16 +65,6 @@
         </div>
       </div>
 
-      <div>
-        <h2>Ou utilisez OpenID</h2>
-
-        <?php echo $form['openid']->renderLabel() ?>
-        <?php echo $form['openid']->renderError() ?>
-        <div class="input">
-            <?php echo $form['openid'] ?>
-        </div>
-      </div>
-
       
       <!-- Buttons on bottom -->
 

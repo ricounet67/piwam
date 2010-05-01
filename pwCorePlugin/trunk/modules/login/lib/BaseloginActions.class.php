@@ -51,12 +51,6 @@ class BaseloginActions extends sfActions
     {
       $this->form->bind($request->getParameter('login'));
       $login = $request->getParameter('login');
-      $openId = $login['openid'];
-
-      if ($openId)
-      {
-        $this->forward('login', 'openid');
-      }
 
       if ($this->form->isValid())
       {
@@ -155,18 +149,6 @@ class BaseloginActions extends sfActions
         }
       }
     }
-  }
-
-  /**
-   * Perform OpenID authentication
-   *
-   * @param sfWebRequest $sfWebRequest
-   * @since 1.2
-   */
-  public function executeOpenid(sfWebRequest $request)
-  {
-    $login = $request->getParameter('login');
-    $openId = $login['openid'];
   }
 
   /*
