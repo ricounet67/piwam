@@ -185,9 +185,14 @@ div#searchBar_toggle a
 .error_list li {
   list-style: none;
   display: inline;
-  padding: 0px;
-  margin: 0px;
-  color: red;
+  margin: 0;
+  padding: 2px 5px 2px 15px;
+  color: #FFEEEB;
+  background-color: #FF403D;
+  background-image: url(error_bg_arrow.png);
+  background-repeat:no-repeat;
+  -moz-box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  -moz-border-radius: 0 3px 3px 0;
 }
 
 /* members who have to pay their due */
