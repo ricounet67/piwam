@@ -14,12 +14,18 @@ class BaseloginActions extends sfActions
    * Login action. This is the default action if we are not authenticated.
    * If we can't perform the Propel operations, we consider the database
    * settings are not correct and we redirect to /install automatically
+   * We redirect to 'another homepage' if user is already authenticated
    *
    * @param   sfWebRequest $request
    * @todo    Manage cookies
    */
   public function executeLogin(sfWebRequest $request)
   {
+    if ($this->getUser()->isAuthenticated())
+    {
+      $this->redirect('@members_list');
+    }
+    
     if (! PiwamOperations::isInstalled())
     {
       $this->redirect('@setup');
