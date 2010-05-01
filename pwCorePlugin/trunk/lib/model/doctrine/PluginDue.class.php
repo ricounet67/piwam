@@ -12,5 +12,41 @@
  */
 abstract class PluginDue extends BaseDue
 {
+  /**
+   * Get the end date of validity of the Due, according to :
+   *
+   *   - the period (in months) if filled
+   *   - the absolute end period otherwise
+   *
+   * @return  string    Date in YYY-mm-dd format
+   * @since   1.2
+   */
+  public function getValidTill()
+  {
+    if ($this->getDueType()->getPeriod() >= 1)
+    {
+      $dateCalculator = new DateTools($this->getDate(), 'Y-m-d');
+      $end_validity = $dateCalculator->add('mo', $this->getDueType()->getPeriod());
+      
+      return $end_validity;
+    }
+    else
+    {
+      return $this->getDueType()->getEndPeriod();
+    }
+  }
 
+  /**
+   * Return number of days before this Due expires. Result can
+   * be negative if Due has already expired
+   *
+   * @return  integer
+   * @since   1.2
+   */
+  public function getDaysBeforeExpiration()
+  {
+    $today = date('Y-m-d');
+
+    return DateTools::getDaysBetween($today, $this->getValidTill());
+  }
 }
