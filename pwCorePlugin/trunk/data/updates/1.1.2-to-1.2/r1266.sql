@@ -1,0 +1,1 @@
+ALTER TABLE `piwam_due_type` CHANGE `period` `period` INT( 11 ) NULL DEFAULT NULL 

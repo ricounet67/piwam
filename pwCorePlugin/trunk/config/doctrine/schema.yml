@@ -164,7 +164,7 @@ DueType:
     id:              { type: integer(4), primary: true, autoincrement: true }
     label:           { type: string(255), notnull: true }
     association_id:  { type: integer(4), notnull: true }
-    period:          { type: integer(4), notnull: true }
+    period:          { type: integer(4) }
     amount:          { type: 'decimal(10, 2)', notnull: true }
     state:           { type: integer(1), default: '1' }
     start_period:    { type: date }
