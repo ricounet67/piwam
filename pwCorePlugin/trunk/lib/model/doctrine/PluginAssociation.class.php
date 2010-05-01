@@ -36,7 +36,7 @@ abstract class PluginAssociation extends BaseAssociation
     StatusTable::create('Secrétaire', $id);
     StatusTable::create('Membre actif', $id);
     StatusTable::create('Membre d\'honneur', $id);
-    Activity::create('Fonctionnement général de l\'association', $id);
+    ActivityTable::create('Fonctionnement général de l\'association', $id);
     AccountTable::create('Caisse de monnaie', 'CAISSE_MONNAIE', $id);
   }
 
