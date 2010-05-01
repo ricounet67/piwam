@@ -117,3 +117,12 @@ table.formtable tbody th {
 table.formtable tbody td {
   padding: 3px;
 }
+
+/* If your form has kind of "sub parts", this is the style to use
+   to display a separator title */
+table.formtable tbody tr.subitem th {
+  text-align: center;
+  background-color: #eee;
+  border-bottom: 1px solid #aaa;
+  padding: 2px;
+}

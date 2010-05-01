@@ -50,8 +50,8 @@
         <th><?php echo $form['amount']->renderLabel() ?></th>
         <td><?php echo $form['amount'] ?> &euro; <?php echo $form['amount']->renderError() ?></td>
       </tr>
-      <tr>
-        <th colspan="2" style="text-align: center">Valide sur la période</th>
+      <tr class="subitem">
+        <th colspan="2">Valide sur la période</th>
       </tr>
       <tr>
         <th><?php echo $form['start_period']->renderLabel() ?></th>
@@ -61,8 +61,8 @@
         <th><?php echo $form['end_period']->renderLabel() ?></th>
         <td><?php echo $form['end_period'] ?> <?php echo $form['end_period']->renderError() ?></td>
       </tr>
-      <tr>
-        <th colspan="2" style="text-align: center">ou</th>
+      <tr class="subitem">
+        <th colspan="2">ou</th>
       </tr>
       <tr>
         <th><?php echo $form['period']->renderLabel() ?></th>
