@@ -67,4 +67,22 @@ abstract class PluginActivityTable extends Doctrine_Table
 
     return $q;
   }
+
+  /**
+   * Insert a new Activity
+   *
+   * @param   string      $label
+   * @param   integer     $associationId
+   * @return  Activity    Resulting Activity object
+   */
+  public static function create($label, $associationId)
+  {
+    $activity = new Activity();
+    $activity->setState(ActivityTable::STATE_ENABLED);
+    $activity->setLabel($label);
+    $activity->setAssociationId($associationId);
+    $activity->save();
+
+    return $activity;
+  }
 }
