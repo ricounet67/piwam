@@ -91,7 +91,7 @@ abstract class PluginAccountTable extends Doctrine_Table
    * @param   integer   $associationId
    * @return  Account   The resulting Account object
    */
-  public static create($label, $reference, $associationId)
+  public static function create($label, $reference, $associationId)
   {
     $account = new Account();
     $account->setAssociationId($associationId);
