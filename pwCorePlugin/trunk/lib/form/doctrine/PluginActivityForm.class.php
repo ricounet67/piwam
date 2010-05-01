@@ -24,6 +24,7 @@ abstract class PluginActivityForm extends BaseActivityForm
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
     unset($this['state'], $this['association_id']);
+    unset($this['description']);
 
     if ($this->getObject()->isNew())
     {
@@ -42,7 +43,21 @@ abstract class PluginActivityForm extends BaseActivityForm
     $this->setDefault('state', 1);
     $this->validatorSchema['state'] = new sfValidatorBoolean();
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
-
+    $this->widgetSchema['description'] = new sfWidgetFormTextarea();
+    $this->widgetSchema['description']->setAttribute('class', 'formInputLarge');
+    $this->validatorSchema['description'] = new sfValidatorString(array('required' => false));
     $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Activity', 'column' => array('label', 'association_id')), array('invalid' => 'Cette activité existe déjà')));
+    $this->setLabels();
+  }
+
+  /*
+   * Set displayed field names
+   */
+  protected function setLabels()
+  {
+    $this->widgetSchema->setLabels(array(
+      'label'       => 'Libellé',
+      'description' => 'Description',
+    ));
   }
 }
