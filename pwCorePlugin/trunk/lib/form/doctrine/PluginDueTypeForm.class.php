@@ -49,7 +49,7 @@ abstract class PluginDueTypeForm extends BaseDueTypeForm
     'culture'     => 'fr_FR',
     'date_widget' => new sfWidgetFormDate(array(
       'format' => '%day%.%month%.%year%',
-      'years'  => DateTools::rangeOfYears(date('Y'), 1900)
+      'years'  => DateTools::rangeOfYears(date('Y') + 2, 1901)
       )),
     ));
     $this->widgetSchema['end_period'] = new sfWidgetFormJQueryDate(array(
@@ -58,7 +58,7 @@ abstract class PluginDueTypeForm extends BaseDueTypeForm
     'culture'     => 'fr_FR',
     'date_widget' => new sfWidgetFormDate(array(
       'format' => '%day%.%month%.%year%',
-      'years'  => DateTools::rangeOfYears(date('Y'), 1900)
+      'years'  => DateTools::rangeOfYears(date('Y') + 10, 1901)
       )),
     ));
 
