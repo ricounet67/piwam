@@ -31,13 +31,13 @@ abstract class PluginAssociation extends BaseAssociation
   {
     $id = $this->getId();
     
-    StatusTable::create('Président', $id);
-    StatusTable::create('Trésorier', $id);
-    StatusTable::create('Secrétaire', $id);
-    StatusTable::create('Membre actif', $id);
-    StatusTable::create('Membre d\'honneur', $id);
-    ActivityTable::create('Fonctionnement général de l\'association', $id);
-    AccountTable::create('Caisse de monnaie', 'CAISSE_MONNAIE', $id);
+    StatusTable::add('Président', $id);
+    StatusTable::add('Trésorier', $id);
+    StatusTable::add('Secrétaire', $id);
+    StatusTable::add('Membre actif', $id);
+    StatusTable::add('Membre d\'honneur', $id);
+    ActivityTable::add('Fonctionnement général de l\'association', $id);
+    AccountTable::add('Caisse de monnaie', 'CAISSE_MONNAIE', $id);
   }
 
   /**
