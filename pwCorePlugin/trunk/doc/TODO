@@ -46,9 +46,7 @@
 		- ... but don't appear in bilan !
 	* Update mis_a_jour_par after deleting objects
 	* Create cookie when log in
-	* Activite : add description field
 	* Association > config > allow user to set a port and encryption settings
-	* Membre/Ajaxlist : select only membre for current association
 	* Provide bilan by year
 	* PDF output for bilan
 	* Export should be put in each module
