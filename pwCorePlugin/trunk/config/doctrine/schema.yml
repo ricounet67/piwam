@@ -167,8 +167,8 @@ DueType:
     period:          { type: integer(4), notnull: true }
     amount:          { type: 'decimal(10, 2)', notnull: true }
     state:           { type: integer(1), default: '1' }
-    start_period:    { type: date, notnull: true }
-    end_period:      { type: date, notnull: true }
+    start_period:    { type: date }
+    end_period:      { type: date }
     created_by:      { type: integer(4) }
     updated_by:      { type: integer(4) }
   relations:
