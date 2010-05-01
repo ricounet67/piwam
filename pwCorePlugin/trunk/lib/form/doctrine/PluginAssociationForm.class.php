@@ -45,10 +45,10 @@ abstract class PluginAssociationForm extends BaseAssociationForm
   protected function setLabels()
   {
     $this->widgetSchema->setLabels(array(
-            'website'     => 'Site web',
-            'name'        => 'Nom de l\'association',
-            'description' => 'Description',
-            'ping_piwam'  => 'Notification'
+      'website'     => 'Site web',
+      'name'        => 'Nom de l\'association',
+      'description' => 'Description',
+      'ping_piwam'  => 'Notification'
     ));
   }
 
