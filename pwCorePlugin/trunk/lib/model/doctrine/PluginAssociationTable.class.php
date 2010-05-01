@@ -18,7 +18,6 @@ abstract class PluginAssociationTable extends Doctrine_Table
   public static function getById($id)
   {
     $q = Doctrine_Query::create()
-          ->select('a.id')
           ->from('Association a')
           ->where('id = ?', $id)
           ->fetchOne();
