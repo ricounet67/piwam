@@ -67,7 +67,7 @@ class BasemailingActions extends sfActions
           $sentMail->setObject($data['subject']);
           $sentMail->setMessage($data['mail_content']);
           $sentMail->setAssociationId($associationId);
-          $sentMail->setTo($to);
+          $sentMail->setAddresses($to);
           $sentMail->setSentBy($this->getUser()->getUserId());
           $sentMail->save();
         }
@@ -78,5 +78,25 @@ class BasemailingActions extends sfActions
         }
       }
     }
+  }
+
+  /**
+   * List the sent e-mails
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeList(sfWebRequest $request)
+  {
+
+  }
+
+  /**
+   * Show complete details about a particular sent e-mail
+   * 
+   * @param sfWebRequest $request
+   */
+  public function executeShow(sfWebRequest $request)
+  {
+
   }
 }
