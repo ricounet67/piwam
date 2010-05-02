@@ -19,9 +19,9 @@ abstract class PluginSentMail extends BaseSentMail
    * @param   array|Mixed    $addresses
    * @return  SentMail
    */
-  public function setTo($addresses)
+  public function setAddresses($addresses)
   {
-    $this->__set('to', serialize($addresses));
+    $this->__set('recipients', serialize($addresses));
     
     return $this;
   }
@@ -31,8 +31,8 @@ abstract class PluginSentMail extends BaseSentMail
    *
    * @return  array|mixed
    */
-  public function getTo()
+  public function getAddresses()
   {
-    return unserialize($this->__get('to'));
+    return unserialize($this->__get('recipients'));
   }
 }
