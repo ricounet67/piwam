@@ -19,6 +19,7 @@ class BasemailingActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     $this->form = new MailingForm(array(), array('url' => $this->getController()->genUrl('membre/ajaxlist')));
+    
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('mailing'));
@@ -34,17 +35,18 @@ class BasemailingActions extends sfActions
           $mailer     = MailerFactory::get($associationId, $this->getUser());
           $from_email = Configurator::get('address', $associationId, 'info-association@piwam.org');
           $from_label = $this->getUser()->getAssociationName('Piwam');
-          $membres    = MemberTable::getHavingEmailForAssociation($this->getUser()->getAssociationId());
+          $members    = MemberTable::getHavingEmailForAssociation($this->getUser()->getAssociationId());
+          $to         = array();
 
-          foreach ($membres as $membre)
+          foreach ($members as $member)
           {
             try
             {
-              $message    = Swift_Message::newInstance($data['subject'])
-                              ->setBody($data['mail_content'])
-                              ->setContentType('text/html')
-                              ->setFrom(array($from_email => $from_label))
-                              ->setTo(array($membre->getEmail() => $membre->getFirstname()));
+              $message = Swift_Message::newInstance($data['subject'])
+                          ->setBody($data['mail_content'])
+                          ->setContentType('text/html')
+                          ->setFrom(array($from_email => $from_label))
+                          ->setTo(array($member->getEmail() => $member->getFirstname()));
               $mailer->send($message);
               $sentOk++;
             }
@@ -52,11 +54,22 @@ class BasemailingActions extends sfActions
             {
               $sentKo++;
             }
+
+            $to[$member->getEmail()] = $member->getFirstname() . ' ' . $member->getLastname();
           }
 
           sfContext::getInstance()->getConfiguration()->loadHelpers('Plural');
           $this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . plural_word($sentOk, ' destinataire') . ' (' . $sentKo . plural_word($sentKo, ' erreur') . ')');
           $this->content = $data['mail_content'];
+
+          // Record the sent mail
+          $sentMail = new SentMail();
+          $sentMail->setObject($data['subject']);
+          $sentMail->setMessage($data['mail_content']);
+          $sentMail->setAssociationId($associationId);
+          $sentMail->setTo($to);
+          $sentMail->setSentBy($this->getUser()->getUserId());
+          $sentMail->save();
         }
         catch (Exception $e)
         {
