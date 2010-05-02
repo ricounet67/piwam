@@ -1,1 +1,0 @@
-ALTER TABLE `piwam_membre` ADD `picture` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL AFTER `pays` ;
