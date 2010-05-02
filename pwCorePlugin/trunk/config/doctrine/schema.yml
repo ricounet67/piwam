@@ -210,24 +210,6 @@ Expense:
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
 
 
-
-SentMail:
-  tableName: piwam_sent_mail
-  actAs: { Timestampable: ~ }
-  columns:
-    id:             { type: integer(4), primary: true, autoincrement: true }
-    association_id: { type: integer(4), notnull: true }
-    sentBy:         { type: integer(4) }
-    object:         { type: string(255), notnull: true }
-    message:        { type: string(3000), notnull: true }
-    to:             { type: string(3000), notnull: true }
-    success:        { type: integer(4), notnull: true }
-    errors:         { type: integer(4), notnull: true }
-  relations:
-    Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
-    SentByMember:   { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
-
-
     
 Member:
   tableName: piwam_member
@@ -312,7 +294,25 @@ Income:
     Activity:       { local: activity_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
-    
+
+
+
+SentMail:
+  tableName: piwam_sent_mail
+  actAs: { Timestampable: ~ }
+  columns:
+    id:             { type: integer(4), primary: true, autoincrement: true }
+    association_id: { type: integer(4), notnull: true }
+    sent_by:        { type: integer(4) }
+    object:         { type: string(255), notnull: true }
+    message:        { type: string(3000), notnull: true }
+    to:             { type: string(3000), notnull: true }
+    success:        { type: integer(4), notnull: true }
+    errors:         { type: integer(4), notnull: true }
+  relations:
+    Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
+    SentByMember:   { class: Member, local: sent_by, foreign: id, type: one, onDelete: SET NULL }
+   
     
     
 Status:
