@@ -3,10 +3,6 @@
 #     MISC ACTIONS
 # -----------------------------------------------------------------------------
 
-mailing:
-  url:    /mailing
-  param:  { module: mailing, action: index }
-  
 error_credentials:
   url:    /error/credentials
   param:  { module: error, action: credentials }
@@ -441,6 +437,25 @@ export_expenses:
 export_incomes:
   url:    /export/recettes
   param:  { module: income, action: export }
+
+
+
+# -----------------------------------------------------------------------------
+#     MAILING ACTIONS
+# -----------------------------------------------------------------------------
+
+mailing:
+  url:    /mailing
+  param:  { module: mailing, action: index }
+
+mailing_list:
+  url:    /emails_envoyes
+  param:  { module: mailing, action: list }
+
+mailing_show:
+  url:    /voir_email/:id
+  param:  { module: mailing, action: show }
+
 
 
   
