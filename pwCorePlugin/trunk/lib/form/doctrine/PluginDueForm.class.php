@@ -63,7 +63,7 @@ abstract class PluginDueForm extends BaseDueForm
 
     $this->validatorSchema['state'] = new sfValidatorBoolean();
     $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0),
-                                                            array('min' => 'ne peut être négatif'));
+                                                             array('min' => 'ne peut être négatif'));
 
     sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
     $this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
