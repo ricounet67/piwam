@@ -306,7 +306,7 @@ SentMail:
     sent_by:        { type: integer(4) }
     object:         { type: string(255), notnull: true }
     message:        { type: string(3000), notnull: true }
-    to:             { type: string(3000), notnull: true }
+    recipients:     { type: string(3000), notnull: true }
     success:        { type: integer(4), notnull: true }
     errors:         { type: integer(4), notnull: true }
   relations:
