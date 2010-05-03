@@ -41,11 +41,12 @@ class menusComponents extends sfComponents
       {
         if (isset($section['order']) && (null !== $section['order']) && is_int($section['order']))
         {
-          $menu_order[$section['order']] = $section;
+          $menu_order[$section['order']] = $menu[$section_name];
           unset($menu[$section_name]);
         }
       }
     }
+    
 
     /*
   	 * we count the number of element to order
@@ -78,6 +79,5 @@ class menusComponents extends sfComponents
     {
       $this->menus[] = $else;
     }
-
   }
 }
