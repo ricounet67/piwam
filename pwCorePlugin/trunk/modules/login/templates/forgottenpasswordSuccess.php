@@ -15,6 +15,7 @@
 
 
 <form action="<?php echo url_for('@retrieve_password') ?>" method="post">
+  <?php echo $form->renderHiddenFields() ?>
   <table class="formtable">
     <tr>
       <td colspan="2"><?php echo $form->renderGlobalErrors() ?></td>
