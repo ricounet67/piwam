@@ -16,4 +16,24 @@ class PluginSentMailTable extends Doctrine_Table
   {
     return Doctrine_Core::getTable('PluginSentMail');
   }
+
+  /**
+   * Retrieve a paginated list of sent emails
+   *
+   * @param   integer         $page
+   * @return  sfDoctrinePager
+   */
+  public static function getPaginatedSentMails($page = 1)
+  {
+    $q = Doctrine_Query::create()
+          ->from('SentMail m')
+          ->orderBy('m.created_at DESC');
+
+    $pager = new sfDoctrinePager('SentMail', 20);
+    $pager->setQuery($q);
+    $pager->setPage($page);
+    $pager->init();
+
+    return $pager;
+  }
 }
