@@ -81,13 +81,13 @@ class BasemailingActions extends sfActions
   }
 
   /**
-   * List the sent e-mails
+   * List the sent e-mails in a paginated list
    *
    * @param sfWebRequest $request
    */
   public function executeList(sfWebRequest $request)
   {
-
+    $this->emails = SentMailTable::getPaginatedSentMails(1);
   }
 
   /**
