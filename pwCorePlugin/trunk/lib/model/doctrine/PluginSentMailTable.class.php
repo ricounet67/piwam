@@ -18,6 +18,21 @@ class PluginSentMailTable extends Doctrine_Table
   }
 
   /**
+   * Retrieve a sent email by its unique $id
+   *
+   * @param   integer         $id
+   * @return  SentMail
+   */
+  public static function getById($id)
+  {
+    $q = Doctrine_Query::create()
+          ->from('SentMail m')
+          ->where('m.id = ?', $id);
+
+    return $q->fetchOne();
+  }
+
+  /**
    * Retrieve a paginated list of sent emails
    *
    * @param   integer         $page
