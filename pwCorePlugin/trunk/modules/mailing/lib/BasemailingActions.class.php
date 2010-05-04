@@ -97,6 +97,7 @@ class BasemailingActions extends sfActions
    */
   public function executeShow(sfWebRequest $request)
   {
-
+    $id = $request->getParameter('id');
+    $this->email = SentMailTable::getById($id);
   }
 }
