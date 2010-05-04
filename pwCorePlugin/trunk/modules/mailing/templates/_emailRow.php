@@ -16,5 +16,5 @@
   <td><?php echo $email->getObject() ?></td>
   <td class="numbers"><?php echo $email->getSuccess() ?></td>
   <td class="numbers"><?php echo $email->getErrors() ?></td>
-  <td>X</td>
+  <td><?php echo link_to(image_tag('/pwCorePlugin/images/icons/show', array('alt' => '[détails]')),   '@mailing_show?id=' . $email->getId()) ?></td>
 </tr>
