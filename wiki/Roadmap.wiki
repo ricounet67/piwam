@@ -22,12 +22,14 @@ L'architecture de Piwam est cependant extrêmement modulaire. Derrière cette st
 = Évolutions =
 
 
-== Version 1.2 - Février 2010 ==
+== Version 1.2 - Été 2010 ==
 || *Résumé*     || *Description* ||  *État* ||
-|| symfony 1.3  || Portage du projet sous symfony 1.3 (sortie prévue fin novembre || à l'étude ||
-|| Doctrine     || Passage du projet sous Doctrine (?) || à l'étude ||
+|| symfony 1.4  || Portage du projet sous symfony 1.3 (sortie prévue fin novembre || fini ||
+|| Doctrine     || Passage du projet sous Doctrine (?) || fini ||
 || Comptabilité || Fin de la réflexion auteur du [http://code.google.com/p/piwam/wiki/ReflexionCompta moteur de comptabilité]. Nouvelles fonctionnalités (génération annuelle, export PDF) || en cours ||
 || Documentation développeur || Génération d'une documentation visant à aider les développeurs à contribuer à Piwam || en cours ||
+|| Plugin       || Distribution de Piwam sous forme de plugin symfony || fini ||
+|| Standalone   || Packaging et distribution de Piwam sous forme de version autonome, distribuable par exemple sur clé USB || à faire ||
 
 
 == Version 1.1.2 - Novembre 2009 ==
