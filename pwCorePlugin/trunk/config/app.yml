@@ -57,7 +57,7 @@ all:
             #credentials: ~
             uri: @members_map
           faces:
-            name: Tombinoscope
+            name: Trombinoscope
             uri: @faces
             #credentials: ~
           manage_status:
