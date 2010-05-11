@@ -242,6 +242,8 @@ Entry:
   relations:
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
+    Debits:          { class: Debit, local: id, foreign: entry_id, type: many }
+    Credits:         { class: Credit, local: id, foreign: entry_id, type: many }
 
 
 
