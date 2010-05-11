@@ -185,9 +185,98 @@ Data:
     id:             { type: integer(4), primary: true, autoincrement: true }
     config_key:     { type: string(255), notnull: true }
     value:          { type: string(255), notnull: true }
-    
-    
-    
+
+
+
+DigitalDocument:
+  tableName: piwam_document_digital
+  columns:
+    document_id:     { type: integer(4), primary: true }
+    filename:        { type: string(255), notnull: true }
+    mime_type:       { type: string(50), notnull: true }
+    md5:             { type: string(32), notnull: true }
+    size:            { type: integer(4), notnull: true }
+    location:        { type: string(255), notnull: true }
+  relations:
+    Document:        { class: Document, local: document_id, foreign: id, type: one, onDelete: CASCADE }
+
+
+Document:
+  tableName: piwam_document
+  actAs: { Timestampable: ~ }
+  columns:
+    id:              { type: integer(4), primary: true, autoincrement: true }
+    title:           { type: string(100), notnull: true }
+    description:     { type: string(255) }
+    created_by:      { type: integer(4) }
+    updated_by:      { type: integer(4) }
+  relations:
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
+
+
+
+DocumentMetadata:
+  tableName: piwam_document_metadata
+  columns:
+    document_id:     { type: integer(4), primary: true }
+    tag_name:        { type: string(50), primary: true }
+    value:           { type: string(255), notnull: true }
+    created_by:      { type: integer(4) }
+    updated_by:      { type: integer(4) }
+  relations:
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
+
+
+
+Entry:
+  tableName: piwam_bookkeeping_entry
+  actAs: { Timestampable: ~ }
+  columns:
+    id:              { type: integer(4), primary: true, autoincrement: true }
+    date:            { type: date(25), notnull: true }
+    label:           { type: string(255), notnull: true }
+    created_by:      { type: integer(4) }
+    updated_by:      { type: integer(4) }
+  relations:
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
+
+
+
+Debit:
+  tableName: piwam_bookkeeping_debit
+  actAs: { Timestampable: ~ }
+  columns:
+    id:              { type: integer(4), primary: true, autoincrement: true }
+    date:            { type: date(25), notnull: true }
+    label:           { type: string(255) }
+    debited_account: { type: integer(4) }
+    entry_id:        { type: integer(4) }
+    amount:          { type: 'decimal(10, 2)', notnull: true, autoincrement: false }
+  relations:
+    DebitedAccount:  { class: Account, local: debited_account, foreign: id, type: one, onDelete: CASCADE }
+    Entry:           { class: Entry, local: entry_id, foreign: id, type: one, onDelete: CASCADE }
+
+
+
+Credit:
+  tableName: piwam_bookkeeping_debit
+  actAs: { Timestampable: ~ }
+  columns:
+    id:              { type: integer(4), primary: true, autoincrement: true }
+    date:            { type: date(25), notnull: true }
+    label:           { type: string(255) }
+    debited_account: { type: integer(4) }
+    entry_id:        { type: integer(4) }
+    amount:          { type: 'decimal(10, 2)', notnull: true, autoincrement: false }
+  relations:
+    DebitedAccount:  { class: Account, local: debited_account, foreign: id, type: one, onDelete: CASCADE }
+    Entry:           { class: Entry, local: entry_id, foreign: id, type: one, onDelete: CASCADE }
+
+
+
 Expense:
   tableName: piwam_expense
   actAs: { Timestampable: ~ }
@@ -294,6 +383,14 @@ Income:
     Activity:       { local: activity_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
+
+
+
+PhysicalDocument:
+  tableName: piwam_document_physical
+  columns:
+    document_id:     { type: integer(4), primary: true }
+    location:        { type: string(255), notnull: true }
 
 
 
