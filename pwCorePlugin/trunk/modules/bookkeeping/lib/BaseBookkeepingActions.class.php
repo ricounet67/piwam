@@ -35,7 +35,7 @@ class BaseBookkeepingActions extends sfActions
    */
   public function executeNewEntry(sfWebRequest $request)
   {
-    $this->form = new EntryForm();
+    $this->form = new EntryForm(null, array('user' => $this->getUser()));
   }
 }
 ?>
