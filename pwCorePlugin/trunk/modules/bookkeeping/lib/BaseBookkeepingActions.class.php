@@ -27,5 +27,15 @@ class BaseBookkeepingActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
   }
+
+  /**
+   * Display form to add a new entry
+   *
+   * @param sfWebRequest $request 
+   */
+  public function executeNewEntry(sfWebRequest $request)
+  {
+    $this->form = new EntryForm();
+  }
 }
 ?>
