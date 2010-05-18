@@ -6,8 +6,7 @@
  * @since   1.2
  */
 class pwCorePluginConfiguration extends sfPluginConfiguration
-{
-  
+{  
   protected static
     /**
      * Modules to be enabled
@@ -15,9 +14,9 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
      * @var array
      */
     $modules = array(
-      'account', 'activity', 'admin', 'association', 'config_member', 'due',
-      'duetype', 'error', 'expense', 'export', 'income', 'install', 'login',
-      'mailing', 'member', 'status', 'update' , 'menus'
+      'account', 'activity', 'admin', 'association', 'bookkeeping', 
+      'config_member', 'due', 'duetype', 'error', 'expense', 'export', 'income',
+      'install', 'login', 'mailing', 'member', 'status', 'update' , 'menus'
     ),
 
     /**
@@ -25,7 +24,8 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
      *
      * @var array
      */
-    $helpers = array('Boolean', 'Member', 'Phone', 'Plural', 'Tooltip', 'Website');  
+    $helpers = array('Boolean', 'Member', 'Phone', 'Plural', 'Tooltip',
+      'Website');
   
   /**
    * Initializes the plugin.
