@@ -198,7 +198,7 @@ bk_overview:
 
 bk_new_entry:
   url:    /compta/nouvelle_ecriture
-  param:  { module: bookkeeping, action: newentry }
+  param:  { module: bookkeeping, action: newEntry }
 
 
 
