@@ -42,6 +42,16 @@ abstract class PluginEntryForm extends BaseEntryForm
     $this->setDefault('updated_by', $user->getUserId());
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
 
+    foreach ($this->object['Debits'] as $key => $debit)
+    {
+      $this->embedForm('debit' . $index, new DebitForm());
+    }
+
+    foreach ($this->object['Credits'] as $key => $credit)
+    {
+      $this->embedForm('credit' . $index, new CreditForm());
+    }
+
     $this->setLabels();
   }
 
