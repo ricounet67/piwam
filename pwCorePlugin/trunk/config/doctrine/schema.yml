@@ -264,18 +264,18 @@ Debit:
 
 
 Credit:
-  tableName: piwam_bookkeeping_debit
+  tableName: piwam_bookkeeping_credit
   actAs: { Timestampable: ~ }
   columns:
-    id:              { type: integer(4), primary: true, autoincrement: true }
-    date:            { type: date(25), notnull: true }
-    label:           { type: string(255) }
-    debited_account: { type: integer(4) }
-    entry_id:        { type: integer(4) }
-    amount:          { type: 'decimal(10, 2)', notnull: true, autoincrement: false }
+    id:               { type: integer(4), primary: true, autoincrement: true }
+    date:             { type: date(25), notnull: true }
+    label:            { type: string(255) }
+    credited_account: { type: integer(4) }
+    entry_id:         { type: integer(4) }
+    amount:           { type: 'decimal(10, 2)', notnull: true, autoincrement: false }
   relations:
-    DebitedAccount:  { class: Account, local: debited_account, foreign: id, type: one, onDelete: CASCADE }
-    Entry:           { class: Entry, local: entry_id, foreign: id, type: one, onDelete: CASCADE }
+    creditedAccount:  { class: Account, local: credited_account, foreign: id, type: one, onDelete: CASCADE }
+    Entry:            { class: Entry, local: entry_id, foreign: id, type: one, onDelete: CASCADE }
 
 
 
