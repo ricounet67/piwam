@@ -192,9 +192,13 @@ income_show:
 #     BOOKKEEPING RELATED ACTIONS
 # -----------------------------------------------------------------------------
 
-bookkeeping_overview:
+bk_overview:
   url:    /compta/vue_generale
   param:  { module: bookkeeping, action: index }
+
+bk_new_entry:
+  url:    /compta/nouvelle_ecriture
+  param:  { module: bookkeeping, action: newentry }
 
 
 
