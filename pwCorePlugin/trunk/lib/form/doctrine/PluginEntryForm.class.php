@@ -42,14 +42,26 @@ abstract class PluginEntryForm extends BaseEntryForm
     $this->setDefault('updated_by', $user->getUserId());
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
 
+    $this->object['Debits'][] = new Debit();
     foreach ($this->object['Debits'] as $key => $debit)
     {
       $this->embedForm('debit' . $index, new DebitForm());
     }
 
+    $this->object['Credits'][] = new Credit();
     foreach ($this->object['Credits'] as $key => $credit)
     {
-      $this->embedForm('credit' . $index, new CreditForm());
+      $creditForm = new CreditForm();
+      $fieldName = 'credit_' . $credit->getId();
+      $this->embedForm($fieldName, $creditForm);
+
+      // Last item ?
+      if (count($this->object['Credits']) -1 == $key)
+      {
+        $label = 'Crédit <input type="submit" name="submit" value="+">';
+      }
+
+      $this->widgetSchema->setLabel($fieldName, $label);
     }
 
     $this->setLabels();

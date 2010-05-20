@@ -10,4 +10,25 @@
  */
 abstract class PluginCreditForm extends BaseCreditForm
 {
+  /**
+   * Configure form widgets
+   */
+  public function setup()
+  {
+    parent::setup();
+    $this->useFields(array('amount', 'credited_account', 'label'));
+    $this->setLabels();
+  }
+
+  /**
+   * Set forms widget labels
+   */
+  protected function setLabels()
+  {
+    $this->widgetSchema->setLabels(array(
+      'amount'           => 'Montant',
+      'label'            => 'Libellé',
+      'credited_account' => 'Compte crédité'
+    ));
+  }
 }
