@@ -3,9 +3,9 @@
 /**
  * PluginEntry form.
  *
- * @package    ##PROJECT_NAME##
+ * @package    piwam
  * @subpackage form
- * @author     ##AUTHOR_NAME##
+ * @author     Adrien Mogenet
  * @version    SVN: $Id: sfDoctrineFormPluginTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 abstract class PluginEntryForm extends BaseEntryForm
