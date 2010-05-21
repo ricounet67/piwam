@@ -21,10 +21,11 @@ Au fil des versions, Piwam évolue...
       * Champs textuels classique (courts ou longs)
       * Dates
     * Le menu est généré en fonction des droits de l'utilisateur
-    * Documentation README-PLUGIN pour déployer le plugin pwCorePlugin dans une auutre application symfony
+    * Documentation README-PLUGIN pour déployer le plugin pwCorePlugin dans une autre application symfony
     * Alignement des nombres à droite dans les différents tableaux
     * Possibilité de définir des périodes de cotisation
     * Enregistrement des emails envoyés, avec la possibilité de les consulter ultérieurement
+    * Gestion d'une comptabilité
 
 
   * *version 1.1.2 - XMas edition* (20 décembre 2009)
