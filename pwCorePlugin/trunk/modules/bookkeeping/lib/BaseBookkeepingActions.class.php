@@ -37,5 +37,31 @@ class BaseBookkeepingActions extends sfActions
   {
     $this->form = new EntryForm(null, array('user' => $this->getUser()));
   }
+
+  /**
+   * Add a new Credit form
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeAddCreditForm(sfWebRequest $request)
+  {
+    $this->forward404Unless($request->isXmlHttpRequest());
+
+//    if ($credit = CreditTable::retrieveByPk($request->getParameter('id')))
+//    {
+//      $form = new CreditForm($credit);
+//    }
+//    else
+//    {
+      $form = new EntryForm(null, array('user' => $this->getUser()));
+//    }
+
+    $number = $request->getParameter('num') + 1;
+    $key = 'credit_' . $number;
+  	$form->addCreditForm($key);
+
+    //return $this->renderText($this->renderPartial('addCreditForm',array('form' => $form['credits'][$key], 'num' => $number)));
+    return $this->renderPartial('addCreditForm', array('form' => $form['credits'][$key], 'num' => $number));
+  }
 }
 ?>
