@@ -42,39 +42,80 @@ abstract class PluginEntryForm extends BaseEntryForm
     $this->setDefault('updated_by', $user->getUserId());
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
 
-    $this->object['Debits'][] = new Debit();
-    foreach ($this->object['Debits'] as $key => $debit)
-    {
-      $this->embedForm('debit' . $index, new DebitForm());
-    }
 
-    $this->object['Credits'][] = new Credit();
-    foreach ($this->object['Credits'] as $key => $credit)
-    {
-      $creditForm = new CreditForm();
-      $fieldName = 'credit_' . $credit->getId();
-      $this->embedForm($fieldName, $creditForm);
 
-      // Last item ?
-      if (count($this->object['Credits']) -1 == $key)
+    $credit_forms = new sfForm();
+
+    //we only need the form container for embedding form via ajax,
+    if (false === sfContext::getInstance()->getRequest()->isXmlHttpRequest())
+    {
+      $credits = $this->getObject()->getCredits();
+      
+      if (count($credits) == 0) //if still empty, create 3 answers by default
       {
-        $label = 'Crédit <input type="submit" name="submit" value="+">';
+        for($i = 0; $i < 1; $i++)
+    	  {
+          $credit = new Credit();
+          $credit->setEntry($this->getObject());
+          $credits[] = $credit;
+    	  }
       }
 
-      $this->widgetSchema->setLabel($fieldName, $label);
+      foreach ($credits as $key => $v)
+      {
+        $creditForm = new CreditForm($v);
+    	  $credit_forms->embedForm('credit_' . ($key + 1), $creditForm);
+    	  $credit_forms->widgetSchema['credit_' . ($key + 1)]->setLabel('Crédit ' . ($key + 1));
+      }
     }
+
+    $this->embedForm('credits', $credit_forms);
+    $this->widgetSchema['credits']->setLabel('credits');
+    //
+
 
     $this->setLabels();
   }
 
   /**
+   * Called from actions
+   * 
+   * @param string $key The name of new form
+   */
+  public function addCreditForm($key)
+  {
+    $credit = new Credit();
+    $credit->setEntry($this->getObject());
+    $this->embeddedForms['credits']->embedForm($key, new CreditForm($credit));
+    $this->embedForm('credits', $this->embeddedForms['credits']);
+  }
+
+  /**
+   * Required overriding
+   * 
+   */
+  public function bind($taintedValues = null, $taintedFiles = null)
+  {
+    foreach ($taintedValues['credits'] as $key => $form)
+    {
+       if (false === $this->embeddedForms['credits']->offsetExists($key))
+       {
+    	   $this->addCreditForm($key);
+       }
+    }
+    
+    parent::bind($taintedValues, $taintedFiles);
+  }
+
+  /**
    * Set labels of the form's widgets
    */
-  public function setLabels()
+  protected function setLabels()
   {
     $this->widgetSchema->setLabels(array(
       'date'    => 'Date',
-      'label'   => 'Libellé'
+      'label'   => 'Libellé',
+      'credits' => 'Crédits',
     ));
   }
 }
