@@ -4,11 +4,13 @@
 = Ils utilisent Piwam ! =
   
   * [http://ad71.free.fr Alliance Dojo 71]
+  * [http://www.artaban.fr Artaban]
   * [http://assolettres.skyrock.com Asso-Lettres]
   * [http://descenda.homeip.net Association des Descendants de Capitaines Corsaires]
   * [http://asso.squash-talence.net Association Squash Talence]
   * [http://www.aipst.org AI CNAM-PST]
   * [http://www.brimbellug.org BrimbelLUG]
+  * [http://www.mnemo.qc.ca Centre Mnemo]
   * CJAOB
   * [http://blog.libre.cc CLICC]
   * [http://www.cycom.org Cycom]
@@ -28,6 +30,7 @@
   * [http://www.nutrition-chats-chiens.net/ Nutrition Chats Chiens]
   * [http://www.oisux.org Oisux] : promotion des logiciels libres dans l'Oise
   * [http://www.oxmoze.com Oxmoze]
+  * [http://www.photon.asso.st Photon]
   * [http://www.quiconcept.fr QuiConcept]
   * Réveil sauvagnonais
   * [http://robiencolere90.hebergratuit.com Robiens de la Colère Belfortains]
