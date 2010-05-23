@@ -3,6 +3,13 @@
  * Partial to display a new EntryForm instance
  */
 ?>
+
+<div class="global_errors">
+  <?php echo $form->renderGlobalErrors() ?>
+</div>
+
+<form action="<?php echo url_for('bookkeeping/updateEntry') ?>" method="POST">
+<?php echo $form->renderHiddenFields() ?>
 <table class="formtable">
   <tfoot>
     <tr>
@@ -14,11 +21,11 @@
   <tbody>
     <tr>
       <th><?php echo $form['date']->renderLabel() ?></th>
-      <td><?php echo $form['date'] ?></td>
+      <td><?php echo $form['date'] . $form['date']->renderError() ?></td>
     </tr>
     <tr>
       <th><?php echo $form['label']->renderLabel() ?></th>
-      <td><?php echo $form['label'] ?></td>
+      <td><?php echo $form['label'] . $form['label']->renderError() ?></td>
     </tr>
     <tr>
       <th><?php echo $form['credits']->renderLabel() ?></th>
@@ -56,3 +63,4 @@
     </tr>
   </tbody>
 </table>
+</form>
