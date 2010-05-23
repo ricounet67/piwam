@@ -4,6 +4,13 @@
  */
 ?>
 <table class="formtable">
+  <tfoot>
+    <tr>
+      <td colspan="2">
+        <input type="submit" value="Valider" class="blue button" />
+      </td>
+    </tr>
+  </tfoot>
   <tbody>
     <tr>
       <th><?php echo $form['date']->renderLabel() ?></th>
@@ -17,6 +24,13 @@
       <th><?php echo $form['credits']->renderLabel() ?></th>
       <td>
         <table>
+          <tfoot>
+            <tr>
+              <td>
+                <button id="add_credit" type="button">Ajouter un crédit</button>
+              </td>
+            </tr>
+          </tfoot>
           <tbody id="credits_container">
             <!-- Credits input will be dynamically added here -->
           </tbody>
@@ -27,6 +41,13 @@
       <th><?php echo $form['debits']->renderLabel() ?></th>
       <td>
         <table>
+          <tfoot>
+            <tr>
+              <td colspan="2">
+                <button id="add_debit" type="button">Ajouter un débit</button>
+              </td>
+            </tr>
+          </tfoot>
           <tbody id="debits_container">
             <!-- Debits input will be dynamically added here -->
           </tbody>
@@ -35,6 +56,3 @@
     </tr>
   </tbody>
 </table>
-
-<button id="add_credit" type="button"><?php echo "Ajouter un crédit" ?></button>
-<button id="add_debit" type="button"><?php echo "Ajouter un débit" ?></button>
