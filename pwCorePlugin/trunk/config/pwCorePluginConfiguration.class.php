@@ -40,7 +40,7 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
    
     if (sfConfig::get('app_default_layout', true))
     {
-      sfConfig::set('sf_app_template_dir', sfConfig::get('sf_plugins_dir').'/pwCorePlugin/templates');
+      sfConfig::set('sf_app_template_dir', sfConfig::get('sf_plugins_dir') . '/pwCorePlugin/templates');
     }
     
     sfConfig::set('secure_module', 'error');
@@ -49,8 +49,8 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
     sfConfig::set('sf_login_module', 'login');
     sfConfig::set('sf_login_action', 'login');
 
-		sfValidatorBase::setDefaultMessage('required', 'Requis');
-		sfValidatorBase::setDefaultMessage('invalid', 'Invalide');
+    sfValidatorBase::setDefaultMessage('required', 'Requis');
+    sfValidatorBase::setDefaultMessage('invalid', 'Invalide');
     
     return true;
   }
