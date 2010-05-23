@@ -99,25 +99,26 @@ class BaseBookkeepingActions extends sfActions
    */
   public function executeUpdateEntry(sfWebRequest $request)
   {
-    //var_dump($request->getParameter('entry'));
     $this->form = new EntryForm(null, array('user' => $this->getUser()));
+    $this->processForm($request, $this->form);
+    $this->setTemplate('newEntry');
+  }
 
-    $this->form->bind($request->getParameter('entry'));
-
-    if ($this->form->isValid())
+  /**
+   * Process data provided by EntryForm, and all the embedded forms.
+   * Redirects to the index view if everything went fine
+   *
+   * @param   sfWebRequest    $request
+   * @param   EntryForm       $form
+   */
+  protected function processForm(sfWebRequest $request, EntryForm $form)
+  {
+    $form->bind($request->getParameter($form->getName()));
+    
+    if ($form->isValid())
     {
-      echo 'valid !';
-      //$activity = $form->save();
-      //$this->redirect('@activities_list');
       $this->redirect('bookkeeping/index');
     }
-    else
-    {
-      echo $this->form->getErrorSchema();
-      echo 'not valid';
-    }
-
-    $this->setTemplate('newEntry');
   }
 }
 ?>
