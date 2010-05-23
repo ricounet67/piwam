@@ -42,45 +42,40 @@ abstract class PluginEntryForm extends BaseEntryForm
     $this->setDefault('updated_by', $user->getUserId());
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
 
-
-
     $credit_forms = new sfForm();
 
     //we only need the form container for embedding form via ajax,
     if (false === sfContext::getInstance()->getRequest()->isXmlHttpRequest())
     {
       $credits = $this->getObject()->getCredits();
-      
-      if (count($credits) == 0) //if still empty, create 3 answers by default
+
+      // If no credits, we add one input by default
+      if (count($credits) == 0)
       {
-        for($i = 0; $i < 1; $i++)
-    	  {
-          $credit = new Credit();
-          $credit->setEntry($this->getObject());
-          $credits[] = $credit;
-    	  }
+        $credit = new Credit();
+        $credit->setEntry($this->getObject());
+        $credits[] = $credit;
       }
 
-      foreach ($credits as $key => $v)
+      foreach ($credits as $key => $c)
       {
-        $creditForm = new CreditForm($v);
-    	  $credit_forms->embedForm('credit_' . ($key + 1), $creditForm);
-    	  $credit_forms->widgetSchema['credit_' . ($key + 1)]->setLabel('Crédit ' . ($key + 1));
+        $creditForm = new CreditForm($c);
+        $credit_forms->embedForm('credit_' . ($key + 1), $creditForm);
+        $credit_forms->widgetSchema['credit_' . ($key + 1)]->setLabel('Crédit #' . ($key + 1));
       }
     }
-
+    
     $this->embedForm('credits', $credit_forms);
-    $this->widgetSchema['credits']->setLabel('credits');
-    //
-
-
     $this->setLabels();
   }
 
   /**
-   * Called from actions
+   * Called from bookkeeping/addCreditForm action, which is called by
+   * ajax call from the newEntry template.
+   * A new CreditForm is embeding into the embedded forms of the current
+   * EntryForm.
    * 
-   * @param string $key The name of new form
+   * @param   string  $key : The name of new form, eg: credit_42
    */
   public function addCreditForm($key)
   {
@@ -91,8 +86,7 @@ abstract class PluginEntryForm extends BaseEntryForm
   }
 
   /**
-   * Required overriding
-   * 
+   * Required overriding to manage embedded credits and debits forms
    */
   public function bind($taintedValues = null, $taintedFiles = null)
   {
