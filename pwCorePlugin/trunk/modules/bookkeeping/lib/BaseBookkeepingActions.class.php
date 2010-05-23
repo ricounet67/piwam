@@ -106,9 +106,15 @@ class BaseBookkeepingActions extends sfActions
 
     if ($this->form->isValid())
     {
+      echo 'valid !';
       //$activity = $form->save();
       //$this->redirect('@activities_list');
       $this->redirect('bookkeeping/index');
+    }
+    else
+    {
+      echo $this->form->getErrorSchema();
+      echo 'not valid';
     }
 
     $this->setTemplate('newEntry');

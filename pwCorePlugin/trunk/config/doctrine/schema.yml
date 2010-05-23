@@ -254,8 +254,8 @@ Debit:
     id:              { type: integer(4), primary: true, autoincrement: true }
     date:            { type: date(25), notnull: true }
     label:           { type: string(255) }
-    debited_account: { type: integer(4) }
-    entry_id:        { type: integer(4) }
+    debited_account: { type: integer(4), notnull: true }
+    entry_id:        { type: integer(4), notnull: true }
     amount:          { type: 'decimal(10, 2)', notnull: true, autoincrement: false }
   relations:
     DebitedAccount:  { class: Account, local: debited_account, foreign: id, type: one, onDelete: CASCADE }
@@ -270,8 +270,8 @@ Credit:
     id:               { type: integer(4), primary: true, autoincrement: true }
     date:             { type: date(25), notnull: true }
     label:            { type: string(255) }
-    credited_account: { type: integer(4) }
-    entry_id:         { type: integer(4) }
+    credited_account: { type: integer(4), notnull: true }
+    entry_id:         { type: integer(4), notnull: true }
     amount:           { type: 'decimal(10, 2)', notnull: true, autoincrement: false }
   relations:
     creditedAccount:  { class: Account, local: credited_account, foreign: id, type: one, onDelete: CASCADE }
