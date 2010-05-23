@@ -39,7 +39,8 @@ class BaseBookkeepingActions extends sfActions
   }
 
   /**
-   * Add a new Credit form
+   * Add a new Credit form. Ajax call from the newEntry template, when user
+   * clicks on "add credit" button
    *
    * @param sfWebRequest $request
    */
@@ -47,9 +48,10 @@ class BaseBookkeepingActions extends sfActions
   {
     $this->forward404Unless($request->isXmlHttpRequest());
 
-    if ($entry = EntryTable::getById($request->getParameter('id')))
+    if (null !== $request->getParameter('id', null))
     {
-      $form = new EntryForm($credit, array('user' => $this->getUser()));
+      $entry = EntryTable::getById($request->getParameter('id', null));
+      $form = new EntryForm($entry, array('user' => $this->getUser()));
     }
     else
     {
@@ -60,7 +62,6 @@ class BaseBookkeepingActions extends sfActions
     $key = 'credit_' . $number;
     $form->addCreditForm($key);
 
-    //return $this->renderText($this->renderPartial('addCreditForm',array('form' => $form['credits'][$key], 'num' => $number)));
     return $this->renderPartial('addCreditForm', array('form' => $form['credits'][$key], 'num' => $number));
   }
 }
