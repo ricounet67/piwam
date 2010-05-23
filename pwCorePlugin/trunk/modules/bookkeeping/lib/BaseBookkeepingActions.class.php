@@ -47,18 +47,18 @@ class BaseBookkeepingActions extends sfActions
   {
     $this->forward404Unless($request->isXmlHttpRequest());
 
-//    if ($credit = CreditTable::retrieveByPk($request->getParameter('id')))
-//    {
-//      $form = new CreditForm($credit);
-//    }
-//    else
-//    {
+    if ($entry = EntryTable::getById($request->getParameter('id')))
+    {
+      $form = new EntryForm($credit, array('user' => $this->getUser()));
+    }
+    else
+    {
       $form = new EntryForm(null, array('user' => $this->getUser()));
-//    }
+    }
 
     $number = $request->getParameter('num') + 1;
     $key = 'credit_' . $number;
-  	$form->addCreditForm($key);
+    $form->addCreditForm($key);
 
     //return $this->renderText($this->renderPartial('addCreditForm',array('form' => $form['credits'][$key], 'num' => $number)));
     return $this->renderPartial('addCreditForm', array('form' => $form['credits'][$key], 'num' => $number));
