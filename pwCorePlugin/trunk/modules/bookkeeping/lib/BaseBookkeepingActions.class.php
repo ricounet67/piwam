@@ -91,5 +91,27 @@ class BaseBookkeepingActions extends sfActions
 
     return $this->renderPartial('addDebitForm', array('form' => $form['debits'][$key], 'num' => $number));
   }
+
+  /**
+   * Process data provided by EntryForm
+   *
+   * @param   sfWebRequest  $request
+   */
+  public function executeUpdateEntry(sfWebRequest $request)
+  {
+    //var_dump($request->getParameter('entry'));
+    $this->form = new EntryForm(null, array('user' => $this->getUser()));
+
+    $this->form->bind($request->getParameter('entry'));
+
+    if ($this->form->isValid())
+    {
+      //$activity = $form->save();
+      //$this->redirect('@activities_list');
+      $this->redirect('bookkeeping/index');
+    }
+
+    $this->setTemplate('newEntry');
+  }
 }
 ?>
