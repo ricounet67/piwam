@@ -43,7 +43,7 @@ class BaseinstallActions extends sfActions
    *
    * @var integer
    */
-  const STATE_SUCCESS	= 3;
+  const STATE_SUCCESS = 3;
 
   /**
    * Executes index action
@@ -91,11 +91,11 @@ class BaseinstallActions extends sfActions
       $this->form->bind($request->getParameter('dbconfig'));
       if ($this->form->isValid())
       {
-        $config 	= $request->getParameter('dbconfig');
-        $host 		= $config['mysql_server'];
-        $username	= $config['mysql_username'];
-        $password	= $config['mysql_password'];
-        $dbname 	= $config['mysql_dbname'];
+        $config   = $request->getParameter('dbconfig');
+        $host     = $config['mysql_server'];
+        $username = $config['mysql_username'];
+        $password = $config['mysql_password'];
+        $dbname   = $config['mysql_dbname'];
 
         if (DbTools::checkMySQLConnection($host, $username, $password, $dbname))
         {
@@ -138,7 +138,7 @@ class BaseinstallActions extends sfActions
       $task->run(array('dsn'      => 'mysql:dbname=' . $dbname . ';host=' . $server,
                        'username' => $username,
                        'password' => $password),
-                array('env' => 'prod')
+                 array('env' => 'prod')
       );
       $insert = new sfDoctrineInsertSqlTask($this->dispatcher, new sfFormatter());
       $insert->run();
