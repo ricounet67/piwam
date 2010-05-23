@@ -38,8 +38,16 @@
               </td>
             </tr>
           </tfoot>
-          <tbody id="credits_container">
-            <!-- Credits input will be dynamically added here -->
+          <tbody>
+            <tr>
+              <td id="credits_container">
+                <?php $counter = 0 ?>
+                <?php foreach ($form['credits'] as $key => $creditForm): ?>
+                  <?php include_partial('addCreditForm', array('form' => $creditForm, 'num' => $counter++)) ?>
+                <?php endforeach ?>
+                <!-- Credits input will be dynamically added here -->
+              </td>
+            </tr>
           </tbody>
         </table>
       </td>
@@ -50,13 +58,21 @@
         <table>
           <tfoot>
             <tr>
-              <td colspan="2">
+              <td>
                 <button id="add_debit" type="button">Ajouter un débit</button>
               </td>
             </tr>
           </tfoot>
-          <tbody id="debits_container">
-            <!-- Debits input will be dynamically added here -->
+          <tbody>
+            <tr>
+              <td>
+                <?php $counter = 0 ?>
+                <?php foreach ($form['debits'] as $key => $debitForm): ?>
+                  <?php include_partial('addDebitForm', array('form' => $debitForm, 'num' => $counter++)) ?>
+                <?php endforeach ?>
+                <!-- Debits input will be dynamically added here -->
+              </td>
+            </tr>
           </tbody>
         </table>
       </td>

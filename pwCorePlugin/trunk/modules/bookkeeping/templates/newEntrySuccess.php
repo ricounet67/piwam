@@ -14,13 +14,9 @@
 
 <?php echo include_partial('entryForm', array('form' => $form)) ?>
 
-
-<?php $numberOfCredits = 0; ?>
-<?php $numberOfDebits = 0; ?>
-
 <script type="text/javascript">
-  var numberOfCredits = <?php echo $numberOfCredits ?>;
-  var numberOfDebits = <?php echo $numberOfDebits ?>;
+  var numberOfCredits = <?php echo count($form['credits']) ?>;
+  var numberOfDebits = <?php echo count($form['debits']) ?>;
 
   /**
    * Add a new Credit form. The new credit will be numbered `num`
