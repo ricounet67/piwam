@@ -113,12 +113,31 @@ class BaseBookkeepingActions extends sfActions
    */
   protected function processForm(sfWebRequest $request, EntryForm $form)
   {
-    $form->bind($request->getParameter($form->getName()));
-    
+    $form->bind($q = $request->getParameter($form->getName()));
+    $totalCredits = $this->_sumOfAmount($q['credits']);
+    $totalDebits = $this->_sumOfAmount($q['debits']);
+
+    if ($totalCredits !== $totalDebits)
+    {
+      throw new Exception('Montants invalides');
+    }
+
     if ($form->isValid())
     {
       $this->redirect('bookkeeping/index');
     }
+  }
+
+  private function _sumOfAmount($array)
+  {
+    $sum = 0;
+
+    foreach ($array as $item)
+    {
+      $sum += $item['amount'];
+    }
+
+    return $sum;
   }
 }
 ?>
