@@ -14,14 +14,14 @@
   </tr>
   <tr>
     <th><?php echo $form['amount']->renderLabel() ?></th>
-    <td><?php echo $form['amount']->render() ?><td>
+    <td><?php echo $form['amount'] . $form['amount']->renderError() ?><td>
   </tr>
   <tr>
     <th><?php echo $form['debited_account']->renderLabel() ?></th>
-    <td><?php echo $form['debited_account']->render() ?><td>
+    <td><?php echo $form['debited_account'] . $form['debited_account']->renderError() ?><td>
   </tr>
   <tr>
     <th><?php echo $form['label']->renderLabel() ?></th>
-    <td><?php echo $form['label']->render() ?><td>
+    <td><?php echo $form['label'] . $form['label']->renderError() ?><td>
   </tr>
 </table>
