@@ -57,6 +57,11 @@ class DbTools
   /**
    * Check if MySQL settings are allright or not
    *
+   * @param   string  $host
+   * @param   string  $user
+   * @param   string  $password
+   * @param   string  $dbname
+   * @return  boolean
    * @todo extend to others DBMS
    */
   public static function checkMySQLConnection($host, $user, $password, $dbname)
