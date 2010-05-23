@@ -43,11 +43,13 @@ abstract class PluginEntryForm extends BaseEntryForm
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
 
     $credit_forms = new sfForm();
+    $debit_forms = new sfForm();
 
     //we only need the form container for embedding form via ajax,
     if (false === sfContext::getInstance()->getRequest()->isXmlHttpRequest())
     {
       $credits = $this->getObject()->getCredits();
+      $debits = $this->getObject()->getDebits();
 
       // If no credits, we add one input by default
       if (count($credits) == 0)
@@ -57,15 +59,31 @@ abstract class PluginEntryForm extends BaseEntryForm
         $credits[] = $credit;
       }
 
+      // If no debits, we add one input by default
+      if (count($debits) == 0)
+      {
+        $debit = new Debit();
+        $debit->setEntry($this->getObject());
+        $debits[] = $debit;
+      }
+
       foreach ($credits as $key => $c)
       {
         $creditForm = new CreditForm($c);
         $credit_forms->embedForm('credit_' . ($key + 1), $creditForm);
         $credit_forms->widgetSchema['credit_' . ($key + 1)]->setLabel('Crédit #' . ($key + 1));
       }
+
+      foreach ($debits as $key => $c)
+      {
+        $debitForm = new DebitForm($c);
+        $debit_forms->embedForm('debit_' . ($key + 1), $debitForm);
+        $debit_forms->widgetSchema['debit_' . ($key + 1)]->setLabel('Débit #' . ($key + 1));
+      }
     }
     
     $this->embedForm('credits', $credit_forms);
+    $this->embedForm('debits', $debit_forms);
     $this->setLabels();
   }
 
@@ -86,6 +104,22 @@ abstract class PluginEntryForm extends BaseEntryForm
   }
 
   /**
+   * Called from bookkeeping/addDebitForm action, which is called by
+   * ajax call from the newEntry template.
+   * A new DebitForm is embeding into the embedded forms of the current
+   * EntryForm.
+   *
+   * @param   string  $key : The name of new form, eg: debit_42
+   */
+  public function addDebitForm($key)
+  {
+    $debit = new Debit();
+    $debit->setEntry($this->getObject());
+    $this->embeddedForms['debit']->embedForm($key, new DebitForm($debit));
+    $this->embedForm('debits', $this->embeddedForms['debits']);
+  }
+
+  /**
    * Required overriding to manage embedded credits and debits forms
    */
   public function bind($taintedValues = null, $taintedFiles = null)
@@ -95,6 +129,14 @@ abstract class PluginEntryForm extends BaseEntryForm
        if (false === $this->embeddedForms['credits']->offsetExists($key))
        {
     	   $this->addCreditForm($key);
+       }
+    }
+
+    foreach ($taintedValues['debits'] as $key => $form)
+    {
+       if (false === $this->embeddedForms['debits']->offsetExists($key))
+       {
+    	   $this->addDebitForm($key);
        }
     }
     
@@ -110,6 +152,7 @@ abstract class PluginEntryForm extends BaseEntryForm
       'date'    => 'Date',
       'label'   => 'Libellé',
       'credits' => 'Crédits',
+      'debits'  => 'Débits',
     ));
   }
 }
