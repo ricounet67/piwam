@@ -18,7 +18,7 @@ class BaseMemberActions extends sfActions
    * page, since credentials are not checked by config.yml to allow this
    * behaviour
    *
-   * @param 	sfWebRequest	$request
+   * @param   sfWebRequest	$request
    * @since   r1
    */
   public function executeIndex(sfWebRequest $request)

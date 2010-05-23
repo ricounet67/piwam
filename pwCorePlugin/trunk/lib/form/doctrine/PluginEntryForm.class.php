@@ -115,7 +115,7 @@ abstract class PluginEntryForm extends BaseEntryForm
   {
     $debit = new Debit();
     $debit->setEntry($this->getObject());
-    $this->embeddedForms['debit']->embedForm($key, new DebitForm($debit));
+    $this->embeddedForms['debits']->embedForm($key, new DebitForm($debit));
     $this->embedForm('debits', $this->embeddedForms['debits']);
   }
 
@@ -126,18 +126,18 @@ abstract class PluginEntryForm extends BaseEntryForm
   {
     foreach ($taintedValues['credits'] as $key => $form)
     {
-       if (false === $this->embeddedForms['credits']->offsetExists($key))
-       {
-    	   $this->addCreditForm($key);
-       }
+      if (false === $this->embeddedForms['credits']->offsetExists($key))
+      {
+        $this->addCreditForm($key);
+      }
     }
 
     foreach ($taintedValues['debits'] as $key => $form)
     {
-       if (false === $this->embeddedForms['debits']->offsetExists($key))
-       {
-    	   $this->addDebitForm($key);
-       }
+      if (false === $this->embeddedForms['debits']->offsetExists($key))
+      {
+        $this->addDebitForm($key);
+      }
     }
     
     parent::bind($taintedValues, $taintedFiles);

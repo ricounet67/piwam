@@ -12,24 +12,15 @@
 
 <h2>Nouvelle écriture</h2>
 
-<table>
-  <tbody id="credit_container">
-
-  </tbody>
-</table>
-
-<table class="formtable">
-  <?php echo $form ?>
-  <tr>
-    <td colspan="2"><button id="add_credit" type="button"><?php echo "Add Credit" ?></button></td>
-  </tr>
-</table>
+<?php echo include_partial('entryForm', array('form' => $form)) ?>
 
 
-<?php $counter = 0; ?>
+<?php $numberOfCredits = 0; ?>
+<?php $numberOfDebits = 0; ?>
 
 <script type="text/javascript">
-  var numberOfCredits = <?php echo $counter ?>;
+  var numberOfCredits = <?php echo $numberOfCredits ?>;
+  var numberOfDebits = <?php echo $numberOfDebits ?>;
 
   /**
    * Add a new Credit form. The new credit will be numbered `num`
@@ -49,14 +40,42 @@
   };
 
   /**
+   * Add a new Debit form. The new debit will be numbered `num`
+   *
+   * @param   integer   num
+   * @return  string    HTML content for displaying new Debit Form
+   */
+  function addDebit(num)
+  {
+    var response = jQuery.ajax({
+      type:   'GET',
+      url:    '<?php echo url_for('bookkeeping/addDebitForm')?>' + '<?php echo ($form->getObject()->isNew()? '' : '?id=' . $form->getObject()->getId()) . ($form->getObject()->isNew() ? '?num=' : '&num=') ?>' + num,
+      async:  false
+    }).responseText;
+
+    return response;
+  };
+
+  /**
    * Delete a Credit form
    *
    * @param   integer   num : The number of creditForm to delete
    */
   function deleteCredit(num)
   {
-    document.getElementById('credit_container').removeChild(document.getElementById('credit_' + num));
+    document.getElementById('credits_container').removeChild(document.getElementById('credit_' + num));
     numberOfCredits = numberOfCredits - 1;
+  };
+
+  /**
+   * Delete a Credit form
+   *
+   * @param   integer   num : The number of creditForm to delete
+   */
+  function deleteDebit(num)
+  {
+    document.getElementById('debits_container').removeChild(document.getElementById('debit_' + num));
+    numberOfDebits = numberOfDebits - 1;
   };
 
   /*
@@ -65,8 +84,13 @@
   jQuery().ready(function()
   {
     jQuery('button#add_credit').click(function() {
-      jQuery("#credit_container").append(addCredit(numberOfCredits));
+      jQuery("#credits_container").append(addCredit(numberOfCredits));
       numberOfCredits = numberOfCredits + 1;
+    });
+
+    jQuery('button#add_debit').click(function() {
+      jQuery("#debits_container").append(addDebit(numberOfDebits));
+      numberOfDebits = numberOfDebits + 1;
     });
   });
 </script>

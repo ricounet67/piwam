@@ -64,5 +64,32 @@ class BaseBookkeepingActions extends sfActions
 
     return $this->renderPartial('addCreditForm', array('form' => $form['credits'][$key], 'num' => $number));
   }
+
+  /**
+   * Add a new Debit form. Ajax call from the newEntry template, when user
+   * clicks on "add debit" button
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeAddDebitForm(sfWebRequest $request)
+  {
+    $this->forward404Unless($request->isXmlHttpRequest());
+
+    if (null !== $request->getParameter('id', null))
+    {
+      $entry = EntryTable::getById($request->getParameter('id', null));
+      $form = new EntryForm($entry, array('user' => $this->getUser()));
+    }
+    else
+    {
+      $form = new EntryForm(null, array('user' => $this->getUser()));
+    }
+
+    $number = $request->getParameter('num') + 1;
+    $key = 'debit_' . $number;
+    $form->addDebitForm($key);
+
+    return $this->renderPartial('addDebitForm', array('form' => $form['debits'][$key], 'num' => $number));
+  }
 }
 ?>
