@@ -56,4 +56,19 @@ abstract class PluginAssociation extends BaseAssociation
 
     return ($n == null) ? 0 : $n;
   }
+
+  /*
+   * Register classicla bookkeeping accounts
+   */
+  private function _createStandardAccounts()
+  {
+    AccountTable::add(1,    null, 'Compte de capitaux',           $this->id);
+    AccountTable::add(10,   1,    'Capital et réserves',          $this->id);
+    AccountTable::add(101,  10,   "Capital",                      $this->id);
+    AccountTable::add(102,  10,   "Fonds fiduciaire",             $this->id);
+    AccountTable::add(11,   1,    'Report à nouveau',             $this->id);
+    AccountTable::add(12,   1,    "Résultat de l'exercice",       $this->id);
+    AccountTable::add(13,   1,    "Subventions d'investissement", $this->id);
+    AccountTable::add(13,   1,    "Provisions réglementées",      $this->id);
+  }
 }
