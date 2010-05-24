@@ -78,6 +78,10 @@ all:
       accounting:
         label: Comptabilité
         items:
+          bookkeeping:
+            name: Comptabilité
+            uri: @bk_overview
+            credentials: list_account
           manage_activities:
             name: Gestion des activités
             uri: @activities_list
