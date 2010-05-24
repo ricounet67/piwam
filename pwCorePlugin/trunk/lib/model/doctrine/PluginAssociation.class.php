@@ -37,7 +37,7 @@ abstract class PluginAssociation extends BaseAssociation
     StatusTable::add('Membre actif', $id);
     StatusTable::add('Membre d\'honneur', $id);
     ActivityTable::add('Fonctionnement général de l\'association', $id);
-    AccountTable::add('Caisse de monnaie', 'CAISSE_MONNAIE', $id);
+    //SimpleAccountTable::add('Caisse de monnaie', 'CAISSE_MONNAIE', $id);
   }
 
   /**

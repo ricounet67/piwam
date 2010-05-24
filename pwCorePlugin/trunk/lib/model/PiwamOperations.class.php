@@ -24,7 +24,8 @@ class PiwamOperations
    * has been set as static because other foregin methods may want to check
    * if Piwam has been properly installed (ie: default module/action)
    *
-   * @return boolean
+   * @return  boolean
+   * @todo    Check the new Account
    */
   public static function isInstalled()
   {
@@ -35,7 +36,7 @@ class PiwamOperations
       ConfigVariableTable::doCount();
       MemberTable::doCount();
       StatusTable::doCount();
-      AccountTable::doCount();
+      //AccountTable::doCount();
       DueTable::doCount();
       DueTypeTable::doCount();
       IncomeTable::doCount();

@@ -1,3 +1,6 @@
+TODO LIST
+=========
+
 
   * Route for config_member/edit
   * Ensure that we can delete all the table without constraint issue
@@ -62,3 +65,4 @@
     background and shadow
   * Deploy with mail delivery strategy as "spooled" :
     http://www.symfony-project.org/more-with-symfony/1_4/en/04-Emails
+  * Fix jQuery date picker bug with 31st of each month

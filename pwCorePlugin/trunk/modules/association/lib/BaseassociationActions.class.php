@@ -50,7 +50,7 @@ class BaseassociationActions extends sfActions
   public function executeBalance(sfWebRequest $request)
   {
     $associationId         = $this->getUser()->getAssociationId();
-    $this->accounts        = AccountTable::getEnabledForAssociation($associationId);
+    $this->accounts        = SimpleAccountTable::getEnabledForAssociation($associationId);
     $this->activities      = ActivityTable::getEnabledForAssociation($associationId);
     $this->totalDues       = DueTable::getSumForAssociation($associationId);
     $this->totalUnpaid     = ExpenseTable::getAmountOfDebtsForAssociation($associationId);
