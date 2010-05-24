@@ -81,6 +81,10 @@ abstract class PluginEntryForm extends BaseEntryForm
         $debit_forms->widgetSchema['debit_' . ($key + 1)]->setLabel('Débit #' . ($key + 1));
       }
     }
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorCallback(array('callback' => array($this, 'checkAmounts')))
+    );
     
     $this->embedForm('credits', $credit_forms);
     $this->embedForm('debits', $debit_forms);
@@ -141,6 +145,36 @@ abstract class PluginEntryForm extends BaseEntryForm
     }
     
     parent::bind($taintedValues, $taintedFiles);
+  }
+
+  /**
+   * Check the total amount of credits and debits, which have to be equals.
+   * Otherwise a global error is thrown
+   *
+   * @param   sfValidatorBase $validator
+   * @param   array           $values
+   * @return  array
+   */
+  public function checkAmounts(sfValidatorBase $validator, array $values)
+  {
+    $total = 0;
+    
+    foreach ($values['debits'] as $debit)
+    {
+      $total += $debit['amount'];
+    }
+
+    foreach ($values['credits'] as $credit)
+    {
+      $total -= $credit['amount'];
+    }
+
+    if (floatval($total) !== 0.00)
+    {
+      throw new sfValidatorError($validator, 'La somme des crédits doit être égale à la somme des débits !');
+    }
+    
+    return $values;
   }
 
   /**
