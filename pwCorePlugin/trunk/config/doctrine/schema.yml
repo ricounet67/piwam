@@ -78,7 +78,7 @@ Association:
 
 
     
-Account:
+SimpleAccount:
   tableName: piwam_account
   actAs: { Timestampable: ~ }
   columns:
@@ -150,7 +150,7 @@ Due:
     created_by:      { type: integer(4) }
     updated_by:      { type: integer(4) }
   relations:
-    Account:         { local: account_id, foreign: id, type: one, onDelete: CASCADE }
+    Account:         { class: SimpleAccount, local: account_id, foreign: id, type: one, onDelete: CASCADE }
     DueType:         { local: due_type_id, foreign: id, type: one, onDelete: CASCADE }
     Member:          { local: member_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
@@ -201,6 +201,7 @@ DigitalDocument:
     Document:        { class: Document, local: document_id, foreign: id, type: one, onDelete: CASCADE }
 
 
+
 Document:
   tableName: piwam_document
   actAs: { Timestampable: ~ }
@@ -244,6 +245,26 @@ Entry:
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
     Debits:          { class: Debit, local: id, foreign: entry_id, type: many }
     Credits:         { class: Credit, local: id, foreign: entry_id, type: many }
+
+
+
+Account:
+  tableName: piwam_bookkeeping_account
+  actAs: { Timestampable: ~ }
+  columns:
+    class:          { type: integer(4), primary: true }
+    parent_class:   { type: integer(4) }
+    label:          { type: string(255), notnull: true }
+    association_id: { type: integer(4), notnull: true }
+    state:          { type: integer(1), default: '1' }
+    created_by:     { type: integer(4) }
+    updated_by:     { type: integer(4) }
+  relations:
+    ParentAccount:  { class: Account, local: parent_class, foreign: class, type: one, onDelete: CASCADE }
+    ChildAccounts:  { class: Account, local: class, foreign: parent_class, type: many, onDelete: CASCADE }
+    Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
+    CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
 
 
 
@@ -295,7 +316,7 @@ Expense:
     updated_by:     { type: integer(4) }
   relations:
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
-    Account:        { local: account_id, foreign: id, type: one, onDelete: CASCADE }
+    Account:        { class: SimpleAccount, local: account_id, foreign: id, type: one, onDelete: CASCADE }
     Activity:       { local: activity_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
@@ -381,7 +402,7 @@ Income:
     updated_by:     { type: integer(4) }
   relations:
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
-    Account:        { local: account_id, foreign: id, type: one, onDelete: CASCADE }
+    Account:        { class: SimpleAccount, local: account_id, foreign: id, type: one, onDelete: CASCADE }
     Activity:       { local: activity_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
