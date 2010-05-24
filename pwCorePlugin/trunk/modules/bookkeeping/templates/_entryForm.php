@@ -30,7 +30,7 @@
     <tr>
       <th><?php echo $form['credits']->renderLabel() ?></th>
       <td>
-        <table>
+        <table summary="list of credits">
           <tfoot>
             <tr>
               <td>
@@ -55,7 +55,7 @@
     <tr>
       <th><?php echo $form['debits']->renderLabel() ?></th>
       <td>
-        <table>
+        <table summary="list of debits">
           <tfoot>
             <tr>
               <td>
@@ -65,7 +65,7 @@
           </tfoot>
           <tbody>
             <tr>
-              <td>
+              <td id="debits_container">
                 <?php $counter = 0 ?>
                 <?php foreach ($form['debits'] as $key => $debitForm): ?>
                   <?php include_partial('addDebitForm', array('form' => $debitForm, 'num' => $counter++)) ?>
