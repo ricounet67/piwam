@@ -261,6 +261,7 @@ Account:
     updated_by:     { type: integer(4) }
   relations:
     ParentAccount:  { class: Account, local: parent_id, foreign: id, type: one, onDelete: CASCADE }
+    Account:        { foreignAlias: ChildAccounts }
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
@@ -278,7 +279,7 @@ Debit:
     entry_id:        { type: integer(4), notnull: true }
     amount:          { type: 'decimal(10, 2)', notnull: true, autoincrement: false }
   relations:
-    DebitedAccount:  { class: Account, local: debited_account, foreign: id, type: one, onDelete: CASCADE }
+    DebitedAccount:  { class: Account, local: debited_account, foreign: id, type: one, onDelete: CASCADE, foreignAlias: Debits }
     Entry:           { class: Entry, local: entry_id, foreign: id, type: one, onDelete: CASCADE }
 
 
@@ -294,7 +295,7 @@ Credit:
     entry_id:         { type: integer(4), notnull: true }
     amount:           { type: 'decimal(10, 2)', notnull: true, autoincrement: false }
   relations:
-    creditedAccount:  { class: Account, local: credited_account, foreign: id, type: one, onDelete: CASCADE }
+    creditedAccount:  { class: Account, local: credited_account, foreign: id, type: one, onDelete: CASCADE, foreignAlias: Credits }
     Entry:            { class: Entry, local: entry_id, foreign: id, type: one, onDelete: CASCADE }
 
 
