@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PluginCredit form.
  *
@@ -17,7 +16,10 @@ abstract class PluginCreditForm extends BaseCreditForm
   {
     parent::setup();
     $this->useFields(array('amount', 'credited_account', 'label'));
-    $this->validatorSchema['amount'] = new sfValidatorAmount();
+    $this->validatorSchema['amount'] = new sfValidatorAmount(
+      array('min' => 0),
+      array('min' => 'ne peut être négatif')
+    );
     $this->setLabels();
   }
 

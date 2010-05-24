@@ -17,7 +17,10 @@ abstract class PluginDebitForm extends BaseDebitForm
   {
     parent::setup();
     $this->useFields(array('amount', 'debited_account', 'label'));
-    $this->validatorSchema['amount'] = new sfValidatorAmount();
+    $this->validatorSchema['amount'] = new sfValidatorAmount(
+      array('min' => 0),
+      array('min' => 'ne peut être négatif')
+    );
     $this->setLabels();
   }
 
