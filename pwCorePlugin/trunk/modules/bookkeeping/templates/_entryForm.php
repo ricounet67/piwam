@@ -14,6 +14,7 @@
   <tfoot>
     <tr>
       <td colspan="2">
+        <?php echo link_to('Retour', '@bk_overview', array('class' => 'blue button')) ?>
         <input type="submit" value="Valider" class="blue button" />
       </td>
     </tr>
