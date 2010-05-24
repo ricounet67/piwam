@@ -100,6 +100,7 @@ abstract class PluginEntryForm extends BaseEntryForm
     
     $this->embedForm('credits', $credit_forms);
     $this->embedForm('debits', $debit_forms);
+    $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
     $this->setLabels();
   }
 
