@@ -38,6 +38,18 @@ abstract class PluginEntryForm extends BaseEntryForm
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
     }
 
+    sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
+    $this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
+      'image'       => image_path('/pwCorePlugin/images/calendar.gif'),
+      'config'      => '{}',
+      'culture'     => 'fr_FR',
+      'date_widget' => new sfWidgetFormDate(array(
+        'format' => '%day%.%month%.%year%'
+      ))
+    ));
+
+    $this->setDefault('date', date('y-m-d'));
+
     $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
     $this->setDefault('updated_by', $user->getUserId());
     $this->validatorSchema['updated_by'] = new sfValidatorInteger();
