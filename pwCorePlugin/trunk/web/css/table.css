@@ -126,3 +126,11 @@ table.formtable tbody tr.subitem th {
   border-bottom: 1px solid #aaa;
   padding: 2px;
 }
+
+/* Delimited tables when they are listed (as the credits and
+   debit forms */
+table.delimited {
+  border: 3px solid #dedede;
+  -moz-border-radius: 4px;
+  margin-bottom: 3px;
+}

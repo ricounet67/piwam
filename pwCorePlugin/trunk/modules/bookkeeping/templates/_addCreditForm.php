@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 ?>
-<table class="formtable" id="credit_<?php echo $num ?>">
+<table class="formtable delimited" id="credit_<?php echo $num ?>">
   <tr>
     <th>Supprimer</th>
     <td><a href="#" onclick="deleteCredit(<?php echo $num ?>);return false;"> Supprimer</a></td>
