@@ -9,8 +9,8 @@
 ?>
 <table class="formtable delimited" id="credit_<?php echo $num ?>">
   <tr>
-    <th>Supprimer</th>
-    <td><a href="#" onclick="deleteCredit(<?php echo $num ?>);return false;"> Supprimer</a></td>
+    <th>Opérations</th>
+    <td><a href="#" onclick="deleteCredit(<?php echo $num ?>);return false;"><?php echo image_tag('/pwCorePlugin/images/icons/delete', array('alt' => 'Supprimer', 'align' => 'absmiddle')) ?> Supprimer</a></td>
   </tr>
   <tr>
     <th><?php echo $form['amount']->renderLabel() ?></th>
