@@ -34,7 +34,7 @@
           <tfoot>
             <tr>
               <td>
-                <button id="add_credit" type="button">Ajouter un crédit</button>
+                <a id="add_credit"><?php echo image_tag('/pwCorePlugin/images/add.png', array('align' => 'top')) ?> Ajouter un crédit</a>
               </td>
             </tr>
           </tfoot>
@@ -59,7 +59,7 @@
           <tfoot>
             <tr>
               <td>
-                <button id="add_debit" type="button">Ajouter un débit</button>
+                <a id="add_debit"><?php echo image_tag('/pwCorePlugin/images/add.png', array('align' => 'top')) ?> Ajouter un débit</a>
               </td>
             </tr>
           </tfoot>

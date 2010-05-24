@@ -79,12 +79,12 @@
    */
   jQuery().ready(function()
   {
-    jQuery('button#add_credit').click(function() {
+    jQuery('#add_credit').click(function() {
       jQuery("#credits_container").append(addCredit(numberOfCredits));
       numberOfCredits = numberOfCredits + 1;
     });
 
-    jQuery('button#add_debit').click(function() {
+    jQuery('#add_debit').click(function() {
       jQuery("#debits_container").append(addDebit(numberOfDebits));
       numberOfDebits = numberOfDebits + 1;
     });
