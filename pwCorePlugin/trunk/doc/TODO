@@ -66,3 +66,5 @@ TODO LIST
   * Deploy with mail delivery strategy as "spooled" :
     http://www.symfony-project.org/more-with-symfony/1_4/en/04-Emails
   * Fix jQuery date picker bug with 31st of each month
+  * Rewrite the checkings in the Form::setup() methods : develop a "requirement
+    checking" method
