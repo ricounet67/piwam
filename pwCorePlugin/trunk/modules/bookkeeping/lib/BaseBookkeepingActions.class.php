@@ -39,6 +39,17 @@ class BaseBookkeepingActions extends sfActions
   }
 
   /**
+   * List existing accounts
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeListAccounts(sfWebRequest $request)
+  {
+    $associationId = $this->getUser()->getAssociationId();
+    $this->accounts = AccountTable::getAccountsTree($associationId);
+  }
+
+  /**
    * Add a new Credit form. Ajax call from the newEntry template, when user
    * clicks on "add credit" button
    *
