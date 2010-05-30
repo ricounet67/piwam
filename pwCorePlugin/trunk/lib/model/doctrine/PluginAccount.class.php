@@ -11,5 +11,23 @@
  */
 abstract class PluginAccount extends BaseAccount
 {
+  /**
+   * Returns true if Account has any child
+   *
+   * @return  boolean
+   */
+  public function hasChilds()
+  {
+    return (count($this->getChildAccounts()) !== 0);
+  }
 
+  /**
+   * Shortcut to call getChildAccounts()
+   *
+   * @return Doctrine_Collection
+   */
+  public function getChilds()
+  {
+    return $this->getChildAccounts();
+  }
 }
