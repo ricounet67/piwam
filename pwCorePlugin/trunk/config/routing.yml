@@ -196,6 +196,10 @@ bk_overview:
   url:    /compta/vue_generale
   param:  { module: bookkeeping, action: index }
 
+bk_list_accounts:
+  url:    /compta/liste_des_comptes
+  param:  { module: bookkeeping, action: listAccounts }
+
 bk_new_entry:
   url:    /compta/nouvelle_ecriture
   param:  { module: bookkeeping, action: newEntry }
