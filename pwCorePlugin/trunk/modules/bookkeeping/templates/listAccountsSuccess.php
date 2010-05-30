@@ -14,11 +14,12 @@
     <tr>
       <th>Numéro</th>
       <th>Label</th>
+      <th width="100px">Actions</th>
     </tr>
   </thead>
   <tbody>
     <?php foreach ($accounts as $account): ?>
-      <?php include_partial('accountRow', array('account' => $account)) ?>
+      <?php include_partial('accountRow', array('account' => $account, 'depth' => 0)) ?>
     <?php endforeach ?>
   </tbody>
 </table>
