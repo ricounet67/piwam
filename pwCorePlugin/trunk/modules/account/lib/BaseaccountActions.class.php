@@ -10,15 +10,15 @@
  */
 class BaseaccountActions extends sfActions
 {
-
   /**
-   * List existing Compte
+   * List existing acciunts
    *
    * @param  sfWebRequest $request
    */
   public function executeIndex(sfWebRequest $request)
   {
-    
+    $associationId = $this->getUser()->getAssociationId();
+    $this->accounts = AccountTable::getRootAccounts($associationId);
   }
 
   /**
@@ -37,6 +37,11 @@ class BaseaccountActions extends sfActions
    */
   public function executeNew(sfWebRequest $request)
   {
+    $parentId = $request->getParameter('parent_id');
+    $this->form = new AccountForm(null, array(
+      'user' => $this->getUser(),
+      'parentId' => $parentId
+    ));
   }
 
   /**
