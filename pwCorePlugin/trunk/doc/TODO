@@ -68,3 +68,5 @@ TODO LIST
   * Fix jQuery date picker bug with 31st of each month
   * Rewrite the checkings in the Form::setup() methods : develop a "requirement
     checking" method
+  * Change validators of created_by and updated_by fields (from integerValidator
+    to Doctrine validators)
