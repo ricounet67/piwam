@@ -93,39 +93,6 @@ activity_create:
   param:  { module: activity, action: create }
 
 
-
-
-accounts_list:
-  url:    /comptes
-  param:  { module: account, action: index }
-
-account_show:
-  url:    /compte/details/:id
-  param:  { module: account, action: show }
-
-account_edit:
-  url:    /compte/editer/:id
-  param:  { module: account, action: edit }
-
-account_delete:
-  url:    /compte/supprimer/:id
-  param:  { module: account, action: delete }
-
-account_new:
-  url:    /compte/nouveau
-  param:  { module: account, action: new }
-
-account_create:
-  url:    /compte/creation
-  param:  { module: account, action: create }
-
-account_update:
-  url:    /compte/mettre_a_jour/:id
-  param:  { module: account, action: update }
-
-
-
-
 expenses_list:
   url:    /depenses/*
   param:  { module: expense, action: index }
@@ -189,20 +156,46 @@ income_show:
 
 
 # -----------------------------------------------------------------------------
+#     ACCOUNT RELATED ACTIONS
+# -----------------------------------------------------------------------------
+
+accounts_list:
+  url:    /comptes
+  param:  { module: account, action: index }
+
+account_show:
+  url:    /compte/details/:id
+  param:  { module: account, action: show }
+
+account_edit:
+  url:    /compte/editer/:id
+  param:  { module: account, action: edit }
+
+account_delete:
+  url:    /compte/supprimer/:id
+  param:  { module: account, action: delete }
+
+account_new:
+  url:    /compte/nouveau/:parent_id
+  param:  { module: account, action: new }
+
+account_create:
+  url:    /compte/creation
+  param:  { module: account, action: create }
+
+account_update:
+  url:    /compte/mettre_a_jour/:id
+  param:  { module: account, action: update }
+
+
+
+# -----------------------------------------------------------------------------
 #     BOOKKEEPING RELATED ACTIONS
 # -----------------------------------------------------------------------------
 
 bk_overview:
   url:    /compta/vue_generale
   param:  { module: bookkeeping, action: index }
-
-bk_list_accounts:
-  url:    /compta/liste_des_comptes
-  param:  { module: bookkeeping, action: listAccounts }
-
-bk_new_account:
-  url:    /compta/nouveau_compte/:parent_id
-  param:  { module: bookkeeping, action: newAccount }
 
 bk_new_entry:
   url:    /compta/nouvelle_ecriture
