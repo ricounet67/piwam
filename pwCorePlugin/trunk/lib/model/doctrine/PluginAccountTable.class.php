@@ -55,7 +55,8 @@ abstract class PluginAccountTable extends Doctrine_Table
   }
 
   /**
-   * Insert a new account
+   * Insert a new account according to give codes (for the account and for
+   * its parent if any)
    *
    * @param   integer   $reference : Reference of the new Account
    * @param   integer   $parent : Reference of the parent Account
@@ -65,9 +66,10 @@ abstract class PluginAccountTable extends Doctrine_Table
    */
   public static function add($code, $parent, $label, $associationId)
   {
+    $parentAccount = self::getByCode($parent, $associationId);
     $account = new Account();
-    $account->setId($code);
-    $account->setParentId($parent);
+    $account->setCode($code);
+    $account->setParentId($parentAccount->getId());
     $account->setAssociationId($associationId);
     $account->setLabel($label);
     $account->setState(AccountTable::STATE_ENABLED);
