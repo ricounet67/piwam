@@ -25,15 +25,30 @@ abstract class PluginAccountTable extends Doctrine_Table
 
   /**
    * Retrieve an Account by its $id
-   * 
+   *
    * @param   integer   $id
    * @return  Account
    */
-  public static function getById($id, $associationId)
+  public static function getById($id)
   {
     $q = Doctrine_Query::create()
       ->from('Account a')
-      ->where('a.id = ?', $id)
+      ->where('a.id = ?', $id);
+
+    return $q->fetchOne();
+  }
+
+  /**
+   * Retrieve an Account by its $code
+   * 
+   * @param   integer   $code
+   * @return  Account
+   */
+  public static function getByCode($code, $associationId)
+  {
+    $q = Doctrine_Query::create()
+      ->from('Account a')
+      ->where('a.id = ?', $code)
       ->andWhere('a.association_id = ?', $associationId);
 
     return $q->fetchOne();
@@ -42,8 +57,9 @@ abstract class PluginAccountTable extends Doctrine_Table
   /**
    * Insert a new account
    *
+   * @param   integer   $reference : Reference of the new Account
+   * @param   integer   $parent : Reference of the parent Account
    * @param   string    $label
-   * @param   string    $reference
    * @param   integer   $associationId
    * @return  Account   The resulting Account object
    */
