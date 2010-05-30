@@ -46,7 +46,7 @@ class BaseBookkeepingActions extends sfActions
   public function executeListAccounts(sfWebRequest $request)
   {
     $associationId = $this->getUser()->getAssociationId();
-    $this->accounts = AccountTable::getAccountsTree($associationId);
+    $this->accounts = AccountTable::getRootAccounts($associationId);
   }
 
   /**

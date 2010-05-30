@@ -43,4 +43,19 @@ abstract class PluginAccountTable extends Doctrine_Table
 
     return $account;
   }
+
+  /**
+   * Retrieve list of root accounts (without parent accounts)
+   *
+   * @param   integer   $associationId
+   * @return  array
+   */
+  public static function getRootAccounts($associationId)
+  {
+    $q = Doctrine_Query::create()
+      ->from('Account a')
+      ->where('a.parent_id IS NULL');
+
+    return $q->execute();
+  }
 }
