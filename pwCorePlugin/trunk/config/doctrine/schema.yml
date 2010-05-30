@@ -260,8 +260,7 @@ Account:
     created_by:     { type: integer(4) }
     updated_by:     { type: integer(4) }
   relations:
-    ParentAccount:  { class: Account, local: parent_id, foreign: id, type: one, onDelete: CASCADE }
-    Account:        { foreignAlias: ChildAccounts }
+    ParentAccount:  { class: Account, local: parent_id, foreign: id, type: one, foreignAlias: ChildAccounts, onDelete: CASCADE }
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
