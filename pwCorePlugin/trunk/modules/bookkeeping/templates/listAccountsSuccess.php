@@ -8,6 +8,17 @@
  */
 
 ?>
-<pre>
-  <?php print_r($accounts) ?>
-</pre>
+
+<table class="datalist" summary="list of enabled accounts">
+  <thead>
+    <tr>
+      <th>Numéro</th>
+      <th>Label</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($accounts as $account): ?>
+      <?php include_partial('accountRow', array('account' => $account)) ?>
+    <?php endforeach ?>
+  </tbody>
+</table>
