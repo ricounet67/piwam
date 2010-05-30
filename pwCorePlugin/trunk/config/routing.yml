@@ -200,6 +200,10 @@ bk_list_accounts:
   url:    /compta/liste_des_comptes
   param:  { module: bookkeeping, action: listAccounts }
 
+bk_new_account:
+  url:    /compta/nouveau_compte/:id
+  param:  { module: bookkeeping, action: newAccount }
+
 bk_new_entry:
   url:    /compta/nouvelle_ecriture
   param:  { module: bookkeeping, action: newEntry }
@@ -217,7 +221,9 @@ config_members:
 edit_extra_row:
   url:    /editer-un-champ/:id
   param:  { module: config_member, action: edit }
-  
+
+
+
 # -----------------------------------------------------------------------------
 #     MEMBER ACTIONS
 # -----------------------------------------------------------------------------
@@ -363,10 +369,7 @@ status_show:
   param:  { module: status, action: show }
 
 
-  
 
-
-  
 # -----------------------------------------------------------------------------
 #     DUE ACTIONS
 # -----------------------------------------------------------------------------
@@ -398,6 +401,7 @@ due_create:
 due_update:
   url:    /cotisation/mettre_a_jour/:id
   param:  { module: due, action: update }
+
 
 
 # -----------------------------------------------------------------------------
@@ -471,7 +475,6 @@ mailing_list:
 mailing_show:
   url:    /voir_email/:id
   param:  { module: mailing, action: show }
-
 
 
   
