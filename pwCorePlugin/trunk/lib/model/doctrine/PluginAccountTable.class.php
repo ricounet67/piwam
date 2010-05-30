@@ -24,6 +24,22 @@ abstract class PluginAccountTable extends Doctrine_Table
   const STATE_ENABLED     = 1;
 
   /**
+   * Retrieve an Account by its $id
+   * 
+   * @param   integer   $id
+   * @return  Account
+   */
+  public static function getById($id, $associationId)
+  {
+    $q = Doctrine_Query::create()
+      ->from('Account a')
+      ->where('a.id = ?', $id)
+      ->andWhere('a.association_id = ?', $associationId);
+
+    return $q->fetchOne();
+  }
+
+  /**
    * Insert a new account
    *
    * @param   string    $label
