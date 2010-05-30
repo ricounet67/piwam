@@ -17,7 +17,6 @@ abstract class PluginAccountForm extends BaseAccountForm
     parent::setup();
     $this->useFields(array('label'));
 
-
     if (! $user = $this->getOption('user'))
     {
       throw new InvalidArgumentException('You must provide a myUser object');
@@ -26,11 +25,6 @@ abstract class PluginAccountForm extends BaseAccountForm
     if (! $associationId = $this->getOption('associationId'))
     {
       $associationId = $user->getAssociationId();
-    }
-
-    if (! $parentId = $this->getOption('parentId'))
-    {
-      throw new InvalidArgumentException('You must provide a parent account ID');
     }
 
     if ($this->getObject()->isNew())
@@ -43,9 +37,14 @@ abstract class PluginAccountForm extends BaseAccountForm
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
       $this->widgetSchema['parent_id'] = new sfWidgetFormInputHidden();
       $this->validatorSchema['parent_id'] = new sfValidatorInteger();
-    }
 
-    $this->setDefault('parent_id', $parentId);
+      if (! $parentId = $this->getOption('parentId'))
+      {
+        throw new InvalidArgumentException('You must provide a parent account ID');
+      }
+      $this->setDefault('parent_id', $parentId);
+    }
+    
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
 
     $this->widgetSchema->setLabels(array(
