@@ -201,7 +201,7 @@ bk_list_accounts:
   param:  { module: bookkeeping, action: listAccounts }
 
 bk_new_account:
-  url:    /compta/nouveau_compte/:id
+  url:    /compta/nouveau_compte/:parent_id
   param:  { module: bookkeeping, action: newAccount }
 
 bk_new_entry:
