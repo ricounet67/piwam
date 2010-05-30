@@ -26,7 +26,7 @@
     <?php echo link_to(image_tag('/pwCorePlugin/images/icons/edit',    array('alt' => '[modifier]')),  '@bk_overview') ?>
 
     <?php if (! $account->hasChilds()): ?>
-      <?php echo link_to(image_tag('/pwCorePlugin/images/add', array('alt' => '[modifier]')),  '@bk_new_account?parent_id=' . $account->getId()) ?>
+      <?php echo link_to(image_tag('/pwCorePlugin/images/add', array('alt' => '[modifier]')),  '@account_new?parent_id=' . $account->getId()) ?>
     <?php endif ?>
   </td>
 </tr>

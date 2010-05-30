@@ -11,6 +11,6 @@
 <h3>Évolutions</h3>
 <h3>Actions</h3>
 <ul>
-  <li><?php echo link_to('Liste des comptes', '@bk_list_accounts') ?></li>
+  <li><?php echo link_to('Liste des comptes', '@accounts_list') ?></li>
   <li><?php echo link_to('Nouvelle entrée', '@bk_new_entry') ?></li>
 </ul>

@@ -18,23 +18,16 @@ class BaseaccountActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->accounts = AccountTable::getEnabledForAssociation($this->getUser()->getAssociationId());
+    
   }
 
   /**
-   * Show details about a particular Compte
+   * Show details about a particular Account
    *
    * @param   sfWebRequest $request
    */
   public function executeShow(sfWebRequest $request)
   {
-    $this->account = AccountTable::getById($request->getParameter('id'));
-    $this->forward404Unless($this->account);
-
-    if ($this->account->getAssociationId() != $this->getUser()->getAssociationId())
-    {
-      $this->redirect('@error_credentials');
-    }
   }
 
   /**
@@ -44,9 +37,6 @@ class BaseaccountActions extends sfActions
    */
   public function executeNew(sfWebRequest $request)
   {
-    $association_id = $this->getUser()->getAssociationId();
-    $this->form = new AccountForm(null, array('associationId' => $association_id));
-    $this->form->setDefault('created_by', $this->getUser()->getUserId());
   }
 
   /**
@@ -56,12 +46,6 @@ class BaseaccountActions extends sfActions
    */
   public function executeCreate(sfWebRequest $request)
   {
-    $this->forward404Unless($request->isMethod('post'));
-    $account_array = $request->getParameter('account');
-    $associationId = $account_array['association_id'];
-    $this->form = new AccountForm(null, array('associationId' => $associationId));
-    $this->processForm($request, $this->form);
-    $this->setTemplate('new');
   }
 
   /**
@@ -71,17 +55,10 @@ class BaseaccountActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
-    $id = $request->getParameter('id');
-    $account = AccountTable::getById($id);
-    $this->forward404Unless($account, "Account {$id} does not exist.");
-
     if ($account->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
-
-    $this->form = new AccountForm($account, array('associationId' => $account->getAssociationId()));
-    $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
   /**
@@ -92,10 +69,6 @@ class BaseaccountActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
-    $id = $request->getParameter('id');
-    $account = AccountTable::getById($id);
-    $this->forward404Unless($account, "Account {$id} does not exist.");
-    $this->form = new AccountForm($account, array('associationId' => $account->getAssociationId()));
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
   }
@@ -107,18 +80,10 @@ class BaseaccountActions extends sfActions
    */
   public function executeDelete(sfWebRequest $request)
   {
-    $request->checkCSRFProtection();
-    $id = $request->getParameter('id');
-    $account = AccountTable::getById($id);
-    $this->forward404Unless($account, "Account {$id} does not exist.");
-
     if ($account->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
-
-    $account->delete();
-    $this->redirect('@accounts_list');
   }
 
   /**
@@ -130,7 +95,7 @@ class BaseaccountActions extends sfActions
    */
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
-    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    $form->bind($request->getParameter($form->getName()));
 
     if ($form->isValid())
     {
@@ -138,5 +103,4 @@ class BaseaccountActions extends sfActions
       $this->redirect('@accounts_list');
     }
   }
-
 }
