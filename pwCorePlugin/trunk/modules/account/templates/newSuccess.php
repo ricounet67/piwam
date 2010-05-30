@@ -9,6 +9,16 @@
 ?>
 <h2>Ajouter un nouveau compte</h2>
 
-<table class="formtable">
-  <?php echo $form ?>
-</table>
+<form method="POST" action="<?php echo url_for('account/create') ?>">
+  <table class="formtable">
+    <tfoot>
+      <tr>
+        <th>&nbsp;</th>
+        <td><input type="submit" value="Valider" class="button blue" /></td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <?php echo $form ?>
+    </tbody>
+  </table>
+</form>
