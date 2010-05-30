@@ -28,6 +28,19 @@ td.total {
   font-weight: bold;
 }
 
+/* for ID of accounts / sub-accounts which are displayed recursively */
+table.datalist tbody td.account_id {
+  width: 30px;
+  padding: 2px;
+  background-color: #3678BF;
+  color: white;
+  font-weight: bold;
+}
+
+td.empty {
+  background-color: #C7D7FF;
+}
+
 
 
 /* ------------------------- listing tables ---------------------------- */
