@@ -9,6 +9,10 @@
 ?>
 <h2>Ajouter un nouveau compte</h2>
 
+<div class="global_errors">
+  <?php echo $form->renderGlobalErrors() ?>
+</div>
+
 <form method="POST" action="<?php echo url_for('account/create') ?>">
   <table class="formtable">
     <tfoot>
@@ -18,7 +22,11 @@
       </tr>
     </tfoot>
     <tbody>
-      <?php echo $form ?>
+      <?php echo $form->renderHiddenFields() ?>
+      <tr>
+        <th><?php echo $form['label']->renderLabel() ?></th>
+        <td><?php echo $form['label'] . $form['label']->renderError() ?></td>
+      </tr>
     </tbody>
   </table>
 </form>
