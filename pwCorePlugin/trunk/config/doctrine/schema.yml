@@ -253,6 +253,7 @@ Account:
   actAs: { Timestampable: ~ }
   columns:
     id:             { type: integer(4), primary: true }
+    code:           { type: integer(4), notnull: true }
     parent_id:      { type: integer(4) }
     label:          { type: string(255), notnull: true }
     association_id: { type: integer(4), notnull: true }
