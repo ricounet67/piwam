@@ -70,9 +70,10 @@ abstract class PluginAccountTable extends Doctrine_Table
    * @param   integer   $parent : Reference of the parent Account
    * @param   string    $label
    * @param   integer   $associationId
+   * @param   integer   $state
    * @return  Account   The resulting Account object
    */
-  public static function add($code, $parent, $label, $associationId)
+  public static function add($code, $parent, $label, $associationId, $state = null)
   {
     $account = new Account();
     $account->setCode($code);
@@ -82,10 +83,15 @@ abstract class PluginAccountTable extends Doctrine_Table
       $parentAccount = self::getByCode($parent, $associationId);
       $account->setParentId($parentAccount->getId());
     }
+
+    if ($state === null)
+    {
+      $state = self::STATE_SYSTEM;
+    }
     
     $account->setAssociationId($associationId);
     $account->setLabel($label);
-    $account->setState(AccountTable::STATE_ENABLED);
+    $account->setState($state);
     $account->save();
 
     return $account;
