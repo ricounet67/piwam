@@ -16,7 +16,7 @@
 ?>
 <tr id="account_<?php echo $account->getId() ?>">
   <td class="account_id numbers">
-    <?php echo $account->getId() ?>
+    <?php echo $account->getCode() ?>
   </td>
   <td>
     <?php echo $account->getLabel() ?>
