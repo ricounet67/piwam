@@ -52,6 +52,8 @@ class BaseAccountActions extends sfActions
   {
     $this->form = new AccountForm(null, array('user' => $this->getUser()));
     $this->processForm($request, $this->form);
+    $data = $request->getParameter('account');
+    $this->parent = AccountTable::getById($data['parent_id']);
     $this->setTemplate('new');
   }
 
