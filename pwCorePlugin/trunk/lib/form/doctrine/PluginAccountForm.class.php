@@ -15,7 +15,7 @@ abstract class PluginAccountForm extends BaseAccountForm
   public function setup()
   {
     parent::setup();
-    $this->useFields(array('label'));
+    $this->useFields(array('code', 'label'));
 
     if (! $user = $this->getOption('user'))
     {
@@ -37,18 +37,13 @@ abstract class PluginAccountForm extends BaseAccountForm
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
       $this->widgetSchema['parent_id'] = new sfWidgetFormInputHidden();
       $this->validatorSchema['parent_id'] = new sfValidatorInteger();
-
-      if (! $parentId = $this->getOption('parentId'))
-      {
-        throw new InvalidArgumentException('You must provide a parent account ID');
-      }
-      $this->setDefault('parent_id', $parentId);
     }
     
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
 
     $this->widgetSchema->setLabels(array(
-      'label'     => 'Libellé',
+      'code'  => 'Nomenclature',
+      'label' => 'Libellé',
     ));
   }
 }
