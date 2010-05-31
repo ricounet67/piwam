@@ -12,6 +12,16 @@
 abstract class PluginAccount extends BaseAccount
 {
   /**
+   * Returns current Account as a string
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return $this->getLabel();
+  }
+
+  /**
    * Returns true if Account has any child
    *
    * @return  boolean
