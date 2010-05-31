@@ -14,14 +14,22 @@ abstract class PluginAccountTable extends Doctrine_Table
    *
    * @var integer
    */
-  const STATE_DISABLED    = 0;
+  const STATE_DISABLED = 0;
 
   /**
    * Value of state field when enabled
    *
    * @var integer
    */
-  const STATE_ENABLED     = 1;
+  const STATE_ENABLED = 1;
+
+  /**
+   * Value of state field for a standard system account
+   * that is required by Piwam
+   *
+   * @var integer
+   */
+  const STATE_SYSTEM  = 3;
 
   /**
    * Retrieve an Account by its $id
@@ -48,7 +56,7 @@ abstract class PluginAccountTable extends Doctrine_Table
   {
     $q = Doctrine_Query::create()
       ->from('Account a')
-      ->where('a.id = ?', $code)
+      ->where('a.code = ?', $code)
       ->andWhere('a.association_id = ?', $associationId);
 
     return $q->fetchOne();
@@ -66,10 +74,15 @@ abstract class PluginAccountTable extends Doctrine_Table
    */
   public static function add($code, $parent, $label, $associationId)
   {
-    $parentAccount = self::getByCode($parent, $associationId);
     $account = new Account();
     $account->setCode($code);
-    $account->setParentId($parentAccount->getId());
+
+    if ($parent)
+    {
+      $parentAccount = self::getByCode($parent, $associationId);
+      $account->setParentId($parentAccount->getId());
+    }
+    
     $account->setAssociationId($associationId);
     $account->setLabel($label);
     $account->setState(AccountTable::STATE_ENABLED);
