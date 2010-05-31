@@ -24,6 +24,17 @@
     <tbody>
       <?php echo $form->renderHiddenFields() ?>
       <tr>
+        <th>Compte parent</th>
+        <td><?php echo $parent ?></td>
+      </tr>
+      <tr>
+        <th><?php echo $form['code']->renderLabel() ?></th>
+        <td>
+          <input type="text" disabled="disabled" value="<?php echo $parent->getCode() ?>" size="2" />
+          <?php echo $form['code'] . $form['code']->renderError() ?>
+        </td>
+      </tr>
+      <tr>
         <th><?php echo $form['label']->renderLabel() ?></th>
         <td><?php echo $form['label'] . $form['label']->renderError() ?></td>
       </tr>
