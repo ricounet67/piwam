@@ -38,10 +38,9 @@ class BaseAccountActions extends sfActions
   public function executeNew(sfWebRequest $request)
   {
     $parentId = $request->getParameter('parent_id');
-    $this->form = new AccountForm(null, array(
-      'user' => $this->getUser(),
-      'parentId' => $parentId
-    ));
+    $this->form = new AccountForm(null, array('user' => $this->getUser()));
+    $this->form->setDefault('parent_id', $parentId);
+    $this->parent = AccountTable::getById($parentId);
   }
 
   /**
@@ -51,6 +50,9 @@ class BaseAccountActions extends sfActions
    */
   public function executeCreate(sfWebRequest $request)
   {
+    $this->form = new AccountForm(null, array('user' => $this->getUser()));
+    $this->processForm($request, $this->form);
+    $this->setTemplate('new');
   }
 
   /**
