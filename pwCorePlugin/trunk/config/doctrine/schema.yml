@@ -252,7 +252,7 @@ Account:
   tableName: piwam_bookkeeping_account
   actAs: { Timestampable: ~ }
   columns:
-    id:             { type: integer(4), primary: true }
+    id:             { type: integer(4), primary: true, autoincrement: true }
     code:           { type: integer(4), notnull: true }
     parent_id:      { type: integer(4) }
     label:          { type: string(255), notnull: true }
