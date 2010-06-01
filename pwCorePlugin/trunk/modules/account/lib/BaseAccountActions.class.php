@@ -109,6 +109,8 @@ class BaseAccountActions extends sfActions
     if ($form->isValid())
     {
       $account = $form->save();
+      $account->setCode($account->getParentAccount()->getCode() . $account->getCode());
+      $account->save();
       $this->redirect('@accounts_list');
     }
   }
