@@ -38,6 +38,11 @@ abstract class PluginAccountForm extends BaseAccountForm
       $this->widgetSchema['parent_id'] = new sfWidgetFormInputHidden();
       $this->validatorSchema['parent_id'] = new sfValidatorInteger();
     }
+
+    $this->validatorSchema['code'] = new sfValidatorInteger(
+      array(),
+      array('invalid' => '"%value%" n\'est pas un nombre')
+    );
     
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
 
