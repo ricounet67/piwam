@@ -13,6 +13,8 @@
  *    Account $account
  *    Integer $depth
  */
+
+use_helper('Image');
 ?>
 <tr id="account_<?php echo $account->getId() ?>">
   <td class="account_id numbers">
@@ -22,11 +24,11 @@
     <?php echo $account->getLabel() ?>
   </td>
   <td>
-    <?php echo link_to(image_tag('/pwCorePlugin/images/icons/profile', array('alt' => '[détails]')),   '@bk_overview') ?>
-    <?php echo link_to(image_tag('/pwCorePlugin/images/icons/edit',    array('alt' => '[modifier]')),  '@bk_overview') ?>
+    <?php echo clickable_image('/pwCorePlugin/images/icons/profile', '@bk_overview', '[détails]') ?>
+    <?php echo clickable_image('/pwCorePlugin/images/icons/edit', '@bk_overview', '[modifier]') ?>
 
     <?php if (! $account->hasChilds()): ?>
-      <?php echo link_to(image_tag('/pwCorePlugin/images/add', array('alt' => '[modifier]')),  '@account_new?parent_id=' . $account->getId()) ?>
+      <?php echo clickable_image('/pwCorePlugin/images/add', '@account_new?parent_id=' . $account->getId(), '[nouveau compte]') ?>
     <?php endif ?>
   </td>
 </tr>
