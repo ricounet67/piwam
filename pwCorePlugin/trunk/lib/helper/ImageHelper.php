@@ -10,12 +10,19 @@
 /**
  * Display an image with a HTML link to the route $link
  *
- * @param string  $img  : Image URI
- * @param string  $link : Route link
+ * @param string  $img         Image URI
+ * @param string  $link        Route link
+ * @param mixed   $img_params  Add a 'alt' if it's a string, array of multiple
+ *                             attributes otherwise
  * @since 1.2
  */
 function clickable_image($img, $link, $img_params = array())
 {
+  if (is_string($img_params))
+  {
+    $img_params = array('alt' => $img_params);
+  }
+
   return link_to(image_tag($img, $img_params), $link);
 }
 ?>
