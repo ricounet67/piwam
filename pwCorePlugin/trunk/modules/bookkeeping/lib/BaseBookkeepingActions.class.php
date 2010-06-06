@@ -20,12 +20,13 @@
 class BaseBookkeepingActions extends sfActions
 {
   /**
-   * Home of bookkeeping module
+   * Home of bookkeeping module. List last entries
    *
    * @param sfWebRequest $request
    */
   public function executeIndex(sfWebRequest $request)
   {
+    $this->entries = EntryTable::getLastEntries($this->getUser()->getAssociationId());
   }
 
   /**
@@ -36,6 +37,20 @@ class BaseBookkeepingActions extends sfActions
   public function executeNewEntry(sfWebRequest $request)
   {
     $this->form = new EntryForm(null, array('user' => $this->getUser()));
+  }
+
+  /**
+   * Display a form, to edit an existing entry
+   *
+   * @param sfWebRequest $request
+   */
+  public function executeEditEntry(sfWebRequest $request)
+  {
+    $entry = EntryTable::getById($request->getParameter('id'));
+    $this->forward404Unless($entry);
+    $this->form = new EntryForm($entry, array('user' => $this->getUser()));
+
+    $this->setTemplate('newEntry');
   }
 
   /**
