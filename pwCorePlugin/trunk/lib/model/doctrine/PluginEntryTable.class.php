@@ -30,4 +30,21 @@ class PluginEntryTable extends Doctrine_Table
 
     return $q->fetchOne();
   }
+
+  /**
+   * Retrieve the list of last entries recorded for the $associationId
+   *
+   * @param   integer       $associationId
+   * @return  Doctrine_Collection
+   */
+  public static function getLastEntries($associationId)
+  {
+    $q = Doctrine_Query::create()
+          ->from('Entry e')
+          ->where('e.association_id = ?', $associationId)
+          ->orderBy('e.date DESC')
+          ->limit(20);
+
+    return $q->execute();
+  }
 }
