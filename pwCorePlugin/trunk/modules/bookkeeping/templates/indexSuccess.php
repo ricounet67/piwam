@@ -13,4 +13,5 @@
 <ul>
   <li><?php echo link_to('Liste des comptes', '@accounts_list') ?></li>
   <li><?php echo link_to('Nouvelle entrée', '@bk_new_entry') ?></li>
+  <li><?php echo link_to('Editer', 'bookkeeping/editEntry?id=1') ?></li>
 </ul>
