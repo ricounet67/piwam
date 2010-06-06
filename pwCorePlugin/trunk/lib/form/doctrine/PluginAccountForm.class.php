@@ -39,13 +39,13 @@ abstract class PluginAccountForm extends BaseAccountForm
       $this->validatorSchema['parent_id'] = new sfValidatorInteger();
     }
 
+    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Account', 'column' => 'code'), array('invalid' => 'Ce code existe déjà')));
     $this->validatorSchema['code'] = new sfValidatorInteger(
       array(),
       array('invalid' => '"%value%" n\'est pas un nombre')
     );
 
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
-
     $this->widgetSchema->setLabels(array(
       'code'  => 'Nomenclature',
       'label' => 'Libellé',
