@@ -30,7 +30,6 @@
       <tr>
         <th><?php echo $form['code']->renderLabel() ?></th>
         <td>
-          <input type="text" disabled="disabled" value="<?php echo $parent->getCode() ?>" size="2" />
           <?php echo $form['code'] . $form['code']->renderError() ?>
         </td>
       </tr>
