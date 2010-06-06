@@ -211,7 +211,9 @@ Document:
     description:     { type: string(255) }
     created_by:      { type: integer(4) }
     updated_by:      { type: integer(4) }
+    association_id:  { type: integer(4), notnull: true }
   relations:
+    Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
 
@@ -240,7 +242,9 @@ Entry:
     label:           { type: string(255), notnull: true }
     created_by:      { type: integer(4) }
     updated_by:      { type: integer(4) }
+    association_id:  { type: integer(4), notnull: true }
   relations:
+    Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
     Debits:          { class: Debit, local: id, foreign: entry_id, type: many }
