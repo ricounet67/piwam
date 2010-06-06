@@ -30,13 +30,21 @@ abstract class PluginEntryForm extends BaseEntryForm
 
     if ($this->getObject()->isNew())
     {
-      $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
-      $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
       $this->setDefault('created_by', $user->getUserId());
       $this->setDefault('association_id', $associationId);
-      $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
     }
+    else
+    {
+      $this->setDefault('updated_by', $user->getUserId());
+      $this->validatorSchema['updated_by'] = new sfValidatorInteger();
+    }
+    
+    $this->widgetSchema['id'] = new sfWidgetFormInputHidden();
+    $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
+    $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
+    $this->validatorSchema['id'] = new sfValidatorInteger();
+    $this->validatorSchema['association_id'] = new sfValidatorInteger();
 
     sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
     $this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
