@@ -41,6 +41,7 @@ class BaseAccountActions extends sfActions
     $this->form = new AccountForm(null, array('user' => $this->getUser()));
     $this->form->setDefault('parent_id', $parentId);
     $this->parent = AccountTable::getById($parentId);
+    $this->form->setDefault('code', $this->parent->getCode());
   }
 
   /**
@@ -109,8 +110,6 @@ class BaseAccountActions extends sfActions
     if ($form->isValid())
     {
       $account = $form->save();
-      $account->setCode($account->getParentAccount()->getCode() . $account->getCode());
-      $account->save();
       $this->redirect('@accounts_list');
     }
   }
