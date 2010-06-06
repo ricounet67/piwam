@@ -30,16 +30,18 @@ abstract class PluginAccountForm extends BaseAccountForm
     if ($this->getObject()->isNew())
     {
       $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
-      $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
       $this->setDefault('created_by', $user->getUserId());
-      $this->setDefault('association_id', $associationId);
-      $this->validatorSchema['association_id'] = new sfValidatorInteger();
       $this->validatorSchema['created_by'] = new sfValidatorInteger();
       $this->widgetSchema['parent_id'] = new sfWidgetFormInputHidden();
       $this->validatorSchema['parent_id'] = new sfValidatorInteger();
     }
 
-    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Account', 'column' => 'code'), array('invalid' => 'Ce code existe déjà')));
+    // We always need association_id because a check is performed on this field
+    $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
+    $this->setDefault('association_id', $associationId);
+    $this->validatorSchema['association_id'] = new sfValidatorInteger();
+
+    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Account', 'column' => array('code', 'association_id')), array('invalid' => 'Ce code existe déjà')));
     $this->validatorSchema['code'] = new sfValidatorInteger(
       array(),
       array('invalid' => '"%value%" n\'est pas un nombre')
