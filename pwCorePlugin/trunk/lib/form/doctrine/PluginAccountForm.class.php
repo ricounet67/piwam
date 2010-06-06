@@ -43,7 +43,7 @@ abstract class PluginAccountForm extends BaseAccountForm
       array(),
       array('invalid' => '"%value%" n\'est pas un nombre')
     );
-    
+
     $this->widgetSchema['label']->setAttribute('class', 'formInputLarge');
 
     $this->widgetSchema->setLabels(array(
