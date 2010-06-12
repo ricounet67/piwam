@@ -65,10 +65,15 @@ class BaseAccountActions extends sfActions
    */
   public function executeEdit(sfWebRequest $request)
   {
+    $account = AccountTable::getById($request->getParameter('id'));
+    
     if ($account->getAssociationId() != $this->getUser()->getAssociationId())
     {
       $this->redirect('@error_credentials');
     }
+    
+    $this->parent = $account->getParentAccount();
+    $this->form = new AccountForm($account, array('user' => $this->getUser()));
   }
 
   /**

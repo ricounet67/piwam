@@ -7,6 +7,6 @@
  * file that was distributed with this source code.
  */
 ?>
-<h2>Ajouter un nouveau compte</h2>
+<h2>Éditer un compte</h2>
 
 <?php include_partial('form', array('form' => $form, 'parent' => $parent)) ?>
