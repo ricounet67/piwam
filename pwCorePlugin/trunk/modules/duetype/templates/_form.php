@@ -9,7 +9,7 @@
   <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
   <?php if (!$form->getObject()->isNew()): ?>
-      <input type="hidden" name="sf_method" value="put" />
+    <input type="hidden" name="sf_method" value="put" />
   <?php endif ?>
 
   <div class="global_errors">
