@@ -30,8 +30,8 @@
     <?php echo format_currency($account->getTotalDebits()) ?>
   </td>
   <td>
-    <?php echo clickable_image('/pwCorePlugin/images/icons/profile', '@bk_overview', '[détails]') ?>
-    <?php echo clickable_image('/pwCorePlugin/images/icons/edit', '@bk_overview', '[modifier]') ?>
+    <?php echo clickable_image('/pwCorePlugin/images/icons/profile', '@account_show?id=' . $account->getId(), '[détails]') ?>
+    <?php echo clickable_image('/pwCorePlugin/images/icons/edit', '@account_edit?id=' . $account->getId(), '[modifier]') ?>
 
     <?php if (! $account->hasChilds()): ?>
       <?php // echo clickable_image('/pwCorePlugin/images/add', '@account_new?parent_id=' . $account->getId(), '[nouveau compte]') ?>
