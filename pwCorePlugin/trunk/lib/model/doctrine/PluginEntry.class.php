@@ -12,5 +12,19 @@
  */
 abstract class PluginEntry extends BaseEntry
 {
+  /**
+   * Get the amount of entry. Based on sum of credits, which is normally
+   * equal to sum of debits
+   */
+  public function getAmount()
+  {
+    $q = Doctrine_Query::create()
+          ->select('SUM(c.amount) AS total')
+          ->from('Credit c')
+          ->where('c.entry_id = ?', $this->getId());
 
+    $row = $q->fetchArray();
+
+    return ($row[0]['total'] !== null) ? $row[0]['total'] : 0;
+  }
 }
