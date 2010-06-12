@@ -40,4 +40,38 @@ abstract class PluginAccount extends BaseAccount
   {
     return $this->getChildAccounts();
   }
+
+  /**
+   * Get total amount of credits related to this account
+   *
+   * @return integer
+   */
+  public function getTotalCredits()
+  {
+    $q = Doctrine_Query::create()
+          ->select('SUM(c.amount) AS total')
+          ->from('Credit c')
+          ->where('c.credited_account = ?', $this->getId());
+
+    $row = $q->fetchArray();
+
+    return ($row[0]['total'] !== null) ? $row[0]['total'] : 0;
+  }
+
+  /**
+   * Get total amount of debits related to this account
+   *
+   * @return integer
+   */
+  public function getTotalDebits()
+  {
+    $q = Doctrine_Query::create()
+          ->select('SUM(d.amount) AS total')
+          ->from('Debit d')
+          ->where('d.debited_account = ?', $this->getId());
+
+    $row = $q->fetchArray();
+
+    return ($row[0]['total'] !== null) ? $row[0]['total'] : 0;
+  }
 }
