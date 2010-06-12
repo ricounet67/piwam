@@ -277,7 +277,6 @@ Debit:
   actAs: { Timestampable: ~ }
   columns:
     id:              { type: integer(4), primary: true, autoincrement: true }
-    date:            { type: date(25), notnull: true }
     label:           { type: string(255) }
     debited_account: { type: integer(4), notnull: true }
     entry_id:        { type: integer(4), notnull: true }
@@ -293,7 +292,6 @@ Credit:
   actAs: { Timestampable: ~ }
   columns:
     id:               { type: integer(4), primary: true, autoincrement: true }
-    date:             { type: date(25), notnull: true }
     label:            { type: string(255) }
     credited_account: { type: integer(4), notnull: true }
     entry_id:         { type: integer(4), notnull: true }
