@@ -146,8 +146,11 @@ abstract class PluginEntryForm extends BaseEntryForm
 
   /**
    * Required overriding to manage embedded credits and debits forms
+   *
+   * @param array $taintedValues  An array of input values
+   * @param array $taintedFiles   An array of uploaded files (in the $_FILES or $_GET format)
    */
-  public function bind($taintedValues = null, $taintedFiles = null)
+  public function bind(array $taintedValues = null, array $taintedFiles = null)
   {
     foreach ($taintedValues['credits'] as $key => $form)
     {
