@@ -40,6 +40,18 @@ class BaseBookkeepingActions extends sfActions
   }
 
   /**
+   * Check form and insert a new Entry
+   *
+   * @param sfWebRequest $request 
+   */
+  public function executeCreateEntry(sfWebRequest $request)
+  {
+    $this->setTemplate('newEntry');
+    $this->form = new EntryForm(null, array('user' => $this->getUser()));
+    $this->processForm($request, $this->form);
+  }
+
+  /**
    * Display a form, to edit an existing entry
    *
    * @param sfWebRequest $request
@@ -49,7 +61,18 @@ class BaseBookkeepingActions extends sfActions
     $entry = EntryTable::getById($request->getParameter('id'));
     $this->forward404Unless($entry);
     $this->form = new EntryForm($entry, array('user' => $this->getUser()));
+    $this->setTemplate('newEntry');
+  }
 
+  /**
+   * Process data provided by EntryForm
+   *
+   * @param   sfWebRequest  $request
+   */
+  public function executeUpdateEntry(sfWebRequest $request)
+  {
+    $this->form = new EntryForm(null, array('user' => $this->getUser()));
+    $this->processForm($request, $this->form);
     $this->setTemplate('newEntry');
   }
 
@@ -105,18 +128,6 @@ class BaseBookkeepingActions extends sfActions
     $form->addDebitForm($key);
 
     return $this->renderPartial('addDebitForm', array('form' => $form['debits'][$key], 'num' => $number));
-  }
-
-  /**
-   * Process data provided by EntryForm
-   *
-   * @param   sfWebRequest  $request
-   */
-  public function executeUpdateEntry(sfWebRequest $request)
-  {
-    $this->form = new EntryForm(null, array('user' => $this->getUser()));
-    $this->processForm($request, $this->form);
-    $this->setTemplate('newEntry');
   }
 
   /**
