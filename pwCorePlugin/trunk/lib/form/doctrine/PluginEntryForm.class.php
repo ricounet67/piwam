@@ -182,15 +182,21 @@ abstract class PluginEntryForm extends BaseEntryForm
   public function checkAmounts(sfValidatorBase $validator, array $values)
   {
     $total = 0;
-    
-    foreach ($values['debits'] as $debit)
+
+    if (isset($values['debits']))
     {
-      $total += $debit['amount'];
+      foreach ($values['debits'] as $debit)
+      {
+        $total += $debit['amount'];
+      }
     }
 
-    foreach ($values['credits'] as $credit)
+    if (isset($vaues['credits']))
     {
-      $total -= $credit['amount'];
+      foreach ($values['credits'] as $credit)
+      {
+        $total -= $credit['amount'];
+      }
     }
 
     if (floatval($total) !== 0.00)
