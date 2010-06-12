@@ -13,13 +13,14 @@
  *    Account $account
  *    Integer $depth
  */
-
 ?>
 <tr id="account_<?php echo $account->getId() ?>">
   <td class="account_id numbers">
     <?php echo $account->getCode() ?>
   </td>
   <td>
+    <?php echo image_tag('/pwCorePlugin/images/pixel', array('height' => '10px', 'width' => $depth * 40 . 'px')) ?>
+    <?php if ($depth > 0) echo '|' ?>
     <?php echo $account->getLabel() ?>
   </td>
   <td class="numbers">
@@ -33,7 +34,7 @@
     <?php echo clickable_image('/pwCorePlugin/images/icons/edit', '@bk_overview', '[modifier]') ?>
 
     <?php if (! $account->hasChilds()): ?>
-      <?php echo clickable_image('/pwCorePlugin/images/add', '@account_new?parent_id=' . $account->getId(), '[nouveau compte]') ?>
+      <?php // echo clickable_image('/pwCorePlugin/images/add', '@account_new?parent_id=' . $account->getId(), '[nouveau compte]') ?>
     <?php endif ?>
   </td>
 </tr>
