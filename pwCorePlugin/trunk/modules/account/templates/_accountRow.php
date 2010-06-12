@@ -14,7 +14,6 @@
  *    Integer $depth
  */
 
-use_helper('Image');
 ?>
 <tr id="account_<?php echo $account->getId() ?>">
   <td class="account_id numbers">
@@ -22,6 +21,12 @@ use_helper('Image');
   </td>
   <td>
     <?php echo $account->getLabel() ?>
+  </td>
+  <td>
+    <?php echo format_currency($account->getTotalCredits()) ?>
+  </td>
+  <td>
+    <?php echo format_currency($account->getTotalDebits()) ?>
   </td>
   <td>
     <?php echo clickable_image('/pwCorePlugin/images/icons/profile', '@bk_overview', '[détails]') ?>

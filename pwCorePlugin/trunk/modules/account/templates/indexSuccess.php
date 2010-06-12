@@ -7,6 +7,9 @@
  * file that was distributed with this source code.
  */
 
+
+use_helper('Image');
+use_helper('Number');
 ?>
 
 <table class="datalist" summary="list of enabled accounts">
@@ -14,6 +17,8 @@
     <tr>
       <th>Numéro</th>
       <th>Label</th>
+      <th>Crédits</th>
+      <th>Débits</th>
       <th width="100px">Actions</th>
     </tr>
   </thead>
