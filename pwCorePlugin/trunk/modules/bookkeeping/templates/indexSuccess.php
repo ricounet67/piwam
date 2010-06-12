@@ -25,7 +25,7 @@ use_helper('Date');
     <?php endforeach ?>
   </tbody>
 </table>
-<br />
+
 <?php echo link_to('Nouvelle entrée', '@bk_new_entry', array('class' => 'button small add grey')) ?>
  &bull; <?php echo link_to('Liste des comptes', '@accounts_list') ?>
 

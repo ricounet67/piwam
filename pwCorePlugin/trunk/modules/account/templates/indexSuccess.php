@@ -12,6 +12,7 @@ use_helper('Image');
 use_helper('Number');
 ?>
 
+<h2>Liste des comptes</h2>
 <table class="datalist" summary="list of enabled accounts">
   <thead>
     <tr>
@@ -28,3 +29,5 @@ use_helper('Number');
     <?php endforeach ?>
   </tbody>
 </table>
+
+<?php echo link_to('Retour', '@bk_overview', array('class' => 'button')) ?>
