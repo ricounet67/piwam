@@ -84,6 +84,9 @@ class BaseAccountActions extends sfActions
   public function executeUpdate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post') || $request->isMethod('put'));
+    $account = AccountTable::getById($request->getParameter('id'));
+    $this->parent = $account->getParentAccount();
+    $this->form = new AccountForm($account, array('user' => $this->getUser()));
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
   }
