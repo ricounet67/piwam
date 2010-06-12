@@ -23,6 +23,11 @@ td.numbers {
   padding-right: 10px;
 }
 
+/* To center some elements in cells (dates...) */
+td.center {
+  text-align: center;
+}
+
 /* Display total amounts */
 td.total {
   font-weight: bold;
