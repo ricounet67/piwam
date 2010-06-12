@@ -83,3 +83,10 @@
     |   param: { module: login, action: login }       |
     |                                                 |
     + - - - - - - - - - - - - - - - - - - - - - - - - +
+
+
+  7) Merge CSS and JS files
+  -------------------------
+
+  Use minifiers tools (YUI compressor, for example) to merge and minify CSS and
+  JS files. Then update view.yml file to include new generated files.
