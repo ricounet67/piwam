@@ -201,6 +201,10 @@ bk_new_entry:
   url:    /compta/nouvelle_ecriture
   param:  { module: bookkeeping, action: newEntry }
 
+bk_create_entry:
+  url:    /compta/creer_ecriture
+  param:  { module: bookkeeping, action: createEntry }
+
 bk_edit_entry:
   url:    /compta/editer_ecriture/:id
   param:  { module: bookkeeping, action: editEntry }
