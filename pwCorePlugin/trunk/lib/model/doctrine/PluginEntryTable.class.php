@@ -37,13 +37,13 @@ class PluginEntryTable extends Doctrine_Table
    * @param   integer       $associationId
    * @return  Doctrine_Collection
    */
-  public static function getLastEntries($associationId)
+  public static function getLastEntries($associationId, $limit = 20)
   {
     $q = Doctrine_Query::create()
           ->from('Entry e')
           ->where('e.association_id = ?', $associationId)
           ->orderBy('e.date DESC')
-          ->limit(20);
+          ->limit($limit);
 
     return $q->execute();
   }
