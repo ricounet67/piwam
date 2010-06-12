@@ -8,7 +8,9 @@
   <?php echo $form->renderGlobalErrors() ?>
 </div>
 
-<form action="<?php echo url_for('bookkeeping/updateEntry') ?>" method="POST">
+<form
+  action="<?php echo url_for('@bk_'.($form->getObject()->isNew() ? 'create_entry' : 'update_entry')) ?>"
+  method="POST">
 <?php echo $form->renderHiddenFields() ?>
   <table class="formtable" summary="add a new entry">
     <tfoot>
