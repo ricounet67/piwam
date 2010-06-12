@@ -94,6 +94,48 @@ Créez une association, identifiez-vous, puis dans le menu choisissez "préfére
 
 
 <hr />
+== Installer Piwam chez 1&1 ==
+Pour installer Piwam chez l'hébergeur 1&1, il y a quelques petites modifications à effectuer. Ouvrez le fichier `/web/.htaccess` et décommentez les lignes comme suit :
+{{{
+Options +FollowSymLinks +ExecCGI
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # uncomment the following line, if you are having trouble
+  # getting no_script_name to work
+  RewriteBase /
+
+  # we skip all files with .something
+  RewriteCond %{REQUEST_URI} \..+$
+  RewriteCond %{REQUEST_URI} !\.html$
+  RewriteRule .* - [L]
+
+  # we check if the .html version is here (caching)
+  RewriteRule ^$ index.html [QSA]
+  RewriteRule ^([^.]+)$ $1.html [QSA]
+  RewriteCond %{REQUEST_FILENAME} !-f
+
+  # no, so we redirect to our front web controller
+  RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
+}}}
+
+Puis ouvrez le fichier `/apps/front/config/settings.yml`. Modifiez la ligne 30 de cette manière.
+
+Avant :
+{{{
+    no_script_name:         off
+}}}
+
+Après :
+{{{
+    no_script_name:         on
+}}}
+
+Videz intégralement le cache (supprimez tous les répertoires qui se trouvent dans `/cache`). Vous pouvez maintenant accéder à Piwam en accédant explicitement à "index.php". Par exemple : `http://monsite.1and1.com/piwam/index.php`.
+
+<hr />
 == En cas de problème... ==
 
 Si vous rencontrez des soucis, vous pouvez :
