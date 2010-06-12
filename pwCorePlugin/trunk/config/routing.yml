@@ -202,8 +202,12 @@ bk_new_entry:
   param:  { module: bookkeeping, action: newEntry }
 
 bk_edit_entry:
-  url:    /compta/editer_ecriture
+  url:    /compta/editer_ecriture/:id
   param:  { module: bookkeeping, action: editEntry }
+
+bk_update_entry:
+  url:    /compta/mettre_a_jour_ecriture
+  param:  { module: bookkeeping, action: updateEntry }
 
 bk_show_entry:
   url:    /compta/details_ecriture
