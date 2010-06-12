@@ -18,7 +18,7 @@ abstract class PluginAccount extends BaseAccount
    */
   public function __toString()
   {
-    return $this->getLabel();
+    return $this->getCode() . ' - ' . $this->getLabel();
   }
 
   /**
