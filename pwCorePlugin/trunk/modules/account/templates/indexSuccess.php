@@ -17,8 +17,8 @@ use_helper('Number');
     <tr>
       <th>Numéro</th>
       <th>Label</th>
-      <th>Crédits</th>
-      <th>Débits</th>
+      <th width="100px">Crédits</th>
+      <th width="100px">Débits</th>
       <th width="100px">Actions</th>
     </tr>
   </thead>

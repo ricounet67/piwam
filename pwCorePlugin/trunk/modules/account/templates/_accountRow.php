@@ -22,10 +22,10 @@
   <td>
     <?php echo $account->getLabel() ?>
   </td>
-  <td>
+  <td class="numbers">
     <?php echo format_currency($account->getTotalCredits()) ?>
   </td>
-  <td>
+  <td class="numbers">
     <?php echo format_currency($account->getTotalDebits()) ?>
   </td>
   <td>
