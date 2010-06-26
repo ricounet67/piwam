@@ -77,6 +77,16 @@ class BaseBookkeepingActions extends sfActions
   }
 
   /**
+   * Display a financial overview
+   *
+   * @param sfWebRequest  $request
+   */
+  public function executeBalance(sfWebRequest $request)
+  {
+
+  }
+
+  /**
    * Add a new Credit form. Ajax call from the newEntry template, when user
    * clicks on "add credit" button
    *
