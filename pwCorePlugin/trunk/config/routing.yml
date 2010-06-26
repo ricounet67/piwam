@@ -60,7 +60,7 @@ config:
   
 balance:
   url:   /bilan
-  param: { module: association, action: balance }
+  param: { module: bookkeeping, action: balance }
 
 
   
