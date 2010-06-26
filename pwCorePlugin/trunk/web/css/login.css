@@ -92,6 +92,10 @@ div#container .input:Hover {
   background-color: #9AD3DB;
 }
 
+div#container .input input:focus {
+  background-color: #F9FFB0;
+}
+
 
 
 /* -------------------- error elements -------------------- */
