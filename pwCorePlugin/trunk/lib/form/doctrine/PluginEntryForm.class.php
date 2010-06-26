@@ -40,10 +40,8 @@ abstract class PluginEntryForm extends BaseEntryForm
       $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     }
     
-    $this->widgetSchema['id'] = new sfWidgetFormInputHidden();
     $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
     $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-    $this->validatorSchema['id'] = new sfValidatorInteger();
     $this->validatorSchema['association_id'] = new sfValidatorInteger();
 
     sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
@@ -191,7 +189,7 @@ abstract class PluginEntryForm extends BaseEntryForm
       }
     }
 
-    if (isset($vaues['credits']))
+    if (isset($values['credits']))
     {
       foreach ($values['credits'] as $credit)
       {
