@@ -40,25 +40,6 @@ class BaseassociationActions extends sfActions
   }
 
   /**
-   * Display the current overview of the association, for each Compte and
-   * each Activite.
-   * We provide the lists of the Compte and Activite to the view.
-   *
-   * @param 	sfWebRequest	$request
-   * @since	r9
-   */
-  public function executeBalance(sfWebRequest $request)
-  {
-    $associationId         = $this->getUser()->getAssociationId();
-    $this->accounts        = SimpleAccountTable::getEnabledForAssociation($associationId);
-    $this->activities      = ActivityTable::getEnabledForAssociation($associationId);
-    $this->totalDues       = DueTable::getSumForAssociation($associationId);
-    $this->totalUnpaid     = ExpenseTable::getAmountOfDebtsForAssociation($associationId);
-    $this->totalUnreceived = IncomeTable::getAmountOfDebtsForAssociation($associationId);
-    $this->totalDebts      = $this->totalUnreceived - $this->totalUnpaid;
-  }
-
-  /**
    * We don't have any way to list the associations
    *
    * @param   sfWebRequest    $request
