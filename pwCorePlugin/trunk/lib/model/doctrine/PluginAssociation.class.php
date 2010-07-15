@@ -182,6 +182,18 @@ abstract class PluginAssociation extends BaseAssociation
     
     AccountTable::add(2,   null,  "Comptes d'immobilisations",    $this->id);
     AccountTable::add(20,   2,    "Immobilisations incorporelles",$this->id);
+    AccountTable::add(201,  20,   "Frais d'établissement",        $this->id);
+    AccountTable::add(2011, 201,  "Frais de constituion",         $this->id);
+    AccountTable::add(2012, 201,  "Frais de premier établissement", $this->id);
+    AccountTable::add(20121, 2012,"Frais de prospection",         $this->id);
+    AccountTable::add(20122, 2012,"Frais de publicité",           $this->id);
+    AccountTable::add(2013, 201,  "Frais d'augmentation de capital et d'opérations diverses (fusion, scissions, tranformations)", $this->id);
+    AccountTable::add(203,  20,   "Frais de recherche et de développement", $this->id);
+    AccountTable::add(205,  20,   "Concessions et droits similaires, brevets, licences, marques, procédés, logiciels, droits et valeurs similaires", $this->id);
+    AccountTable::add(206,  20,   "Droit au bail",                $this->id);
+    AccountTable::add(207,  20,   "Fonds commercial",             $this->id);
+    AccountTable::add(208,  20,   "Autres immobilisations incorporelles", $this->id);
+    // todo : classes under 21
     AccountTable::add(21,   2,    "Immobilisations corporelles",  $this->id);
     AccountTable::add(22,   2,    "Immobilisations mises en concession", $this->id);
     AccountTable::add(23,   2,    "Immobilisations mises en concession", $this->id);
