@@ -169,8 +169,17 @@ abstract class PluginAssociation extends BaseAssociation
     AccountTable::add(16888, 1688,"Sur autres emprunts et dettes assimilées", $this->id);
     AccountTable::add(169,  16,   "Primes de remboursement des obligations", $this->id);
     AccountTable::add(17,   1,    "Dettes rattachées à des participations", $this->id);
+    AccountTable::add(171,  17,   "Dettes rattachées à des participations (groupe)", $this->id);
+    AccountTable::add(174,  17,   "Dettes rattachées à des participations (hors groupe)", $this->id);
+    AccountTable::add(178,  17,   "Dettes rattachées à des sociétés en participation", $this->id);
+    AccountTable::add(1781, 178,  "Principal",                    $this->id);
+    AccountTable::add(1788, 178,  "Intérêts courus",              $this->id);
     AccountTable::add(18,   1,    "Comptes de liaison des établissements et sociétés en participation", $this->id);
-
+    AccountTable::add(181,  18,   "Comptes de liaison des établissements", $this->id);
+    AccountTable::add(186,  18,   "Biens et prestations de services échangés entre établissements (charges)", $this->id);
+    AccountTable::add(187,  18,   "Biens et prestations de services échangés entre établissements (produits)", $this->id);
+    AccountTable::add(188,  18,   "Comptes de liaison des sociétés en participation", $this->id);
+    
     AccountTable::add(2,   null,  "Comptes d'immobilisations",    $this->id);
     AccountTable::add(20,   2,    "Immobilisations incorporelles",$this->id);
     AccountTable::add(21,   2,    "Immobilisations corporelles",  $this->id);
