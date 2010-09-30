@@ -17,6 +17,7 @@ use_helper('Date');
       <th width="80px">Date</th>
       <th>Label</th>
       <th width="100px">Montant</th>
+      <th width="50px">&nbsp;</th>
     </tr>
   </thead>
   <tbody>
