@@ -11,7 +11,7 @@
 class BaseAccountActions extends sfActions
 {
   /**
-   * List existing acciunts
+   * List existing accounts
    *
    * @param  sfWebRequest $request
    */
