@@ -3,7 +3,7 @@
 = Introduction =
 
 Cette page a pour objectif de définir les rôles et responsabilités des différents acteurs.
-
+Plus d'informations sur les [http://code.google.com/p/piwam/people/list commiteurs].
 
 = Details =
 
