@@ -14,3 +14,5 @@ Plus d'informations sur les [http://code.google.com/p/piwam/people/list commiteu
 || Philippe || Test et documentation ||
 || Gimly || Test et documentation ||
 || C || - ||
+
+N'hésitez pas à recenser ici vos contributions au projet !
