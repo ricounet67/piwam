@@ -58,5 +58,138 @@ class MailerFactory
 
     return Swift_Mailer::newInstance($methodObject);
   }
+  /**
+   * Get mail template from database and send it to member in argument, use standard variables values and the
+   * additionnal variable values provide in argument
+   * @param 	pwUser	$senderUser the current user connected logged as email sender
+   * @param 	Member	$toMember recipient member
+   * @param 	string 	$mailTemplateKey the key of template in database
+   * @param 	array	$variableValues array('varName' => varValue) added to standard variables,
+   * if varValue is instance of Member the varName is used as prefix and all member variables are generated,
+   * if varValue is instance of Association the varName is used as prefix and all association variables are generated,
+   */
+  public static function loadTemplateAndSend($sender_id, Member $toMember, $mailTemplateKey, $variableValues = array())
+  {
+    $associationId = $toMember->getAssociationId();
+    $mailer = MailerFactory::get($associationId);
+
+    $from_email = Configurator::get('address', $associationId, 'no-response@yourasso.org');
+    $from_label = $toMember->getAssociation()->getName();
+    	
+    $template = MailTemplateTable::getInstance()->findOneByTemplateKeyAndAssociationId($mailTemplateKey, $associationId);
+    if($template == null)
+    {
+      sfContext::getInstance()->getLogger()->warning("The template mail with key "+ $mailTemplateKey+" hasn't found in database !");
+      return;
+    }
+    $message = Swift_Message::newInstance($template->getSubject(),$template->getContent(),'text/html');
+    $message->setFrom(array($from_email));
+
+    $message->addTo($toMember->getEmail());//,$toMember->getLastname()." ".$toMember->getFirstname());
+
+    $varValues = array_merge(self::getMemberVariables($toMember,'recipient'),self::getAssociationVariables($toMember->getAssociation()));
+    foreach ($variableValues as $key => $value  )
+    {
+      if($value instanceof Member)
+      {
+        $varValues = array_merge($varValues,self::getMemberVariables($value,$key));
+      }
+      else if($value instanceof Association)
+      {
+        $varValues = array_merge($varValues,self::getAssociationVariables($value,$key));
+      }
+      else{
+        // TODO avoid erase variable already exists
+        $varValues[self::escapeVariable($key)] = $value;
+      }
+    }
+
+    // specify replacements for recipient email
+    $replacements = array(
+    $toMember->getEmail() => $varValues
+    );
+    	
+    //Load the plugin with these replacements
+    $mailer->registerPlugin(new Swift_Plugins_DecoratorPlugin($replacements));
+    // batchSend if multiple recipients
+    $mailer->send($message);
+  }
+
+  public static function escapeVariable($varName,$prefix = null)
+  {
+    if($prefix != null)
+    {
+      return sprintf("{%s.%s}",$prefix,$varName);
+    }
+    else{
+      return sprintf("{%s}",$varName);
+    }
+  }
+  /**
+   * Create default variables available for a Member
+   * @param 	Member	$member the member to obtain variables values
+   * @param  string   $prefix prefix used to generate variable name
+   */
+  public static function getMemberVariables(Member $member,$prefix = 'member')
+  {
+    $email =$member->getEmail();
+    return array(
+
+    self::escapeVariable('id',$prefix) => $member->getId(),
+    self::escapeVariable('lastname',$prefix) => $member->getLastname(),
+    self::escapeVariable('firstname',$prefix) => $member->getFirstname(),
+    self::escapeVariable('name',$prefix) => $member->getFirstname().' '.$member->getLastname(),
+    self::escapeVariable('username',$prefix) => $member->getUsername(),
+    self::escapeVariable('email',$prefix) => '<a href="mailto:' . $email . '">' . $email . '</a>',
+    self::escapeVariable('city',$prefix) => $member->getCity(),
+    //	self::escapeVariable('phonehome',$prefix) => format_phonenumber($member->getPhoneHome()),
+    //	self::escapeVariable('phonemobile',$prefix) => format_phonenumber($member->getPhoneMobile()),
+
+    );
+  }
+  /**
+   * Create default variables for association
+   * @param Association $asso
+   * @param string $prefix
+   */
+  public static function getAssociationVariables(Association $asso,$prefix = 'association')
+  {
+    $website = $asso->getWebsite();
+    return array(
+    self::escapeVariable('id',$prefix) => $asso->getId(),
+    self::escapeVariable('name',$prefix) => $asso->getName(),
+    self::escapeVariable('website',$prefix) => '<a href="' . $website . '">' . $website . '</a>',
+    	
+    );
+  }
+
+  public static function generateVariablesDescription($varName)
+  {
+    $vars = explode('.',$varName);
+
+    if(count($vars) < 2)
+    {
+      return null;
+    }
+    $prefix = $var[0];
+    $type= $vars[1];
+    $variables = array();
+    if($type == '[Member]')
+    {
+      $variables[self::escapeVariable('id',$prefix)] = 'Identifiant du membre';
+      $variables[self::escapeVariable('lastname',$prefix)] = 'Nom du membre';
+      $variables[self::escapeVariable('firstname',$prefix)] = 'Prénom du membre';
+      $variables[self::escapeVariable('name',$prefix)] = 'Prénom et nom du membre';
+      $variables[self::escapeVariable('email',$prefix)] = 'Email du membre';
+      $variables[self::escapeVariable('city',$prefix)] = 'Ville du membre';
+    }
+    else if($type == '[Association]')
+    {
+      	
+    }
+    else{
+      return null;
+    }
+  }
 }
 ?>

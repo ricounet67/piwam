@@ -10,7 +10,7 @@
 abstract class PluginMemberForm extends BaseMemberForm
 {
   private $_firstRegistration = false;
-
+  private $_editAclGroups = false;
   /**
    * Determines if we are performing the registration of the
    * first user or not
@@ -22,7 +22,15 @@ abstract class PluginMemberForm extends BaseMemberForm
   {
     return $this->_firstRegistration;
   }
-
+  /**
+   * Determines if we are performing the subcription registration
+   * by external user
+   * @return boolean true if subscribe
+   */
+  public function isEditAclGroups()
+  {
+    return $this->_editAclGroups;
+  }
   /**
    * Customizes the Member form. There is a lot of fields to unset in order
    * to re-create them from scratch with custom behaviour, especially the
@@ -33,12 +41,15 @@ abstract class PluginMemberForm extends BaseMemberForm
    */
   public function setup()
   {
-    parent::setup();    
+    parent::setup();
 
     $context = $this->getOption('context');
     $this->_firstRegistration = $this->getOption('first', false);
+    $this->_editAclGroups = $this->getOption('editAclGroups', false);
+    // if creation of user the id is unknown
+    $memberId = $this->getOption('memberId',-1);
 
-    if (! $associationId = $this->getOption('associationId'))
+    if (! $associationId = $this->getOption('associationId') )
     {
       throw new InvalidArgumentException('You must provide the association ID');
     }
@@ -46,13 +57,13 @@ abstract class PluginMemberForm extends BaseMemberForm
     unset($this['created_at'], $this['updated_at']);
     unset($this['created_by'], $this['updated_by']);
     unset($this['state'], $this['association_id']);
-    unset($this['password']);
+    unset($this['password'],$this['id']);
 
     if ($this->getObject()->isNew())
     {
       // If this is the user is not the one who
       // is currently registering a new Association
-
+       
       if (! $this->isFirstRegistration())
       {
         $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
@@ -65,6 +76,28 @@ abstract class PluginMemberForm extends BaseMemberForm
       $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
       $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     }
+    // sfGuardUser fields
+    $this->widgetSchema['firstname']       = new sfWidgetFormInputText();
+    $this->widgetSchema['lastname']        = new sfWidgetFormInputText();
+    $this->widgetSchema['username']    = new sfWidgetFormInputText();
+    $this->widgetSchema['email']    = new sfWidgetFormInputText();
+
+    // force load values from guard
+    $this->setDefault('firstname',$this->getObject()->getFirstname());
+    $this->setDefault('lastname',$this->getObject()->getLastname());
+    $this->setDefault('username',$this->getObject()->getUsername());
+    $this->setDefault('email',$this->getObject()->getEmail());
+     
+     
+    if(!$this->getObject()->isNew())
+    {
+      $this->widgetSchema['id'] = new sfWidgetFormInputHidden();
+      $this->setDefault('id',$this->getObject()->getId());
+      $this->validatorSchema['id'] =  new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('User')));
+    }
+
+    $this->validatorSchema['firstname']       = new sfValidatorString(array('max_length' => 255, 'required' => true));
+   	$this->validatorSchema['lastname']        = new sfValidatorString(array('max_length' => 255, 'required' => true));
 
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     $this->widgetSchema['status_id']->setOption('query', StatusTable::getQueryEnabledForAssociation($associationId));
@@ -100,12 +133,58 @@ abstract class PluginMemberForm extends BaseMemberForm
       $this->validatorSchema['password'] = new sfValidatorString(array('required' => true));
       $this->validatorSchema['username'] = new sfValidatorString(array('required' => true));
     }
-
+    /*
+     * If the first registration or subscribe we don't display the acl group
+     * the creation of first user creates administrator group with all credentials
+     */
+    if (! $this->isFirstRegistration() && $this->isEditAclGroups())
+    {
+      // list acl groups for association
+      $aclGroups = AclGroupTable::getQueryEnabledForAssociation($associationId);
+      $this->widgetSchema['acl_groups'] = new sfWidgetFormDoctrineChoiceMany(array(
+      	'model' => 'AclGroup',
+      	'multiple' => true,
+      	'method' => 'getName',
+      	'query' => $aclGroups,
+      	'expanded' => true,
+      // number of rows displayed
+      ),array(
+      	'size' => '4',    	
+      ));
+      $this->validatorSchema['acl_groups'] = new sfValidatorDoctrineChoiceMany(array(
+      	'model' => 'AclGroup',
+      	'multiple' => 'true',	    	
+      	'query' => $aclGroups,
+      	'min' => 0,
+        'required' => false
+      ));
+      //  $this->widgetSchema['acl_groups']->setAttribute('class', 'formInputNormal');
+      // if member doesn't exist yet we don't select anything
+      if($memberId > 0)
+      {
+        $aclGroupsMember = AclGroupMemberTable::groupsByMemberId($memberId);
+        // copy group id in array and select it
+        $aclGroupsIdMember = array();
+        foreach($aclGroupsMember as $aclGroup)
+        {
+          $aclGroupsIdMember[] = $aclGroup->getGroupId();
+        }
+        $this->setDefault('acl_groups', $aclGroupsIdMember);
+      }
+      // we create new member we select default acl group
+      else
+      {
+        $this->setDefault('acl_groups', AclGroupTable::getSelectedDefaultIdForAssociation($associationId));
+      }
+    }
     $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
     $this->validatorSchema['association_id'] = new sfValidatorInteger();
     $this->setDefault('association_id', $associationId);
 
-    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(array('model' => 'Member', 'column' => 'username'), array('invalid' => 'Ce pseudo existe déjà')));
+    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(
+    array('model' => 'sfGuardUser', 'column' => 'username'), array('invalid' => 'Ce pseudo existe déjà')));
+    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(
+    array('model' => 'sfGuardUser', 'column' => 'email_address'), array('invalid' => 'Cette email existe déjà')));
 
     unset($this->validatorSchema['email']);
     unset($this->validatorSchema['website']);
@@ -127,26 +206,25 @@ abstract class PluginMemberForm extends BaseMemberForm
       'date_widget' => new sfWidgetFormDate(array(
         'format' => '%day%.%month%.%year%',
         'years'  => DateTools::rangeOfYears(date('Y'), 1900)
-      )),
+    )),
     ));
 
     $this->widgetSchema['picture'] = new sfWidgetFormInputFile();
-    $this->validatorSchema['picture'] = new sfValidatorFile(array(  'path'       => MemberTable::PICTURE_DIR,
-                                                                    'required'   => false,
-                                                                    'mime_types' => 'web_images',
-                                                                    'max_size'   => 1024 * 500
-                                                                  ),
-                                                            array(  'max_size'   => 'La taille du fichier est trop importante',
-                                                                    'mime_types' => 'Seules les images sont acceptées'
-                                                                  )
-                                                            );
+    $this->validatorSchema['picture'] = new sfValidatorFile(array(
+      'path'       => MemberTable::PICTURE_DIR,
+      'required'   => false,
+      'mime_types' => 'web_images',
+      'max_size'   => 1024 * 500
+    ),
+    array(  'max_size'   => 'La taille du fichier est trop importante',
+            'mime_types' => 'Seules les images sont acceptées'
+            ));
     $this->setDefault('subscription_date', date('d-m-Y'));
     $this->setDefault('state', 1);
     $this->_setCssClasses();
     $this->_disableProtectedFields($context->getUser());
     $this->_setLabels();
-
-
+  
     if (false == $this->isNew())
     {
       $memberId  = $this->getObject()->getId();
@@ -156,7 +234,6 @@ abstract class PluginMemberForm extends BaseMemberForm
     {
       $extraForm = new MemberExtraRowsForm();
     }
-
     $this->embedForm('extra_rows', $extraForm);
   }
 
@@ -197,7 +274,8 @@ abstract class PluginMemberForm extends BaseMemberForm
       'due_exempt'        => "Exempté de cotisation",
       'subscription_date' => "Date d'adhésion",
       'picture'           => 'Photo',
-      'street'            => 'Rue',
+      'street'            => 'N° et Rue',
+      'street2'           => 'Batiment/Logement',
       'zipcode'           => 'Code postal',
       'city'              => 'Ville',
       'country'           => 'Pays',
@@ -205,6 +283,8 @@ abstract class PluginMemberForm extends BaseMemberForm
       'website'           => 'Site internet/blog',
       'phone_home'        => 'Téléphone fixe',
       'phone_mobile'      => 'Téléphone mobile',
+      'acl_groups'        => 'Groupe de droits',
+      'address_public'    => 'Adresse visible'
     ));
   }
 
@@ -218,6 +298,7 @@ abstract class PluginMemberForm extends BaseMemberForm
     $this->widgetSchema['username']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['password']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['street']->setAttribute('class', 'formInputNormal');
+    $this->widgetSchema['street2']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['zipcode']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['city']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['country']->setAttribute('class', 'formInputNormal');
@@ -228,6 +309,7 @@ abstract class PluginMemberForm extends BaseMemberForm
     $this->widgetSchema['status_id']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['country']->setAttribute('class', 'formInputNormal');
     $this->widgetSchema['picture']->setAttribute('class', 'file');
+
   }
 
   /*
@@ -238,7 +320,7 @@ abstract class PluginMemberForm extends BaseMemberForm
   {
     $associationId = $this->getOption('associationId');
 
-    if (! $user->hasCredential('add_due'))
+    if ($this->isFirstRegistration() ||  !$user->hasCredential('add_due'))
     {
       $this->widgetSchema['due_exempt'] = new sfWidgetFormInputHidden();
       $this->widgetSchema['fake_due_exempt'] = new sfWidgetFormInputCheckbox();
@@ -246,7 +328,7 @@ abstract class PluginMemberForm extends BaseMemberForm
       $this->setDefault('fake_due_exempt', $this->getValue('due_exempt'));
     }
 
-    if (! $user->hasCredential('add_status'))
+    if ($this->isFirstRegistration() || !$user->hasCredential('add_status'))
     {
       $this->widgetSchema['status_id'] = new sfWidgetFormInputHidden();
       $this->widgetSchema['fake_status_id'] = new sfWidgetFormDoctrineChoice(array('model' => $this->getRelatedModelName('Status'), 'add_empty' => false));

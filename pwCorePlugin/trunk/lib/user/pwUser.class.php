@@ -6,7 +6,7 @@
  *
  * @author Adrien Mogenet
  */
-class pwUser extends sfBasicSecurityUser
+class pwUser extends sfGuardSecurityUser
 {
   /**
    * Defines the name of cookie that will be created
@@ -31,7 +31,8 @@ class pwUser extends sfBasicSecurityUser
     $this->setAttribute('user_id', $user->getId(), 'user');
     $this->setAttribute('user_name', $user->getUsername(), 'user');
     $this->removeTemporaryData();
-    $this->setCredentials();
+ //   $this->setCredentials();
+ 		$this->signIn($user->getUserGuard());
   }
 
   /**
@@ -45,7 +46,8 @@ class pwUser extends sfBasicSecurityUser
     $this->setAuthenticated(false);
     $this->getAttributeHolder()->removeNamespace('user');
     $this->getAttributeHolder()->removeNamespace('temp');
-    $this->clearCredentials();
+    $this->signOut();
+//    $this->clearCredentials();
   }
 
   /**
@@ -156,29 +158,25 @@ class pwUser extends sfBasicSecurityUser
     $this->getAttributeHolder()->removeNamespace('temp');
   }
 
-  /**
-   * Retrieve the credentials granted to the current user.
-   */
-  protected function setCredentials()
+/**
+ * Get the referer for the current page, allows store route to cancel action on forms
+ * @return string route stored in session of  user
+ */
+  public function getCurrentReferer($default = null)
   {
-    $credentials = AclCredentialTable::getForMember($this->getUserId());
-
-    foreach ($credentials as $credential)
+    $current =  $this->getAttribute('current_referer',$default,'piwam_actions');
+    if($current == null)
     {
-      $this->addCredential($credential->getAclAction()->getCode());
+      return '@homepage';
     }
+    return $current;
   }
-
   /**
-   * Reset credentials of the current user. Just remove the credentials
-   * for the current session and then give him back according to the
-   * credentials stored in the database.
-   *
-   * Don't change anything in database, just affect the user's session
+   * Set the current referer in user session
+   * @param string $route the route
    */
-  protected function resetCredentials()
-  {
-    $this->clearCredentials();
-    $this->setCredentials();
+  public function setCurrentReferer($route)
+  {	
+    $this->setAttribute('current_referer',$route,'piwam_actions');
   }
 }

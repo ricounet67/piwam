@@ -145,17 +145,22 @@ class BaseassociationActions extends sfActions
   protected function processForm(sfWebRequest $request, AssociationForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-
+    $isNew = $form->getObject()->isNew();
     if ($form->isValid())
     {
       $this->_association = $form->save();
+      if($isNew)
+      {
+        // event association created
+        $this->dispatcher->notify(new sfEvent($this, 'association.created',array(
+          'association'=>$this->_association,
+        )));
+      }
       $params = $request->getParameter('association');
-
       if (isset($params['ping_piwam']) && $params['ping_piwam'] == 1)
       {
         $this->getUser()->setAttribute('ping_piwam', '1', 'temp');
       }
-
       return true;
     }
     return false;

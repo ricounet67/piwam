@@ -81,7 +81,8 @@ abstract class PluginAccountTable extends Doctrine_Table
     if ($parent)
     {
       $parentAccount = self::getByCode($parent, $associationId);
-      $account->setParentId($parentAccount->getId());
+      if($parentAccount != null)
+      	$account->setParentId($parentAccount->getId());
     }
 
     if ($state === null)

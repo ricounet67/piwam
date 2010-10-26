@@ -53,6 +53,13 @@
         <td><?php echo $member->getStatus() ?></td>
       </tr>
       <tr>
+        <th>Groupe de droits :</th>
+        <td><ul><?php foreach($member->getAclGroupNames() as $groupName): ?>        	  
+             <li>&bull; <?php echo $groupName ?></li>
+             <?php endforeach ?>
+      </ul></td>
+      </tr>
+      <tr>
         <th>Date d'inscription :</th>
         <td><?php echo format_date($member->getSubscriptionDate()) ?></td>
       </tr>
@@ -88,7 +95,8 @@
 
       <tr>
         <th>Adresse :</th>
-        <td><?php echo $member->getStreet() . '<br />' . $member->getZipcode() . ' ' . $member->getCity() ?></td>
+        <td><?php echo $member->getStreet() . '<br />' . $member->getStreet2() . '<br />' . 
+          $member->getZipcode() . ' ' . $member->getCity() ?></td>
       </tr>
       <tr>
         <th>Pays :</th>
@@ -182,11 +190,10 @@
       <?php endif ?>
 
       <?php foreach ($credentials as $credential): ?>
-        <li>&bull; <?php echo $credential->getAclAction()->getLabel() ?></li>
+        <li>&bull; <?php echo $credential->getDescription() ?></li>
       <?php endforeach ?>
     </ul>
     <br />
-    <?php echo link_to('Éditer', '@member_edit?id=' . $member->getId() . '#credentials', array('class' => 'grey button')) ?>
   </div>
 </div>
 

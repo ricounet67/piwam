@@ -16,7 +16,7 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
     $modules = array(
       'account', 'activity', 'admin', 'association', 'bookkeeping', 
       'config_member', 'due', 'duetype', 'error', 'expense', 'export', 'income',
-      'install', 'login', 'mailing', 'member', 'status', 'update' , 'menus'
+      'install', 'login', 'mailing', 'member', 'status', 'update' , 'menus' , 'acl_group', 'mail_template'
     ),
 
     /**

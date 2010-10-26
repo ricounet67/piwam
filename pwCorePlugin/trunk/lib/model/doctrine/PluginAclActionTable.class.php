@@ -17,7 +17,7 @@ abstract class PluginAclActionTable extends Doctrine_Table
   public static function getAll()
   {
     $q = Doctrine_Query::create()
-          ->from('AclAction a');
+    ->from('AclAction a');
 
     return $q->execute();
   }
@@ -31,8 +31,8 @@ abstract class PluginAclActionTable extends Doctrine_Table
   public static function getByCode($code)
   {
     $q = Doctrine_Query::create()
-          ->from('AclAction a')
-          ->where('a.code = ?', $code);
+    ->from('AclAction a')
+    ->where('a.Permission.name = ?', $code);
 
     return $q->fetchOne();
   }
@@ -45,9 +45,20 @@ abstract class PluginAclActionTable extends Doctrine_Table
   public static function doCount()
   {
     $q = Doctrine_Query::create()
-          ->select('a.id')
-          ->from('AclAction a');
+    ->select('a.id')
+    ->from('AclAction a');
 
     return $q->count();
+  }
+  /**
+   * Retrieve all existing AclActions in sfGuardGroup
+   *
+   * @return  array of AclAction
+   */
+  public static function getAllActionsByGroupId($group_id)
+  {
+    $q = Doctrine_Query::create()->from('AclAction a');
+    $q->where('a.permission_id IN (SELECT gr.permission_id FROM sfGuardGroupPermission as gr WHERE gr.group_id = ?)',$group_id);
+    return $q->execute();
   }
 }

@@ -11,6 +11,124 @@
  */
 abstract class PluginMember extends BaseMember
 {
+  private $_guardUser = null;
+  private $_guardUserModified = false;
+  private $_guardIsNew = false;
+
+  public function getUserGuard()
+  {
+    if($this->_guardUser == null)
+    {
+      $this->_guardUser = parent::getUser();
+      // creation new member we create sfGuardUser
+      if($this->_guardUser == null)
+      {
+        $this->_guardUser = new sfGuardUser();
+        $this->_guardIsNew = true;
+      }
+    }
+    return $this->_guardUser;
+  }
+  /*  public function construct()
+   {
+    
+   }*/
+  /**
+   * Save guard user before save the current member
+   * @param Doctrine_Connection $conn
+   */
+  public function save(Doctrine_Connection $conn = null)
+  {
+
+    if($this->getUserGuard()->isNew())
+    {
+      $username = $this->_guardUser->getUsername();
+      // get id for member
+      $this->_guardUser->save($conn);
+      // TODO: Impossible get the id of sfUserGuard here !
+      // the result of getId() is the firstname and lastname (it seems object user) ?
+      $user = sfGuardUserTable::getInstance()->retrieveByUsername($username);
+      	
+      $this->setId($user->getId());
+    }
+    else if($this->_guardUserModified)
+    {
+      $this->_guardUser->save($conn);
+    }
+    parent::save($conn);
+  }
+  /*
+   * GETTERS PROXY to sfGuardUser
+   */
+  public function getFirstname()
+  {
+    return mb_convert_case($this->getUserGuard()->getFirstName(), MB_CASE_TITLE, "UTF8");
+  }
+  public function getLastname()
+  {
+    return mb_convert_case($this->getUserGuard()->getLastName(), MB_CASE_TITLE, "UTF8");
+  }
+  public function getEmail()
+  {
+    return $this->getUserGuard()->getEmailAddress();
+  }
+  public function getUsername()
+  {
+    return $this->getUserGuard()->getUsername();
+  }
+  public function getPassword()
+  {
+    return $this->getUserGuard()->getPassword();
+  }
+  public function isSuperAdmin()
+  {
+    return $this->getUserGuard()->getIsSuperAdmin();
+  }
+  public function getName()
+  {
+    return mb_convert_case($this->getUserGuard()->getName(), MB_CASE_TITLE, "UTF8");
+  }
+  /*
+   * SETTERS PROXY to sfGuardUser
+   */
+  public function setFirstname($val)
+  {
+    $this->_guardUserModified = true;
+    $this->getUserGuard()->setFirstName($val);
+    return $this;
+  }
+  public function setLastname($val)
+  {
+    $this->_guardUserModified = true;
+    $this->getUserGuard()->setLastName($val);
+    return $this;
+  }
+  public function setEmail($val)
+  {
+    $this->_guardUserModified = true;
+    $this->getUserGuard()->setEmailAddress($val);
+    return $this;
+  }
+  public function setStatus($val)
+  {
+    if($val == MemberTable::STATE_ENABLED)
+    {
+      $this->getUserGuard()->setIsActive(true);
+    }
+    else
+    {
+      $this->getUserGuard()->setIsActive(false);
+    }
+    parent::setStatus($val);
+  }
+  /*
+   * SHORTCUTS for sfGuardUser
+   */
+  public function getAclGroupNames()
+  {
+    return $this->getUserGuard()->getGroupNames();
+  }
+
   /**
    * Get Member object as string
    *
@@ -18,7 +136,7 @@ abstract class PluginMember extends BaseMember
    */
   public function __toString()
   {
-    return $this->getFirstname() . ' ' . $this->getLastname();
+    return $this->getUserGuard()->getName();
   }
 
   /**
@@ -29,14 +147,9 @@ abstract class PluginMember extends BaseMember
    */
   public function setPassword($v)
   {
-    if ($v !== '')
-    {
-      return $this->_set('password', sha1($v));
-    }
-    else
-    {
-      return $this;
-    }
+    $this->_guardUserModified = true;
+    $this->getUserGuard()->setPassword($v);
+    return $this;
   }
 
   /**
@@ -47,12 +160,9 @@ abstract class PluginMember extends BaseMember
    */
   public function setUsername($v)
   {
-    if ($v == "")
-    {
-      $v = null;
-    }
-
-    return $this->_set('username', $v);
+    $this->_guardUserModified = true;
+    $this->getUserGuard()->setUsername($v);
+    return $this;
   }
 
   /**
@@ -77,27 +187,27 @@ abstract class PluginMember extends BaseMember
    * Remove all existing credentials that have been set to the
    * Member previously
    */
-  public function resetAcl()
-  {
-    $q = Doctrine_Query::create()
-          ->delete('AclCredential c')
-          ->where('c.member_id = ?', $this->getId());
+  /* public function resetAcl()
+   {
+   $q = Doctrine_Query::create()
+   ->delete('AclCredential c')
+   ->where('c.member_id = ?', $this->getId());
 
-    return $q->execute();
-  }
+   return $q->execute();
+   }*/
 
   /**
    * Add a new credential to the member
    *
    * @param   string  $code   : Code of the AclAction
    */
-  public function addCredential($code)
-  {
-    $credential = new AclCredential();
-    $credential->setMemberId($this->getId());
-    $credential->setAclAction(AclActionTable::getByCode($code));
-    $credential->save();
-  }
+  /* public function addCredential($code)
+   {
+   $credential = new AclCredential();
+   $credential->setMemberId($this->getId());
+   $credential->setAclAction(AclActionTable::getByCode($code));
+   $credential->save();
+   }*/
 
   /**
    * Check if the member has to pay a due or not
@@ -142,7 +252,7 @@ abstract class PluginMember extends BaseMember
       {
         $today = date('Y-m-d');
         $since = $this->getSubscriptionDate();
-        
+
         return DateTools::getDaysBetween($today, $since);
       }
       else
@@ -160,26 +270,6 @@ abstract class PluginMember extends BaseMember
   public function getCity()
   {
     return mb_convert_case($this->_get('city'), MB_CASE_UPPER, "UTF8");
-  }
-
-  /**
-   * Overrides getter for Lastname field
-   *
-   * @return  string  well-formated lastname
-   */
-  public function getLastname()
-  {
-    return mb_convert_case($this->_get('lastname'), MB_CASE_TITLE, "UTF8");
-  }
-
-  /**
-   * Overrides getter for Firstname field
-   *
-   * @return  string  well-formated lastname
-   */
-  public function getFirstname()
-  {
-    return mb_convert_case($this->_get('firstname'), MB_CASE_TITLE, "UTF8");
   }
 
   /**
@@ -209,7 +299,8 @@ abstract class PluginMember extends BaseMember
    */
   public function getInfoForGmap()
   {
-    return '<b>' . $this->__toString() . '</b><br />' . $this->getCompleteAddress();
+    return '<b>' . $this->getName() . '</b><br />' . $this->getStreet(). '<br/>' . $this->getStreet2(). '<br/>'
+    .$this->getZipcode().' '. $this->getCity();
   }
 
   /**
@@ -220,10 +311,11 @@ abstract class PluginMember extends BaseMember
    */
   public function disable()
   {
-    $this->setUsername(null);
-    $this->setPassword(null);
+    // $this->setUsername(null);
+    //  $this->setPassword(null);
     $this->setState(MemberTable::STATE_DISABLED);
-
+    $this->getUserGuard()->setIsActive(false);
+    $this->_guardUserModified = true;
     return $this;
   }
 
@@ -237,5 +329,13 @@ abstract class PluginMember extends BaseMember
     $dues = $this->getDue();
 
     return count($dues);
+  }
+  /**
+   * Return true if the user has geoloc position
+   * @return boolean
+   */
+  public function hasGeolocAddress()
+  {
+    return $this->getLatitude() != null && $this->getLongitude() != null;
   }
 }

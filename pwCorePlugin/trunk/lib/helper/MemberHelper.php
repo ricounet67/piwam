@@ -14,7 +14,7 @@ function format_member($member, $pseudo = false)
   {
     $member = $member->getRawValue();
   }
-
+  $str ='';
   if (! $member->exists())
   {
     $str = '<i>Système</i>';

@@ -56,11 +56,15 @@ class BaseloginActions extends sfActions
       {
         $username = $login['username'];
         $password = $login['password'];
-        $user = MemberTable::getByUsernameAndPassword($username, $password);
+        $user = sfGuardUserTable::getInstance()->retrieveByUsername($username);
 
-        if ($user instanceof Member)
+        if($user == null)
         {
-          $this->getUser()->login($user);
+            $this->getUser()->setFlash('error', "Le nom d'utilisateur est invalide", false);         
+        }
+        else if ($user->checkPassword($password))
+        {
+          $this->getUser()->login(MemberTable::getById($user->getId()));
 
           // Unused cookie, fake value is set
           $this->getResponse()->setCookie(myUser::COOKIE_NAME, '1', time() + 60 * 60 * 24 * 15, '/');
@@ -81,14 +85,7 @@ class BaseloginActions extends sfActions
         }
         else
         {
-          if (null != MemberTable::getByUsername($username))
-          {
-            $this->getUser()->setFlash('error', "Le mot de passe est invalide", false);
-          }
-          else
-          {
-            $this->getUser()->setFlash('error', "Le nom d'utilisateur est invalide", false);
-          }
+          $this->getUser()->setFlash('error', "Le mot de passe est invalide", false);
         }
       }
     }

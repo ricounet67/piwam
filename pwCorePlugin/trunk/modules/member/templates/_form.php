@@ -111,6 +111,12 @@ use_javascript('/pwCorePlugin/js/custom-forms/si.files.js')
         <td><?php echo $form['status_id'] ?><?php echo $form['status_id']->renderError() ?></td>
       <?php endif ?>
     </tr>
+    <?php if(isset($form['acl_groups'])): ?>
+      <tr>
+        <th><?php echo $form['acl_groups']->renderLabel() ?></th>
+        <td><?php echo $form['acl_groups'] ?><?php echo $form['acl_groups']->renderError() ?></td>
+      </tr>
+    <?php endif ?>
     <tr>
       <th><?php echo $form['picture']->renderLabel() ?></th>
       <td><label class="custom"><?php echo $form['picture'] ?><?php echo $form['picture']->renderError() ?></label></td>
@@ -133,8 +139,16 @@ use_javascript('/pwCorePlugin/js/custom-forms/si.files.js')
       <?php endif ?>
     </tr>
     <tr>
+      <th><?php echo $form['address_public']->renderLabel() ?></th>
+      <td><?php echo $form['address_public'] ?><?php echo $form['address_public']->renderError() ?></td>
+    </tr>
+    <tr>
       <th><?php echo $form['street']->renderLabel() ?></th>
       <td><?php echo $form['street'] ?><?php echo $form['street']->renderError() ?></td>
+    </tr>
+    <tr>
+      <th><?php echo $form['street2']->renderLabel() ?></th>
+      <td><?php echo $form['street2'] ?><?php echo $form['street2']->renderError() ?></td>
     </tr>
     <tr>
       <th><?php echo $form['zipcode']->renderLabel() ?></th>

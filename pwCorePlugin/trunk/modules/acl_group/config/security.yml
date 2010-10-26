@@ -1,0 +1,23 @@
+index:
+  credentials:  edit_member_acl
+  
+new:
+  credentials:  config_acl_group
+
+create:
+  credentials:  config_acl_group
+  
+edit:
+  credentials:  config_acl_group
+  
+delete:
+  credentials:  config_acl_group
+  
+rightsEdit:
+  credentials:  config_acl_group
+  
+rightsSave:
+  credentials:  config_acl_group  
+  
+show:
+  credentials:  edit_member_acl

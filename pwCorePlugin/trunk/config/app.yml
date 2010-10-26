@@ -45,6 +45,14 @@ all:
             name: Administration
             uri: @admin
             #credentials: ~
+          rights:
+            name: Groupe de droits
+            uri: @acl_groups_list
+            credentials: config_acl_group
+          mailTemplates:
+            name: Modèle d'email
+            uri: @mail_templates_list
+            credentials: edit_mail_template
       members:
         label: Membres
         items:

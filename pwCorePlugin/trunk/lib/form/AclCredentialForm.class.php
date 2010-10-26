@@ -7,9 +7,9 @@
  * @author     Adrien Mogenet
  * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-abstract class PluginAclCredentialForm extends BaseAclCredentialForm
+class AclCredentialForm extends BaseForm
 {
-  protected $_user_id;
+  protected $_group_id;
   protected $_modules = array();
 
   /**
@@ -26,17 +26,24 @@ abstract class PluginAclCredentialForm extends BaseAclCredentialForm
   }
 
   /**
-   * Set UserID
+   * Set GroupID
    *
    * @param   integer $user_id
    */
-  public function setUserId($user_id)
+  public function setGroupId($group_id)
   {
-    $this->widgetSchema['user_id'] = new sfWidgetFormInputHidden();
-    $this->setDefault('user_id', $user_id);
-    $this->_user_id = $user_id;
+    $this->widgetSchema['group_id'] = new sfWidgetFormInputHidden();
+    $this->setDefault('group_id', $group_id);
+    $this->_group_id = $group_id;
   }
-
+  /**
+   * Get group id
+   * @return integer group id
+   */
+  public function getGroupId()
+  {
+  	return $this->_group_id;
+  }
   /**
    * Build the form after retrieving the list of modules and actions
    * The array _modules is also filled
@@ -47,7 +54,7 @@ abstract class PluginAclCredentialForm extends BaseAclCredentialForm
     
     $this->widgetSchema['rights']       = new sfWidgetFormSchema();
     $this->validatorSchema              = new sfValidatorSchema();
-    $this->validatorSchema['user_id']   = new sfValidatorInteger();
+    $this->validatorSchema['group_id']   = new sfValidatorInteger();
     $this->validatorSchema['rights']    = new sfValidatorPass();
     $modules = AclModuleTable::getAll();
 
@@ -73,12 +80,12 @@ abstract class PluginAclCredentialForm extends BaseAclCredentialForm
    */
   public function automaticCheck()
   {
-    $member = MemberTable::getById($this->_user_id);
-    $credentials = $member->getAclCredential();
+    $aclGroup = AclGroupTable::getById($this->_group_id);
+    $credentials = $aclGroup->getAclActions();
 
     foreach ($credentials as $credential)
     {
-      $this->widgetSchema['rights'][$credential->getModuleId()][$credential->getCode()]->setAttribute('checked', 'checked');
+      $this->widgetSchema['rights'][$credential->getAclModuleId()][$credential->getCode()]->setAttribute('checked', 'checked');
     }
   }
 }

@@ -58,10 +58,10 @@ abstract class PluginMemberTable extends Doctrine_Table
   public static function getQueryEnabledForAssociation($id)
   {
     $q = Doctrine_Query::create()
-          ->from('Member m')
-          ->where('m.association_id = ?', $id)
-          ->andWhere('m.state = ?', self::STATE_ENABLED)
-          ->orderBy('m.firstname ASC');
+    ->from('Member m')
+    ->where('m.association_id = ?', $id)
+    ->andWhere('m.state = ?', self::STATE_ENABLED)
+    ->orderBy('m.User.first_name ASC');
 
     return $q;
   }
@@ -70,7 +70,7 @@ abstract class PluginMemberTable extends Doctrine_Table
    * Build a Doctrine_Query object according to criteria given by
    * parameter $params.
    * Supported params :
-   * 
+   *
    *    - association_id
    *    - magic
    *    - state
@@ -83,7 +83,7 @@ abstract class PluginMemberTable extends Doctrine_Table
   public static function getQuerySearch($params)
   {
     $q = Doctrine_Query::create()
-          ->from('Member m');
+    ->from('Member m');
 
     /*
      * Select only members who belong to a specific association
@@ -108,7 +108,7 @@ abstract class PluginMemberTable extends Doctrine_Table
     if (isset ($params['magic']) && $params['magic'] != "")
     {
       $query = '%' . $params['magic'] . '%';
-      $q->andWhere("concat(concat(m.firstname, ' '), m.lastname) LIKE ?", $query);
+      $q->andWhere("concat(concat(m.User.first_name, ' '), m.User.last_name) LIKE ?", $query);
     }
 
     /*
@@ -153,14 +153,15 @@ abstract class PluginMemberTable extends Doctrine_Table
     if (isset ($params['order_by']))
     {
       $column = $params['order_by'];
-      $sortable_columns = array('lastname', 'firstname', 'username', 'city', 'status_id');
+      $sortable_columns = array('lastname'=>'User.last_name', 'firstname'=>'User.first_name', 'username'=>'User.username',
+      	'city'=>'city', 'status_id'=>'status_id');
 
       if (! in_array($column, $sortable_columns))
       {
         $column = 'lastname';
       }
-
-      $q->orderBy('m.' . $column . ' ASC');
+       
+      $q->orderBy('m.' . $sortable_columns[$column] . ' ASC');
     }
 
     return $q;
@@ -175,10 +176,10 @@ abstract class PluginMemberTable extends Doctrine_Table
   public static function getPendingMembers($association_id)
   {
     $q = Doctrine_Query::create()
-          ->select('m.*')
-          ->from('Member m')
-          ->where('m.association_id = ?', $association_id)
-          ->andWhere('state = ?', self::STATE_PENDING);
+    ->select('m.*')
+    ->from('Member m')
+    ->where('m.association_id = ?', $association_id)
+    ->andWhere('state = ?', self::STATE_PENDING);
 
     return $q->execute();
   }
@@ -196,12 +197,12 @@ abstract class PluginMemberTable extends Doctrine_Table
   public static function getByUsernameAndPassword($username, $password)
   {
     $q = Doctrine_Query::create()
-          ->select('m.id')
-          ->from('Member m')
-          ->where('m.username = ?', $username)
-          ->andWhere('m.password = ?', sha1($password))
-          ->andWhere('m.state = ?', self::STATE_ENABLED)
-          ->limit(1);
+    ->select('m.id')
+    ->from('Member m')
+    ->where('m.User.username = ?', $username)
+    ->andWhere('m.User.password = ?', sha1($password))
+    ->andWhere('m.state = ?', self::STATE_ENABLED)
+    ->limit(1);
 
     return $q->fetchOne();
   }
@@ -215,10 +216,10 @@ abstract class PluginMemberTable extends Doctrine_Table
   public static function getByUsername($username)
   {
     $q = Doctrine_Query::create()
-          ->select('m.id')
-          ->from('Member m')
-          ->where('m.username = ?', $username)
-          ->limit(1);
+    ->select('m.id')
+    ->from('Member m')
+    ->where('m.User.username = ?', $username)
+    ->limit(1);
 
     return $q->fetchOne();
   }
@@ -232,9 +233,9 @@ abstract class PluginMemberTable extends Doctrine_Table
   public static function getById($id)
   {
     $q = Doctrine_Query::create()
-          ->from('Member m')
-          ->where('m.id= ?', $id)
-          ->limit(1);
+    ->from('Member m')
+    ->where('m.id= ?', $id)
+    ->limit(1);
 
     return $q->fetchOne();
   }
@@ -303,26 +304,77 @@ abstract class PluginMemberTable extends Doctrine_Table
   public static function getHavingEmailForAssociation($id)
   {
     $q = Doctrine_Query::create()
-          ->from('Member m')
-          ->where('m.association_id = ?', $id)
-          ->andWhere('m.state = ?', self::STATE_ENABLED)
-          ->andWhere('m.email IS NOT NULL')
-          ->andWhere('m.email != ""');
+    ->from('Member m')
+    ->where('m.association_id = ?', $id)
+    ->andWhere('m.state = ?', self::STATE_ENABLED)
+    ->andWhere('m.User.email_address IS NOT NULL')
+    ->andWhere('m.User.email_address != ""');
 
     return $q->execute();
   }
 
   /**
    * Count existing Member
-   *
+   * TODO: association id ?
    * @return  integer
    */
   public static function doCount()
   {
     $q = Doctrine_Query::create()
-          ->select('m.id')
-          ->from('Member m');
+    ->select('m.id')
+    ->from('Member m');
 
     return $q->count();
+  }
+
+  /**
+   * Get firstname and last name with optionnaly username of mermber
+   * This function doesn't load all member fields but only first and last name for performance
+   * @param $member_id the user wanted
+   * @param $includeUsername if true add username between bracket after name
+   * @return string firstname + lastname or null if not found
+   */
+  public static function getNameForMemberId($member_id,$includeUsername = false)
+  {
+    $q = Doctrine_Query::create();
+    if($includeUsername)
+    {
+       $q->select("CONCAT(user.first_name,' ',user.last_name,' (',user.username,')') as name");
+    }
+    else{
+       $q->select("CONCAT(user.first_name,' ',user.last_name) as name");
+    }
+    $q->from('sfGuardUser user, Member m')
+      ->where('user.id = ?', $member_id)
+      ->andWhere('m.state = ?', self::STATE_ENABLED);
+    $res = $q->fetchArray();
+    return (count($res)? $res[0]['name'] : null);
+  }
+
+  /**
+   * Get all members with specified right
+   * If the right doesn't exist return empty collection
+   * @param string $rightName the right name in sfGuardPermission table
+   * @param $include_super_admin if true return all super admin added to result (except if the right doesn't exist)
+   * @return Doctrine_Collection collection of member
+   */
+  public static function getMembersForAclRight($rightName,$include_super_admin = false)
+  {
+    $right = sfGuardPermissionTable::getInstance()->findOneByName($rightName);
+    if($right == null)
+    {
+      return new Doctrine_Collection();
+    }
+    $q = Doctrine_Query::create()
+      ->from('Member m')
+      ->where('m.id IN (SELECT gr.user_id FROM sfGuardGroupUser gr WHERE gr.group_id IN
+      (SELECT grPerm.group_id FROM sfGuardGroupPermission grPerm WHERE grPerm.permission_id = ?))',$right->getId())
+      ->orWhere('m.id IN (SELECT userPerm.user_id FROM sfGuardUserPermission userPerm WHERE userPerm.permission_id = ?)',$right->getId());
+
+    if($include_super_admin)
+    {
+      $q->orWhere('m.User.is_super_admin = 1');
+    }
+    return $q->execute();
   }
 }

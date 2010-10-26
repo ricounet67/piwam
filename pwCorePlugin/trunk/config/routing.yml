@@ -272,10 +272,6 @@ member_delete:
 member_pending:
   url:    /membre/en_attente
   param:  { module: member, action: pending }
-
-member_acl:
-  url:    /membre/droits/:id
-  param:  { module: member, action: acl }
   
 member_search:
   url:    /membre/recherche/*
@@ -313,8 +309,42 @@ member_validate:
   url:    /membre/validation/:id
   param:  { module: member, action: validate } 
 
+# -----------------------------------------------------------------------------
+#     ACL GROUPS ACTIONS
+# -----------------------------------------------------------------------------
 
+acl_groups_list:
+  url:    /aclGroupes
+  param:  { module: acl_group, action: index }
 
+acl_group_edit:
+  url:    /aclGroupe/editer
+  param:  { module: acl_group, action: edit }
+
+acl_group_new:
+  url:    /aclGroupe/nouveau
+  param:  { module: acl_group, action: new }
+
+acl_group_create:
+  url:    /aclGroupe/creation
+  param:  { module: acl_group, action: create }
+    
+acl_group_update:
+  url:    /aclGroupe/update/:id
+  param:  { module: acl_group, action: update }
+
+acl_group_delete:
+  url:    /aclGroupe/delete/:id
+  param:  { module: acl_group, action: delete }
+  
+acl_group_rights_edit:
+  url:    /aclGroupe/droitsEditer/:id
+  param:  { module: acl_group, action: rightsEdit }
+
+acl_group_rights_save:
+  url:    /aclGroupe/droitsSauver
+  param:  { module: acl_group, action: rightsSave }
+  
 # -----------------------------------------------------------------------------
 #     ASSOCIATION ACTIONS
 # -----------------------------------------------------------------------------
@@ -485,7 +515,21 @@ mailing_show:
   url:    /voir_email/:id
   param:  { module: mailing, action: show }
 
+# -----------------------------------------------------------------------------
+#     MAIL TEMPLATES ACTIONS
+# -----------------------------------------------------------------------------
 
+mail_template_edit:
+  url:    /mailTemplate/edit/:id
+  param:  { module: mail_template, action: edit }
+
+mail_template_update:
+  url:    /mailTemplate/mettre_a_jour/:id
+  param:  { module: mail_template, action: update }
+  
+mail_templates_list:
+  url:    /mailTemplates
+  param:  { module: mail_template, action: index }
   
 # -----------------------------------------------------------------------------
 #     DEFAULT ACTIONS

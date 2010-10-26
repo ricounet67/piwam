@@ -80,11 +80,11 @@ class BaseMemberActions extends sfActions
     $member_id = $request->getParameter('id');
     $profile = MemberTable::getById($member_id);
     $this->forward404Unless($profile);
-
+    
     if ($this->isAllowedToManageProfile($profile, 'show_member'))
     {
       $this->dues = DueTable::getForUser($member_id);
-      $this->credentials = AclCredentialTable::getForMember($member_id);
+      $this->credentials = $profile->getUserGuard()->getAllPermissions();
       $this->member = $profile;
     }
     else
@@ -237,52 +237,7 @@ class BaseMemberActions extends sfActions
    */
   public function executeAcl(sfWebRequest $request)
   {
-    $this->form = new AclCredentialForm();
-
-    if ($request->isMethod('post'))
-    {
-      $this->form->bind($request->getParameter('rights', array()));
-
-      if ($this->form->isValid())
-      {
-        $values = $request->getParameter('rights', array());
-        $member = MemberTable::getById($values['user_id']);
-        $member->resetAcl();
-
-        // Browse the list of rights... first we get the 'modules' level
-
-        if (isset($values['rights']))
-        {
-          foreach ($values['rights'] as $mid => $acls)
-          {
-            // Then, foreach module, we get the list of enabled
-            // checkboxes. "$state" is normally always set to "ON"
-            // because we only have checked elements
-
-            foreach ($acls as $code => $state)
-            {
-              $member->addCredential($code);
-            }
-          }
-        }
-
-        $this->redirect('@members_list');
-      }
-    }
-    else
-    {
-      $this->user_id  = $request->getParameter('id');
-      $member = MemberTable::getById($this->user_id);
-
-      if (($member->getAssociationId() != $this->getUser()->getAssociationId()) ||
-          ($this->getUser()->hasCredential('edit_acl') == false))
-      {
-        $this->redirect('@error_credentials');
-      }
-
-      $this->form->setUserId($this->user_id);
-      $this->form->automaticCheck();
-    }
+	$this->forward('acl_group', 'module');
   }
 
 
@@ -303,7 +258,8 @@ class BaseMemberActions extends sfActions
   {
     $aId = $this->getUser()->getAssociationId();
     $ctxt = $this->getContext();
-    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt));
+    $canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
+    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt,'editAclGroups' => $canEditAclGroups));
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
@@ -318,7 +274,8 @@ class BaseMemberActions extends sfActions
     $member = $request->getParameter('member');
     $aId = $member['association_id'];
     $ctxt = $this->getContext();
-    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt));
+    $canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
+    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt,'editAclGroups' => $canEditAclGroups));
     $this->processForm($request, $this->form);
     $this->setTemplate('new');
   }
@@ -341,15 +298,16 @@ class BaseMemberActions extends sfActions
     {
       $this->redirect('@error_credentials');
     }
-
+		$canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
     $aId = $member->getAssociationId();
+    $mId = $member->getId();
     $ctxt = $this->getContext();
-    $this->form = new MemberForm($member, array('associationId' => $aId, 'context' => $ctxt));
-    $this->aclForm  = new AclCredentialForm();
+    $this->form = new MemberForm($member, array('associationId' => $aId, 
+    																						'context' => $ctxt, 
+    																						'memberId' => $mId, 
+    																						'editAclGroups'=>$canEditAclGroups));
     $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
-    $this->aclForm->setUserId($this->user_id);
-    $this->aclForm->automaticCheck();
   }
 
   /**
@@ -367,16 +325,13 @@ class BaseMemberActions extends sfActions
     {
       $this->redirect('@error_credentials');
     }
-
+		$canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
     $member = $request->getParameter('member');
     $associationId = $member['association_id'];
     $this->form = new MemberForm($user, array('associationId' => $associationId,
-                                              'context' => $this->getContext()));
-    $this->aclForm  = new AclCredentialForm();
-    $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
-    $this->aclForm->setUserId($this->user_id);
-    $this->aclForm->automaticCheck();
-    $this->processForm($request, $this->form);
+                                              'context' => $this->getContext(),
+    																					'editAclGroups'=>$canEditAclGroups));
+    $this->processForm($request, $this->form);   
     $this->setTemplate('edit');
   }
 
@@ -521,7 +476,7 @@ class BaseMemberActions extends sfActions
    */
   public function executeNewfirst(sfWebRequest $request)
   {
-    $associationId = $this->getUser()->getAttribute('association_id', null, 'temp');
+    $associationId = $this->getUser()->getTemporaryAssociationId();
 
     if (null == $associationId)
     {
@@ -547,7 +502,8 @@ class BaseMemberActions extends sfActions
   public function executeFirstcreate(sfWebRequest $request)
   {
     $this->forward404Unless($request->isMethod('post'));
-    $associationId = $this->getUser()->getTemporaryAssociationId();
+    $associationId = $this->getUser()->getAttribute('association_id',-1 , 'temp');
+
     $this->form = new MemberForm(null, array('associationId' => $associationId,
                                              'context'       => $this->getContext(),
                                              'first'         => true));
@@ -594,11 +550,21 @@ class BaseMemberActions extends sfActions
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-
+		$isNew = $form->getObject()->isNew();
     if ($form->isValid())
     {
+
       $member = $form->save();
 
+      $formValues = $this->form->getValues();
+
+      // not first user we update the acl groups for user
+      if(isset($formValues['acl_groups']))
+      {
+      	
+	      // update acl groups for user
+	      AclGroupMemberTable::updateGroupsIdByMemberId($member->getId(),$formValues['acl_groups']);
+      }
       /*
        * Manage extra row values. We are not using sfFormDoctrine,
        * so we are managing these fields manually.
@@ -657,7 +623,14 @@ class BaseMemberActions extends sfActions
           // do nothing
         }
       }
-
+      if($isNew)
+      {
+        // event member created
+        $this->dispatcher->notify(new sfEvent($this, 'member.created',array(
+          'member'=>$member,
+           'first'=>$request->getAttribute('first',false),
+        )));
+      }
       /*
        * If we are processing the values given by the first member, who has
        * normally just registered a new association
@@ -669,15 +642,18 @@ class BaseMemberActions extends sfActions
         $association->save();
 
         $this->getUser()->setTemporarUserInfo($member);
-        $credentials = AclActionTable::getAll();
-
+        // create administrator group with all acl actions
+        $aclAdminGroup = new AclGroup();
+        $aclAdminGroup->setName("Administrateurs");
+        $aclAdminGroup->setDescription("Possède tous les droits");
+        $aclAdminGroup->setAssociationId($member->getAssociationId());        
+        $aclAdminGroup->save();
+        // the default admin group MUST exists before add credentials and member
+        $aclAdminGroup->addMember($member);
+        $aclAdminGroup->addCredentials(AclActionTable::getAll());		
         // we don't need to clear existing credentials before,
         // because we are sure the user doesn't have anyone
 
-        foreach ($credentials as $credential)
-        {
-          $member->addCredential($credential->getCode());
-        }
 
         // We check if we can warn the author that this association
         // is using Piwam
@@ -698,14 +674,14 @@ class BaseMemberActions extends sfActions
       {
         $data = $request->getParameter('member');
 
-        if ((isset($data['created_by'])) && ($member->getUsername() && $member->getPassword()))
+       /* if ((isset($data['created_by'])) && ($member->getUsername() && $member->getPassword()))
         {
           $this->redirect('@member_acl?id=' . $member->getId());
         }
         else
-        {
+        {*/
           $this->redirect('@members_list');
-        }
+       // }
       }
     }
   }

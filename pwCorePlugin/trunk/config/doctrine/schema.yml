@@ -1,51 +1,81 @@
 options:
   collate: utf8_unicode_ci
   charset: utf8
-  
+
 
 AclAction:
+  options:
+    symfony:
+      form:   false
+      filter: false
   tableName: piwam_acl_action
   columns:
-    id:             { type: integer(4), primary: true, autoincrement: true }
+    permission_id:  { type: integer }
     acl_module_id:  { type: integer(4) }
-    label:          { type: string(255), notnull: true }
-    code:           { type: string(100), notnull: true }
+#    label:          { type: string(255), notnull: true }
+#    code:           { type: string(100), notnull: true }
   relations:
     AclModule:      { local: acl_module_id, foreign: id, type: one, onDelete: CASCADE }
+    Permission:     { class: sfGuardPermission, local: permission_id, foreign: id, type: one, onDelete: CASCADE }
 
-
-
-AclCredential:
-  tableName: piwam_acl_credential
-  columns:
-    id:             { type: integer(4), primary: true, autoincrement: true } 
-    member_id:      { type: integer(4) }
-    acl_action_id:  { type: integer(4) }
-  relations:
-    AclAction:      { local: acl_action_id, foreign: id, type: one, onDelete: CASCADE }
-    Member:         { local: member_id, foreign: id, type: one, onDelete: CASCADE }
-
-
+#sfGuardGroupPermission
+#AclCredential: 
+#  tableName: piwam_acl_credential
+#  columns:
+#    id:             { type: integer(4), primary: true, autoincrement: true } 
+#    group_id:      { type: integer(4) }
+#    acl_action_id:  { type: integer(4) }
+#  relations:
+#    AclAction:      { local: acl_action_id, foreign: id, type: one, onDelete: CASCADE }
+#    AclGroup:         { local: group_id, foreign: id, type: one, onDelete: CASCADE }
 
 AclModule:
+  options:
+    symfony:
+      form:   false
+      filter: false
   tableName: piwam_acl_module
   columns:
     id:             { type: integer(4), primary: true, autoincrement: true }
     label:          { type: string(255), notnull: true }
 
 
+AclGroup:
+  tableName: piwam_acl_group
+  columns:
+    group_id:             { type: integer }
+    association_id:  { type: integer(4), notnull: true }
+#    label:           { type: string(50), notnull: true }
+#    description:     { type: string(255 }
+  #  is_deletable:         { type: boolean,  default: true }
+    selected_new_member: { type: boolean, default: false }
+  relations:
+    Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
+    Group:   { class: sfGuardGroup, local: group_id, foreign: id, type: one, onDelete: CASCADE }
+  #  AclActions: { class: AclAction, local: group_id, foreign: permission_id, refClass: sfGuardGroupPermission, foreignAlias: Groups }
+ #   Members: { class: Member, local: group_id, foreign: user_id, refClass: sfGuardUserGroup, foreignAlias: Groups }
+      
+#sfGuardUserGroup
+#AclGroupMember:
+#  tableName: piwam_acl_group_member
+#  columns:
+#    group_id:  { type: integer(4), primary: true }
+#    member_id:  { type: integer(4), primary: true }
+#  relations:
+#    Member:      { local: member_id, foreign: id, type: one, onDelete: CASCADE }
+#    AclGroup:       { local: group_id, foreign: id, type: one, onDelete: CASCADE }
 
 Activity:
   tableName: piwam_activity
   actAs: { Timestampable: ~ }
   columns:
-    id:     		     { type: integer(4), primary: true, autoincrement: true }
+    id:          { type: integer(4), primary: true, autoincrement: true }
     label:           { type: string(255), notnull: true }
     description:     { type: string(255) }
     state:      	   { type: integer(1), default: '1' }
     association_id:  { type: integer(4), notnull: true }
-    created_by:      { type: integer(4) }
-    updated_by:      { type: integer(4) }
+    created_by:      { type: integer }
+    updated_by:      { type: integer }
   relations:
     Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
@@ -63,8 +93,8 @@ Association:
     name:           { type: string(120), notnull: true }
     description:    { type: string(255) }
     website:        { type: string(255) }
-    created_by:     { type: integer(4) }
-    updated_by:     { type: integer(4) }
+    created_by:     { type: integer }
+    updated_by:     { type: integer }
   relations:
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
@@ -87,8 +117,8 @@ SimpleAccount:
     association_id: { type: integer(4), notnull: true }
     reference:      { type: string(64), notnull: true }
     state:          { type: integer(1), default: '1' }
-    created_by:     { type: integer(4) }
-    updated_by:     { type: integer(4) }
+    created_by:     { type: integer }
+    updated_by:     { type: integer }
   relations:
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
@@ -144,11 +174,11 @@ Due:
     id:              { type: integer(4), primary: true, autoincrement: true }
     account_id:      { type: integer(4), notnull: true }
     due_type_id:     { type: integer(4), notnull: true }
-    member_id:       { type: integer(4), notnull: true }
+    member_id:       { type: integer, notnull: true }
     date:            { type: date(25), notnull: true }
     amount:          { type: 'decimal(10, 2)', notnull: true }
-    created_by:      { type: integer(4) }
-    updated_by:      { type: integer(4) }
+    created_by:      { type: integer }
+    updated_by:      { type: integer }
   relations:
     Account:         { class: SimpleAccount, local: account_id, foreign: id, type: one, onDelete: CASCADE }
     DueType:         { local: due_type_id, foreign: id, type: one, onDelete: CASCADE }
@@ -170,8 +200,8 @@ DueType:
     state:           { type: integer(1), default: '1' }
     start_period:    { type: date }
     end_period:      { type: date }
-    created_by:      { type: integer(4) }
-    updated_by:      { type: integer(4) }
+    created_by:      { type: integer }
+    updated_by:      { type: integer }
   relations:
     Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
@@ -209,8 +239,8 @@ Document:
     id:              { type: integer(4), primary: true, autoincrement: true }
     title:           { type: string(100), notnull: true }
     description:     { type: string(255) }
-    created_by:      { type: integer(4) }
-    updated_by:      { type: integer(4) }
+    created_by:      { type: integer }
+    updated_by:      { type: integer }
     association_id:  { type: integer(4), notnull: true }
   relations:
     Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
@@ -225,8 +255,8 @@ DocumentMetadata:
     document_id:     { type: integer(4), primary: true }
     tag_name:        { type: string(50), primary: true }
     value:           { type: string(255), notnull: true }
-    created_by:      { type: integer(4) }
-    updated_by:      { type: integer(4) }
+    created_by:      { type: integer }
+    updated_by:      { type: integer }
   relations:
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
@@ -240,8 +270,8 @@ Entry:
     id:              { type: integer(4), primary: true, autoincrement: true }
     date:            { type: date(25), notnull: true }
     label:           { type: string(255), notnull: true }
-    created_by:      { type: integer(4) }
-    updated_by:      { type: integer(4) }
+    created_by:      { type: integer }
+    updated_by:      { type: integer }
     association_id:  { type: integer(4), notnull: true }
   relations:
     Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
@@ -262,8 +292,8 @@ Account:
     label:          { type: string(255), notnull: true }
     association_id: { type: integer(4), notnull: true }
     state:          { type: integer(1), default: '1' }
-    created_by:     { type: integer(4) }
-    updated_by:     { type: integer(4) }
+    created_by:     { type: integer }
+    updated_by:     { type: integer }
   relations:
     ParentAccount:  { class: Account, local: parent_id, foreign: id, type: one, foreignAlias: ChildAccounts, onDelete: CASCADE }
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
@@ -314,8 +344,8 @@ Expense:
     activity_id:    { type: integer(4), notnull: true }
     date:           { type: date(25), notnull: true }
     paid:           { type: boolean, default: true }
-    created_by:     { type: integer(4) }
-    updated_by:     { type: integer(4) }
+    created_by:     { type: integer }
+    updated_by:     { type: integer }
   relations:
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     Account:        { class: SimpleAccount, local: account_id, foreign: id, type: one, onDelete: CASCADE }
@@ -327,35 +357,42 @@ Expense:
     
 Member:
   tableName: piwam_member
-  actAs: { Timestampable: ~ }
+  actAs:  
+    Timestampable: ~ 
+    Geolocatable:
+      fields: [street, zipcode, city]
   columns:
-    id:             { type: integer(4), primary: true, autoincrement: true }
-    lastname:       { type: string(255), notnull: true }
-    firstname:      { type: string(255), notnull: true }
-    username:       { type: string(255), default: null }
-    password:       { type: string(255) }
+#    id:             { type: integer(4), primary: true, autoincrement: true }
+    id:             { type: integer, unique: true, notnull: true}
+#    user_id:  { type: integer,unique: true }
+#    lastname:       { type: string(255), notnull: true }
+#    firstname:      { type: string(255), notnull: true }
+#    username:       { type: string(255), default: null }
+#    password:       { type: string(255) }
     status_id:      { type: integer(4), notnull: true }
     subscription_date: { type: date(25), notnull: true }
     due_exempt:     { type: boolean, notnull: true }
+    address_public:  { type: boolean, default: true, notnull: true } 
     street:         { type: string(255) }
+    street2:        { type: string(255) }
     zipcode:        { type: string(8) }
     city:           { type: string(255) }
     country:        { type: string(8) }
     picture:        { type: string(255) }
-    email:          { type: string(255) }
+#    email:          { type: string(255) }
     website:        { type: string(255) }
     phone_home:     { type: string(16) }
     phone_mobile:   { type: string(16) }
     state:          { type: integer(1), default: '1', notnull: true }
     association_id: { type: integer(4), notnull: true }
-    created_by:     { type: integer(4) }
-    updated_by:     { type: integer(4) }
+    created_by:     { type: integer }
+    updated_by:     { type: integer }
   relations:
     Association:     { class: Association, local: association_id, foreign: id, type: one, onDelete: CASCADE }
     Status:          { local: status_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
-    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }      
-
+    UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
+    User:            { class: sfGuardUser, local: id, foreign: id, type: one, onDelete: CASCADE }
 
 
 MemberExtraRow:
@@ -380,7 +417,7 @@ MemberExtraValue:
   actAs: { Timestampable: ~ }
   columns:
     row_id:         { type: integer(4), primary: true }
-    member_id:      { type: integer(4), primary: true }
+    member_id:      { type: integer, primary: true }
     value:          { type: string(255), notnull: true }
   relations:
     Row:            { class: MemberExtraRow, local: row_id, foreign: id, type: one, onDelete: CASCADE }
@@ -400,8 +437,8 @@ Income:
     activity_id:    { type: integer(4), notnull: true }
     date:           { type: date(25), notnull: true }
     received:       { type: boolean, default: true }
-    created_by:     { type: integer(4) }
-    updated_by:     { type: integer(4) }
+    created_by:     { type: integer }
+    updated_by:     { type: integer }
   relations:
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     Account:        { class: SimpleAccount, local: account_id, foreign: id, type: one, onDelete: CASCADE }
@@ -425,7 +462,7 @@ SentMail:
   columns:
     id:             { type: integer(4), primary: true, autoincrement: true }
     association_id: { type: integer(4), notnull: true }
-    sent_by:        { type: integer(4) }
+    sent_by:        { type: integer }
     object:         { type: string(255), notnull: true }
     message:        { type: string(3000), notnull: true }
     recipients:     { type: string(3000), notnull: true }
@@ -445,10 +482,33 @@ Status:
     label:        { type: string(255), notnull: true }
     association_id: { type: integer(4), notnull: true }
     state:        { type: integer(1), default: '1' }
-    created_by:   { type: integer(4) }
-    updated_by:   { type: integer(4) }
+    created_by:   { type: integer }
+    updated_by:   { type: integer }
   relations:
     Association:  { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     Members:      { class: Member, local: id, foreign: status_id, type: many }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
+
+
+MailTemplate:
+  tableName: piwam_mail_template
+  actAs: { Timestampable: ~ }
+  columns:
+    id:           { type: integer(4), primary: true, autoincrement: true }
+    template_key:    { type: string(100), notnull: true }
+    description:     { type: string(255), notnull: true }
+    subject:         { type: string(255), notnull: true }
+    content:         { type: string(6000), notnull: true }
+    association_id:  { type: integer(4) }
+  relations:
+    Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
+    
+MailTemplateVariable:
+  tableName: piwam_mail_template_variable
+  columns:
+    id:           { type: integer(4), primary: true, autoincrement: true }
+    template_key:   { type: string(100), notnull: true }
+    variable_key:   { type: string(100), notnull: true }
+    description:    { type: string(255) }
+
