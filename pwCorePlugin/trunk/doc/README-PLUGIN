@@ -32,7 +32,7 @@
 
   REQUIREMENTS
   ------------
-  Plugins: sfFormExtraPlugin, sfJqueryReloadedPlugin
+  Plugins: sfFormExtraPlugin, sfJqueryReloadedPlugin, sfDoctrineGuardPlugin
   We suppose these plugins have been properly installed.
 
 
