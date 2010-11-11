@@ -1,0 +1,21 @@
+MailTemplate:
+  EmailEventCreated:
+    template_key: event_created
+    description: "Envoyé aprés la création d'un événement afin d'avertir les personnes en charge de valider celui ci."
+    subject: "L'adhérent {organizer.name} propose un événement"
+    association_id: %%ASSOCIATION_ID%%
+    content: >
+     <p>Bonjour {recipient.name},</p>  
+     <p>Le membre {organizer.name} propose l'&eacute;v&eacute;nement '{event.title}' le {event.datetime}. <br/>Détails de l'&eacute;v&eacute;nement <br/>{event.description}</p>
+     <p>Veuillez vous connecter sur le site {site.home} et confirmer cet &eacute;change.</p>
+
+  EmailEventsAutoMailing:
+    template_key: events_automatic_mailing
+    description: "Liste des prochains événements envoyé aux adhérents régulièrement."
+    subject: "Activités pour {title.timeperiod}"
+    association_id: %%ASSOCIATION_ID%%
+    content: >
+     <p>Bonjour {recipient.name},</p>  
+     <p>Voici les prochaines activités de l'association pour {title.timeperiod}</p>
+     {events.list}
+

@@ -1,0 +1,15 @@
+all:
+  .general:
+    menus:
+      Events:
+        label: Evenements
+        items:
+          create:
+            name: Nouveau
+            uri: @event_new
+          list:
+            name: Liste
+            uri: @events_list
+          calendar:
+            name: Calendrier
+            uri: @events_calendar

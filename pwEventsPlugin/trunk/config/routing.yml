@@ -1,0 +1,67 @@
+
+#
+# Events
+#
+
+events_list:
+  url: /evenements
+  param: { module: pwEvents, action: index }
+  
+events_calendar:
+  url: /evenement/agenda
+  param: { module: pwEvents, action: calendar }
+  
+event_new:
+  url: /evenement/nouveau
+  param: { module: pwEvents, action: new }
+  
+event_create:
+  url: /evenement/creation
+  param: { module: pwEvents, action: create }
+
+event_edit:
+  url: /evenement/editer
+  param: { module: pwEvents, action: edit }
+  
+event_update:
+  url: /evenement/modification
+  param: { module: pwEvents, action: update }
+  
+event_show:
+  url: /evenement/details
+  param: { module: pwEvents, action: show }
+  
+event_validate:
+  url: /evenement/valider
+  param: { module: pwEvents, action: validate }
+ 
+#
+# Event subscription
+# 
+event_subscription_register:
+  url: /inscription/membre
+  param: { module: pwEventsSubscription, action: register }
+  
+event_subscription_new:
+  url: /inscription/nouvelle
+  param: { module: pwEventsSubscription, action: new}  
+
+event_subscription_create:
+  url: /inscription/creation
+  param: { module: pwEventsSubscription, action: create}
+  
+event_subscription_edit:
+  url: /inscription/editer
+  param: { module: pwEventsSubscription, action: edit}
+  
+event_subscription_update:
+  url: /inscription/modification
+  param: { module: pwEventsSubscription, action: update}
+  
+#
+# Others actions
+
+events_plugin_install:
+  url: /pwEventsPluginInstall
+  param: { module: pwEventsInstall, action: install }
+  

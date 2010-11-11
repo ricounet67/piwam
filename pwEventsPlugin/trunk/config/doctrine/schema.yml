@@ -1,0 +1,46 @@
+options:
+  collate: utf8_unicode_ci
+  charset: utf8
+  filters: false
+
+AssociationEvent:
+  connection: doctrine
+  tableName: piwam_association_event
+  actAs: { Timestampable: ~ } 
+  columns:
+    id:             { type: integer(4), primary: true, autoincrement: true }
+    association_id: { type: integer(4), notnull: true }
+    name:           { type: string(255), notnull: true }
+    description_public:    { type: string(5000), notnull: true }
+    description_private:   { type: string(2000) }
+    address:        { type: string(255) }
+    status:         { type: integer(2), default: 1, notnull: true }
+    date_begin:     { type: date, notnull: true }
+    time_begin:     { type: time, notnull: true }
+    organized_by:   { type: integer, notnull: true }
+    created_by:     { type: integer, notnull: true }
+    accepted_by:    { type: integer }
+    activity_id:    { type: integer(4) }
+  relations:
+    OrganizedByMember: { class: Member, local: organized_by, type: one, onDelete: CASCADE }    
+    CreatedByMember:   { class: Member, local: created_by, type: one, onDelete: CASCADE }
+    AcceptedByMember:  { class: Member, local: accepted_by, type: one, onDelete: CASCADE }
+    Activity:          { class: Activtiy, local: activity_id, type: one, onDelete: CASCADE }
+    Association:       { class: Association, local: association_id, type: one, onDelete: CASCADE }
+     
+EventSubscription:
+  connection: doctrine
+  tableName: piwam_event_subscription
+  actAs: { Timestampable: ~ }
+  columns:
+    event_id:    { type: integer(4), primary: true }
+    member_id:   { type: integer, primary: true }
+    number_persons: { type: integer(2) }
+    probability:    { type: integer(2), notnull: true }
+    carpool_type:   { type: integer(2) }
+    carpool_smoker: { type: boolean, default: false }
+    carpool_places: { type: integer(2), default: 0 }
+  relations:
+    Member: { class: Member, local: member_id, type: one, onDelete: CASCADE }
+    Event:   { class: AssociationEvent, local: event_id, type: one, onDelete: CASCADE }
+    

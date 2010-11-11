@@ -1,0 +1,78 @@
+
+AclModule:
+  acl_event_module:
+    label: Evenements
+    
+sfGuardPermission:
+  Permission_1:
+    description: "Peut créer des événements"
+    name: event_create
+  Permission_2:
+    description: "Peut valider et modifier les événements"
+    name: event_edit_validate
+  Permission_3:
+    description: "Voir les détails privées des événements"
+    name: event_see_private_fields
+  Permission_4:
+    description: "Peut gérer les inscriptions et le covoiturage à l'événement"
+    name: event_manage
+        
+AclAction:
+  AclAction_1:
+    AclModule: acl_event_module
+    Permission: Permission_1
+  AclAction_2:
+    AclModule: acl_event_module
+    Permission: Permission_2
+  AclAction_3:
+    AclModule: acl_event_module
+    Permission: Permission_3
+
+ConfigCategory:
+  Config_events:
+    label: Evénements
+    code: eventsPlugin
+        
+ConfigVariable:
+  ConfigVariable_1:
+    code: event_automatic_mailing
+    ConfigCategory: Config_events
+    label: 'Mailing automatique des événements'
+    description: 'Périodicité des emails envoyés à tous les adhérents actifs, avec liste des événements futurs.'
+    type: '{Chaque mois,Tous les 2 semaines,Non}'
+    default_value: 'Chaque mois'
+
+MailTemplateVariable:
+  EventCreated_1:
+    template_key: event_created
+    variable_key: event.title
+    description: "Titre de l'événement"
+  EventCreated_2:
+    template_key: event_created
+    variable_key: event.description
+    description: "Description de l'événement"
+  EventCreated_3:
+    template_key: event_created
+    variable_key: event.datetime
+    description: "Date et heure de l'événement"
+  EventCreated_4:
+    template_key: event_created
+    variable_key: organizer.name
+    description: "Prénom et nom de l'organisateur de l'événement"
+  EventCreated_5:
+    template_key: event_created
+    variable_key: recipient.name
+    description: "Prénom et nom du destinataire"
+    
+  EventsMailing_1:
+    template_key: events_automatic_mailing
+    variable_key: recipient.name
+    description: "Prénom et nom du destinataire"
+  EventsMailing_2:
+    template_key: events_automatic_mailing
+    variable_key: events.list
+    description: "Liste des événements futurs sour forme de tableau HTML."
+  EventsMailing_3:
+    template_key: events_automatic_mailing
+    variable_key: title.timeperiod
+    description: "Période couverte par les événements envoyés."    

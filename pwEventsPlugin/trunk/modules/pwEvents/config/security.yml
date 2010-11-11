@@ -1,0 +1,18 @@
+
+create:
+  credentials: event_create
+
+new:
+  credentials: event_create
+  
+edit:
+  credentials: event_edit_validate
+  
+update:
+  credentials: event_edit_validate
+  
+validate:
+  credentials: event_edit_validate
+  
+index:
+  credentials: event_edit_validate
