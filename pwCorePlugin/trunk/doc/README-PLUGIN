@@ -32,7 +32,11 @@
 
   REQUIREMENTS
   ------------
-  Plugins: sfFormExtraPlugin, sfJqueryReloadedPlugin, sfDoctrineGuardPlugin
+  Plugins: 
+    sfFormExtraPlugin,
+    sfJqueryReloadedPlugin,
+    sfDoctrineGuardPlugin,
+    csDoctrineActAsGeolocatablePlugin
   We suppose these plugins have been properly installed.
 
 
