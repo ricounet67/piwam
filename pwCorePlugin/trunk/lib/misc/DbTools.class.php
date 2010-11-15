@@ -86,29 +86,33 @@ class DbTools
       }
     }
   }
+
   /**
-   * Load yml data for one association, replace all %%ASSOCIATION_ID%% in file and load data in database
-   * Use temporary file in cache directory before load in database
+   * Load yml data for one association, replace all %%ASSOCIATION_ID%% in file
+   * and load data in database. Use temporary file in cache directory before
+   * load in database
+   * 
    * @param string $yml_path file path for yml
    * @param integer $asso_id association id
    */
-  public static function loadYmlFileForAssociation($yml_path,$asso_id)
+  public static function loadYmlFileForAssociation($yml_path, $asso_id)
   {
-    if(file_exists($yml_path))
+    if (file_exists($yml_path))
     {
       $file_yml = file_get_contents($yml_path);
-      $file_yml = str_replace("%%ASSOCIATION_ID%%","".$asso_id,$file_yml);
+      $file_yml = str_replace("%%ASSOCIATION_ID%%", "" . $asso_id, $file_yml);
       // tempnam() can be use because Doctrine::loadData() needs filepath ending by .yml
-      $temp_file = sfConfig::get('sf_cache_dir').'/tmpdata.yml';
-      $file = fopen($temp_file,"wb");
-      fwrite($file,$file_yml,strlen($file_yml));
+      $temp_file = sfConfig::get('sf_cache_dir') . '/tmpdata.yml';
+      $file = fopen($temp_file, "wb");
+      fwrite($file, $file_yml, strlen($file_yml));
       fclose($file);
-      sfContext::getInstance()->getLogger()->debug('load='.$temp_file);
-      Doctrine::loadData($temp_file,true);
+      sfContext::getInstance()->getLogger()->debug('load=' . $temp_file);
+      Doctrine::loadData($temp_file, true);
       unlink($temp_file);
     }
-    else{
-      throw new InvalidArgumentException("YML file '".$yml_path."' in argument doesn't exist");
+    else
+    {
+      throw new InvalidArgumentException("YML file '" . $yml_path . "' in argument doesn't exist");
     }
   }
 }
