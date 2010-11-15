@@ -101,7 +101,7 @@ abstract class PluginMemberForm extends BaseMemberForm
 
     $this->widgetSchema['street'] = new sfWidgetFormInputText();
     $this->widgetSchema['street2'] = new sfWidgetFormInputText();
-    $this->widgetSchema['address_public'] = new sfWidgetFormInputText();
+    $this->widgetSchema['address_public'] = new sfWidgetFormInputCheckbox(array(), array());
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     $this->widgetSchema['status_id']->setOption('query', StatusTable::getQueryEnabledForAssociation($associationId));
     $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
