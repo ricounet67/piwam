@@ -96,8 +96,10 @@ abstract class PluginMemberForm extends BaseMemberForm
       $this->validatorSchema['id'] =  new sfValidatorDoctrineChoice(array('model' => $this->getRelatedModelName('User')));
     }
 
-    $this->validatorSchema['firstname']       = new sfValidatorString(array('max_length' => 255, 'required' => true));
-   	$this->validatorSchema['lastname']        = new sfValidatorString(array('max_length' => 255, 'required' => true));
+    $this->validatorSchema['firstname'] = new sfValidatorString(array('max_length' => 255, 'required' => true));
+   	$this->validatorSchema['lastname'] = new sfValidatorString(array('max_length' => 255, 'required' => true));
+    $this->validatorSchema['street2'] = new sfValidatorString(array('max_length' => 255, 'required' => false));
+    $this->validatorSchema['address_public'] = new sfValidatorBoolean();
 
     $this->widgetSchema['street'] = new sfWidgetFormInputText();
     $this->widgetSchema['street2'] = new sfWidgetFormInputText();
