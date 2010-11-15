@@ -78,17 +78,16 @@ abstract class PluginMemberForm extends BaseMemberForm
       $this->validatorSchema['updated_by'] = new sfValidatorInteger();
     }
     // sfGuardUser fields
-    $this->widgetSchema['firstname']       = new sfWidgetFormInputText();
-    $this->widgetSchema['lastname']        = new sfWidgetFormInputText();
-    $this->widgetSchema['username']    = new sfWidgetFormInputText();
-    $this->widgetSchema['email']    = new sfWidgetFormInputText();
+    $this->widgetSchema['firstname'] = new sfWidgetFormInputText();
+    $this->widgetSchema['lastname'] = new sfWidgetFormInputText();
+    $this->widgetSchema['username'] = new sfWidgetFormInputText();
+    $this->widgetSchema['email'] = new sfWidgetFormInputText();
 
     // force load values from guard
     $this->setDefault('firstname',$this->getObject()->getFirstname());
     $this->setDefault('lastname',$this->getObject()->getLastname());
     $this->setDefault('username',$this->getObject()->getUsername());
     $this->setDefault('email',$this->getObject()->getEmail());
-     
      
     if(!$this->getObject()->isNew())
     {
@@ -100,6 +99,8 @@ abstract class PluginMemberForm extends BaseMemberForm
     $this->validatorSchema['firstname']       = new sfValidatorString(array('max_length' => 255, 'required' => true));
    	$this->validatorSchema['lastname']        = new sfValidatorString(array('max_length' => 255, 'required' => true));
 
+    $this->widgetSchema['street'] = new sfWidgetFormInputText();
+    $this->widgetSchema['street2'] = new sfWidgetFormInputText();
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     $this->widgetSchema['status_id']->setOption('query', StatusTable::getQueryEnabledForAssociation($associationId));
     $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
