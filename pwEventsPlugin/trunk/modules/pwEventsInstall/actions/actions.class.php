@@ -1,7 +1,7 @@
 <?php
 /**
  * Manage installations of events plugin for piwam
- *
+ * Used only if plugin is added after installation
  * @package    pwEventsPlugin
  * @subpackage pwEventsInstall
  * @author     Jerome Fouilloy
@@ -18,7 +18,7 @@ class pwEventsInstallActions extends sfActions
   {
      
     $assoId = $this->getUser()->getAssociationId();
-    $template = MailTemplateTable::getInstance()->findOneByTemplateKey(pwEventsPluginUtil::EMAIL_EVENT_CREATED);
+    $template = MailTemplateTable::templateExist($assoId,pwEventsPluginUtil::EMAIL_EVENT_CREATED);
     //lets manager already installed
     if($template != null)
     {
@@ -27,8 +27,8 @@ class pwEventsInstallActions extends sfActions
     }
     Doctrine::loadData(sfConfig::get('sf_plugins_dir').'/pwEventsPlugin/data/fixtures/configuration.yml',true);
 
-    $config2 = file_get_contents(sfConfig::get('sf_plugins_dir').'/pwEventsPlugin/data/fixtures/configuration2.yml');
-    DbTools::loadYmlFileForAssociation($config2,$assoId);
+    $config = sfConfig::get('sf_plugins_dir').'/pwEventsPlugin/data/fixtures/configuration2.yml';
+    DbTools::loadYmlFileForAssociation($config,$assoId);
     
     //FUNC: update admin acl group with new rights ?
 

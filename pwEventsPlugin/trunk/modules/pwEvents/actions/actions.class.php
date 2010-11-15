@@ -102,6 +102,7 @@ class pwEventsActions extends sfActions
     $carpoolMap = new GMap();
     $client = $carpoolMap->getGMapClient($apiKey);
     $carpoolMap->setZoom(11);
+  //  $carpoolMap->setOption("'navigationControl'",'false');
     // for resolve image path
     $this->getContext()->getConfiguration()->loadHelpers('Asset');
     $currentMember = null;
@@ -191,12 +192,12 @@ class pwEventsActions extends sfActions
       $event_address = new GMapGeocodedAddress($event->getAddress());
       $event_address->geocode($carpoolMap->getGMapClient());
       $gMapMarker = new GMapMarker($event_address->getLat(),$event_address->getLng(),
-      array('title'=>'"'.$event->getName().'"','icon'=>$iconEvent),
-        'map_marker_event');
+        array('title'=>'"'.$event->getName().'"','icon'=>$iconEvent),'map_marker_event');
 
       $time = strtotime($event->getTimeBegin());
-      $info_window = new GMapInfoWindow('<b>Arrivée</b><br/>'.$event->getName().'<br/><b>Commence à '.date('H:i',$time).'h</b>',
-      array('maxWidth'=>'"200px"'));
+      $info_window = new GMapInfoWindow(
+        '<b>Arrivée</b><br/>'.$event->getName().'<br/><b>Commence à '.date('H:i',$time).'h</b>',
+        array('maxWidth'=>'"200px"'));
       $gMapMarker->addHtmlInfoWindow($info_window,array(),'map_window_event');
       $carpoolMap->addMarker($gMapMarker);
     }
@@ -289,6 +290,7 @@ class pwEventsActions extends sfActions
     $this->currentMonth = $month;
     $this->firstWeekMonth = date('W',mktime(0,0,1,$month,1,$year));
     $this->maxiWeekYear = date('W',mktime(0,0,1,12,31,$year));
+    $this->hasRightAddEvent = $this->getUser()->hasCredential(pwEventsPluginUtil::RIGHT_CREATE_EVENT);
     // TODO: gerer changement année pour numéro semaine
   }
   /**
@@ -326,7 +328,11 @@ class pwEventsActions extends sfActions
         $values['organizer.name'] = MemberTable::getNameForMemberId($event->getOrganizedBy());
         foreach($membersValidatedEvent as $member)
         {
-          MailerFactory::loadTemplateAndSend($this->getUser()->getUserId(),$member,pwEventsPluginUtil::EMAIL_EVENT_CREATED,$values);
+          // we don't notify the current user
+          if($member->getId() != $event->getCreatedBy())
+          {
+            MailerFactory::loadTemplateAndSend($this->getUser()->getUserId(),$member,pwEventsPluginUtil::EMAIL_EVENT_CREATED,$values);
+          }
         }
         $textNotice = ', une validation doit être réalisé avant parution sur le site';
       }

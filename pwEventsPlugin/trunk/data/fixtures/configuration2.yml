@@ -6,8 +6,10 @@ MailTemplate:
     association_id: %%ASSOCIATION_ID%%
     content: >
      <p>Bonjour {recipient.name},</p>  
-     <p>Le membre {organizer.name} propose l'&eacute;v&eacute;nement '{event.title}' le {event.datetime}. <br/>Détails de l'&eacute;v&eacute;nement <br/>{event.description}</p>
-     <p>Veuillez vous connecter sur le site {site.home} et confirmer cet &eacute;change.</p>
+     <p>Le membre {organizer.name} propose l'&eacute;v&eacute;nement '{event.title}' le {event.datetime}. <br/>
+     <b>Détails de l'&eacute;v&eacute;nement :</b></p>
+     <p>{event.description}</p>
+     <p>Veuillez vous connecter sur le site <a href="{site.home}">{association.name}</a> et valider cet &eacute;v&eacute;nement.</p>
 
   EmailEventsAutoMailing:
     template_key: events_automatic_mailing

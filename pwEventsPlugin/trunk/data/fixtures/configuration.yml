@@ -59,15 +59,7 @@ MailTemplateVariable:
     template_key: event_created
     variable_key: organizer.name
     description: "Prénom et nom de l'organisateur de l'événement"
-  EventCreated_5:
-    template_key: event_created
-    variable_key: recipient.name
-    description: "Prénom et nom du destinataire"
     
-  EventsMailing_1:
-    template_key: events_automatic_mailing
-    variable_key: recipient.name
-    description: "Prénom et nom du destinataire"
   EventsMailing_2:
     template_key: events_automatic_mailing
     variable_key: events.list
