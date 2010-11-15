@@ -21,6 +21,9 @@
 
     <?php echo $form['magic']->renderLabel() ?> :
     <?php echo $form['magic'] ?>
+    
+    <?php echo $form['show_disabled']->renderLabel() ?> :
+    <?php echo $form['show_disabled'] ?>
 
     <input type="submit" name="submit" value="rechercher" class="small blue button" />
   </form>

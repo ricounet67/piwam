@@ -13,7 +13,7 @@ class BaseMemberActions extends sfActions
   /**
    * Lists members who belongs to the current association. By default we sort
    * the list by lastname, and if another column is specified we use it.
-   * 
+   *
    * At the beginning we check if the user has to be redirected to his profile
    * page, since credentials are not checked by config.yml to allow this
    * behaviour
@@ -51,10 +51,8 @@ class BaseMemberActions extends sfActions
     $this->page = $page;
     $this->orderByColumn = $filterParams['order_by'];
     $this->pending = MemberTable::getPendingMembers($aId);
-    $ajaxUrl = $this->getController()->genUrl('@ajax_search_members');
-    $this->searchForm = new SearchUserForm($filterParams, array(
-      'associationId' => $aId,
-      'ajaxUrl'       => $ajaxUrl));
+    
+    $this->searchForm = new SearchUserForm($filterParams);
   }
 
   /**
@@ -182,7 +180,7 @@ class BaseMemberActions extends sfActions
     foreach ($members as $member)
     {
       $key = $member->getId();
-      $value = $member->getFirstname() . ' ' . $member->getLastname();
+      $value = $member->getName();
       $result[$key] = $value;
     }
 
@@ -237,7 +235,7 @@ class BaseMemberActions extends sfActions
    */
   public function executeAcl(sfWebRequest $request)
   {
-	$this->forward('acl_group', 'module');
+    $this->forward('acl_group', 'module');
   }
 
 
@@ -298,14 +296,14 @@ class BaseMemberActions extends sfActions
     {
       $this->redirect('@error_credentials');
     }
-		$canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
+    $canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
     $aId = $member->getAssociationId();
     $mId = $member->getId();
     $ctxt = $this->getContext();
-    $this->form = new MemberForm($member, array('associationId' => $aId, 
-    																						'context' => $ctxt, 
-    																						'memberId' => $mId, 
-    																						'editAclGroups'=>$canEditAclGroups));
+    $this->form = new MemberForm($member, array('associationId' => $aId,
+                                                'context' => $ctxt, 
+                                                'memberId' => $mId, 
+                                                'editAclGroups'=>$canEditAclGroups));
     $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
@@ -325,13 +323,13 @@ class BaseMemberActions extends sfActions
     {
       $this->redirect('@error_credentials');
     }
-		$canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
+    $canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
     $member = $request->getParameter('member');
     $associationId = $member['association_id'];
     $this->form = new MemberForm($user, array('associationId' => $associationId,
                                               'context' => $this->getContext(),
-    																					'editAclGroups'=>$canEditAclGroups));
-    $this->processForm($request, $this->form);   
+                                              'editAclGroups'=>$canEditAclGroups));
+    $this->processForm($request, $this->form);
     $this->setTemplate('edit');
   }
 
@@ -420,35 +418,10 @@ class BaseMemberActions extends sfActions
       $member->setUpdatedBy($this->getUser()->getUserId());
       $member->save();
 
-      if ($member->getEmail() && $member->getUsername())
-      {
-      	$associationId = $this->getUser()->getAssociationId();
-        try
-        {
-          $mailer     = MailerFactory::get($associationId, $this->getUser());
-          $from_email = Configurator::get('address', $associationId, 'info-association@piwam.org');
-          $from_label = $this->getUser()->getAssociationName('Piwam');
-          
-          try
-          {
-            $message    = Swift_Message::newInstance('Activation du compte')
-                              ->setBody("Bonjour {$member}, votre compte a bien &eacute;t&eacute; activ&eacute;. Vous pouvez d&egrave;s maintenant vous identifier en tant que '{$member->getUsername()}'")
-                              ->setContentType('text/html')
-                              ->setFrom(array($from_email => $from_label))
-                              ->setTo($member->getEmail());
-            $mailer->send($message);
-          }
-          catch(Swift_ConnectionException $e)
-          {
-            //do nothing
-          }
-        }
-        catch (Exception $e)
-        {
-          // do nothing
-        }
-      }
-
+      // notify member listeners new member
+      // we don't know password because it is encrypted in database
+      $this->_memberCreatedEvent($member,"(Celui saisi lors de votre inscription)",false);
+      
       $this->redirect('@members_list');
     }
     else
@@ -456,7 +429,6 @@ class BaseMemberActions extends sfActions
       $this->redirect('@error_credentials');
     }
   }
-
 
 
   /* -------------------------------------------------------------------------
@@ -531,7 +503,7 @@ class BaseMemberActions extends sfActions
       // here you can access to $member properties
       // and methods
     }
-    
+
     $this->setLayout('no_menu');
   }
 
@@ -550,7 +522,8 @@ class BaseMemberActions extends sfActions
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
-		$isNew = $form->getObject()->isNew();
+    $isNew = $form->getObject()->isNew();
+    $isPending = $request->getAttribute('pending', false);
     if ($form->isValid())
     {
 
@@ -561,9 +534,15 @@ class BaseMemberActions extends sfActions
       // not first user we update the acl groups for user
       if(isset($formValues['acl_groups']))
       {
-      	
-	      // update acl groups for user
-	      AclGroupMemberTable::updateGroupsIdByMemberId($member->getId(),$formValues['acl_groups']);
+         
+        // update acl groups for user
+        AclGroupMemberTable::updateGroupsIdByMemberId($member->getId(),$formValues['acl_groups']);
+      }
+      // pending subscription we use default acl groups
+      else if($isPending)
+      {
+        AclGroupMemberTable::updateGroupsIdByMemberId($member->getId(),
+          AclGroupTable::getSelectedDefaultIdForAssociation($member->getAssociationId()));
       }
       /*
        * Manage extra row values. We are not using sfFormDoctrine,
@@ -592,13 +571,13 @@ class BaseMemberActions extends sfActions
 
           if (isset($extraValues[$rowId]))
           {
-          	$extraValue->value = $extraValues[$rowId];
+            $extraValue->value = $extraValues[$rowId];
           }
           else
           {
-          	$extraValue->value = null;
+            $extraValue->value = null;
           }
-          
+
           $extraValue->save();
         }
       }
@@ -623,13 +602,11 @@ class BaseMemberActions extends sfActions
           // do nothing
         }
       }
-      if($isNew)
+      // if pending subscription we wait validate before notify member listeners
+      if($isNew && !$isPending)
       {
-        // event member created
-        $this->dispatcher->notify(new sfEvent($this, 'member.created',array(
-          'member'=>$member,
-           'first'=>$request->getAttribute('first',false),
-        )));
+        // provide password from form because encrypted in base
+        $this->_memberCreatedEvent($member,$formValues['password'],$request->getAttribute('first',false));
       }
       /*
        * If we are processing the values given by the first member, who has
@@ -646,11 +623,11 @@ class BaseMemberActions extends sfActions
         $aclAdminGroup = new AclGroup();
         $aclAdminGroup->setName("Administrateurs");
         $aclAdminGroup->setDescription("Possède tous les droits");
-        $aclAdminGroup->setAssociationId($member->getAssociationId());        
+        $aclAdminGroup->setAssociationId($member->getAssociationId());
         $aclAdminGroup->save();
         // the default admin group MUST exists before add credentials and member
         $aclAdminGroup->addMember($member);
-        $aclAdminGroup->addCredentials(AclActionTable::getAll());		
+        $aclAdminGroup->addCredentials(AclActionTable::getAll());
         // we don't need to clear existing credentials before,
         // because we are sure the user doesn't have anyone
 
@@ -674,14 +651,14 @@ class BaseMemberActions extends sfActions
       {
         $data = $request->getParameter('member');
 
-       /* if ((isset($data['created_by'])) && ($member->getUsername() && $member->getPassword()))
-        {
-          $this->redirect('@member_acl?id=' . $member->getId());
-        }
-        else
-        {*/
-          $this->redirect('@members_list');
-       // }
+        /* if ((isset($data['created_by'])) && ($member->getUsername() && $member->getPassword()))
+         {
+         $this->redirect('@member_acl?id=' . $member->getId());
+         }
+         else
+         {*/
+        $this->redirect('@members_list');
+        // }
       }
     }
   }
@@ -704,16 +681,16 @@ class BaseMemberActions extends sfActions
      */
     if ($request->isMethod('post'))
     {
-      $autoCompleteParam = $request->getParameter('autocomplete_search');
+   //   $autoCompleteParam = $request->getParameter('autocomplete_search');
       $filterParams = $request->getParameter('search');
-      $filterParams['magic'] = $autoCompleteParam['magic'];
+   //   $filterParams['magic'] = $request->getParameter('magic');//$autoCompleteParam['magic'];
       $this->getUser()->setAttribute('memberSearch', serialize($filterParams));
     }
 
     /*
      * Reset the filters array if required
      * -----------------------------------
-     * 
+     *
      * If there is no 'page' parameter, but we did not send research,
      * it means that we arereaching the action for the first time, from
      * a link into the menu for instance. So we clear the existing objects
@@ -734,8 +711,14 @@ class BaseMemberActions extends sfActions
     $filterParams = unserialize($data);
     $filterParams['association_id'] = $this->getUser()->getAssociationId();
     $filterParams['order_by'] = $request->getParameter('orderby', 'lastname');
-    $filterParams['state'] = MemberTable::STATE_ENABLED;
-
+    // we search in enabled and disabled
+    if(isset($filterParams['show_disabled']))
+    {
+      $filterParams['state'] = MemberTable::STATE_VALIDATED;
+    }
+    else{
+      $filterParams['state'] = MemberTable::STATE_ENABLED;
+    }
     return $filterParams;
   }
 
@@ -790,10 +773,10 @@ class BaseMemberActions extends sfActions
     $concent .= 'Version :      1.2-dev';
     $from     = 'info-association@piwam.org';
     $message  = Swift_Message::newInstance($subject)
-                 ->setBody($content)
-                 ->setContentType('text/html')
-                 ->setFrom(array($from => 'Piwam'))
-                 ->setTo(array('adrien@frenchcomp.net' => 'Developer'));
+    ->setBody($content)
+    ->setContentType('text/html')
+    ->setFrom(array($from => 'Piwam'))
+    ->setTo(array('adrien@frenchcomp.net' => 'Developer'));
 
     try
     {
@@ -803,5 +786,32 @@ class BaseMemberActions extends sfActions
     {
       //
     }
+  }
+
+  /**
+   * Call after creating new member or validate pending subscription
+   * @param Member $member member created
+   * @param string $password password typed in form or text sentence if it is unknown
+   * @param boolean $isFirst true if it is first user of association
+   */
+  private function _memberCreatedEvent(Member $member,$password,$isFirst = false)
+  {
+    if ($member->getEmail() && $member->getUsername())
+    {
+      $values = array();
+      $values['recipient.password'] = $password;
+      try{
+        MailerFactory::loadTemplateAndSend($this->getUser()->getUserId(),$member,'member_created',$values);
+      }
+      catch(Swift_ConnectionException $e)
+      {
+        $this->getUser()->setFlash('error',"Une erreur c'est produite pour envoyer l'email de nouveau compte à l'adhérent.");
+      }
+    }
+    // notify member listeners
+    $this->dispatcher->notify(new sfEvent($this, 'member.created',array(
+      'member' => $member,
+      'first' => $isFirst,
+    )));
   }
 }

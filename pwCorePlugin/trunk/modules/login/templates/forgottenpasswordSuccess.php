@@ -21,11 +21,11 @@
       <td colspan="2"><?php echo $form->renderGlobalErrors() ?></td>
     </tr>
     <tr>
-      <th>Votre nom d'utilisateur :</th>
+      <th>Quelle est votre nom <br/>d'utilisateur ou email :</th>
       <td><?php echo $form['username'] . $form['username']->renderError() ?></td>
     </tr>
     <tr>
-      <td>&nbsp;</td>
+      <td><?php echo link_to('Retour','@login',array('class'=>'grey button'))?></td>
       <td>
         <input type="submit" value="Valider" class="grey button" name="Valider" />
       </td>

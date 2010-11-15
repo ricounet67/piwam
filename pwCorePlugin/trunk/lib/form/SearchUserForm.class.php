@@ -47,29 +47,22 @@ class SearchUserForm extends BaseForm
     $this->setWidgets(array(
       'due_state'     => new sfWidgetFormChoice(array('choices' => self::$dueOptions)),
       'by_page'       => new sfWidgetFormChoice(array('choices' => self::$membersByPage)),
-      'state'         => new sfWidgetFormInputHidden(),
-      'magic'         => new sfWidgetFormJQueryAutocompleter(array(
-                        'url'    => $this->getOption('ajaxUrl'),
-                        'config' => '{ extraParams: { association_id: function() { return jQuery("#search_associationId").val(); } },
-                                       scrollHeight: 250 ,
-                                       autoFill: true
-                                     }')),
+      'show_disabled' => new sfWidgetFormInputCheckbox(),
+      'magic'         => new sfWidgetFormInputText(),
     ));
 
     $this->setValidators(array(
       'due_state'     => new sfValidatorChoice(array('choices' => self::$dueOptions)),
       'by_page'       => new sfValidatorChoice(array('choices' => self::$membersByPage)),
-      'magic'         => new sfValidatorString(array('required' => true)),
-      'state'         => new sfValidatorInteger(array('required' => true)),
+      'magic'         => new sfValidatorString(array('required' => false)),
     ));
     
     $this->widgetSchema->setLabels(array(
       'magic'         => 'Prénom / Nom',
       'due_state'     => 'Cotisation',
       'by_page'       => 'Membres par page',
+      'show_disabled' => 'Inclure membres désactivés'
     ));
-
-    $this->setDefault('state', MemberTable::STATE_ENABLED);
     $this->widgetSchema->setNameFormat('search[%s]');
     $this->_setClasses();
   }

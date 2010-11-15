@@ -16,4 +16,19 @@ class PluginMailTemplateTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PluginMailTemplate');
     }
+    
+    public static function templateExist($asso_id,$template_key)
+    {
+      $res = MailTemplateTable::getInstance()->findOneByTemplateKeyAndAssociationId($template_key,$asso_id);
+      return $res != null;
+    }
+    /**
+     * Get template mail for association
+     * @param string $template_key
+     * @param integer $asso_id
+     */
+    public static function getTemplateByKeyAndAssociationId($template_key,$asso_id)
+    {
+      return MailTemplateTable::getInstance()->findOneByTemplateKeyAndAssociationId($template_key,$asso_id);
+    }
 }

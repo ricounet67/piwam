@@ -500,7 +500,7 @@ MailTemplate:
     description:     { type: string(255), notnull: true }
     subject:         { type: string(255), notnull: true }
     content:         { type: string(6000), notnull: true }
-    association_id:  { type: integer(4) }
+    association_id:  { type: integer(4), notnull: true }
   relations:
     Association:     { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     
@@ -510,5 +510,5 @@ MailTemplateVariable:
     id:           { type: integer(4), primary: true, autoincrement: true }
     template_key:   { type: string(100), notnull: true }
     variable_key:   { type: string(100), notnull: true }
-    description:    { type: string(255) }
+    description:    { type: string(255), notnull: true  }
 

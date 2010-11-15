@@ -83,3 +83,22 @@ Data:
   Data_1:
     config_key: dbversion
     value: '1034'
+  Data_2:
+    config_key: date_night_tasks
+    value: '2000-01-01'
+
+MailTemplateVariable:
+  ForgottenPassword_1:
+    template_key: forgotten_password
+    variable_key: link_change_password
+    description: "URL absolu vers la page de changement de mot de passe"
+
+  ChangedPassword_1:
+    template_key: changed_password
+    variable_key: recipient.password
+    description: "Mot de passe de l'adhérent"
+
+  MemberCreated_1:
+    template_key: member_created
+    variable_key: recipient.password
+    description: "Mot de passe de l'adhérent"

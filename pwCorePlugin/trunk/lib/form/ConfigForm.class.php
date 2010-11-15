@@ -36,6 +36,7 @@ class ConfigForm extends BaseForm
       }
     }
     $this->widgetSchema->setNameFormat('config[%s]');
+    $this->disableLocalCSRFProtection();
   }
 
   /**

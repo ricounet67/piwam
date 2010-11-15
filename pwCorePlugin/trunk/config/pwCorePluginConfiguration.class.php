@@ -16,7 +16,8 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
     $modules = array(
       'account', 'activity', 'admin', 'association', 'bookkeeping', 
       'config_member', 'due', 'duetype', 'error', 'expense', 'export', 'income',
-      'install', 'login', 'mailing', 'member', 'status', 'update' , 'menus' , 'acl_group', 'mail_template'
+      'install', 'login', 'mailing', 'member', 'status', 'update' , 'menus' , 
+      'acl_group', 'mail_template', 'cron_task',
     ),
 
     /**
@@ -51,6 +52,8 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
 
     sfValidatorBase::setDefaultMessage('required', 'Requis');
     sfValidatorBase::setDefaultMessage('invalid', 'Invalide');
+    
+    PiwamPluginsRegister::addPlugin(new pwEventsPluginMain());
     
     return true;
   }

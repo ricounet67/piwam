@@ -76,5 +76,28 @@ class StringTools
 
     return $slug;
   }
+  /**
+   * Get month name in french for month number
+   * @param integer $number 1 to 12
+   * @return string month name
+   */
+  public static function monthNameFR($number)
+  {
+    $val = array(
+      1 => 'Janvier',
+      2 => 'Février',
+      3 => 'Mars',
+      4 => 'Avril',
+      5 => 'Mai',
+      6 => 'Juin',
+      7 => 'Juillet',
+      8 => 'Août',
+      9 => 'Septembre',
+     10 => 'Octobre',
+     11 => 'Novembre',
+     12 => 'Décembre'    
+    );
+    return $val[$number];
+  }
 }
 ?>

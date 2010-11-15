@@ -36,6 +36,12 @@ abstract class PluginMemberTable extends Doctrine_Table
   const STATE_PENDING   = 2;
 
   /**
+   * Value of state if user account is enabled or disabled, exclude only pending member
+   * @var integer
+   */
+  const STATE_VALIDATED = 10;
+  
+  /**
    * Retrieve list of Member who belong to association $id.
    * Used in export feature
    *
@@ -98,7 +104,13 @@ abstract class PluginMemberTable extends Doctrine_Table
      */
     if (isset ($params['state']))
     {
-      $q->andWhere('m.state = ?', $params['state']);
+      if($params['state'] == self::STATE_VALIDATED)
+      {
+        $q->andWhere('m.state != ?',self::STATE_PENDING);
+      }
+      else{
+        $q->andWhere('m.state = ?', $params['state']);
+      }
     }
 
     /*
@@ -108,7 +120,7 @@ abstract class PluginMemberTable extends Doctrine_Table
     if (isset ($params['magic']) && $params['magic'] != "")
     {
       $query = '%' . $params['magic'] . '%';
-      $q->andWhere("concat(concat(m.User.first_name, ' '), m.User.last_name) LIKE ?", $query);
+      $q->andWhere("concat(m.User.first_name, ' ', m.User.last_name) LIKE ?", $query);
     }
 
     /*
@@ -223,7 +235,27 @@ abstract class PluginMemberTable extends Doctrine_Table
 
     return $q->fetchOne();
   }
+  
+  /**
+   * Retrieve a member by his username or email
+   *
+   * @param   string  $usernameOrEmail email or username
+   * @return  Member
+   */
+  public static function getByUsernameOrEmail($usernameOrEmail)
+  {
+    if(trim($usernameOrEmail) == '')
+    {
+      return null;
+    }
+    $q = Doctrine_Query::create()
+    ->select('m.id')
+    ->from('Member m')
+    ->where('m.User.username = ? OR m.User.email_address = ?',array($usernameOrEmail,$usernameOrEmail))
+    ->limit(1);
 
+    return $q->fetchOne();
+  }
   /**
    * Retrieve a member by his username
    *
@@ -355,8 +387,8 @@ abstract class PluginMemberTable extends Doctrine_Table
    * Get all members with specified right
    * If the right doesn't exist return empty collection
    * @param string $rightName the right name in sfGuardPermission table
-   * @param $include_super_admin if true return all super admin added to result (except if the right doesn't exist)
-   * @return Doctrine_Collection collection of member
+   * @param boolean $include_super_admin if true return all super admin added to result (except if the right doesn't exist)
+   * @return Doctrine_Collection collection of members
    */
   public static function getMembersForAclRight($rightName,$include_super_admin = false)
   {
@@ -367,7 +399,7 @@ abstract class PluginMemberTable extends Doctrine_Table
     }
     $q = Doctrine_Query::create()
       ->from('Member m')
-      ->where('m.id IN (SELECT gr.user_id FROM sfGuardGroupUser gr WHERE gr.group_id IN
+      ->where('m.id IN (SELECT gr.user_id FROM sfGuardUserGroup gr WHERE gr.group_id IN
       (SELECT grPerm.group_id FROM sfGuardGroupPermission grPerm WHERE grPerm.permission_id = ?))',$right->getId())
       ->orWhere('m.id IN (SELECT userPerm.user_id FROM sfGuardUserPermission userPerm WHERE userPerm.permission_id = ?)',$right->getId());
 

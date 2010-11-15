@@ -1,9 +1,9 @@
 <?php
+
+use_helper('JavascriptBase','jQuery');
+use_javascript('/pwCorePlugin/js/custom-forms/si.files.js');
 include_stylesheets_for_form($form);
 include_javascripts_for_form($form);
-use_helper('JavascriptBase');
-use_javascript('/pwCorePlugin/js/custom-forms/si.files.js')
-
 /**
  * Possible input values:
  * ======================
@@ -63,7 +63,7 @@ use_javascript('/pwCorePlugin/js/custom-forms/si.files.js')
         <!-- Delete button only if object already exists -->
 
         <?php if (! $form->getObject()->isNew()): ?>
-            <?php echo link_to('Supprimer', '@member_delete?id=' . $form->getObject()->getId(), array('class' => 'blue button', 'method' => 'delete', 'confirm' => 'Etes vous sûr ?')) ?>
+            <?php echo link_to('Désactiver', '@member_delete?id=' . $form->getObject()->getId(), array('class' => 'blue button', 'method' => 'delete', 'confirm' => 'Etes vous sûr ?')) ?>
         <?php endif ?>
 
 
@@ -91,7 +91,7 @@ use_javascript('/pwCorePlugin/js/custom-forms/si.files.js')
       <td><?php echo $form['firstname'] ?><?php echo $form['firstname']->renderError() ?></td>
     </tr>
     <tr>
-      <th><?php echo $form['username']->renderLabel() ?> <?php echo ($form->isFirstRegistration()) ? '*' : ''; ?></th>
+      <th><?php echo $form['username']->renderLabel() ?>*</th>
       <td><?php echo $form['username'] ?><?php echo $form['username']->renderError() ?></td>
     </tr>
     <tr>

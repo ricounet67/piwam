@@ -11,6 +11,7 @@
  */
 abstract class PluginMember extends BaseMember
 {
+  // cache sfUserGuard
   private $_guardUser = null;
   private $_guardUserModified = false;
   private $_guardIsNew = false;
@@ -29,10 +30,16 @@ abstract class PluginMember extends BaseMember
     }
     return $this->_guardUser;
   }
-  /*  public function construct()
-   {
-    
-   }*/
+  /**
+   * Save guard user and copy the id generated
+   * @param Doctrine_Event $event
+   */
+ /* public function preInsert($event)
+  {
+    $this->_guardUser->save();
+    $this->setId($this->_guardUser->getId());
+    parent::preInsert($event);
+  }*/
   /**
    * Save guard user before save the current member
    * @param Doctrine_Connection $conn
@@ -45,10 +52,15 @@ abstract class PluginMember extends BaseMember
       $username = $this->_guardUser->getUsername();
       // get id for member
       $this->_guardUser->save($conn);
-      // TODO: Impossible get the id of sfUserGuard here !
-      // the result of getId() is the firstname and lastname (it seems object user) ?
+      // FIX: Impossible get the id of sfUserGuard here !
+      // the result of getId() is the firstname and lastname (equals toString()) 
+      $user = $this->_guardUser;//
+      sfContext::getInstance()->getLogger()->debug('save member '.$user->getFirstName().' id='.$user->getId());
       $user = sfGuardUserTable::getInstance()->retrieveByUsername($username);
-      	
+      if($user == null)
+      {
+        throw new InvalidArgumentException("Save member but nothing sfGuardUser id can be read");
+      }
       $this->setId($user->getId());
     }
     else if($this->_guardUserModified)
@@ -60,30 +72,59 @@ abstract class PluginMember extends BaseMember
   /*
    * GETTERS PROXY to sfGuardUser
    */
+  /**
+   * Get firstname from sfGuardUser
+   */
   public function getFirstname()
   {
     return mb_convert_case($this->getUserGuard()->getFirstName(), MB_CASE_TITLE, "UTF8");
   }
+  /**
+   * Get lastname from sfGuardUser
+   */
   public function getLastname()
   {
     return mb_convert_case($this->getUserGuard()->getLastName(), MB_CASE_TITLE, "UTF8");
   }
+  /**
+   * Get email from sfGuardUser
+   */
   public function getEmail()
   {
     return $this->getUserGuard()->getEmailAddress();
   }
+  /**
+   * Get username from sfGuardUser
+   */
   public function getUsername()
   {
     return $this->getUserGuard()->getUsername();
   }
+  /**
+   * Get password from sfGuardUser
+   */
   public function getPassword()
   {
     return $this->getUserGuard()->getPassword();
   }
+  /**
+   * Get isSuperAdmin from sfGuardUser
+   * <b>WARNING:</b> We can't set this value for Piwam, we need update database directly
+   */
   public function isSuperAdmin()
   {
     return $this->getUserGuard()->getIsSuperAdmin();
   }
+  /**
+   * Get isActive from sfGuardUser
+   */
+  public function isActive()
+  {
+    return $this->getUserGuard()->getIsActive();
+  }
+  /**
+   * Get firstname and last name from sfGuardUser
+   */
   public function getName()
   {
     return mb_convert_case($this->getUserGuard()->getName(), MB_CASE_TITLE, "UTF8");
@@ -109,8 +150,13 @@ abstract class PluginMember extends BaseMember
     $this->getUserGuard()->setEmailAddress($val);
     return $this;
   }
-  public function setStatus($val)
+  /**
+   * Change state of user
+   * @param integer $val
+   */
+  public function setState($val)
   {
+    $this->_guardUserModified = true;
     if($val == MemberTable::STATE_ENABLED)
     {
       $this->getUserGuard()->setIsActive(true);
@@ -119,7 +165,7 @@ abstract class PluginMember extends BaseMember
     {
       $this->getUserGuard()->setIsActive(false);
     }
-    parent::setStatus($val);
+    //parent::setState($val);
   }
   /*
    * SHORTCUTS for sfGuardUser
@@ -182,32 +228,6 @@ abstract class PluginMember extends BaseMember
       return 'no_picture';
     }
   }
-
-  /**
-   * Remove all existing credentials that have been set to the
-   * Member previously
-   */
-  /* public function resetAcl()
-   {
-   $q = Doctrine_Query::create()
-   ->delete('AclCredential c')
-   ->where('c.member_id = ?', $this->getId());
-
-   return $q->execute();
-   }*/
-
-  /**
-   * Add a new credential to the member
-   *
-   * @param   string  $code   : Code of the AclAction
-   */
-  /* public function addCredential($code)
-   {
-   $credential = new AclCredential();
-   $credential->setMemberId($this->getId());
-   $credential->setAclAction(AclActionTable::getByCode($code));
-   $credential->save();
-   }*/
 
   /**
    * Check if the member has to pay a due or not
@@ -275,13 +295,13 @@ abstract class PluginMember extends BaseMember
   /**
    * Overrides getter for Street field
    *
-   * @return  string  well-formated lastname
+   * @return  string  well-formated street
    */
   public function getStreet()
   {
     return mb_convert_case($this->_get('street'), MB_CASE_TITLE, "UTF8");
   }
-
+  
   /**
    * Get the whole adress of the member
    *
@@ -299,7 +319,7 @@ abstract class PluginMember extends BaseMember
    */
   public function getInfoForGmap()
   {
-    return '<b>' . $this->getName() . '</b><br />' . $this->getStreet(). '<br/>' . $this->getStreet2(). '<br/>'
+    return '<b>' . $this->getName() . '</b><br/>' . $this->getStreet(). '<br/>' . $this->getStreet2(). '<br/>'
     .$this->getZipcode().' '. $this->getCity();
   }
 
@@ -314,8 +334,7 @@ abstract class PluginMember extends BaseMember
     // $this->setUsername(null);
     //  $this->setPassword(null);
     $this->setState(MemberTable::STATE_DISABLED);
-    $this->getUserGuard()->setIsActive(false);
-    $this->_guardUserModified = true;
+    
     return $this;
   }
 
@@ -337,5 +356,15 @@ abstract class PluginMember extends BaseMember
   public function hasGeolocAddress()
   {
     return $this->getLatitude() != null && $this->getLongitude() != null;
+  }
+  
+  /**
+   * Return ture if member has email set
+   * @return boolean true if member has email
+   */
+  public function hasEmail()
+  {
+    $email = $this->getUserGuard()->getEmailAddress();
+    return ($email != null && trim($email) != '');
   }
 }

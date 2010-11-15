@@ -6,27 +6,24 @@
         <tr>
             <td>&nbsp;</td>
             <td><input type="submit" class="blue button" value="Sauvegarder" />
-
         </tr>
     </tfoot>
 
     <?php foreach ($form->getFormFieldSchema() as $widget): ?>
-    <tr>
-        <th>
-            <?php echo $widget->renderLabel() ?>
-        </th>
-        <td>
-            <?php echo $widget ?>
-
-
-            <!-- Display tooltip if description has been provided -->
-
-            <?php if ($help = $form->getDescription($widget->getName())): ?>
-                <?php echo tooltip_tag('', $help); ?>
-            <?php endif ?>
-
-            <?php echo $widget->renderError() ?>
-        </td>
-        <?php endforeach ?>
+      <tr>
+          <th>
+              <?php echo $widget->renderLabel() ?>
+          </th>
+          <td>
+              <?php echo $widget ?>
+              <!-- Display tooltip if description has been provided -->
+              <?php if ($help = $form->getDescription($widget->getName())): ?>
+                  <?php echo tooltip_tag('', $help); ?>
+              <?php endif ?>
+  
+              <?php echo $widget->renderError() ?>
+          </td>
+      </tr>
+    <?php endforeach ?>
 </table>
 </form>

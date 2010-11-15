@@ -25,6 +25,10 @@ retrieve_password:
   url:    /recuperer_mot_de_passe
   param:  { module: login, action: forgottenpassword }
   
+change_password:
+  url:    /change_mot_de_passe
+  param:  { module: login, action: changepassword }
+  
 admin:
   url:    /administration
   param:  { module: admin, action: index }
@@ -54,6 +58,10 @@ config:
   param:  { module: association, action: config }
   
 
+night_tasks:
+  url:    /tachesDeNuit
+  param:  { module: cron_task, action: nightTasks }
+  
 # -----------------------------------------------------------------------------
 #     FINANCIAL RELATED ACTIONS
 # -----------------------------------------------------------------------------

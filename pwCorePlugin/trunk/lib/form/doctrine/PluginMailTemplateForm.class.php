@@ -15,16 +15,7 @@ abstract class PluginMailTemplateForm extends BaseMailTemplateForm
 		parent::setup();
 		$this->useFields(array('subject','content','id'));
 		
-		$this->widgetSchema['content'] = new sfWidgetFormTextareaTinyMCE(array(
-        'width'       => 550,
-        'height'      => 350,
-        'config'      => '	theme_advanced_buttons1 : "bold,italic,underline,fontsizeselect,fontselect,forecolorpicker,image,link,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,indent,outdent",
-                            theme_advanced_buttons2 : "",
-                            theme_advanced_buttons3 : "",
-                            theme_advanced_statusbar_location : "none"'
-        ),
-      	array('rows' => 40, 'cols' => 10)
-    );
+		$this->widgetSchema['content'] = new pwWidgetFormTinyMCE();
       
 		$this->widgetSchema['subject']->setAttribute('class', 'formInputXtraLarge');
 		$this->widgetSchema->setLabels(array(

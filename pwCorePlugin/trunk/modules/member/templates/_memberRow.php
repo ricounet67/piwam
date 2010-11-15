@@ -27,7 +27,7 @@
 
     <!-- Display email icon if an email has been set -->
 
-    <?php if ($member->getEmail()) :?>
+    <?php if ($member->hasEmail()) :?>
       <?php echo mail_to($member->getEmail(), image_tag('/pwCorePlugin/images/icons/email.png', array('alt' => '[e-mail]'))) ?>
     <?php else: ?>
       <?php echo image_tag('/pwCorePlugin/images/icons/no_email.png', array('alt' => '[pas d\'adresse]')) ?>

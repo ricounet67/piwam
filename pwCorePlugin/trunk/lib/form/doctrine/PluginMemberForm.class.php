@@ -58,7 +58,8 @@ abstract class PluginMemberForm extends BaseMemberForm
     unset($this['created_by'], $this['updated_by']);
     unset($this['state'], $this['association_id']);
     unset($this['password'],$this['id']);
-
+    unset($this['latitude'],$this['longitude']);
+    
     if ($this->getObject()->isNew())
     {
       // If this is the user is not the one who
@@ -113,20 +114,15 @@ abstract class PluginMemberForm extends BaseMemberForm
     if (! $this->isFirstRegistration())
     {
       $this->validatorSchema['password'] = new sfValidatorString(array('required' => false));
-
-      if ($this->_isUsernameMandatory($associationId))
-      {
+      $usernameRequired = $this->_isUsernameMandatory($associationId);
+      
         // Password is not mandatory because if we are here, we are
         // editing the existing admin user
         // So if no password has been provided, password won't be
         // erased
 
-        $this->validatorSchema['username'] = new sfValidatorString(array('required' => true));
-      }
-      else
-      {
-        $this->validatorSchema['username'] = new sfValidatorString(array('required' => false));
-      }
+      $this->validatorSchema['username'] = new pwValidatorMemberUsernameUnique(array(
+          'member_id'=>$this->getObject()->getId(),'required'=>true));
     }
     else
     {
@@ -142,20 +138,20 @@ abstract class PluginMemberForm extends BaseMemberForm
       // list acl groups for association
       $aclGroups = AclGroupTable::getQueryEnabledForAssociation($associationId);
       $this->widgetSchema['acl_groups'] = new sfWidgetFormDoctrineChoiceMany(array(
-      	'model' => 'AclGroup',
-      	'multiple' => true,
-      	'method' => 'getName',
-      	'query' => $aclGroups,
-      	'expanded' => true,
+        'model' => 'AclGroup',
+        'multiple' => true,
+        'method' => 'getName',
+        'query' => $aclGroups,
+        'expanded' => true,
       // number of rows displayed
       ),array(
-      	'size' => '4',    	
+        'size' => '4',    	
       ));
       $this->validatorSchema['acl_groups'] = new sfValidatorDoctrineChoiceMany(array(
-      	'model' => 'AclGroup',
-      	'multiple' => 'true',	    	
-      	'query' => $aclGroups,
-      	'min' => 0,
+        'model' => 'AclGroup',
+        'multiple' => 'true',	    	
+        'query' => $aclGroups,
+        'min' => 0,
         'required' => false
       ));
       //  $this->widgetSchema['acl_groups']->setAttribute('class', 'formInputNormal');
@@ -180,15 +176,10 @@ abstract class PluginMemberForm extends BaseMemberForm
     $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
     $this->validatorSchema['association_id'] = new sfValidatorInteger();
     $this->setDefault('association_id', $associationId);
-
-    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(
-    array('model' => 'sfGuardUser', 'column' => 'username'), array('invalid' => 'Ce pseudo existe déjà')));
-    $this->validatorSchema->setPostValidator(new sfValidatorDoctrineUnique(
-    array('model' => 'sfGuardUser', 'column' => 'email_address'), array('invalid' => 'Cette email existe déjà')));
-
-    unset($this->validatorSchema['email']);
-    unset($this->validatorSchema['website']);
+    
     $this->validatorSchema['email'] = new sfValidatorEmail(array('required' => false));
+    
+    unset($this->validatorSchema['website']);
     $this->validatorSchema['website'] = new sfValidatorUrl(array('required' => false));
     $this->validatorSchema['state'] = new sfValidatorInteger();
 
@@ -199,15 +190,7 @@ abstract class PluginMemberForm extends BaseMemberForm
 
     unset ($this->widgetSchema['subscription_date']);
     $context->getConfiguration()->loadHelpers("Asset");
-    $this->widgetSchema['subscription_date'] = new sfWidgetFormJQueryDate(array(
-      'image'       => image_path('/pwCorePlugin/images/calendar.gif'),
-      'config'      => '{}',
-      'culture'     => 'fr_FR',
-      'date_widget' => new sfWidgetFormDate(array(
-        'format' => '%day%.%month%.%year%',
-        'years'  => DateTools::rangeOfYears(date('Y'), 1900)
-    )),
-    ));
+    $this->widgetSchema['subscription_date'] = new pwWidgetFormJQueryDatePicker(date('Y'), 1900,false);
 
     $this->widgetSchema['picture'] = new sfWidgetFormInputFile();
     $this->validatorSchema['picture'] = new sfValidatorFile(array(

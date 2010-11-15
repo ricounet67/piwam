@@ -46,7 +46,13 @@
         <?php echo image_tag('/pwCorePlugin/images/error', array('alt' => '[erreur]', 'align' => 'top')) . ' ' . $sf_user->getFlash('error') ?>
       </p>
     <?php endif ?>
-
+    
+    <?php if ($sf_user->hasFlash('notice')): ?>
+      <p class="notice">
+        <?php echo $sf_user->getFlash('notice') ?>
+      </p>
+    <?php endif ?>
+    
     <form action="<?php echo url_for('@login') ?>" method="post">
       <div>
         <?php echo $form->renderGlobalErrors() ?>

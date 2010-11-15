@@ -47,7 +47,9 @@
     <?php foreach ($members->getResults() as $member): ?>
         <?php include_partial('memberRow', array('member' => $member)) ?>
     <?php endforeach ?>
-
+    <?php if(count($members->getResults()) === 0): ?>
+        <tr><td colspan="6">Aucun résultat</td></tr>
+    <?php endif ?>
   </tbody>
 </table>
 

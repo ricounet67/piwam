@@ -25,7 +25,7 @@ class BaseloginActions extends sfActions
   {
     if ($this->getUser()->isAuthenticated())
     {
-      $this->redirect('@members_list');
+      $this->redirect('@member_show?id=' . $this->getUser()->getUserId());
     }
     
     if (! PiwamOperations::isInstalled())
@@ -56,15 +56,19 @@ class BaseloginActions extends sfActions
       {
         $username = $login['username'];
         $password = $login['password'];
-        $user = sfGuardUserTable::getInstance()->retrieveByUsername($username);
+        $user = MemberTable::getByUsername($username);
 
         if($user == null)
         {
             $this->getUser()->setFlash('error', "Le nom d'utilisateur est invalide", false);         
         }
-        else if ($user->checkPassword($password))
+        else if(!$user->isActive())
         {
-          $this->getUser()->login(MemberTable::getById($user->getId()));
+          $this->getUser()->setFlash('error', "Votre compte est désactivé", false);
+        }
+        else if ($user->getUserGuard()->checkPassword($password))
+        {
+          $this->getUser()->login($user);
 
           // Unused cookie, fake value is set
           $this->getResponse()->setCookie(myUser::COOKIE_NAME, '1', time() + 60 * 60 * 24 * 15, '/');
@@ -120,20 +124,24 @@ class BaseloginActions extends sfActions
     if ($request->isMethod('post'))
     {
       $this->form->bind($request->getParameter('password'));
-      $password = $request->getParameter('password');
+      $values = $request->getParameter('password');
 
       if ($this->form->isValid())
       {
-        $user = MemberTable::getByUsername($password['username']);
+        $user = MemberTable::getByUsernameOrEmail($values['username']);
 
-        if ($user)
+        if ($user != null)
         {
-          if ($user->getEmail())
+          if ($user->hasEmail())
           {
-            $newPassword = StringTools::generatePassword(8);
-            $user->setPassword($newPassword);
-            $user->save();
-            $this->_sendNewPassword($user, $newPassword);
+            $this->_deleteOldUserForgotPasswordRecords($user->getId());
+
+            $forgotPassword = new sfGuardForgotPassword();
+            $forgotPassword->user_id = $user->getId();
+            $forgotPassword->unique_key = md5(rand() + time());
+            $forgotPassword->expires_at = new Doctrine_Expression('NOW()');
+            $forgotPassword->save();
+            $this->_sendLinkChangePassword($user, $forgotPassword);
           }
           else
           {
@@ -142,44 +150,76 @@ class BaseloginActions extends sfActions
         }
         else
         {
-          $this->getUser()->setFlash('error', 'Le nom d\'utilisateur n\'existe pas', false);
+          $this->getUser()->setFlash('error', "Le nom d'utilisateur ou l'email n'existe pas", false);
         }
       }
     }
     
     $this->setLayout('no_menu');
   }
-
-  /*
-   * Send a new password to $member. $newPassword is the uncrypted
-   * new password assigned to the $member
+  /**
+   * Display form for changin password, use unique token from sfGuardPlugin
+   * @param sfWebRequest $request
    */
-  private function _sendNewPassword(Member $member, $newPassword)
+  public function executeChangepassword(sfWebRequest $request)
   {
-    $content   = "Bonjour {$member->getFirstname()},<br />
-                  votre nouveau mot de passe pour acc&eacute;der au
-                  gestionnaire d'association est : {$newPassword}<br />
-                  Pour rappel, votre identifiant est {$member->getUsername()}";
-                  
-    $email     = $member->getEmail();
-    $mailer    = MailerFactory::get($member->getAssociationId(), $this->getUser());
-    $fromEmail = Configurator::get('address', $member->getAssociationId(), 'no-reply@piwam.org');
-    $fromLabel = $member->getAssociation()->getName();
+    $forgotPassword = null;
+    $this->unique_key = $request->getParameter('unique_key',null);
+    $this->forward404Unless($this->unique_key,'Unique key est manquant');
+    
+    $forgotPassword = sfGuardForgotPasswordTable::getInstance()->findOneByUniqueKey($this->unique_key);
+    $this->forward404Unless($forgotPassword,'Lien de changement de mot de passe expiré ou invalide');
+    $this->user = $forgotPassword->getUser();
+    
+    $this->form = new sfGuardChangeUserPasswordForm($this->user);
+    
+    if ($request->isMethod('post'))
+    {
+      $this->form->bind($request->getParameter($this->form->getName()));
+      if ($this->form->isValid())
+      {
+        $this->form->save();
 
-    $message = Swift_Message::newInstance('Votre mot de passe');
-    $message->setBody($content);
-    $message->setContentType('text/html');
-    $message->setFrom(array($fromEmail => $fromLabel));
-    $message->setTo(array($member->getEmail() => $member->getFirstname()));
+        $this->_deleteOldUserForgotPasswordRecords($this->user->getId());
+        $member = MemberTable::getById($this->user->getId());
+        $values = array();
+        $values['recipient.password'] = $this->form->getValue('password');
+        MailerFactory::loadTemplateAndSend($this->user->getId(),$member,'changed_password',$values);
 
+        $this->getUser()->setFlash('notice', 'Mot de passe modifié avec succés, un email de confirmation vous a été envoyé.');
+        $this->redirect('@homepage');
+      }
+    }
+    $this->setLayout('no_menu');
+  }
+  /**
+   * Remove forgotten token in base
+   * @param integer $user_id
+   */
+  private function _deleteOldUserForgotPasswordRecords($user_id)
+  {
+    Doctrine_Core::getTable('sfGuardForgotPassword')
+      ->createQuery('p')
+      ->delete()
+      ->where('p.user_id = ?', $user_id)
+      ->execute();
+  }
+  /*
+   * send email with link to change password page
+   * use unique key from sfGuardPlugin 
+   */
+  private function _sendLinkChangePassword(Member $member,sfGuardForgotPassword $forgotten)
+  {
+    $values = array();
+    $values['link_change_password'] = $this->generateUrl('change_password',array('unique_key'=>$forgotten->getUniqueKey()),true);
     try
     {
-      $mailer->send($message);
-      $this->getUser()->setFlash('notice', 'Le nouveau mot de passe a été envoyé par e-mail', false);
+      MailerFactory::loadTemplateAndSend($member->getId(),$member,'forgotten_password',$values);
+      $this->getUser()->setFlash('notice', 'Un lien pour changer le mot de passe a été envoyé sur votre email.', false);
     }
     catch (Swift_ConnectionException $e)
     {
-      $this->getUser()->setFlash('error', 'Le mot de passe n\'a pas pu être envoyé par e-mail', false);
+      $this->getUser()->setFlash('error', "Une erreur c'est produite pour envoyer un email avec le lien de changmeent de mot de passe.", false);
     }
   }
 

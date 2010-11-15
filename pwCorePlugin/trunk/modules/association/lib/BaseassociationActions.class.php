@@ -151,10 +151,13 @@ class BaseassociationActions extends sfActions
       $this->_association = $form->save();
       if($isNew)
       {
+        DbTools::loadYmlFileForAssociation(
+          sfConfig::get('sf_plugins_dir').'/pwCorePlugin/data/fixtures/configuration2.yml',$this->_association->getId(),true);
         // event association created
         $this->dispatcher->notify(new sfEvent($this, 'association.created',array(
           'association'=>$this->_association,
         )));
+        
       }
       $params = $request->getParameter('association');
       if (isset($params['ping_piwam']) && $params['ping_piwam'] == 1)

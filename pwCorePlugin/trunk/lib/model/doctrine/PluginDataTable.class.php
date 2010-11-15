@@ -9,11 +9,12 @@
  */
 abstract class PluginDataTable extends Doctrine_Table
 {
+  private $_fixeValues = array('dbversion');
   /**
    * Retrieve a value by its key
    *
    * @param   string  $key
-   * @return  string
+   * @return  string or null if key doesn't exist
    */
   public static function getByKey($key)
   {
@@ -21,9 +22,23 @@ abstract class PluginDataTable extends Doctrine_Table
           ->select('d.value')
           ->from('Data d')
           ->where('d.config_key = ?', $key);
-
     $row = $q->fetchOne();
-
-    return $row->getValue();
+    return ($row != null ? $row->getValue() : null);
+  }
+  /**
+   * update global variable value, throw exception if value can't be updated
+   * @param string $key
+   * @param string $value
+   */
+  public static function updateByKey($key,$value)
+  {
+    if(isset($_fixeValue[$key]))
+    {
+      throw new InvalidArgumentException('Key '.$key.' can\'t be updated.');
+    }
+    $q = Doctrine_Query::create()->from('Data d')->where('d.config_key = ?', $key);
+    $obj = $q->fetchOne();
+    $obj->setValue($value);
+    $obj->save();
   }
 }
