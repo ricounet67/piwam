@@ -98,12 +98,7 @@ abstract class PluginMemberForm extends BaseMemberForm
 
     $this->validatorSchema['firstname'] = new sfValidatorString(array('max_length' => 255, 'required' => true));
    	$this->validatorSchema['lastname'] = new sfValidatorString(array('max_length' => 255, 'required' => true));
-    $this->validatorSchema['street2'] = new sfValidatorString(array('max_length' => 255, 'required' => false));
-    $this->validatorSchema['address_public'] = new sfValidatorBoolean();
 
-    $this->widgetSchema['street'] = new sfWidgetFormInputText();
-    $this->widgetSchema['street2'] = new sfWidgetFormInputText();
-    $this->widgetSchema['address_public'] = new sfWidgetFormInputCheckbox(array(), array());
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     $this->widgetSchema['status_id']->setOption('query', StatusTable::getQueryEnabledForAssociation($associationId));
     $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
@@ -141,7 +136,7 @@ abstract class PluginMemberForm extends BaseMemberForm
     {
       // list acl groups for association
       $aclGroups = AclGroupTable::getQueryEnabledForAssociation($associationId);
-      $this->widgetSchema['acl_groups'] = new sfWidgetFormDoctrineChoiceMany(array(
+      $this->widgetSchema['acl_groups'] = new sfWidgetFormDoctrineChoice(array(
         'model' => 'AclGroup',
         'multiple' => true,
         'method' => 'getName',
@@ -151,7 +146,7 @@ abstract class PluginMemberForm extends BaseMemberForm
       ),array(
         'size' => '4',    	
       ));
-      $this->validatorSchema['acl_groups'] = new sfValidatorDoctrineChoiceMany(array(
+      $this->validatorSchema['acl_groups'] = new sfValidatorDoctrineChoice(array(
         'model' => 'AclGroup',
         'multiple' => 'true',	    	
         'query' => $aclGroups,
