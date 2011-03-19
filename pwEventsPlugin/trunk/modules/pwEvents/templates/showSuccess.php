@@ -36,15 +36,16 @@ table.subTable td {
       carpoolMapCurrentWindow = window;
     }
     else{
-      alert("Erreur cette personne ne possède pas une adresse correct pour être sur la carte !");
+      alert("Erreur cette personne ne possède pas une adresse correcte pour être affichée sur la carte !");
     }
   }
 </script>
 
 <table>
   <tr>
-  <?php if($canValidateAndEdit): ?>
-    <td><?php echo link_to('Liste événements','@events_list',array('class' => 'button blue')) ?></td>
+  <?php if($canManage): ?>
+    <td><?php echo link_to('Liste événements','@events_list',array('class' => 'button grey')) ?></td>
+    <td><?php echo link_to('Modifier','@event_edit?id='.$event->getId(),array('class' => 'button grey')) ?></td>
   <?php endif ?>
   <td><?php echo link_to('Agenda','@events_calendar',array('class' => 'button blue')) ?></td>
   <?php if($canRegister): ?>
@@ -55,8 +56,7 @@ table.subTable td {
 <h2><?php echo $event->getName() ?></h2>
 <br />
 
-<table
-  class="details">
+<table width="600px" class="details">
   <tr>
     <th>Prévu le</th>
     <td><?php echo format_date($event->getDateBegin().' '.$event->getTimeBegin(),'dd/MM/yyyy à HH:mm') ?>h</td>
@@ -81,16 +81,16 @@ table.subTable td {
 
   <tr>
     <th>Organisé par</th>
-    <td><?php echo format_member($event->getOrganizedByMember()) ?></td>
+    <td><?php echo format_member($event->getOrganizedByMember(),false,'_blank') ?></td>
   </tr>
   <?php if($canManage): ?>
     <tr>
       <th>Création</th>
-      <td>Le <?php echo format_date($event->getCreatedAt()).' par '.format_member($event->getCreatedByMember()) ?></td>
+      <td>Le <?php echo format_date($event->getCreatedAt()).' par '.format_member($event->getCreatedByMember(),false,'_blank') ?></td>
     </tr>
     <tr>
       <th>Validation</th>
-      <td><?php if($event->isAccepted()): ?> Accepté par <?php echo format_member($event->getAcceptedByMember()) ?>
+      <td><?php if($event->isAccepted()): ?> Accepté par <?php echo format_member($event->getAcceptedByMember(),false,'_blank') ?>
       <?php else: ?> Pas encore accepté <?php endif ?></td>
     </tr>
   <?php endif ?>
@@ -98,10 +98,30 @@ table.subTable td {
   <?php if($event->isAccepted()): ?>
   <tr>
     <th>Participants inscrit</th>
-    <td><?php foreach($membersRegister as $member){
-      echo format_member($member).', ';
-    }?> <?php if(count($membersRegister) == 0 ): ?> Personne pour
-    l'instant, soyez le premier ! <?php endif ?></td>
+    <td><?php 
+      $nbRegisters = count($membersRegister);
+      if ($nbRegisters == 0 )
+      {
+        echo "Personne pour l'instant, soyez le premier !";
+      }
+      else if($nbRegisters < 20)
+      {
+        foreach($membersRegister as $register){
+          echo format_member($register->getMember(),false,'_blank').' ';
+          $nb = $register->getNumberPersons();
+          echo ($nb > 1 ? $nb.' personnes' : $nb.' personne');
+          echo ', ';
+        }
+      }
+      else
+      {
+        foreach($membersRegister as $register){
+          echo link_to($register->getMemberId,'@lets_user_show?id='.$register->getMemberId(),array('popup'=> true)).' ';
+          echo $register->getNumberPersons().'pers';
+          echo ', ';
+        }
+      }
+     ?></td>
   </tr>
 
   <!-- Add member for manager -->
@@ -202,10 +222,10 @@ table.subTable td {
   <?php endif ?>
 </table>
 
-<?php if($canValidateAndEdit): ?>
+<?php if($canValidate): ?>
 <table><tr>
-  <td><?php echo link_to('Accepter','@event_validate?id='.$event->getId(),array('class' => 'button blue')) ?></td>
-  <td><?php echo link_to('Modifier','@event_edit?id='.$event->getId(),array('class' => 'button blue')) ?></td>
+  <td><?php echo link_to('Accepter','@event_validate?id='.$event->getId(),array('class' => 'button grey')) ?></td>
+  <td><?php echo link_to('Modifier','@event_edit?id='.$event->getId(),array('class' => 'button grey')) ?></td>
 </tr></table>
 <?php endif ?>
 

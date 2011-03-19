@@ -1,23 +1,25 @@
 MailTemplate:
   EmailEventCreated:
     template_key: event_created
-    description: "Envoyé aprés la création d'un événement afin d'avertir les personnes en charge de valider celui ci."
+    description: "Envoyé après la création d'un événement afin d'avertir les personnes en charge de valider celui ci."
     subject: "L'adhérent {organizer.name} propose un événement"
     association_id: %%ASSOCIATION_ID%%
     content: >
-     <p>Bonjour {recipient.name},</p>  
-     <p>Le membre {organizer.name} propose l'&eacute;v&eacute;nement '{event.title}' le {event.datetime}. <br/>
-     <b>Détails de l'&eacute;v&eacute;nement :</b></p>
-     <p>{event.description}</p>
-     <p>Veuillez vous connecter sur le site <a href="{site.home}">{association.name}</a> et valider cet &eacute;v&eacute;nement.</p>
-
+     <p>Bonjour {recipient.name},</p>   
+     <p>Le membre {organizer.name} propose l'&eacute;v&eacute;nement '{event.title}' le {event.datetime}. <br/> 
+     <b>D&eacute;tails de l'&eacute;v&eacute;nement :</b></p> 
+     <p>{event.description}</p> <p>Veuillez vous connecter sur le site <a href="{site.home}">{association.name}</a> 
+     et valider cet &eacute;v&eacute;nement.</p>
+     
   EmailEventsAutoMailing:
     template_key: events_automatic_mailing
-    description: "Liste des prochains événements envoyé aux adhérents régulièrement."
+    description: "Liste des prochains événements envoyée aux adhérents régulièrement."
     subject: "Activités pour {title.timeperiod}"
     association_id: %%ASSOCIATION_ID%%
     content: >
      <p>Bonjour {recipient.name},</p>  
-     <p>Voici les prochaines activités de l'association pour {title.timeperiod}</p>
+     <p>Voici les prochaines activités de l'association pour {title.timeperiod}. 
+     Rappel l'ensemble des prochaines activit&eacute;s est affiché dans la rubrique Agenda du site.</p> 
      {events.list}
+
 

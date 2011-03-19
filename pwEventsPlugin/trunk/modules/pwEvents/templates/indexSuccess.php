@@ -1,5 +1,9 @@
 <?php use_helper('Member','Date') ?>
 
+<?php if($sf_user->hasFlash('notice')): ?>
+  <p class="notice"><?php echo $sf_user->getFlash('notice') ?></p>
+<?php endif ?>
+
 <h2>Liste des événements</h2>
 
 <table class="datalist">
@@ -21,7 +25,7 @@
 	<td><?php echo format_date($event->getDateBegin()) ?></td>
 	<td><?php echo format_member($event->getOrganizedByMember())?></td>
 	<td><?php echo $event->getStatusString() ?></td>
-	<td><?php echo link_to('[Détails]','@event_show?id='.$event->getId()) ?>
+	<td><?php echo link_to('[Voir]','@event_show?id='.$event->getId()) ?>
 			<?php if($event->isNotValidated()): ?>
 				<?php echo link_to('[Modifier]','@event_edit?id='.$event->getId()) ?>
 			<?php endif ?>
@@ -34,4 +38,4 @@
 </tbody>
 
 </table>
-<?php echo link_to('Nouveau événement','@event_new',array('class'=>'button grey add'))?>
+<?php echo link_to('Nouvel événement','@event_new',array('class'=>'button grey add'))?>

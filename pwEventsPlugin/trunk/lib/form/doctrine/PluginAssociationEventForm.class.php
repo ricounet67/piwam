@@ -42,8 +42,8 @@ abstract class PluginAssociationEventForm extends BaseAssociationEventForm
       'description_public' => 'Description*',
       'description_private' => 'Détails privée',
       'address' => 'Adresse',
-      'date_begin' => 'Date*',
-      'time_begin' => 'Heure début*',		
+      'date_begin' => "Date de l'événement *",
+      'time_begin' => 'Heure début *',		
       'organized_by' => 'Organisateur*'
     ));
     $this->widgetSchema->setHelps(array(

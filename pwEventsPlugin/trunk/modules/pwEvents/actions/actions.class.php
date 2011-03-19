@@ -39,7 +39,6 @@ class pwEventsActions extends sfActions
   {
     $eventId = $request->getParameter('id',-1);
     $this->forward404Unless($event = AssociationEventTable::getById($eventId));
-    $this->forward404Unless($event->isNotValidated());
     $this->form= new AssociationEventForm($event);
      
   }
@@ -48,7 +47,6 @@ class pwEventsActions extends sfActions
   {
     $eventId = $request->getParameter('id',-1);
     $this->forward404Unless($event = AssociationEventTable::getById($eventId));
-    $this->forward404Unless($event->isNotValidated());
     $this->form = new AssociationEventForm($event);
     $this->processForm($request,$this->form);
     $this->setTemplate('edit');
@@ -59,12 +57,14 @@ class pwEventsActions extends sfActions
     $eventId = $request->getParameter('id',-1);
     $this->event = AssociationEventTable::getById($eventId);
     $this->forward404Unless($this->event);
-    $this->canValidateAndEdit = $this->hasRightValidateEvent() && $this->event->isNotValidated();
+    $canValidate = $this->hasRightValidateEvent();
+    $this->canValidate = $canValidate && $this->event->isNotValidated();
     $this->canSeePrivate = $this->getUser()->hasCredential(pwEventsPluginUtil::RIGHT_SEE_PRIVATE_FIELDS);
-    $this->canManage = $this->hasRightValidateEvent();
-    $this->canAddMember = $this->hasRightValidateEvent();
 
-    $dateEvent = strtotime($this->event->getDateBegin());
+    $this->canManage = $canValidate;
+    $this->canAddMember = $canValidate;
+
+    $dateEvent = strtotime($this->event->getDateBegin()) + $this->event->getTimeBegin();
     $dateNow = time();
     $this->canRegister = ($dateNow <= $dateEvent && $this->event->isAccepted());
 
@@ -77,6 +77,7 @@ class pwEventsActions extends sfActions
     //if($this->event->isAccepted())
     {
       $this->membersRegister = EventSubscriptionTable::getAllMemberComeForEventId($eventId);
+      
       /*
        * Carpool map
        */
@@ -111,32 +112,32 @@ class pwEventsActions extends sfActions
     $membersCarpoolOffer = array();
 
     $iconNeed = new GMapMarkerImage(
-    pwEventsPluginUtil::getImagePath('flag_blue.png'),
-    array(
-        'width' => 36,
-        'height' => 36,
-    )
+      pwEventsPluginUtil::getImagePath('flag_blue.png'),
+      array(
+          'width' => 36,
+          'height' => 36,
+      )
     );
     $iconOffer = new GMapMarkerImage(
-    pwEventsPluginUtil::getImagePath('flag_green.png'),
-    array(
-        'width' => 36,
-        'height' => 36,
-    )
+      pwEventsPluginUtil::getImagePath('flag_green.png'),
+      array(
+          'width' => 36,
+          'height' => 36,
+      )
     );
     $iconHome = new GMapMarkerImage(
-    pwEventsPluginUtil::getImagePath('home.png'),
-    array(
-        'width' => 36,
-        'height' => 36,
-    )
+      pwEventsPluginUtil::getImagePath('home.png'),
+      array(
+          'width' => 36,
+          'height' => 36,
+      )
     );
     $iconEvent = new GMapMarkerImage(
-    pwEventsPluginUtil::getImagePath('end_flag.png'),
-    array(
-        'width' => 48,
-        'height' => 48,
-    )
+      pwEventsPluginUtil::getImagePath('end_flag.png'),
+      array(
+          'width' => 48,
+          'height' => 48,
+      )
     );
 
     foreach ($registersCarpool as $register)
@@ -196,7 +197,7 @@ class pwEventsActions extends sfActions
 
       $time = strtotime($event->getTimeBegin());
       $info_window = new GMapInfoWindow(
-        '<b>Arrivée</b><br/>'.$event->getName().'<br/><b>Commence à '.date('H:i',$time).'h</b>',
+        '<b>Arrivée</b><br/>'.$event->getName().'<br/><b>Commence à '.date('H\hi',$time).'</b>',
         array('maxWidth'=>'"200px"'));
       $gMapMarker->addHtmlInfoWindow($info_window,array(),'map_window_event');
       $carpoolMap->addMarker($gMapMarker);
@@ -254,8 +255,6 @@ class pwEventsActions extends sfActions
     }
     $this->calendar = $calendar->getEventCalendar();
      
-    $monthsName = array(1=>'Janvier',2=>'Février',3=>'Mars',4=>'Avril',5=>'Mai',6=>'Juin',
-    7=>'Juillet',8=>'Août',9=>'Septembre',10=>'Octobre',11=>'Novembre',12=>'Décembre');
      
     $nextMonth = ($month == 12 ? 1 : $month+1);
     $prevMonth = ($month == 1 ? 12 : $month-1);
@@ -264,29 +263,29 @@ class pwEventsActions extends sfActions
     {
       $this->nextMonth = 1;
       $this->nextYear = $year+1;
-      $this->nextTitle = $monthsName[intval($this->nextMonth)].' '.$this->nextYear;
+      $this->nextTitle = StringTools::monthNameFR(intval($this->nextMonth)).' '.$this->nextYear;
       $this->prevMonth = 11;
       $this->prevYear = $year;
-      $this->prevTitle = $monthsName[intval($this->prevMonth)].' '.$this->prevYear;
+      $this->prevTitle = StringTools::monthNameFR(intval($this->prevMonth)).' '.$this->prevYear;
     }
     else if($month == 1)
     {
       $this->nextMonth = 2;
       $this->nextYear = $year;
-      $this->nextTitle = $monthsName[intval($this->nextMonth)].' '.$this->nextYear;
+      $this->nextTitle = StringTools::monthNameFR(intval($this->nextMonth)).' '.$this->nextYear;
       $this->prevMonth = 12;
       $this->prevYear = $year-1;
-      $this->prevTitle = $monthsName[intval($this->prevMonth)].' '.$this->prevYear;
+      $this->prevTitle = StringTools::monthNameFR(intval($this->prevMonth)).' '.$this->prevYear;
     }
     else{
       $this->nextMonth = $month+1;
       $this->nextYear = $year;
-      $this->nextTitle = $monthsName[intval($this->nextMonth)].' '.$this->nextYear;
+      $this->nextTitle = StringTools::monthNameFR(intval($this->nextMonth)).' '.$this->nextYear;
       $this->prevMonth = $month-1;
       $this->prevYear = $year;
-      $this->prevTitle = $monthsName[intval($this->prevMonth)].' '.$this->prevYear;
+      $this->prevTitle = StringTools::monthNameFR(intval($this->prevMonth)).' '.$this->prevYear;
     }
-    $this->currentTitle = $monthsName[intval($month)].' '.$year;
+    $this->currentTitle = StringTools::monthNameFR(intval($month)).' '.$year;
     $this->currentMonth = $month;
     $this->firstWeekMonth = date('W',mktime(0,0,1,$month,1,$year));
     $this->maxiWeekYear = date('W',mktime(0,0,1,12,31,$year));
@@ -314,27 +313,35 @@ class pwEventsActions extends sfActions
       if($event->isNew())
       {
         $event->setCreatedBy($userId);
-        $event->setStatus(AssociationEventTable::STATUS_NOT_VALIDATED);
-        $event->setOrganizedBy($userId);
         $event->setAssociationId($this->getUser()->getAssociationId());
-
-        // notify member for validate event
-        $membersValidatedEvent = MemberTable::getMembersForAclRight(pwEventsPluginUtil::RIGHT_EDIT_AND_VALIDATE_EVENT);
-        $values = array();
-        $values['event.title'] = $event->getName();
-        $values['event.description'] = html_entity_decode($event->getDescriptionPublic());
-        $time = strtotime($event->getDateBegin().' '.$event->getTimeBegin());
-        $values['event.datetime'] = date('d/m/y à H:i',$time);
-        $values['organizer.name'] = MemberTable::getNameForMemberId($event->getOrganizedBy());
-        foreach($membersValidatedEvent as $member)
+        // user doesn't need validate event
+        if($this->hasRightValidateEvent(pwEventsPluginUtil::RIGHT_EDIT_AND_VALIDATE_EVENT))
         {
-          // we don't notify the current user
-          if($member->getId() != $event->getCreatedBy())
-          {
-            MailerFactory::loadTemplateAndSend($this->getUser()->getUserId(),$member,pwEventsPluginUtil::EMAIL_EVENT_CREATED,$values);
-          }
+          $event->setStatus(AssociationEventTable::STATUS_VALIDATED);
+          $event->setAcceptedBy($this->getUser()->getUserId());
+          $textNotice = ', il a été automatiquement accepté (car vous avez le droit de validation)';
         }
-        $textNotice = ', une validation doit être réalisé avant parution sur le site';
+        else
+        {
+          $event->setStatus(AssociationEventTable::STATUS_NOT_VALIDATED);
+          // notify member for validate event
+          $membersValidatedEvent = MemberTable::getMembersForAclRight(pwEventsPluginUtil::RIGHT_EDIT_AND_VALIDATE_EVENT);
+          $values = array();
+          $values['event.title'] = $event->getName();
+          $values['event.description'] = $event->getDescriptionPublic();
+          $time = strtotime($event->getDateBegin().' '.$event->getTimeBegin());
+          $values['event.datetime'] = date('d/m/y à H\hi',$time);
+          $values['organizer.name'] = MemberTable::getNameForMemberId($event->getOrganizedBy());
+          foreach($membersValidatedEvent as $member)
+          {
+            // we don't notify the current user
+            if($member->getId() != $event->getCreatedBy())
+            {
+              MailerFactory::loadTemplateAndSend($this->getUser()->getUserId(),$member,pwEventsPluginUtil::EMAIL_EVENT_CREATED,$values);
+            }
+          }
+          $textNotice = ', une validation doit être réalisée avant parution sur le site.';
+        }
       }
 
       $event->save();

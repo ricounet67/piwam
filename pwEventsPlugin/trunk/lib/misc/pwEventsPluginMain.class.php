@@ -43,7 +43,7 @@ class pwEventsPluginMain extends MainPiwamPlugin
       $mustSendMail = true;
       $dateStart = date('Y-m-d',mktime(0,0,1,$month,1,$year));
       $dateEnd = date('Y-m-d',mktime(0,0,1,$month,31,$year));
-      $textTimePeriod = StringTools::monthNameFR($month);
+      $textTimePeriod = ' le mois de '.StringTools::monthNameFR($month);
     }
     else if($delay == '2_week' && ($dayInMonth == 1 || $dayInMonth == 16)){
       $mustSendMail = true;
@@ -64,29 +64,45 @@ class pwEventsPluginMain extends MainPiwamPlugin
     {
       $members = MemberTable::getHavingEmailForAssociation($assoId);
       $events = AssociationEventTable::getEventsBetweenDates($assoId,$dateStart,$dateEnd);
+      if(count($events) == 0)
+      {
+        return;
+      }
       //FUNC: Move table html for custom config, where can I to move that ?
       $htmlEvents = '<table>';
       foreach($events as $event)
       {
         $time = strtotime($event->getDateBegin().' '.$event->getTimeBegin());
-        $datetime = sprintf("Le %s %s à %s",date('j',$time),StringTools::monthNameFR(date('m',$time)),date('H:i',$time));
+        $datetime = sprintf("Le %s %s à %s",date('j',$time),StringTools::monthNameFR(date('m',$time)),date('H\hi',$time));
         
         $htmlEvents .= '<tr><td width="600px"><table style="border: solid 1px black" width="100%">';
-        $htmlEvents .= '<tr><td style="background-color: #E5E5E5">'.$datetime.' : ' .$event->getName().'</td></tr>';
+        $htmlEvents .= '<tr><td style="background-color: #E5E5E5"><b>'.$datetime.' : ' .$event->getName().'</b></td></tr>';
         $htmlEvents .= '<tr><td>'.$event->getDescriptionPublic().'</td></tr>';
-        $htmlEvents .= '</table></td></tr>';
+        $htmlEvents .= '<tr><td style="background-color: #E5E5E5">';
+        $address = $event->getAddress();
+        if($address != '')
+        {
+          $htmlEvents .= 'Rendez vous : '.$address;
+        }
+        $htmlEvents .= '</td></tr></table></td></tr>';
       }
       $htmlEvents .= '</table>';
       $values = array();
       $values['events.list'] = $htmlEvents;
       $values['title.timeperiod'] = $textTimePeriod;
-      $sent = true;
+      $nbError = 0;
+      $mailer = MailerFactory::get($assoId);
       foreach($members as $member)
       {
-        $sent = $sent && MailerFactory::loadTemplateAndSend(null,$member,pwEventsPluginUtil::EMAIL_EVENTS_AUTOMATIC_MAILING,$values);
+        $sent = MailerFactory::loadTemplateAndSend(null,$member,pwEventsPluginUtil::EMAIL_EVENTS_AUTOMATIC_MAILING,$values,$mailer);
+        if($sent == false)
+        {
+          $nbError++;
+        }
+        
       }
       $strError = 'without errors.';
-      if(!$sent)
+      if($nbError > 0)
       {
         $strError = 'with error on some members.';
       }
