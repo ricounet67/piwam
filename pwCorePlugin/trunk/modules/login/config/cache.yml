@@ -1,0 +1,6 @@
+all:
+  enabled:     true
+  with_layout: true
+
+changepassword:
+  enabled: false

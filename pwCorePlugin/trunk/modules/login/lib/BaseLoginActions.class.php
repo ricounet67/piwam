@@ -33,7 +33,8 @@ class BaseloginActions extends sfActions
       $this->redirect('@setup');
     }
 
-    $this->displayRegisterLink = $this->_canRegisterAnotherAssociation();
+    $this->displayCreateAssociationLink = $this->_canRegisterAnotherAssociation();
+    $this->displayUserRegisterLink = sfConfig::get('app_anonymous_can_register',false);
     $this->numberOfAssociations = AssociationTable::doCount();
     $this->form = new LoginForm();
 
@@ -107,6 +108,7 @@ class BaseloginActions extends sfActions
   public function executeLogout(sfWebRequest $request)
   {
     $this->getUser()->logout();
+    $this->getUser()->setFlash('notice','Déconnexion effectuée');
     $this->redirect('@homepage');
   }
 
@@ -233,18 +235,13 @@ class BaseloginActions extends sfActions
   {
     try
     {
-      if (AssociationTable::doCount() === 0)
+      if (!PiwamOperations::associationIsCreated())
       {
         return true;
       }
       else
       {
-        if (sfConfig::get('app_multi_association'))
-        {
-          return true;
-        }
-
-        return false;
+        return sfConfig::get('app_multi_association',false);
       }
     }
     catch (Doctrine_Exception $e)

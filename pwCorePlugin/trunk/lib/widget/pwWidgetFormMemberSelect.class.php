@@ -16,9 +16,9 @@ class pwWidgetFormMemberSelect extends sfWidgetFormJQueryAutocompleter
   {
     $options['value_callback'] = array($this, 'valueCallback');
 		$options['url'] = sfContext::getInstance()->getController()->genUrl('@ajax_search_members');
-    $options['config'] = '{ scrollHeight: 250 ,autoFill: true, minChars: 2 }';
-    
-    $attributes['class'] = 'formInputNormal';
+    $options['config'] = '{ width: 260, scrollHeight: 250 ,autoFill: true, minChars: 2 }';
+    $attributes['style'] = 'width: 260px';
+
     parent::__construct($options, $attributes);
   }
     

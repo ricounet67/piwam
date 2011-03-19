@@ -53,8 +53,6 @@ class pwCorePluginConfiguration extends sfPluginConfiguration
     sfValidatorBase::setDefaultMessage('required', 'Requis');
     sfValidatorBase::setDefaultMessage('invalid', 'Invalide');
     
-    PiwamPluginsRegister::addPlugin(new pwEventsPluginMain());
-    
     return true;
   }
   

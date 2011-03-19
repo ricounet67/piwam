@@ -78,7 +78,7 @@ class BaseMemberActions extends sfActions
     $member_id = $request->getParameter('id');
     $profile = MemberTable::getById($member_id);
     $this->forward404Unless($profile);
-    
+    $this->showExtraRows = $this->getUser()->hasCredential('edit_member');
     if ($this->isAllowedToManageProfile($profile, 'show_member'))
     {
       $this->dues = DueTable::getForUser($member_id);
@@ -204,41 +204,49 @@ class BaseMemberActions extends sfActions
   public function executeMap(sfWebRequest $request)
   {
     $associationId = $this->getUser()->getAssociationId();
-    $GMapKey = Configurator::get('googlemap_key', $associationId);
-    $map = new PhoogleMap();
-    $map->setApiKey($GMapKey);
-    $map->zoomLevel = 12;
-    $map->setWidth(600);
-    $map->setHeight(400);
-    $members = MemberTable::getEnabledForAssociation($associationId);
+    $apiKey = Configurator::get('googlemap_key',$associationId);
+
+    $gMap = new GMap();
+    $client = $gMap->getGMapClient($apiKey);
+
+    $this->getContext()->getConfiguration()->loadHelpers('Asset');
+
+    $members = MemberTable::getEnabledForAssociation($associationId,false);
 
     foreach ($members as $member)
     {
       if (strlen($member->getCity()) > 0)
       {
-        $map->addAddress($member->getCompleteAddress(), $member->getInfoForGmap());
+        $gMap->addMarker($this->_createMapMarker($member));
       }
     }
-
-    $this->GMapKey = $GMapKey;
-    $this->map = $map;
+    $gMap->centerAndZoomOnMarkers(0.05,14);
+    $this->gmap = $gMap;
+    $this->memberForm = new sfForm();
+    $this->memberForm->setWidget('member_id',new pwWidgetFormMemberSelect());
+    
   }
-
+  
   /**
-   * Allows the user to manager ACL for each member. Once the form is submit,
-   * the existing credentials are deleted and we created new ones.
-   * The AclCredentialForm is also put on member/edit view. If we reach the
-   * form through this action, this is because we are registering a NEW user
-   *
-   * @param   sfWebRequest    $request
-   * @since   r60
+   * Create new map marker
+   * @param Member $member
+   * @param GMapMarkerImage $icon
+   * @param string $text_carpool
    */
-  public function executeAcl(sfWebRequest $request)
+  private function _createMapMarker(Member $member)
   {
-    $this->forward('acl_group', 'module');
+    $gMapMarker = new GMapMarker($member->getLatitude(),$member->getLongitude(),
+      array('title'=>'"'.$member->getName().'"'),
+            'map_marker_member_'.$member->getId());
+    // lets modif
+    $this->getContext()->getConfiguration()->loadHelpers('Phone');
+    $info_window = new GMapInfoWindow($member->getInfoForGmap(),
+      array('maxWidth'=>"'300px'"),'map_window_member_'.$member->getId());
+      
+    $gMapMarker->addEvent(new GMapEvent('click','gMapOpenWindow('.$member->getId().');'));
+    $gMapMarker->addHtmlInfoWindow($info_window);
+    return $gMapMarker;
   }
-
-
 
   /* -------------------------------------------------------------------------
    *
@@ -257,7 +265,12 @@ class BaseMemberActions extends sfActions
     $aId = $this->getUser()->getAssociationId();
     $ctxt = $this->getContext();
     $canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
-    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt,'editAclGroups' => $canEditAclGroups));
+    $this->form = new MemberForm(null, array(
+      'associationId' => $aId, 
+      'context' => $ctxt,
+      'editAclGroups' => $canEditAclGroups,
+      'editExtraRows' => true,
+    ));
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
 
@@ -273,7 +286,9 @@ class BaseMemberActions extends sfActions
     $aId = $member['association_id'];
     $ctxt = $this->getContext();
     $canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
-    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt,'editAclGroups' => $canEditAclGroups));
+    $this->canEditExtraRows = $this->getUser()->hasCredential('edit_member');
+    $this->form = new MemberForm(null, array('associationId' => $aId, 'context' => $ctxt,
+        'editAclGroups' => $canEditAclGroups,'editExtraRows' => $this->canEditExtraRows));
     $this->processForm($request, $this->form);
     $this->setTemplate('new');
   }
@@ -300,10 +315,14 @@ class BaseMemberActions extends sfActions
     $aId = $member->getAssociationId();
     $mId = $member->getId();
     $ctxt = $this->getContext();
+    
+    $this->canEditExtraRows = $this->getUser()->hasCredential('edit_member');
     $this->form = new MemberForm($member, array('associationId' => $aId,
                                                 'context' => $ctxt, 
                                                 'memberId' => $mId, 
-                                                'editAclGroups'=>$canEditAclGroups));
+                                                'editAclGroups' => $canEditAclGroups,
+                                                'editExtraRows' => $this->canEditExtraRows));
+    
     $this->canEditRight = $this->getUser()->hasCredential('edit_acl');
     $this->form->setDefault('updated_by', $this->getUser()->getUserId());
   }
@@ -324,11 +343,14 @@ class BaseMemberActions extends sfActions
       $this->redirect('@error_credentials');
     }
     $canEditAclGroups = $this->getUser()->hasCredential('edit_member_acl');
+    $canExtraRows = $this->getUser()->hasCredential('edit_member');
+    
     $member = $request->getParameter('member');
     $associationId = $member['association_id'];
     $this->form = new MemberForm($user, array('associationId' => $associationId,
                                               'context' => $this->getContext(),
-                                              'editAclGroups'=>$canEditAclGroups));
+                                              'editAclGroups'=>$canEditAclGroups,
+                                              'editExtraRows'=>$canExtraRows));
     $this->processForm($request, $this->form);
     $this->setTemplate('edit');
   }
@@ -352,6 +374,7 @@ class BaseMemberActions extends sfActions
    */
   public function executeRequestsubscription(sfWebRequest $request)
   {
+    $this->forward404Unless(sfConfig::get('app_anonymous_can_register',false),"Configuration doesn't allow to register account");
     if (sfConfig::get('app_multi_association'))
     {
       $associationId = $request->getParameter('id', null);
@@ -379,6 +402,7 @@ class BaseMemberActions extends sfActions
    */
   public function executeCreatepending(sfWebRequest $request)
   {
+    $this->forward404Unless(sfConfig::get('app_anonymous_can_register',false),"Configuration doesn't allow to register account");
     $this->forward404Unless($request->isMethod('post'));
     $member = $request->getParameter("member");
     $associationId = $member['association_id'];
@@ -448,6 +472,7 @@ class BaseMemberActions extends sfActions
    */
   public function executeNewfirst(sfWebRequest $request)
   {
+    $this->forward404Unless($this->_canCreateFirstMember(),"There is already members for association.");
     $associationId = $this->getUser()->getTemporaryAssociationId();
 
     if (null == $associationId)
@@ -473,8 +498,9 @@ class BaseMemberActions extends sfActions
    */
   public function executeFirstcreate(sfWebRequest $request)
   {
+    $this->forward404Unless($this->_canCreateFirstMember(),"There is already members for association.");
     $this->forward404Unless($request->isMethod('post'));
-    $associationId = $this->getUser()->getAttribute('association_id',-1 , 'temp');
+    $associationId = $this->getUser()->getTemporaryAssociationId();
 
     $this->form = new MemberForm(null, array('associationId' => $associationId,
                                              'context'       => $this->getContext(),
@@ -526,10 +552,9 @@ class BaseMemberActions extends sfActions
     $isPending = $request->getAttribute('pending', false);
     if ($form->isValid())
     {
-
+      $formValues = $this->form->getValues();
       $member = $form->save();
 
-      $formValues = $this->form->getValues();
 
       // not first user we update the acl groups for user
       if(isset($formValues['acl_groups']))
@@ -538,8 +563,8 @@ class BaseMemberActions extends sfActions
         // update acl groups for user
         AclGroupMemberTable::updateGroupsIdByMemberId($member->getId(),$formValues['acl_groups']);
       }
-      // pending subscription we use default acl groups
-      else if($isPending)
+      // pending subscription or it is new but creator doesn't have right to manage rights we use default acl groups
+      else if($isPending || $isNew)
       {
         AclGroupMemberTable::updateGroupsIdByMemberId($member->getId(),
           AclGroupTable::getSelectedDefaultIdForAssociation($member->getAssociationId()));
@@ -649,16 +674,21 @@ class BaseMemberActions extends sfActions
       }
       else
       {
-        $data = $request->getParameter('member');
-
-        /* if ((isset($data['created_by'])) && ($member->getUsername() && $member->getPassword()))
-         {
-         $this->redirect('@member_acl?id=' . $member->getId());
-         }
-         else
-         {*/
+        
+        if($isNew)
+        {
+          $text2 = "il ne possède pas d'email donc vous devez le prévenir de la création de son compte.";
+          if($member->hasEmail())
+          {
+            $text2 = "un email a été envoyé pour l'informer de la création de son compte.";
+          }
+          $this->getUser()->setFlash('notice','Adhérent '.$member->getName().' créé, '.$text2);
+        }
+        else{
+          $this->getUser()->setFlash('notice','Adhérent '.$member->getName().' modifié.');
+        }
+        
         $this->redirect('@members_list');
-        // }
       }
     }
   }
@@ -813,5 +843,21 @@ class BaseMemberActions extends sfActions
       'member' => $member,
       'first' => $isFirst,
     )));
+  }
+  /**
+   * Return true if anonymous can create first member of associaiton (there is no member)
+   */
+  private function _canCreateFirstMember()
+  {
+    $tmpAssoId = $this->getUser()->getTemporaryAssociationId();
+    if($tmpAssoId != null && $tmpAssoId > 0)
+    {
+       $members = MemberTable::getEnabledForAssociation($tmpAssoId);
+       if(count($members) === 0)
+       {
+         return true;
+       }
+    }
+    return false;
   }
 }

@@ -38,19 +38,31 @@ class cron_taskActions extends sfActions
     }
     else
     {
-      DataTable::updateByKey('date_night_tasks',date('Y-m-d'));
+     
       $message= "OK:";
-      
-      $plugins = PiwamPluginsRegister::getPlugins();
-      $associations = AssociationTable::getInstance()->findAll();
-      foreach($plugins as $plugin)
-      {
-        $this->logMessage("Launch night tasks for plugin ".$plugin->getPluginName()." on all associations.");
-        foreach($associations as $asso)
+      try{
+        $plugins = PiwamPluginsRegister::getPlugins();
+        $associations = AssociationTable::getInstance()->findAll();
+        $nbPlugins =0;
+        $nbAssos =count($associations);
+        foreach($plugins as $plugin)
         {
-          $plugin->pluginNightTasksForAssociation($asso);
+          $nbPlugins++;
+          $this->logMessage("Launch night tasks for plugin ".$plugin->getPluginName()." on all associations.");
+          foreach($associations as $asso)
+          {
+            
+            $plugin->pluginNightTasksForAssociation($asso);
+          }
         }
+        DataTable::updateByKey('date_night_tasks',date('Y-m-d'));
+        $message .= "launched ".$nbPlugins." plugins for ".$nbAssos." associations";
       }
+      catch(Exception $e)
+      {
+        $message = 'ERR:EXCEPTION:('.$e->getCode().') '.$e->getMessage();
+      }
+      
     }
     return $this->renderText($message);
    // $this->setLayout(false);

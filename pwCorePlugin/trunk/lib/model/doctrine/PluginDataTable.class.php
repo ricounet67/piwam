@@ -27,18 +27,25 @@ abstract class PluginDataTable extends Doctrine_Table
   }
   /**
    * update global variable value, throw exception if value can't be updated
-   * @param string $key
-   * @param string $value
+   * @param string $key unique key
+   * @param string $value value associated to key
    */
   public static function updateByKey($key,$value)
   {
     if(isset($_fixeValue[$key]))
     {
-      throw new InvalidArgumentException('Key '.$key.' can\'t be updated.');
+      throw new InvalidArgumentException("Key ".$key." can't be updated.");
     }
     $q = Doctrine_Query::create()->from('Data d')->where('d.config_key = ?', $key);
     $obj = $q->fetchOne();
-    $obj->setValue($value);
+    if($obj == null)
+    {
+      $obj = new Data();
+      $obj->setConfigKey($key);
+    }
+    else{
+      $obj->setValue($value);
+    }
     $obj->save();
   }
 }

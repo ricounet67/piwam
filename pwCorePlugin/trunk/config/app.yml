@@ -21,9 +21,14 @@ all:
   .general:
     # Set if to `false` if you wan't to use your own layout
     default_layout: true
-    
+    # set to true if anonymous can register pending account
+    anonymous_can_register: false
+    # set to true if anonymous can create new association and view list 
+    anonymous_create_association: false
+    # set classes implement MainPiwamPlugin you want enabled
+    piwam_plugins: [pwEventsPluginMain]
+
     #menus section, can be extend or overloaded by the app.yml of application
-  
     menus:
       configurations:
         label: Configuration

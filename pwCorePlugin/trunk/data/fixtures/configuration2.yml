@@ -5,27 +5,27 @@ MailTemplate:
     subject: "Lien pour changer votre mot de passe"
     association_id: %%ASSOCIATION_ID%%
     content: >
-     <p>Bonjour {recipient.name},</p>  
-     <p>Cette email vous est envoy&eacute; car vous avez oubli&eacute; votre mot de passe pour vous connecter au gestionnaire 
-     d'association de '{association.name}'. </p>
-     <p>Vous disposez de 24h pour changer votre mot de passe, 
-     pour cela veuillez cliquer sur <a href="{link_change_password}">ce lien</a> puis saisir un nouveau mot de passe.</p>
+     <p>Bonjour {recipient.name},</p>   
+     <p>Cette email vous est envoy&eacute; car vous avez oubli&eacute; votre mot de passe pour vous connecter au gestionnaire  
+     d'association de '{association.name}'. </p> 
+     <p>Vous disposez de 24h pour changer votre mot de passe,  pour cela veuillez cliquer sur <a href="{link_change_password}">ce lien</a> 
+     puis saisir un nouveau mot de passe.</p>
 
   EmailChangedPassword:
     template_key: changed_password
     description: "Confirmation de la modification du mot de passe en cas d'oubli."
-    subject: "Modification de votre mot de passe réussit"
+    subject: "Modification de votre mot de passe réussie"
     association_id: %%ASSOCIATION_ID%%
     content: >
-     <p>Bonjour {recipient.name},</p>  
-     <p>Votre mot de passe a &eacute;t&eacute; modifi&eacute; avec succ&eacute;s, 
-     vous pouvez vous connecter sur <a href="{site.home}">{association.name}</a> avec le compte suivant.</p>
-     <p>Identifiant: {recipient.username}<br/>Mot de passe : {recipient.password}</p>
+     <p>Bonjour {recipient.name},</p>
+     <p>Votre mot de passe a &eacute;t&eacute; modifi&eacute; avec succ&egrave;s,  
+     vous pouvez vous connecter sur le site de <a href="{site.home}">{association.name}</a> avec le compte suivant.</p>
+     <p>Identifiant : {recipient.username}<br />Mot de passe : {recipient.password}</p>
      
   EmailMemberCreated:
     template_key: member_created
     description: "Email informant un nouveau adhérent de la création de son compte."
-    subject: "Bienvenue dans le gestionnaire de {association.name}"
+    subject: "Bienvenue sur le site web de {association.name}"
     association_id: %%ASSOCIATION_ID%%
     content: >
      <p>Bonjour {recipient.name},</p>

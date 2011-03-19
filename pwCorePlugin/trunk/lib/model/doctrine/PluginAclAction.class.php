@@ -21,7 +21,7 @@ abstract class PluginAclAction extends BaseAclAction
   {
     if($this->_guardPermission == null)
     {
-      $this->_guardPermission = parent::getPermission();
+      $this->_guardPermission = $this->getPermission();
     }
     return $this->_guardPermission;
   }

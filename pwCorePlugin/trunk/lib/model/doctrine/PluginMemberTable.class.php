@@ -46,15 +46,20 @@ abstract class PluginMemberTable extends Doctrine_Table
    * Used in export feature
    *
    * @param   integer   $id
+   * @param   boolean   $include_address_hidden true load members with address hidden, false
+   * to ignore members with a address hidden
    * @return  array of Members
    */
-  public static function getEnabledForAssociation($id)
+  public static function getEnabledForAssociation($id, $include_address_hidden = true)
   {
     $q = self::getQueryEnabledForAssociation($id);
-
+    if(!$include_address_hidden)
+    {
+      $q->andWhere('m.address_public = 1');
+    }
     return $q->execute();
   }
-
+  
   /**
    * Get the query to retrieve Members of association $id
    *
@@ -89,7 +94,8 @@ abstract class PluginMemberTable extends Doctrine_Table
   public static function getQuerySearch($params)
   {
     $q = Doctrine_Query::create()
-    ->from('Member m');
+      ->from('Member m')
+      ->leftJoin('m.Status status');
 
     /*
      * Select only members who belong to a specific association
@@ -119,7 +125,8 @@ abstract class PluginMemberTable extends Doctrine_Table
      */
     if (isset ($params['magic']) && $params['magic'] != "")
     {
-      $query = '%' . $params['magic'] . '%';
+      // we clean accents
+      $query = '%' . StringTools::to7bit( $params['magic'] )  . '%';
       $q->andWhere("concat(m.User.first_name, ' ', m.User.last_name) LIKE ?", $query);
     }
 
@@ -166,9 +173,9 @@ abstract class PluginMemberTable extends Doctrine_Table
     {
       $column = $params['order_by'];
       $sortable_columns = array('lastname'=>'User.last_name', 'firstname'=>'User.first_name', 'username'=>'User.username',
-      	'city'=>'city', 'status_id'=>'status_id');
+        'city'=>'city', 'status_id'=>'status_id');
 
-      if (! in_array($column, $sortable_columns))
+      if (! key_exists($column, $sortable_columns))
       {
         $column = 'lastname';
       }

@@ -11,6 +11,7 @@ abstract class PluginMemberForm extends BaseMemberForm
 {
   private $_firstRegistration = false;
   private $_editAclGroups = false;
+  private $_editExtraRows = false;
   /**
    * Determines if we are performing the registration of the
    * first user or not
@@ -31,6 +32,11 @@ abstract class PluginMemberForm extends BaseMemberForm
   {
     return $this->_editAclGroups;
   }
+  
+  public function isEditExtraRows()
+  {
+    return $this->_editExtraRows;
+  }
   /**
    * Customizes the Member form. There is a lot of fields to unset in order
    * to re-create them from scratch with custom behaviour, especially the
@@ -46,6 +52,7 @@ abstract class PluginMemberForm extends BaseMemberForm
     $context = $this->getOption('context');
     $this->_firstRegistration = $this->getOption('first', false);
     $this->_editAclGroups = $this->getOption('editAclGroups', false);
+    $this->_editExtraRows = $this->getOption('editExtraRows',false);
     // if creation of user the id is unknown
     $memberId = $this->getOption('memberId',-1);
 
@@ -102,7 +109,8 @@ abstract class PluginMemberForm extends BaseMemberForm
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     $this->widgetSchema['status_id']->setOption('query', StatusTable::getQueryEnabledForAssociation($associationId));
     $this->widgetSchema['password'] = new sfWidgetFormInputPassword();
-
+    $this->widgetSchema['civility']->setOption('expanded',true);
+    $this->setDefault('civility','Mr');
     /*
      * if this is not the registration of the first user who is
      * setting up a new Association, password can be empty (and
@@ -121,7 +129,7 @@ abstract class PluginMemberForm extends BaseMemberForm
         // erased
 
       $this->validatorSchema['username'] = new pwValidatorMemberUsernameUnique(array(
-          'member_id'=>$this->getObject()->getId(),'required'=>true));
+          'member_id'=>$this->getObject()->getId(),'required'=>$this->isNew()));
     }
     else
     {
@@ -140,6 +148,7 @@ abstract class PluginMemberForm extends BaseMemberForm
         'model' => 'AclGroup',
         'multiple' => true,
         'method' => 'getName',
+        'key_method' => 'getGroupId',
         'query' => $aclGroups,
         'expanded' => true,
       // number of rows displayed
@@ -148,8 +157,9 @@ abstract class PluginMemberForm extends BaseMemberForm
       ));
       $this->validatorSchema['acl_groups'] = new sfValidatorDoctrineChoice(array(
         'model' => 'AclGroup',
-        'multiple' => 'true',	    	
+        'multiple' => 'true',
         'query' => $aclGroups,
+        'column' => 'group_id',
         'min' => 0,
         'required' => false
       ));
@@ -188,7 +198,7 @@ abstract class PluginMemberForm extends BaseMemberForm
     $this->setDefault('country', 'FR');
 
     unset ($this->widgetSchema['subscription_date']);
-    $context->getConfiguration()->loadHelpers("Asset");
+    
     $this->widgetSchema['subscription_date'] = new pwWidgetFormJQueryDatePicker(date('Y'), 1900,false);
 
     $this->widgetSchema['picture'] = new sfWidgetFormInputFile();
@@ -201,7 +211,7 @@ abstract class PluginMemberForm extends BaseMemberForm
     array(  'max_size'   => 'La taille du fichier est trop importante',
             'mime_types' => 'Seules les images sont acceptées'
             ));
-    $this->setDefault('subscription_date', date('d-m-Y'));
+    $this->setDefault('subscription_date', time());
     $this->setDefault('state', 1);
     $this->_setCssClasses();
     $this->_disableProtectedFields($context->getUser());
@@ -216,7 +226,10 @@ abstract class PluginMemberForm extends BaseMemberForm
     {
       $extraForm = new MemberExtraRowsForm();
     }
-    $this->embedForm('extra_rows', $extraForm);
+    if($this->_editExtraRows == true)
+    {
+      $this->embedForm('extra_rows', $extraForm);
+    }
   }
 
   /*
@@ -248,6 +261,7 @@ abstract class PluginMemberForm extends BaseMemberForm
   private function _setLabels()
   {
     $this->widgetSchema->setLabels(array(
+      'civility'          => 'Civilité',
       'firstname'         => 'Prénom',
       'lastname'          => 'Nom',
       'username'          => "Nom d'utilisateur",
@@ -266,7 +280,7 @@ abstract class PluginMemberForm extends BaseMemberForm
       'phone_home'        => 'Téléphone fixe',
       'phone_mobile'      => 'Téléphone mobile',
       'acl_groups'        => 'Groupe de droits',
-      'address_public'    => 'Adresse visible'
+      'address_public'    => 'Adresse visible<br/>sur la carte'
     ));
   }
 

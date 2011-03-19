@@ -179,4 +179,11 @@ class pwUser extends sfGuardSecurityUser
   {	
     $this->setAttribute('current_referer',$route,'piwam_actions');
   }
+  /**
+   * Encrypt user password NOT used for the moment
+   */
+  public static function encryptPasswordSfGuard($password)
+  {
+    return $password;
+  }
 }

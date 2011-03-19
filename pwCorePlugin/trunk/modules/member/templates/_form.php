@@ -1,6 +1,6 @@
 <?php
 
-use_helper('JavascriptBase','jQuery');
+//use_helper('JavascriptBase','jQuery');
 use_javascript('/pwCorePlugin/js/custom-forms/si.files.js');
 include_stylesheets_for_form($form);
 include_javascripts_for_form($form);
@@ -83,6 +83,10 @@ include_javascripts_for_form($form);
   <tbody>
   <?php echo $form->renderGlobalErrors() ?>
     <tr>
+      <th><?php echo $form['civility']->renderLabel() ?>*</th>
+      <td><?php echo $form['civility'] ?><?php echo $form['civility']->renderError() ?></td>
+    </tr>
+    <tr>
       <th><?php echo $form['lastname']->renderLabel() ?>*</th>
       <td><?php echo $form['lastname'] ?><?php echo $form['lastname']->renderError() ?></td>
     </tr>
@@ -91,11 +95,11 @@ include_javascripts_for_form($form);
       <td><?php echo $form['firstname'] ?><?php echo $form['firstname']->renderError() ?></td>
     </tr>
     <tr>
-      <th><?php echo $form['username']->renderLabel() ?>*</th>
+      <th><?php echo $form['username']->renderLabel() ?> <?php echo ($form->isNew()) ? '*' : ''; ?></th>
       <td><?php echo $form['username'] ?><?php echo $form['username']->renderError() ?></td>
     </tr>
     <tr>
-      <th><?php echo $form['password']->renderLabel() ?> <?php echo ($form->isFirstRegistration()) ? '*' : ''; ?></th>
+      <th><?php echo $form['password']->renderLabel() ?> <?php echo ($form->isNew()) ? '*' : ''; ?></th>
       <td><?php echo $form['password'] ?><?php echo $form['password']->renderError() ?></td>
     </tr>
     <tr>
@@ -182,13 +186,13 @@ include_javascripts_for_form($form);
 
     <!-- Display extra rows only if any -->
 
-    <?php if (count($form['extra_rows']) > 0): ?>
-    <tr>
-      <th>Champs supplémentaires</th>
-      <td>
-        <?php echo $form['extra_rows'] ?>
-      </td>
+    <?php if ($form->isEditExtraRows() && count($form['extra_rows']) > 0): ?>
+    <tr class="subitem">
+      <th colspan="2">Champs supplémentaires</th>
     </tr>
+    <tr><td colspan="2">
+      <?php echo $form['extra_rows'] ?>
+    </td></tr>  
     <?php endif ?>
   </tbody>
 </table>

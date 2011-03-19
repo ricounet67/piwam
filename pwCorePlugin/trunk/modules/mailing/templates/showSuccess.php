@@ -17,7 +17,7 @@
     </tr>
     <tr>
       <th>Destinataires</th>
-      <td><?php echo implode(',', $email->getAddresses()) ?></td>
+      <td><?php foreach($email->getAddresses() as $key => $value) { echo $value.', '; } ?></td>
     </tr>
     <tr>
       <th>Sujet</th>
@@ -25,7 +25,7 @@
     </tr>
     <tr>
       <th>Contenu</th>
-      <td><?php echo $email->getMessage() ?></td>
+      <td><?php echo html_entity_decode($email->getMessage()) ?></td>
     </tr>
     <tr>
       <th>Nombre d'envois avec succès</th>

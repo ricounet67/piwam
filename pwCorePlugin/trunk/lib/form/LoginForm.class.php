@@ -31,7 +31,8 @@ class LoginForm extends BaseForm
       'password'  => 'Mot de passe',
       'openid'    => 'Open ID'
     ));
-
+    
+    $this->disableLocalCSRFProtection();
     $this->widgetSchema->setNameFormat('login[%s]');
   }
 }

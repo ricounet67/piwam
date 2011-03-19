@@ -4,9 +4,9 @@
     <thead>
         <tr>
             <th style="width: 25%">Nom</th>
-            <th style="width: 40%">Description</th>
+            <th style="width: 35%">Description</th>
             <th style="width: 20%">Site web</th>
-            <th style="width: 15%">Enregistrée par</th>
+            <th style="width: 20%">Enregistrée par</th>
         </tr>
     </thead>
     <tbody>

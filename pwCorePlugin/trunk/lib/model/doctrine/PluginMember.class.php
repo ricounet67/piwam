@@ -20,7 +20,7 @@ abstract class PluginMember extends BaseMember
   {
     if($this->_guardUser == null)
     {
-      $this->_guardUser = parent::getUser();
+      $this->_guardUser = $this->getUser();
       // creation new member we create sfGuardUser
       if($this->_guardUser == null)
       {
@@ -30,16 +30,7 @@ abstract class PluginMember extends BaseMember
     }
     return $this->_guardUser;
   }
-  /**
-   * Save guard user and copy the id generated
-   * @param Doctrine_Event $event
-   */
- /* public function preInsert($event)
-  {
-    $this->_guardUser->save();
-    $this->setId($this->_guardUser->getId());
-    parent::preInsert($event);
-  }*/
+
   /**
    * Save guard user before save the current member
    * @param Doctrine_Connection $conn
@@ -55,8 +46,8 @@ abstract class PluginMember extends BaseMember
       // FIX: Impossible get the id of sfUserGuard here !
       // the result of getId() is the firstname and lastname (equals toString()) 
       $user = $this->_guardUser;//
-      sfContext::getInstance()->getLogger()->debug('save member '.$user->getFirstName().' id='.$user->getId());
-      $user = sfGuardUserTable::getInstance()->retrieveByUsername($username);
+    /*  sfContext::getInstance()->getLogger()->debug('save member '.$user->getFirstName().' id='.$user->getId());
+      $user = sfGuardUserTable::getInstance()->retrieveByUsername($username);*/
       if($user == null)
       {
         throw new InvalidArgumentException("Save member but nothing sfGuardUser id can be read");
@@ -165,7 +156,7 @@ abstract class PluginMember extends BaseMember
     {
       $this->getUserGuard()->setIsActive(false);
     }
-    //parent::setState($val);
+    $this->_set('state',$val);
   }
   /*
    * SHORTCUTS for sfGuardUser
@@ -297,10 +288,10 @@ abstract class PluginMember extends BaseMember
    *
    * @return  string  well-formated street
    */
-  public function getStreet()
+  /*public function getStreet()
   {
     return mb_convert_case($this->_get('street'), MB_CASE_TITLE, "UTF8");
-  }
+  }*/
   
   /**
    * Get the whole adress of the member
@@ -355,7 +346,8 @@ abstract class PluginMember extends BaseMember
    */
   public function hasGeolocAddress()
   {
-    return $this->getLatitude() != null && $this->getLongitude() != null;
+    return $this->getStreet() != '' && $this->getCity() != '' && 
+      $this->getLatitude() != null && $this->getLongitude() != null;
   }
   
   /**
@@ -366,5 +358,38 @@ abstract class PluginMember extends BaseMember
   {
     $email = $this->getUserGuard()->getEmailAddress();
     return ($email != null && trim($email) != '');
+  }
+  /**
+   * Return phone home formatted with dot
+   * @return string phone formatted
+   */
+  public function getPhoneHomeFormatted()
+  {
+    return self::formatPhoneNumber($this->getPhoneHome());
+  }
+  /**
+   * Return phone mobile formatted with dot
+   * @return string phone formatted
+   */
+  public function getPhoneMobileFormatted()
+  {
+    return self::formatPhoneNumber($this->getPhoneMobile());
+  }
+  /**
+   * format phone number
+   * @param string $phonenumber
+   * @return string
+   */
+  static function formatPhoneNumber($phonenumber)
+  {
+      if (strlen($phonenumber) === 10)
+      {
+          $result  = substr($phonenumber, 0, 2) . '.' . substr($phonenumber, 2, 2) . '.';
+          $result .= substr($phonenumber, 4, 2) . '.' . substr($phonenumber, 6, 2) . '.';
+          $result .= substr($phonenumber, 8, 2);
+  
+          return $result;
+      }
+      return $phonenumber;
   }
 }

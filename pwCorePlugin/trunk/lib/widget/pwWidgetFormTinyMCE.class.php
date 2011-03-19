@@ -17,22 +17,23 @@ class pwWidgetFormTinyMCE extends sfWidgetFormTextareaTinyMCE
   {
     $plugins = sfContext::getInstance()->getConfiguration()->getPlugins();
     //	$this->hasMediaBrowserPlugin = array_key_exists('sfMediaBrowserPlugin', $plugins);
-
-    $options['width']  = 450;
-    $options['height'] = 250;
-    $options['config'] = 'theme_advanced_buttons1 : "bold,italic,underline,fontsizeselect,fontselect,forecolorpicker,image,link,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,indent,outdent",
-                          theme_advanced_buttons2 : "",
-                          theme_advanced_buttons3 : "",
-                          theme_advanced_statusbar_location : "none",
-                          language: "fr"';
+    $def_options = array();
+    $def_options['width']  = 450;
+    $def_options['height'] = 250;
+    $def_options['config'] = 'theme_advanced_buttons1 : "bold,italic,underline,fontsizeselect,fontselect,forecolorpicker,image,link,justifyleft,justifycenter,justifyright,justifyfull,bullist,numlist,indent,outdent",
+      theme_advanced_buttons2 : "",
+      theme_advanced_buttons3 : "",
+      theme_advanced_statusbar_location : "none",
+      language: "fr"';
     if($this->hasMediaBrowserPlugin)
     {
-      $options['config'] .= ',file_browser_callback: "sfMediaBrowserWindowManager.tinymceCallback"';
+      $def_options['config'] .= ',file_browser_callback: "sfMediaBrowserWindowManager.tinymceCallback"';
     }
-    $attributes['rows'] = 40;
-    $attributes['cols'] = 10;
+    $def_attributes = array();
+    $def_attributes['rows'] = 40;
+    $def_attributes['cols'] = 10;
     
-    parent::__construct($options, $attributes);
+    parent::__construct(array_merge($def_options,$options), array_merge($def_attributes,$attributes));
   }
   /**
    * Add tiny mce javascripts for forms and french translation

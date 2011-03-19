@@ -56,7 +56,9 @@ class MailerFactory
         break;
     }
 
-    return Swift_Mailer::newInstance($methodObject);
+    // lets modif
+    $mailer = Swift_Mailer::newInstance($methodObject);
+    return $mailer;
   }
   /**
    * Get mail template from database and send it to member in argument, use standard variables values and the
@@ -67,20 +69,24 @@ class MailerFactory
    * @param   array $variableValues array('varName' => varValue) added to standard variables,
    * if varValue is instance of Member the varName is used as prefix and all member variables are generated,
    * if varValue is instance of Association the varName is used as prefix and all association variables are generated.
+   * @param Swift_Mailer mailer used to send  
    * @return boolean true if mail has been sent with success, false otherwise
    */
-  public static function loadTemplateAndSend($sender_id, Member $toMember, $mailTemplateKey, $variableValues = array())
+  public static function loadTemplateAndSend($sender_id, Member $toMember, $mailTemplateKey, 
+      $variableValues = array(), Swift_Mailer $mailer = null)
   {
     $associationId = $toMember->getAssociationId();
-    $mailer = MailerFactory::get($associationId);
-
+    if($mailer == null)
+    {
+      $mailer = self::get($associationId);
+    }
     $from_email = Configurator::get('address', $associationId, 'no-response@yourasso.org');
     $assoName = $toMember->getAssociation()->getName();
     	
     $template = MailTemplateTable::getTemplateByKeyAndAssociationId($mailTemplateKey, $associationId);
     if($template == null)
     {
-      sfContext::getInstance()->getLogger()->warning("The template mail with key "+ $mailTemplateKey+" hasn't found in database !");
+      sfContext::getInstance()->getLogger()->warning("The template mail with key ". $mailTemplateKey ." hasn't found in database !");
       return false;
     }
     // member without email we log
@@ -92,9 +98,14 @@ class MailerFactory
     $subject = sprintf('[%s] %s',$assoName,$template->getSubject());
     $message = Swift_Message::newInstance($subject,$template->getContent(),'text/html');
     $message->setFrom(array($from_email),$assoName);
-
-    $message->addTo($toMember->getEmail());//,$toMember->getLastname()." ".$toMember->getFirstname());
-
+    try{
+      $message->addTo($toMember->getEmail());//,$toMember->getLastname()." ".$toMember->getFirstname());
+    }
+    catch(Exception $e)
+    {
+      sfContext::getInstance()->getLogger()->err("Error to add email recipient ". $toMember->getEmail() ." ERROR: ". $e->getMessage());
+      return false;
+    }
     $varValues = self::_createStandardVariables($toMember);
     // add variables in argument and standard variables
     foreach ($variableValues as $key => $value  )
@@ -117,11 +128,18 @@ class MailerFactory
     $replacements = array(
       $toMember->getEmail() => $varValues
     );
-    	
+
     //Load the plugin with these replacements
     $mailer->registerPlugin(new Swift_Plugins_DecoratorPlugin($replacements));
     // FUNC: batchSend if multiple recipients
-    $mailer->send($message);
+    try{
+      $mailer->send($message);
+    }
+    catch(Exception $e)
+    {
+      sfContext::getInstance()->getLogger()->err("Error to send email to ". $toMember->getEmail() ." ERROR: ". $e->getMessage());
+      return false;
+    }
     return true;
   }
 

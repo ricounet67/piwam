@@ -22,7 +22,7 @@ class StringTools
     $text = mb_convert_encoding($text, 'HTML-ENTITIES', $from_enc);
     $text = preg_replace(array('/ß/','/&(..)lig;/', '/&([aouAOU])uml;/','/&(.)[^;]*;/'),
                          array('ss',"$1","$1".'e',"$1"), $text);
-    $result = eregi_replace("[^a-z0-9 ]",'',$text);
+    $result = @eregi_replace("[^a-z0-9 ]",'',$text);
 
     return $result;
   }
@@ -97,7 +97,7 @@ class StringTools
      11 => 'Novembre',
      12 => 'Décembre'    
     );
-    return $val[$number];
+    return $val[intval($number)];
   }
 }
 ?>

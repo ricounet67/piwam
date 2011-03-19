@@ -1,4 +1,15 @@
 
+<?php if ($sf_user->hasFlash('error')):?>
+  <p class="error">
+    <?php echo image_tag('/pwCorePlugin/images/error', array('alt' => '[erreur]', 'align' => 'top')) . ' ' . $sf_user->getFlash('error') ?>
+  </p>
+<?php endif ?>
+
+<?php if ($sf_user->hasFlash('notice')): ?>
+  <p class="notice">
+    <?php echo $sf_user->getFlash('notice') ?>
+  </p>
+<?php endif ?>
 <!-- Displays pending subscriptions -->
 
 <?php if (count($pending)): ?>

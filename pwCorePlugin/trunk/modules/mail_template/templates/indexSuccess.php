@@ -1,6 +1,6 @@
 <?php use_helper('Image') ?>
 
-<h2>Liste des templates d'email</h2>
+<h2>Liste des modèles d'email</h2>
 
 <table class="datalist" summary="list of templates email">
   <thead>

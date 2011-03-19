@@ -59,5 +59,14 @@ class PiwamOperations
       return false;
     }
   }
+  /**
+   * Return true if at least one association has been created
+   * @return boolean
+   */
+  public static function associationIsCreated()
+  {
+    Doctrine_Manager::connection();
+    return (AssociationTable::doCount() > 0);
+  }
 }
 ?>

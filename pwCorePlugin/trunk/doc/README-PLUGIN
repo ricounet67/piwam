@@ -39,8 +39,23 @@
     csDoctrineActAsGeolocatablePlugin (version 2.0.1)
     sfEasyGMapPlugin (version 3.1.0)
   We suppose these plugins have been properly installed.
-
-
+  WARNING: sfGuardPlugin uses database model with email field notnull activated and username field notnull and unique then Piwam doesn't 
+  Please edit sfDoctrineGuardPlugin/config/doctrine/schema.yml add # to comment line 60 and line 65
+    email_address:
+      type: string(255)
+    #  notnull: true
+      unique: true
+    username:
+      type: string(128)
+      notnull: true
+    #  unique: true
+  If you want to use multi association mode comment also line 6
+    sfGuardGroup:
+    actAs: [Timestampable]
+    columns:
+      name:
+        type: string(255)
+       #  unique: true
   1) Folders
   ----------
 

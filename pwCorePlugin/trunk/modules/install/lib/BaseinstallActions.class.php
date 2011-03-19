@@ -70,6 +70,10 @@ class BaseinstallActions extends sfActions
    */
   public function executeCheckConfig(sfWebRequest $request)
   {
+    if (PiwamOperations::isInstalled())
+    {
+      return sfView::ERROR;
+    }
     $this->_checkConfiguration();
     $this->messages = $this->_messages;
     $this->displayButton = $this->_canContinue;
@@ -84,6 +88,10 @@ class BaseinstallActions extends sfActions
    */
   public function executeConfigDatabase(sfWebRequest $request)
   {
+    if (PiwamOperations::isInstalled())
+    {
+      return sfView::ERROR;
+    }
     $this->form = new DatabaseConfigForm();
 
     if ($request->isMethod('post'))
@@ -231,10 +239,10 @@ class BaseinstallActions extends sfActions
     }
 
     $newEntry = array(
-			'state'		=> $state,
-			'partial'	=> $partial,
-			'cssClass'	=> $cssClass,
-			'error'		=> $error,
+      'state'		=> $state,
+      'partial'	=> $partial,
+      'cssClass'	=> $cssClass,
+      'error'		=> $error,
     );
 
     $this->_messages[] = $newEntry;

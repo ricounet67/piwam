@@ -1,5 +1,5 @@
 index:
-  credentials:  edit_member_acl
+  credentials:  config_acl_group
   
 new:
   credentials:  config_acl_group
@@ -20,4 +20,4 @@ rightsSave:
   credentials:  config_acl_group  
   
 show:
-  credentials:  edit_member_acl
+  credentials:  config_acl_group

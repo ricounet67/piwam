@@ -20,7 +20,8 @@
 
 
   <!-- Main centered panel, with several parts-->
-
+ 
+  
   <div id="container">
 
     <!--
@@ -28,14 +29,13 @@
          user is allowed to register a new one
     -->
     
-    <?php if ($displayRegisterLink): ?>
+    <?php if ($displayCreateAssociationLink): ?>
       <h1>Nouvelle association ?</h1>
       <div>
-        Ou enregistrez une <?php echo link_to('nouvelle association', '@association_new') ?>
+        Ou enregistrez une <?php echo link_to('Nouvelle association', '@association_new') ?>
       </div>
       <br /><br />
     <?php endif ?>
-
 
     <!-- The authentication form -->
 
@@ -69,6 +69,7 @@
           <?php echo $form['password'] ?>
           <?php echo link_to('Mot de passe oublié ?', '@retrieve_password') ?>
         </div>
+        
       </div>
 
       
@@ -77,7 +78,10 @@
       <div id="foot">
         <?php echo $form->renderHiddenFields() ?>
         <input type="submit" value="S'identifier" class="grey button" name="S'identifier" />
-        <?php echo link_to("Pas encore inscrit ?", '@member_ask_subscription', array('class' => 'grey button'))?>
+        <?php if($displayUserRegisterLink)
+        {
+          echo link_to("Pas encore inscrit ?", '@member_ask_subscription', array('class' => 'grey button'));
+        }?>
       </div>
     </form>
 

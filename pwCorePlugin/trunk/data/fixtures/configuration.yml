@@ -91,7 +91,7 @@ MailTemplateVariable:
   ForgottenPassword_1:
     template_key: forgotten_password
     variable_key: link_change_password
-    description: "URL absolu vers la page de changement de mot de passe"
+    description: "URL absolue vers la page de changement de mot de passe"
 
   ChangedPassword_1:
     template_key: changed_password

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class implemented by piwam plugins
+ * @author Jerome Fouilloy
+ *
+ */
 abstract class  MainPiwamPlugin
 {
   /**
@@ -13,20 +18,38 @@ abstract class  MainPiwamPlugin
   public abstract function getPluginDescription();
   
   /**
+   * TODO: not call yet
    * Install plugin during piwam installation
    * @param sfLoggerInterface $logInstall logger in case error
    * @return true if success or false if error occured
    */
-  public abstract function pluginInstall();
+  public function pluginInstall()
+  {
+    
+  }
   /**
    * Call night tasks from plugin
    */
-  public abstract function pluginNightTasksForAssociation(Association $association);
+  public function pluginNightTasksForAssociation(Association $association)
+  {
+    
+  }
   /**
-   * New association created, update database if need
+   * Notify plugin of creation new association
    * @param Association $association
    */
-  //public function associationCreated(Association $association);
+  public function pluginAssociationCreated(Association $association)
+  {
+    
+  }
+  /**
+   * Notify plugin of creation new member
+   * @param Member $member
+   */
+  public function pluginMemberCreated(Member $member)
+  {
+    
+  }
   
   public function log($message,$level=sfLogger::INFO)
   {

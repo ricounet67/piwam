@@ -9,6 +9,7 @@
 <!-- Defines existing tabs -->
 
 <div class="domtab">
+
 <ul class="domtabs">
   <li><a href="#t1">Profil</a></li>
   <li><a href="#t2">Cotisations</a></li>
@@ -34,7 +35,11 @@
     <tbody>
       <tr>
         <th>Photo :</th>
-        <td><?php echo image_tag($member->getPictureURI()) ?></td>
+        <td><?php echo image_tag($member->getPictureURI(),array('height'=>'128px')) ?></td>
+      </tr>
+      <tr>
+        <th>Civilité :</th>
+        <td><?php echo $member->getCivility() ?></td>
       </tr>
       <tr>
         <th>Nom :</th>
@@ -54,9 +59,10 @@
       </tr>
       <tr>
         <th>Groupe de droits :</th>
-        <td><ul><?php foreach($member->getAclGroupNames() as $groupName): ?>        	  
-             <li>&bull; <?php echo $groupName ?></li>
-             <?php endforeach ?>
+        <td><ul>
+          <?php foreach($member->getAclGroupNames() as $groupName): ?>
+            <li>&bull; <?php echo $groupName ?></li>
+          <?php endforeach ?>
       </ul></td>
       </tr>
       <tr>
@@ -120,18 +126,18 @@
       </tr>
       <tr>
         <th>Actif :</th>
-        <td><?php echo boolean2icon($member->getState()) ?></td>
+        <td><?php echo boolean2icon($member->getState(),true) ?></td>
       </tr>
 
       <!-- Display extra rows -->
-
+      <?php if($showExtraRows): ?>
       <?php foreach ($member->getMemberExtraValue() as $extraValue): ?>
         <tr>
           <th><?php echo $extraValue->getRow()->getLabel() ?> :</th>
           <td><?php echo $extraValue->getFormattedValue() ?></td>
         </tr>
       <?php endforeach ?>
-
+      <?php endif ?>
       <!-- End of extra rows -->
 
       <tr>

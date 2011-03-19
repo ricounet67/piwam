@@ -12,22 +12,9 @@ AclAction:
   columns:
     permission_id:  { type: integer }
     acl_module_id:  { type: integer(4) }
-#    label:          { type: string(255), notnull: true }
-#    code:           { type: string(100), notnull: true }
   relations:
     AclModule:      { local: acl_module_id, foreign: id, type: one, onDelete: CASCADE }
     Permission:     { class: sfGuardPermission, local: permission_id, foreign: id, type: one, onDelete: CASCADE }
-
-#sfGuardGroupPermission
-#AclCredential: 
-#  tableName: piwam_acl_credential
-#  columns:
-#    id:             { type: integer(4), primary: true, autoincrement: true } 
-#    group_id:      { type: integer(4) }
-#    acl_action_id:  { type: integer(4) }
-#  relations:
-#    AclAction:      { local: acl_action_id, foreign: id, type: one, onDelete: CASCADE }
-#    AclGroup:         { local: group_id, foreign: id, type: one, onDelete: CASCADE }
 
 AclModule:
   options:
@@ -45,8 +32,6 @@ AclGroup:
   columns:
     group_id:             { type: integer }
     association_id:  { type: integer(4), notnull: true }
-#    label:           { type: string(50), notnull: true }
-#    description:     { type: string(255 }
   #  is_deletable:         { type: boolean,  default: true }
     selected_new_member: { type: boolean, default: false }
   relations:
@@ -54,16 +39,6 @@ AclGroup:
     Group:   { class: sfGuardGroup, local: group_id, foreign: id, type: one, onDelete: CASCADE }
   #  AclActions: { class: AclAction, local: group_id, foreign: permission_id, refClass: sfGuardGroupPermission, foreignAlias: Groups }
  #   Members: { class: Member, local: group_id, foreign: user_id, refClass: sfGuardUserGroup, foreignAlias: Groups }
-      
-#sfGuardUserGroup
-#AclGroupMember:
-#  tableName: piwam_acl_group_member
-#  columns:
-#    group_id:  { type: integer(4), primary: true }
-#    member_id:  { type: integer(4), primary: true }
-#  relations:
-#    Member:      { local: member_id, foreign: id, type: one, onDelete: CASCADE }
-#    AclGroup:       { local: group_id, foreign: id, type: one, onDelete: CASCADE }
 
 Activity:
   tableName: piwam_activity
@@ -362,17 +337,17 @@ Member:
     Geolocatable:
       fields: [street, zipcode, city]
   columns:
-#    id:             { type: integer(4), primary: true, autoincrement: true }
     id:             { type: integer, unique: true, notnull: true}
 #    user_id:  { type: integer,unique: true }
 #    lastname:       { type: string(255), notnull: true }
 #    firstname:      { type: string(255), notnull: true }
 #    username:       { type: string(255), default: null }
 #    password:       { type: string(255) }
+    civility:       { type: enum, values: ['Mr', 'Mme', 'Melle'], default: 'Mr' }
     status_id:      { type: integer(4), notnull: true }
     subscription_date: { type: date(25), notnull: true }
     due_exempt:     { type: boolean, notnull: true }
-    address_public:  { type: boolean, default: true, notnull: true } 
+    address_public: { type: boolean, default: true, notnull: true } 
     street:         { type: string(255) }
     street2:        { type: string(255) }
     zipcode:        { type: string(8) }

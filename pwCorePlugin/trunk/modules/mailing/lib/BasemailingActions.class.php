@@ -30,51 +30,56 @@ class BasemailingActions extends sfActions
         $sentOk = 0;    // these are 2 counters of
         $sentKo = 0;    // succeed/failed messages
 
-        try
+        
+        $mailer     = MailerFactory::get($associationId, $this->getUser());
+        $from_email = Configurator::get('address', $associationId, 'info-association@piwam.org');
+        $from_label = $this->getUser()->getAssociationName('Piwam');
+        $members    = MemberTable::getHavingEmailForAssociation($this->getUser()->getAssociationId());
+        $to         = array();
+        $errorMessages ='';
+        
+        foreach ($members as $member)
         {
-          $mailer     = MailerFactory::get($associationId, $this->getUser());
-          $from_email = Configurator::get('address', $associationId, 'info-association@piwam.org');
-          $from_label = $this->getUser()->getAssociationName('Piwam');
-          $members    = MemberTable::getHavingEmailForAssociation($this->getUser()->getAssociationId());
-          $to         = array();
-
-          foreach ($members as $member)
+          $error = false;
+          try
           {
-            try
-            {
-              $message = Swift_Message::newInstance($data['subject'])
-                          ->setBody($data['mail_content'])
-                          ->setContentType('text/html')
-                          ->setFrom(array($from_email => $from_label))
-                          ->setTo(array($member->getEmail() => $member->getFirstname()));
-              $mailer->send($message);
-              $sentOk++;
-            }
-            catch(Swift_ConnectionException $e)
-            {
-              $sentKo++;
-            }
-
+            $message = Swift_Message::newInstance($data['subject'])
+                        ->setBody($data['mail_content'])
+                        ->setContentType('text/html')
+                        ->setFrom(array($from_email => $from_label))
+                        ->setTo(array($member->getEmail() => $member->getFirstname()));
+            $mailer->send($message);
+            $sentOk++;
+          }
+          catch(Exception $e)
+          {
+            $sentKo++;
+            $errorMessages .= '['.$member->getEmail().'] error: '.$e->getMessage().', ';
+            $error = true;
+          }
+          if($error == false)
+          {
             $to[$member->getEmail()] = $member->getFirstname() . ' ' . $member->getLastname();
           }
-
-          sfContext::getInstance()->getConfiguration()->loadHelpers('Plural');
-          $this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . plural_word($sentOk, ' destinataire') . ' (' . $sentKo . plural_word($sentKo, ' erreur') . ')');
-          $this->content = $data['mail_content'];
-
-          // Record the sent mail
-          $sentMail = new SentMail();
-          $sentMail->setObject($data['subject']);
-          $sentMail->setMessage($data['mail_content']);
-          $sentMail->setAssociationId($associationId);
-          $sentMail->setAddresses($to);
-          $sentMail->setSentBy($this->getUser()->getUserId());
-          $sentMail->save();
+          
         }
-        catch (Exception $e)
-        {
-          echo $e;
-          $this->getUser()->setFlash('error', 'Erreur');
+
+        sfContext::getInstance()->getConfiguration()->loadHelpers('Plural');
+        $this->getUser()->setFlash('notice', 'Votre message a été envoyé à ' . $sentOk . plural_word($sentOk, ' destinataire') . ' (' . $sentKo . plural_word($sentKo, ' erreur') . ')');
+        $this->content = $data['mail_content'];
+
+        // Record the sent mail
+        $sentMail = new SentMail();
+        $sentMail->setObject($data['subject']);
+        $sentMail->setMessage($data['mail_content']);
+        $sentMail->setAssociationId($associationId);
+        $sentMail->setAddresses($to);
+        $sentMail->setSentBy($this->getUser()->getUserId());
+        $sentMail->save();
+       
+        if($errorMessages != '')
+        {  
+          $this->getUser()->setFlash('error', 'Erreur durant le mailing : '.$errorMessages);
         }
       }
     }

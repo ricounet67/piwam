@@ -46,6 +46,11 @@ class BaseassociationActions extends sfActions
    */
   public function executeIndex(sfWebRequest $request)
   {
+    $this->redirectUnless($this->_canRegisterNewAssociation(),'@login');
+    if($this->getUser()->isAnonymous())
+    {
+      $this->setLayout('no_menu');
+    }
     $this->associationsPager = AssociationTable::doSelectAssociations($request->getParameter('page', 1));
   }
 
@@ -56,9 +61,13 @@ class BaseassociationActions extends sfActions
    */
   public function executeNew(sfWebRequest $request)
   {
+    $this->redirectUnless($this->_canRegisterNewAssociation(),'@login');
+    if($this->getUser()->isAnonymous())
+    {
+      $this->setLayout('no_menu');
+    }
     $this->getUser()->removeTemporaryData();
     $this->form = new AssociationForm();
-    $this->setLayout('no_menu');
   }
 
   /**
@@ -68,6 +77,11 @@ class BaseassociationActions extends sfActions
    */
   public function executeCreate(sfWebRequest $request)
   {
+    $this->redirectUnless($this->_canRegisterNewAssociation(),'@login');
+    if($this->getUser()->isAnonymous())
+    {
+      $this->setLayout('no_menu');
+    }
     $this->forward404Unless($request->isMethod('post'));
     $this->form = new AssociationForm();
     if ($this->processForm($request, $this->form))
@@ -80,7 +94,6 @@ class BaseassociationActions extends sfActions
     {
       $this->setTemplate('new');
     }
-    $this->setLayout('no_menu');
   }
 
   /**
@@ -167,5 +180,16 @@ class BaseassociationActions extends sfActions
       return true;
     }
     return false;
+  }
+  /**
+   * Return true if mode multi association is enabled or we are creating first association
+   * @return boolean true if current user can create association
+   */
+  private function _canRegisterNewAssociation()
+  {
+    $flag1 = sfConfig::get('app_multi_association', false);
+    $flag2 = sfConfig::get('app_anonymous_create_association', false);
+    
+    return (($flag1 && $flag2) || ($this->getUser()->isAuthenticated() && $flag1) || !PiwamOperations::associationIsCreated());
   }
 }
