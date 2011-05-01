@@ -4,8 +4,7 @@
 
 <form
     action="<?php echo url_for('@due_'.($form->getObject()->isNew() ? 'create' : 'update?id='.$form->getObject()->getId())) ?>"
-    method="post"
-    <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+    method="post">
 
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
@@ -16,7 +15,7 @@
             <tr>
                 <td colspan="2">
                     <?php echo $form->renderHiddenFields() ?>
-                    <?php echo link_to('Liste',   '@dues_list', array('class' => 'blue button')) ?>
+                    <?php echo link_to('Retour',   '@dues_list', array('class' => 'blue button')) ?>
 
                     <?php if (!$form->getObject()->isNew()): ?>
                         <?php echo link_to('Supprimer', '@due_delete?id=' . $form->getObject()->getId(), array('method'  => 'delete', 'confirm' => 'Ètes vous sûr ?', 'class'   => 'blue button')) ?>

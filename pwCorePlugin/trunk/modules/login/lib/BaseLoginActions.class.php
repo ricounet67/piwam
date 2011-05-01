@@ -36,6 +36,11 @@ class BaseloginActions extends sfActions
     $this->displayCreateAssociationLink = $this->_canRegisterAnotherAssociation();
     $this->displayUserRegisterLink = sfConfig::get('app_anonymous_can_register',false);
     $this->numberOfAssociations = AssociationTable::doCount();
+    $this->association = null;
+    if($this->numberOfAssociations == 1)
+    {
+      $this->association = AssociationTable::getUnique();
+    }
     $this->form = new LoginForm();
 
     if (MemberTable::doCount() == 0)

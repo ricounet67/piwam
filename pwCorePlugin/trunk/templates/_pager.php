@@ -2,6 +2,10 @@
 /**
  * This partial displays a page list according to the
  * sfDoctrine object given as argument
+ * Arguments required
+ * - route : string route name to create link
+ * - params : array with optionnal arguments
+ * - pager : pager object
  */
 
 

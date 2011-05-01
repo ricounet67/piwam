@@ -50,8 +50,6 @@ class BasedueActions extends sfActions
   public function executeNew(sfWebRequest $request)
   {
     $this->form = new DueForm();
-    $this->form->setDefault('created_by', $this->getUser()->getUserId());
-    $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
   }
 
   /**
@@ -63,8 +61,6 @@ class BasedueActions extends sfActions
   {
     $this->forward404Unless($request->isMethod('post'));
     $this->form = new DueForm();
-    $this->form->setDefault('created_by', $this->getUser()->getUserId());
-    $this->form->setDefault('association_id', $this->getUser()->getAssociationId());
     $this->processForm($request, $this->form);
     $this->setTemplate('new');
   }
@@ -134,11 +130,21 @@ class BasedueActions extends sfActions
    */
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
-    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    $form->bind($request->getParameter($form->getName()));
 
     if ($form->isValid())
     {
-      $due = $form->save();
+      $form->updateObject();
+      $due = $form->getObject();
+      if($due->isNew())
+      {
+        $due->setCreatedBy($this->getUser()->getUserId());
+      }
+      else
+      {
+        $due->setUpdatedBy($this->getUser()->getUserId());
+      }
+      $due->save();
       $this->getUser()->setFlash('notice', 'Cotisation enregistrée avec succès.');
       $data = $request->getParameter('due');
 

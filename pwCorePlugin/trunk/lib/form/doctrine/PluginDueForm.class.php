@@ -26,19 +26,6 @@ abstract class PluginDueForm extends BaseDueForm
     unset($this['state'], $this['association_id']);
     unset($this['date']);
 
-    if ($this->getObject()->isNew())
-    {
-      $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
-      $this->widgetSchema['association_id'] = new sfWidgetFormInputHidden();
-      $this->validatorSchema['association_id'] = new sfValidatorInteger();
-      $this->validatorSchema['created_by'] = new sfValidatorInteger();
-    }
-    else
-    {
-      $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
-      $this->validatorSchema['updated_by'] = new sfValidatorInteger();
-    }
-
     $this->widgetSchema['state'] = new sfWidgetFormInputHidden();
     $this->setDefault('state', 1);
 
@@ -49,7 +36,7 @@ abstract class PluginDueForm extends BaseDueForm
 
     if ($this->isActiveMember())
     {
-      $this->widgetSchema['member_id']->setOption('query', MemberTable::getQueryEnabledForAssociation($id));
+      $this->widgetSchema['member_id'] = new pwWidgetFormMemberSelect();
     }
     else
     {
@@ -58,22 +45,20 @@ abstract class PluginDueForm extends BaseDueForm
     }
 
     $this->widgetSchema['due_type_id']->setOption('query', DueTypeTable::getQueryEnabledForAssociation($id));
-    $this->widgetSchema['account_id']->setOption('query', AccountTable::getQueryEnabledForAssociation($id));
     $this->widgetSchema['due_type_id']->setOption('add_empty', true);
+    
+    $choicesAccounts = AccountTable::getComboChoicesAccounts($id);
+    $this->widgetSchema['account_id'] = new sfWidgetFormChoice(array('choices' => $choicesAccounts));
 
+    $accountsId = array_keys($choicesAccounts);
+    $this->validatorSchema['account_id'] = new sfValidatorChoice(array('choices' => $accountsId));
     $this->validatorSchema['state'] = new sfValidatorBoolean();
     $this->validatorSchema['amount'] = new sfValidatorAmount(array('min' => 0),
                                                              array('min' => 'ne peut être négatif'));
 
-    sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
-    $this->widgetSchema['date'] = new sfWidgetFormJQueryDate(array(
-      'image'       => image_path('/pwCorePlugin/images/calendar.gif'),
-      'config'      => '{}',      
-      'culture'     => 'fr_FR',
-      'date_widget' => new sfWidgetFormDate(array(
-        'format' => '%day%.%month%.%year%'
-      ))
-    ));
+   // sfContext::getInstance()->getConfiguration()->loadHelpers("Asset");
+    $year = date('Y');
+    $this->widgetSchema['date'] = new pwWidgetFormJQueryDatePicker($year-1,$year+2);
 
     $this->setDefault('date', date('y-m-d'));
     $this->validatorSchema['date'] = new sfValidatorDate();
@@ -126,7 +111,7 @@ abstract class PluginDueForm extends BaseDueForm
    */
   protected function setClasses()
   {
-    $this->widgetSchema['account_id']->setAttribute('class', 'formInputLarge');
+ //   $this->widgetSchema['account_id']->setAttribute('class', 'formInputLarge');
     $this->widgetSchema['due_type_id']->setAttribute('class', 'formInputLarge');
     $this->widgetSchema['member_id']->setAttribute('class', 'formInputLarge');
     $this->widgetSchema['amount']->setAttribute('class', 'formInputShort');

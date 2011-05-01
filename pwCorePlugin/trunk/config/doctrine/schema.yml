@@ -66,7 +66,7 @@ Association:
   columns:
     id:             { type: integer(4), primary: true, autoincrement: true }
     name:           { type: string(120), notnull: true }
-    description:    { type: string(255) }
+    description:    { type: string(3000) }
     website:        { type: string(255) }
     created_by:     { type: integer }
     updated_by:     { type: integer }
@@ -98,7 +98,7 @@ SimpleAccount:
     Association:    { local: association_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }
     UpdatedByMember: { class: Member, local: updated_by, foreign: id, type: one, onDelete: SET NULL }
-    Due:            { local: id, foreign: account_id, type: many }
+#    Due:            { local: id, foreign: account_id, type: many }
     Expense:        { local: id, foreign: account_id, type: many }
     Income:         { local: id, foreign: account_id, type: many }
 
@@ -155,7 +155,7 @@ Due:
     created_by:      { type: integer }
     updated_by:      { type: integer }
   relations:
-    Account:         { class: SimpleAccount, local: account_id, foreign: id, type: one, onDelete: CASCADE }
+    Account:         { class: Account, local: account_id, foreign: id, type: one, onDelete: CASCADE }
     DueType:         { local: due_type_id, foreign: id, type: one, onDelete: CASCADE }
     Member:          { local: member_id, foreign: id, type: one, onDelete: CASCADE }
     CreatedByMember: { class: Member, local: created_by, foreign: id, type: one, onDelete: SET NULL }

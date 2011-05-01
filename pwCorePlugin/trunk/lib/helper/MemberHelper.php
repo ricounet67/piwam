@@ -18,9 +18,19 @@ function format_member($member, $pseudo = false, $target='_blank')
   {
     $member = $member->getRawValue();
   }
+  $stateEnabled = false;
+  if($member instanceof  Member)
+  {
+    $stateEnabled = $member->getState() == MemberTable::STATE_ENABLED;
+    $username = $member->getUsername();
+    
+  }
+  // sfGuardUser as member
+  else {
+    $stateEnabled = $member->getIsActive();
+  }
   // normal members can't see other member details
-  $seeLinkUrl = $member->getState() == MemberTable::STATE_ENABLED && 
-      $my_user != null && $my_user->hasPermission('show_member');
+  $seeLinkUrl = $stateEnabled && $my_user != null && $my_user->hasPermission('show_member');
   $str ='';
   if (! $member->exists())
   {
@@ -39,14 +49,14 @@ function format_member($member, $pseudo = false, $target='_blank')
     }
     else
     {
-      $str .= $member->getFirstname() . ' ' .$member->getLastname();
+      $str .= $member->getName();
     }
 
     if ($seeLinkUrl == true)
     {
       $str .= '</a>';
     }
-    else if($member->getState() == MemberTable::STATE_DISABLED)
+    else if($stateEnabled == false)
     {
       $str .= ' (<i>supprimé</i>)';
     }

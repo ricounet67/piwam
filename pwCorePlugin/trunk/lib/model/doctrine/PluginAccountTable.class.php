@@ -112,4 +112,69 @@ abstract class PluginAccountTable extends Doctrine_Table
 
     return $q->execute();
   }
+  
+  public static function getAccountsIdForAssociation($associationId)
+  {
+    $q = Doctrine_Query::create()
+      ->from('Account a')->select('a.id')
+      ->where('a.association_id = ?',$associationId);
+    return $q->fetchArray();
+  }
+  
+  public static function getComboChoicesAccounts($associationId)
+  {
+    $q = Doctrine_Query::create()
+      ->from('Account a')
+      ->where('a.association_id = ?',$associationId);
+    $accounts = $q->execute();
+    // sort account by parent
+    $sortAccounts = array();
+    $rootAccounts = array();
+    foreach($accounts as $account)
+    {
+      if($account->getParentId() == null)
+      {
+        $rootAccounts[] = $account;
+      }
+      else
+      {
+        if(isset($sortAccounts[$account->getParentId()]))
+        {
+          $sortAccounts[$account->getParentId()][] = $account;
+        }
+        else
+        {
+          $sortAccounts[$account->getParentId()] = array($account);
+        }
+      }
+    }
+    $returnChoices = array();
+    
+    foreach($rootAccounts as $rootAccount)
+    {
+      self::createSubAccounts($rootAccount, $sortAccounts, $returnChoices, 0);
+    }
+
+    return $returnChoices;
+  }
+  
+  private static function createSubAccounts(Account $account, &$sortedAccount, &$returnChoices, $level)
+  {
+    $spaceNumber = ( $level > 0 ? str_repeat('-&nbsp;',$level).'|' : '');
+    
+    $returnChoices[$account->getId()] = $spaceNumber . $account->getLabel(). ' ('.$account->getCode().')';
+    // no sub account
+    if(! isset( $sortedAccount[$account->getId()] ) )
+    {
+      return;
+    }
+    else
+    {
+      
+      foreach($sortedAccount[$account->getId()] as $subAccount)
+      {
+        self::createSubAccounts($subAccount, $sortedAccount, $returnChoices, $level + 1);
+      }
+    }
+  }
 }

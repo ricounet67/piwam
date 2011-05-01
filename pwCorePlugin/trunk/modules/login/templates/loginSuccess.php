@@ -37,9 +37,15 @@
       <br /><br />
     <?php endif ?>
 
+    <div>
+       <?php if($association != null && trim($association->getDescription()) != '')
+       {
+          echo html_entity_decode($association->getDescription());
+       }
+       ?>
+    </div>
     <!-- The authentication form -->
-
-    <h1>Authentification</h1>
+    <h1>Authentification <?php echo ($association != null ? $association->getName() : "" ) ?></h1>
 
     <?php if ($sf_user->hasFlash('error')):?>
       <p class="error">
@@ -74,7 +80,6 @@
 
       
       <!-- Buttons on bottom -->
-
       <div id="foot">
         <?php echo $form->renderHiddenFields() ?>
         <input type="submit" value="S'identifier" class="grey button" name="S'identifier" />
@@ -82,6 +87,9 @@
         {
           echo link_to("Pas encore inscrit ?", '@member_ask_subscription', array('class' => 'grey button'));
         }?>
+        <?php if($association != null && trim($association->getWebsite()) != ''): ?>
+          <h3><a href="<?php echo $association->getWebsite() ?>">Retour au site de l'association.</a></h3>
+        <?php endif ?>
       </div>
     </form>
 

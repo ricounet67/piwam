@@ -1,4 +1,4 @@
-<?php use_javascript('/pwCorePlugin/js/tiny_mce/tiny_mce.js') ?>
+<?php use_javascripts_for_form($form) ?>
 
 <h2>Envoi en masse</h2>
 
