@@ -277,6 +277,10 @@ member_delete:
   url:    /membre/supprimer/:id
   param:  { module: member, action: delete }
 
+member_reactivate:
+  url:   /membre/reactiver/:id
+  param: { module: member, action: reactivate }
+  
 member_pending:
   url:    /membre/en_attente
   param:  { module: member, action: pending }

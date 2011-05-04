@@ -22,13 +22,21 @@
 
 <div>
   <h2><a name="t1" id="t1">Informations détaillées</a></h2>
-
+  <?php if(!$member->isActive()): ?>
+  <p><span style="color: red;">Ce membre est actuellement désactivé et ne peut pas se connecter.</span> 
+  </p>
+  <?php endif ?>
   <table class="details">
 
     <tfoot>
       <tr>
         <td colspan="2">
-          <?php echo link_to('Éditer', '@member_edit?id=' . $member->getId() . '#profil', array('class'  => 'grey button')) ?>
+          <?php if($member->isActive()): ?>
+            <?php echo link_to('Éditer', '@member_edit?id=' . $member->getId(), array('class'  => 'grey button')); ?>
+          <?php else: ?>
+            <?php echo link_to("Réactiver l'adhérent", '@member_reactivate?id=' . $member->getId(), 
+                    array('class'  => 'grey button', 'confirm' => 'Etes vous sûr de réactiver ce membre ?')); ?>
+          <?php endif ?>
         </td>
       </tr>
     </tfoot>

@@ -30,6 +30,9 @@ new:
 delete:
   credentials:  del_member
 
+reactivate:
+  credentials:  add_member
+  
 requestsubscription:
   is_secure:    false
   

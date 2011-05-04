@@ -32,6 +32,7 @@ class SearchUserForm extends BaseForm
   static public $membersByPage = array(
     'default' => '-',
     '20'      => '20',
+    '50'      => '50',
     'all'     => 'Tout',
   );
 
@@ -72,8 +73,8 @@ class SearchUserForm extends BaseForm
    */
   private function _setClasses()
   {
-    $this->widgetSchema['due_state']->setAttribute('class', 'formInputShort');
-    $this->widgetSchema['by_page']->setAttribute('class', 'formInputShort');
+  //  $this->widgetSchema['due_state']->setAttribute('class', 'formInputShort');
+  //  $this->widgetSchema['by_page']->setAttribute('class', 'formInputShort');
   }
 }
 ?>

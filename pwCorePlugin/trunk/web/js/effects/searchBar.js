@@ -5,7 +5,7 @@
  */
 
 $(document).ready(function() {
-  $('#searchBar').slideUp(0);
+ // $('#searchBar').slideUp(0);
   $('a#toggle-searchbar').click(function() {
     $('#searchBar').slideToggle(400);
     return false;

@@ -49,7 +49,13 @@ class BasedueActions extends sfActions
    */
   public function executeNew(sfWebRequest $request)
   {
+    $member_id = $request->getParameter('member_id',-1);
+
     $this->form = new DueForm();
+    if($member_id > 0)
+    {
+      $this->form->setDefault('member_id',$member_id);
+    }
   }
 
   /**

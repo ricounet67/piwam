@@ -36,9 +36,7 @@ include_javascripts_for_form($form);
     	{
     		echo url_for('@member_' . ($form->getObject()->isNew() ? 'create' : 'update?id=' . $form->getObject()->getId()));
     	}
-    	?>"
-
-    method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+    	?>" method="post">
 
     <?php if (!$form->getObject()->isNew()): ?>
         <input type="hidden" name="sf_method" value="put" />
@@ -62,8 +60,8 @@ include_javascripts_for_form($form);
 
         <!-- Delete button only if object already exists -->
 
-        <?php if (! $form->getObject()->isNew()): ?>
-            <?php echo link_to('Désactiver', '@member_delete?id=' . $form->getObject()->getId(), array('class' => 'blue button', 'method' => 'delete', 'confirm' => 'Etes vous sûr ?')) ?>
+        <?php if (! $form->getObject()->isNew() && $sf_user->hasCredential('del_member')): ?>
+          <?php echo link_to('Désactiver', '@member_delete?id=' . $form->getObject()->getId(), array('class' => 'grey button', 'method' => 'delete', 'confirm' => 'Etes vous sûr de désactiver ce membre ?')) ?>
         <?php endif ?>
 
 

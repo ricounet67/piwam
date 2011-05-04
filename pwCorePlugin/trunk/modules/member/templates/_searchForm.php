@@ -15,20 +15,20 @@
 
     <?php echo $form['due_state']->renderLabel() ?> :
     <?php echo $form['due_state']->render() ?>
-
-    <?php echo $form['by_page']->renderLabel() ?> :
-    <?php echo $form['by_page']->render() ?>
-
-    <?php echo $form['magic']->renderLabel() ?> :
-    <?php echo $form['magic'] ?>
     
     <?php echo $form['show_disabled']->renderLabel() ?> :
     <?php echo $form['show_disabled'] ?>
+    
+    <?php echo $form['by_page']->renderLabel() ?> :
+    <?php echo $form['by_page']->render() ?>
+    
+    <?php echo $form['magic']->renderLabel() ?> :
+    <?php echo $form['magic'] ?>
 
     <input type="submit" name="submit" value="rechercher" class="small blue button" />
   </form>
 </div>
 
 <div id="searchBar_toggle">
-  <a href="#" id="toggle-searchbar">Rechercher</a>
+  <a href="#" id="toggle-searchbar">Afficher / Masquer</a>
 </div>

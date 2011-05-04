@@ -211,7 +211,11 @@ td .error_list li {
 .hasToPayDue {
   background-color: #E6E0D1;
 }
-
+/* members who are disabled */
+.memberDisabled {
+	background-color: #fcced7;
+	font-style: italic;
+}
 /* flash box giving error messages */
 .error {
   background-color: #ffeeee;

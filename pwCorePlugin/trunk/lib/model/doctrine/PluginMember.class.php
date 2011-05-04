@@ -43,11 +43,12 @@ abstract class PluginMember extends BaseMember
       $username = $this->_guardUser->getUsername();
       // get id for member
       $this->_guardUser->save($conn);
+      // TODO: fix bug
       // FIX: Impossible get the id of sfUserGuard here !
       // the result of getId() is the firstname and lastname (equals toString()) 
       $user = $this->_guardUser;//
-    /*  sfContext::getInstance()->getLogger()->debug('save member '.$user->getFirstName().' id='.$user->getId());
-      $user = sfGuardUserTable::getInstance()->retrieveByUsername($username);*/
+      sfContext::getInstance()->getLogger()->debug('save member '.$user->getFirstName().' id='.$user->getId());
+      $user = sfGuardUserTable::getInstance()->retrieveByUsername($username);
       if($user == null)
       {
         throw new InvalidArgumentException("Save member but nothing sfGuardUser id can be read");
@@ -341,7 +342,7 @@ abstract class PluginMember extends BaseMember
     return count($dues);
   }
   /**
-   * Return true if the user has geoloc position
+   * Return true if the user has geoloc position with street, city, and position
    * @return boolean
    */
   public function hasGeolocAddress()

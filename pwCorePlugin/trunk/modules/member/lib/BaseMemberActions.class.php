@@ -159,7 +159,41 @@ class BaseMemberActions extends sfActions
     $member->disable()->save();
     $this->redirect('@members_list');
   }
-
+  /**
+   * Allow reactivate old member 
+   * @param sfWebRequest $request
+   */
+  public function executeReactivate(sfWebRequest $request)
+  {
+    $id = $request->getParameter('id');
+    $member = MemberTable::getById($id);
+    $this->forward404Unless($member && !$member->isActive());
+    $password = StringTools::generatePassword(8);
+    $member->setPassword($password);
+    $member->setState(MemberTable::STATE_ENABLED);
+    
+    $member->save();
+    
+    $flashMessage = "un email avec l'identifiant et le mot de passe lui a été envoyé.";
+    if($member->hasEmail())
+    {
+      $values = array();
+      $values['recipient.password'] = $password;
+      try{
+        MailerFactory::loadTemplateAndSend($this->getUser()->getUserId(),$member,'member_created',$values);
+      }
+      catch(Swift_ConnectionException $e)
+      {
+        $flashMessage = "une erreur c'est produite pour envoyer l'email du compte de l'adhérent.";
+      }
+    }
+    else
+    {
+      $flashMessage = "l'adhérent ne possédant pas d'email vous devez l'avertir de la création de son compte.";
+    }
+    $this->getUser()->setFlash('notice',sprintf('Adhérent %s réactivé avec succés, %s', $member->getName(), $flashMessage));
+    $this->redirect('@members_list');
+  }
   /**
    * Called method to display list of member within an autocompleted
    * form field.
@@ -557,7 +591,7 @@ class BaseMemberActions extends sfActions
 
 
       // not first user we update the acl groups for user
-      if(isset($formValues['acl_groups']))
+      if(isset($formValues['acl_groups']) && $this->getUser()->hasCredential('edit_member_acl'))
       {
          
         // update acl groups for user

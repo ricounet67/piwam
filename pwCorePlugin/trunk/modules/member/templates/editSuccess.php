@@ -11,7 +11,7 @@
 
   <!-- First tab : edit profile -->
   <div>
-    <h2><a name="profil" id="profil">Editer les informations</a></h2>
+    <h2><a name="profil" id="profil">Editer une fiche</a></h2>
     <?php include_partial('form', array('form' => $form)) ?>
   </div>
 
